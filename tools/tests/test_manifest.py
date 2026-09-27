@@ -54,13 +54,27 @@ def test_x_weighted_length_matches_the_kit():
 
 
 @pytest.mark.parametrize("slots,want", [
-    ([1, 2, 3, 4, 5, 6, 7], {2: "reel", 1: "story", 4: "story", 3: "feed", 5: "feed"}),
+    ([1, 2, 3, 4, 5, 6, 7], {2: "reel", 1: "story", 4: "story", 3: "feed", 6: "feed"}),
     ([1, 2, 3, 4, 6, 7], {2: "reel", 1: "story", 4: "story", 3: "feed", 6: "feed"}),
     ([1, 3, 4, 6], {3: "reel", 1: "story", 4: "story", 6: "feed"}),
     ([2], {2: "reel"}),
 ])
 def test_instagram_weekday_mix(slots, want):
     assert mf.assign_instagram(slots, "weekday", {}) == want
+
+
+def test_instagram_story_is_held_for_the_picks_pass():
+    # 06:15 pass: slots 1-3, 6, 7; the picks slot (4) is filled at 13:45 and keeps its Story.
+    morning = mf.assign_instagram([1, 2, 3, 6, 7], "weekday", {}, mf.RESERVED_IG)
+    assert morning == {1: "story", 2: "reel", 3: "feed", 6: "feed"}
+    kept = {**morning, 7: "none"}
+    assert mf.assign_instagram([1, 2, 3, 5, 6, 7], "weekday", kept, mf.RESERVED_IG) == morning  # 10:30: the report gets none
+    assert mf.assign_instagram([1, 2, 3, 4, 6, 7], "weekday", kept, mf.RESERVED_IG) == {**morning, 4: "story"}  # 13:45
+
+
+def test_grid_moves_picks_and_report():
+    assert mf.WEEKDAY_SLOTS[4] == "14:00" and mf.WEEKDAY_SLOTS[5] == "15:00"
+    assert mf.PASSES == {"morning": (1, 2, 3, 6, 7), "reports": (5, 7), "picks": (4,)}
 
 
 def test_instagram_weekend_is_one_reel():

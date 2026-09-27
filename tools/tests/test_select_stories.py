@@ -111,3 +111,41 @@ def test_earnings_keeps_only_confirmed_large_companies():
     assert [c["symbol"] for c in s["story"]["companies"]] == ["MU"]
     today = ss.earnings_slot(StubApi({}), D(2026, 9, 28), week(rows), {}, "today")
     assert "no confirmed-date reporter" in today["empty"]
+
+
+def feed_item(tid, name, slug, ticker, filed, value, role=None, acc="000000000026000001"):
+    return {"trade_id": tid, "figure": {"kind": "insider", "display_name": name, "slug": slug, "title": role, "role": "officer"},
+            "ticker": ticker, "side": "buy", "trading_plan": {"status": "not_marked"}, "owner": "self",
+            "transaction_date": filed, "disclosure_date": filed,
+            "amount": {"value_usd": value, "shares": 1000.0, "price": 1.0, "value_flag": None},
+            "source_url": f"https://www.sec.gov/Archives/edgar/data/1/{acc}/index.json"}
+
+
+def test_weak_recent_trades_give_way_to_the_famous_backlog():
+    fame = json.loads((TOOLS / "fame.json").read_text(encoding="utf-8"))
+    items = [
+        feed_item(1, "Joe Small", "small-joe-1", "AAA", "2026-09-25", 1_500_000, "Director", "000000000026000001"),
+        feed_item(2, "Ryan Cohen", "cohen-ryan-1", "GME", "2026-09-10", 20_000_000, "President, CEO and Chairman", "000092189526002531"),
+        feed_item(3, "Dara Khosrowshahi", "khosrowshahi-dara-1", "UBER", "2026-09-10", 10_000_000, "Chief Executive Officer", "000118423726000008"),
+        feed_item(4, "Old Famous", "old-1", "OLD", "2026-08-20", 50_000_000, "CEO", "000000000026000009"),
+    ]
+    api = StubApi({
+        "/notable/feed?tab=insiders": {"items": items, "has_more": False},
+        "/notable/feed?tab=congress": {"items": [], "has_more": False},
+        "/snapshot/AAA": {"company_name": "Small Co", "profile": {"stats": {"market_cap": 1e9}}},
+        "/snapshot/GME": {"company_name": "GameStop", "profile": {"stats": {"market_cap": 1.2e10}}},
+        "/snapshot/UBER": {"company_name": "Uber", "profile": {"stats": {"market_cap": 1.5e11}}},
+        "/snapshot/OLD": {"company_name": "Old", "profile": {"stats": {"market_cap": 1e9}}},
+    })
+    names = {"AAA": "Small Co", "GME": "GameStop", "UBER": "Uber", "OLD": "Old"}
+    prior = [ss.Posted(D(2026, 9, 27), "form4:0001184237-26-000008:UBER", ["UBER"], ["Dara Khosrowshahi"])]
+    chosen, ranked, backlog, _, errors = ss.choose_trades(api, D(2026, 9, 28), 3, names, fame, prior, 3)
+    assert errors == []
+    assert [t.ticker for t in ranked] == ["AAA"] and ranked[0].score < ss.MIN_TRADE_SCORE
+    assert [(t.ticker, t.source) for t in chosen] == [("GME", "backlog")]  # UBER already posted, OLD past 30 days, AAA too weak
+    story = ss.trade_story(chosen[0])
+    assert story["selected_from"] == "backlog" and "never call this the total" in story["amount"]["note"]
+
+
+def test_recency_keeps_falling_for_the_backlog():
+    assert [ss.recency(a) for a in (0, 3, 5, 6, 15, 40)] == [1.0, 0.55, 0.35, 0.34, 0.25, 0.15]

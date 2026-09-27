@@ -1,9 +1,11 @@
 """Python steps of the daily video run (run_daily.ps1 calls these).
 
 Usage (conda python):
-  daily.py stories --plan PLAN.json --work DIR [--slots 5,7]
+  daily.py stories --plan PLAN.json --work DIR [--slots 5,7] [--repo REPO]
       For each filled slot: DIR/<story_id>/data.json (schema rtv-daily-story/1: the selected story, its
-      sources and the slot) and DIR/stories.json (the list run_daily.ps1 renders).
+      sources and the slot) and DIR/stories.json (the list run_daily.ps1 renders). A slot that today's
+      manifest already fills is left alone (never re-rendered, never replaced by a later pass), except
+      slot 7 when a report replaces the morning theme.
   daily.py stage --plan PLAN.json --work DIR --spec SPEC.json [--slots 5,7] [--repo REPO]
       For each story that rendered and passed QA (DIR/<story_id>/qa-passed.json, written by
       run_daily.ps1 after the QA hook exits 0): check its three MP4s and post-package.json, copy the
@@ -40,11 +42,24 @@ def filled(plan: dict, only: set[int] | None) -> list[dict]:
     return [s for s in plan["slots"] if s["status"] == "filled" and (only is None or s["slot"] in only)]
 
 
+def published(repo: Path, date: str) -> dict[int, dict]:
+    """Today's manifest posts by slot ({} when there is none yet)."""
+    path = repo / "v" / date / "manifest.json"
+    if not path.exists():
+        return {}
+    return {p["slot"]: p for p in _load(path).get("posts", []) if isinstance(p, dict) and "slot" in p}
+
+
 def cmd_stories(a: argparse.Namespace) -> int:
     plan = _load(Path(a.plan))
     work = Path(a.work)
+    done = published(Path(a.repo), plan["date"])
     out = []
     for s in filled(plan, _slots(a.slots)):
+        have = done.get(s["slot"])
+        if have and not (s["slot"] == 7 and s["category"] == "earnings_report" and have.get("category") != "earnings_report"):
+            print(f"slot {s['slot']}: already published today ({have.get('story_id')}); left as is")
+            continue
         sdir = work / s["story_id"]
         data = {"schema": STORY_SCHEMA, "date": plan["date"], "day_type": plan["day_type"], "slot": s["slot"], "time_et": s["time_et"],
                 "category": s["category"], "template": s.get("template"), "story_id": s["story_id"], "story_key": s["story_key"],
@@ -112,6 +127,7 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--plan", required=True)
     s.add_argument("--work", required=True)
     s.add_argument("--slots")
+    s.add_argument("--repo", default=str(mf.REPO))
     g = sub.add_parser("stage")
     g.add_argument("--plan", required=True)
     g.add_argument("--work", required=True)

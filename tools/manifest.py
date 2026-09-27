@@ -55,12 +55,17 @@ IG_PLACEMENTS = ("reel", "feed", "story")
 IG_MEDIA = {"reel": "reel_9x16", "story": "reel_9x16", "feed": "feed_4x5"}
 PLATFORM_MEDIA = {"x": "square_1x1", "threads": "feed_4x5", "pinterest": "feed_4x5"}
 IG_WEEKDAY_MIX = {"reel": 1, "feed": 2, "story": 2}
-# Owner-approved daily plan (2026-09-27), New York time. Weekends: one post per platform.
-WEEKDAY_SLOTS = {1: "08:00", 2: "09:45", 3: "11:00", 4: "12:45", 5: "14:15", 6: "16:30", 7: "19:00"}
+# Owner-approved daily plan, New York time (Growth lead 2026-09-27: picks 14:00 after the ~13:30 publish,
+# report 15:00). Weekends: one post per platform.
+WEEKDAY_SLOTS = {1: "08:00", 2: "09:45", 3: "11:00", 4: "14:00", 5: "15:00", 6: "16:30", 7: "19:00"}
+# Weekday passes of run_daily.ps1 (-Pass): which slots each one fills.
+PASSES = {"morning": (1, 2, 3, 6, 7), "reports": (5, 7), "picks": (4,)}
+# The picks slot is filled by a later pass: its Instagram Story is held for it.
+RESERVED_IG = {4: "story"}
 WEEKEND_SLOTS = {1: "12:00"}
 CATEGORIES = (
     "earnings_today", "earnings_week", "insider_trade", "congress_trade", "daily_picks", "earnings_report",
-    "congress_week", "congress_30d", "person_spotlight", "track_record", "insider_week",
+    "congress_week", "congress_30d", "congress_theme", "person_spotlight", "track_record", "insider_week",
 )
 NOT_ADVICE = "Not investment advice."
 BANNED = re.compile(r"#insidertrading", re.IGNORECASE)
@@ -417,19 +422,23 @@ def _tags(block: object) -> list[dict]:
     return out
 
 
-def assign_instagram(slots: list[int], dtype: str, overrides: dict[int, str | None]) -> dict[int, str]:
+def assign_instagram(slots: list[int], dtype: str, overrides: dict[int, str | None],
+                     reserved: dict[int, str] | None = None) -> dict[int, str]:
     """Instagram placements. Weekend: the one post is a Reel. Weekdays (owner: 1 Reel, 2 feed posts,
-    2 Stories): the Reel on the best trade (slot 2, else the next filled slot in 3, 6, 5, 7, 1, 4),
-    Stories on earnings (1) and picks (4), feed posts on the second trade (3) and the report (5); a
-    placement whose preferred slot is empty moves to the next filled slot in its list. Spec overrides
-    ("none" = no Instagram post for that slot) win."""
+    2 Stories; Growth lead 2026-09-27): the Reel on the best trade (slot 2), Stories on earnings (1)
+    and picks (4), feed posts on the second and third trades (3, 6). A placement whose slot is empty
+    moves to the next filled slot in its list (reel 2, 3, 6, 7; story 1, 4, 7, 6; feed 3, 6, 5, 7, 2).
+    `reserved` slots (the picks slot, filled by the 13:45 pass) count as filled, so their placement
+    is held for them. Spec overrides ("none" = no Instagram post for that slot) and the placements
+    of posts already published today win."""
     if dtype == "weekend":
         return {s: (overrides.get(s) or "reel") for s in slots if overrides.get(s, "reel") != "none"}
-    prefs = {"reel": [2, 3, 6, 5, 7, 1, 4], "story": [1, 4, 7, 6, 5, 3, 2], "feed": [3, 5, 6, 7, 2, 1, 4]}
+    prefs = {"reel": [2, 3, 6, 7], "story": [1, 4, 7, 6], "feed": [3, 6, 5, 7, 2]}
+    pool = set(slots) | set(reserved or {})
     out: dict[int, str] = {}
     left = dict(IG_WEEKDAY_MIX)
     for s, placement in overrides.items():
-        if s in slots and placement and placement != "none":
+        if s in pool and placement and placement != "none":
             out[s] = placement
             left[placement] -= 1
     blocked = {s for s, v in overrides.items() if v == "none"}
@@ -437,10 +446,10 @@ def assign_instagram(slots: list[int], dtype: str, overrides: dict[int, str | No
         for s in prefs[placement]:
             if left[placement] <= 0:
                 break
-            if s in slots and s not in out and s not in blocked:
+            if s in pool and s not in out and s not in blocked:
                 out[s] = placement
                 left[placement] -= 1
-    return out
+    return {s: p for s, p in out.items() if s in slots}
 
 
 def build_post(date: str, spec: dict, placement: str | None) -> dict:
@@ -506,7 +515,7 @@ def build_manifest(spec: dict, existing: dict | None = None, now: dt.datetime | 
     # Kept posts keep their Instagram placement; the new ones fill what is left of the mix.
     for p in kept:
         overrides[p["slot"]] = (p.get("platforms", {}).get("instagram") or {}).get("placement") or "none"
-    placements = assign_instagram(slots, dtype, overrides)
+    placements = assign_instagram(slots, dtype, overrides, RESERVED_IG if dtype == "weekday" else None)
     new_posts = [build_post(date, p, placements.get(p["slot"])) for p in spec["posts"]]
     posts = sorted(kept + new_posts, key=lambda p: p["slot"])
     stamp = (now or dt.datetime.now(dt.timezone.utc)).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -535,6 +544,8 @@ def cmd_write(a: argparse.Namespace) -> int:
     if not isinstance(date, str) or not DATE.match(date):
         return _fail(["spec: date must be YYYY-MM-DD"])
     for p in spec.get("posts", []):
+        if not Path(p.get("post_package", "")).exists():
+            return _fail([f"{p.get('post_package')}: post-package.json missing for slot {p.get('slot')} {p.get('story_id')}"])
         for f in FORMATS:
             local = repo / "v" / date / p["story_id"] / f"{f}.mp4"
             if not local.exists():
@@ -550,6 +561,11 @@ def cmd_write(a: argparse.Namespace) -> int:
         errors = check_media_urls(manifest_media_urls(m, repo))
     if errors:
         return _fail(errors)
+    if path.exists():
+        before = _load(path)
+        if {k: v for k, v in before.items() if k != "generated_at"} == {k: v for k, v in m.items() if k != "generated_at"}:
+            print(f"unchanged: {path} ({len(m['posts'])} posts)")
+            return 0
     write_json(path, m)
     print(f"wrote {path} ({len(m['posts'])} posts)")
     return 0

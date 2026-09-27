@@ -7,11 +7,13 @@ Output: a plan JSON (schema rtv-daily-plan/1) with one entry per slot of the own
 (manifest.WEEKDAY_SLOTS / WEEKEND_SLOTS): the story, its filing / source URLs, or why the slot is empty.
 Weak items never pad a slot: an empty slot says why.
 
-Weekday grid (New York time):
+Weekday grid (New York time; run_daily.ps1 fills it in three passes: 06:15 slots 1-3, 6-7; 10:30
+reports 5 and 7; 13:45 picks 4):
   1 08:00  earnings: Monday = the week's confirmed reporters; Tue-Fri = today's, else the rest of the week
   2 09:45  best trade        3 11:00  second trade        6 16:30  third trade
-  4 12:45  daily picks (#1 locked): the list /tips/daily serves at 12:45 (today's publishes at 1:30 PM ET)
-  5 14:15  earnings report summary #1 (released since the previous weekday, consensus confirmed)
+  4 14:00  daily picks (#1 locked): the list /tips/daily serves at 14:00, i.e. today's (published ~13:30);
+           before it is out the slot is empty, never the previous day's list
+  5 15:00  earnings report summary #1 (released since the previous weekday, consensus confirmed)
   7 19:00  report #2, else the weekday theme (Mon Congress last week, Tue Congress 30 days, Wed person
            spotlight, Thu track record paragraph, Fri the week's top insider buys)
 Weekends: one post. Saturday = next week's confirmed earnings; Sunday = the best trade of the week.
@@ -20,12 +22,20 @@ Trades are ranked by fame x dollar size x recency x novelty:
   fame     famous person (fame.json) or company size (market cap from /snapshot): mega 0.9, large 0.6,
            mid 0.3, small 0.1, unknown 0.05; combined as 1 - (1 - person)(1 - company)
   size     log scale, $1K -> 0, $1M -> 0.5, $1B -> 1 (insiders: value; Congress: range midpoint)
-  recency  filed within the last 3 weekdays (weekends 5): age 0 -> 1.0, 1 -> 0.85, 2 -> 0.7, 3 -> 0.55
+  recency  filed within the last 3 weekdays (weekends 5): age 0 -> 1.0, 1 -> 0.85, 2 -> 0.7, 3 -> 0.55,
+           4 -> 0.45, 5 -> 0.35, then -0.01 per weekday down to 0.15 (backlog)
   novelty  0 when the filing (or the same person in the same ticker within 30 days) is in an earlier
            manifest; 0.5 when the person or the ticker was posted in the last 14 days; else 1
 Minimums: insider purchases of $1M+ or a famous executive (fame.json, or CEO / Chair / President of a
 $200B+ company); Congress trades of $15K+ (range low) or a famous member. Insider sales and
 pre-planned (10b5-1 marked) buys are left out.
+A trade slot takes a recent trade scoring >= 0.30 (MIN_TRADE_SCORE). Below that it takes the BACKLOG:
+trades by a famous person (fame.json, or a famous executive) filed within the last 30 days and in no
+earlier manifest, ranked by the same score. Nothing qualifies -> the slot stays empty.
+
+Amounts: one story = one Form 4 here (its API rows summed). A buying program often spans several
+Form 4s (Berkshire's LEN buys: 2026-09-21 $212.4M and 2026-09-25 $136.4M), so the API figure is never
+"the total": the trade template takes every number from the SEC XML of the filing(s) it shows.
 """
 from __future__ import annotations
 
@@ -53,6 +63,8 @@ DEFAULT_TRACK_RECORD = Path("D:/rtv-ops/tracks/growth/social-kit/track-record-pa
 
 RECENCY_WEEKDAYS = 3
 WEEKEND_WINDOW_WEEKDAYS = 5
+MIN_TRADE_SCORE = 0.30
+BACKLOG_DAYS = 30
 INSIDER_MIN_USD = 1_000_000
 CONGRESS_MIN_LOW = 15_000
 EARNINGS_MIN_CAP = 10e9
@@ -61,11 +73,15 @@ NOVELTY_DAYS = 14
 SAME_TRADE_DAYS = 30
 MAX_SNAPSHOTS = 40
 RECENCY = {0: 1.0, 1: 0.85, 2: 0.7, 3: 0.55, 4: 0.45, 5: 0.35}
+
+
+def recency(age: int) -> float:
+    return RECENCY[age] if age in RECENCY else round(max(0.15, 0.35 - 0.01 * (age - 5)), 3)
 TEMPLATES = {
     "insider_trade": "trade", "congress_trade": "trade",
     "earnings_today": "earnings_week", "earnings_week": "earnings_week",
     "earnings_report": "report_summary", "daily_picks": "daily_picks",
-    "congress_week": "congress_theme", "congress_30d": "congress_theme",
+    "congress_week": "congress_theme", "congress_30d": "congress_theme", "congress_theme": "congress_theme",
     "person_spotlight": None, "track_record": None, "insider_week": None,
 }
 WEEKDAY_THEMES = {0: "congress_week", 1: "congress_30d", 2: "person_spotlight", 3: "track_record", 4: "insider_week"}
@@ -169,6 +185,9 @@ def slugify(text: str, words: int = 3) -> str:
 
 ENTITY = re.compile(r"\b(inc|llc|l\.?p|lp|ltd|plc|corp|co|capital|partners|holdings|fund|funds|management|advisors|"
                     r"investments?|trust|group|hathaway|foundation|ventures|et al)\b", re.IGNORECASE)
+
+
+TOP_OFFICER = re.compile(r"\b(ceo|chief executive|chair|president)\b", re.IGNORECASE)
 
 
 def name_slug(name: str) -> str:
@@ -281,6 +300,7 @@ class Trade:
     score: float = 0.0
     parts: dict = field(default_factory=dict)
     novelty_note: str | None = None
+    source: str = "recent"  # recent | backlog
 
     @property
     def usd(self) -> float:
@@ -317,7 +337,7 @@ def listed(ticker: str | None, names: dict[str, str]) -> bool:
     return ticker in names or ticker.replace(".", "-") in names
 
 
-def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str], fame: dict) -> tuple[list[Trade], dict, list[str]]:
+def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str], fame: dict, pages: int = 5) -> tuple[list[Trade], dict, list[str]]:
     """Grouped trades filed within `window` weekdays of the target; counts of what was left out; errors."""
     since = target
     while weekday_age(since - dt.timedelta(days=1), target) <= window:
@@ -326,7 +346,7 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
     errors: list[str] = []
     groups: dict[tuple, Trade] = {}
 
-    ins, err = fetch_feed(api, "insiders", since, "&side=buy")
+    ins, err = fetch_feed(api, "insiders", since, "&side=buy", pages)
     if err:
         errors.append(err)
     for it in ins:
@@ -362,7 +382,7 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
         if it.get("transaction_date"):
             t.traded.append(it["transaction_date"])
 
-    cong, err = fetch_feed(api, "congress", since)
+    cong, err = fetch_feed(api, "congress", since, "", pages)
     if err:
         errors.append(err)
     for it in cong:
@@ -427,18 +447,16 @@ def company_fame(cap: float | None, tiers: dict) -> float:
 def famous_exec(t: Trade, tiers: dict) -> bool:
     if t.famous_person:
         return True
-    role = (t.role or "").lower()
-    return bool(re.search(r"\b(ceo|chief executive|chair|president)\b", role)) and (t.market_cap or 0) >= tiers["mega"]
+    return bool(TOP_OFFICER.search(t.role or "")) and (t.market_cap or 0) >= tiers["mega"]
 
 
 def rank_trades(api: Api, trades: list[Trade], target: dt.date, fame: dict, prior: list[Posted], dropped: dict) -> list[Trade]:
     tiers = fame["company_tiers_usd"]
     # Cheap bar first (dollar minimum, famous person, or a top officer's $100K+ buy that may be at a
     # $200B+ company), so /snapshot is read only for real candidates.
-    top_officer = re.compile(r"\b(ceo|chief executive|chair|president)\b", re.IGNORECASE)
     pre = [t for t in trades if t.famous_person or (t.kind == "insider" and t.value_usd >= INSIDER_MIN_USD)
            or (t.kind == "congress" and t.low >= CONGRESS_MIN_LOW)
-           or (t.kind == "insider" and t.value_usd >= 100_000 and top_officer.search(t.role or ""))]
+           or (t.kind == "insider" and t.value_usd >= 100_000 and TOP_OFFICER.search(t.role or ""))]
     pre.sort(key=lambda t: -t.usd)
     for t in pre[:MAX_SNAPSHOTS]:
         t.company, t.market_cap = company_info(api, t.ticker)
@@ -452,9 +470,9 @@ def rank_trades(api: Api, trades: list[Trade], target: dt.date, fame: dict, prio
         comp = company_fame(t.market_cap, tiers)
         fame_score = 1 - (1 - person) * (1 - comp)
         size = min(1.0, max(0.05, math.log10(max(t.usd, 1e3) / 1e3) / 6))
-        rec = RECENCY.get(weekday_age(t.filed, target), 0.3)
+        rec = recency(weekday_age(t.filed, target))
         nov, note = novelty(t.story_key, [t.ticker], [t.name], target, prior)
-        t.parts = {"fame": round(fame_score, 3), "size": round(size, 3), "recency": rec, "novelty": nov}
+        t.parts = {"fame": round(fame_score, 3), "size": round(size, 3), "recency": round(rec, 3), "novelty": nov}
         t.score = fame_score * size * rec * nov
         t.novelty_note = note
         kept.append(t)
@@ -463,25 +481,55 @@ def rank_trades(api: Api, trades: list[Trade], target: dt.date, fame: dict, prio
     return kept
 
 
-def pick_distinct(ranked: list[Trade], n: int) -> list[Trade]:
+def pick_distinct(ranked: list[Trade], n: int, taken: list[Trade] | None = None) -> list[Trade]:
+    """Up to n trades, best first, none sharing a ticker or a person with each other or with `taken`."""
     out: list[Trade] = []
     for t in ranked:
+        if len(out) >= n:
+            break
         if t.score <= 0:
             continue
-        if any(t.ticker == o.ticker or same_person(t.name, o.name) or t.slug == o.slug for o in out):
+        if any(t.ticker == o.ticker or same_person(t.name, o.name) or t.slug == o.slug for o in (taken or []) + out):
             continue
         out.append(t)
-        if len(out) == n:
-            break
     return out
+
+
+
+def is_famous(t: Trade, tiers: dict) -> bool:
+    return bool(t.famous_person) or (t.kind == "insider" and famous_exec(t, tiers))
+
+
+def choose_trades(api: "Api", target: dt.date, window: int, names: dict[str, str], fame: dict, prior: list["Posted"],
+                  n: int) -> tuple[list[Trade], list[Trade], list[Trade], dict, list[str]]:
+    """(chosen, recent ranked, backlog ranked, left-out counts, errors). Recent trades scoring
+    >= MIN_TRADE_SCORE first; the rest from the famous 30-day backlog that is in no earlier manifest."""
+    trades, dropped, errors = gather_trades(api, target, window, names, fame)
+    ranked = rank_trades(api, trades, target, fame, prior, dropped) if trades else []
+    chosen = pick_distinct([t for t in ranked if t.score >= MIN_TRADE_SCORE], n)
+    backlog: list[Trade] = []
+    if len(chosen) < n:
+        days = weekday_age(target - dt.timedelta(days=BACKLOG_DAYS), target)
+        old, _, berr = gather_trades(api, target, days, names, fame, pages=12)
+        errors.extend(e for e in berr if e not in errors)
+        old = [t for t in old if t.famous_person or (t.kind == "insider" and t.value_usd >= 100_000 and TOP_OFFICER.search(t.role or ""))]
+        tiers = fame["company_tiers_usd"]
+        backlog = [t for t in rank_trades(api, old, target, fame, prior, {"below_minimum": 0})
+                   if is_famous(t, tiers) and t.parts["novelty"] > 0]
+        for t in backlog:
+            t.source = "backlog"
+        chosen += pick_distinct(backlog, n - len(chosen), taken=chosen)
+    return chosen, ranked, backlog, dropped, errors
 
 
 def trade_story(t: Trade) -> dict:
     acc, index = sec_index_url(t.api_source_url)
     who = t.name
     if t.kind == "insider":
-        what = f"{who} ({t.role or 'insider'}) bought {usd_short(t.value_usd)} of {t.ticker}"
-        amount = {"value_usd": round(t.value_usd, 2), "shares": t.shares or None}
+        what = f"{who} ({t.role or 'insider'}) bought {usd_short(t.value_usd)} of {t.ticker} in this Form 4"
+        amount = {"value_usd": round(t.value_usd, 2), "shares": t.shares or None,
+                  "note": "API rows of this one Form 4 summed. A buying program can span several Form 4s: never call this "
+                          "the total; the trade template takes every number from the SEC XML of the filing(s) it shows."}
     else:
         tag = "-".join(x for x in [(t.party or "")[:1], t.state or ""] if x)
         what = f"{who}{f' ({tag})' if tag else ''} {'bought' if t.side == 'buy' else 'sold'} {usd_short(t.low)}-{usd_short(t.high)} of {t.ticker}"
@@ -509,6 +557,7 @@ def trade_story(t: Trade) -> dict:
         "api_source_url": t.api_source_url,
         "score": round(t.score, 4),
         "score_parts": t.parts,
+        "selected_from": t.source,
         "novelty_note": t.novelty_note,
         "sources": sources,
     }
@@ -777,25 +826,32 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
     if err or not names:
         notes.append(f"ticker list did not load ({err or 'empty'}): no trade can be checked, trade slots stay empty")
     window = WEEKEND_WINDOW_WEEKDAYS if weekend else RECENCY_WEEKDAYS
-    trades, dropped, terr = gather_trades(api, target, window, names, fame) if names else ([], {}, [])
+    need = 0 if target.weekday() == 5 else (1 if weekend else 3)
+    chosen: list[Trade] = []
+    ranked: list[Trade] = []
+    backlog: list[Trade] = []
+    dropped: dict = {}
+    terr: list[str] = []
+    if names and need:
+        chosen, ranked, backlog, dropped, terr = choose_trades(api, target, window, names, fame, prior, need)
     notes.extend(terr)
-    ranked = rank_trades(api, trades, target, fame, prior, dropped) if trades else []
     weeks, werr = load_weeks(api)
     notes.extend(werr)
     slots: dict[int, dict] = {}
 
     def trade_reason(n: int) -> str:
-        why = f"{len(ranked)} trades passed the minimums in the last {window} weekdays"
+        strong = sum(t.score >= MIN_TRADE_SCORE for t in ranked)
+        why = (f"{strong} of {len(ranked)} trades passing the minimums in the last {window} weekdays scored >= {MIN_TRADE_SCORE}, "
+               f"and the famous {BACKLOG_DAYS}-day backlog had {len(backlog)} unposted candidates; fewer than {n} are distinct")
         if terr:
             why += f"; feed errors: {'; '.join(terr)}"
-        return f"no trade #{n}: {why} and fewer than {n} are distinct and new"
+        return f"no trade #{n}: {why}"
 
     if weekend:
         if target.weekday() == 5:
             slots[1] = earnings_slot(api, target, weeks, names, "week_ahead")
         else:
-            best = pick_distinct(ranked, 1)
-            slots[1] = trade_slot(best[0]) if best else {"empty": trade_reason(1)}
+            slots[1] = trade_slot(chosen[0]) if chosen else {"empty": trade_reason(1)}
     else:
         mode = "week" if target.weekday() == 0 else "today"
         e = earnings_slot(api, target, weeks, names, mode)
@@ -803,9 +859,8 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
             rest = earnings_slot(api, target, weeks, names, "week") if target.weekday() < 4 else e
             e = rest if "empty" not in rest else {"empty": f"{e['empty']}; rest of the week: {rest.get('empty', 'n/a')}"}
         slots[1] = e
-        best = pick_distinct(ranked, 3)
         for i, slot_no in enumerate((2, 3, 6)):
-            slots[slot_no] = trade_slot(best[i]) if i < len(best) else {"empty": trade_reason(i + 1)}
+            slots[slot_no] = trade_slot(chosen[i]) if i < len(chosen) else {"empty": trade_reason(i + 1)}
         slots[4] = picks_slot(api, target, grid[4])
         reports, rerr, looked = report_candidates(api, target, weeks)
         lo = prev_weekday(target)
@@ -815,7 +870,7 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
             slots[5] = report_slot(reports[0])
         else:
             slots[5] = {"empty": f"no report released {lo}..{target} with a confirmed consensus and a $10B+ market cap "
-                                 f"({looked} released reports looked at; the 06:15 ET run comes before today's releases)"}
+                                 f"({looked} released reports looked at; the 10:30 ET pass looks again after the morning releases)"}
         if len(reports) > 1:
             slots[7] = report_slot(reports[1])
         else:
@@ -853,11 +908,13 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "api": api.base,
         "api_requests": api.requests,
-        "rules": {"trade_window_weekdays": window, "insider_min_usd": INSIDER_MIN_USD, "congress_min_low_usd": CONGRESS_MIN_LOW,
+        "rules": {"trade_window_weekdays": window, "min_trade_score": MIN_TRADE_SCORE, "backlog_days": BACKLOG_DAYS,
+                  "insider_min_usd": INSIDER_MIN_USD, "congress_min_low_usd": CONGRESS_MIN_LOW,
                   "earnings_min_cap_usd": EARNINGS_MIN_CAP, "report_min_cap_usd": REPORT_MIN_CAP, "novelty_days": NOVELTY_DAYS,
                   "prior_manifest_posts": len(prior)},
         "slots": out_slots,
         "trade_candidates": [dict(trade_story(t), rank=i + 1) for i, t in enumerate(ranked[:12])],
+        "backlog_candidates": [dict(trade_story(t), rank=i + 1) for i, t in enumerate(backlog[:12])],
         "trades_left_out": dropped,
         "notes": notes,
     }
@@ -874,11 +931,13 @@ def print_plan(plan: dict) -> None:
                 print(f"      source: {u}")
         else:
             print(f"  {s['slot']} {s['time_et']} ET  EMPTY: {s['reason']}")
-    if plan["trade_candidates"]:
-        print("  trade candidates (score = fame x size x recency x novelty):")
-        for c in plan["trade_candidates"][:8]:
-            p = c["score_parts"]
-            print(f"    #{c['rank']} {c['score']:.3f} [{p['fame']}x{p['size']}x{p['recency']}x{p['novelty']}] {c['headline']} (filed {c['filed']})")
+    for key, title in (("trade_candidates", f"recent trade candidates (score = fame x size x recency x novelty; slot needs >= {MIN_TRADE_SCORE})"),
+                       ("backlog_candidates", f"famous {BACKLOG_DAYS}-day backlog, not in an earlier manifest")):
+        if plan.get(key):
+            print(f"  {title}:")
+            for c in plan[key][:8]:
+                p = c["score_parts"]
+                print(f"    #{c['rank']} {c['score']:.3f} [{p['fame']}x{p['size']}x{p['recency']}x{p['novelty']}] {c['headline']} (filed {c['filed']})")
     print(f"  left out: {plan['trades_left_out']}")
     for n in plan["notes"]:
         print(f"  note: {n}")

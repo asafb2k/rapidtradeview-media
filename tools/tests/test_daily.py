@@ -52,3 +52,12 @@ def test_stage_rejects_a_file_that_is_not_an_mp4(tmp_path):
     (sdir / "post-package.json").write_text("{}", encoding="utf-8")
     (sdir / "qa-passed.json").write_text("{}", encoding="utf-8")
     assert daily.main(["stage", "--plan", str(pp), "--work", str(work), "--spec", str(tmp_path / "s.json"), "--repo", str(repo)]) == 2
+
+
+def test_a_slot_already_published_today_is_left_alone(tmp_path):
+    work, repo = tmp_path / "work", tmp_path / "repo"
+    pp = plan(tmp_path)
+    (repo / "v" / "2026-09-28").mkdir(parents=True)
+    (repo / "v" / "2026-09-28" / "manifest.json").write_text(json.dumps({"posts": [{"slot": 2, "story_id": "gme-cohen", "category": "insider_trade"}]}), encoding="utf-8")
+    assert daily.main(["stories", "--plan", str(pp), "--work", str(work), "--repo", str(repo)]) == 0
+    assert json.loads((work / "stories.json").read_text(encoding="utf-8")) == []
