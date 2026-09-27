@@ -15,7 +15,10 @@ function Invoke-Native([string]$Exe, [string[]]$Arguments, [string]$Cwd = $null)
     $ErrorActionPreference = 'Continue'
     if ($Cwd) { Push-Location $Cwd }
     try {
-        & $Exe @Arguments 2>&1 | ForEach-Object { Log ('    ' + ($_ | Out-String).TrimEnd()) }
+        # stderr lines arrive as ErrorRecords: log their text only.
+        & $Exe @Arguments 2>&1 | ForEach-Object {
+            if ($_ -is [System.Management.Automation.ErrorRecord]) { Log ('    ' + $_.Exception.Message) } else { Log ('    ' + ($_ | Out-String).TrimEnd()) }
+        }
         $code = $LASTEXITCODE
     } finally {
         if ($Cwd) { Pop-Location }
