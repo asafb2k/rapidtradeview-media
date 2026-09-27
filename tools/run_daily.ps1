@@ -126,8 +126,9 @@ foreach ($s in $stories) {
             $ok = $false
             break
         }
+        if (@($cmd).Count -eq 0) { continue }  # [] = another step does this one
         $argv = @($cmd | ForEach-Object {
-            $_.Replace('{python}', $Python).Replace('{node}', $Node).Replace('{data}', $s.data).Replace('{out}', $out).Replace('{story_id}', $s.story_id).Replace('{date}', $Date).Replace('{slot}', [string]$s.slot)
+            $_.Replace('{python}', $Python).Replace('{node}', $Node).Replace('{tools}', $Tools).Replace('{data}', $s.data).Replace('{out}', $out).Replace('{story_id}', $s.story_id).Replace('{date}', $Date).Replace('{slot}', [string]$s.slot)
         })
         $exe = $argv[0]
         $rest = @()
