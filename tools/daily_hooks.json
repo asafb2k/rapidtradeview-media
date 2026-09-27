@@ -1,0 +1,13 @@
+{
+  "_about": "Render commands per video template for run_daily.ps1. Each step is null (TODO: not wired yet; the story is skipped and the log says so) or an argument array run from 'cwd' with placeholders {python} {node} {data} {out} {story_id} {date} {slot}. {data} = the story's data.json (schema rtv-daily-story/1, written by daily.py stories), {out} = the story's work directory. Steps run in order data -> render -> qa -> package; every configured step must exit 0. After them {out} must hold reel_9x16.mp4, feed_4x5.mp4, square_1x1.mp4 and post-package.json (v6 shape).",
+  "_todo": "Fill these from D:/rtvw/growth-video/README-v6-daily.md once the v6 trade template (src/v6) and the category templates (src/v6/categories) land. Until then every story stops at the render step and nothing is published.",
+  "readme": "D:/rtvw/growth-video/README-v6-daily.md",
+  "cwd": "D:/rtvw/growth-video",
+  "templates": {
+    "trade": {"data": null, "render": null, "qa": null, "package": null},
+    "earnings_week": {"data": null, "render": null, "qa": null, "package": null},
+    "report_summary": {"data": null, "render": null, "qa": null, "package": null},
+    "daily_picks": {"data": null, "render": null, "qa": null, "package": null},
+    "congress_theme": {"data": null, "render": null, "qa": null, "package": null}
+  }
+}
