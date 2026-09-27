@@ -486,10 +486,10 @@ def local_media(repo: Path, date: str, sid: str) -> tuple[dict[str, str], dict[s
     images: dict[str, str] = {}
     for f in IMAGE_FORMATS:
         found = [e for e in IMAGE_EXTS if (d / f"{f}.{e}").exists()]
-        if len(found) > 1:
-            problems.append(f"{d}: both {f}.png and {f}.jpg")
-        elif found:
-            images[f] = image_url(date, sid, f, found[0])
+        if found:
+            # When a renderer ships both, post the JPEG: smaller, and every platform takes it.
+            ext = next((e for e in found if e in ("jpg", "jpeg")), found[0])
+            images[f] = image_url(date, sid, f, ext)
     return videos, images, problems
 
 
