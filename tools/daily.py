@@ -12,9 +12,10 @@ Usage (conda python):
       MP4s to REPO/v/<date>/<story_id>/, and write the manifest spec (manifest.py write --spec).
       Exit 2 when nothing is ready to stage.
 
-Rendered outputs each story directory must hold (the render / package hooks write them):
-  reel_9x16.mp4, feed_4x5.mp4, square_1x1.mp4, post-package.json (the v6 shape: x.post, threads.post,
-  instagram.reel.caption, pinterest.title/description/link, alt_text, source_urls).
+Rendered outputs each story directory must hold (the render / package hooks write them): a
+post-package.json (the v6 shape: x.post, threads.post, instagram caption, pinterest.title /
+description / link, alt_text, source_urls) and either the video files reel_9x16.mp4, feed_4x5.mp4,
+square_1x1.mp4 or image files (PNG / JPEG: feed_4x5, square_1x1, pin_2x3, story_9x16).
 """
 from __future__ import annotations
 
@@ -85,6 +86,28 @@ def is_mp4(path: Path) -> bool:
     return len(head) == 12 and head[4:8] == b"ftyp" and path.stat().st_size > 10_000
 
 
+def is_image(path: Path) -> bool:
+    try:
+        with open(path, "rb") as fh:
+            head = fh.read(8)
+    except OSError:
+        return False
+    return head.startswith(b"\x89PNG\r\n\x1a\n") or head.startswith(b"\xff\xd8\xff")
+
+
+def rendered_files(sdir: Path) -> tuple[list[str], str | None]:
+    """(file names to publish, problem): the three MP4s, else the images present."""
+    mp4s = [f"{f}.mp4" for f in mf.FORMATS]
+    if all((sdir / n).exists() for n in mp4s):
+        bad = [n for n in mp4s if not is_mp4(sdir / n)]
+        return (mp4s, None) if not bad else ([], f"not an MP4: {', '.join(bad)}")
+    images = [f"{f}.{e}" for f in mf.IMAGE_FORMATS for e in mf.IMAGE_EXTS if (sdir / f"{f}.{e}").exists()]
+    if not images:
+        return [], "neither the three MP4s nor any image"
+    bad = [n for n in images if not is_image(sdir / n)]
+    return (images, None) if not bad else ([], f"not a PNG / JPEG: {', '.join(bad)}")
+
+
 def cmd_stage(a: argparse.Namespace) -> int:
     plan = _load(Path(a.plan))
     work, repo = Path(a.work), Path(a.repo)
@@ -95,17 +118,17 @@ def cmd_stage(a: argparse.Namespace) -> int:
         if not (sdir / "qa-passed.json").exists():
             problems.append(f"slot {s['slot']} {s['story_id']}: not rendered or QA not passed (no qa-passed.json)")
             continue
-        bad = [f for f in mf.FORMATS if not is_mp4(sdir / f"{f}.mp4")]
-        if bad:
-            problems.append(f"slot {s['slot']} {s['story_id']}: missing or not an MP4: {', '.join(bad)}")
+        files, problem = rendered_files(sdir)
+        if problem:
+            problems.append(f"slot {s['slot']} {s['story_id']}: {problem}")
             continue
         if not (sdir / "post-package.json").exists():
             problems.append(f"slot {s['slot']} {s['story_id']}: post-package.json missing")
             continue
         dest = repo / "v" / date / s["story_id"]
         dest.mkdir(parents=True, exist_ok=True)
-        for f in mf.FORMATS:
-            shutil.copy2(sdir / f"{f}.mp4", dest / f"{f}.mp4")
+        for name in files:
+            shutil.copy2(sdir / name, dest / name)
         posts.append({"slot": s["slot"], "time_et": s["time_et"], "category": s["category"], "story_id": s["story_id"],
                       "story_key": s["story_key"], "tickers": s["tickers"], "people": s["people"],
                       "post_package": str(sdir / "post-package.json")})

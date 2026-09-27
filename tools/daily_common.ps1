@@ -73,25 +73,19 @@ function Commit-Staged([string]$Message) {
     Push-Repo $Message
 }
 
-# Publish a manifest spec (manifest.py write --spec): every MP4 committed and pushed first, then wait
-# until GitHub Pages serves each one (200 video/mp4, the local size), then write + validate the
-# manifest (merging slots already published today), push it and verify what Pages serves. The live
-# manifest never points at a file Pages does not serve.
+# Publish a manifest spec (manifest.py write --spec): every file (MP4s of a video post, PNG / JPEG of
+# an image post) committed and pushed first, then wait until GitHub Pages serves each one (200 with its
+# type, the local size), then write + validate the manifest (merging slots already published today),
+# push it and verify what Pages serves. The live manifest never points at a file Pages does not serve.
 function Publish-Spec([string]$SpecFile, [int]$PagesTimeoutSec = 900) {
     $spec = Get-Content -Raw -Encoding UTF8 $SpecFile | ConvertFrom-Json
     $date = $spec.date
     $posts = @($spec.posts | Where-Object { $_ })
-    $missing = @()
-    $mediaFiles = @()
-    foreach ($p in $posts) {
-        if (-not (Test-Path $p.post_package)) { $missing += "slot $($p.slot) $($p.story_id): post-package $($p.post_package)" }
-        foreach ($f in @('reel_9x16', 'feed_4x5', 'square_1x1')) {
-            $rel = "v/$date/$($p.story_id)/$f.mp4"
-            if (-not (Test-Path (Join-Path $script:Repo $rel))) { $missing += "slot $($p.slot) $($p.story_id): $rel" }
-            $mediaFiles += $rel
-        }
+    $listFile = "$SpecFile.files.txt"
+    if ((Invoke-Native $script:Python @((Join-Path $script:Tools 'manifest.py'), '--repo', $script:Repo, 'check-spec', '--spec', $SpecFile, '--list-out', $listFile)) -ne 0) {
+        Fail 'not ready to publish (missing files or post-packages above)'
     }
-    if ($missing.Count) { Fail ("not ready to publish:`n  " + ($missing -join "`n  ")) }
+    $mediaFiles = @(Get-Content -Encoding UTF8 $listFile | Where-Object { $_.Trim() })
     if ((Invoke-Git (@('add', '--') + $mediaFiles)) -ne 0) { Fail 'git add media' }
     Commit-Staged "Daily videos $date`: media ($($posts.Count) stories)"
     if ((Invoke-Native $script:Python @((Join-Path $script:Tools 'manifest.py'), '--repo', $script:Repo, 'wait-urls', '--spec', $SpecFile, '--timeout', [string]$PagesTimeoutSec)) -ne 0) {

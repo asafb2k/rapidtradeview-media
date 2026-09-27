@@ -91,4 +91,71 @@ def test_build_merges_and_keeps_placements(m, tmp_path):
         pytest.skip("post-package not on this machine")
     built = mf.build_manifest(spec, existing=m)
     built["generated_at"] = m["generated_at"]
+    # Manifests written since image posts name each platform's media_type; the published one predates it.
+    for block in built["posts"][0]["platforms"].values():
+        assert block.pop("media_type") == "video"
     assert built == m
+
+
+UBER_PKG = Path("D:/rtv-ops/tracks/growth/research/video-v6/uber-khosrowshahi/post-package.json")
+
+
+def image_repo(tmp_path, formats=("feed_4x5", "square_1x1", "pin_2x3", "story_9x16"), ext="png"):
+    d = tmp_path / "v" / "2026-09-28" / "earnings-week-image"
+    d.mkdir(parents=True)
+    for f in formats:
+        (d / f"{f}.{ext}").write_bytes(b"\x89PNG\r\n\x1a\n" + b"\x00" * 100)
+    return tmp_path
+
+
+def image_spec(**extra):
+    return {"date": "2026-09-28", "posts": [dict({
+        "slot": 1, "time_et": "08:00", "category": "earnings_week", "story_id": "earnings-week-image",
+        "story_key": "earnings:week:2026-09-28", "tickers": ["MU"], "people": [], "instagram_placement": "story",
+        "post_package": str(UBER_PKG)}, **extra)]}
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+def test_image_post_uses_each_platforms_image(tmp_path):
+    repo = image_repo(tmp_path)
+    m = mf.build_manifest(image_spec(), repo=repo)
+    assert mf.validate_manifest(m, "2026-09-28") == []
+    post = m["posts"][0]
+    assert post["media"] == {} and set(post["images"]) == set(mf.IMAGE_FORMATS)
+    got = {k: (v["media_type"], v["media"]) for k, v in post["platforms"].items()}
+    assert got == {"instagram": ("image", "story_9x16"), "x": ("image", "square_1x1"), "threads": ("image", "feed_4x5"), "pinterest": ("image", "pin_2x3")}
+    assert post["platforms"]["pinterest"]["media_url"].endswith("/earnings-week-image/pin_2x3.png")
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+def test_image_post_takes_the_next_image_and_refuses_a_missing_one(tmp_path):
+    repo = image_repo(tmp_path, formats=("feed_4x5", "story_9x16"), ext="jpg")
+    m = mf.build_manifest(image_spec(), repo=repo)
+    assert mf.validate_manifest(m, "2026-09-28") == []
+    plats = m["posts"][0]["platforms"]
+    assert (plats["x"]["media"], plats["pinterest"]["media"]) == ("feed_4x5", "feed_4x5")
+    with pytest.raises(ValueError, match="Instagram story needs story_9x16"):
+        mf.build_manifest(image_spec(), repo=image_repo(tmp_path / "b", formats=("feed_4x5",)))
+
+
+def test_image_posts_are_never_the_reel():
+    assert mf.assign_instagram([1, 2, 3], "weekday", {}, image_slots={2}) == {3: "reel", 1: "story", 2: "feed"}
+    assert mf.assign_instagram([1], "weekend", {}, image_slots={1}) == {1: "feed"}
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+@pytest.mark.parametrize("mutate,needle", [
+    (lambda p: p["platforms"]["x"].__setitem__("media_url", p["images"]["feed_4x5"]), "platforms.x.media_url: must be the post's images.square_1x1"),
+    (lambda p: p["images"].__setitem__("pin_2x3", p["images"]["pin_2x3"].replace(".png", ".gif")), "images.pin_2x3: must be"),
+    (lambda p: p["platforms"]["instagram"].update(placement="reel"), "an image post is never a Reel"),
+    (lambda p: p["platforms"]["threads"].update(media="story_9x16"), "threads.media: must be feed_4x5 or square_1x1 for an image"),
+    (lambda p: p.__setitem__("images", {}), "images: leave it out"),
+])
+def test_image_rules(tmp_path, mutate, needle):
+    m = mf.build_manifest(image_spec(), repo=image_repo(tmp_path))
+    mutate(m["posts"][0])
+    assert any(needle in e for e in mf.validate_manifest(m, "2026-09-28")), mf.validate_manifest(m, "2026-09-28")
+
+
+def test_expected_types():
+    assert [mf.expected_type(u) for u in ("a/b.mp4", "a/b.png", "a/b.jpg")] == ["video/mp4", "image/png", "image/jpeg"]

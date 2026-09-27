@@ -1,8 +1,9 @@
 <#
 .SYNOPSIS
-  Publishes a hand-written (or run_daily) manifest spec: the MP4s must already be in
-  v/<date>/<story_id>/ of this repo (pulled or copied); they are committed and pushed if needed, the
-  script waits until GitHub Pages serves every one (200 video/mp4, the local size), then writes and
+  Publishes a hand-written (or run_daily) manifest spec: the files (MP4s of a video post, PNG / JPEG
+  images of an image post) must already be in v/<date>/<story_id>/ of this repo (pulled or copied);
+  they are committed and pushed if needed, the script waits until GitHub Pages serves every one (200
+  with its type, the local size), then writes and
   validates v/<date>/manifest.json (merging slots already published that day), pushes it and checks
   what Pages serves. Nothing is written while a file or a post-package is missing.
 
