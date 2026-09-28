@@ -56,8 +56,8 @@ Rules checked (both here and in the kit):
     description 500; alt text 500;
   - Instagram mix: weekdays at most 1 Reel, 2 feed posts and 2 Stories; weekends one post in all;
   - a post may carry "status": "held" with a held_reason (the kit shows it as "do not post");
-  - with KIT_AUDIT_FIXES_LIVE (social-post audit 2026-09-28; False until the kit of growth/kit-audit-fixes is
-    on prod): a feed video may be reel_9x16 (the writer posts every Instagram video so), a weekday has at most
+  - with KIT_AUDIT_FIXES_LIVE (social-post audit 2026-09-28; True since the kit of PR #400, main 447deb35, went
+    live on prod 2026-09-28 20:28Z): a feed video may be reel_9x16 (the writer posts every Instagram video so), a weekday has at most
     1 Reel, 2 Stories and 4 feed posts and Stories together (the writer: 1 Reel + 4 feed, no Story), and
     platforms.threads may carry "topic" (Stocks, Stock Market, Earnings or Investing; the writer sets it
     from the category).
@@ -86,8 +86,9 @@ IG_PLACEMENTS = ("reel", "feed", "story")
 # 1 Reel + 4 feed + 0 Stories; the picks slot's reserved Story becomes a feed post), (3) each post names its
 # Threads topic (platforms.threads.topic, from the category). The kit on prod before growth/kit-audit-fixes
 # rejects all three (a feed video must be 4:5, at most 2 feed posts, no "topic") and would drop the WHOLE day,
-# so the writer and the validator keep the old rules until that kit is on prod. Set True with that release.
-KIT_AUDIT_FIXES_LIVE = False
+# so the writer and the validator kept the old rules until that kit was on prod (PR #400, main 447deb35, live
+# 2026-09-28 20:28Z). The validator still accepts manifests written before the switch.
+KIT_AUDIT_FIXES_LIVE = True
 # Which rendered format each platform posts (owner-approved first wave, 2026-09-27: IG Reel/Story 9:16,
 # IG feed / Threads / Pinterest 4:5, X 1:1). IG_MEDIA is the Instagram video mapping before the audit fixes.
 IG_MEDIA = {"reel": "reel_9x16", "story": "reel_9x16", "feed": "feed_4x5"}

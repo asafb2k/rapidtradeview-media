@@ -53,23 +53,25 @@ def test_x_weighted_length_matches_the_kit():
     assert mf.x_weighted_length("é") == 1 and mf.x_weighted_length("\u4e2d") == 2
 
 
+# Weekdays (KIT_AUDIT_FIXES_LIVE, audit 2026-09-28): 1 Reel + 4 feed posts, no Story (the Story slots 1 and 4 are feed posts).
 @pytest.mark.parametrize("slots,want", [
-    ([1, 2, 3, 4, 5, 6, 7], {2: "reel", 1: "story", 4: "story", 3: "feed", 6: "feed"}),
-    ([1, 2, 3, 4, 6, 7], {2: "reel", 1: "story", 4: "story", 3: "feed", 6: "feed"}),
-    ([1, 3, 4, 6], {3: "reel", 1: "story", 4: "story", 6: "feed"}),
+    ([1, 2, 3, 4, 5, 6, 7], {2: "reel", 1: "feed", 4: "feed", 3: "feed", 6: "feed"}),
+    ([1, 2, 3, 4, 6, 7], {2: "reel", 1: "feed", 4: "feed", 3: "feed", 6: "feed"}),
+    ([1, 3, 4, 6], {3: "reel", 1: "feed", 4: "feed", 6: "feed"}),
+    ([1, 2, 3, 5, 6, 7], {2: "reel", 1: "feed", 3: "feed", 6: "feed", 5: "feed"}),  # no picks post: the 4th feed moves on
     ([2], {2: "reel"}),
 ])
 def test_instagram_weekday_mix(slots, want):
     assert mf.assign_instagram(slots, "weekday", {}) == want
 
 
-def test_instagram_story_is_held_for_the_picks_pass():
-    # 06:15 pass: slots 1-3, 6, 7; the picks slot (4) is filled at 13:45 and keeps its Story.
+def test_instagram_placement_is_held_for_the_picks_pass():
+    # 05:00 pass: slots 1-3, 6, 7; the picks slot (4) is filled at 13:45 and keeps its feed post.
     morning = mf.assign_instagram([1, 2, 3, 6, 7], "weekday", {}, mf.reserved_ig())
-    assert morning == {1: "story", 2: "reel", 3: "feed", 6: "feed"}
+    assert morning == {1: "feed", 2: "reel", 3: "feed", 6: "feed"}
     kept = {**morning, 7: "none"}
-    assert mf.assign_instagram([1, 2, 3, 5, 6, 7], "weekday", kept, mf.reserved_ig()) == morning  # 10:30: the report gets none
-    assert mf.assign_instagram([1, 2, 3, 4, 6, 7], "weekday", kept, mf.reserved_ig()) == {**morning, 4: "story"}  # 13:45
+    assert mf.assign_instagram([1, 2, 3, 5, 6, 7], "weekday", kept, mf.reserved_ig()) == morning  # 10:00: the report gets none
+    assert mf.assign_instagram([1, 2, 3, 4, 6, 7], "weekday", kept, mf.reserved_ig()) == {**morning, 4: "feed"}  # 13:45
 
 
 def test_grid_moves_picks_and_report():
@@ -90,11 +92,19 @@ def test_build_merges_and_keeps_placements(m, tmp_path):
         "post_package": "D:/rtv-ops/tracks/growth/research/video-v6/uber-khosrowshahi/post-package.json"}]}
     if not Path(spec["posts"][0]["post_package"]).exists():
         pytest.skip("post-package not on this machine")
-    built = mf.build_manifest(spec, existing=m)
+    # The writer only needs the three MP4s present (their URLs come from the date and story_id): stand-ins in a
+    # temporary repo, so this also runs in a sparse clone without the published videos.
+    d = tmp_path / "v" / "2026-09-27" / "uber-khosrowshahi"
+    d.mkdir(parents=True)
+    for f in mf.FORMATS:
+        (d / f"{f}.mp4").write_bytes(b"\x00\x00\x00\x18ftypmp42" + b"\x00" * 100)
+    built = mf.build_manifest(spec, existing=m, repo=tmp_path)
     built["generated_at"] = m["generated_at"]
     # Manifests written since image posts name each platform's media_type; the published one predates it.
     for block in built["posts"][0]["platforms"].values():
         assert block.pop("media_type") == "video"
+    # Manifests written since the audit fixes name the Threads topic (a Form 4 trade: Stocks); the published one predates it.
+    assert built["posts"][0]["platforms"]["threads"].pop("topic") == "Stocks"
     assert built == m
 
 
@@ -124,7 +134,8 @@ def test_image_post_uses_each_platforms_image(tmp_path):
     post = m["posts"][0]
     assert post["media"] == {} and set(post["images"]) == set(mf.IMAGE_FORMATS)
     got = {k: (v["media_type"], v["media"]) for k, v in post["platforms"].items()}
-    assert got == {"instagram": ("image", "story_9x16"), "x": ("image", "square_1x1"), "threads": ("image", "feed_4x5"), "pinterest": ("image", "pin_2x3")}
+    # The spec asks for a Story; with KIT_AUDIT_FIXES_LIVE it is a feed post, which takes the 4:5 image.
+    assert got == {"instagram": ("image", "feed_4x5"), "x": ("image", "square_1x1"), "threads": ("image", "feed_4x5"), "pinterest": ("image", "pin_2x3")}
     assert post["platforms"]["pinterest"]["media_url"].endswith("/earnings-week-image/pin_2x3.png")
 
 
@@ -135,12 +146,13 @@ def test_image_post_takes_the_next_image_and_refuses_a_missing_one(tmp_path):
     assert mf.validate_manifest(m, "2026-09-28") == []
     plats = m["posts"][0]["platforms"]
     assert (plats["x"]["media"], plats["pinterest"]["media"]) == ("feed_4x5", "feed_4x5")
-    with pytest.raises(ValueError, match="Instagram story needs story_9x16"):
-        mf.build_manifest(image_spec(), repo=image_repo(tmp_path / "b", formats=("feed_4x5",)))
+    # The Instagram feed post takes only the 4:5 image (never the Story's 9:16 one): without it the post is refused.
+    with pytest.raises(ValueError, match="Instagram feed needs feed_4x5"):
+        mf.build_manifest(image_spec(), repo=image_repo(tmp_path / "b", formats=("square_1x1", "pin_2x3", "story_9x16")))
 
 
 def test_image_posts_are_never_the_reel():
-    assert mf.assign_instagram([1, 2, 3], "weekday", {}, image_slots={2}) == {3: "reel", 1: "story", 2: "feed"}
+    assert mf.assign_instagram([1, 2, 3], "weekday", {}, image_slots={2}) == {3: "reel", 1: "feed", 2: "feed"}
     assert mf.assign_instagram([1], "weekend", {}, image_slots={1}) == {1: "feed"}
 
 
@@ -268,27 +280,38 @@ def ig(m):
             for p in m["posts"] if "instagram" in p["platforms"]}
 
 
-def test_audit_fixes_stay_off_until_the_kit_is_on_prod():
-    # The kit on prod rejects a 9:16 feed video, a 3rd feed post and "topic", and would drop the whole day:
-    # flip this with the growth/kit-audit-fixes release (and update this test).
-    assert mf.KIT_AUDIT_FIXES_LIVE is False
-    assert mf.ig_weekday_mix() == {"reel": 1, "feed": 2, "story": 2} and mf.reserved_ig() == {4: "story"}
-    assert mf.ig_video_format("feed") == "feed_4x5"
+def test_audit_fixes_are_on_with_the_kit_on_prod():
+    # The social kit release (growth/kit-audit-fixes, PR #400) on prod takes a 9:16 feed video, up to 4 feed posts
+    # and Stories besides the Reel, and "topic", and still takes the older shape (4:5 feed videos, Stories, no topic).
+    assert mf.KIT_AUDIT_FIXES_LIVE is True
+    assert mf.ig_weekday_mix() == {"reel": 1, "feed": 4, "story": 0} and mf.reserved_ig() == {4: "feed"}
+    assert {p: mf.ig_video_format(p) for p in mf.IG_PLACEMENTS} == {"reel": "reel_9x16", "feed": "reel_9x16", "story": "reel_9x16"}
 
 
 @pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
-def test_off_the_writer_is_unchanged_and_the_validator_matches_the_prod_kit(tmp_path):
+def test_on_the_writer_makes_the_new_shape_and_the_validator_still_takes_the_old_one(monkeypatch, tmp_path):
     slots = [1, 2, 3, 5, 6, 7]
-    m = one_hashtag(mf.build_manifest(day_spec(slots), repo=video_repo(tmp_path, [f"story-{s}" for s in slots])))
-    assert ig(m) == {1: ("story", "reel_9x16"), 2: ("reel", "reel_9x16"), 3: ("feed", "feed_4x5"), 6: ("feed", "feed_4x5")}
-    assert all("topic" not in p["platforms"]["threads"] for p in m["posts"])
+    repo = video_repo(tmp_path, [f"story-{s}" for s in slots])
+    m = one_hashtag(mf.build_manifest(day_spec(slots), repo=repo))
+    assert ig(m) == {1: ("feed", "reel_9x16"), 2: ("reel", "reel_9x16"), 3: ("feed", "reel_9x16"), 6: ("feed", "reel_9x16")}
+    assert {p["slot"]: p["platforms"]["threads"]["topic"] for p in m["posts"]} == {
+        1: "Earnings", 2: "Stocks", 3: "Stocks", 5: "Earnings", 6: "Stock Market", 7: "Stock Market"}
     assert mf.validate_manifest(m, "2026-09-29") == []
+    # The same day as the writer made it before the switch (a Story, 4:5 feed videos, no topic) stays valid:
+    # the kit takes both, so a manifest published before the switch is never rejected.
+    monkeypatch.setattr(mf, "KIT_AUDIT_FIXES_LIVE", False)
+    old = one_hashtag(mf.build_manifest(day_spec(slots), repo=repo))
+    monkeypatch.setattr(mf, "KIT_AUDIT_FIXES_LIVE", True)
+    assert ig(old) == {1: ("story", "reel_9x16"), 2: ("reel", "reel_9x16"), 3: ("feed", "feed_4x5"), 6: ("feed", "feed_4x5")}
+    assert all("topic" not in p["platforms"]["threads"] for p in old["posts"])
+    assert mf.validate_manifest(old, "2026-09-29") == []
+    # Still rejected: a feed video that is neither the 9:16 nor the 4:5 file, a topic outside the kit's list.
     p3 = next(p for p in m["posts"] if p["slot"] == 3)
-    p3["platforms"]["instagram"].update(media="reel_9x16", media_url=p3["media"]["reel_9x16"])
-    p3["platforms"]["threads"]["topic"] = "Stocks"
+    p3["platforms"]["instagram"].update(media="square_1x1", media_url=p3["media"]["square_1x1"])
+    p3["platforms"]["threads"]["topic"] = "Finance"
     errors = mf.validate_manifest(m, "2026-09-29")
-    assert "posts[2].platforms.instagram.media: must be feed_4x5 for a video" in errors
-    assert "posts[2].platforms.threads: unknown field 'topic'" in errors
+    assert "posts[2].platforms.instagram.media: must be reel_9x16 or feed_4x5 for a video" in errors
+    assert "posts[2].platforms.threads.topic: must be one of Stocks, Stock Market, Earnings, Investing" in errors
 
 
 def test_live_weekday_mix_is_one_reel_and_four_feed_posts(live):
