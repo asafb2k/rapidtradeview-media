@@ -215,3 +215,24 @@ def test_promo_reel_comes_on_top_of_the_instagram_mix(tmp_path):
     assert mf.validate_manifest(m, "2026-09-29") == []
     m["posts"][1]["category"] = "insider_trade"    # a second Reel that is not a promo still breaks the mix
     assert any("2 Instagram reel posts" in e for e in mf.validate_manifest(m, "2026-09-29"))
+
+
+def test_check_spec_lists_a_video_posts_still_for_the_media_commit(tmp_path):
+    """The still (still/feed_4x5.jpg + .png, Threads web fallback) ships in the same commit as the MP4s; not in the manifest."""
+    repo = video_repo(tmp_path, ["trade-a"])
+    pkg = tmp_path / "post-package.json"
+    pkg.write_text("{}", encoding="utf-8")
+    spec = tmp_path / "spec.json"
+    spec.write_text(json.dumps({"date": "2026-09-29", "posts": [{"slot": 2, "story_id": "trade-a", "post_package": str(pkg)}]}),
+                    encoding="utf-8")
+    out = tmp_path / "files.txt"
+    assert mf.main(["--repo", str(repo), "check-spec", "--spec", str(spec), "--list-out", str(out)]) == 0
+    assert not any("still/" in x for x in out.read_text(encoding="utf-8").split())
+    still = repo / "v" / "2026-09-29" / "trade-a" / "still"
+    still.mkdir()
+    (still / "feed_4x5.jpg").write_bytes(b"\xff\xd8\xff\xe0" + b"\x00" * 100)
+    (still / "feed_4x5.png").write_bytes(b"\x89PNG\r\n\x1a\n" + b"\x00" * 100)
+    assert mf.main(["--repo", str(repo), "check-spec", "--spec", str(spec), "--list-out", str(out)]) == 0
+    listed = out.read_text(encoding="utf-8").split()
+    assert "v/2026-09-29/trade-a/still/feed_4x5.jpg" in listed and "v/2026-09-29/trade-a/still/feed_4x5.png" in listed
+    assert "v/2026-09-29/trade-a/reel_9x16.mp4" in listed

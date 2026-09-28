@@ -10,6 +10,12 @@ import daily  # noqa: E402
 MP4_HEAD = b"\x00\x00\x00\x18ftypisom"
 
 
+def _still(sdir):
+    (sdir / "still").mkdir(parents=True, exist_ok=True)
+    (sdir / "still" / "feed_4x5.jpg").write_bytes(b"\xff\xd8\xff\xe0" + b"\x00" * 100)
+    (sdir / "still" / "feed_4x5.png").write_bytes(b"\x89PNG\r\n\x1a\n" + b"\x00" * 100)
+
+
 def plan(tmp):
     p = {"date": "2026-09-28", "day_type": "weekday", "slots": [
         {"slot": 2, "time_et": "09:45", "status": "filled", "category": "insider_trade", "template": "trade",
@@ -36,8 +42,13 @@ def test_stories_and_stage(tmp_path):
         (sdir / f"{f}.mp4").write_bytes(MP4_HEAD + b"\x00" * 20_000)
     (sdir / "post-package.json").write_text("{}", encoding="utf-8")
     (sdir / "qa-passed.json").write_text('{"passed": true}', encoding="utf-8")
+    # A video without its still (the Threads fallback) is not staged.
+    assert daily.main(["stage", "--plan", str(pp), "--work", str(work), "--spec", str(spec), "--repo", str(repo)]) == 2
+    _still(sdir)
     assert daily.main(["stage", "--plan", str(pp), "--work", str(work), "--spec", str(spec), "--repo", str(repo)]) == 0
     assert (repo / "v" / "2026-09-28" / "len-berkshire-hathaway" / "square_1x1.mp4").exists()
+    still = repo / "v" / "2026-09-28" / "len-berkshire-hathaway" / "still"
+    assert sorted(p.name for p in still.iterdir()) == ["feed_4x5.jpg", "feed_4x5.png"]
     s = json.loads(spec.read_text(encoding="utf-8"))
     assert [p["slot"] for p in s["posts"]] == [2]
 
@@ -83,6 +94,7 @@ def _rendered(sdir):
         (sdir / f"{f}.mp4").write_bytes(MP4_HEAD + b"\x00" * 20_000)
     (sdir / "post-package.json").write_text("{}", encoding="utf-8")
     (sdir / "qa-passed.json").write_text("{}", encoding="utf-8")
+    _still(sdir)
 
 
 def test_a_held_slot_is_left_empty_and_never_staged(tmp_path):

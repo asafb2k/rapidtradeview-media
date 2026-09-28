@@ -4,6 +4,8 @@ Usage (conda python):
   hook_v6cat.py --data DATA.json --out DIR [--dry-run] [--use-existing ID]
       Maps the selected story (data.json, schema rtv-daily-story/1) to the growth-video category tools, checks
       their QA passed, then copies the media and post-package.json into DIR, where daily.py stage picks them up.
+      A video also gets its still (frame 0 + brand footer, growth-video scripts/v6_still.py): DIR/still/feed_4x5.jpg + .png,
+      for platforms where a video upload fails (Threads web).
       --use-existing reuses an already rendered categories/<ID>/ instead of rendering. Exit 0 = DIR holds
       QA-passed media; anything else = the story is skipped (the reason is printed).
 
@@ -83,8 +85,9 @@ def main(argv: list[str] | None = None) -> int:
     images = data["category"] in ("earnings_today", "earnings_week")
     cmds = image_steps(data, a.python) if images else [[a.python, "scripts/v6cat/make.py", *make_args(data)]]
     rid = a.use_existing or data["story_id"]
+    still = None if images else [a.python, "scripts/v6_still.py", "category", "--id", rid]
     if a.dry_run:
-        for cmd in cmds:
+        for cmd in cmds + ([still] if still else []):
             print(f"would run in {VIDEO_ROOT}: {' '.join(cmd)}")
         return 0
     if not a.use_existing:
@@ -124,10 +127,20 @@ def main(argv: list[str] | None = None) -> int:
     if missing or not ev.get("files"):
         print(f"{src / 'evidence'}: evidence files missing ({', '.join(missing) or 'none listed'}); story skipped")
         return 1
+    if still:
+        print(f"running in {VIDEO_ROOT}: {' '.join(still)}", flush=True)
+        if subprocess.run(still, cwd=VIDEO_ROOT).returncode:
+            print("v6_still.py failed; story skipped")
+            return 1
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     for f in files:
         shutil.copy2(src / f, out / f)
+    if still:
+        (out / "still").mkdir(exist_ok=True)
+        for ext in ("jpg", "png"):
+            shutil.copy2(src / "still" / f"feed_4x5.{ext}", out / "still" / f"feed_4x5.{ext}")
+        files = files + ["still/feed_4x5.jpg", "still/feed_4x5.png"]
     (out / "evidence").mkdir(exist_ok=True)
     for n in ev["files"]:
         shutil.copy2(src / "evidence" / n, out / "evidence" / n)

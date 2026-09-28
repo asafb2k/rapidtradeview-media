@@ -11,7 +11,9 @@ Usage (conda python):
       For each story of this run (DIR/stories.json, written by `stories`: a slot already published
       today is never staged again) that rendered and passed QA (DIR/<story_id>/qa-passed.json, written by
       run_daily.ps1 after the QA hook exits 0): check its three MP4s and post-package.json, copy the
-      MP4s to REPO/v/<date>/<story_id>/, and write the manifest spec (manifest.py write --spec).
+      MP4s to REPO/v/<date>/<story_id>/, and write the manifest spec (manifest.py write --spec). A video story
+      must also hold its still (still/feed_4x5.jpg + .png: frame 0 + brand footer, for platforms where a video
+      upload fails); it is copied to v/<date>/<story_id>/still/ and committed with the MP4s (not in the manifest).
       Exit 2 when nothing is ready to stage.
 
 Rendered outputs each story directory must hold (the render / package hooks write them): a
@@ -124,6 +126,9 @@ def rendered_files(sdir: Path) -> tuple[list[str], str | None]:
     return (images, None) if not bad else ([], f"not a PNG / JPEG: {', '.join(bad)}")
 
 
+STILL_FILES = ("feed_4x5.jpg", "feed_4x5.png")   # a video post's still (Threads web fallback), in still/
+
+
 def cmd_stage(a: argparse.Namespace) -> int:
     plan = _load(Path(a.plan))
     work, repo = Path(a.work), Path(a.repo)
@@ -145,10 +150,19 @@ def cmd_stage(a: argparse.Namespace) -> int:
         if not (sdir / "post-package.json").exists():
             problems.append(f"slot {s['slot']} {s['story_id']}: post-package.json missing")
             continue
+        stills = [f"still/{n}" for n in STILL_FILES] if files[0].endswith(".mp4") else []
+        bad = [n for n in stills if not is_image(sdir / n)]
+        if bad:
+            problems.append(f"slot {s['slot']} {s['story_id']}: video without its still ({', '.join(bad)} missing or not an image)")
+            continue
         dest = repo / "v" / date / s["story_id"]
         dest.mkdir(parents=True, exist_ok=True)
         for name in files:
             shutil.copy2(sdir / name, dest / name)
+        if stills:
+            (dest / "still").mkdir(exist_ok=True)
+            for name in stills:
+                shutil.copy2(sdir / name, dest / name)
         if (sdir / "evidence").is_dir():   # the API snapshots the post-package cites (source_urls[0])
             (dest / "evidence").mkdir(exist_ok=True)
             for f in sorted((sdir / "evidence").iterdir()):

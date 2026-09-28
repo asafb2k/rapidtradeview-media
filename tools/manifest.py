@@ -27,7 +27,8 @@ subcommand and defaults to this repo):
       pass, 1 = a failure, 2 = nothing to check (no manifest, or nothing due in the window).
   manifest.py check-spec --spec SPEC.json [--list-out FILE]
       Every post has its post-package and its files in v/<date>/<story_id>/; writes the repo paths of
-      those files to FILE (for git add). Exit 1 with the missing ones.
+      those files to FILE (for git add), with a video post's still (still/feed_4x5.jpg + .png) when present, so
+      it ships in the same commit (the manifest does not list it). Exit 1 with the missing ones.
 
 Media: a video post has reel_9x16.mp4, feed_4x5.mp4 and square_1x1.mp4; an image post has PNG or JPEG
 images (feed_4x5, square_1x1, pin_2x3, story_9x16); a post may carry both ("media_type" in the spec
@@ -887,6 +888,8 @@ def cmd_check_spec(a: argparse.Namespace) -> int:
         ev_problems, ev_files = evidence_files(repo, spec["date"], p["story_id"], Path(p.get("post_package", "")))
         problems += [f"slot {p.get('slot')} {p.get('story_id')}: {x}" for x in ev_problems]
         evidence += ev_files
+        still_dir = repo / "v" / spec["date"] / p["story_id"] / "still"
+        evidence += [still_dir / n for n in ("feed_4x5.jpg", "feed_4x5.png") if (still_dir / n).is_file()]
     if problems:
         return _fail(problems)
     if a.list_out:
