@@ -96,7 +96,7 @@ PASS_TIMES = {"morning": "05:00", "reports": "10:00", "picks": "13:45"}
 PREFLIGHT_WINDOW_MIN = (60, 90)
 # Held posts ("status": "held") go into the live manifest only once the kit that knows the field is on prod:
 # the kit before it rejects an unknown field and would drop the whole day. Set True with that release.
-HELD_STATUS_LIVE = False
+HELD_STATUS_LIVE = True  # kit with "held" live on prod since main 786fc27a (2026-09-28)
 # The picks slot is filled by a later pass: its Instagram Story is held for it.
 RESERVED_IG = {4: "story"}
 WEEKEND_SLOTS = {1: "12:00"}
@@ -838,10 +838,13 @@ def cmd_preflight(a: argparse.Namespace) -> int:
     for r in reports:
         write_json(work / f"preflight-{r['slot']}.json", r)
         print(f"slot {r['slot']} {r['time_et']} {r['story_id']}: {r['result'].upper()} "
-              f"({r['minutes_before_post']} min before the post; {r['checks']['numbers_checked']} numbers, "
+              f"({r['minutes_before_post']} min before the post; {r['checks']['numbers_checked']} numbers "
+              f"({len(r['checks']['numbers_derived'])} derived), "
               f"{r['checks']['dates_checked']} dates checked)")
         for f in r["failures"]:
             print(f"  FAIL {f}")
+        for d in r["checks"]["numbers_derived"]:
+            print(f"  derived {d}")
         for w in r["warnings"]:
             print(f"  warn {w}")
     failed = [r for r in reports if r["result"] == "fail"]

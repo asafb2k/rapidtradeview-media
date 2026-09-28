@@ -12,6 +12,10 @@ Run through `manifest.py preflight` (see there for the CLI). For each post it re
       dates come from on every platform (third-party calendar / company-confirmed / investor relations);
   (c) every number in the texts appears in the post's data (data.json of the story; the post-package's
       data_file; never the post-package's own texts), allowing the text's rounding and K / M / B / % units;
+      a number that is the EXACT sum or difference of two numeric fields of the data of the same kind
+      (two share counts, held after - bought, two value_usd ...) passes as "derived", with its formula in
+      the report; a data.json may also list derived figures itself ({"derived_numbers": [{"value":
+      15000, "formula": "..."}]}), which count as plain data;
   (d) freshness: every date written in the texts is a date the data holds; the data's age is reported.
 A report per slot goes to D:/rtv-ops/tracks/growth/research/daily-video/<date>/preflight-<slot>.json.
 """
@@ -205,14 +209,46 @@ def _walk(obj, strings: list[str], numbers: list[Decimal]) -> None:
         strings.append(obj)
 
 
+# Keys that name a container, not a quantity: a leaf under them takes the nearest meaningful key above.
+GENERIC_KEYS = {"value", "raw", "display", "text", "evidence", "source_text", "decimal"}
+# Share counts are one kind (held before = held after - bought; two purchases add up).
+SHARE_KEYS = {"shares", "holdings_after", "held_after", "held_before", "holdings_before", "bought", "shares_bought",
+              "shares_owned", "shares_owned_following_transaction"}
+NUMERIC_STRING = re.compile(r"[+-]?\d+(\.\d+)?")
+
+
+def _leaves(obj, path: str = "", key: str | None = None, out: list | None = None) -> list[tuple[str, str, Decimal]]:
+    """(path, kind, value) of every numeric field (a JSON number, or a string that is only a number)."""
+    out = [] if out is None else out
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            _leaves(v, f"{path}.{k}", key if k.lower() in GENERIC_KEYS else k.lower(), out)
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            _leaves(v, f"{path}[{i}]", key, out)
+    elif isinstance(obj, bool) or obj is None:
+        pass
+    elif isinstance(obj, (int, float)) or (isinstance(obj, str) and NUMERIC_STRING.fullmatch(obj.strip())):
+        try:
+            v = Decimal(str(obj).strip())
+        except InvalidOperation:
+            return out
+        if key and v != 0:
+            out.append((path, "shares" if key in SHARE_KEYS else key, v))
+    return out
+
+
 class DataFacts:
     """Every number and date the post's data holds (numbers as written and scaled by their units)."""
 
     def __init__(self, docs: list[object], year: int):
         strings: list[str] = []
         numbers: list[Decimal] = []
-        for d in docs:
+        self.kinds: dict[str, list[tuple[str, Decimal]]] = {}
+        for i, d in enumerate(docs):
             _walk(d, strings, numbers)
+            for path, kind, v in _leaves(d, f"doc{i}"):
+                self.kinds.setdefault(kind, []).append((path, v))
         self.values: set[Decimal] = {abs(n) for n in numbers}
         self.dates: set[str] = set()
         for s in strings:
@@ -242,7 +278,21 @@ class DataFacts:
         return False
 
 
-def number_failures(post: dict, facts: DataFacts) -> tuple[list[str], int]:
+    def derived(self, v: Decimal) -> str | None:
+        """How v is the exact sum or difference of two numeric fields of one kind, or None."""
+        for kind, leaves in self.kinds.items():
+            by_value: dict[Decimal, list[str]] = {}
+            for path, x in leaves:
+                by_value.setdefault(x, []).append(path)
+            for path, x in leaves:
+                for other, sign in ((v - x, "+"), (x - v, "-")):
+                    partners = [q for q in by_value.get(other, []) if q != path]
+                    if partners and other > 0:
+                        return f"{x} {sign} {other} = {v} ({kind}: {path} {sign} {partners[0]})"
+        return None
+
+
+def number_failures(post: dict, facts: DataFacts, derived: list[str] | None = None) -> tuple[list[str], int]:
     out, checked = [], 0
     seen = set()
     for plat, items in post_texts(post).items():
@@ -253,8 +303,14 @@ def number_failures(post: dict, facts: DataFacts) -> tuple[list[str], int]:
                 if key in seen:
                     continue
                 seen.add(key)
-                if not facts.has_number(v, dec, unit):
-                    out.append(f"(c) {plat}.{label}: the number \"{token}\" is not in the post's data")
+                if facts.has_number(v, dec, unit):
+                    continue
+                how = facts.derived(v) if not unit else None
+                if how:
+                    if derived is not None:
+                        derived.append(f"\"{token}\" ({plat}.{label}): {how}")
+                    continue
+                out.append(f"(c) {plat}.{label}: the number \"{token}\" is not in the post's data (nor an exact sum or difference of two of its fields)")
     return out, checked
 
 
@@ -418,9 +474,10 @@ def preflight(m: dict, date: str, repo: Path, work: Path, slots: set[int] | None
             except (OSError, ValueError) as e:
                 notes.append(f"{f}: unreadable ({type(e).__name__})")
         n_checked = d_checked = 0
+        derived: list[str] = []
         if docs:
             facts = DataFacts(docs, year)
-            nf, n_checked = number_failures(post, facts)
+            nf, n_checked = number_failures(post, facts, derived)
             df, d_checked = date_failures(post, facts, year)
             failures += nf + df
         else:
@@ -439,7 +496,8 @@ def preflight(m: dict, date: str, repo: Path, work: Path, slots: set[int] | None
             "minutes_before_post": minutes_left, "result": "fail" if failures else "pass",
             "failures": failures, "warnings": warnings + (notes if docs else []),
             "checks": {"media": media, "source_urls": post.get("source_urls"), "data_files": [str(f) for f in files],
-                       "numbers_checked": n_checked, "dates_checked": d_checked, "data_age_hours": age},
+                       "numbers_checked": n_checked, "numbers_derived": derived, "dates_checked": d_checked,
+                       "data_age_hours": age},
             "status_in_manifest": post.get("status", "ready"),
         })
     work.mkdir(parents=True, exist_ok=True)

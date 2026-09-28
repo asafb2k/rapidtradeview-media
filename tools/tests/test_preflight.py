@@ -95,5 +95,27 @@ def test_held_status_rules():
     assert any("status: must be held" in e for e in mf.validate_manifest(m, "2026-09-27"))
 
 
-def test_the_live_manifest_is_not_held_before_the_kit_knows_the_field(tmp_path, capsys):
-    assert mf.HELD_STATUS_LIVE is False  # flip with the kit release that shows "held"
+def test_held_status_is_live_with_the_kit():
+    assert mf.HELD_STATUS_LIVE is True  # the kit that shows "held" is on prod (main 786fc27a)
+
+
+def test_exact_sums_and_differences_of_one_kind_pass_as_derived():
+    # Pelosi PTR: 10,000 + 5,000 BE shares; Uber Form 4: held before = held after - bought.
+    facts = pf.DataFacts([{"transactions": [{"shares": 10000, "description": "Purchased 10,000 shares."},
+                                            {"shares": 5000}, {"shares": {"value": 10000}}]},
+                          {"transactions": [{"shares": 141000, "holdings_after": 1367100, "value_usd": 10005952.2}]}], 2026)
+    derived: list[str] = []
+    ok = post({"x": "plus 15,000 BE shares; 1,226,100 held before; 25,000 shares in all"})
+    fails, _ = pf.number_failures(ok, facts, derived)
+    assert [f for f in fails if "25,000" not in f] == []  # 25,000 is a sum of three: not derived
+    assert len(derived) == 2
+    assert derived[0].startswith('"15,000" (x.text): 10000 + 5000 = 15000 (shares:')
+    assert "1367100 - 141000 = 1226100" in derived[1]
+    # Two fields of different kinds never add up (a value in dollars plus a share count).
+    bad = post({"x": "10,146,952.2 dollars"})
+    assert pf.number_failures(bad, facts)[0]
+
+
+def test_derived_numbers_listed_in_the_data_count_as_data():
+    facts = pf.DataFacts([{"derived_numbers": [{"value": 25000, "formula": "10,000 + 5,000 + 10,000 shares"}]}], 2026)
+    assert pf.number_failures(post({"x": "25,000 shares"}), facts)[0] == []
