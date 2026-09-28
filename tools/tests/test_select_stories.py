@@ -149,3 +149,45 @@ def test_weak_recent_trades_give_way_to_the_famous_backlog():
 
 def test_recency_keeps_falling_for_the_backlog():
     assert [ss.recency(a) for a in (0, 3, 5, 6, 15, 40)] == [1.0, 0.55, 0.35, 0.34, 0.25, 0.15]
+
+
+def test_novelty_matches_any_accession_of_a_program():
+    prior = [ss.Posted(D(2026, 9, 28), "form4:0000921895-26-002608:GME", ["GME"], ["Ryan Cohen"])]
+    key = "form4:0000921895-26-002531+0000921895-26-002608:GME"
+    nov, why = ss.novelty(key, ["GME"], ["Someone Else"], D(2026, 11, 20), prior)
+    assert nov == 0.0 and "0000921895-26-002608" in why
+    ptr = [ss.Posted(D(2026, 9, 28), "ptr:20035143:BE+INTC", ["BE", "INTC"], ["Nancy Pelosi"])]
+    assert ss.novelty("ptr:20035143:INTC:buy", ["INTC"], ["X Y"], D(2026, 11, 20), ptr)[0] == 0.0
+    assert ss.novelty("ptr:20035143:NVDA:buy", ["NVDA"], ["X Y"], D(2026, 11, 20), ptr)[0] == 1.0
+
+
+def test_programs_merge_form4s_and_skip_posted_filings():
+    def t(acc, filed, v):
+        return ss.Trade("insider", "Berkshire Hathaway Inc", "bh", "LEN", "buy", filed, value_usd=v, rows=1,
+                        filings=[{"accession": acc, "index_url": "u", "filed": filed.isoformat(), "value_usd": v, "rows": 1}])
+    a, b = t("0001193125-26-397059", D(2026, 9, 21), 212.4e6), t("0001193125-26-403089", D(2026, 9, 25), 136.4e6)
+    (p,) = ss.merge_programs([b, a], [])
+    assert p.story_key == "form4:0001193125-26-397059+0001193125-26-403089:LEN" and p.filed == D(2026, 9, 25)
+    assert round(p.value_usd / 1e6, 1) == 348.8
+    (q,) = ss.merge_programs([b, a], [ss.Posted(D(2026, 9, 22), "form4:0001193125-26-397059:LEN", ["LEN"], ["Berkshire Hathaway Inc"])])
+    assert q.story_key == "form4:0001193125-26-403089:LEN"
+
+
+def test_multi_class_trading_symbol():
+    assert ss.primary_ticker("LEN, LEN.B", {"LEN": "Lennar"}) == "LEN"
+
+
+def test_senate_trades_are_not_renderable():
+    item = {"trade_id": 1, "figure": {"kind": "politician", "display_name": "Mitch McConnell", "slug": "mcconnell"}, "ticker": "WFC",
+            "side": "buy", "disclosure_date": "2026-09-25", "transaction_date": "2026-09-01", "owner": "spouse",
+            "amount": {"low": 15001, "high": 50000}, "source_url": "https://efdsearch.senate.gov/search/view/ptr/x/"}
+    api = StubApi({"/notable/feed?tab=insiders": {"items": [], "has_more": False}, "/notable/feed?tab=congress": {"items": [item], "has_more": False}})
+    fame = json.loads((TOOLS / "fame.json").read_text(encoding="utf-8"))
+    trades, dropped, _ = ss.gather_trades(api, D(2026, 9, 28), 3, {"WFC": "Wells Fargo"}, fame)
+    assert trades == [] and dropped["not_renderable"] == 1
+
+
+def test_the_big_tech_theme_waits_a_week():
+    prior = [ss.Posted(D(2026, 9, 28), "theme:congress_bigtech:2026-09-28", [], [], "congress_theme")]
+    s = ss.congress_theme_slot(StubApi({}), D(2026, 9, 29), "congress_30d", prior)
+    assert "at most one in 7 days" in s["empty"]

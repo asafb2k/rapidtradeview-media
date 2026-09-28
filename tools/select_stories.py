@@ -33,9 +33,20 @@ A trade slot takes a recent trade scoring >= 0.30 (MIN_TRADE_SCORE). Below that 
 trades by a famous person (fame.json, or a famous executive) filed within the last 30 days and in no
 earlier manifest, ranked by the same score. Nothing qualifies -> the slot stays empty.
 
-Amounts: one story = one Form 4 here (its API rows summed). A buying program often spans several
-Form 4s (Berkshire's LEN buys: 2026-09-21 $212.4M and 2026-09-25 $136.4M), so the API figure is never
-"the total": the trade template takes every number from the SEC XML of the filing(s) it shows.
+Amounts: an insider story is a buying PROGRAM: the person's open-market buys of one ticker across every
+Form 4 filed in the last 30 days that no earlier manifest carries (at most the latest 8 filings; Berkshire's
+LEN buys: 2026-09-21 $212.4M + 2026-09-25 $136.4M = one story). Recency = the latest filing. The story
+key lists every accession ("form4:<acc1>+<acc2>:LEN"), and novelty compares accessions, so a later pass
+never re-posts a filing inside an earlier story. The API figure is a sum of API rows, never "the total":
+the trade template (growth-video scripts/v6t-auto.py) takes every number from the SEC XML of the filings.
+Congress stories = one House PTR (the PDF on disclosures-clerk.house.gov) per member, ticker and side.
+Senate eFD reports are not renderable by the trade template (their site needs a terms click-through), so
+Senate trades are left out ("not_renderable").
+
+Slot 7 themes: congress_week (Mon) and congress_30d (Tue) render with the Congress Big Tech template for
+the last 7 / 30 days, at most once in 7 days (a theme posted in the previous 6 days leaves the slot empty);
+person_spotlight (Wed) is a trade story (the trade template) not already chosen for a trade slot;
+track_record (Thu) and insider_week (Fri) have no template yet (run_daily.ps1 logs the TODO).
 """
 from __future__ import annotations
 
@@ -78,12 +89,16 @@ RECENCY = {0: 1.0, 1: 0.85, 2: 0.7, 3: 0.55, 4: 0.45, 5: 0.35}
 def recency(age: int) -> float:
     return RECENCY[age] if age in RECENCY else round(max(0.15, 0.35 - 0.01 * (age - 5)), 3)
 TEMPLATES = {
-    "insider_trade": "trade", "congress_trade": "trade",
-    "earnings_today": "earnings_week", "earnings_week": "earnings_week",
+    "insider_trade": "trade", "congress_trade": "trade", "person_spotlight": "trade",
+    "earnings_today": "earnings_image", "earnings_week": "earnings_image",
     "earnings_report": "report_summary", "daily_picks": "daily_picks",
     "congress_week": "congress_theme", "congress_30d": "congress_theme", "congress_theme": "congress_theme",
-    "person_spotlight": None, "track_record": None, "insider_week": None,
+    "track_record": None, "insider_week": None,
 }
+MAX_PROGRAM_FILINGS = 8
+THEME_GAP_DAYS = 7
+CONGRESS_THEME_DAYS = {"congress_week": 7, "congress_30d": 30}
+HOUSE_PTR = re.compile(r"^https://disclosures-clerk\.house\.gov/public_disc/ptr-pdfs/\d{4}/(\d+)\.pdf$")
 WEEKDAY_THEMES = {0: "congress_week", 1: "congress_30d", 2: "person_spotlight", 3: "track_record", 4: "insider_week"}
 NY = None
 try:
@@ -234,6 +249,7 @@ class Posted:
     story_key: str
     tickers: list[str]
     people: list[str]
+    category: str = ""
 
 
 def prior_posts(repo: Path, target: dt.date, days: int = 60) -> list[Posted]:
@@ -250,14 +266,30 @@ def prior_posts(repo: Path, target: dt.date, days: int = 60) -> list[Posted]:
         except (OSError, ValueError):
             continue
         for p in m.get("posts", []):
-            out.append(Posted(day, str(p.get("story_key", "")), list(p.get("tickers") or []), list(p.get("people") or [])))
+            out.append(Posted(day, str(p.get("story_key", "")), list(p.get("tickers") or []), list(p.get("people") or []),
+                              str(p.get("category", ""))))
     return out
 
 
+def doc_ids(key: str) -> set[str]:
+    """The filings a story key covers: Form 4 accessions ("form4:<acc>+<acc>:TICKER") and House PTR
+    documents per ticker ("ptr:<doc>:<T>[+<T>][:side]" -> ptr:<doc>:<T>). Hand-written keys use the same shapes."""
+    parts = key.split(":")
+    if len(parts) >= 3 and parts[0] == "form4":
+        return {a for a in parts[1].split("+") if re.match(r"^\d{10}-\d{2}-\d{6}$", a)}
+    if len(parts) >= 3 and parts[0] == "ptr":
+        return {f"ptr:{parts[1]}:{t}" for t in parts[2].split("+") if t}
+    return set()
+
+
 def novelty(key: str, tickers: list[str], people: list[str], target: dt.date, prior: list[Posted]) -> tuple[float, str | None]:
+    mine = doc_ids(key)
     for p in prior:
         if p.story_key == key:
             return 0.0, f"already posted {p.date} ({key})"
+        shared = mine & doc_ids(p.story_key)
+        if shared:
+            return 0.0, f"filing {sorted(shared)[0]} already posted {p.date} ({p.story_key})"
         age = (target - p.date).days
         same_t = bool(set(tickers) & set(p.tickers))
         same_p = any(same_person(a, b) for a in people for b in p.people)
@@ -301,17 +333,27 @@ class Trade:
     parts: dict = field(default_factory=dict)
     novelty_note: str | None = None
     source: str = "recent"  # recent | backlog
+    # Insider programs: one entry per Form 4 (oldest first): accession, EDGAR index.json URL, filed, API value, rows.
+    filings: list[dict] = field(default_factory=list)
 
     @property
     def usd(self) -> float:
         return self.value_usd if self.kind == "insider" else (self.low + self.high) / 2
 
     @property
+    def accessions(self) -> list[str]:
+        if self.filings:
+            return [f["accession"] for f in self.filings]
+        acc, _ = sec_index_url(self.api_source_url)
+        return [acc] if acc else []
+
+    @property
     def story_key(self) -> str:
         if self.kind == "insider":
-            acc, _ = sec_index_url(self.api_source_url)
-            return f"form4:{acc or self.slug + ':' + self.filed.isoformat()}:{self.ticker}"
-        doc = (self.api_source_url or "").rstrip("/").rsplit("/", 1)[-1] or f"{self.slug}-{self.filed}"
+            accs = self.accessions
+            return f"form4:{'+'.join(accs) if accs else self.slug + ':' + self.filed.isoformat()}:{self.ticker}"
+        m = HOUSE_PTR.match(self.api_source_url or "")
+        doc = m.group(1) if m else ((self.api_source_url or "").rstrip("/").rsplit("/", 1)[-1] or f"{self.slug}-{self.filed}")
         return f"ptr:{doc}:{self.ticker}:{self.side}"
 
 
@@ -337,12 +379,25 @@ def listed(ticker: str | None, names: dict[str, str]) -> bool:
     return ticker in names or ticker.replace(".", "-") in names
 
 
+def primary_ticker(raw: str | None, names: dict[str, str]) -> str:
+    """The first listed symbol of an issuer's trading-symbol field: multi-class issuers file "LEN, LEN.B"
+    (Lennar's 2026-09-21 Form 4) where the next filing says "LEN"; both belong to one LEN story."""
+    raw = (raw or "").upper().strip()
+    if listed(raw, names):
+        return raw
+    for tok in re.split(r"[,;/\s]+", raw):
+        if tok and listed(tok, names):
+            return tok
+    return raw
+
+
 def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str], fame: dict, pages: int = 5) -> tuple[list[Trade], dict, list[str]]:
     """Grouped trades filed within `window` weekdays of the target; counts of what was left out; errors."""
     since = target
     while weekday_age(since - dt.timedelta(days=1), target) <= window:
         since -= dt.timedelta(days=1)
-    dropped = {"out_of_window": 0, "not_listed": 0, "sale_or_other": 0, "pre_planned": 0, "flagged_value": 0, "below_minimum": 0}
+    dropped = {"out_of_window": 0, "not_listed": 0, "sale_or_other": 0, "pre_planned": 0, "flagged_value": 0, "below_minimum": 0,
+               "not_renderable": 0}
     errors: list[str] = []
     groups: dict[tuple, Trade] = {}
 
@@ -366,7 +421,7 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
         if amt.get("value_flag") is not None or not isinstance(amt.get("value_usd"), (int, float)):
             dropped["flagged_value"] += 1
             continue
-        ticker = (it.get("ticker") or "").upper()
+        ticker = primary_ticker(it.get("ticker"), names)
         if not listed(ticker, names):
             dropped["not_listed"] += 1
             continue
@@ -374,7 +429,8 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
         t = groups.get(key)
         if t is None:
             t = groups[key] = Trade("insider", fig.get("display_name") or "", fig.get("slug") or "", ticker, "buy", d(filed),
-                                    role=fig.get("title") or fig.get("role"), owner=it.get("owner"), api_source_url=it.get("source_url"))
+                                    role=fig.get("title") or fig.get("role"), owner=it.get("owner"), api_source_url=it.get("source_url"),
+                                    company=names.get(ticker) or names.get(ticker.replace(".", "-")))
         t.value_usd += float(amt["value_usd"])
         t.shares += float(amt.get("shares") or 0)
         t.rows += 1
@@ -396,19 +452,23 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
         if it.get("side") not in ("buy", "sell") or fig.get("kind") != "politician":
             dropped["sale_or_other"] += 1
             continue
-        ticker = (it.get("ticker") or "").upper()
+        ticker = primary_ticker(it.get("ticker"), names)
         if not listed(ticker, names):
             dropped["not_listed"] += 1
             continue
         if amt.get("low") is None and amt.get("high") is None:
             dropped["flagged_value"] += 1
             continue
+        if not HOUSE_PTR.match(it.get("source_url") or ""):
+            dropped["not_renderable"] += 1  # Senate eFD (terms click-through) or no PDF: the trade template cannot show it
+            continue
         key = ("congress", fig.get("slug"), ticker, it["side"], it.get("source_url"))
         t = groups.get(key)
         if t is None:
             t = groups[key] = Trade("congress", fig.get("display_name") or "", fig.get("slug") or "", ticker, it["side"], d(filed),
                                     party=fig.get("party"), chamber=fig.get("chamber"), state=fig.get("state"),
-                                    owner=it.get("owner"), api_source_url=it.get("source_url"))
+                                    owner=it.get("owner"), api_source_url=it.get("source_url"),
+                                    company=names.get(ticker) or names.get(ticker.replace(".", "-")))
         t.low += float(amt.get("low") or 0)
         t.high += float(amt.get("high") or amt.get("low") or 0)
         t.rows += 1
@@ -419,8 +479,41 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
     trades = []
     for t in groups.values():
         t.famous_person = matches_any(t.name, fame["insiders"] if t.kind == "insider" else fame["members"])
+        if t.kind == "insider":
+            acc, _ = sec_index_url(t.api_source_url)
+            if acc:
+                t.filings = [{"accession": acc, "index_url": t.api_source_url, "filed": t.filed.isoformat(),
+                              "value_usd": round(t.value_usd, 2), "rows": t.rows}]
         trades.append(t)
     return trades, dropped, errors
+
+
+def merge_programs(trades: list[Trade], prior: list[Posted]) -> list[Trade]:
+    """Insider buying programs: one Trade per person and ticker covering every Form 4 in `trades` (filed in the
+    last 30 days) that no earlier manifest carries, the latest MAX_PROGRAM_FILINGS of them. A program whose
+    filings were all posted keeps its latest filing, so novelty scores it 0 with the reason."""
+    posted = set().union(*(doc_ids(p.story_key) for p in prior)) if prior else set()
+    groups: dict[tuple, list[Trade]] = {}
+    out = [t for t in trades if t.kind != "insider"]
+    for t in trades:
+        if t.kind == "insider":
+            groups.setdefault((t.slug, t.ticker), []).append(t)
+    for parts in groups.values():
+        parts.sort(key=lambda t: (t.filed, t.accessions))
+        fresh = [t for t in parts if not (set(t.accessions) & posted)] or parts[-1:]
+        fresh = fresh[-MAX_PROGRAM_FILINGS:]
+        last = fresh[-1]
+        p = Trade("insider", last.name, last.slug, last.ticker, "buy", last.filed, role=last.role, owner=last.owner,
+                  api_source_url=last.api_source_url, famous_person=last.famous_person, company=last.company)
+        for t in fresh:
+            p.value_usd += t.value_usd
+            p.shares += t.shares
+            p.rows += t.rows
+            p.trade_ids += t.trade_ids
+            p.traded += t.traded
+            p.filings += t.filings
+        out.append(p)
+    return out
 
 
 def company_info(api: Api, ticker: str) -> tuple[str | None, float | None]:
@@ -459,7 +552,8 @@ def rank_trades(api: Api, trades: list[Trade], target: dt.date, fame: dict, prio
            or (t.kind == "insider" and t.value_usd >= 100_000 and TOP_OFFICER.search(t.role or ""))]
     pre.sort(key=lambda t: -t.usd)
     for t in pre[:MAX_SNAPSHOTS]:
-        t.company, t.market_cap = company_info(api, t.ticker)
+        name, t.market_cap = company_info(api, t.ticker)
+        t.company = name or t.company
     kept = []
     for t in pre:
         ok = (t.value_usd >= INSIDER_MIN_USD or famous_exec(t, tiers)) if t.kind == "insider" else (t.low >= CONGRESS_MIN_LOW or bool(t.famous_person))
@@ -502,17 +596,21 @@ def is_famous(t: Trade, tiers: dict) -> bool:
 
 def choose_trades(api: "Api", target: dt.date, window: int, names: dict[str, str], fame: dict, prior: list["Posted"],
                   n: int) -> tuple[list[Trade], list[Trade], list[Trade], dict, list[str]]:
-    """(chosen, recent ranked, backlog ranked, left-out counts, errors). Recent trades scoring
-    >= MIN_TRADE_SCORE first; the rest from the famous 30-day backlog that is in no earlier manifest."""
-    trades, dropped, errors = gather_trades(api, target, window, names, fame)
+    """(chosen, recent ranked, backlog ranked, left-out counts, errors). One read of the last 30 days;
+    insider Form 4s merged into buying programs (merge_programs). Programs / PTR stories whose latest
+    filing is within `window` weekdays and score >= MIN_TRADE_SCORE first; the rest from the famous
+    30-day backlog that is in no earlier manifest."""
+    days = weekday_age(target - dt.timedelta(days=BACKLOG_DAYS), target)
+    all_trades, dropped, errors = gather_trades(api, target, days, names, fame, pages=12)
+    all_trades = merge_programs(all_trades, prior)
+    trades = [t for t in all_trades if weekday_age(t.filed, target) <= window]
+    dropped["out_of_window"] += len(all_trades) - len(trades)
     ranked = rank_trades(api, trades, target, fame, prior, dropped) if trades else []
     chosen = pick_distinct([t for t in ranked if t.score >= MIN_TRADE_SCORE], n)
     backlog: list[Trade] = []
     if len(chosen) < n:
-        days = weekday_age(target - dt.timedelta(days=BACKLOG_DAYS), target)
-        old, _, berr = gather_trades(api, target, days, names, fame, pages=12)
-        errors.extend(e for e in berr if e not in errors)
-        old = [t for t in old if t.famous_person or (t.kind == "insider" and t.value_usd >= 100_000 and TOP_OFFICER.search(t.role or ""))]
+        old = [t for t in all_trades if not any(t is c for c in chosen)
+               and (t.famous_person or (t.kind == "insider" and t.value_usd >= 100_000 and TOP_OFFICER.search(t.role or "")))]
         tiers = fame["company_tiers_usd"]
         backlog = [t for t in rank_trades(api, old, target, fame, prior, {"below_minimum": 0})
                    if is_famous(t, tiers) and t.parts["novelty"] > 0]
@@ -526,15 +624,18 @@ def trade_story(t: Trade) -> dict:
     acc, index = sec_index_url(t.api_source_url)
     who = t.name
     if t.kind == "insider":
-        what = f"{who} ({t.role or 'insider'}) bought {usd_short(t.value_usd)} of {t.ticker} in this Form 4"
+        nf = len(t.filings) or 1
+        what = (f"{who} ({t.role or 'insider'}) bought {usd_short(t.value_usd)} of {t.ticker} in "
+                f"{'this Form 4' if nf == 1 else f'{nf} Form 4s'}")
         amount = {"value_usd": round(t.value_usd, 2), "shares": t.shares or None,
-                  "note": "API rows of this one Form 4 summed. A buying program can span several Form 4s: never call this "
-                          "the total; the trade template takes every number from the SEC XML of the filing(s) it shows."}
+                  "note": "API rows of the story's Form 4s summed; never call this the total: the trade template takes "
+                          "every number from the SEC XML of the filings."}
     else:
         tag = "-".join(x for x in [(t.party or "")[:1], t.state or ""] if x)
         what = f"{who}{f' ({tag})' if tag else ''} {'bought' if t.side == 'buy' else 'sold'} {usd_short(t.low)}-{usd_short(t.high)} of {t.ticker}"
         amount = {"low": t.low, "high": t.high}
-    sources = [u for u in [index, t.api_source_url if t.kind == "congress" else None,
+    indexes = [sec_index_url(f["index_url"])[1] for f in t.filings] if t.filings else [index]
+    sources = [u for u in [*indexes, t.api_source_url if t.kind == "congress" else None,
                            f"{SITE}/dashboard/{t.ticker}", f"{SITE}/smart-money/figures/{t.slug}" if t.slug else None] if u]
     return {
         "headline": what,
@@ -554,6 +655,7 @@ def trade_story(t: Trade) -> dict:
         "rows": t.rows,
         "trade_ids": t.trade_ids,
         "accession": acc,
+        "filings": t.filings,
         "api_source_url": t.api_source_url,
         "score": round(t.score, 4),
         "score_parts": t.parts,
@@ -742,50 +844,48 @@ def picks_slot(api: Api, target: dt.date, time_et: str) -> dict:
 # ---------------------------------------------------------------------------
 # Themes (slot 7 when there is no second report)
 
-def theme_slot(api: Api, target: dt.date, kind: str, trades_all: list[Trade], fame: dict, track_record: Path, names: dict[str, str]) -> dict:
-    if kind == "congress_week":
-        start = week_monday(target) - dt.timedelta(days=7)
-        end = start + dt.timedelta(days=4)
-        items, err = fetch_feed(api, "congress", start)
-        if err:
-            return {"empty": f"Congress feed did not load ({err})"}
-        rows = [it for it in items if isinstance(it, dict) and it.get("disclosure_date") and start <= d(it["disclosure_date"]) <= end
-                and it.get("side") in ("buy", "sell") and listed((it.get("ticker") or "").upper(), names)]
-        big = sorted([r for r in rows if ((r.get("amount") or {}).get("low") or 0) >= CONGRESS_MIN_LOW],
-                     key=lambda r: -((r.get("amount") or {}).get("high") or 0))
-        if len(big) < 3:
-            return {"empty": f"only {len(big)} Congress trades of $15K+ filed {start}..{end} (need 3)"}
-        top = [{"member": r["figure"]["display_name"], "party": r["figure"].get("party"), "state": r["figure"].get("state"),
-                "ticker": r["ticker"], "side": r["side"], "low": r["amount"].get("low"), "high": r["amount"].get("high"),
-                "filed": r["disclosure_date"], "source_url": r.get("source_url")} for r in big[:5]]
-        return {"category": "congress_week", "story_id": f"congress-week-{start}", "story_key": f"theme:congress_week:{start}",
-                "tickers": sorted({t["ticker"] for t in top}), "people": sorted({t["member"] for t in top}),
-                "story": {"headline": f"Congress trades filed {start}..{end}: {len(rows)} trades, {len({r['figure']['slug'] for r in rows})} members",
-                          "trades": len(rows), "members": len({r["figure"]["slug"] for r in rows}), "top": top},
-                "sources": [f"{SITE}/congress-trades"] + [t["source_url"] for t in top if t["source_url"]]}
-    if kind == "congress_30d":
-        data, err = api.get("/notable/congress?days=30")
-        if err or not isinstance(data, dict):
-            return {"empty": f"/notable/congress did not load ({err or 'unreadable response'})"}
-        totals = data.get("totals") or {}
-        if (totals.get("trades") or 0) < 10:
-            return {"empty": f"only {totals.get('trades')} Congress trades in 30 days (need 10)"}
-        strip = lambda rows, k: [{"ticker": r["ticker"], k: r.get(k), "members": r.get("members")} for r in rows[:5]]
-        mb, ms = strip(data.get("most_bought") or [], "buys"), strip(data.get("most_sold") or [], "sells")
-        return {"category": "congress_30d", "story_id": f"congress-30d-{target}", "story_key": f"theme:congress_30d:{target}",
-                "tickers": sorted({r["ticker"] for r in mb + ms}), "people": [],
-                "story": {"headline": f"Congress, last 30 days: {totals.get('trades')} trades by {totals.get('members')} members",
-                          "since": data.get("since"), "totals": totals, "most_bought": mb, "most_sold": ms,
-                          "note": "Counts only; no returns (the kit's no-performance rule)."},
-                "sources": [f"{SITE}/congress-trades"]}
+BIG_TECH = ["AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "META"]  # growth-video scripts/v6cat/build_data.py BIG_TECH
+
+
+def congress_theme_slot(api: Api, target: dt.date, kind: str, prior: list[Posted]) -> dict:
+    """congress_week / congress_30d -> the Congress Big Tech template (growth-video make.py congress-theme) for
+    the last 7 / 30 days; at most one such theme in THEME_GAP_DAYS; the template needs 4+ Big Tech tickers."""
+    days = CONGRESS_THEME_DAYS[kind]
+    recent = [p for p in prior if p.category in ("congress_theme", "congress_week", "congress_30d")
+              and (target - p.date).days < THEME_GAP_DAYS]
+    if recent:
+        last = max(recent, key=lambda p: p.date)
+        return {"empty": f"a Congress Big Tech theme was posted {last.date} ({last.story_key}); at most one in {THEME_GAP_DAYS} days"}
+    data, err = api.get(f"/notable/congress?days={days}")
+    if err or not isinstance(data, dict):
+        return {"empty": f"/notable/congress?days={days} did not load ({err or 'unreadable response'})"}
+    counts = {r["ticker"]: r for lst in ("most_bought", "most_sold") for r in data.get(lst) or [] if isinstance(r, dict) and r.get("ticker")}
+    tickers = [t for t in BIG_TECH if t in counts]
+    if len(tickers) < 4:
+        return {"empty": f"only {len(tickers)} Big Tech tickers in the last {days} days of Congress trades (the template needs 4)"}
+    return {"category": "congress_theme", "story_id": f"theme-congress-bigtech-{days}d-{target}",
+            "story_key": f"theme:congress_bigtech:{days}d:{target}", "tickers": tickers, "people": [],
+            "story": {"headline": f"Congress split on Big Tech, last {days} days", "days": days, "theme": kind,
+                      "since": data.get("since"), "tickers": tickers,
+                      "counts": {t: {"buys": counts[t].get("buys"), "sells": counts[t].get("sells")} for t in tickers},
+                      "note": "Counts are disclosed trades (re-verified against the feed by the template), not people or dollars."},
+            "sources": [f"{SITE}/congress-trades"]}
+
+
+def theme_slot(api: Api, target: dt.date, kind: str, trades_all: list[Trade], fame: dict, track_record: Path, names: dict[str, str],
+               prior: list[Posted] | None = None, chosen: list[Trade] | None = None) -> dict:
+    if kind in CONGRESS_THEME_DAYS:
+        return congress_theme_slot(api, target, kind, prior or [])
     if kind == "person_spotlight":
-        famous = sorted([t for t in trades_all if t.famous_person], key=lambda t: -t.usd)
+        taken = chosen or []
+        famous = sorted([t for t in trades_all if t.famous_person and t.parts.get("novelty", 1) > 0
+                         and not any(t.ticker == o.ticker or same_person(t.name, o.name) or t.slug == o.slug for o in taken)],
+                        key=lambda t: -t.usd)
         if not famous:
-            return {"empty": "no famous person (fame.json) filed a trade in the window"}
+            return {"empty": "no famous person (fame.json) filed an unposted trade in the window that is not already a trade slot"}
         t = famous[0]
         slot = trade_slot(t)
-        slot.update({"category": "person_spotlight", "story_id": f"spotlight-{name_slug(t.name)}-{target}",
-                     "story_key": f"theme:person_spotlight:{t.slug}:{target}"})
+        slot.update({"category": "person_spotlight", "story_id": f"spotlight-{slot['story_id']}"})
         return slot
     if kind == "track_record":
         try:
@@ -878,7 +978,7 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
             pool = ranked
             if theme == "insider_week":  # the whole week so far, not only the 3-weekday window
                 pool, _, _ = gather_trades(api, target, target.weekday(), names, fame) if names else ([], {}, [])
-            t = theme_slot(api, target, theme, pool, fame, track_record, names)
+            t = theme_slot(api, target, theme, pool, fame, track_record, names, prior, chosen)
             if "empty" in t:
                 t = {"empty": f"no second report; theme {theme}: {t['empty']}"}
             slots[7] = t

@@ -17,7 +17,12 @@
   per-story data.json, renders, post-packages) stay private in
   D:\rtv-ops\tracks\growth\research\daily-video\<date>\; only the MP4s and manifest.json go to the
   public media repo. Render / QA / package commands come from tools\daily_hooks.json: a step that is
-  null there is a TODO, its story is skipped, and nothing is faked (No Fallbacks).
+  null there is a TODO, its story is skipped, and nothing is faked (No Fallbacks). Trades (Form 4
+  programs, House PTRs) render through growth-video scripts\v6t-auto.py (SEC XML / PTR PDF -> TradeV6 ->
+  full qa-v6t -> post-package); earnings still images, category videos and the Congress theme through
+  tools\hook_v6cat.py. A story whose hook fails (QA included) leaves its slot empty; the others publish.
+  To keep a planned slot empty (a weak trade after review), write <work>\hold.json before the pass:
+  {"slots": {"3": "why"}} or {"story_keys": {"<story_key>": "why"}}; daily.py stories logs each hold.
 
   Exit codes: 0 = manifest published and verified (or -NoPush / -SelectOnly done); 1 = a step failed;
   3 = nothing to publish (every slot empty, already published, or no story rendered).

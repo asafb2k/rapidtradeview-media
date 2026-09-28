@@ -14,17 +14,26 @@
   hour earlier in New York time; re-run this script after the change (the 13:45 picks pass would
   otherwise start at 12:45, before the picks publish, and only its retry window would be left).
 
-  Runs only while the user is logged on (InteractiveToken): no stored password. The PC must be on.
-  The passes share one run lock, so an overrunning pass delays the next instead of colliding.
+  Default: runs only while the user is logged on (InteractiveToken): no stored password. -LogonType S4U
+  runs the tasks whether or not the user is logged on, still without storing a password, but Windows only
+  lets an ELEVATED (Run as administrator) PowerShell register an S4U task ("Access is denied" otherwise;
+  checked 2026-09-28). S4U tasks reach the internet and local files (git over SSH with the key in
+  C:\Users\USER\.ssh), not password-protected network shares. The PC must be on either way.
+  -From YYYY-MM-DD: the first New York date the tasks may run (default today), e.g. to leave today to a
+  one-time task. The passes share one run lock, so an overrunning pass delays the next instead of colliding.
 
 .EXAMPLE
   powershell -NoProfile -ExecutionPolicy Bypass -File D:\rtvw\rapidtradeview-media\tools\register_daily_task.ps1 -PrintOnly
   powershell -NoProfile -ExecutionPolicy Bypass -File D:\rtvw\rapidtradeview-media\tools\register_daily_task.ps1
+  powershell -NoProfile -ExecutionPolicy Bypass -File ...\register_daily_task.ps1 -From 2026-09-29
+  (elevated) powershell -NoProfile -ExecutionPolicy Bypass -File ...\register_daily_task.ps1 -LogonType S4U
   powershell -NoProfile -ExecutionPolicy Bypass -File ...\register_daily_task.ps1 -Unregister
 #>
 [CmdletBinding()]
 param(
     [string]$NamePrefix = 'RapidTradeView daily videos',
+    [string]$From,
+    [ValidateSet('InteractiveToken', 'S4U')][string]$LogonType = 'InteractiveToken',
     [switch]$PrintOnly,
     [switch]$Unregister
 )
@@ -53,9 +62,12 @@ if ($Unregister) {
 $eastern = [System.TimeZoneInfo]::FindSystemTimeZoneById('Eastern Standard Time')
 $nowNy = [System.TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow, $eastern)
 
-# The next New York date on or after today whose weekday is in $Days, at $Hour:$Minute New York time, in UTC.
+$firstDay = $nowNy.Date
+if ($From) { $firstDay = [DateTime]::ParseExact($From, 'yyyy-MM-dd', $null) }
+
+# The next New York date on or after -From (default today) whose weekday is in $Days, at $Hour:$Minute New York time, in UTC.
 function Get-UtcStart([int]$Hour, [int]$Minute, [string[]]$Days) {
-    $d = $nowNy.Date
+    $d = $firstDay
     while ($Days -notcontains $d.DayOfWeek.ToString()) { $d = $d.AddDays(1) }
     $local = [DateTime]::SpecifyKind($d.AddHours($Hour).AddMinutes($Minute), [DateTimeKind]::Unspecified)
     return [System.TimeZoneInfo]::ConvertTimeToUtc($local, $eastern)
@@ -92,7 +104,7 @@ $Triggers  </Triggers>
   <Principals>
     <Principal id="Author">
       <UserId>$user</UserId>
-      <LogonType>InteractiveToken</LogonType>
+      <LogonType>$LogonType</LogonType>
       <RunLevel>LeastPrivilege</RunLevel>
     </Principal>
   </Principals>

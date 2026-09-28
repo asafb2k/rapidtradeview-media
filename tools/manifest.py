@@ -37,6 +37,9 @@ Rules checked (both here and in the kit):
     (images: .png or .jpg) and (--check-urls) answer 200 with Content-Type video/mp4 (image/png, image/jpeg);
   - X text and reply carry no "@"; every main text (Instagram caption, X text, Threads text,
     Pinterest description) carries "Not investment advice."; no text anywhere carries #insidertrading;
+  - X text carries EXACTLY ONE hashtag, counted inside the 280 weighted limit, so the posting agent posts
+    it verbatim and never trims (Growth lead 2026-09-28, after a 287-character post on 2026-09-27);
+    manifests dated X_ONE_HASHTAG_FROM or later (the 2026-09-27 / 09-28 ones predate the rule);
   - platform limits: X 280 (weighted), Threads 500, Instagram 2,200, Pinterest title 100 /
     description 500; alt text 500;
   - Instagram mix: weekdays at most 1 Reel, 2 feed posts and 2 Stories; weekends one post in all.
@@ -85,6 +88,10 @@ CATEGORIES = (
 )
 NOT_ADVICE = "Not investment advice."
 BANNED = re.compile(r"#insidertrading", re.IGNORECASE)
+# A hashtag as X links it: '#' not after a word character, '&' or '#', then word characters with at least one
+# letter ("#1" is not a hashtag). Same pattern as growth-video scripts/xtext.py X_HASHTAG.
+X_HASHTAG = re.compile(r"(?<![\w&#])#(?=\w*[A-Za-z])\w+")
+X_ONE_HASHTAG_FROM = "2026-09-29"
 ITEM_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$")
 STORY_ID = re.compile(r"^[a-z0-9][a-z0-9-]{0,79}$")
 TICKER = re.compile(r"^[A-Z]{1,5}([.-][A-Z]{1,2})?$")
@@ -369,6 +376,10 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
             elif plat == "x":
                 want = IMAGE_PLATFORM_MEDIA["x"] if image else (PLATFORM_MEDIA["x"],)
                 _text(errors, f"{pat}.text", block.get("text"), required=True, limit=LIMITS["x"], count=x_weighted_length, needs_advice=True, no_at=True)
+                if date >= X_ONE_HASHTAG_FROM and isinstance(block.get("text"), str):
+                    tags = X_HASHTAG.findall(block["text"])
+                    if len(tags) != 1:
+                        errors.append(f"{pat}.text: {len(tags)} hashtags {tags}; the X text carries exactly one (inside the 280)")
                 _text(errors, f"{pat}.reply", block.get("reply"), required=False, limit=LIMITS["x"], count=x_weighted_length, no_at=True)
             elif plat == "threads":
                 want = IMAGE_PLATFORM_MEDIA["threads"] if image else (PLATFORM_MEDIA["threads"],)

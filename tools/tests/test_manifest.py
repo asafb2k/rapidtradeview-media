@@ -159,3 +159,33 @@ def test_image_rules(tmp_path, mutate, needle):
 
 def test_expected_types():
     assert [mf.expected_type(u) for u in ("a/b.mp4", "a/b.png", "a/b.jpg")] == ["video/mp4", "image/png", "image/jpeg"]
+
+
+def as_tuesday(m, x_text):
+    m = copy.deepcopy(m)
+    m["date"], m["day_type"] = "2026-09-29", "weekday"
+    p = m["posts"][0]
+    p["id"] = f"video-2026-09-29-{p['story_id']}"
+    for k, v in p["media"].items():
+        p["media"][k] = v.replace("/2026-09-27/", "/2026-09-29/")
+    for plat in p["platforms"].values():
+        plat["media_url"] = plat["media_url"].replace("/2026-09-27/", "/2026-09-29/")
+    p["platforms"]["x"]["text"] = x_text
+    return m
+
+
+@pytest.mark.parametrize("text,ok", [
+    ("Dara Khosrowshahi bought Uber. Not investment advice. #InsiderBuying", True),
+    ("Dara Khosrowshahi bought Uber. Not investment advice.", False),                   # no hashtag
+    ("#1 pick. Not investment advice. #InsiderBuying #Form4", False),                   # two ("#1" is not a hashtag)
+    ("#1 $UBER pick, #2 $GME. Not investment advice. #Stocks", True),
+    ("a" * 250 + " Not investment advice. #InsiderBuying", False),                      # 288 weighted with the hashtag
+])
+def test_x_one_hashtag_inside_280_from_2026_09_29(m, text, ok):
+    errors = mf.validate_manifest(as_tuesday(m, text), "2026-09-29")
+    assert (not [e for e in errors if "platforms.x.text" in e]) == ok, errors
+
+
+def test_x_hashtag_rule_starts_2026_09_29(m):
+    assert mf.X_HASHTAG.findall(m["posts"][0]["platforms"]["x"]["text"]) == []
+    assert mf.validate_manifest(m, "2026-09-27") == []

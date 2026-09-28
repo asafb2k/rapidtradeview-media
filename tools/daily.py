@@ -5,9 +5,11 @@ Usage (conda python):
       For each filled slot: DIR/<story_id>/data.json (schema rtv-daily-story/1: the selected story, its
       sources and the slot) and DIR/stories.json (the list run_daily.ps1 renders). A slot that today's
       manifest already fills is left alone (never re-rendered, never replaced by a later pass), except
-      slot 7 when a report replaces the morning theme.
+      slot 7 when a report replaces the morning theme. A slot or story the Growth lead held in
+      DIR/hold.json is left empty: {"slots": {"3": "why"}, "story_keys": {"ptr:20035326:PG:sell": "why"}}.
   daily.py stage --plan PLAN.json --work DIR --spec SPEC.json [--slots 5,7] [--repo REPO]
-      For each story that rendered and passed QA (DIR/<story_id>/qa-passed.json, written by
+      For each story of this run (DIR/stories.json, written by `stories`: a slot already published
+      today is never staged again) that rendered and passed QA (DIR/<story_id>/qa-passed.json, written by
       run_daily.ps1 after the QA hook exits 0): check its three MP4s and post-package.json, copy the
       MP4s to REPO/v/<date>/<story_id>/, and write the manifest spec (manifest.py write --spec).
       Exit 2 when nothing is ready to stage.
@@ -51,15 +53,29 @@ def published(repo: Path, date: str) -> dict[int, dict]:
     return {p["slot"]: p for p in _load(path).get("posts", []) if isinstance(p, dict) and "slot" in p}
 
 
+def holds(work: Path) -> tuple[dict[int, str], dict[str, str]]:
+    """The Growth lead's holds for the day (work/hold.json): slots and story keys to leave empty."""
+    path = work / "hold.json"
+    if not path.exists():
+        return {}, {}
+    h = _load(path)
+    return {int(k): str(v) for k, v in (h.get("slots") or {}).items()}, {str(k): str(v) for k, v in (h.get("story_keys") or {}).items()}
+
+
 def cmd_stories(a: argparse.Namespace) -> int:
     plan = _load(Path(a.plan))
     work = Path(a.work)
     done = published(Path(a.repo), plan["date"])
+    held_slots, held_keys = holds(work)
     out = []
     for s in filled(plan, _slots(a.slots)):
         have = done.get(s["slot"])
         if have and not (s["slot"] == 7 and s["category"] == "earnings_report" and have.get("category") != "earnings_report"):
             print(f"slot {s['slot']}: already published today ({have.get('story_id')}); left as is")
+            continue
+        why = held_slots.get(s["slot"]) or held_keys.get(s["story_key"])
+        if why is not None:
+            print(f"slot {s['slot']}: HELD by {work / 'hold.json'} ({s['story_id']}, {s['story_key']}): {why}; left empty")
             continue
         sdir = work / s["story_id"]
         data = {"schema": STORY_SCHEMA, "date": plan["date"], "day_type": plan["day_type"], "slot": s["slot"], "time_et": s["time_et"],
@@ -113,7 +129,11 @@ def cmd_stage(a: argparse.Namespace) -> int:
     work, repo = Path(a.work), Path(a.repo)
     date = plan["date"]
     posts, problems = [], []
+    runs = work / "stories.json"
+    mine = {(x["slot"], x["story_id"]) for x in (_load(runs) if runs.exists() else [])}
     for s in filled(plan, _slots(a.slots)):
+        if (s["slot"], s["story_id"]) not in mine:
+            continue  # published by an earlier pass, held, or not this run's: never staged again
         sdir = work / s["story_id"]
         if not (sdir / "qa-passed.json").exists():
             problems.append(f"slot {s['slot']} {s['story_id']}: not rendered or QA not passed (no qa-passed.json)")
