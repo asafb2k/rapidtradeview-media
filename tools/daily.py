@@ -149,6 +149,11 @@ def cmd_stage(a: argparse.Namespace) -> int:
         dest.mkdir(parents=True, exist_ok=True)
         for name in files:
             shutil.copy2(sdir / name, dest / name)
+        if (sdir / "evidence").is_dir():   # the API snapshots the post-package cites (source_urls[0])
+            (dest / "evidence").mkdir(exist_ok=True)
+            for f in sorted((sdir / "evidence").iterdir()):
+                if f.is_file():
+                    shutil.copy2(f, dest / "evidence" / f.name)
         posts.append({"slot": s["slot"], "time_et": s["time_et"], "category": s["category"], "story_id": s["story_id"],
                       "story_key": s["story_key"], "tickers": s["tickers"], "people": s["people"],
                       "post_package": str(sdir / "post-package.json")})

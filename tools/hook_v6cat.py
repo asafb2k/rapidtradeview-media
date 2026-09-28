@@ -35,12 +35,13 @@ IMAGE_FORMATS = ("feed_4x5", "square_1x1", "pin_2x3", "story_9x16")
 
 def make_args(data: dict) -> list[str]:
     story, sid = data["story"], data["story_id"]
+    md = ["--media-date", data["date"]]   # post-package + evidence URLs point at v/<date>/<id>/ (daily.py stages there)
     if data["category"] == "daily_picks":
-        return ["daily-picks", "--id", sid, "--date", story["trade_date"]]
+        return ["daily-picks", "--id", sid, "--date", story["trade_date"], *md]
     if data["category"] == "earnings_report":
-        return ["report-summary", "--id", sid, "--report", story["report_id"]]
+        return ["report-summary", "--id", sid, "--report", story["report_id"], *md]
     if data["category"] == "congress_theme":
-        return ["congress-theme", "--id", sid, "--days", str(int(story["days"]))]
+        return ["congress-theme", "--id", sid, "--days", str(int(story["days"])), *md]
     raise SystemExit(f"hook_v6cat: no category video template for {data['category']}")
 
 
@@ -113,11 +114,24 @@ def main(argv: list[str] | None = None) -> int:
         if missing:
             print(f"{src}: missing {', '.join(missing)}; story skipped")
             return 1
+    pkg = json.loads((src / "post-package.json").read_text(encoding="utf-8"))
+    ev = pkg.get("evidence") or {}
+    want = f"https://asafb2k.github.io/rapidtradeview-media/v/{data['date']}/{data['story_id']}/evidence/index.json"
+    if ev.get("index_url") != want or (pkg.get("source_urls") or [None])[0] != want:
+        print(f"{src / 'post-package.json'}: source_urls[0] / evidence must be {want}; story skipped")
+        return 1
+    missing = [n for n in ev.get("files", []) if not (src / "evidence" / n).exists()]
+    if missing or not ev.get("files"):
+        print(f"{src / 'evidence'}: evidence files missing ({', '.join(missing) or 'none listed'}); story skipped")
+        return 1
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     for f in files:
         shutil.copy2(src / f, out / f)
-    print(f"copied {', '.join(files)} from {src} to {out}")
+    (out / "evidence").mkdir(exist_ok=True)
+    for n in ev["files"]:
+        shutil.copy2(src / "evidence" / n, out / "evidence" / n)
+    print(f"copied {', '.join(files)} + evidence/ ({len(ev['files'])} files) from {src} to {out}")
     return 0
 
 

@@ -67,6 +67,10 @@ def relative_reason(url: str) -> str | None:
 
 def source_failures(urls: list[str]) -> list[str]:
     pinned_hosts = {urlsplit(u).netloc for u in urls if relative_reason(u) is None}
+    # A post whose FIRST source is its published evidence snapshot (v/<date>/<id>/evidence/index.json: the exact
+    # API responses with request URL, fetch time and sha256) is pinned; the live pages after it are for readers.
+    if urls and urls[0].startswith(f"{mf.PAGES_BASE}/v/") and "/evidence/" in urls[0]:
+        return []
     out = []
     for u in urls:
         why = relative_reason(u)

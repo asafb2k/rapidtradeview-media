@@ -777,6 +777,22 @@ def cmd_validate(a: argparse.Namespace) -> int:
     return 0
 
 
+def evidence_files(repo: Path, date: str, sid: str, pkg_path: Path) -> tuple[list[str], list[Path]]:
+    """(problems, local files) of the evidence snapshot a post-package cites (growth-video scripts/v6cat/evidence.py):
+    v/<date>/<sid>/evidence/<name> for every name of pkg['evidence']['files']; none cited -> nothing to stage."""
+    try:
+        ev = _load(pkg_path).get("evidence") or {}
+    except (OSError, ValueError):
+        return [], []
+    names = ev.get("files") or []
+    base = f"{PAGES_BASE}/v/{date}/{sid}/evidence/"
+    if names and not str(ev.get("index_url", "")).startswith(base):
+        return [f"post-package evidence index {ev.get('index_url')} is not under {base}"], []
+    d = repo / "v" / date / sid / "evidence"
+    missing = [n for n in names if not (d / n).exists()]
+    return ([f"evidence file v/{date}/{sid}/evidence/{n} not staged" for n in missing], [d / n for n in names if (d / n).exists()])
+
+
 def spec_files(repo: Path, spec: dict) -> tuple[list[str], dict[str, Path]]:
     """(problems, {url: local file}) for every post of a spec: its post-package and the files of its
     media type in v/<date>/<story_id>/."""
@@ -852,11 +868,17 @@ def cmd_preflight(a: argparse.Namespace) -> int:
 
 def cmd_check_spec(a: argparse.Namespace) -> int:
     repo = Path(a.repo)
-    problems, files = spec_files(repo, _load(Path(a.spec)))
+    spec = _load(Path(a.spec))
+    problems, files = spec_files(repo, spec)
+    evidence: list[Path] = []
+    for p in spec.get("posts", []):
+        ev_problems, ev_files = evidence_files(repo, spec["date"], p["story_id"], Path(p.get("post_package", "")))
+        problems += [f"slot {p.get('slot')} {p.get('story_id')}: {x}" for x in ev_problems]
+        evidence += ev_files
     if problems:
         return _fail(problems)
     if a.list_out:
-        rel = sorted(str(f.relative_to(repo)).replace("\\", "/") for f in files.values())
+        rel = sorted(str(f.relative_to(repo)).replace("\\", "/") for f in list(files.values()) + evidence)
         with open(a.list_out, "w", encoding="utf-8", newline="\n") as fh:
             fh.write("\n".join(rel) + "\n")
     print(f"ready: {len(files)} files")
