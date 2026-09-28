@@ -5,11 +5,13 @@ re-validates it with the same rules; keep the two in step (same keys, same limit
 
 Usage (conda python: C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe; --repo goes before the
 subcommand and defaults to this repo):
-  manifest.py write --spec SPEC.json [--merge] [--check-urls] [--repo DIR]
+  manifest.py write --spec SPEC.json [--merge] [--replace-slot N ...] [--check-urls] [--repo DIR]
       Build v/<date>/manifest.json from a spec (the posts: slot, time_et, category, story_id,
       post_package path). Captions come verbatim from each post-package.json. Validates before
       writing; nothing is written when a rule fails. --merge keeps the existing manifest's posts
-      for slots the spec does not name.
+      for slots the spec does not name. --replace-slot N (with --merge): the spec deliberately
+      replaces the already-published post in slot N (a correction); refused unless slot N is in both
+      the published manifest and the spec, and the spec names no other published slot.
   manifest.py validate --date YYYY-MM-DD [--check-urls] [--remote] [--repo DIR]
       Validate the local manifest (or, with --remote, the one GitHub Pages serves).
   manifest.py wait-urls --spec SPEC.json [--timeout 900] [--repo DIR]
@@ -694,6 +696,19 @@ def cmd_write(a: argparse.Namespace) -> int:
         return _fail(missing)
     path = repo / "v" / date / "manifest.json"
     existing = _load(path) if a.merge and path.exists() else None
+    if a.replace_slot:
+        if not existing:
+            return _fail(["--replace-slot needs --merge and an existing manifest"])
+        have = {p.get("slot"): p for p in existing.get("posts", [])}
+        named = {p["slot"] for p in spec["posts"]}
+        bad = [f"--replace-slot {n}: slot {n} is not in the published manifest" for n in a.replace_slot if n not in have]
+        bad += [f"--replace-slot {n}: slot {n} is not in the spec" for n in a.replace_slot if n not in named]
+        bad += [f"slot {n} is already published ({have[n].get('story_id')}); name it with --replace-slot {n} to replace it"
+                for n in sorted(named & set(have)) if n not in a.replace_slot]
+        if bad:
+            return _fail(bad)
+        for n in a.replace_slot:
+            print(f"replacing slot {n}: {have[n].get('id')} (explicit --replace-slot)")
     try:
         m = build_manifest(spec, existing, repo=repo)
     except (ValueError, KeyError) as e:
@@ -799,6 +814,7 @@ def main(argv: list[str] | None = None) -> int:
     w = sub.add_parser("write")
     w.add_argument("--spec", required=True)
     w.add_argument("--merge", action="store_true")
+    w.add_argument("--replace-slot", type=int, action="append", default=[], help="replace this already-published slot (with --merge)")
     w.add_argument("--check-urls", action="store_true")
     v = sub.add_parser("validate")
     v.add_argument("--date", required=True)
