@@ -76,7 +76,7 @@ IG_IMAGE_MEDIA = {"feed": "feed_4x5", "story": "story_9x16"}  # an image post is
 MEDIA_TYPES = ("video", "image")
 # Owner-approved daily plan, New York time (Growth lead 2026-09-27: picks 14:00 after the ~13:30 publish,
 # report 15:00). Weekends: one post per platform.
-WEEKDAY_SLOTS = {1: "08:00", 2: "09:45", 3: "11:00", 4: "14:00", 5: "15:00", 6: "16:30", 7: "19:00"}
+WEEKDAY_SLOTS = {1: "08:00", 2: "09:45", 3: "11:00", 4: "14:00", 5: "15:00", 6: "16:30", 7: "19:00", 8: "20:30"}  # 8 = extra feature-promo slot, promo days only
 # Weekday passes of run_daily.ps1 (-Pass): which slots each one fills.
 PASSES = {"morning": (1, 2, 3, 6, 7), "reports": (5, 7), "picks": (4,)}
 # The picks slot is filled by a later pass: its Instagram Story is held for it.
@@ -85,6 +85,7 @@ WEEKEND_SLOTS = {1: "12:00"}
 CATEGORIES = (
     "earnings_today", "earnings_week", "insider_trade", "congress_trade", "daily_picks", "earnings_report",
     "congress_week", "congress_30d", "congress_theme", "person_spotlight", "track_record", "insider_week",
+    "product_promo",
 )
 NOT_ADVICE = "Not investment advice."
 BANNED = re.compile(r"#insidertrading", re.IGNORECASE)
@@ -102,7 +103,7 @@ DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 CONTROL = re.compile("[\u0000-\u0008\u000b-\u001f\u007f-\u009f\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069\ufeff]")
 LIMITS = {"x": 280, "threads": 500, "instagram": 2200, "pinterest_title": 100, "pinterest_description": 500, "alt": 500,
           "title": 200, "story_key": 200, "person": 120}
-MAX_POSTS = 7
+MAX_POSTS = 8
 UA = "RapidTradeView daily-video manifest (contact@rapidtradeview.trade)"
 
 TOP_KEYS = {"schema", "date", "day_type", "timezone", "generated_at", "posts"}
