@@ -190,3 +190,28 @@ def test_x_one_hashtag_inside_280_from_2026_09_29(m, text, ok):
 def test_x_hashtag_rule_starts_2026_09_29(m):
     assert mf.X_HASHTAG.findall(m["posts"][0]["platforms"]["x"]["text"]) == []
     assert mf.validate_manifest(m, "2026-09-27") == []
+
+
+def video_repo(tmp_path, sids):
+    for sid in sids:
+        d = tmp_path / "v" / "2026-09-29" / sid
+        d.mkdir(parents=True)
+        for f in mf.FORMATS:
+            (d / f"{f}.mp4").write_bytes(b"\x00\x00\x00\x18ftypmp42" + b"\x00" * 100)
+    return tmp_path
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+def test_promo_reel_comes_on_top_of_the_instagram_mix(tmp_path):
+    repo = video_repo(tmp_path, ["trade-a", "promo"])
+    post = lambda slot, cat, sid: {"slot": slot, "time_et": mf.WEEKDAY_SLOTS[slot], "category": cat, "story_id": sid,
+                                   "story_key": f"k:{sid}", "tickers": [], "people": [], "post_package": str(UBER_PKG)}
+    day = mf.build_manifest({"date": "2026-09-29", "posts": [post(2, "insider_trade", "trade-a")]}, repo=repo)
+    m = mf.build_manifest({"date": "2026-09-29", "posts": [post(8, "product_promo", "promo")]}, existing=day, repo=repo)
+    ig = {p["slot"]: p["platforms"]["instagram"]["placement"] for p in m["posts"]}
+    assert ig == {2: "reel", 8: "reel"}            # the trade keeps the day's one Reel; the promo is extra
+    for p in m["posts"]:                           # the Uber package predates the one-hashtag X rule
+        p["platforms"]["x"]["text"] += " #Stocks"
+    assert mf.validate_manifest(m, "2026-09-29") == []
+    m["posts"][1]["category"] = "insider_trade"    # a second Reel that is not a promo still breaks the mix
+    assert any("2 Instagram reel posts" in e for e in mf.validate_manifest(m, "2026-09-29"))

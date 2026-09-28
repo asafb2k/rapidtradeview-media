@@ -79,6 +79,9 @@ IG_PLACEMENTS = ("reel", "feed", "story")
 IG_MEDIA = {"reel": "reel_9x16", "story": "reel_9x16", "feed": "feed_4x5"}
 PLATFORM_MEDIA = {"x": "square_1x1", "threads": "feed_4x5", "pinterest": "feed_4x5"}
 IG_WEEKDAY_MIX = {"reel": 1, "feed": 2, "story": 2}
+# A feature promo (slot 8) comes on top of the daily plan (owner 2026-09-28: "in addition", not instead), so its
+# Instagram post (a Reel unless the spec says otherwise) does not count against the mix.
+MIX_EXEMPT_CATEGORIES = ("product_promo",)
 IMAGE_FORMATS = ("feed_4x5", "square_1x1", "pin_2x3", "story_9x16")
 IMAGE_EXTS = {"png": "image/png", "jpg": "image/jpeg"}
 # Image media per platform: the writer takes the first one the post has; the validator accepts any.
@@ -381,7 +384,8 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
                 if placement not in IG_PLACEMENTS:
                     errors.append(f"{pat}.placement: must be reel, feed or story")
                     continue
-                ig_count[placement] += 1
+                if p.get("category") not in MIX_EXEMPT_CATEGORIES:
+                    ig_count[placement] += 1
                 if image and placement == "reel":
                     errors.append(f"{pat}.placement: an image post is never a Reel (feed or story)")
                     continue
@@ -674,17 +678,22 @@ def build_manifest(spec: dict, existing: dict | None = None, now: dt.datetime | 
     if existing:
         named = {p["slot"] for p in spec["posts"]}
         kept = [p for p in existing.get("posts", []) if p.get("slot") not in named]
-    slots = sorted([p["slot"] for p in spec["posts"]] + [p["slot"] for p in kept])
-    overrides = {p["slot"]: p.get("instagram_placement") for p in spec["posts"] if "instagram_placement" in p}
+    # Promos sit outside the mix: they take their own placement (default a Reel) and never shift the others'.
+    extra = {p["slot"]: p.get("instagram_placement") or "reel" for p in spec["posts"] if p["category"] in MIX_EXEMPT_CATEGORIES}
+    mixed = [p for p in spec["posts"] if p["slot"] not in extra]
+    kept_mixed = [p for p in kept if p.get("category") not in MIX_EXEMPT_CATEGORIES]
+    slots = sorted([p["slot"] for p in mixed] + [p["slot"] for p in kept_mixed])
+    overrides = {p["slot"]: p.get("instagram_placement") for p in mixed if "instagram_placement" in p}
     # Kept posts keep their Instagram placement; the new ones fill what is left of the mix.
-    for p in kept:
+    for p in kept_mixed:
         overrides[p["slot"]] = (p.get("platforms", {}).get("instagram") or {}).get("placement") or "none"
     image_slots = set()
-    for p in spec["posts"]:
+    for p in mixed:
         videos, images, _ = local_media(repo, date, p["story_id"])
         if (p.get("media_type") or ("video" if len(videos) == len(FORMATS) else "image")) == "image":
             image_slots.add(p["slot"])
     placements = assign_instagram(slots, dtype, overrides, RESERVED_IG if dtype == "weekday" else None, image_slots)
+    placements.update({s: v for s, v in extra.items() if v != "none"})
     new_posts = [build_post(date, p, placements.get(p["slot"]), repo) for p in spec["posts"]]
     posts = sorted(kept + new_posts, key=lambda p: p["slot"])
     stamp = (now or dt.datetime.now(dt.timezone.utc)).strftime("%Y-%m-%dT%H:%M:%SZ")
