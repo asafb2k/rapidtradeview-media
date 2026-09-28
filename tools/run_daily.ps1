@@ -6,10 +6,17 @@
 .DESCRIPTION
   Windows PowerShell 5.1. Weekdays run in three passes (register_daily_task.ps1), each merging its
   slots into the day's manifest:
-    -Pass morning   06:15 ET  slots 1, 2, 3, 6, 7 (earnings, trades, theme)
-    -Pass reports   10:30 ET  slots 5, 7 (report summaries released that morning; a report replaces
+    -Pass morning   05:00 ET  slots 1, 2, 3, 6, 7 (earnings, trades, theme)
+    -Pass reports   10:00 ET  slots 5, 7 (report summaries released that morning; a report replaces
                               the morning theme in slot 7)
-    -Pass picks     13:45 ET  slot 4 (today's picks, published ~13:30; retried up to -RetryEmptyMinutes)
+    -Pass picks     13:45 ET  slot 4 (today's picks, published ~13:30; retried up to -RetryEmptyMinutes;
+                              the slot posts at 15:00, so it is ready about an hour before)
+    -Pass preflight every 15 min: the preflight gate for posts due in 60-90 minutes (see below)
+  Owner rule 2026-09-28: every post is ready at least an hour before it goes live. Each render pass ends
+  with the preflight gate (manifest.py preflight) on the slots it published, and the 15-minute
+  preflight pass re-checks every post 60-90 minutes before its time. A failing post is marked "status":
+  "held" in the manifest (the kit shows "do not post"); nothing is deleted. Reports:
+  D:\rtv-ops\tracks\growth\research\daily-video\<date>\preflight-<slot>.json.
   Weekends: one 08:00 ET run with no -Pass (slot 1). -Slots "5,7" picks slots by hand instead.
   A slot today's manifest already fills is never re-rendered or replaced (daily.py stories).
 
@@ -35,7 +42,7 @@
 [CmdletBinding()]
 param(
     [string]$Date,
-    [ValidateSet('', 'morning', 'reports', 'picks')][string]$Pass = '',
+    [ValidateSet('', 'morning', 'reports', 'picks', 'preflight')][string]$Pass = '',
     [string]$Slots,
     [int]$RetryEmptyMinutes = 0,
     [switch]$NoPush,
@@ -79,6 +86,17 @@ $planFile = Join-Path $Work ('plan' + $slotTag + '.json')
 $specFile = Join-Path $Work ('spec' + $slotTag + '.json')
 $slotArg = @()
 if ($slotList.Count) { $slotArg = @('--slots', ($slotList -join ',')) }
+
+if ($Pass -eq 'preflight') {
+    # One log per day for the 15-minute pass; a run with nothing due writes one line.
+    $LogFile = Join-Path $LogDir "$Date-preflight.log"
+    Enter-RunLock (Join-Path $WorkRoot '.run.lock') 10
+    if ((Invoke-Git @('pull', '--ff-only', '--quiet')) -ne 0) { Fail 'git pull --ff-only on the media repo' }
+    if (-not (Test-Path (Join-Path $Repo "v/$Date/manifest.json"))) { Stop-Run 0 "preflight: no manifest for $Date yet" }
+    $code = Invoke-Preflight $Date @('--due-within-min', '90', '--due-after-min', '60')
+    if ($code -eq 2) { Stop-Run 0 'preflight: nothing due in 60-90 min' }
+    Stop-Run $code "preflight done (exit $code)"
+}
 
 Enter-RunLock (Join-Path $WorkRoot '.run.lock')
 Log "=== daily video run $Date$slotTag (repo $Repo, work $Work) ==="
@@ -162,4 +180,8 @@ if ($NoPush) { Stop-Run 0 "NoPush: MP4s staged in $Repo\v\$Date, spec $specFile.
 
 # 5-8. Push the media, wait for Pages, write + push the manifest, verify what Pages serves.
 Publish-Spec $specFile $PagesTimeoutSec
-Stop-Run 0 "DONE: $rendered stories rendered this run."
+# 9. Preflight gate on the slots this run published (a failing post is held, never left postable).
+$published = (@((Get-Content -Raw -Encoding UTF8 $specFile | ConvertFrom-Json).posts | Where-Object { $_ } | ForEach-Object { $_.slot }) -join ',')
+$pre = Invoke-Preflight $Date @('--slots', $published)
+if ($pre -eq 1) { Stop-Run 1 "DONE with a PREFLIGHT FAILURE: $rendered stories rendered; failing slots held (see the preflight reports)." }
+Stop-Run 0 "DONE: $rendered stories rendered this run; preflight passed."

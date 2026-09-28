@@ -2,9 +2,11 @@
 .SYNOPSIS
   Registers the Windows Task Scheduler tasks that run run_daily.ps1. Not run by anything
   automatically; run it by hand once.
-    weekdays 06:15 ET  -Pass morning   (slots 1-3, 6-7)
-    weekdays 10:30 ET  -Pass reports   (report summaries for slots 5 and 7)
-    weekdays 13:45 ET  -Pass picks     (today's picks for slot 4, retried until 14:10 ET)
+    weekdays 05:00 ET  -Pass morning   (slots 1-3, 6-7)
+    weekdays 10:00 ET  -Pass reports   (report summaries for slots 5 and 7)
+    weekdays 13:45 ET  -Pass picks     (today's picks for slot 4 at 15:00, retried until 14:10 ET)
+    every 15 minutes   -Pass preflight (the preflight gate for posts due in 60-90 minutes; from now on,
+                       whatever -From says)
     weekends 08:00 ET  one post (slot 1)
 
 .DESCRIPTION
@@ -45,8 +47,8 @@ $weekdayNames = @('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
 $weekendNames = @('Saturday', 'Sunday')
 # Name suffix, New York hour, minute, days, run_daily.ps1 arguments.
 $plan = @(
-    @{ Suffix = 'weekday 0615 ET morning'; Hour = 6; Minute = 15; Days = $weekdayNames; Args = '-Pass morning' },
-    @{ Suffix = 'weekday 1030 ET reports'; Hour = 10; Minute = 30; Days = $weekdayNames; Args = '-Pass reports' },
+    @{ Suffix = 'weekday 0500 ET morning'; Hour = 5; Minute = 0; Days = $weekdayNames; Args = '-Pass morning' },
+    @{ Suffix = 'weekday 1000 ET reports'; Hour = 10; Minute = 0; Days = $weekdayNames; Args = '-Pass reports' },
     @{ Suffix = 'weekday 1345 ET picks'; Hour = 13; Minute = 45; Days = $weekdayNames; Args = '-Pass picks -RetryEmptyMinutes 25' },
     @{ Suffix = 'weekend 0800 ET'; Hour = 8; Minute = 0; Days = $weekendNames; Args = '' }
 )
@@ -128,7 +130,33 @@ $Triggers  </Triggers>
 "@
 }
 
+# The 15-minute preflight pass: a daily trigger repeated every 15 minutes, first run at the next quarter hour.
+function Get-RepeatingTriggerXml([DateTime]$Utc) {
+    return @"
+    <CalendarTrigger>
+      <Repetition>
+        <Interval>PT15M</Interval>
+        <Duration>P1D</Duration>
+        <StopAtDurationEnd>false</StopAtDurationEnd>
+      </Repetition>
+      <StartBoundary>$($Utc.ToString('yyyy-MM-ddTHH:mm:ss'))Z</StartBoundary>
+      <Enabled>true</Enabled>
+      <ScheduleByDay>
+        <DaysInterval>1</DaysInterval>
+      </ScheduleByDay>
+    </CalendarTrigger>
+
+"@
+}
+
 Write-Host ("New York now {0:yyyy-MM-dd HH:mm}" -f $nowNy)
+if (-not $PrintOnly) {
+    # Replace every earlier registration (older names and times) with this plan.
+    foreach ($t in Get-ScheduledTask -ErrorAction SilentlyContinue | Where-Object { $_.TaskName -like "$NamePrefix (*" }) {
+        Unregister-ScheduledTask -TaskName $t.TaskName -Confirm:$false
+        Write-Host "removed: $($t.TaskName)"
+    }
+}
 foreach ($p in $plan) {
     $name = "$NamePrefix ($($p.Suffix))"
     $utc = Get-UtcStart $p.Hour $p.Minute $p.Days
@@ -139,6 +167,20 @@ foreach ($p in $plan) {
         Write-Host $xml
         continue
     }
+    Register-ScheduledTask -TaskName $name -Xml $xml -Force | Out-Null
+    $info = Get-ScheduledTask -TaskName $name | Get-ScheduledTaskInfo
+    Write-Host ("registered: {0}; next run {1} (local time)" -f $name, $info.NextRunTime)
+}
+
+$now = [DateTime]::UtcNow
+$quarter = $now.AddMinutes(15 - ($now.Minute % 15)).AddSeconds(-$now.Second).AddMilliseconds(-$now.Millisecond)
+$name = "$NamePrefix (every 15 min preflight)"
+$runArgs = "-NoProfile -ExecutionPolicy Bypass -File `"$script`" -Pass preflight"
+$xml = Get-TaskXml 'RapidTradeView daily posts: the preflight gate every 15 minutes (tools\run_daily.ps1 -Pass preflight) for posts due in 60-90 minutes; failing posts are held.' (Get-RepeatingTriggerXml $quarter) $runArgs
+if ($PrintOnly) {
+    Write-Host ("---- {0}: first run {1:u} (UTC), then every 15 minutes" -f $name, $quarter)
+    Write-Host $xml
+} else {
     Register-ScheduledTask -TaskName $name -Xml $xml -Force | Out-Null
     $info = Get-ScheduledTask -TaskName $name | Get-ScheduledTaskInfo
     Write-Host ("registered: {0}; next run {1} (local time)" -f $name, $info.NextRunTime)

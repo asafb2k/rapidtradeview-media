@@ -108,3 +108,25 @@ function Publish-Spec([string]$SpecFile, [int]$PagesTimeoutSec = 900) {
     }
     Log "PUBLISHED: https://asafb2k.github.io/rapidtradeview-media/v/$date/manifest.json is live and valid."
 }
+
+# Preflight gate (manifest.py preflight; owner rule 2026-09-28: every post ready an hour before it goes
+# live). $Select = the posts to check ('--slots', '1,2' or '--due-within-min', '90', '--due-after-min', '60').
+# A failing post is marked "status": "held" in the manifest (manifest.py --hold; nothing is deleted),
+# committed, pushed and checked on Pages. Returns manifest.py's exit code: 0 pass, 1 a failure, 2 nothing to check.
+function Invoke-Preflight([string]$Date, [string[]]$Select) {
+    $code = Invoke-Native $script:Python (@((Join-Path $script:Tools 'manifest.py'), '--repo', $script:Repo, 'preflight', '--date', $Date, '--hold') + $Select)
+    if ($code -eq 2) { return 2 }
+    if ($code -ne 0) { Log "PREFLIGHT FAILED for $Date ($($Select -join ' ')): see D:\rtv-ops\tracks\growth\research\daily-video\$Date\preflight-<slot>.json" }
+    & git.exe -C $script:Repo diff --quiet -- "v/$Date/manifest.json"
+    if ($LASTEXITCODE -ne 0) {
+        if ((Invoke-Git @('add', '--', "v/$Date/manifest.json")) -ne 0) { Fail 'git add held manifest' }
+        Commit-Staged "Preflight $Date`: hold failing posts"
+        $deadline = (Get-Date).AddSeconds(600)
+        while ((Invoke-Native $script:Python @((Join-Path $script:Tools 'manifest.py'), '--repo', $script:Repo, 'validate', '--date', $Date, '--remote', '--same-as-local')) -ne 0) {
+            if ((Get-Date) -gt $deadline) { Fail 'Pages does not serve the held manifest' }
+            Start-Sleep -Seconds 30
+        }
+        Log "HELD posts are live on Pages for $Date (status held; nothing deleted)."
+    }
+    return $code
+}

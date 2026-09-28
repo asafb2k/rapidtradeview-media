@@ -17,6 +17,14 @@ subcommand and defaults to this repo):
   manifest.py wait-urls --spec SPEC.json [--timeout 900] [--repo DIR]
       Poll until every media URL of the spec answers 200 (video/mp4, image/png or image/jpeg) with the
       local file's size (GitHub Pages deploys a push in ~1-3 min).
+  manifest.py preflight --date YYYY-MM-DD [--slots 1,2 | --due-within-min 90 [--due-after-min 60]]
+                        [--manifest FILE --local-only [--media-dir DIR]] [--hold] [--now ISO-UTC]
+      The preflight gate (tools/preflight.py; owner rule 2026-09-28: every post ready one hour before it
+      goes live): re-checks each post, its media (200 + sha256 of the local copy), date-pinned sources,
+      the claims lint, every number and date against the post's data. One report per slot in
+      D:/rtv-ops/tracks/growth/research/daily-video/<date>/preflight-<slot>.json. --hold marks each
+      failing post "status": "held" (+ held_reason) in the manifest; nothing is deleted. Exit 0 = all
+      pass, 1 = a failure, 2 = nothing to check (no manifest, or nothing due in the window).
   manifest.py check-spec --spec SPEC.json [--list-out FILE]
       Every post has its post-package and its files in v/<date>/<story_id>/; writes the repo paths of
       those files to FILE (for git add). Exit 1 with the missing ones.
@@ -44,7 +52,8 @@ Rules checked (both here and in the kit):
     manifests dated X_ONE_HASHTAG_FROM or later (the 2026-09-27 / 09-28 ones predate the rule);
   - platform limits: X 280 (weighted), Threads 500, Instagram 2,200, Pinterest title 100 /
     description 500; alt text 500;
-  - Instagram mix: weekdays at most 1 Reel, 2 feed posts and 2 Stories; weekends one post in all.
+  - Instagram mix: weekdays at most 1 Reel, 2 feed posts and 2 Stories; weekends one post in all;
+  - a post may carry "status": "held" with a held_reason (the kit shows it as "do not post").
 """
 from __future__ import annotations
 
@@ -76,11 +85,18 @@ IMAGE_EXTS = {"png": "image/png", "jpg": "image/jpeg"}
 IMAGE_PLATFORM_MEDIA = {"x": ("square_1x1", "feed_4x5"), "threads": ("feed_4x5", "square_1x1"), "pinterest": ("pin_2x3", "feed_4x5")}
 IG_IMAGE_MEDIA = {"feed": "feed_4x5", "story": "story_9x16"}  # an image post is never a Reel
 MEDIA_TYPES = ("video", "image")
-# Owner-approved daily plan, New York time (Growth lead 2026-09-27: picks 14:00 after the ~13:30 publish,
-# report 15:00). Weekends: one post per platform.
-WEEKDAY_SLOTS = {1: "08:00", 2: "09:45", 3: "11:00", 4: "14:00", 5: "15:00", 6: "16:30", 7: "19:00", 8: "20:30"}  # 8 = extra feature-promo slot, promo days only
-# Weekday passes of run_daily.ps1 (-Pass): which slots each one fills.
+# Owner-approved daily plan, New York time. Growth lead 2026-09-28 (owner: every post ready an hour before
+# it goes live): picks 15:00 (rendered at the 13:45 pass, ready ~14:00), report summary 16:00 (10:00 pass).
+# Weekends: one post per platform.
+WEEKDAY_SLOTS = {1: "08:00", 2: "09:45", 3: "11:00", 4: "15:00", 5: "16:00", 6: "16:30", 7: "19:00", 8: "20:30"}  # 8 = extra feature-promo slot, promo days only
+# Weekday passes of run_daily.ps1 (-Pass): which slots each one fills, and when (New York time).
 PASSES = {"morning": (1, 2, 3, 6, 7), "reports": (5, 7), "picks": (4,)}
+PASS_TIMES = {"morning": "05:00", "reports": "10:00", "picks": "13:45"}
+# Preflight window of the 15-minute preflight pass: posts due in 60-90 minutes.
+PREFLIGHT_WINDOW_MIN = (60, 90)
+# Held posts ("status": "held") go into the live manifest only once the kit that knows the field is on prod:
+# the kit before it rejects an unknown field and would drop the whole day. Set True with that release.
+HELD_STATUS_LIVE = False
 # The picks slot is filled by a later pass: its Instagram Story is held for it.
 RESERVED_IG = {4: "story"}
 WEEKEND_SLOTS = {1: "12:00"}
@@ -104,7 +120,7 @@ DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 # C0 controls except tab / LF, DEL, C1, bidi controls, zero-width and invisible format characters.
 CONTROL = re.compile("[\u0000-\u0008\u000b-\u001f\u007f-\u009f\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069\ufeff]")
 LIMITS = {"x": 280, "threads": 500, "instagram": 2200, "pinterest_title": 100, "pinterest_description": 500, "alt": 500,
-          "title": 200, "story_key": 200, "person": 120}
+          "title": 200, "story_key": 200, "person": 120, "held_reason": 300}
 MAX_POSTS = 8
 UA = "RapidTradeView daily-video manifest (contact@rapidtradeview.trade)"
 
@@ -118,7 +134,8 @@ PLATFORM_KEYS = {
     "pinterest": {"media", "media_url", "title", "description", "link"},
 }
 TAG_KEYS = {"handle", "verified"}
-POST_OPTIONAL_KEYS = {"images"}
+POST_OPTIONAL_KEYS = {"images", "status", "held_reason"}
+POST_STATUSES = ("held",)  # absent = ready to post
 PLATFORM_OPTIONAL_KEYS = {"media_type"}  # absent = video (manifests written before image posts)
 
 
@@ -258,6 +275,10 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
             errors.append(f"{at}: must be an object")
             continue
         _keys(errors, at, p, POST_KEYS | POST_OPTIONAL_KEYS, POST_KEYS)
+        if "status" in p or "held_reason" in p:
+            if p.get("status") not in POST_STATUSES:
+                errors.append(f"{at}.status: must be held (leave it out for a post that is ready)")
+            _text(errors, f"{at}.held_reason", p.get("held_reason"), required=True, limit=LIMITS["held_reason"])
         slot = p.get("slot")
         if not isinstance(slot, int) or isinstance(slot, bool) or not 1 <= slot <= MAX_POSTS:
             errors.append(f"{at}: slot must be an integer 1-{MAX_POSTS}")
@@ -777,6 +798,58 @@ def spec_files(repo: Path, spec: dict) -> tuple[list[str], dict[str, Path]]:
     return problems, files
 
 
+def cmd_preflight(a: argparse.Namespace) -> int:
+    import preflight as pf
+
+    repo, date = Path(a.repo), a.date
+    work = Path(a.work) if a.work else pf.WORK_ROOT / date
+    path = Path(a.manifest) if a.manifest else repo / "v" / date / "manifest.json"
+    if not path.exists():
+        print(f"nothing to check: no manifest {path}")
+        return 2
+    m = _load(path)
+    now = dt.datetime.fromisoformat(a.now.replace("Z", "+00:00")) if a.now else dt.datetime.now(dt.timezone.utc)
+    slots = None
+    if a.slots:
+        slots = {int(x) for x in a.slots.split(",") if x.strip()}
+    elif a.due_within_min is not None:
+        lo, hi = a.due_after_min * 60, a.due_within_min * 60
+        slots = {p["slot"] for p in m.get("posts", []) if lo <= (pf.post_time(date, p["time_et"]) - now).total_seconds() <= hi}
+        if not slots:
+            print(f"nothing due in {a.due_after_min}-{a.due_within_min} min")
+            return 2
+    reports = pf.preflight(m, date, repo, work, slots, a.local_only, Path(a.media_dir) if a.media_dir else None, now)
+    for r in reports:
+        write_json(work / f"preflight-{r['slot']}.json", r)
+        print(f"slot {r['slot']} {r['time_et']} {r['story_id']}: {r['result'].upper()} "
+              f"({r['minutes_before_post']} min before the post; {r['checks']['numbers_checked']} numbers, "
+              f"{r['checks']['dates_checked']} dates checked)")
+        for f in r["failures"]:
+            print(f"  FAIL {f}")
+        for w in r["warnings"]:
+            print(f"  warn {w}")
+    failed = [r for r in reports if r["result"] == "fail"]
+    if a.hold and failed:
+        if a.manifest is None and not HELD_STATUS_LIVE:
+            print("HOLD NOT WRITTEN: the kit on prod does not accept \"status\" yet (HELD_STATUS_LIVE = False); "
+                  "the failing posts stay as they are: pull them by hand.")
+        else:
+            changed = []
+            for post in m["posts"]:
+                r = next((x for x in failed if x["slot"] == post["slot"]), None)
+                if r and post.get("status") != "held":
+                    post["status"] = "held"
+                    post["held_reason"] = pf.held_reason(r)
+                    changed.append(post["slot"])
+            if changed:
+                errors = validate_manifest(m, date)
+                if errors:
+                    return _fail(errors)
+                write_json(path, m)
+                print(f"HELD slots {', '.join(map(str, changed))} in {path} (status held; nothing deleted)")
+    return 1 if failed else 0
+
+
 def cmd_check_spec(a: argparse.Namespace) -> int:
     repo = Path(a.repo)
     problems, files = spec_files(repo, _load(Path(a.spec)))
@@ -824,13 +897,26 @@ def main(argv: list[str] | None = None) -> int:
     u = sub.add_parser("wait-urls")
     u.add_argument("--spec", required=True)
     u.add_argument("--timeout", type=int, default=900)
+    f = sub.add_parser("preflight")
+    f.add_argument("--date", required=True)
+    f.add_argument("--slots")
+    f.add_argument("--slot", dest="slots")
+    f.add_argument("--due-within-min", type=int)
+    f.add_argument("--due-after-min", type=int, default=0)
+    f.add_argument("--manifest")
+    f.add_argument("--work")
+    f.add_argument("--local-only", action="store_true")
+    f.add_argument("--media-dir")
+    f.add_argument("--hold", action="store_true")
+    f.add_argument("--now")
     c = sub.add_parser("check-spec")
     c.add_argument("--spec", required=True)
     c.add_argument("--list-out")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-    return {"write": cmd_write, "validate": cmd_validate, "wait-urls": cmd_wait_urls, "check-spec": cmd_check_spec}[a.cmd](a)
+    return {"write": cmd_write, "validate": cmd_validate, "wait-urls": cmd_wait_urls, "check-spec": cmd_check_spec,
+            "preflight": cmd_preflight}[a.cmd](a)
 
 
 if __name__ == "__main__":

@@ -7,13 +7,13 @@ Output: a plan JSON (schema rtv-daily-plan/1) with one entry per slot of the own
 (manifest.WEEKDAY_SLOTS / WEEKEND_SLOTS): the story, its filing / source URLs, or why the slot is empty.
 Weak items never pad a slot: an empty slot says why.
 
-Weekday grid (New York time; run_daily.ps1 fills it in three passes: 06:15 slots 1-3, 6-7; 10:30
-reports 5 and 7; 13:45 picks 4):
+Weekday grid (New York time; run_daily.ps1 fills it in three passes: 05:00 slots 1-3, 6-7; 10:00
+reports 5 and 7; 13:45 picks 4; every post ready at least an hour before its time, preflight-gated):
   1 08:00  earnings: Monday = the week's confirmed reporters; Tue-Fri = today's, else the rest of the week
   2 09:45  best trade        3 11:00  second trade        6 16:30  third trade
-  4 14:00  daily picks (#1 locked): the list /tips/daily serves at 14:00, i.e. today's (published ~13:30);
+  4 15:00  daily picks (#1 locked): the list /tips/daily serves at 15:00, i.e. today's (published ~13:30);
            before it is out the slot is empty, never the previous day's list
-  5 15:00  earnings report summary #1 (released since the previous weekday, consensus confirmed)
+  5 16:00  earnings report summary #1 (released since the previous weekday, consensus confirmed)
   7 19:00  report #2, else the weekday theme (Mon Congress last week, Tue Congress 30 days, Wed person
            spotlight, Thu track record paragraph, Fri the week's top insider buys)
 Weekends: one post. Saturday = next week's confirmed earnings; Sunday = the best trade of the week.
@@ -974,7 +974,7 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
             slots[5] = report_slot(reports[0])
         else:
             slots[5] = {"empty": f"no report released {lo}..{target} with a confirmed consensus and a $10B+ market cap "
-                                 f"({looked} released reports looked at; the 10:30 ET pass looks again after the morning releases)"}
+                                 f"({looked} released reports looked at; the 10:00 ET pass looks again after the morning releases)"}
         if len(reports) > 1:
             slots[7] = report_slot(reports[1])
         else:
