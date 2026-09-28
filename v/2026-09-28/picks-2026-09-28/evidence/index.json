@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-09-28",
+ "media_date": "2026-09-28",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-28/picks-2026-09-28/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-09-28",
+   "fetched_at_utc": "2026-09-28T18:24:05.338516+00:00",
+   "status": 200,
+   "sha256": "e9f28318e6759465d60a947973814a420687a23d11ff71c4ccd4a7f4ec8ee641",
+   "bytes": 5825
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-28/picks-2026-09-28/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-09-28T18:24:05.581921+00:00",
+   "status": 200,
+   "sha256": "d987938362f3974670be33ce319b30c0b211c3bb99722736b784a70ff4dc7afa",
+   "bytes": 9982
+  },
+  {
+   "name": "search-WTTR.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-28/picks-2026-09-28/evidence/search-WTTR.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=WTTR",
+   "fetched_at_utc": "2026-09-28T18:24:05.818005+00:00",
+   "status": 200,
+   "sha256": "1686b740a2a791a9f6f1103231ed10ff7d8133442b8c0ef086e0c99bc0be94bb",
+   "bytes": 461
+  },
+  {
+   "name": "search-CYTK.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-28/picks-2026-09-28/evidence/search-CYTK.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=CYTK",
+   "fetched_at_utc": "2026-09-28T18:24:06.058080+00:00",
+   "status": 200,
+   "sha256": "d51cef0efdd1f06d33690ee29a4b94bea59b3a463e0828c2af1a539d4db0823d",
+   "bytes": 378
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
