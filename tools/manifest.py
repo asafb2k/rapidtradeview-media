@@ -34,7 +34,8 @@ Media: a video post has reel_9x16.mp4, feed_4x5.mp4 and square_1x1.mp4; an image
 images (feed_4x5, square_1x1, pin_2x3, story_9x16); a post may carry both ("media_type" in the spec
 picks what the platforms post; default video when the MP4s are there). Images per platform: X
 square_1x1 (else feed_4x5), Threads feed_4x5 (else square_1x1), Pinterest pin_2x3 (else feed_4x5),
-Instagram feed feed_4x5, Instagram Story story_9x16; an image post is never a Reel.
+Instagram feed feed_4x5, Instagram Story story_9x16; an image post is never a Reel. Instagram video: reel_9x16
+for a Reel or Story, feed_4x5 for a feed post; with KIT_AUDIT_FIXES_LIVE reel_9x16 whatever the placement.
 
 Spec (JSON):
   {"date": "2026-09-27", "posts": [{"slot": 1, "time_et": "12:00", "category": "insider_trade",
@@ -54,7 +55,12 @@ Rules checked (both here and in the kit):
   - platform limits: X 280 (weighted), Threads 500, Instagram 2,200, Pinterest title 100 /
     description 500; alt text 500;
   - Instagram mix: weekdays at most 1 Reel, 2 feed posts and 2 Stories; weekends one post in all;
-  - a post may carry "status": "held" with a held_reason (the kit shows it as "do not post").
+  - a post may carry "status": "held" with a held_reason (the kit shows it as "do not post");
+  - with KIT_AUDIT_FIXES_LIVE (social-post audit 2026-09-28; False until the kit of growth/kit-audit-fixes is
+    on prod): a feed video may be reel_9x16 (the writer posts every Instagram video so), a weekday has at most
+    1 Reel, 2 Stories and 4 feed posts and Stories together (the writer: 1 Reel + 4 feed, no Story), and
+    platforms.threads may carry "topic" (Stocks, Stock Market, Earnings or Investing; the writer sets it
+    from the category).
 """
 from __future__ import annotations
 
@@ -75,11 +81,39 @@ SITE_HOSTS = ("www.rapidtradeview.trade",)
 FORMATS = ("reel_9x16", "feed_4x5", "square_1x1")
 PLATFORMS = ("instagram", "x", "threads", "pinterest")
 IG_PLACEMENTS = ("reel", "feed", "story")
+# Social-post audit 2026-09-28 (Growth lead): (1) every Instagram video is the 9:16 file whatever its placement
+# (4:5 only for images), (2) the Instagram Story slots become feed posts until a Story route exists (weekdays
+# 1 Reel + 4 feed + 0 Stories; the picks slot's reserved Story becomes a feed post), (3) each post names its
+# Threads topic (platforms.threads.topic, from the category). The kit on prod before growth/kit-audit-fixes
+# rejects all three (a feed video must be 4:5, at most 2 feed posts, no "topic") and would drop the WHOLE day,
+# so the writer and the validator keep the old rules until that kit is on prod. Set True with that release.
+KIT_AUDIT_FIXES_LIVE = False
 # Which rendered format each platform posts (owner-approved first wave, 2026-09-27: IG Reel/Story 9:16,
-# IG feed / Threads / Pinterest 4:5, X 1:1).
+# IG feed / Threads / Pinterest 4:5, X 1:1). IG_MEDIA is the Instagram video mapping before the audit fixes.
 IG_MEDIA = {"reel": "reel_9x16", "story": "reel_9x16", "feed": "feed_4x5"}
+# With KIT_AUDIT_FIXES_LIVE: the writer posts every Instagram video as reel_9x16; the validator (like the kit)
+# still accepts feed_4x5 for a feed video, so manifests written before the switch stay valid.
+IG_VIDEO_MEDIA = "reel_9x16"
+IG_VIDEO_ACCEPTED = {"reel": ("reel_9x16",), "story": ("reel_9x16",), "feed": ("reel_9x16", "feed_4x5")}
 PLATFORM_MEDIA = {"x": "square_1x1", "threads": "feed_4x5", "pinterest": "feed_4x5"}
-IG_WEEKDAY_MIX = {"reel": 1, "feed": 2, "story": 2}
+# Weekday Instagram mix. Before the audit fixes (the kit on prod): 1 Reel, 2 feed posts, 2 Stories.
+IG_WEEKDAY_MIX_V1 = {"reel": 1, "feed": 2, "story": 2}
+# With KIT_AUDIT_FIXES_LIVE: the writer fills 1 Reel + 4 feed posts + 0 Stories; the validator (like the kit)
+# accepts at most 1 Reel, 2 Stories and 4 feed posts and Stories together (older manifests carry 2 Stories).
+IG_WEEKDAY_MIX = {"reel": 1, "feed": 4, "story": 0}
+IG_WEEKDAY_CAPS = {"reel": 1, "feed": 4, "story": 2}
+IG_WEEKDAY_NON_REEL_MAX = 4
+# Threads topic per category (one per post; growth plan 2026-09-26 (b)): Congress posts "Stock Market", Form 4,
+# picks and track-record posts "Stocks", earnings "Earnings", explainers and promos "Investing". A person
+# spotlight follows its trade: a Congress PTR (story_key "ptr:...") is "Stock Market", a Form 4 "Stocks".
+THREADS_TOPICS = ("Stocks", "Stock Market", "Earnings", "Investing")
+THREADS_TOPIC_BY_CATEGORY = {
+    "earnings_today": "Earnings", "earnings_week": "Earnings", "earnings_report": "Earnings",
+    "congress_trade": "Stock Market", "congress_week": "Stock Market", "congress_30d": "Stock Market",
+    "congress_theme": "Stock Market",
+    "insider_trade": "Stocks", "insider_week": "Stocks", "daily_picks": "Stocks", "track_record": "Stocks",
+    "person_spotlight": "Stocks", "product_promo": "Investing",
+}
 # A feature promo (slot 8) comes on top of the daily plan (owner 2026-09-28: "in addition", not instead), so its
 # Instagram post (a Reel unless the spec says otherwise) does not count against the mix.
 MIX_EXEMPT_CATEGORIES = ("product_promo",)
@@ -101,8 +135,10 @@ PREFLIGHT_WINDOW_MIN = (60, 90)
 # Held posts ("status": "held") go into the live manifest only once the kit that knows the field is on prod:
 # the kit before it rejects an unknown field and would drop the whole day. Set True with that release.
 HELD_STATUS_LIVE = True  # kit with "held" live on prod since main 786fc27a (2026-09-28)
-# The picks slot is filled by a later pass: its Instagram Story is held for it.
-RESERVED_IG = {4: "story"}
+# The picks slot is filled by a later pass: its Instagram placement is held for it (a Story before the audit
+# fixes; with KIT_AUDIT_FIXES_LIVE a feed post).
+RESERVED_IG_V1 = {4: "story"}
+RESERVED_IG = {4: "feed"}
 WEEKEND_SLOTS = {1: "12:00"}
 CATEGORIES = (
     "earnings_today", "earnings_week", "insider_trade", "congress_trade", "daily_picks", "earnings_report",
@@ -141,6 +177,30 @@ TAG_KEYS = {"handle", "verified"}
 POST_OPTIONAL_KEYS = {"images", "status", "held_reason"}
 POST_STATUSES = ("held",)  # absent = ready to post
 PLATFORM_OPTIONAL_KEYS = {"media_type"}  # absent = video (manifests written before image posts)
+# Optional per platform with KIT_AUDIT_FIXES_LIVE (absent in manifests written before the Threads topic field).
+PLATFORM_AUDIT_OPTIONAL_KEYS = {"threads": {"topic"}}
+
+
+def ig_weekday_mix() -> dict[str, int]:
+    """The weekday Instagram placements the writer fills (KIT_AUDIT_FIXES_LIVE: 1 Reel + 4 feed, no Story)."""
+    return dict(IG_WEEKDAY_MIX if KIT_AUDIT_FIXES_LIVE else IG_WEEKDAY_MIX_V1)
+
+
+def reserved_ig() -> dict[int, str]:
+    """The weekday slots a later pass fills, whose Instagram placement is held for them."""
+    return dict(RESERVED_IG if KIT_AUDIT_FIXES_LIVE else RESERVED_IG_V1)
+
+
+def ig_video_format(placement: str) -> str:
+    """The video file an Instagram placement posts (KIT_AUDIT_FIXES_LIVE: always the 9:16 file)."""
+    return IG_VIDEO_MEDIA if KIT_AUDIT_FIXES_LIVE else IG_MEDIA[placement]
+
+
+def threads_topic(category: str, story_key: str = "") -> str:
+    """The post's Threads topic, from its category (a person spotlight from its trade: Congress PTR or Form 4)."""
+    if category == "person_spotlight" and story_key.startswith("ptr:"):
+        return "Stock Market"
+    return THREADS_TOPIC_BY_CATEGORY[category]
 
 
 # ---------------------------------------------------------------------------
@@ -374,7 +434,8 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
             if not isinstance(block, dict):
                 errors.append(f"{pat}: must be an object")
                 continue
-            _keys(errors, pat, block, PLATFORM_KEYS[plat] | PLATFORM_OPTIONAL_KEYS, PLATFORM_KEYS[plat])
+            optional = PLATFORM_OPTIONAL_KEYS | (PLATFORM_AUDIT_OPTIONAL_KEYS.get(plat, set()) if KIT_AUDIT_FIXES_LIVE else set())
+            _keys(errors, pat, block, PLATFORM_KEYS[plat] | optional, PLATFORM_KEYS[plat])
             mtype = block.get("media_type", "video")
             if mtype not in MEDIA_TYPES:
                 errors.append(f"{pat}.media_type: must be video or image")
@@ -390,7 +451,10 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
                 if image and placement == "reel":
                     errors.append(f"{pat}.placement: an image post is never a Reel (feed or story)")
                     continue
-                want = (IG_IMAGE_MEDIA[placement],) if image else (IG_MEDIA[placement],)
+                if image:
+                    want = (IG_IMAGE_MEDIA[placement],)
+                else:
+                    want = IG_VIDEO_ACCEPTED[placement] if KIT_AUDIT_FIXES_LIVE else (IG_MEDIA[placement],)
                 story = placement == "story"
                 _text(errors, f"{pat}.caption", block.get("caption"), required=not story, limit=LIMITS["instagram"], needs_advice=True)
                 if story and block.get("caption") is not None:
@@ -414,6 +478,8 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
                 want = IMAGE_PLATFORM_MEDIA["threads"] if image else (PLATFORM_MEDIA["threads"],)
                 _text(errors, f"{pat}.text", block.get("text"), required=True, limit=LIMITS["threads"], needs_advice=True)
                 _text(errors, f"{pat}.first_reply", block.get("first_reply"), required=False, limit=LIMITS["threads"])
+                if KIT_AUDIT_FIXES_LIVE and "topic" in block and block["topic"] not in THREADS_TOPICS:
+                    errors.append(f"{pat}.topic: must be one of {', '.join(THREADS_TOPICS)}")
             else:
                 want = IMAGE_PLATFORM_MEDIA["pinterest"] if image else (PLATFORM_MEDIA["pinterest"],)
                 _text(errors, f"{pat}.title", block.get("title"), required=True, limit=LIMITS["pinterest_title"])
@@ -430,9 +496,12 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
     if slots != sorted(slots):
         errors.append("manifest: posts must be in slot order")
     if dtype == "weekday":
-        for placement, cap_n in IG_WEEKDAY_MIX.items():
+        for placement, cap_n in (IG_WEEKDAY_CAPS if KIT_AUDIT_FIXES_LIVE else IG_WEEKDAY_MIX_V1).items():
             if ig_count[placement] > cap_n:
                 errors.append(f"manifest: {ig_count[placement]} Instagram {placement} posts; a weekday has at most {cap_n}")
+        others = ig_count["feed"] + ig_count["story"]
+        if KIT_AUDIT_FIXES_LIVE and others > IG_WEEKDAY_NON_REEL_MAX:
+            errors.append(f"manifest: {others} Instagram feed posts and Stories; a weekday has at most {IG_WEEKDAY_NON_REEL_MAX} besides the Reel")
     return errors
 
 
@@ -565,18 +634,22 @@ def assign_instagram(slots: list[int], dtype: str, overrides: dict[int, str | No
     `reserved` slots (the picks slot, filled by the 13:45 pass) count as filled, so their placement
     is held for them. Spec overrides ("none" = no Instagram post for that slot) and the placements
     of posts already published today win. An image post (`image_slots`) is never the Reel (weekends:
-    a feed post)."""
+    a feed post).
+    KIT_AUDIT_FIXES_LIVE (audit 2026-09-28, no Story route yet): 1 Reel + 4 feed posts, the Story slots
+    (1, 4) become feed posts (feed 1, 3, 4, 6, 5, 7, 2); a Story already published today (an override)
+    counts against the 4 feed posts, so a switch day never goes over 4 besides the Reel."""
     image_slots = image_slots or set()
     if dtype == "weekend":
         return {s: (overrides.get(s) or ("feed" if s in image_slots else "reel")) for s in slots if overrides.get(s, "reel") != "none"}
-    prefs = {"reel": [2, 3, 6, 7], "story": [1, 4, 7, 6], "feed": [3, 6, 5, 7, 2]}
+    live = KIT_AUDIT_FIXES_LIVE
+    prefs = {"reel": [2, 3, 6, 7], "story": [1, 4, 7, 6], "feed": [1, 3, 4, 6, 5, 7, 2] if live else [3, 6, 5, 7, 2]}
     pool = set(slots) | set(reserved or {})
     out: dict[int, str] = {}
-    left = dict(IG_WEEKDAY_MIX)
+    left = ig_weekday_mix()
     for s, placement in overrides.items():
         if s in pool and placement and placement != "none":
             out[s] = placement
-            left[placement] -= 1
+            left["feed" if live and placement == "story" else placement] -= 1
     blocked = {s for s, v in overrides.items() if v == "none"}
     for placement in ("reel", "story", "feed"):
         for s in prefs[placement]:
@@ -618,7 +691,7 @@ def build_post(date: str, spec: dict, placement: str | None, repo: Path = REPO) 
                 raise ValueError(f"{sid}: the Instagram {placement} needs {ig_fmt}.png or .jpg")
             ig_url = images[ig_fmt]
         else:
-            ig_fmt = IG_MEDIA[placement]
+            ig_fmt = ig_video_format(placement)
             ig_url = videos[ig_fmt]
         if placement == "story":
             sticker = _first(pkg, ("instagram", "story", "link_sticker", "url"), ("instagram", "story_link_sticker"))
@@ -642,6 +715,8 @@ def build_post(date: str, spec: dict, placement: str | None, repo: Path = REPO) 
     platforms["x"] = {"media_type": mtype, "media": fx, "media_url": ux, "text": _req(pkg, "x", "post"), "reply": _opt(pkg, "x", "reply")}
     platforms["threads"] = {"media_type": mtype, "media": ft, "media_url": ut, "text": _req(pkg, "threads", "post"),
                             "first_reply": _opt(pkg, "threads", "first_reply")}
+    if KIT_AUDIT_FIXES_LIVE:
+        platforms["threads"]["topic"] = threads_topic(spec["category"], spec.get("story_key") or "")
     platforms["pinterest"] = {"media_type": mtype, "media": fp, "media_url": up,
                               "title": _req(pkg, "pinterest", "title"), "description": _req(pkg, "pinterest", "description"),
                               "link": _req(pkg, "pinterest", "link")}
@@ -685,6 +760,9 @@ def build_manifest(spec: dict, existing: dict | None = None, now: dt.datetime | 
     kept_mixed = [p for p in kept if p.get("category") not in MIX_EXEMPT_CATEGORIES]
     slots = sorted([p["slot"] for p in mixed] + [p["slot"] for p in kept_mixed])
     overrides = {p["slot"]: p.get("instagram_placement") for p in mixed if "instagram_placement" in p}
+    if KIT_AUDIT_FIXES_LIVE:  # no Story route yet: a spec's Story is a feed post (published posts keep theirs)
+        overrides = {s: "feed" if v == "story" else v for s, v in overrides.items()}
+        extra = {s: "feed" if v == "story" else v for s, v in extra.items()}
     # Kept posts keep their Instagram placement; the new ones fill what is left of the mix.
     for p in kept_mixed:
         overrides[p["slot"]] = (p.get("platforms", {}).get("instagram") or {}).get("placement") or "none"
@@ -693,7 +771,7 @@ def build_manifest(spec: dict, existing: dict | None = None, now: dt.datetime | 
         videos, images, _ = local_media(repo, date, p["story_id"])
         if (p.get("media_type") or ("video" if len(videos) == len(FORMATS) else "image")) == "image":
             image_slots.add(p["slot"])
-    placements = assign_instagram(slots, dtype, overrides, RESERVED_IG if dtype == "weekday" else None, image_slots)
+    placements = assign_instagram(slots, dtype, overrides, reserved_ig() if dtype == "weekday" else None, image_slots)
     placements.update({s: v for s, v in extra.items() if v != "none"})
     new_posts = [build_post(date, p, placements.get(p["slot"]), repo) for p in spec["posts"]]
     posts = sorted(kept + new_posts, key=lambda p: p["slot"])

@@ -65,11 +65,11 @@ def test_instagram_weekday_mix(slots, want):
 
 def test_instagram_story_is_held_for_the_picks_pass():
     # 06:15 pass: slots 1-3, 6, 7; the picks slot (4) is filled at 13:45 and keeps its Story.
-    morning = mf.assign_instagram([1, 2, 3, 6, 7], "weekday", {}, mf.RESERVED_IG)
+    morning = mf.assign_instagram([1, 2, 3, 6, 7], "weekday", {}, mf.reserved_ig())
     assert morning == {1: "story", 2: "reel", 3: "feed", 6: "feed"}
     kept = {**morning, 7: "none"}
-    assert mf.assign_instagram([1, 2, 3, 5, 6, 7], "weekday", kept, mf.RESERVED_IG) == morning  # 10:30: the report gets none
-    assert mf.assign_instagram([1, 2, 3, 4, 6, 7], "weekday", kept, mf.RESERVED_IG) == {**morning, 4: "story"}  # 13:45
+    assert mf.assign_instagram([1, 2, 3, 5, 6, 7], "weekday", kept, mf.reserved_ig()) == morning  # 10:30: the report gets none
+    assert mf.assign_instagram([1, 2, 3, 4, 6, 7], "weekday", kept, mf.reserved_ig()) == {**morning, 4: "story"}  # 13:45
 
 
 def test_grid_moves_picks_and_report():
@@ -236,3 +236,190 @@ def test_check_spec_lists_a_video_posts_still_for_the_media_commit(tmp_path):
     listed = out.read_text(encoding="utf-8").split()
     assert "v/2026-09-29/trade-a/still/feed_4x5.jpg" in listed and "v/2026-09-29/trade-a/still/feed_4x5.png" in listed
     assert "v/2026-09-29/trade-a/reel_9x16.mp4" in listed
+
+
+# ---------------------------------------------------------------------------
+# Social-post audit 2026-09-28: Instagram videos 9:16, Story slots -> feed posts, Threads topic (KIT_AUDIT_FIXES_LIVE)
+
+DAY = {1: "earnings_week", 2: "insider_trade", 3: "insider_trade", 4: "daily_picks", 5: "earnings_report",
+       6: "congress_trade", 7: "congress_theme"}
+
+
+@pytest.fixture()
+def live(monkeypatch):
+    monkeypatch.setattr(mf, "KIT_AUDIT_FIXES_LIVE", True)
+
+
+def day_spec(slots, date="2026-09-29"):
+    return {"date": date, "posts": [{"slot": s, "time_et": mf.WEEKDAY_SLOTS[s], "category": DAY[s], "story_id": f"story-{s}",
+                                     "story_key": f"ptr:{s}:X:buy" if DAY[s].startswith("congress") else f"form4:{s}:X",
+                                     "tickers": [], "people": [], "post_package": str(UBER_PKG)} for s in slots]}
+
+
+def one_hashtag(m):
+    for p in m["posts"]:                           # the Uber package predates the one-hashtag X rule
+        if mf.X_HASHTAG.search(p["platforms"]["x"]["text"]) is None:
+            p["platforms"]["x"]["text"] += " #Stocks"
+    return m
+
+
+def ig(m):
+    return {p["slot"]: (p["platforms"]["instagram"]["placement"], p["platforms"]["instagram"]["media"])
+            for p in m["posts"] if "instagram" in p["platforms"]}
+
+
+def test_audit_fixes_stay_off_until_the_kit_is_on_prod():
+    # The kit on prod rejects a 9:16 feed video, a 3rd feed post and "topic", and would drop the whole day:
+    # flip this with the growth/kit-audit-fixes release (and update this test).
+    assert mf.KIT_AUDIT_FIXES_LIVE is False
+    assert mf.ig_weekday_mix() == {"reel": 1, "feed": 2, "story": 2} and mf.reserved_ig() == {4: "story"}
+    assert mf.ig_video_format("feed") == "feed_4x5"
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+def test_off_the_writer_is_unchanged_and_the_validator_matches_the_prod_kit(tmp_path):
+    slots = [1, 2, 3, 5, 6, 7]
+    m = one_hashtag(mf.build_manifest(day_spec(slots), repo=video_repo(tmp_path, [f"story-{s}" for s in slots])))
+    assert ig(m) == {1: ("story", "reel_9x16"), 2: ("reel", "reel_9x16"), 3: ("feed", "feed_4x5"), 6: ("feed", "feed_4x5")}
+    assert all("topic" not in p["platforms"]["threads"] for p in m["posts"])
+    assert mf.validate_manifest(m, "2026-09-29") == []
+    p3 = next(p for p in m["posts"] if p["slot"] == 3)
+    p3["platforms"]["instagram"].update(media="reel_9x16", media_url=p3["media"]["reel_9x16"])
+    p3["platforms"]["threads"]["topic"] = "Stocks"
+    errors = mf.validate_manifest(m, "2026-09-29")
+    assert "posts[2].platforms.instagram.media: must be feed_4x5 for a video" in errors
+    assert "posts[2].platforms.threads: unknown field 'topic'" in errors
+
+
+def test_live_weekday_mix_is_one_reel_and_four_feed_posts(live):
+    assert mf.assign_instagram([1, 2, 3, 4, 5, 6, 7], "weekday", {}) == {2: "reel", 1: "feed", 3: "feed", 4: "feed", 6: "feed"}
+    assert mf.assign_instagram([1, 3, 4, 6], "weekday", {}) == {3: "reel", 1: "feed", 4: "feed", 6: "feed"}
+    assert mf.assign_instagram([1, 2, 3], "weekday", {}, image_slots={1}) == {2: "reel", 1: "feed", 3: "feed"}
+    assert mf.assign_instagram([1], "weekend", {}) == {1: "reel"}
+    assert mf.assign_instagram([1], "weekend", {}, image_slots={1}) == {1: "feed"}
+
+
+def test_live_the_picks_slot_keeps_a_feed_post_for_the_picks_pass(live):
+    assert mf.reserved_ig() == {4: "feed"}
+    morning = mf.assign_instagram([1, 2, 3, 6, 7], "weekday", {}, mf.reserved_ig())
+    assert morning == {1: "feed", 2: "reel", 3: "feed", 6: "feed"}
+    kept = {**morning, 7: "none"}
+    assert mf.assign_instagram([1, 2, 3, 5, 6, 7], "weekday", kept, mf.reserved_ig()) == morning  # 10:00: the report gets none
+    assert mf.assign_instagram([1, 2, 3, 4, 6, 7], "weekday", kept, mf.reserved_ig()) == {**morning, 4: "feed"}  # 13:45
+
+
+def test_live_switch_day_a_published_story_counts_against_the_four(live):
+    # Morning written before the switch (a Story in slot 1); the picks pass runs after it.
+    kept = {1: "story", 2: "reel", 3: "feed", 6: "feed", 7: "none"}
+    placed = {k: v for k, v in kept.items() if v != "none"}
+    assert mf.assign_instagram([1, 2, 3, 4, 6, 7], "weekday", kept, mf.reserved_ig()) == {**placed, 4: "feed"}
+    # Two published Stories: the picks slot is the 4th besides the Reel; then nothing is left for the report (5).
+    kept2 = {**kept, 6: "story"}
+    assert mf.assign_instagram([1, 2, 3, 4, 6, 7], "weekday", kept2, mf.reserved_ig()) == {**placed, 6: "story", 4: "feed"}
+    kept3 = {**kept2, 4: "feed"}
+    assert mf.assign_instagram([1, 2, 3, 4, 5, 6, 7], "weekday", kept3, mf.reserved_ig()) == {k: v for k, v in kept3.items() if v != "none"}
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+def test_live_every_instagram_video_is_9x16_and_threads_has_its_topic(live, tmp_path):
+    slots = [1, 2, 3, 4, 5, 6, 7]
+    m = one_hashtag(mf.build_manifest(day_spec(slots), repo=video_repo(tmp_path, [f"story-{s}" for s in slots])))
+    assert ig(m) == {1: ("feed", "reel_9x16"), 2: ("reel", "reel_9x16"), 3: ("feed", "reel_9x16"), 4: ("feed", "reel_9x16"),
+                     6: ("feed", "reel_9x16")}
+    for p in m["posts"]:
+        if "instagram" in p["platforms"]:
+            assert p["platforms"]["instagram"]["media_url"] == p["media"]["reel_9x16"]
+            assert p["platforms"]["instagram"]["caption"] and p["platforms"]["instagram"]["link_sticker_url"] is None
+    assert {p["slot"]: p["platforms"]["threads"]["topic"] for p in m["posts"]} == {
+        1: "Earnings", 2: "Stocks", 3: "Stocks", 4: "Stocks", 5: "Earnings", 6: "Stock Market", 7: "Stock Market"}
+    assert list(m["posts"][0]["platforms"]["threads"])[-1] == "topic"
+    assert mf.validate_manifest(m, "2026-09-29") == []
+    # The same manifest under the prod kit's rules is rejected: why the flag waits for the kit release.
+    mf.KIT_AUDIT_FIXES_LIVE = False
+    errors = mf.validate_manifest(m, "2026-09-29")
+    assert "manifest: 4 Instagram feed posts; a weekday has at most 2" in errors
+    assert any(e.endswith("threads: unknown field 'topic'") for e in errors)
+    assert any(e.endswith("instagram.media: must be feed_4x5 for a video") for e in errors)
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+def test_live_a_specs_story_becomes_a_feed_post_and_images_keep_4x5(live, tmp_path):
+    m = mf.build_manifest(image_spec(), repo=image_repo(tmp_path))   # the spec asks for a Story
+    block = m["posts"][0]["platforms"]["instagram"]
+    assert (block["placement"], block["media_type"], block["media"], block["link_sticker_url"]) == ("feed", "image", "feed_4x5", None)
+    assert mf.NOT_ADVICE in block["caption"]
+    assert m["posts"][0]["platforms"]["threads"]["topic"] == "Earnings"
+    assert mf.validate_manifest(m, "2026-09-28") == []
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+def test_live_merge_keeps_a_published_story_and_stays_valid(monkeypatch, tmp_path):
+    repo = video_repo(tmp_path, [f"story-{s}" for s in [1, 2, 3, 4, 6, 7]])
+    monkeypatch.setattr(mf, "KIT_AUDIT_FIXES_LIVE", False)          # the morning pass ran before the switch
+    morning = one_hashtag(mf.build_manifest(day_spec([1, 2, 3, 6, 7]), repo=repo))
+    assert ig(morning)[1] == ("story", "reel_9x16") and ig(morning)[3] == ("feed", "feed_4x5")
+    monkeypatch.setattr(mf, "KIT_AUDIT_FIXES_LIVE", True)           # the picks pass runs after it
+    picks = one_hashtag(mf.build_manifest(day_spec([4]), existing=morning, repo=repo))
+    assert ig(picks) == {**ig(morning), 4: ("feed", "reel_9x16")}
+    assert mf.validate_manifest(picks, "2026-09-29") == []
+
+
+def test_live_validator_caps_and_topics(live, m):
+    tue = as_tuesday(m, "Dara Khosrowshahi bought Uber. Not investment advice. #InsiderBuying")
+    base = tue["posts"][0]
+
+    def day(placements):
+        out = copy.deepcopy(tue)
+        out["posts"] = []
+        for i, pl in enumerate(placements):
+            p = copy.deepcopy(base)
+            sid = f"story-{i + 1}"
+            p.update(slot=i + 1, story_id=sid, id=f"video-2026-09-29-{sid}",
+                     media={f: mf.media_url("2026-09-29", sid, f) for f in mf.FORMATS})
+            for plat in p["platforms"].values():
+                plat["media_url"] = p["media"][plat["media"]]
+            p["platforms"]["instagram"].update(placement=pl, media="reel_9x16", media_url=p["media"]["reel_9x16"])
+            if pl == "story":
+                p["platforms"]["instagram"].update(caption=None, first_comment=None)
+            out["posts"].append(p)
+        return out
+
+    assert mf.validate_manifest(day(["feed", "reel", "feed", "feed", "feed"]), "2026-09-29") == []
+    assert mf.validate_manifest(day(["story", "reel", "feed", "story", "feed"]), "2026-09-29") == []
+    assert mf.validate_manifest(day(["story", "reel", "feed", "feed", "feed", "feed"]), "2026-09-29") == [
+        "manifest: 5 Instagram feed posts and Stories; a weekday has at most 4 besides the Reel"]
+    assert mf.validate_manifest(day(["story", "reel", "story", "story"]), "2026-09-29") == [
+        "manifest: 3 Instagram story posts; a weekday has at most 2"]
+    feed_4x5 = day(["feed"])
+    feed_4x5["posts"][0]["platforms"]["instagram"].update(media="feed_4x5", media_url=feed_4x5["posts"][0]["media"]["feed_4x5"])
+    assert mf.validate_manifest(feed_4x5, "2026-09-29") == []          # written before the switch
+    reel_4x5 = day(["reel"])
+    reel_4x5["posts"][0]["platforms"]["instagram"].update(media="feed_4x5", media_url=reel_4x5["posts"][0]["media"]["feed_4x5"])
+    assert "posts[0].platforms.instagram.media: must be reel_9x16 for a video" in mf.validate_manifest(reel_4x5, "2026-09-29")
+    for topic in mf.THREADS_TOPICS:
+        tue["posts"][0]["platforms"]["threads"]["topic"] = topic
+        assert mf.validate_manifest(tue, "2026-09-29") == []
+    for bad in ("stocks", "insidertrading", None):
+        tue["posts"][0]["platforms"]["threads"]["topic"] = bad
+        assert "posts[0].platforms.threads.topic: must be one of Stocks, Stock Market, Earnings, Investing" in mf.validate_manifest(tue, "2026-09-29")
+    del tue["posts"][0]["platforms"]["threads"]["topic"]
+    tue["posts"][0]["platforms"]["x"]["topic"] = "Stocks"
+    assert "posts[0].platforms.x: unknown field 'topic'" in mf.validate_manifest(tue, "2026-09-29")
+
+
+def test_live_published_manifests_stay_valid(live, m):
+    # Written before the switch (4:5 feed videos, Stories, no topic): still valid, as the new kit accepts them.
+    assert mf.validate_manifest(m, "2026-09-27") == []
+    for date in ("2026-09-28", "2026-09-29"):
+        path = TOOLS.parent / "v" / date / "manifest.json"
+        if path.exists():
+            assert mf.validate_manifest(json.loads(path.read_text(encoding="utf-8")), date) == [], date
+
+
+def test_threads_topic_covers_every_category():
+    assert set(mf.THREADS_TOPIC_BY_CATEGORY) == set(mf.CATEGORIES)
+    assert set(mf.THREADS_TOPIC_BY_CATEGORY.values()) <= set(mf.THREADS_TOPICS)
+    assert mf.threads_topic("person_spotlight", "ptr:20035326:PG:sell") == "Stock Market"
+    assert mf.threads_topic("person_spotlight", "form4:0001184237-26-000008:UBER") == "Stocks"
+    assert mf.threads_topic("product_promo") == "Investing"
+    assert mf.threads_topic("congress_theme", "theme:congress_bigtech:30d:AAPL") == "Stock Market"
