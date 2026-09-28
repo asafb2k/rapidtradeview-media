@@ -45,10 +45,10 @@ $weekdayNames = @('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
 $weekendNames = @('Saturday', 'Sunday')
 # Name suffix, New York hour, minute, days, run_daily.ps1 arguments.
 $plan = @(
-    @{ Suffix = 'weekday 06:15 ET morning'; Hour = 6; Minute = 15; Days = $weekdayNames; Args = '-Pass morning' },
-    @{ Suffix = 'weekday 10:30 ET reports'; Hour = 10; Minute = 30; Days = $weekdayNames; Args = '-Pass reports' },
-    @{ Suffix = 'weekday 13:45 ET picks'; Hour = 13; Minute = 45; Days = $weekdayNames; Args = '-Pass picks -RetryEmptyMinutes 25' },
-    @{ Suffix = 'weekend 08:00 ET'; Hour = 8; Minute = 0; Days = $weekendNames; Args = '' }
+    @{ Suffix = 'weekday 0615 ET morning'; Hour = 6; Minute = 15; Days = $weekdayNames; Args = '-Pass morning' },
+    @{ Suffix = 'weekday 1030 ET reports'; Hour = 10; Minute = 30; Days = $weekdayNames; Args = '-Pass reports' },
+    @{ Suffix = 'weekday 1345 ET picks'; Hour = 13; Minute = 45; Days = $weekdayNames; Args = '-Pass picks -RetryEmptyMinutes 25' },
+    @{ Suffix = 'weekend 0800 ET'; Hour = 8; Minute = 0; Days = $weekendNames; Args = '' }
 )
 
 if ($Unregister) {
@@ -81,8 +81,8 @@ function Get-TriggerXml([DateTime]$Utc, [string[]]$DayNames) {
       <StartBoundary>$($Utc.ToString('yyyy-MM-ddTHH:mm:ss'))Z</StartBoundary>
       <Enabled>true</Enabled>
       <ScheduleByWeek>
-        <DaysOfWeek>$days</DaysOfWeek>
         <WeeksInterval>1</WeeksInterval>
+        <DaysOfWeek>$days</DaysOfWeek>
       </ScheduleByWeek>
     </CalendarTrigger>
 

@@ -191,3 +191,8 @@ def test_the_big_tech_theme_waits_a_week():
     prior = [ss.Posted(D(2026, 9, 28), "theme:congress_bigtech:2026-09-28", [], [], "congress_theme")]
     s = ss.congress_theme_slot(StubApi({}), D(2026, 9, 29), "congress_30d", prior)
     assert "at most one in 7 days" in s["empty"]
+
+
+def test_congress_last_week_has_no_template():
+    s = ss.theme_slot(StubApi({}), D(2026, 10, 5), "congress_week", [], {}, Path("x"), {}, [], [])
+    assert "shortest window is 30 days" in s["empty"]

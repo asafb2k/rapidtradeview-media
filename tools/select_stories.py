@@ -43,8 +43,9 @@ Congress stories = one House PTR (the PDF on disclosures-clerk.house.gov) per me
 Senate eFD reports are not renderable by the trade template (their site needs a terms click-through), so
 Senate trades are left out ("not_renderable").
 
-Slot 7 themes: congress_week (Mon) and congress_30d (Tue) render with the Congress Big Tech template for
-the last 7 / 30 days, at most once in 7 days (a theme posted in the previous 6 days leaves the slot empty);
+Slot 7 themes: congress_30d (Tue) renders with the Congress Big Tech template for the last 30 days, at most
+once in 7 days (a Big Tech theme posted in the previous 6 days leaves the slot empty). congress_week (Mon) has
+no template: /notable/congress only serves 30, 60 or 90 days (days=7 answers HTTP 422, checked 2026-09-28);
 person_spotlight (Wed) is a trade story (the trade template) not already chosen for a trade slot;
 track_record (Thu) and insider_week (Fri) have no template yet (run_daily.ps1 logs the TODO).
 """
@@ -97,7 +98,7 @@ TEMPLATES = {
 }
 MAX_PROGRAM_FILINGS = 8
 THEME_GAP_DAYS = 7
-CONGRESS_THEME_DAYS = {"congress_week": 7, "congress_30d": 30}
+CONGRESS_THEME_DAYS = {"congress_30d": 30}
 HOUSE_PTR = re.compile(r"^https://disclosures-clerk\.house\.gov/public_disc/ptr-pdfs/\d{4}/(\d+)\.pdf$")
 WEEKDAY_THEMES = {0: "congress_week", 1: "congress_30d", 2: "person_spotlight", 3: "track_record", 4: "insider_week"}
 NY = None
@@ -876,6 +877,9 @@ def theme_slot(api: Api, target: dt.date, kind: str, trades_all: list[Trade], fa
                prior: list[Posted] | None = None, chosen: list[Trade] | None = None) -> dict:
     if kind in CONGRESS_THEME_DAYS:
         return congress_theme_slot(api, target, kind, prior or [])
+    if kind == "congress_week":
+        return {"empty": "no template for Congress last week: the Congress API's shortest window is 30 days (the Big Tech "
+                         "theme runs on Tuesdays, congress_30d)"}
     if kind == "person_spotlight":
         taken = chosen or []
         famous = sorted([t for t in trades_all if t.famous_person and t.parts.get("novelty", 1) > 0
