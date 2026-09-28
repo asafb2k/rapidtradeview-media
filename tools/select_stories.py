@@ -27,11 +27,13 @@ Trades are ranked by fame x dollar size x recency x novelty:
   novelty  0 when the filing (or the same person in the same ticker within 30 days) is in an earlier
            manifest; 0.5 when the person or the ticker was posted in the last 14 days; else 1
 Minimums: insider purchases of $1M+ or a famous executive (fame.json, or CEO / Chair / President of a
-$200B+ company); Congress trades of $15K+ (range low) or a famous member. Insider sales and
-pre-planned (10b5-1 marked) buys are left out.
+$200B+ company); Congress trades of $15K+ (range low) always, famous member or not: fame only ranks them
+(a famous member's $1K-$15K trade never takes a slot). Insider sales and pre-planned (10b5-1 marked)
+buys are left out.
 A trade slot takes a recent trade scoring >= 0.30 (MIN_TRADE_SCORE). Below that it takes the BACKLOG:
 trades by a famous person (fame.json, or a famous executive) filed within the last 30 days and in no
-earlier manifest, ranked by the same score. Nothing qualifies -> the slot stays empty.
+earlier manifest that pass the same minimums, ranked by the same score. Nothing qualifies -> the slot
+stays empty.
 
 Amounts: an insider story is a buying PROGRAM: the person's open-market buys of one ticker across every
 Form 4 filed in the last 30 days that no earlier manifest carries (at most the latest 8 filings; Berkshire's
@@ -546,18 +548,19 @@ def famous_exec(t: Trade, tiers: dict) -> bool:
 
 def rank_trades(api: Api, trades: list[Trade], target: dt.date, fame: dict, prior: list[Posted], dropped: dict) -> list[Trade]:
     tiers = fame["company_tiers_usd"]
-    # Cheap bar first (dollar minimum, famous person, or a top officer's $100K+ buy that may be at a
-    # $200B+ company), so /snapshot is read only for real candidates.
-    pre = [t for t in trades if t.famous_person or (t.kind == "insider" and t.value_usd >= INSIDER_MIN_USD)
-           or (t.kind == "congress" and t.low >= CONGRESS_MIN_LOW)
-           or (t.kind == "insider" and t.value_usd >= 100_000 and TOP_OFFICER.search(t.role or ""))]
+    # Cheap bar first (dollar minimum, famous insider, or a top officer's $100K+ buy that may be at a
+    # $200B+ company), so /snapshot is read only for real candidates. Congress: the range-low minimum
+    # always; a famous member only ranks higher (fame), never passes below it.
+    pre = [t for t in trades if (t.kind == "congress" and t.low >= CONGRESS_MIN_LOW)
+           or (t.kind == "insider" and (t.famous_person or t.value_usd >= INSIDER_MIN_USD
+                                        or (t.value_usd >= 100_000 and TOP_OFFICER.search(t.role or ""))))]
     pre.sort(key=lambda t: -t.usd)
     for t in pre[:MAX_SNAPSHOTS]:
         name, t.market_cap = company_info(api, t.ticker)
         t.company = name or t.company
     kept = []
     for t in pre:
-        ok = (t.value_usd >= INSIDER_MIN_USD or famous_exec(t, tiers)) if t.kind == "insider" else (t.low >= CONGRESS_MIN_LOW or bool(t.famous_person))
+        ok = (t.value_usd >= INSIDER_MIN_USD or famous_exec(t, tiers)) if t.kind == "insider" else t.low >= CONGRESS_MIN_LOW
         if not ok:
             dropped["below_minimum"] += 1
             continue

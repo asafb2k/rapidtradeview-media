@@ -147,6 +147,50 @@ def test_weak_recent_trades_give_way_to_the_famous_backlog():
     assert story["selected_from"] == "backlog" and "never call this the total" in story["amount"]["note"]
 
 
+def ptr_item(tid, name, slug, ticker, filed, low, high, pdf="20035326"):
+    return {"trade_id": tid, "figure": {"kind": "politician", "display_name": name, "slug": slug, "party": "Republican",
+                                        "chamber": "house", "state": "FL"},
+            "ticker": ticker, "side": "sell", "disclosure_date": filed, "transaction_date": "2026-08-11", "owner": "spouse",
+            "amount": {"low": low, "high": high},
+            "source_url": f"https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/{pdf}.pdf"}
+
+
+def test_congress_minimum_binds_famous_members_too():
+    """A famous member's $1K-$15K trade never takes a slot (2026-09-29 dry run: Byron Donalds $PH, two $1,001-$15,000
+    rows); fame only ranks Congress trades that pass the $15K range-low minimum."""
+    fame = json.loads((TOOLS / "fame.json").read_text(encoding="utf-8"))
+    assert ss.matches_any("Byron Donalds", fame["members"]) and ss.matches_any("Kevin Hern", fame["members"])
+    items = [
+        ptr_item(1, "Byron Donalds", "byron-donalds", "PH", "2026-09-25", 1001, 15000, "20035001"),
+        ptr_item(2, "Byron Donalds", "byron-donalds", "PH", "2026-09-25", 1001, 15000, "20035001"),
+        ptr_item(3, "Kevin Hern", "kevin-hern", "PG", "2026-09-25", 50001, 100000, "20035326"),
+        ptr_item(4, "Joe Nobody", "joe-nobody", "KO", "2026-09-25", 15001, 50000, "20035400"),
+    ]
+    api = StubApi({
+        "/notable/feed?tab=insiders": {"items": [], "has_more": False},
+        "/notable/feed?tab=congress": {"items": items, "has_more": False},
+        "/snapshot/PH": {"company_name": "Parker-Hannifin", "profile": {"stats": {"market_cap": 8e10}}},
+        "/snapshot/PG": {"company_name": "Procter & Gamble", "profile": {"stats": {"market_cap": 3.5e11}}},
+        "/snapshot/KO": {"company_name": "Coca-Cola", "profile": {"stats": {"market_cap": 3e11}}},
+    })
+    names = {"PH": "Parker-Hannifin", "PG": "Procter & Gamble", "KO": "Coca-Cola"}
+    chosen, ranked, backlog, dropped, errors = ss.choose_trades(api, D(2026, 9, 28), 3, names, fame, [], 3)
+    assert errors == []
+    assert "PH" not in [t.ticker for t in ranked + backlog + chosen]
+    assert dropped["below_minimum"] == 1
+    by = {t.ticker: t for t in ranked}
+    assert set(by) == {"PG", "KO"} and by["PG"].famous_person and not by["KO"].famous_person
+    assert by["PG"].parts["fame"] > by["KO"].parts["fame"]          # fame still ranks the trades that pass
+    assert all(t.low >= ss.CONGRESS_MIN_LOW for t in chosen)
+    # the backlog path too: an old famous $1K-$15K trade stays out
+    old = [ptr_item(5, "Byron Donalds", "byron-donalds", "PH", "2026-09-10", 1001, 15000, "20034000")]
+    api2 = StubApi({"/notable/feed?tab=insiders": {"items": [], "has_more": False},
+                    "/notable/feed?tab=congress": {"items": old, "has_more": False},
+                    "/snapshot/PH": {"company_name": "Parker-Hannifin", "profile": {"stats": {"market_cap": 8e10}}}})
+    chosen2, _, backlog2, _, _ = ss.choose_trades(api2, D(2026, 9, 28), 3, names, fame, [], 3)
+    assert chosen2 == [] and backlog2 == []
+
+
 def test_recency_keeps_falling_for_the_backlog():
     assert [ss.recency(a) for a in (0, 3, 5, 6, 15, 40)] == [1.0, 0.55, 0.35, 0.34, 0.25, 0.15]
 
