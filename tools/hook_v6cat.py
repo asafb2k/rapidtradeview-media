@@ -52,15 +52,18 @@ def image_steps(data: dict, py: str) -> list[list[str]]:
         build = [py, s + "earnings_image.py", "day", "--id", sid, "--date", date]
     else:
         mode = story.get("mode")
-        weekday = dt.date.fromisoformat(date).weekday()
+        day = dt.date.fromisoformat(date)
+        weekday = day.weekday()
+        # the Monday of the week shown; earnings_image.py resolves weeks_ahead against the API at render time
+        # (weeks_ahead is relative to the day the API is called: a Sunday render of weeks_ahead=1 posted Monday was wrong)
         if mode == "week_ahead":
-            ahead = "1"
+            week_start = day + dt.timedelta(days=7 - weekday)
         elif mode == "week" and weekday == 0:
-            ahead = "0"
+            week_start = day
         else:
             raise SystemExit(f"hook_v6cat: the earnings image has no variant for mode {mode!r} on a {dt.date.fromisoformat(date):%A} "
                              "(only the full week: Monday this week, Saturday next week); story skipped")
-        build = [py, s + "earnings_image.py", "week", "--id", sid, "--weeks-ahead", ahead]
+        build = [py, s + "earnings_image.py", "week", "--id", sid, "--week-start", week_start.isoformat()]
     return [build, ["node", s + "render-stills.mjs", "--id", sid],
             [py, s + "earnings_image.py", "post", "--id", sid, "--publish-date", date],
             [py, s + "qa_stills.py", "--id", sid]]
