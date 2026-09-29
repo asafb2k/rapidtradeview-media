@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-09-29",
+ "media_date": "2026-09-29",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-29/picks-2026-09-29/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-09-29",
+   "fetched_at_utc": "2026-09-29T17:46:11.022288+00:00",
+   "status": 200,
+   "sha256": "190f408ab18a6acd318a0aea57d204f0209c24e6f0fbc34685e4eae52ff3971d",
+   "bytes": 6207
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-29/picks-2026-09-29/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-09-29T17:46:11.486720+00:00",
+   "status": 200,
+   "sha256": "c7b97c9e463b7590988d670741e6251b3faa912256ccbd344849376d2c64c4e5",
+   "bytes": 9982
+  },
+  {
+   "name": "search-AMZN.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-29/picks-2026-09-29/evidence/search-AMZN.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=AMZN",
+   "fetched_at_utc": "2026-09-29T17:46:11.719803+00:00",
+   "status": 200,
+   "sha256": "652faaab9093ed0a859bb9a58073c94e7be40a3274e5c47eb01582a0feb43b59",
+   "bytes": 455
+  },
+  {
+   "name": "search-FUL.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-29/picks-2026-09-29/evidence/search-FUL.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=FUL",
+   "fetched_at_utc": "2026-09-29T17:46:12.136732+00:00",
+   "status": 200,
+   "sha256": "3f6d0a6c30591821c20f1fc601ced44ced387afafecf3eb31b3dd53a18a58719",
+   "bytes": 492
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
