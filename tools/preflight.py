@@ -16,7 +16,10 @@ Run through `manifest.py preflight` (see there for the CLI). For each post it re
       (two share counts, held after - bought, two value_usd ...) passes as "derived", with its formula in
       the report; a data.json may also list derived figures itself ({"derived_numbers": [{"value":
       15000, "formula": "..."}]}), which count as plain data;
-  (d) freshness: every date written in the texts is a date the data holds; the data's age is reported.
+  (d) freshness: every date written in the texts is a date the data holds; the data's age is reported;
+  (e) picks readiness: from 2026-09-30, a successful live check must finish by T-60. A separate receipt
+      binds that first pass to the exact post, media and data, so later checks cannot invent an earlier
+      ready time and cannot falsely reject unchanged picks that were verified in time.
 A report per slot goes to D:/rtv-ops/tracks/growth/research/daily-video/<date>/preflight-<slot>.json.
 """
 from __future__ import annotations
@@ -433,8 +436,53 @@ def post_time(date: str, hhmm: str) -> dt.datetime:
     return dt.datetime(d.year, d.month, d.day, h, m, tzinfo=NY)
 
 
+def utc_now() -> dt.datetime:
+    return dt.datetime.now(dt.timezone.utc)
+
+
+def readiness_fingerprint(post: dict, repo: Path, files: list[Path]) -> str:
+    content = {k: v for k, v in post.items() if k not in {"status", "held_reason"}}
+    media = {u: sha256_file(repo / u[len(mf.PAGES_BASE) + 1:]) for u in media_urls(post)}
+    data = {str(f): sha256_file(f) for f in files}
+    return hashlib.sha256(json.dumps({"post": content, "media": media, "data": data}, sort_keys=True).encode()).hexdigest()
+
+
+def recorded_readiness(post: dict, date: str, repo: Path, work: Path, files: list[Path]) -> tuple[dt.datetime | None, str]:
+    fingerprint = readiness_fingerprint(post, repo, files)
+    path = work / f"readiness-{post['slot']}.json"
+    if not path.exists():
+        return None, fingerprint
+    record = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(record, dict) or not isinstance(record.get("ready_at"), str):
+        raise ValueError("invalid readiness receipt")
+    if record.get("content_sha256") != fingerprint or record.get("date") != date or record.get("slot") != post["slot"]:
+        return None, fingerprint
+    ready_at = dt.datetime.fromisoformat(record["ready_at"].replace("Z", "+00:00"))
+    if ready_at.tzinfo is None:
+        raise ValueError("readiness receipt has no timezone")
+    return ready_at, fingerprint
+
+
+def due_slots(m: dict, date: str, repo: Path, work: Path, now: dt.datetime, after: int, within: int) -> set[int]:
+    """The normal window plus unverified late picks, even when they missed that window."""
+    slots = set()
+    for post in m.get("posts", []):
+        left = (post_time(date, post["time_et"]) - now).total_seconds()
+        if after * 60 <= left <= within * 60:
+            slots.add(post["slot"])
+        elif left < after * 60 and mf.picks_readiness_deadline(date, post) is not None and post.get("status") != "held":
+            try:
+                files, _ = find_data(post, date, work)
+                ready_at, _ = recorded_readiness(post, date, repo, work, files)
+            except (OSError, ValueError, KeyError, TypeError):
+                ready_at = None
+            if ready_at is None or ready_at > mf.picks_readiness_deadline(date, post):
+                slots.add(post["slot"])
+    return slots
+
+
 def preflight(m: dict, date: str, repo: Path, work: Path, slots: set[int] | None, local_only: bool,
-              media_dir: Path | None, now: dt.datetime) -> list[dict]:
+              media_dir: Path | None, now: dt.datetime | None = None, record_readiness: bool = True) -> list[dict]:
     """One report per checked post."""
     year = int(date[:4])
     base_errors = mf.validate_manifest(m, date)
@@ -486,13 +534,34 @@ def preflight(m: dict, date: str, repo: Path, work: Path, slots: set[int] | None
         age = data_age_hours(files, when)
         if age is not None and age > 24:
             warnings.append(f"data built {age} h before the post time")
-        minutes_left = round((when - now).total_seconds() / 60)
+        deadline = mf.picks_readiness_deadline(date, post)
+        ready_at = None
+        fingerprint = None
+        if deadline is not None:
+            try:
+                ready_at, fingerprint = recorded_readiness(post, date, repo, work, files)
+            except (OSError, ValueError, KeyError, TypeError) as e:
+                failures.append(f"(e) readiness: cannot verify the receipt/content ({type(e).__name__})")
+        # Stamp after remote checks and content hashing; --now stays deterministic for replay.
+        checked_at = now or utc_now()
+        if deadline is not None:
+            if ready_at is not None and ready_at > checked_at:
+                failures.append("(e) readiness: receipt is in the future")
+            if (ready_at or checked_at) > deadline:
+                failures.append(f"(e) readiness: first successful live check must finish by {deadline.strftime('%Y-%m-%dT%H:%M:%SZ')} (T-60)")
+            if not failures and record_readiness and not local_only and fingerprint is not None and ready_at is None:
+                ready_at = checked_at
+                mf.write_json(work / f"readiness-{post['slot']}.json", {"date": date, "slot": post["slot"],
+                              "story_id": post["story_id"], "ready_at": ready_at.isoformat(), "content_sha256": fingerprint})
+        minutes_left = round((when - checked_at).total_seconds() / 60)
         if post.get("status") == "held":
             warnings.append(f"already held: {post.get('held_reason')}")
         reports.append({
             "date": date, "slot": post.get("slot"), "time_et": post.get("time_et"), "id": post.get("id"),
             "story_id": post.get("story_id"), "category": post.get("category"),
-            "checked_at": now.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "checked_at": checked_at.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "ready_at": ready_at.isoformat() if ready_at is not None else None,
+            "readiness_deadline": deadline.isoformat() if deadline is not None else None,
             "minutes_before_post": minutes_left, "result": "fail" if failures else "pass",
             "failures": failures, "warnings": warnings + (notes if docs else []),
             "checks": {"media": media, "source_urls": post.get("source_urls"), "data_files": [str(f) for f in files],
