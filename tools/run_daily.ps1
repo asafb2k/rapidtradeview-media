@@ -71,7 +71,8 @@ if (-not $Date) {
 if ($Date -notmatch '^\d{4}-\d{2}-\d{2}$') { throw "Date must be YYYY-MM-DD (got '$Date')" }
 
 # Slots of this run: -Slots (a comma list: powershell -File cannot pass an array), else the pass's.
-$passSlots = @{ morning = '1,2,3,6,7'; reports = '5,7'; picks = '4' }
+# Owner 2026-09-30: 1-2 posts per platform per day (best trade + picks); the reports task is disabled.
+$passSlots = @{ morning = '2'; reports = '5,7'; picks = '4' }
 if (-not $Slots -and $Pass) { $Slots = $passSlots[$Pass] }
 $slotList = @()
 if ($Slots) { $slotList = @($Slots -split ',' | Where-Object { $_.Trim() } | ForEach-Object { [int]$_.Trim() }) }

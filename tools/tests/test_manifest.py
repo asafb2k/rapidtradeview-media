@@ -77,7 +77,7 @@ def test_instagram_placement_is_held_for_the_picks_pass():
 def test_grid_moves_picks_and_report():
     assert mf.WEEKDAY_SLOTS[4] == "15:00" and mf.WEEKDAY_SLOTS[5] == "16:00"
     assert mf.PASS_TIMES == {"morning": "05:00", "reports": "10:00", "picks": "13:45"}
-    assert mf.PASSES == {"morning": (1, 2, 3, 6, 7), "reports": (5, 7), "picks": (4,)}
+    assert mf.PASSES == {"morning": (2,), "reports": (5, 7), "picks": (4,)}   # owner 2026-09-30: 1-2 posts per platform per day
 
 
 def test_instagram_weekend_is_one_reel():
