@@ -6,6 +6,13 @@ The Windows tasks run `tools/run_daily.ps1` to prepare media and publish the dai
 not post to social accounts. Weekday picks preparation stays at 13:45 New York time; the picks post
 is scheduled for 15:00. The existing tasks require the PC on and the user logged in.
 
+Video packages carry the provenance of their actual muxed audio. The manifest preserves a present
+`music` object unchanged, validating the original-score synthesis/sample fields, source, license and
+sample-archive hash. Missing or null legacy package metadata stays omitted; omission grants no audio
+permission. Deploy the web consumer's optional music schema before merging this producer change,
+because older kit validators reject the new field. Do not retrofit music into a picks manifest after
+its readiness deadline: provenance is part of the post's content binding, so that changes the proof.
+
 From 2026-09-30, picks must finish a successful live preflight at least 60 minutes before their post
 time. New picks generated after that deadline enter the manifest held. Preflight also holds picks
 whose first successful live check finishes late, and the periodic check catches unverified picks

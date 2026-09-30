@@ -183,7 +183,9 @@ PLATFORM_KEYS = {
     "pinterest": {"media", "media_url", "title", "description", "link"},
 }
 TAG_KEYS = {"handle", "verified"}
-POST_OPTIONAL_KEYS = {"images", "status", "held_reason"}
+POST_OPTIONAL_KEYS = {"images", "status", "held_reason", "music"}
+MUSIC_KEYS = {"type", "samples", "synthesis", "version", "license", "license_url", "source_url",
+              "archive_sha256", "third_party_tracks", "credit"}
 POST_STATUSES = ("held",)  # absent = ready to post
 PLATFORM_OPTIONAL_KEYS = {"media_type"}  # absent = video (manifests written before image posts)
 # Optional per platform with KIT_AUDIT_FIXES_LIVE (absent in manifests written before the Threads topic field).
@@ -310,6 +312,35 @@ def _keys(errors: list[str], at: str, obj: dict, allowed: set[str], required: se
         errors.append(f"{at}: missing field {k!r}")
 
 
+def _music(errors: list[str], at: str, music: object) -> None:
+    """The same optional, factual provenance contract the kit accepts. Never invent rights."""
+    if not isinstance(music, dict):
+        errors.append(f"{at}: must be an object (leave it out when provenance is unavailable)")
+        return
+    _keys(errors, at, music, MUSIC_KEYS, {"type", "samples", "third_party_tracks"})
+    if music.get("type") != "original score":
+        errors.append(f"{at}.type: must be original score")
+    if music.get("third_party_tracks") is not False:
+        errors.append(f"{at}.third_party_tracks: must be false")
+    sampled = isinstance(music.get("samples"), str)
+    if sampled:
+        _text(errors, f"{at}.samples", music["samples"], required=True, limit=200)
+    elif music.get("samples") is not None:
+        errors.append(f"{at}.samples: must be non-empty text or null")
+    _text(errors, f"{at}.synthesis", music.get("synthesis"),
+          required=("samples" in music and music["samples"] is None) or "synthesis" in music, limit=300)
+    for key, limit in (("version", 200), ("license", 120), ("credit", 500)):
+        _text(errors, f"{at}.{key}", music.get(key), required=sampled or key in music, limit=limit)
+    for key in ("license_url", "source_url"):
+        value = music.get(key)
+        if (sampled or key in music) and (not _https(value)
+                or (isinstance(value, str) and utf16_len(value) > 500) or CONTROL.search(str(value))):
+            errors.append(f"{at}.{key}: must be an https URL without control or invisible characters")
+    if (sampled or "archive_sha256" in music) and (not isinstance(music.get("archive_sha256"), str)
+            or not re.fullmatch(r"[a-f0-9]{64}", music["archive_sha256"], re.IGNORECASE)):
+        errors.append(f"{at}.archive_sha256: must be 64 hexadecimal characters")
+
+
 def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
     """Every rule the kit enforces; [] = valid."""
     errors: list[str] = []
@@ -348,6 +379,8 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
             errors.append(f"{at}: must be an object")
             continue
         _keys(errors, at, p, POST_KEYS | POST_OPTIONAL_KEYS, POST_KEYS)
+        if "music" in p:
+            _music(errors, f"{at}.music", p["music"])
         if "status" in p or "held_reason" in p:
             if p.get("status") not in POST_STATUSES:
                 errors.append(f"{at}.status: must be held (leave it out for a post that is ready)")
@@ -753,6 +786,10 @@ def build_post(date: str, spec: dict, placement: str | None, repo: Path = REPO) 
     }
     if images:
         post["images"] = images
+    # Packages already bind this actual block to the muxed audio. Keep legacy
+    # missing/null provenance absent; never substitute a guessed rights claim.
+    if pkg.get("music") is not None:
+        post["music"] = pkg["music"]
     return post
 
 
