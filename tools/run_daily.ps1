@@ -6,7 +6,9 @@
 .DESCRIPTION
   Windows PowerShell 5.1. Weekdays run in three passes (register_daily_task.ps1), each merging its
   slots into the day's manifest:
-    -Pass morning   05:00 ET  slots 1, 2, 3, 6, 7 (earnings, trades, theme)
+    -Pass morning   05:00 ET  ONE morning post (owner 2026-09-30; HQ quality rule): the best trade in slot 2
+                              when one clears the bar, else the earnings-today image in slot 1 on a day a
+                              $50B+ company reports with a set time, else nothing (select_stories.py)
     -Pass reports   10:00 ET  slots 5, 7 (report summaries released that morning; a report replaces
                               the morning theme in slot 7)
     -Pass picks     13:45 ET  slot 4 (today's picks, published ~13:30; retried up to -RetryEmptyMinutes;
@@ -28,6 +30,10 @@
   programs, House PTRs) render through growth-video scripts\v6t-auto.py (SEC XML / PTR PDF -> TradeV6 ->
   full qa-v6t -> post-package); earnings still images, category videos and the Congress theme through
   tools\hook_v6cat.py. A story whose hook fails (QA included) leaves its slot empty; the others publish.
+  The morning pass retries instead: the failed story's key goes to <work>\render-failed.json (daily.py
+  fail), the selection runs again without it (select_stories.py --exclude), so the next qualifying trade
+  or the earnings image takes the morning post; at most -MaxRenderAttempts selections. Delete that file
+  to let a fixed story be selected again the same day.
   To keep a planned slot empty (a weak trade after review), write <work>\hold.json before the pass:
   {"slots": {"3": "why"}} or {"story_keys": {"<story_key>": "why"}}; daily.py stories logs each hold.
 
@@ -45,6 +51,7 @@ param(
     [ValidateSet('', 'morning', 'reports', 'picks', 'preflight')][string]$Pass = '',
     [string]$Slots,
     [int]$RetryEmptyMinutes = 0,
+    [int]$MaxRenderAttempts = 4,
     [switch]$NoPush,
     [switch]$SelectOnly,
     [string]$Python = 'C:\Users\USER\anaconda3\envs\rapidtradingview\python.exe',
@@ -72,7 +79,8 @@ if ($Date -notmatch '^\d{4}-\d{2}-\d{2}$') { throw "Date must be YYYY-MM-DD (got
 
 # Slots of this run: -Slots (a comma list: powershell -File cannot pass an array), else the pass's.
 # Owner 2026-09-30: 1-2 posts per platform per day (best trade + picks); the reports task is disabled.
-$passSlots = @{ morning = '2'; reports = '5,7'; picks = '4' }
+# HQ quality rule 2026-09-30: the morning pass posts slot 2 (a trade) or slot 1 (the earnings image), never both.
+$passSlots = @{ morning = '1,2'; reports = '5,7'; picks = '4' }
 if (-not $Slots -and $Pass) { $Slots = $passSlots[$Pass] }
 $slotList = @()
 if ($Slots) { $slotList = @($Slots -split ',' | Where-Object { $_.Trim() } | ForEach-Object { [int]$_.Trim() }) }
@@ -105,12 +113,22 @@ Log "=== daily video run $Date$slotTag (repo $Repo, work $Work) ==="
 # 0. Latest media repo (earlier manifests feed the novelty rule; today's tells what is published).
 if ((Invoke-Git @('pull', '--ff-only', '--quiet')) -ne 0) { Fail 'git pull --ff-only on the media repo' }
 
+# 1-3. Select, write the data.json files, render. The morning pass repeats this after a failed render
+# (the failed story excluded through $failedFile) for up to -MaxRenderAttempts selections.
+$failedFile = Join-Path $Work 'render-failed.json'
+$hookCfg = Get-Content -Raw -Encoding UTF8 $Hooks | ConvertFrom-Json
+if (-not (Test-Path $hookCfg.readme)) {
+    Log "TODO: $($hookCfg.readme) does not exist yet: the v6 templates have not landed, so no render hook is wired."
+}
+$attempt = 0
+while ($true) {
+$attempt++
 # 1-2. Select the day's stories and write one data.json per filled slot. When every slot of this run
 # is empty (e.g. today's picks not out yet at 13:45), select again every 3 minutes for up to
 # -RetryEmptyMinutes.
 $started = Get-Date
 while ($true) {
-    if ((Invoke-Native $Python @((Join-Path $Tools 'select_stories.py'), '--date', $Date, '--out', $planFile, '--print')) -ne 0) {
+    if ((Invoke-Native $Python @((Join-Path $Tools 'select_stories.py'), '--date', $Date, '--out', $planFile, '--print', '--exclude', $failedFile)) -ne 0) {
         Fail 'story selection'
     }
     $plan = Get-Content -Raw -Encoding UTF8 $planFile | ConvertFrom-Json
@@ -130,11 +148,8 @@ $stories = @($storiesRaw | Where-Object { $_ })
 if ($stories.Count -eq 0) { Stop-Run 3 'NOTHING TO PUBLISH: every slot of this run is empty or already published (reasons above).' }
 
 # 3. Render + QA + package each story through the template hooks.
-$hookCfg = Get-Content -Raw -Encoding UTF8 $Hooks | ConvertFrom-Json
-if (-not (Test-Path $hookCfg.readme)) {
-    Log "TODO: $($hookCfg.readme) does not exist yet: the v6 templates have not landed, so no render hook is wired."
-}
 $rendered = 0
+$failed = @()
 foreach ($s in $stories) {
     $out = $s.dir
     $label = "slot $($s.slot) $($s.story_id) ($($s.category))"
@@ -160,6 +175,7 @@ foreach ($s in $stories) {
         Log "$label`: $step"
         if ((Invoke-Native $exe $rest $hookCfg.cwd) -ne 0) {
             Log "SKIP $label`: step '$step' failed (see output above)"
+            $failed += @{ story = $s; step = $step }
             $ok = $false
             break
         }
@@ -171,7 +187,18 @@ foreach ($s in $stories) {
         Log "$label`: rendered and QA passed"
     }
 }
-if ($rendered -eq 0) { Stop-Run 3 'NOTHING TO PUBLISH: no story rendered and passed QA (TODO hooks above).' }
+if ($rendered -gt 0 -or $failed.Count -eq 0 -or $Pass -ne 'morning') { break }
+foreach ($f in $failed) {
+    $fs = $f.story
+    $why = "step '$($f.step)' failed at $((Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'))"
+    if ((Invoke-Native $Python @((Join-Path $Tools 'daily.py'), 'fail', '--work', $Work, '--slot', [string]$fs.slot, '--story-id', $fs.story_id, '--story-key', $fs.story_key, '--reason', $why)) -ne 0) {
+        Fail 'recording the render failure'
+    }
+}
+if ($attempt -ge $MaxRenderAttempts) { Log "RENDER FAILED on $attempt selections (-MaxRenderAttempts $MaxRenderAttempts): no morning post"; break }
+Log "RENDER FAILED: $(@($failed | ForEach-Object { $_.story.story_id }) -join ', '); selecting the morning post again without it (selection $($attempt + 1) of at most $MaxRenderAttempts)"
+}
+if ($rendered -eq 0) { Stop-Run 3 'NOTHING TO PUBLISH: no story rendered and passed QA (failed or TODO hooks above).' }
 
 # 4. Copy the MP4s into v/<date>/ and write the manifest spec.
 $code = Invoke-Native $Python (@((Join-Path $Tools 'daily.py'), 'stage', '--plan', $planFile, '--work', $Work, '--spec', $specFile, '--repo', $Repo) + $slotArg)

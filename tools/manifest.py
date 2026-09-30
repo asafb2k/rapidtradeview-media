@@ -132,7 +132,9 @@ WEEKDAY_SLOTS = {1: "08:00", 2: "09:45", 3: "11:00", 4: "15:00", 5: "16:00", 6: 
 # Owner 2026-09-30 ("approved"): cut to 1-2 posts per platform per day so the agents' time goes to replies/reach
 # (supersedes 09-26 "7 posts"): the morning pass fills only the best trade (slot 2) and the picks pass slot 4; the
 # reports pass is paused (its Windows task is disabled); a promo, when planned, takes one of the two places.
-PASSES = {"morning": (2,), "reports": (5, 7), "picks": (4,)}
+# HQ quality rule 2026-09-30: the morning post is the trade (slot 2) only when one clears the bar, else the earnings-today
+# image (slot 1) on a day a $50B+ company reports with a set time, else nothing; the plan fills one of the two, never both.
+PASSES = {"morning": (1, 2), "reports": (5, 7), "picks": (4,)}
 PASS_TIMES = {"morning": "05:00", "reports": "10:00", "picks": "13:45"}
 # Preflight window of the 15-minute preflight pass: posts due in 60-90 minutes.
 PREFLIGHT_WINDOW_MIN = (60, 90)

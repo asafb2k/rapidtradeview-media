@@ -159,11 +159,11 @@ def test_congress_minimum_binds_famous_members_too():
     """A famous member's $1K-$15K trade never takes a slot (2026-09-29 dry run: Byron Donalds $PH, two $1,001-$15,000
     rows); fame only ranks Congress trades that pass the $15K range-low minimum."""
     fame = json.loads((TOOLS / "fame.json").read_text(encoding="utf-8"))
-    assert ss.matches_any("Byron Donalds", fame["members"]) and ss.matches_any("Kevin Hern", fame["members"])
+    assert ss.matches_any("Byron Donalds", fame["members"]) and ss.matches_any("Nancy Pelosi", fame["members"])
     items = [
         ptr_item(1, "Byron Donalds", "byron-donalds", "PH", "2026-09-25", 1001, 15000, "20035001"),
         ptr_item(2, "Byron Donalds", "byron-donalds", "PH", "2026-09-25", 1001, 15000, "20035001"),
-        ptr_item(3, "Kevin Hern", "kevin-hern", "PG", "2026-09-25", 50001, 100000, "20035326"),
+        ptr_item(3, "Nancy Pelosi", "nancy-pelosi", "PG", "2026-09-25", 50001, 100000, "20035326"),
         ptr_item(4, "Joe Nobody", "joe-nobody", "KO", "2026-09-25", 15001, 50000, "20035400"),
     ]
     api = StubApi({
@@ -240,3 +240,150 @@ def test_the_big_tech_theme_waits_a_week():
 def test_congress_last_week_has_no_template():
     s = ss.theme_slot(StubApi({}), D(2026, 10, 5), "congress_week", [], {}, Path("x"), {}, [], [])
     assert "shortest window is 30 days" in s["empty"]
+
+
+# ---------------------------------------------------------------------------
+# Morning post quality rule (HQ 2026-09-30): slot 2 only for a trade that clears the bar, else the earnings-today
+# image in slot 1 on a day a $50B+ company reports with a set time, else nothing.
+
+def hern_ptr(tid, ticker, low, high, filed="2026-09-25"):
+    """Kevin Hern's PTR 20035491 (filed 2026-09-25), the 2026-09-30 morning pick."""
+    it = ptr_item(tid, "Kevin Hern", "kevin-hern", ticker, filed, low, high, "20035491")
+    it["figure"]["state"] = "OK"
+    return it
+
+
+HERN_0930 = [  # DVN: 3 x $100,001-$250,000 + 2 x $15,001-$50,000 = $330,005-$850,000 (5 rows, as in the 09-30 plan)
+    *[hern_ptr(47207 + i, "DVN", 100001, 250000) for i in range(3)],
+    *[hern_ptr(47210 + i, "DVN", 15001, 50000) for i in range(2)],
+    hern_ptr(47300, "BSX", 100001, 250000), hern_ptr(47301, "BSX", 15001, 50000),
+    hern_ptr(47302, "XOM", 100001, 250000),
+]
+CAL_0930 = [  # the live calendar for 2026-09-30 (api /earnings?weeks_ahead=0&scope=all, read 2026-09-30)
+    {"symbol": "MU", "date": "2026-09-30", "hour": "amc", "date_confirmed": True, "date_confirmed_source": "calendar",
+     "in_universe": True, "market_cap": 1210573914112.0},
+    {"symbol": "JBL", "date": "2026-09-30", "hour": "bmo", "date_confirmed": True, "date_confirmed_source": "calendar",
+     "in_universe": True, "market_cap": 32353013760.0},
+]
+NAMES = {"DVN": "Devon Energy", "BSX": "Boston Scientific", "XOM": "Exxon Mobil", "NVDA": "NVIDIA", "MSFT": "Microsoft",
+         "MU": "Micron Technology, Inc.", "JBL": "Jabil Inc.", "NKE": "NIKE, Inc.", "ACN": "Accenture plc"}
+CAPS = {"DVN": 51.6e9, "BSX": 1.4e11, "XOM": 4.8e11, "NVDA": 4.5e12, "MSFT": 3.9e12}
+
+
+def plan_api(congress, calendar):
+    answers = {"/tickers/names": {"names": NAMES},
+               "/notable/feed?tab=insiders": {"items": [], "has_more": False},
+               "/notable/feed?tab=congress": {"items": congress, "has_more": False},
+               "/earnings?weeks_ahead=0": week(calendar)[0]}
+    answers.update({f"/snapshot/{t}": {"company_name": NAMES[t], "profile": {"stats": {"market_cap": c}}} for t, c in CAPS.items()})
+    return StubApi(answers)
+
+
+def morning(plan):
+    return {s["slot"]: s for s in plan["slots"] if s["slot"] in (1, 2)}
+
+
+def load_fame():
+    return json.loads((TOOLS / "fame.json").read_text(encoding="utf-8"))
+
+
+def test_0930_regression_hern_dvn_is_not_picked_and_the_earnings_image_is(tmp_path):
+    """2026-09-30: slot 2 took Kevin Hern's DVN sale (0.254, via the 'famous' backlog: Hern was in fame.json, a name a
+    general retail audience does not know) and failed to render. Now: Hern is not famous, no trade clears the bar,
+    and MU ($1.2T, after the close) makes the earnings-today image the morning post."""
+    fame = load_fame()
+    assert not ss.matches_any("Kevin Hern", fame["members"])
+    plan = ss.build_plan(D(2026, 9, 30), plan_api(HERN_0930, CAL_0930), tmp_path, fame, tmp_path / "none.json")
+    m = morning(plan)
+    assert m[2]["status"] == "empty" and "the morning post is the earnings image in slot 1" in m[2]["reason"]
+    assert "MU ($1211B, amc)" in m[2]["reason"]
+    assert m[1]["status"] == "filled" and m[1]["category"] == "earnings_today" and m[1]["template"] == "earnings_image"
+    assert m[1]["story_id"] == "earnings-today-2026-09-30" and m[1]["tickers"] == ["MU", "JBL"]
+    assert plan["backlog_candidates"] == []
+    dvn = next(c for c in plan["trade_candidates"] if c["ticker"] == "DVN")
+    assert dvn["famous_person_match"] is None and dvn["score"] < ss.MIN_TRADE_SCORE
+    assert all(c["score"] < ss.MIN_TRADE_SCORE for c in plan["trade_candidates"])
+
+
+@pytest.mark.parametrize("calendar,needle", [
+    ([CAL_0930[1]], "no company with a $50B+ market cap reports today with a set time (confirmed $10B+ reporters: JBL $32B bmo)"),
+    ([dict(CAL_0930[0], hour=None)], "no company with a $50B+ market cap reports today with a set time"),
+    ([dict(CAL_0930[0], date_confirmed=False)], "no confirmed-date reporter with a $10B+ market cap"),
+    ([], "no confirmed-date reporter with a $10B+ market cap"),
+])
+def test_no_trade_and_no_50b_reporter_with_a_set_time_leaves_the_morning_empty(tmp_path, calendar, needle):
+    plan = ss.build_plan(D(2026, 9, 30), plan_api(HERN_0930, calendar), tmp_path, load_fame(), tmp_path / "none.json")
+    m = morning(plan)
+    assert m[1]["status"] == "empty" and m[2]["status"] == "empty"
+    assert m[1]["reason"].startswith("no morning post: no trade cleared the bar (slot 2) and ") and needle in m[1]["reason"]
+    assert any(n.startswith("MORNING POST EMPTY: no trade #1") for n in plan["notes"])
+
+
+def famous_ptr(tid, name, slug, ticker, low, high, pdf, filed="2026-09-30"):
+    it = ptr_item(tid, name, slug, ticker, filed, low, high, pdf)
+    it["side"] = "buy"
+    return it
+
+
+PELOSI = famous_ptr(1, "Nancy Pelosi", "nancy-pelosi", "NVDA", 1000001, 5000000, "20035500")
+CRENSHAW = famous_ptr(2, "Dan Crenshaw", "dan-crenshaw", "MSFT", 250001, 500000, "20035501", filed="2026-09-15")
+
+
+def test_a_trade_that_clears_the_bar_is_the_morning_post_and_slot_1_stays_empty(tmp_path):
+    plan = ss.build_plan(D(2026, 9, 30), plan_api(HERN_0930 + [PELOSI], CAL_0930), tmp_path, load_fame(), tmp_path / "none.json")
+    m = morning(plan)
+    assert m[2]["status"] == "filled" and m[2]["story_key"] == "ptr:20035500:NVDA:buy"
+    assert m[2]["story"]["score"] >= ss.MIN_TRADE_SCORE and m[2]["story"]["selected_from"] == "recent"
+    assert m[1]["status"] == "empty" and "the morning post is the trade in slot 2" in m[1]["reason"]
+
+
+def test_a_famous_backlog_trade_still_qualifies(tmp_path):
+    plan = ss.build_plan(D(2026, 9, 30), plan_api(HERN_0930 + [CRENSHAW], CAL_0930), tmp_path, load_fame(), tmp_path / "none.json")
+    m = morning(plan)
+    assert m[2]["status"] == "filled" and m[2]["story"]["selected_from"] == "backlog" and m[2]["tickers"] == ["MSFT"]
+    assert m[2]["story"]["score"] < ss.MIN_TRADE_SCORE and m[1]["status"] == "empty"
+
+
+def test_a_failed_render_moves_to_the_next_trade_then_to_the_earnings_image(tmp_path):
+    fame, tr = load_fame(), tmp_path / "none.json"
+
+    def run(ex=None):
+        return ss.build_plan(D(2026, 9, 30), plan_api(HERN_0930 + [PELOSI, CRENSHAW], CAL_0930), tmp_path, fame, tr, ex)
+
+    first = morning(run())
+    assert first[2]["story_key"] == "ptr:20035500:NVDA:buy" and first[1]["status"] == "empty"
+    ex = {"ptr:20035500:NVDA:buy": "slot 2 nvda-pelosi: step 'render' failed"}
+    second = run(ex)
+    assert morning(second)[2]["story_key"] == "ptr:20035501:MSFT:buy" and morning(second)[1]["status"] == "empty"
+    assert second["rules"]["excluded_story_keys"] == ["ptr:20035500:NVDA:buy"]
+    assert any("not chosen again: ptr:20035500:NVDA:buy" in n for n in second["notes"])
+    ex["ptr:20035501:MSFT:buy"] = "slot 2 msft-crenshaw: step 'render' failed"
+    third = morning(run(ex))
+    assert third[2]["status"] == "empty" and "2 trades failed to render today" in third[2]["reason"]
+    assert third[1]["status"] == "filled" and third[1]["category"] == "earnings_today"
+    ex["earnings:today:2026-09-30"] = "slot 1 earnings-today-2026-09-30: step 'render' failed"
+    fourth = morning(run(ex))
+    assert fourth[1]["status"] == "empty" and fourth[2]["status"] == "empty"
+    assert "earnings-today-2026-09-30 failed to render earlier today" in fourth[1]["reason"]
+
+
+def test_one_failed_trade_with_no_other_qualifying_trade_falls_to_the_earnings_image(tmp_path):
+    ex = {"ptr:20035500:NVDA:buy": "step 'render' failed"}
+    m = morning(ss.build_plan(D(2026, 9, 30), plan_api(HERN_0930 + [PELOSI], CAL_0930), tmp_path, load_fame(),
+                              tmp_path / "none.json", ex))
+    assert m[2]["status"] == "empty" and "1 left out after failing to render today" in m[2]["reason"]
+    assert m[1]["status"] == "filled" and m[1]["category"] == "earnings_today"
+
+
+def test_1001_nike_and_accenture_clear_the_earnings_fallback():
+    cal = [{"symbol": "ACN", "date": "2026-10-01", "hour": "bmo", "date_confirmed": True, "in_universe": True, "market_cap": 113.9e9},
+           {"symbol": "NKE", "date": "2026-10-01", "hour": "amc", "date_confirmed": True, "in_universe": True, "market_cap": 53.5e9}]
+    e = ss.earnings_fallback(StubApi({}), D(2026, 10, 1), week(cal), NAMES)
+    assert e["category"] == "earnings_today" and e["fallback_lead"] == ["ACN ($114B, bmo)", "NKE ($54B, amc)"]
+
+
+def test_load_exclude(tmp_path):
+    assert ss.load_exclude(None) == {} and ss.load_exclude(str(tmp_path / "missing.json")) == {}
+    f = tmp_path / "render-failed.json"
+    f.write_text(json.dumps({"story_keys": {"ptr:20035491:DVN:sell": "slot 2 dvn-hern: step 'render' failed"}}), encoding="utf-8")
+    assert ss.load_exclude(str(f)) == {"ptr:20035491:DVN:sell": "slot 2 dvn-hern: step 'render' failed"}

@@ -2,20 +2,29 @@
 
 Usage (conda python: C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe):
   select_stories.py --date YYYY-MM-DD [--out plan.json] [--print] [--repo DIR] [--track-record FILE]
+                    [--exclude render-failed.json]
 
 Output: a plan JSON (schema rtv-daily-plan/1) with one entry per slot of the owner-approved grid
 (manifest.WEEKDAY_SLOTS / WEEKEND_SLOTS): the story, its filing / source URLs, or why the slot is empty.
 Weak items never pad a slot: an empty slot says why.
 
-Weekday grid (New York time; run_daily.ps1 fills it in three passes: 05:00 slots 1-3, 6-7; 10:00
-reports 5 and 7; 13:45 picks 4; every post ready at least an hour before its time, preflight-gated):
-  1 08:00  earnings: Monday = the week's confirmed reporters; Tue-Fri = today's, else the rest of the week
-  2 09:45  best trade        3 11:00  second trade        6 16:30  third trade
+Weekday grid (New York time). Owner 2026-09-30: two weekday posts, the morning post and the picks. The 05:00
+morning pass (run_daily.ps1) fills slot 2 OR slot 1, never both; the 13:45 picks pass fills slot 4; slots 3, 5,
+6 and 7 are still planned but no pass publishes them (the reports pass is paused):
+  2 09:45  best trade, only one that clears the bar (MIN_TRADE_SCORE, or the famous backlog: see below)
+  1 08:00  the morning fallback when no trade clears the bar: the earnings-today image (category earnings_today),
+           only on a day a company worth EARNINGS_FALLBACK_MIN_CAP ($50B) or more reports with a set time
+           (a confirmed calendar date with a session: before open, after close or during market); otherwise
+           both slots stay empty and the morning pass publishes nothing
+  3 11:00  second trade      6 16:30  third trade
   4 15:00  daily picks (#1 locked): the list /tips/daily serves at 15:00, i.e. today's (published ~13:30);
            before it is out the slot is empty, never the previous day's list
   5 16:00  earnings report summary #1 (released since the previous weekday, consensus confirmed)
   7 19:00  report #2, else the weekday theme (Mon Congress last week, Tue Congress 30 days, Wed person
            spotlight, Thu track record paragraph, Fri the week's top insider buys)
+--exclude: {"story_keys": {"<key>": "why"}} (run_daily.ps1 writes <work>/render-failed.json when a morning
+story fails to render): those stories are never chosen again that day, so the next qualifying trade takes
+slot 2; after MAX_TRADE_RENDER_FAILURES failed trades no trade is chosen and the earnings fallback is next.
 Weekends: one post. Saturday = next week's confirmed earnings; Sunday = the best trade of the week.
 
 Trades are ranked by fame x dollar size x recency x novelty:
@@ -31,9 +40,10 @@ $200B+ company); Congress trades of $15K+ (range low) always, famous member or n
 (a famous member's $1K-$15K trade never takes a slot). Insider sales and pre-planned (10b5-1 marked)
 buys are left out.
 A trade slot takes a recent trade scoring >= 0.30 (MIN_TRADE_SCORE). Below that it takes the BACKLOG:
-trades by a famous person (fame.json, or a famous executive) filed within the last 30 days and in no
-earlier manifest that pass the same minimums, ranked by the same score. Nothing qualifies -> the slot
-stays empty.
+trades by a famous person filed within the last 30 days and in no earlier manifest that pass the same
+minimums, ranked by the same score. Famous = a fame.json name; Congress needs a fame.json member (size never
+qualifies a backlog trade); insiders also count a famous executive (CEO / Chair / President of a $200B+
+company). Nothing qualifies -> the slot stays empty.
 
 Amounts: an insider story is a buying PROGRAM: the person's open-market buys of one ticker across every
 Form 4 filed in the last 30 days that no earlier manifest carries (at most the latest 8 filings; Berkshire's
@@ -82,6 +92,13 @@ BACKLOG_DAYS = 30
 INSIDER_MIN_USD = 1_000_000
 CONGRESS_MIN_LOW = 15_000
 EARNINGS_MIN_CAP = 10e9
+# Owner / HQ 2026-09-30: the morning pass posts the earnings-today image instead of a trade only on a day a company
+# of this size reports with a set time (a confirmed date with a session).
+EARNINGS_FALLBACK_MIN_CAP = 50e9
+SET_TIMES = ("bmo", "amc", "dmh")
+# A morning story that fails to render is excluded and the selection runs again (run_daily.ps1); after this many
+# failed trades on a day no trade is chosen, so the earnings fallback comes next.
+MAX_TRADE_RENDER_FAILURES = 2
 REPORT_MIN_CAP = 10e9
 NOVELTY_DAYS = 14
 SAME_TRADE_DAYS = 30
@@ -599,25 +616,27 @@ def is_famous(t: Trade, tiers: dict) -> bool:
 
 
 def choose_trades(api: "Api", target: dt.date, window: int, names: dict[str, str], fame: dict, prior: list["Posted"],
-                  n: int) -> tuple[list[Trade], list[Trade], list[Trade], dict, list[str]]:
+                  n: int, exclude: dict[str, str] | None = None) -> tuple[list[Trade], list[Trade], list[Trade], dict, list[str]]:
     """(chosen, recent ranked, backlog ranked, left-out counts, errors). One read of the last 30 days;
     insider Form 4s merged into buying programs (merge_programs). Programs / PTR stories whose latest
     filing is within `window` weekdays and score >= MIN_TRADE_SCORE first; the rest from the famous
-    30-day backlog that is in no earlier manifest."""
+    30-day backlog that is in no earlier manifest (Congress: a fame.json member; insiders: fame.json or a
+    famous executive). Story keys in `exclude` (failed to render today) are never chosen."""
+    skip = set(exclude or {})
     days = weekday_age(target - dt.timedelta(days=BACKLOG_DAYS), target)
     all_trades, dropped, errors = gather_trades(api, target, days, names, fame, pages=12)
     all_trades = merge_programs(all_trades, prior)
     trades = [t for t in all_trades if weekday_age(t.filed, target) <= window]
     dropped["out_of_window"] += len(all_trades) - len(trades)
     ranked = rank_trades(api, trades, target, fame, prior, dropped) if trades else []
-    chosen = pick_distinct([t for t in ranked if t.score >= MIN_TRADE_SCORE], n)
+    chosen = pick_distinct([t for t in ranked if t.score >= MIN_TRADE_SCORE and t.story_key not in skip], n)
     backlog: list[Trade] = []
     if len(chosen) < n:
         old = [t for t in all_trades if not any(t is c for c in chosen)
                and (t.famous_person or (t.kind == "insider" and t.value_usd >= 100_000 and TOP_OFFICER.search(t.role or "")))]
         tiers = fame["company_tiers_usd"]
         backlog = [t for t in rank_trades(api, old, target, fame, prior, {"below_minimum": 0})
-                   if is_famous(t, tiers) and t.parts["novelty"] > 0]
+                   if is_famous(t, tiers) and t.parts["novelty"] > 0 and t.story_key not in skip]
         for t in backlog:
             t.source = "backlog"
         chosen += pick_distinct(backlog, n - len(chosen), taken=chosen)
@@ -750,6 +769,23 @@ def earnings_slot(api: Api, target: dt.date, weeks: list[dict], names: dict[str,
         },
         "sources": [page] + [f"{SITE}/dashboard/{c['symbol']}" for c in companies],
     }
+
+
+def earnings_fallback(api: Api, target: dt.date, weeks: list[dict], names: dict[str, str]) -> dict:
+    """The morning pass's post when no trade clears the bar: the earnings-today image (earnings_slot "today", the
+    story slot 1 always used), only when a company worth EARNINGS_FALLBACK_MIN_CAP or more reports today with a
+    set time (a confirmed date with a session)."""
+    e = earnings_slot(api, target, weeks, names, "today")
+    if "empty" in e:
+        return e
+    comps = e["story"]["companies"]
+    lead = [c for c in comps if (c.get("market_cap_usd") or 0) >= EARNINGS_FALLBACK_MIN_CAP and c.get("hour") in SET_TIMES]
+    if not lead:
+        seen = ", ".join(f"{c['symbol']} ${(c.get('market_cap_usd') or 0) / 1e9:.0f}B {c.get('hour') or 'no time'}" for c in comps)
+        return {"empty": f"no company with a ${EARNINGS_FALLBACK_MIN_CAP / 1e9:.0f}B+ market cap reports today with a set time "
+                         f"(confirmed $10B+ reporters: {seen})"}
+    e["fallback_lead"] = [f"{c['symbol']} (${(c.get('market_cap_usd') or 0) / 1e9:.0f}B, {c['hour']})" for c in lead]
+    return e
 
 
 def report_candidates(api: Api, target: dt.date, weeks: list[dict]) -> tuple[list[dict], str | None, int]:
@@ -923,33 +959,43 @@ def theme_slot(api: Api, target: dt.date, kind: str, trades_all: list[Trade], fa
 # ---------------------------------------------------------------------------
 # Plan
 
-def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: Path) -> dict:
+def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: Path, exclude: dict[str, str] | None = None) -> dict:
     weekend = target.weekday() >= 5
     grid = mf.WEEKEND_SLOTS if weekend else mf.WEEKDAY_SLOTS
     prior = prior_posts(repo, target)
-    notes: list[str] = []
+    exclude = dict(exclude or {})
+    notes: list[str] = [f"failed to render earlier today, not chosen again: {k} ({v})" for k, v in exclude.items()]
     names_data, err = api.get("/tickers/names")
     names = names_data.get("names") if isinstance(names_data, dict) and isinstance(names_data.get("names"), dict) else {}
     if err or not names:
         notes.append(f"ticker list did not load ({err or 'empty'}): no trade can be checked, trade slots stay empty")
     window = WEEKEND_WINDOW_WEEKDAYS if weekend else RECENCY_WEEKDAYS
     need = 0 if target.weekday() == 5 else (1 if weekend else 3)
+    failed_trades = [k for k in exclude if k.startswith(("form4:", "ptr:"))]
+    trades_stopped = not weekend and len(failed_trades) >= MAX_TRADE_RENDER_FAILURES
     chosen: list[Trade] = []
     ranked: list[Trade] = []
     backlog: list[Trade] = []
     dropped: dict = {}
     terr: list[str] = []
     if names and need:
-        chosen, ranked, backlog, dropped, terr = choose_trades(api, target, window, names, fame, prior, need)
+        chosen, ranked, backlog, dropped, terr = choose_trades(api, target, window, names, fame, prior, need, exclude)
+    if trades_stopped:
+        chosen = []
     notes.extend(terr)
     weeks, werr = load_weeks(api)
     notes.extend(werr)
     slots: dict[int, dict] = {}
 
     def trade_reason(n: int) -> str:
+        if trades_stopped:
+            return (f"no trade #{n}: {len(failed_trades)} trades failed to render today (MAX_TRADE_RENDER_FAILURES "
+                    f"{MAX_TRADE_RENDER_FAILURES}): no more trades today")
         strong = sum(t.score >= MIN_TRADE_SCORE for t in ranked)
         why = (f"{strong} of {len(ranked)} trades passing the minimums in the last {window} weekdays scored >= {MIN_TRADE_SCORE}, "
                f"and the famous {BACKLOG_DAYS}-day backlog had {len(backlog)} unposted candidates; fewer than {n} are distinct")
+        if failed_trades:
+            why += f"; {len(failed_trades)} left out after failing to render today"
         if terr:
             why += f"; feed errors: {'; '.join(terr)}"
         return f"no trade #{n}: {why}"
@@ -960,14 +1006,23 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
         else:
             slots[1] = trade_slot(chosen[0]) if chosen else {"empty": trade_reason(1)}
     else:
-        mode = "week" if target.weekday() == 0 else "today"
-        e = earnings_slot(api, target, weeks, names, mode)
-        if "empty" in e and mode == "today":
-            rest = earnings_slot(api, target, weeks, names, "week") if target.weekday() < 4 else e
-            e = rest if "empty" not in rest else {"empty": f"{e['empty']}; rest of the week: {rest.get('empty', 'n/a')}"}
-        slots[1] = e
         for i, slot_no in enumerate((2, 3, 6)):
             slots[slot_no] = trade_slot(chosen[i]) if i < len(chosen) else {"empty": trade_reason(i + 1)}
+        # The morning post (owner 2026-09-30): the trade in slot 2, else the earnings-today image in slot 1, never both.
+        if chosen:
+            slots[1] = {"empty": f"the morning post is the trade in slot 2 ({slots[2]['story_id']}); the earnings image "
+                                 f"is only its fallback"}
+        else:
+            e = earnings_fallback(api, target, weeks, names)
+            if "empty" not in e and e["story_key"] in exclude:
+                e = {"empty": f"{e['story_id']} failed to render earlier today ({exclude[e['story_key']]})"}
+            if "empty" in e:
+                slots[1] = {"empty": f"no morning post: no trade cleared the bar (slot 2) and {e['empty']}"}
+                notes.append(f"MORNING POST EMPTY: {slots[2]['empty']}; earnings fallback: {e['empty']}")
+            else:
+                slots[1] = e
+                slots[2] = {"empty": f"{slots[2]['empty']}; the morning post is the earnings image in slot 1 "
+                                     f"(${EARNINGS_FALLBACK_MIN_CAP / 1e9:.0f}B+ reporters with a set time: {', '.join(e['fallback_lead'])})"}
         slots[4] = picks_slot(api, target, grid[4])
         reports, rerr, looked = report_candidates(api, target, weeks)
         lo = prev_weekday(target)
@@ -1017,8 +1072,9 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
         "api_requests": api.requests,
         "rules": {"trade_window_weekdays": window, "min_trade_score": MIN_TRADE_SCORE, "backlog_days": BACKLOG_DAYS,
                   "insider_min_usd": INSIDER_MIN_USD, "congress_min_low_usd": CONGRESS_MIN_LOW,
-                  "earnings_min_cap_usd": EARNINGS_MIN_CAP, "report_min_cap_usd": REPORT_MIN_CAP, "novelty_days": NOVELTY_DAYS,
-                  "prior_manifest_posts": len(prior)},
+                  "earnings_min_cap_usd": EARNINGS_MIN_CAP, "earnings_fallback_min_cap_usd": EARNINGS_FALLBACK_MIN_CAP,
+                  "report_min_cap_usd": REPORT_MIN_CAP, "novelty_days": NOVELTY_DAYS,
+                  "prior_manifest_posts": len(prior), "excluded_story_keys": sorted(exclude)},
         "slots": out_slots,
         "trade_candidates": [dict(trade_story(t), rank=i + 1) for i, t in enumerate(ranked[:12])],
         "backlog_candidates": [dict(trade_story(t), rank=i + 1) for i, t in enumerate(backlog[:12])],
@@ -1050,6 +1106,14 @@ def print_plan(plan: dict) -> None:
         print(f"  note: {n}")
 
 
+def load_exclude(path: str | None) -> dict[str, str]:
+    """Story keys never to choose (run_daily.ps1's <work>/render-failed.json); a missing file = none."""
+    if not path or not Path(path).exists():
+        return {}
+    data = json.loads(Path(path).read_text(encoding="utf-8-sig"))
+    return {str(k): str(v) for k, v in (data.get("story_keys") or {}).items()}
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--date", required=True)
@@ -1059,11 +1123,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--fame", default=str(TOOLS / "fame.json"))
     ap.add_argument("--track-record", default=str(DEFAULT_TRACK_RECORD))
     ap.add_argument("--api", default=API)
+    ap.add_argument("--exclude", help='JSON {"story_keys": {"<key>": "why"}} of stories never to choose (a missing file = none)')
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     target = d(a.date)
     fame = json.loads(Path(a.fame).read_text(encoding="utf-8"))
-    plan = build_plan(target, Api(a.api), Path(a.repo), fame, Path(a.track_record))
+    plan = build_plan(target, Api(a.api), Path(a.repo), fame, Path(a.track_record), load_exclude(a.exclude))
     if a.out:
         mf.write_json(Path(a.out), plan)
     if a.print or not a.out:

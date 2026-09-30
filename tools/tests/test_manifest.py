@@ -77,7 +77,8 @@ def test_instagram_placement_is_held_for_the_picks_pass():
 def test_grid_moves_picks_and_report():
     assert mf.WEEKDAY_SLOTS[4] == "15:00" and mf.WEEKDAY_SLOTS[5] == "16:00"
     assert mf.PASS_TIMES == {"morning": "05:00", "reports": "10:00", "picks": "13:45"}
-    assert mf.PASSES == {"morning": (2,), "reports": (5, 7), "picks": (4,)}   # owner 2026-09-30: 1-2 posts per platform per day
+    # owner 2026-09-30: 1-2 posts per platform per day; HQ quality rule: the morning post is slot 2 (trade) or 1 (earnings)
+    assert mf.PASSES == {"morning": (1, 2), "reports": (5, 7), "picks": (4,)}
 
 
 def test_instagram_weekend_is_one_reel():
@@ -446,3 +447,14 @@ def test_threads_topic_covers_every_category():
     assert mf.threads_topic("person_spotlight", "form4:0001184237-26-000008:UBER") == "Stocks"
     assert mf.threads_topic("product_promo") == "Investing"
     assert mf.threads_topic("congress_theme", "theme:congress_bigtech:30d:AAPL") == "Stock Market"
+
+
+def test_live_two_post_days_keep_the_instagram_mix(live):
+    """HQ quality rule 2026-09-30: the morning post is the trade video (slot 2: the Reel) or the earnings image (slot 1:
+    a feed post, never a Reel); the picks pass (slot 4) keeps its feed post either way."""
+    trade = mf.assign_instagram([2], "weekday", {}, mf.reserved_ig())
+    assert trade == {2: "reel"}
+    assert mf.assign_instagram([2, 4], "weekday", dict(trade), mf.reserved_ig()) == {2: "reel", 4: "feed"}
+    image = mf.assign_instagram([1], "weekday", {}, mf.reserved_ig(), image_slots={1})
+    assert image == {1: "feed"}
+    assert mf.assign_instagram([1, 4], "weekday", dict(image), mf.reserved_ig()) == {1: "feed", 4: "feed"}

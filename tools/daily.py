@@ -7,6 +7,13 @@ Usage (conda python):
       manifest already fills is left alone (never re-rendered, never replaced by a later pass), except
       slot 7 when a report replaces the morning theme. A slot or story the Growth lead held in
       DIR/hold.json is left empty: {"slots": {"3": "why"}, "story_keys": {"ptr:20035326:PG:sell": "why"}}.
+      Weekdays have ONE morning post (owner 2026-09-30): the trade (slot 2) or the earnings image (slot 1);
+      when today's manifest already has one of them, the other is left empty.
+  daily.py fail --work DIR --slot N --story-id ID --story-key KEY --reason TEXT
+      Records a story that failed to render in DIR/render-failed.json ({"story_keys": {KEY: reason}});
+      run_daily.ps1 passes the file to select_stories.py --exclude, so the morning pass selects again
+      without it (the next qualifying trade, then the earnings image). Delete the file to allow a fixed
+      story again.
   daily.py stage --plan PLAN.json --work DIR --spec SPEC.json [--slots 5,7] [--repo REPO]
       For each story of this run (DIR/stories.json, written by `stories`: a slot already published
       today is never staged again) that rendered and passed QA (DIR/<story_id>/qa-passed.json, written by
@@ -33,6 +40,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import manifest as mf  # noqa: E402
 
 STORY_SCHEMA = "rtv-daily-story/1"
+MORNING_SLOTS = (1, 2)   # weekday morning post: the trade (2) or, when no trade clears the bar, the earnings image (1)
+RENDER_FAILED = "render-failed.json"
 
 
 def _slots(raw: str | None) -> set[int] | None:
@@ -75,6 +84,11 @@ def cmd_stories(a: argparse.Namespace) -> int:
         if have and not (s["slot"] == 7 and s["category"] == "earnings_report" and have.get("category") != "earnings_report"):
             print(f"slot {s['slot']}: already published today ({have.get('story_id')}); left as is")
             continue
+        other = [n for n in MORNING_SLOTS if n != s["slot"] and n in done]
+        if plan.get("day_type") == "weekday" and s["slot"] in MORNING_SLOTS and other:
+            print(f"slot {s['slot']}: slot {other[0]} ({done[other[0]].get('story_id')}) is today's morning post already; "
+                  f"one morning post a day, left empty")
+            continue
         why = held_slots.get(s["slot"]) or held_keys.get(s["story_key"])
         if why is not None:
             print(f"slot {s['slot']}: HELD by {work / 'hold.json'} ({s['story_id']}, {s['story_key']}): {why}; left empty")
@@ -84,8 +98,8 @@ def cmd_stories(a: argparse.Namespace) -> int:
                 "category": s["category"], "template": s.get("template"), "story_id": s["story_id"], "story_key": s["story_key"],
                 "tickers": s["tickers"], "people": s["people"], "story": s["story"], "sources": s["sources"]}
         mf.write_json(sdir / "data.json", data)
-        out.append({"slot": s["slot"], "story_id": s["story_id"], "category": s["category"], "template": s.get("template"),
-                    "dir": str(sdir), "data": str(sdir / "data.json")})
+        out.append({"slot": s["slot"], "story_id": s["story_id"], "story_key": s["story_key"], "category": s["category"],
+                    "template": s.get("template"), "dir": str(sdir), "data": str(sdir / "data.json")})
     mf.write_json(work / "stories.json", out)
     for s in plan["slots"]:
         if s["status"] != "filled":
@@ -182,6 +196,16 @@ def cmd_stage(a: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_fail(a: argparse.Namespace) -> int:
+    path = Path(a.work) / RENDER_FAILED
+    data = _load(path) if path.exists() else {}
+    keys = data.setdefault("story_keys", {})
+    keys[a.story_key] = f"slot {a.slot} {a.story_id}: {a.reason}"
+    mf.write_json(path, data)
+    print(f"render failure recorded in {path}: {a.story_key} ({len(keys)} today)")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -196,9 +220,15 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--spec", required=True)
     g.add_argument("--slots")
     g.add_argument("--repo", default=str(mf.REPO))
+    f = sub.add_parser("fail")
+    f.add_argument("--work", required=True)
+    f.add_argument("--slot", required=True)
+    f.add_argument("--story-id", required=True)
+    f.add_argument("--story-key", required=True)
+    f.add_argument("--reason", required=True)
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    return {"stories": cmd_stories, "stage": cmd_stage}[a.cmd](a)
+    return {"stories": cmd_stories, "stage": cmd_stage, "fail": cmd_fail}[a.cmd](a)
 
 
 if __name__ == "__main__":

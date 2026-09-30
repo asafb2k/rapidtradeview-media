@@ -127,3 +127,48 @@ def test_a_published_slot_is_never_staged_again(tmp_path):
     (repo / "v" / "2026-09-28" / "manifest.json").write_text(json.dumps({"posts": [{"slot": 2, "story_id": "len-berkshire-hathaway"}]}), encoding="utf-8")
     daily.main(["stories", "--plan", str(pp), "--work", str(work), "--repo", str(repo)])
     assert daily.main(["stage", "--plan", str(pp), "--work", str(work), "--spec", str(tmp_path / "s.json"), "--repo", str(repo)]) == 2
+
+
+def morning_plan(tmp, slot, category="earnings_today", story_id="earnings-today-2026-09-28", key="earnings:today:2026-09-28"):
+    p = {"date": "2026-09-28", "day_type": "weekday", "slots": [
+        {"slot": slot, "time_et": "08:00" if slot == 1 else "09:45", "status": "filled", "category": category,
+         "template": "earnings_image" if slot == 1 else "trade", "story_id": story_id, "story_key": key, "tickers": ["MU"],
+         "people": [], "story": {"headline": "h"}, "sources": []}]}
+    path = tmp / f"plan-{slot}.json"
+    path.write_text(json.dumps(p), encoding="utf-8")
+    return path
+
+
+def test_stories_carry_the_story_key_for_the_render_failure_retry(tmp_path):
+    work, repo = tmp_path / "work", tmp_path / "repo"
+    daily.main(["stories", "--plan", str(plan(tmp_path)), "--work", str(work), "--repo", str(repo)])
+    assert [s["story_key"] for s in json.loads((work / "stories.json").read_text(encoding="utf-8"))] == ["form4:x:LEN"]
+
+
+def test_one_morning_post_a_day(tmp_path):
+    """HQ quality rule 2026-09-30: the morning post is the trade (slot 2) or the earnings image (slot 1), never both,
+    also when a later run of the day plans the other one."""
+    work, repo = tmp_path / "work", tmp_path / "repo"
+    (repo / "v" / "2026-09-28").mkdir(parents=True)
+    man = repo / "v" / "2026-09-28" / "manifest.json"
+    man.write_text(json.dumps({"posts": [{"slot": 2, "story_id": "len-berkshire-hathaway", "category": "insider_trade"}]}), encoding="utf-8")
+    daily.main(["stories", "--plan", str(morning_plan(tmp_path, 1)), "--work", str(work), "--repo", str(repo)])
+    assert json.loads((work / "stories.json").read_text(encoding="utf-8")) == []
+    man.write_text(json.dumps({"posts": [{"slot": 1, "story_id": "earnings-today-2026-09-28", "category": "earnings_today"}]}), encoding="utf-8")
+    daily.main(["stories", "--plan", str(plan(tmp_path)), "--work", str(work), "--repo", str(repo)])
+    assert json.loads((work / "stories.json").read_text(encoding="utf-8")) == []
+    man.write_text(json.dumps({"posts": [{"slot": 4, "story_id": "picks-2026-09-28", "category": "daily_picks"}]}), encoding="utf-8")
+    daily.main(["stories", "--plan", str(morning_plan(tmp_path, 1)), "--work", str(work), "--repo", str(repo)])
+    assert [s["slot"] for s in json.loads((work / "stories.json").read_text(encoding="utf-8"))] == [1]
+
+
+def test_fail_records_render_failures_for_the_next_selection(tmp_path):
+    import select_stories as ss
+    work = tmp_path / "work"
+    assert daily.main(["fail", "--work", str(work), "--slot", "2", "--story-id", "dvn-hern", "--story-key", "ptr:20035491:DVN:sell",
+                       "--reason", "step 'render' failed at 2026-09-30T09:01:03Z"]) == 0
+    assert daily.main(["fail", "--work", str(work), "--slot", "1", "--story-id", "earnings-today-2026-09-30",
+                       "--story-key", "earnings:today:2026-09-30", "--reason", "step 'render' failed"]) == 0
+    assert ss.load_exclude(str(work / "render-failed.json")) == {
+        "ptr:20035491:DVN:sell": "slot 2 dvn-hern: step 'render' failed at 2026-09-30T09:01:03Z",
+        "earnings:today:2026-09-30": "slot 1 earnings-today-2026-09-30: step 'render' failed"}
