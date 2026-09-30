@@ -1,5 +1,6 @@
 """Manifest rules (mirrors frontend/src/lib/socialKitVideos.test.ts). Run: python -m pytest tools/tests -q"""
 import copy
+import datetime as dt
 import json
 import sys
 from pathlib import Path
@@ -205,9 +206,9 @@ def test_x_hashtag_rule_starts_2026_09_29(m):
     assert mf.validate_manifest(m, "2026-09-27") == []
 
 
-def video_repo(tmp_path, sids):
+def video_repo(tmp_path, sids, date="2026-09-29"):
     for sid in sids:
-        d = tmp_path / "v" / "2026-09-29" / sid
+        d = tmp_path / "v" / date / sid
         d.mkdir(parents=True)
         for f in mf.FORMATS:
             (d / f"{f}.mp4").write_bytes(b"\x00\x00\x00\x18ftypmp42" + b"\x00" * 100)
@@ -386,6 +387,57 @@ def test_live_merge_keeps_a_published_story_and_stays_valid(monkeypatch, tmp_pat
     picks = one_hashtag(mf.build_manifest(day_spec([4]), existing=morning, repo=repo))
     assert ig(picks) == {**ig(morning), 4: ("feed", "reel_9x16")}
     assert mf.validate_manifest(picks, "2026-09-29") == []
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+@pytest.mark.parametrize("time,held", [("17:59:59", False), ("18:00:00", False), ("18:00:01", True)])
+def test_new_picks_manifest_is_held_before_publication_when_built_late(tmp_path, time, held):
+    repo = video_repo(tmp_path, ["story-4"], "2026-09-30")
+    now = dt.datetime.fromisoformat("2026-09-30T" + time + "+00:00")
+    m = one_hashtag(mf.build_manifest(day_spec([4], "2026-09-30"), now=now, repo=repo))
+    assert (m["posts"][0].get("status") == "held") == held
+    assert mf.validate_manifest(m, "2026-09-30") == []
+
+
+def test_picks_deadline_uses_new_york_dst_and_excludes_old_or_other_slots():
+    assert mf.picks_readiness_deadline("2026-09-30", {"slot": 4, "time_et": "15:00"}) == dt.datetime(2026, 9, 30, 18, tzinfo=dt.timezone.utc)
+    assert mf.picks_readiness_deadline("2026-11-02", {"slot": 4, "time_et": "15:00"}) == dt.datetime(2026, 11, 2, 19, tzinfo=dt.timezone.utc)
+    assert mf.picks_readiness_deadline("2026-09-29", {"slot": 4, "time_et": "15:00"}) is None
+    assert mf.picks_readiness_deadline("2026-09-30", {"slot": 1, "time_et": "08:00"}) is None
+
+
+@pytest.mark.skipif(not UBER_PKG.exists(), reason="post-package not on this machine")
+@pytest.mark.parametrize("change", [None, "media", "data"])
+def test_identical_late_picks_replacement_preserves_only_matching_live_readiness(tmp_path, monkeypatch, change):
+    import preflight as pf
+    repo = video_repo(tmp_path / "repo", ["story-4"], "2026-09-30")
+    monkeypatch.setattr(pf, "WORK_ROOT", tmp_path / "work")
+    monkeypatch.setattr(pf, "CATEGORIES_OUT", tmp_path / "categories")
+    monkeypatch.setattr(pf, "remote_check", lambda *_: None)
+    monkeypatch.setattr(pf, "number_failures", lambda *_: ([], 0))
+    monkeypatch.setattr(pf, "date_failures", lambda *_: ([], 0))
+    monkeypatch.setattr(pf, "source_failures", lambda *_: [])
+    work = pf.WORK_ROOT / "2026-09-30"
+    data = work / "story-4/data.json"
+    data.parent.mkdir(parents=True)
+    data.write_text("{}", encoding="utf-8")
+    spec = day_spec([4], "2026-09-30")
+    timely = dt.datetime(2026, 9, 30, 17, 59, tzinfo=dt.timezone.utc)
+    # The old package lacks today's required hashtag; use the same amended package in both builds.
+    package = json.loads(UBER_PKG.read_text(encoding="utf-8"))
+    package["x"]["post"] += " #Stocks"
+    pkg = tmp_path / "post-package.json"
+    pkg.write_text(json.dumps(package), encoding="utf-8")
+    spec["posts"][0]["post_package"] = str(pkg)
+    old = mf.build_manifest(spec, now=timely, repo=repo)
+    [report] = pf.preflight(old, "2026-09-30", repo, work, None, False, None, timely)
+    assert report["result"] == "pass"
+    if change == "media":
+        (repo / "v/2026-09-30/story-4/feed_4x5.mp4").write_bytes(b"late changed video")
+    elif change == "data":
+        data.write_text('{"changed": true}', encoding="utf-8")
+    replaced = mf.build_manifest(spec, existing=old, now=dt.datetime(2026, 9, 30, 18, 10, tzinfo=dt.timezone.utc), repo=repo)
+    assert (replaced["posts"][0].get("status") == "held") == (change is not None)
 
 
 def test_live_validator_caps_and_topics(live, m):

@@ -73,8 +73,11 @@ import time
 import urllib.error
 import urllib.request
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 SCHEMA = "rtv-video-manifest/1"
+PICKS_READINESS_FROM = "2026-09-30"
+PICKS_READY_LEAD_MINUTES = 60
 REPO = Path(__file__).resolve().parent.parent
 PAGES_BASE = "https://asafb2k.github.io/rapidtradeview-media"
 SITE_HOSTS = ("www.rapidtradeview.trade",)
@@ -753,6 +756,14 @@ def build_post(date: str, spec: dict, placement: str | None, repo: Path = REPO) 
     return post
 
 
+def picks_readiness_deadline(date: str, post: dict) -> dt.datetime | None:
+    """Apply the existing one-hour promise to new picks, without changing historical posts."""
+    if date < PICKS_READINESS_FROM or post.get("slot") != 4:
+        return None
+    when = dt.datetime.fromisoformat(f"{date}T{post['time_et']}:00").replace(tzinfo=ZoneInfo("America/New_York"))
+    return when.astimezone(dt.timezone.utc) - dt.timedelta(minutes=PICKS_READY_LEAD_MINUTES)
+
+
 def build_manifest(spec: dict, existing: dict | None = None, now: dt.datetime | None = None, repo: Path = REPO) -> dict:
     date = spec["date"]
     dtype = day_type(date)
@@ -780,8 +791,30 @@ def build_manifest(spec: dict, existing: dict | None = None, now: dt.datetime | 
     placements = assign_instagram(slots, dtype, overrides, reserved_ig() if dtype == "weekday" else None, image_slots)
     placements.update({s: v for s, v in extra.items() if v != "none"})
     new_posts = [build_post(date, p, placements.get(p["slot"]), repo) for p in spec["posts"]]
+    built_at = now or dt.datetime.now(dt.timezone.utc)
+    for post in new_posts:
+        deadline = picks_readiness_deadline(date, post)
+        if deadline is not None and built_at > deadline:
+            # An explicit identical replacement must not discard a proven timely live pass.
+            old = next((p for p in (existing or {}).get("posts", []) if p.get("slot") == post["slot"]), None)
+            content = lambda p: {k: v for k, v in p.items() if k not in {"status", "held_reason"}}
+            if old is not None and content(old) == content(post):
+                import preflight as pf
+                work = pf.WORK_ROOT / date
+                try:
+                    files, _ = pf.find_data(post, date, work)
+                    ready_at, _ = pf.recorded_readiness(post, date, repo, work, files)
+                except (OSError, ValueError, KeyError, TypeError):
+                    ready_at = None
+                if ready_at is not None and ready_at <= deadline:
+                    for key in ("status", "held_reason"):
+                        if key in old:
+                            post[key] = old[key]
+                    continue
+            post["status"] = "held"
+            post["held_reason"] = f"Readiness: picks were generated after the {deadline.strftime('%Y-%m-%dT%H:%M:%SZ')} one-hour deadline"
     posts = sorted(kept + new_posts, key=lambda p: p["slot"])
-    stamp = (now or dt.datetime.now(dt.timezone.utc)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    stamp = built_at.strftime("%Y-%m-%dT%H:%M:%SZ")
     return {"schema": SCHEMA, "date": date, "day_type": dtype, "timezone": "America/New_York", "generated_at": stamp, "posts": posts}
 
 
@@ -923,12 +956,12 @@ def cmd_preflight(a: argparse.Namespace) -> int:
     if a.slots:
         slots = {int(x) for x in a.slots.split(",") if x.strip()}
     elif a.due_within_min is not None:
-        lo, hi = a.due_after_min * 60, a.due_within_min * 60
-        slots = {p["slot"] for p in m.get("posts", []) if lo <= (pf.post_time(date, p["time_et"]) - now).total_seconds() <= hi}
+        slots = pf.due_slots(m, date, repo, work, now, a.due_after_min, a.due_within_min)
         if not slots:
             print(f"nothing due in {a.due_after_min}-{a.due_within_min} min")
             return 2
-    reports = pf.preflight(m, date, repo, work, slots, a.local_only, Path(a.media_dir) if a.media_dir else None, now)
+    reports = pf.preflight(m, date, repo, work, slots, a.local_only, Path(a.media_dir) if a.media_dir else None,
+                           now if a.now else None, record_readiness=not (a.local_only or a.now))
     for r in reports:
         write_json(work / f"preflight-{r['slot']}.json", r)
         print(f"slot {r['slot']} {r['time_et']} {r['story_id']}: {r['result'].upper()} "

@@ -119,3 +119,89 @@ def test_exact_sums_and_differences_of_one_kind_pass_as_derived():
 def test_derived_numbers_listed_in_the_data_count_as_data():
     facts = pf.DataFacts([{"derived_numbers": [{"value": 25000, "formula": "10,000 + 5,000 + 10,000 shares"}]}], 2026)
     assert pf.number_failures(post({"x": "25,000 shares"}), facts)[0] == []
+
+
+def picks_fixture(tmp_path, monkeypatch):
+    # Isolate readiness from caption/manifest rules; every media check is stubbed, never networked.
+    monkeypatch.setattr(mf, "validate_manifest", lambda *_: [])
+    monkeypatch.setattr(pf, "remote_check", lambda *_: None)
+    repo, work = tmp_path / "repo", tmp_path / "work"
+    media = repo / "v/2026-09-30/picks/feed_4x5.mp4"
+    media.parent.mkdir(parents=True)
+    media.write_bytes(b"captured test media")
+    data = work / "picks/data.json"
+    data.parent.mkdir(parents=True)
+    data.write_text("{}", encoding="utf-8")
+    p = {"slot": 4, "story_id": "picks", "id": "video-picks", "time_et": "15:00", "category": "daily_picks",
+         "title": "Today's picks", "platforms": {}, "media": {"feed_4x5": mf.PAGES_BASE + "/v/2026-09-30/picks/feed_4x5.mp4"}}
+    return {"posts": [p]}, repo, work
+
+
+def at(hhmmss):
+    return dt.datetime.fromisoformat("2026-09-30T" + hhmmss + "+00:00")
+
+
+@pytest.mark.parametrize("time,expected", [("18:00:00", "pass"), ("18:00:01", "fail"), ("18:10:00", "fail")])
+def test_picks_live_readiness_requires_exact_t60_not_rounded_minutes(tmp_path, monkeypatch, time, expected):
+    m, repo, work = picks_fixture(tmp_path, monkeypatch)
+    [r] = pf.preflight(m, "2026-09-30", repo, work, None, False, None, at(time))
+    assert r["result"] == expected
+    assert (work / "readiness-4.json").exists() == (expected == "pass")
+    if expected == "fail":
+        assert any("(e) readiness" in f for f in r["failures"])
+
+
+def test_picks_readiness_stamps_check_completion_not_start(tmp_path, monkeypatch):
+    m, repo, work = picks_fixture(tmp_path, monkeypatch)
+    # A remote check that ends a second after T-60 must not use its earlier invocation time.
+    monkeypatch.setattr(pf, "utc_now", lambda: at("18:00:01"))
+    [r] = pf.preflight(m, "2026-09-30", repo, work, None, False, None)
+    assert r["result"] == "fail" and r["checked_at"] == "2026-09-30T18:00:01Z"
+
+
+@pytest.mark.parametrize("change", [None, "post", "media", "data"])
+def test_picks_timely_receipt_survives_recheck_only_for_identical_content(tmp_path, monkeypatch, change):
+    m, repo, work = picks_fixture(tmp_path, monkeypatch)
+    [first] = pf.preflight(m, "2026-09-30", repo, work, None, False, None, at("17:59:00"))
+    assert first["result"] == "pass"
+    if change == "post":
+        m["posts"][0]["title"] = "Changed caption"
+    elif change == "media":
+        (repo / "v/2026-09-30/picks/feed_4x5.mp4").write_bytes(b"changed media")
+    elif change == "data":
+        (work / "picks/data.json").write_text('{"changed": true}', encoding="utf-8")
+    [again] = pf.preflight(m, "2026-09-30", repo, work, None, False, None, at("18:10:00"))
+    assert again["result"] == ("pass" if change is None else "fail")
+    assert again["ready_at"] == (first["ready_at"] if change is None else None)
+
+
+def test_local_staging_never_records_live_readiness(tmp_path, monkeypatch):
+    m, repo, work = picks_fixture(tmp_path, monkeypatch)
+    [r] = pf.preflight(m, "2026-09-30", repo, work, None, True, None, at("17:59:00"))
+    assert r["result"] == "pass" and not (work / "readiness-4.json").exists()
+    [late] = pf.preflight(m, "2026-09-30", repo, work, None, False, None, at("18:10:00"))
+    assert late["result"] == "fail"
+
+
+def test_clock_replay_cannot_create_a_live_readiness_receipt(tmp_path, monkeypatch):
+    m, repo, work = picks_fixture(tmp_path, monkeypatch)
+    [r] = pf.preflight(m, "2026-09-30", repo, work, None, False, None, at("17:59:00"), record_readiness=False)
+    assert r["result"] == "pass" and r["ready_at"] is None
+    assert not (work / "readiness-4.json").exists()
+
+
+@pytest.mark.parametrize("time", ["18:10:00", "19:01:00"])
+def test_periodic_preflight_catches_unverified_picks_that_missed_the_window(tmp_path, monkeypatch, time):
+    m, repo, work = picks_fixture(tmp_path, monkeypatch)
+    assert pf.due_slots(m, "2026-09-30", repo, work, at(time), 60, 90) == {4}
+    # Once held, the item cannot be posted; periodic checks need not repeat the late check forever.
+    m["posts"][0]["status"] = "held"
+    assert pf.due_slots(m, "2026-09-30", repo, work, at(time), 60, 90) == set()
+
+
+def test_periodic_preflight_does_not_reject_timely_verified_picks_after_window(tmp_path, monkeypatch):
+    m, repo, work = picks_fixture(tmp_path, monkeypatch)
+    pf.preflight(m, "2026-09-30", repo, work, None, False, None, at("17:59:00"))
+    assert pf.due_slots(m, "2026-09-30", repo, work, at("18:10:00"), 60, 90) == set()
+    m["posts"][0]["title"] = "Late replacement"
+    assert pf.due_slots(m, "2026-09-30", repo, work, at("18:10:00"), 60, 90) == {4}
