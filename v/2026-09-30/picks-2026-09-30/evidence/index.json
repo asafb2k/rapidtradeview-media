@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-09-30",
+ "media_date": "2026-09-30",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-30/picks-2026-09-30/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-09-30",
+   "fetched_at_utc": "2026-09-30T17:46:02.859853+00:00",
+   "status": 200,
+   "sha256": "62d40e0bf060446123330f1e9916a44f8b19ffc43b4d9e16fae9e9e0f806c2fa",
+   "bytes": 5696
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-30/picks-2026-09-30/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-09-30T17:46:03.455693+00:00",
+   "status": 200,
+   "sha256": "fa2d8d186bb29bdd5b486878a7414a151b0b371bf177c360a9f1813553a0ded7",
+   "bytes": 9980
+  },
+  {
+   "name": "search-TSHA.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-30/picks-2026-09-30/evidence/search-TSHA.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=TSHA",
+   "fetched_at_utc": "2026-09-30T17:46:03.872413+00:00",
+   "status": 200,
+   "sha256": "f37edacc1a23d8ccbbf5623a68f659e0e3e75b4962778e55c90f7cb9f4352dfd",
+   "bytes": 441
+  },
+  {
+   "name": "search-AGI.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-09-30/picks-2026-09-30/evidence/search-AGI.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=AGI",
+   "fetched_at_utc": "2026-09-30T17:46:04.422028+00:00",
+   "status": 200,
+   "sha256": "37cae4be2d3360633b817eb4b11cf37ecf92113335922840718a66d65615576e",
+   "bytes": 518
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
