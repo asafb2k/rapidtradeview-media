@@ -51,6 +51,29 @@ def test_stories_and_stage(tmp_path):
     assert sorted(p.name for p in still.iterdir()) == ["feed_4x5.jpg", "feed_4x5.png"]
     s = json.loads(spec.read_text(encoding="utf-8"))
     assert [p["slot"] for p in s["posts"]] == [2]
+    # No music block in the post-package: no music.json.
+    assert not (repo / "v" / "2026-09-28" / "len-berkshire-hathaway" / "music.json").exists()
+
+
+def test_stage_publishes_the_scores_provenance_next_to_the_video(tmp_path):
+    import hashlib
+    work, repo = tmp_path / "work", tmp_path / "repo"
+    pp = plan(tmp_path)
+    assert daily.main(["stories", "--plan", str(pp), "--work", str(work), "--repo", str(repo)]) == 0
+    sdir = work / "len-berkshire-hathaway"
+    for f in ("reel_9x16", "feed_4x5", "square_1x1"):
+        (sdir / f"{f}.mp4").write_bytes(MP4_HEAD + f.encode() + b"\x00" * 20_000)
+    music = {"type": "original score", "samples": "VSCO 2 Community Edition", "license": "CC0 1.0", "third_party_tracks": False}
+    (sdir / "post-package.json").write_text(json.dumps({"music": music}), encoding="utf-8")
+    (sdir / "qa-passed.json").write_text('{"passed": true}', encoding="utf-8")
+    _still(sdir)
+    spec = tmp_path / "spec.json"
+    assert daily.main(["stage", "--plan", str(pp), "--work", str(work), "--spec", str(spec), "--repo", str(repo)]) == 0
+    dest = repo / "v" / "2026-09-28" / "len-berkshire-hathaway"
+    m = json.loads((dest / "music.json").read_text(encoding="utf-8"))
+    assert m["music"] == music
+    assert m["files"]["feed_4x5.mp4"] == hashlib.sha256((dest / "feed_4x5.mp4").read_bytes()).hexdigest()
+    assert set(m["files"]) == {"reel_9x16.mp4", "feed_4x5.mp4", "square_1x1.mp4"}
 
 
 def test_stage_rejects_a_file_that_is_not_an_mp4(tmp_path):

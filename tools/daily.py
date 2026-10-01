@@ -31,6 +31,7 @@ square_1x1.mp4 or image files (PNG / JPEG: feed_4x5, square_1x1, pin_2x3, story_
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import shutil
 import sys
@@ -177,6 +178,10 @@ def cmd_stage(a: argparse.Namespace) -> int:
             (dest / "still").mkdir(exist_ok=True)
             for name in stills:
                 shutil.copy2(sdir / name, dest / name)
+        music = _load(sdir / "post-package.json").get("music") if files[0].endswith(".mp4") else None
+        if music:   # the score's provenance next to the files it is in (posting agents check it before uploading)
+            mf.write_json(dest / "music.json", {"music": music, "files": {
+                name: hashlib.sha256((dest / name).read_bytes()).hexdigest() for name in files}})
         if (sdir / "evidence").is_dir():   # the API snapshots the post-package cites (source_urls[0])
             (dest / "evidence").mkdir(exist_ok=True)
             for f in sorted((sdir / "evidence").iterdir()):

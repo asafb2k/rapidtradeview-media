@@ -1044,6 +1044,9 @@ def cmd_check_spec(a: argparse.Namespace) -> int:
         evidence += ev_files
         still_dir = repo / "v" / spec["date"] / p["story_id"] / "still"
         evidence += [still_dir / n for n in ("feed_4x5.jpg", "feed_4x5.png") if (still_dir / n).is_file()]
+        music_file = repo / "v" / spec["date"] / p["story_id"] / "music.json"
+        if music_file.is_file():
+            evidence.append(music_file)
     if problems:
         return _fail(problems)
     if a.list_out:
