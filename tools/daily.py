@@ -180,8 +180,11 @@ def cmd_stage(a: argparse.Namespace) -> int:
                 shutil.copy2(sdir / name, dest / name)
         music = _load(sdir / "post-package.json").get("music") if files[0].endswith(".mp4") else None
         if music:   # the score's provenance next to the files it is in (posting agents check it before uploading)
-            mf.write_json(dest / "music.json", {"music": music, "files": {
-                name: hashlib.sha256((dest / name).read_bytes()).hexdigest() for name in files}})
+            record = {"music": music, "files": {
+                name: hashlib.sha256((dest / name).read_bytes()).hexdigest() for name in files}}
+            if (sdir / "vsco-instruments.json").is_file():   # every sample file the score used, with its sha256
+                record["samples_used"] = _load(sdir / "vsco-instruments.json")
+            mf.write_json(dest / "music.json", record)
         if (sdir / "evidence").is_dir():   # the API snapshots the post-package cites (source_urls[0])
             (dest / "evidence").mkdir(exist_ok=True)
             for f in sorted((sdir / "evidence").iterdir()):

@@ -74,6 +74,12 @@ def test_stage_publishes_the_scores_provenance_next_to_the_video(tmp_path):
     assert m["music"] == music
     assert m["files"]["feed_4x5.mp4"] == hashlib.sha256((dest / "feed_4x5.mp4").read_bytes()).hexdigest()
     assert set(m["files"]) == {"reel_9x16.mp4", "feed_4x5.mp4", "square_1x1.mp4"}
+    assert "samples_used" not in m
+    # With the score's sample record next to the render, music.json carries it (sample paths + sha256).
+    inst = {"library": {"commit": "2809277"}, "instruments": [{"sfz": "x.sfz", "samples": [{"sample": "a.wav", "sha256": "ab"}]}]}
+    (sdir / "vsco-instruments.json").write_text(json.dumps(inst), encoding="utf-8")
+    assert daily.main(["stage", "--plan", str(pp), "--work", str(work), "--spec", str(spec), "--repo", str(repo)]) == 0
+    assert json.loads((dest / "music.json").read_text(encoding="utf-8"))["samples_used"] == inst
 
 
 def test_stage_rejects_a_file_that_is_not_an_mp4(tmp_path):
