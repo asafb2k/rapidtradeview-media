@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-01",
+ "media_date": "2026-10-01",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-01/picks-2026-10-01/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-01",
+   "fetched_at_utc": "2026-10-01T17:45:53.836414+00:00",
+   "status": 200,
+   "sha256": "f88fc18833dac02fa147217c9a5b17094c18f1576a9bac2f412556fe902e52ea",
+   "bytes": 5769
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-01/picks-2026-10-01/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-01T17:45:54.312868+00:00",
+   "status": 200,
+   "sha256": "df04eec86e9fef3e20dfcd21893cb9ec4f31a2b77b5a8866aef5aaf006ca03bb",
+   "bytes": 9979
+  },
+  {
+   "name": "search-AMPX.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-01/picks-2026-10-01/evidence/search-AMPX.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=AMPX",
+   "fetched_at_utc": "2026-10-01T17:45:54.820145+00:00",
+   "status": 200,
+   "sha256": "c2fed5cc91981692b3a7c92025e3532150baba262a7d06ddcaa1fad5ea81b89e",
+   "bytes": 486
+  },
+  {
+   "name": "search-SMA.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-01/picks-2026-10-01/evidence/search-SMA.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=SMA",
+   "fetched_at_utc": "2026-10-01T17:45:55.233600+00:00",
+   "status": 200,
+   "sha256": "156515de208368fd7fef288d162b58ddaab4d4c5df41922a31f1cb99925be583",
+   "bytes": 528
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
