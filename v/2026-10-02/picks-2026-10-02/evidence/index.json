@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-02",
+ "media_date": "2026-10-02",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-02/picks-2026-10-02/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-02",
+   "fetched_at_utc": "2026-10-02T17:45:52.991196+00:00",
+   "status": 200,
+   "sha256": "58e3e8bec3d3f7407dae3bfa5e98b927a0de9605be60da2ab5b22e3e57318aca",
+   "bytes": 5036
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-02/picks-2026-10-02/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-02T17:45:53.459917+00:00",
+   "status": 200,
+   "sha256": "0c4b09dee281fcc63973a06ab9688b73d2dbefa27dd5e2e5c5d91f4dd74445df",
+   "bytes": 9975
+  },
+  {
+   "name": "search-CRS.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-02/picks-2026-10-02/evidence/search-CRS.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=CRS",
+   "fetched_at_utc": "2026-10-02T17:45:54.014806+00:00",
+   "status": 200,
+   "sha256": "aa12d943100c9d1ef187b6d3867f8554b55609a32ca744474278c744b12a7ab3",
+   "bytes": 565
+  },
+  {
+   "name": "search-TBBK.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-02/picks-2026-10-02/evidence/search-TBBK.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=TBBK",
+   "fetched_at_utc": "2026-10-02T17:45:54.535055+00:00",
+   "status": 200,
+   "sha256": "6067fcfd2aa582fef594813015882ddea175db3f74dafce7ec5c5330cccf8a9c",
+   "bytes": 440
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
