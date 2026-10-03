@@ -136,6 +136,11 @@ def main(argv: list[str] | None = None) -> int:
     out.mkdir(parents=True, exist_ok=True)
     for f in files:
         shutil.copy2(src / f, out / f)
+    # Every sample file the VSCO score used, with its sha256; daily.py stage writes it into music.json as
+    # samples_used (the posting agents hold a video whose music lists no samples). Absent for the synth score.
+    if not images and (src / "vsco-instruments.json").is_file():
+        shutil.copy2(src / "vsco-instruments.json", out / "vsco-instruments.json")
+        files = files + ["vsco-instruments.json"]
     if still:
         (out / "still").mkdir(exist_ok=True)
         for ext in ("jpg", "png"):
