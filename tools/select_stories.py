@@ -377,10 +377,17 @@ class Trade:
         return f"ptr:{doc}:{self.ticker}:{self.side}"
 
 
+# Since 2026-10-08 /notable/feed is members-only except these exact public reads (backend-rs
+# slices/notable/member_gate.rs guest_feed_allowed): no side filter, no paging, small limits. The runner has no
+# account, so it reads the newest public rows and filters sides itself; older rows are out of its reach.
+PUBLIC_FEED = {"insiders": "/notable/feed?tab=insiders&rank=material&limit=20",
+               "congress": "/notable/feed?tab=congress&limit=50"}
+
+
 def fetch_feed(api: Api, tab: str, since: dt.date, extra: str = "", pages: int = 5) -> tuple[list[dict], str | None]:
     items: list[dict] = []
-    for page in range(pages):
-        data, err = api.get(f"/notable/feed?tab={tab}{extra}&limit=200&offset={page * 200}")
+    for page in range(1 if tab in PUBLIC_FEED else pages):
+        data, err = api.get(PUBLIC_FEED.get(tab) or f"/notable/feed?tab={tab}{extra}&limit=200&offset={page * 200}")
         if err:
             return items, err
         batch = data.get("items") if isinstance(data, dict) else None
