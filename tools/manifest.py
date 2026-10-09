@@ -75,6 +75,9 @@ import urllib.request
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import qa_header as qa  # noqa: E402  (X-RTV-Automated-QA for requests to our own hosts only)
+
 SCHEMA = "rtv-video-manifest/1"
 PICKS_READINESS_FROM = "2026-09-30"
 PICKS_READY_LEAD_MINUTES = 60
@@ -553,7 +556,7 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
 def head(url: str, timeout: float = 20.0) -> tuple[int, str, int | None]:
     req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": UA, "Cache-Control": "no-cache"})
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
+        with qa.urlopen(req, timeout=timeout) as r:
             length = r.headers.get("Content-Length")
             return r.status, r.headers.get("Content-Type", ""), int(length) if length and length.isdigit() else None
     except urllib.error.HTTPError as e:
@@ -915,7 +918,7 @@ def cmd_write(a: argparse.Namespace) -> int:
 
 def _fetch_json(url: str) -> object:
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Cache-Control": "no-cache"})
-    with urllib.request.urlopen(req, timeout=20) as r:
+    with qa.urlopen(req, timeout=20) as r:
         return json.loads(r.read().decode("utf-8"))
 
 

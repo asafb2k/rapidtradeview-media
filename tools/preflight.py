@@ -36,6 +36,7 @@ from urllib.parse import parse_qs, urlsplit
 from zoneinfo import ZoneInfo
 
 import manifest as mf
+import qa_header as qa
 
 WORK_ROOT = Path("D:/rtv-ops/tracks/growth/research/daily-video")
 CATEGORIES_OUT = Path("D:/rtv-ops/tracks/growth/research/video-v6/categories")
@@ -403,7 +404,7 @@ def remote_check(url: str, local: Path, cache: dict) -> str | None:
     etag = None
     try:
         req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": UA})
-        with urllib.request.urlopen(req, timeout=20) as r:
+        with qa.urlopen(req, timeout=20) as r:
             etag = r.headers.get("ETag")
     except (urllib.error.URLError, OSError):
         pass
@@ -413,7 +414,7 @@ def remote_check(url: str, local: Path, cache: dict) -> str | None:
     h = hashlib.sha256()
     try:
         req = urllib.request.Request(url, headers={"User-Agent": UA, "Cache-Control": "no-cache"})
-        with urllib.request.urlopen(req, timeout=120) as r:
+        with qa.urlopen(req, timeout=120) as r:
             for chunk in iter(lambda: r.read(1 << 20), b""):
                 h.update(chunk)
     except (urllib.error.URLError, OSError) as e:

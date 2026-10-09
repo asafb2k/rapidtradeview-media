@@ -77,6 +77,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import manifest as mf  # noqa: E402
+import qa_header as qa  # noqa: E402
 
 API = "https://api.rapidtradeview.trade"
 SITE = "https://www.rapidtradeview.trade"
@@ -146,7 +147,7 @@ class Api:
             self.requests += 1
             req = urllib.request.Request(f"{self.base}{path}", headers={"User-Agent": UA, "Accept": "application/json"})
             try:
-                with urllib.request.urlopen(req, timeout=25) as r:
+                with qa.urlopen(req, timeout=25) as r:
                     out = (json.loads(r.read().decode("utf-8")), None)
                     self.cache[path] = out
                     return out
