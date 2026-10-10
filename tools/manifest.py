@@ -98,7 +98,7 @@ IG_PLACEMENTS = ("reel", "feed", "story")
 # non-followers. From this date every Instagram post is a Reel (weekday and weekend); an image story posts the Reel the
 # growth-video still_reel.py makes from its approved image (reel_9x16.mp4 next to the images). The manifests of earlier days
 # (feed images, Stories, 1 Reel + 4 feed) stay valid. The day after the decision: 2026-10-10's manifest was published first.
-IG_REELS_ONLY_FROM = "2026-10-11"
+IG_REELS_ONLY_FROM = "2026-10-19"   # moved from 10-11 so the kit (frontend socialKitVideos.ts) ships first
 REEL_FORMAT = "reel_9x16"
 IG_REELS_PER_WEEKDAY = 5                  # the old 1 Reel + 4 feed posts, all Reels now
 IG_REEL_PREFS = [2, 1, 3, 4, 6, 5, 7]     # who gets the Reels first (the old Reel slot, then the old feed order)

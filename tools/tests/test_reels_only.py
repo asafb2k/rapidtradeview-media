@@ -24,7 +24,7 @@ MP4 = b"\x00\x00\x00\x18ftypisom" + b"\x00" * 20_000
 JPG = b"\xff\xd8\xff\xe0" + b"\x00" * 100
 PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 100
 MUSIC = json.loads((Path(__file__).parent / "fixtures" / "vsco-music.json").read_text(encoding="utf-8"))
-WEEKDAY, WEEKEND, BEFORE = "2026-10-12", "2026-10-11", "2026-10-10"
+WEEKDAY, WEEKEND, BEFORE = "2026-10-19", "2026-10-24", "2026-10-16"
 IMAGES = ("feed_4x5", "square_1x1", "pin_2x3", "story_9x16")
 
 
@@ -59,7 +59,7 @@ def story(tmp_path, date, reel=True, images=IMAGES, slot=1):
 
 
 def test_the_switch_is_the_day_after_the_decision():
-    assert mf.IG_REELS_ONLY_FROM == "2026-10-11"
+    assert mf.IG_REELS_ONLY_FROM == "2026-10-19"
     assert [mf.reels_only(d) for d in ("2026-10-09", BEFORE, WEEKEND, WEEKDAY)] == [False, False, True, True]
     assert mf.reserved_ig(WEEKDAY) == {4: "reel"} and mf.reserved_ig(BEFORE) == mf.reserved_ig()
 
@@ -161,8 +161,8 @@ def valid_reel_day(tmp_path, date=WEEKDAY, n=1):
 
 
 @pytest.mark.parametrize("mutate,needle", [
-    (lambda p: p["platforms"]["instagram"].update(placement="feed"), "Instagram posts are Reels only from 2026-10-11 (not feed)"),
-    (lambda p: p["platforms"]["instagram"].update(placement="story", caption=None), "Instagram posts are Reels only from 2026-10-11 (not story)"),
+    (lambda p: p["platforms"]["instagram"].update(placement="feed"), "Instagram posts are Reels only from 2026-10-19 (not feed)"),
+    (lambda p: p["platforms"]["instagram"].update(placement="story", caption=None), "Instagram posts are Reels only from 2026-10-19 (not story)"),
     (lambda p: p["platforms"]["instagram"].update(media_type="image", media="feed_4x5", media_url=p["images"]["feed_4x5"]),
      "an Instagram Reel is a video; an image story posts its reel_9x16.mp4"),
     (lambda p: p["platforms"]["instagram"].update(media="feed_4x5"), "instagram.media: must be reel_9x16 for a video"),
