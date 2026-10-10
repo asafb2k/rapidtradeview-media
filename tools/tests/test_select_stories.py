@@ -231,6 +231,35 @@ def test_senate_trades_are_not_renderable():
     assert trades == [] and dropped["not_renderable"] == 1
 
 
+def test_congress_rows_filed_over_90_days_late_are_never_fresh():
+    """A re-filing or a very late filing (traded > 90 days before its disclosure) is counted and left out; 90 days
+    exactly, a row without a trade date and a stable normal row stay; an unreadable trade date is flagged."""
+    def row(tid, ticker, traded, doc):
+        item = {"trade_id": tid, "figure": {"kind": "politician", "display_name": "Some Member", "slug": "member-some", "party": "D",
+                                            "chamber": "house", "state": "CA"},
+                "ticker": ticker, "side": "buy", "disclosure_date": "2026-09-25", "owner": "self",
+                "amount": {"low": 15001, "high": 50000},
+                "source_url": f"https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/{doc}.pdf"}
+        if traded is not None:
+            item["transaction_date"] = traded
+        return item
+    items = [
+        row(1, "AAA", "2026-09-01", 20030001),   # 24 days: fresh
+        row(2, "BBB", "2025-12-01", 20030002),   # 298 days: re-filing / very late
+        row(3, "CCC", "2026-06-27", 20030003),   # exactly 90 days: stays
+        row(4, "DDD", "2026-06-26", 20030004),   # 91 days: out
+        row(5, "EEE", None, 20030005),           # no trade date: nothing to judge
+        row(6, "FFF", "not-a-date", 20030006),   # unreadable: cannot show the trade is fresh
+    ]
+    api = StubApi({"/notable/feed?tab=insiders": {"items": [], "has_more": False},
+                   "/notable/feed?tab=congress": {"items": items, "has_more": False}})
+    fame = json.loads((TOOLS / "fame.json").read_text(encoding="utf-8"))
+    names = {t: f"{t} Corp" for t in ("AAA", "BBB", "CCC", "DDD", "EEE", "FFF")}
+    trades, dropped, _ = ss.gather_trades(api, D(2026, 9, 28), 3, names, fame)
+    assert sorted(t.ticker for t in trades) == ["AAA", "CCC", "EEE"]
+    assert dropped["late_filing_over_90d"] == 2 and dropped["flagged_value"] == 1
+
+
 def test_the_big_tech_theme_waits_a_week():
     prior = [ss.Posted(D(2026, 9, 28), "theme:congress_bigtech:2026-09-28", [], [], "congress_theme")]
     s = ss.congress_theme_slot(StubApi({}), D(2026, 9, 29), "congress_30d", prior)
