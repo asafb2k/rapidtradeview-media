@@ -1,0 +1,142 @@
+--- a/frontend/src/lib/socialKitVideos.ts
++++ b/frontend/src/lib/socialKitVideos.ts
+@@ -12,7 +12,8 @@
+  *   status: "ok" | "missing" | "invalid" | "unavailable", note, errors: string[],
+  *   day_type: "weekday" | "weekend" | null,
+  *   posts: [{ slot, time_et, category, id, story_id, story_key, title, tickers, people,
+- *             media: { reel_9x16, feed_4x5, square_1x1 } | {},       // MP4s on GitHub Pages ({} = image post)
++ *             media: { reel_9x16, feed_4x5, square_1x1 } | { reel_9x16 } | {},   // MP4s on GitHub Pages ({} = image post;
++ *                                                                              // { reel_9x16 } = an image story's own Reel)
+  *             images?: { feed_4x5?, square_1x1?, pin_2x3?, story_9x16? },   // PNG / JPEG on GitHub Pages
+  *             alt_text, source_urls, tag_candidates: { instagram?, threads? },   // unverified handles
+  *             music?: { type: "original score", samples: string | null, third_party_tracks: false, ... },
+@@ -22,6 +23,9 @@
+  *   // media_type: "video" (the default) or "image"; media names the post's media.<f> or images.<f>
+  *   // status?: "held" + held_reason: the preflight gate (tools/preflight.py) held the post: do not post it
+  *   // threads.topic?: the Threads topic to set (THREADS_TOPICS), from the post's category (tools/manifest.py threads_topic)
++ *   // From IG_REELS_ONLY_FROM Instagram posts are Reels only (Growth decision 2026-10-10): every Instagram post is placement
++ *   // reel with media_type video and reel_9x16 (an image story posts media.reel_9x16; its X / Threads / Pinterest blocks keep
++ *   // posting the images), at most IG_REELS_PER_WEEKDAY a weekday, no feed post, no Story.
+  *   // Every Instagram video is the 9:16 file whatever its placement; 4:5 only for images (a feed video of a manifest
+  *   // written before the writer's switch may still name feed_4x5). No Story route yet: new manifests make the
+  *   // Story slots feed posts (1 Reel + 4 feed a weekday); older ones carry up to 2 Stories.
+@@ -63,6 +67,9 @@
+  */
+ export const IG_WEEKDAY_MIX: Record<IgPlacement, number> = { reel: 1, feed: 4, story: 2 };
+ export const IG_WEEKDAY_NON_REEL_MAX = 4;
++/** Growth decision 2026-10-10 (tools/manifest.py IG_REELS_ONLY_FROM): from this date every Instagram post is a Reel. */
++export const IG_REELS_ONLY_FROM = "2026-10-11";
++export const IG_REELS_PER_WEEKDAY = 5;
+ /** Threads topics (one per post; growth plan 2026-09-26): Congress posts Stock Market, Form 4 / picks / track record Stocks, earnings Earnings, explainers and promos Investing. */
+ export const THREADS_TOPICS = ["Stocks", "Stock Market", "Earnings", "Investing"] as const;
+ export type ThreadsTopic = (typeof THREADS_TOPICS)[number];
+@@ -207,7 +214,7 @@
+     "Download the platform's file (its media_url: an MP4 when media_type is video, a PNG or JPEG image when it is image) and upload it as a file. Never paste a media URL into a post and never let a platform fetch it as a link.",
+     "Post the text exactly as given (Instagram caption, X text, Threads text, Pinterest title, description and link). The X reply, the Threads first_reply and the Instagram first_comment go right after the post, as a reply or first comment.",
+     "X: names only, never an @ handle. Instagram and Threads: tag_candidates are unverified; tag a handle only after confirming on that platform that it is the official account of that person or company, otherwise post without tags.",
+-    "Instagram placement: reel = a Reel; feed = a feed post; story = a Story (no caption), with link_sticker_url as a link sticker when it is given. Upload the file its media_url names: every video is the 9:16 file whatever the placement (Instagram posts a video as a Reel), an image is the 4:5 file in the feed and the 9:16 file in a Story. At the crop step pick Original, never 1:1. An image post is never a Reel. Instagram web makes no Stories: new manifests put no Stories (those slots are feed posts).",
++    `Instagram placement: reel = a Reel; feed = a feed post; story = a Story (no caption), with link_sticker_url as a link sticker when it is given. Upload the file its media_url names: every video is the 9:16 file whatever the placement (Instagram posts a video as a Reel), an image is the 4:5 file in the feed and the 9:16 file in a Story. At the crop step pick Original, never 1:1. An image post is never a Reel. Instagram web makes no Stories: new manifests put no Stories (those slots are feed posts). From ${IG_REELS_ONLY_FROM} Instagram posts are Reels only: every Instagram post is placement reel with its reel_9x16 video (an image story's Reel is its media.reel_9x16; X, Threads and Pinterest post its images), never a feed post or a Story.`,
+     "Threads: set the post's topic to platforms.threads.topic when it is given (one topic only: Stocks, Stock Market, Earnings or Investing; add no other), and paste the post's alt_text as the video's or image's alt text. Say both in the post_log body (topic: <topic>; alt text: pasted).",
+     "After posting, open the post as a visitor would: a video plays with sound, the whole frame or image shows (no crop), the text and links are complete. Delete and repost a broken post.",
+     "Report every published video post with a post_log: platform, item_id = the post's id (video-<date>-<story>), url = the published post's URL.",
+@@ -336,8 +343,6 @@
+     if (!media) errors.push(`${at}: media must be an object`);
+     else {
+         checkKeys(errors, `${at}.media`, media, VIDEO_FORMATS, []);
+-        const keys = Object.keys(media);
+-        if (keys.length && keys.length !== VIDEO_FORMATS.length) errors.push(`${at}.media: a video post has all of ${VIDEO_FORMATS.join(", ")} (an image-only post has {})`);
+         if (sid) for (const f of VIDEO_FORMATS) if (f in media && media[f] !== videoMediaUrl(date, sid, f)) errors.push(`${at}.media.${f}: must be ${videoMediaUrl(date, sid, f)}`);
+     }
+     const hasImages = Object.prototype.hasOwnProperty.call(p, "images");
+@@ -355,6 +360,14 @@
+         }
+     }
+     if (media && images && Object.keys(media).length === 0 && Object.keys(images).length === 0) errors.push(`${at}: a post needs its videos (media) or its images`);
++    if (media && images) {
++        // a video post has all three MP4s; an image post has {} or, from IG_REELS_ONLY_FROM, just its own Reel
++        const keys = Object.keys(media);
++        const reelOnly = date >= IG_REELS_ONLY_FROM && keys.length === 1 && keys[0] === "reel_9x16" && Object.keys(images).length > 0;
++        if (keys.length && keys.length !== VIDEO_FORMATS.length && !reelOnly) {
++            errors.push(`${at}.media: a video post has all of ${VIDEO_FORMATS.join(", ")} (an image post has {} or just reel_9x16, its Reel)`);
++        }
++    }
+     checkText(errors, `${at}.alt_text`, p.alt_text, { required: true, limit: LIMITS.alt });
+     if (!Array.isArray(p.source_urls) || p.source_urls.length > 10 || !p.source_urls.every((u) => isHttps(u))) {
+         errors.push(`${at}: source_urls must be a list of up to 10 https URLs`);
+@@ -407,6 +420,11 @@
+             }
+             const placement = b.placement as IgPlacement;
+             if (!MIX_EXEMPT_CATEGORIES.includes(String(p.category))) igCount[placement]++;
++            if (date >= IG_REELS_ONLY_FROM && placement !== "reel") errors.push(`${pat}.placement: Instagram posts are Reels only from ${IG_REELS_ONLY_FROM} (not ${placement})`);
++            if (date >= IG_REELS_ONLY_FROM && image) {
++                errors.push(`${pat}.media_type: an Instagram Reel is a video; an image story posts its reel_9x16.mp4`);
++                continue;
++            }
+             if (image && placement === "reel") {
+                 errors.push(`${pat}.placement: an image post is never a Reel (feed or story)`);
+                 continue;
+@@ -468,7 +486,9 @@
+     });
+     if (new Set(slots).size !== slots.length) errors.push("manifest: two posts share a slot");
+     if (slots.some((s, i) => i > 0 && s < slots[i - 1])) errors.push("manifest: posts must be in slot order");
+-    if (dtype === "weekday") {
++    if (dtype === "weekday" && raw.date >= IG_REELS_ONLY_FROM) {
++        if (igCount.reel > IG_REELS_PER_WEEKDAY) errors.push(`manifest: ${igCount.reel} Instagram reel posts; a weekday has at most ${IG_REELS_PER_WEEKDAY}`);
++    } else if (dtype === "weekday") {
+         for (const placement of IG_PLACEMENTS) {
+             if (igCount[placement] > IG_WEEKDAY_MIX[placement]) {
+                 errors.push(`manifest: ${igCount[placement]} Instagram ${placement} posts; a weekday has at most ${IG_WEEKDAY_MIX[placement]}`);
+--- a/frontend/src/lib/socialKitVideos.test.ts
++++ b/frontend/src/lib/socialKitVideos.test.ts
+@@ -61,10 +61,51 @@
+     return m;
+ }
+ 
++/** The real post as an image story from the switch day (2026-10-11): its own Reel for Instagram, the images for the rest. */
++function reelsOnlyManifest(date = "2026-10-12"): Loose {
++    const m = imageManifest(date);
++    const p = m.posts[0];
++    p.media = { reel_9x16: videoMediaUrl(date, p.story_id, "reel_9x16") };
++    Object.assign(p.platforms.instagram, { placement: "reel", media_type: "video", media: "reel_9x16", media_url: p.media.reel_9x16, caption: "c Not investment advice.", link_sticker_url: null });
++    return m;
++}
++
+ function errorsOf(m: unknown, date = DATE): string[] {
+     const r = validateVideoManifest(m, date);
+     return r.ok ? [] : r.errors;
+ }
++
++describe("Instagram Reels only (from 2026-10-11, tools/manifest.py IG_REELS_ONLY_FROM)", () => {
++    it("takes an image story's own Reel on a weekday and a weekend, and still takes the feed image before the switch", () => {
++        expect(errorsOf(reelsOnlyManifest("2026-10-12"), "2026-10-12")).toEqual([]);
++        const weekend = reelsOnlyManifest("2026-10-11");
++        weekend.day_type = "weekend";
++        expect(errorsOf(weekend, "2026-10-11")).toEqual([]);
++        expect(errorsOf(imageManifest("2026-10-10"), "2026-10-10")).not.toEqual(expect.arrayContaining([expect.stringMatching(/Reels only/)]));
++    });
++
++    it.each([
++        ["a feed post", (m: Loose) => Object.assign(m.posts[0].platforms.instagram, { placement: "feed" }), /Instagram posts are Reels only from 2026-10-11 \(not feed\)/],
++        ["a Story", (m: Loose) => Object.assign(m.posts[0].platforms.instagram, { placement: "story", caption: null, first_comment: null }), /Reels only from 2026-10-11 \(not story\)/],
++        ["an image block", (m: Loose) => Object.assign(m.posts[0].platforms.instagram, { media_type: "image", media: "feed_4x5", media_url: m.posts[0].images.feed_4x5 }), /an Instagram Reel is a video/],
++        ["a lone Reel without images", (m: Loose) => delete m.posts[0].images, /a video post has all of/],
++        ["a Reel plus one more MP4", (m: Loose) => (m.posts[0].media.feed_4x5 = videoMediaUrl("2026-10-12", "story-1", "feed_4x5")), /a video post has all of/],
++    ])("rejects %s", (_name, mutate, want) => {
++        const m = reelsOnlyManifest();
++        mutate(m);
++        expect(errorsOf(m, "2026-10-12")).toEqual(expect.arrayContaining([expect.stringMatching(want)]));
++    });
++
++    it("allows at most 5 Instagram Reels a weekday and tells the agents the rule", () => {
++        const five = weekday(5, "2026-10-12");
++        for (const p of five.posts) Object.assign(p.platforms.instagram, { placement: "reel", media: "reel_9x16", media_url: p.media.reel_9x16 });
++        expect(errorsOf(five, "2026-10-12")).toEqual([]);
++        const six = weekday(6, "2026-10-12");
++        for (const p of six.posts) Object.assign(p.platforms.instagram, { placement: "reel", media: "reel_9x16", media_url: p.media.reel_9x16 });
++        expect(errorsOf(six, "2026-10-12")).toContain("manifest: 6 Instagram reel posts; a weekday has at most 5");
++        expect(VIDEO_POST_RULES.join(" ")).toMatch(/From 2026-10-11 Instagram posts are Reels only/);
++    });
++});
+ 
+ describe("validateVideoManifest", () => {
+     it("accepts the real 2026-09-27 manifest", () => {

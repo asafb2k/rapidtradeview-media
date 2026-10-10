@@ -32,10 +32,16 @@ subcommand and defaults to this repo):
 
 Media: a video post has reel_9x16.mp4, feed_4x5.mp4 and square_1x1.mp4; an image post has PNG or JPEG
 images (feed_4x5, square_1x1, pin_2x3, story_9x16); a post may carry both ("media_type" in the spec
-picks what the platforms post; default video when the MP4s are there). Images per platform: X
-square_1x1 (else feed_4x5), Threads feed_4x5 (else square_1x1), Pinterest pin_2x3 (else feed_4x5),
-Instagram feed feed_4x5, Instagram Story story_9x16; an image post is never a Reel. Instagram video: reel_9x16
-for a Reel or Story, feed_4x5 for a feed post; with KIT_AUDIT_FIXES_LIVE reel_9x16 whatever the placement.
+picks what the platforms post; default video when the three MP4s are there). Images per platform: X
+square_1x1 (else feed_4x5), Threads feed_4x5 (else square_1x1), Pinterest pin_2x3 (else feed_4x5).
+Instagram video: reel_9x16 for a Reel or Story, feed_4x5 for a feed post; with KIT_AUDIT_FIXES_LIVE reel_9x16
+whatever the placement.
+Instagram is REELS ONLY from IG_REELS_ONLY_FROM (Growth decision 2026-10-10: Reels are the only Instagram format
+shown to non-followers). Every Instagram post of such a day is placement "reel" with media_type video and
+reel_9x16, weekdays and weekends alike. An image story (earnings week / today) therefore carries its own
+reel_9x16.mp4 next to its images (growth-video scripts/v6cat/still_reel.py): "media" is {"reel_9x16": url} alone,
+Instagram posts it as a Reel, and X / Threads / Pinterest keep posting the images (their blocks are
+media_type "image"). Before that date an image post is a feed / Story image and never a Reel, as published.
 
 Spec (JSON):
   {"date": "2026-09-27", "posts": [{"slot": 1, "time_et": "12:00", "category": "insider_trade",
@@ -54,7 +60,8 @@ Rules checked (both here and in the kit):
     manifests dated X_ONE_HASHTAG_FROM or later (the 2026-09-27 / 09-28 ones predate the rule);
   - platform limits: X 280 (weighted), Threads 500, Instagram 2,200, Pinterest title 100 /
     description 500; alt text 500;
-  - Instagram mix: weekdays at most 1 Reel, 2 feed posts and 2 Stories; weekends one post in all;
+  - Instagram mix: weekdays at most 1 Reel, 2 feed posts and 2 Stories; weekends one post in all; from
+    IG_REELS_ONLY_FROM every Instagram post is a Reel (weekdays at most IG_REELS_PER_WEEKDAY, no feed post, no Story);
   - a post may carry "status": "held" with a held_reason (the kit shows it as "do not post");
   - with KIT_AUDIT_FIXES_LIVE (social-post audit 2026-09-28; True since the kit of PR #400, main 447deb35, went
     live on prod 2026-09-28 20:28Z): a feed video may be reel_9x16 (the writer posts every Instagram video so), a weekday has at most
@@ -87,6 +94,15 @@ SITE_HOSTS = ("www.rapidtradeview.trade",)
 FORMATS = ("reel_9x16", "feed_4x5", "square_1x1")
 PLATFORMS = ("instagram", "x", "threads", "pinterest")
 IG_PLACEMENTS = ("reel", "feed", "story")
+# Growth decision 2026-10-10 (owner reminded): Instagram posts are REELS ONLY: a Reel is the only Instagram format shown to
+# non-followers. From this date every Instagram post is a Reel (weekday and weekend); an image story posts the Reel the
+# growth-video still_reel.py makes from its approved image (reel_9x16.mp4 next to the images). The manifests of earlier days
+# (feed images, Stories, 1 Reel + 4 feed) stay valid. The day after the decision: 2026-10-10's manifest was published first.
+IG_REELS_ONLY_FROM = "2026-10-11"
+REEL_FORMAT = "reel_9x16"
+IG_REELS_PER_WEEKDAY = 5                  # the old 1 Reel + 4 feed posts, all Reels now
+IG_REEL_PREFS = [2, 1, 3, 4, 6, 5, 7]     # who gets the Reels first (the old Reel slot, then the old feed order)
+RESERVED_IG_REELS = {4: "reel"}           # the picks slot (filled by the 13:45 pass) holds its Reel
 # Social-post audit 2026-09-28 (Growth lead): (1) every Instagram video is the 9:16 file whatever its placement
 # (4:5 only for images), (2) the Instagram Story slots become feed posts until a Story route exists (weekdays
 # 1 Reel + 4 feed + 0 Stories; the picks slot's reserved Story becomes a feed post), (3) each post names its
@@ -195,13 +211,20 @@ PLATFORM_OPTIONAL_KEYS = {"media_type"}  # absent = video (manifests written bef
 PLATFORM_AUDIT_OPTIONAL_KEYS = {"threads": {"topic"}}
 
 
+def reels_only(date: str) -> bool:
+    """True from IG_REELS_ONLY_FROM: every Instagram post of the day is a Reel."""
+    return date >= IG_REELS_ONLY_FROM
+
+
 def ig_weekday_mix() -> dict[str, int]:
     """The weekday Instagram placements the writer fills (KIT_AUDIT_FIXES_LIVE: 1 Reel + 4 feed, no Story)."""
     return dict(IG_WEEKDAY_MIX if KIT_AUDIT_FIXES_LIVE else IG_WEEKDAY_MIX_V1)
 
 
-def reserved_ig() -> dict[int, str]:
-    """The weekday slots a later pass fills, whose Instagram placement is held for them."""
+def reserved_ig(date: str | None = None) -> dict[int, str]:
+    """The weekday slots a later pass fills, whose Instagram placement is held for them (a Reel from IG_REELS_ONLY_FROM)."""
+    if date is not None and reels_only(date):
+        return dict(RESERVED_IG_REELS)
     return dict(RESERVED_IG if KIT_AUDIT_FIXES_LIVE else RESERVED_IG_V1)
 
 
@@ -370,6 +393,7 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
     posts = m.get("posts")
     if not isinstance(posts, list) or not posts:
         return errors + ["manifest: posts must be a non-empty list"]
+    reels = reels_only(date)
     cap = 1 if dtype == "weekend" else MAX_POSTS
     if len(posts) > cap:
         errors.append(f"manifest: {len(posts)} posts; a {dtype} has at most {cap}")
@@ -425,8 +449,6 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
             media = {}
         else:
             _keys(errors, f"{at}.media", media, set(FORMATS), set())
-            if media and set(media) != set(FORMATS):
-                errors.append(f"{at}.media: a video post has all of {', '.join(FORMATS)} (an image-only post has {{}})")
             for f in media:
                 if sid and f in FORMATS and media.get(f) != media_url(date, sid, f):
                     errors.append(f"{at}.media.{f}: must be {media_url(date, sid, f)}")
@@ -443,6 +465,9 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
                     errors.append(f"{at}.images.{f}: must be {image_url(date, sid, f, 'png')} (or .jpg)")
         if not media and not images:
             errors.append(f"{at}: a post needs its videos (media) or its images")
+        # A video post has all three MP4s; an image post has {} or, from IG_REELS_ONLY_FROM, just its own Reel.
+        if media and set(media) != set(FORMATS) and not (set(media) == {REEL_FORMAT} and images and reels_only(date)):
+            errors.append(f"{at}.media: a video post has all of {', '.join(FORMATS)} (an image post has {{}} or just {REEL_FORMAT}, its Reel)")
         _text(errors, f"{at}.alt_text", p.get("alt_text"), required=True, limit=LIMITS["alt"])
         src = p.get("source_urls")
         if not isinstance(src, list) or len(src) > 10 or not all(_https(u) for u in src):
@@ -493,6 +518,11 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
                     continue
                 if p.get("category") not in MIX_EXEMPT_CATEGORIES:
                     ig_count[placement] += 1
+                if reels and placement != "reel":
+                    errors.append(f"{pat}.placement: Instagram posts are Reels only from {IG_REELS_ONLY_FROM} (not {placement})")
+                if reels and image:
+                    errors.append(f"{pat}.media_type: an Instagram Reel is a video; an image story posts its {REEL_FORMAT}.mp4")
+                    continue
                 if image and placement == "reel":
                     errors.append(f"{pat}.placement: an image post is never a Reel (feed or story)")
                     continue
@@ -540,7 +570,10 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
         errors.append("manifest: two posts share a slot")
     if slots != sorted(slots):
         errors.append("manifest: posts must be in slot order")
-    if dtype == "weekday":
+    if dtype == "weekday" and reels:
+        if ig_count["reel"] > IG_REELS_PER_WEEKDAY:
+            errors.append(f"manifest: {ig_count['reel']} Instagram reel posts; a weekday has at most {IG_REELS_PER_WEEKDAY}")
+    elif dtype == "weekday":
         for placement, cap_n in (IG_WEEKDAY_CAPS if KIT_AUDIT_FIXES_LIVE else IG_WEEKDAY_MIX_V1).items():
             if ig_count[placement] > cap_n:
                 errors.append(f"manifest: {ig_count[placement]} Instagram {placement} posts; a weekday has at most {cap_n}")
@@ -635,8 +668,6 @@ def local_media(repo: Path, date: str, sid: str) -> tuple[dict[str, str], dict[s
     d = repo / "v" / date / sid
     videos = {f: media_url(date, sid, f) for f in FORMATS if (d / f"{f}.mp4").exists()}
     problems = []
-    if videos and len(videos) != len(FORMATS):
-        problems.append(f"{d}: only {', '.join(videos)} of the three MP4s")
     images: dict[str, str] = {}
     for f in IMAGE_FORMATS:
         found = [e for e in IMAGE_EXTS if (d / f"{f}.{e}").exists()]
@@ -644,6 +675,9 @@ def local_media(repo: Path, date: str, sid: str) -> tuple[dict[str, str], dict[s
             # When a renderer ships both, post the JPEG: smaller, and every platform takes it.
             ext = next((e for e in found if e in ("jpg", "jpeg")), found[0])
             images[f] = image_url(date, sid, f, ext)
+    # An image story's own Reel (reel_9x16.mp4 beside its images) is the one partial set of MP4s that is a post.
+    if videos and len(videos) != len(FORMATS) and not (set(videos) == {REEL_FORMAT} and images and reels_only(date)):
+        problems.append(f"{d}: only {', '.join(videos)} of the three MP4s" + ("" if images else f" (a lone {REEL_FORMAT}.mp4 needs the story's images)"))
     return videos, images, problems
 
 
@@ -651,7 +685,7 @@ def post_media_type(spec: dict, videos: dict, images: dict) -> str:
     if not spec.get("media_type") and not videos and not images:
         raise ValueError(f"{spec['story_id']}: no files in v/<date>/{spec['story_id']}/ yet (a video post needs "
                          f"{', '.join(f + '.mp4' for f in FORMATS)}; an image post PNG or JPEG images)")
-    mtype = spec.get("media_type") or ("video" if videos else "image")
+    mtype = spec.get("media_type") or ("video" if len(videos) == len(FORMATS) else "image")
     if mtype == "video" and len(videos) != len(FORMATS):
         raise ValueError(f"{spec['story_id']}: a video post needs {', '.join(f + '.mp4' for f in FORMATS)} in v/<date>/{spec['story_id']}/")
     if mtype == "image" and not images:
@@ -670,8 +704,29 @@ def _tags(block: object) -> list[dict]:
     return out
 
 
+def assign_reels(slots: list[int], dtype: str, overrides: dict[int, str | None], reserved: dict[int, str] | None = None) -> dict[int, str]:
+    """Instagram, Reels only (IG_REELS_ONLY_FROM): every Instagram post is a Reel, image stories included (they carry their own
+    reel_9x16.mp4). Weekend: the one post. Weekdays: at most IG_REELS_PER_WEEKDAY, given in IG_REEL_PREFS order to the filled slots
+    (`reserved` slots count as filled: the picks slot keeps its Reel for the 13:45 pass). An override of any kind but "none"
+    (a published post of today, a spec's placement) is a Reel and uses one of the places; "none" = no Instagram post for that slot."""
+    if dtype == "weekend":
+        return {s: "reel" for s in slots if overrides.get(s) != "none"}
+    pool = set(slots) | set(reserved or {})
+    out = {s: "reel" for s, v in overrides.items() if s in pool and v and v != "none"}
+    blocked = {s for s, v in overrides.items() if v == "none"}
+    left = IG_REELS_PER_WEEKDAY - len(out)
+    for s in IG_REEL_PREFS:
+        if left <= 0:
+            break
+        if s in pool and s not in out and s not in blocked:
+            out[s] = "reel"
+            left -= 1
+    return {s: "reel" for s in out if s in slots}
+
+
 def assign_instagram(slots: list[int], dtype: str, overrides: dict[int, str | None],
-                     reserved: dict[int, str] | None = None, image_slots: set[int] | None = None) -> dict[int, str]:
+                     reserved: dict[int, str] | None = None, image_slots: set[int] | None = None,
+                     reels: bool = False) -> dict[int, str]:
     """Instagram placements. Weekend: the one post is a Reel. Weekdays (owner: 1 Reel, 2 feed posts,
     2 Stories; Growth lead 2026-09-27): the Reel on the best trade (slot 2), Stories on earnings (1)
     and picks (4), feed posts on the second and third trades (3, 6). A placement whose slot is empty
@@ -682,7 +737,10 @@ def assign_instagram(slots: list[int], dtype: str, overrides: dict[int, str | No
     a feed post).
     KIT_AUDIT_FIXES_LIVE (audit 2026-09-28, no Story route yet): 1 Reel + 4 feed posts, the Story slots
     (1, 4) become feed posts (feed 1, 3, 4, 6, 5, 7, 2); a Story already published today (an override)
-    counts against the 4 feed posts, so a switch day never goes over 4 besides the Reel."""
+    counts against the 4 feed posts, so a switch day never goes over 4 besides the Reel.
+    reels=True (IG_REELS_ONLY_FROM): assign_reels, every post a Reel, image stories too."""
+    if reels:
+        return assign_reels(slots, dtype, overrides, reserved)
     image_slots = image_slots or set()
     if dtype == "weekend":
         return {s: (overrides.get(s) or ("feed" if s in image_slots else "reel")) for s in slots if overrides.get(s, "reel") != "none"}
@@ -714,6 +772,7 @@ def build_post(date: str, spec: dict, placement: str | None, repo: Path = REPO) 
     if problems:
         raise ValueError("; ".join(problems))
     mtype = post_media_type(spec, videos, images)
+    reels = reels_only(date)
 
     def pick(plat: str) -> tuple[str, str]:
         if mtype == "video":
@@ -728,7 +787,16 @@ def build_post(date: str, spec: dict, placement: str | None, repo: Path = REPO) 
         raise ValueError("post-package: missing alt_text")
     platforms: dict[str, dict] = {}
     if placement:
-        if mtype == "image":
+        if reels and placement != "reel":
+            raise ValueError(f"{sid}: Instagram posts are Reels only from {IG_REELS_ONLY_FROM} (placement {placement!r}, slot {spec['slot']})")
+        ig_type = mtype
+        if mtype == "image" and reels:
+            # An image story posts its own Reel (still_reel.py): its video block is the 9:16 file, the other platforms keep the images.
+            if REEL_FORMAT not in videos:
+                raise ValueError(f"{sid}: Instagram posts are Reels only from {IG_REELS_ONLY_FROM}: an image story needs its "
+                                 f"{REEL_FORMAT}.mp4 in v/<date>/{sid}/ (growth-video scripts/v6cat/still_reel.py)")
+            ig_type, ig_fmt, ig_url = "video", REEL_FORMAT, videos[REEL_FORMAT]
+        elif mtype == "image":
             if placement not in IG_IMAGE_MEDIA:
                 raise ValueError(f"{sid}: an image post is never an Instagram Reel (slot {spec['slot']})")
             ig_fmt = IG_IMAGE_MEDIA[placement]
@@ -740,16 +808,16 @@ def build_post(date: str, spec: dict, placement: str | None, repo: Path = REPO) 
             ig_url = videos[ig_fmt]
         if placement == "story":
             sticker = _first(pkg, ("instagram", "story", "link_sticker", "url"), ("instagram", "story_link_sticker"))
-            platforms["instagram"] = {"placement": "story", "media_type": mtype, "media": ig_fmt, "media_url": ig_url, "caption": None,
+            platforms["instagram"] = {"placement": "story", "media_type": ig_type, "media": ig_fmt, "media_url": ig_url, "caption": None,
                                       "first_comment": None, "link_sticker_url": sticker, "alt_text": alt}
         else:
             caption_paths = [("instagram", "feed", "caption"), ("instagram", "caption"), ("instagram", "reel", "caption")] if placement == "feed" \
-                else [("instagram", "reel", "caption"), ("instagram", "caption")]
+                else [("instagram", "reel", "caption"), ("instagram", "caption"), ("instagram", "feed", "caption")]
             caption = _first(pkg, *caption_paths)
             if not caption:
                 raise ValueError(f"post-package: missing the Instagram {placement} caption")
             src = "feed" if placement == "feed" and _opt(pkg, "instagram", "feed", "caption") else "reel"
-            platforms["instagram"] = {"placement": placement, "media_type": mtype, "media": ig_fmt, "media_url": ig_url,
+            platforms["instagram"] = {"placement": placement, "media_type": ig_type, "media": ig_fmt, "media_url": ig_url,
                                       "caption": caption,
                                       "first_comment": _first(pkg, ("instagram", src, "first_comment"), ("instagram", "first_comment")),
                                       "link_sticker_url": None,
@@ -813,6 +881,9 @@ def build_manifest(spec: dict, existing: dict | None = None, now: dt.datetime | 
         kept = [p for p in existing.get("posts", []) if p.get("slot") not in named]
     # Promos sit outside the mix: they take their own placement (default a Reel) and never shift the others'.
     extra = {p["slot"]: p.get("instagram_placement") or "reel" for p in spec["posts"] if p["category"] in MIX_EXEMPT_CATEGORIES}
+    reels = reels_only(date)
+    if reels:  # Instagram is Reels only: a spec's feed / Story is a Reel (an explicit "none" stays none)
+        extra = {s: ("none" if v == "none" else "reel") for s, v in extra.items()}
     mixed = [p for p in spec["posts"] if p["slot"] not in extra]
     kept_mixed = [p for p in kept if p.get("category") not in MIX_EXEMPT_CATEGORIES]
     slots = sorted([p["slot"] for p in mixed] + [p["slot"] for p in kept_mixed])
@@ -828,7 +899,7 @@ def build_manifest(spec: dict, existing: dict | None = None, now: dt.datetime | 
         videos, images, _ = local_media(repo, date, p["story_id"])
         if (p.get("media_type") or ("video" if len(videos) == len(FORMATS) else "image")) == "image":
             image_slots.add(p["slot"])
-    placements = assign_instagram(slots, dtype, overrides, reserved_ig() if dtype == "weekday" else None, image_slots)
+    placements = assign_instagram(slots, dtype, overrides, reserved_ig(date) if dtype == "weekday" else None, image_slots, reels)
     placements.update({s: v for s, v in extra.items() if v != "none"})
     new_posts = [build_post(date, p, placements.get(p["slot"]), repo) for p in spec["posts"]]
     built_at = now or dt.datetime.now(dt.timezone.utc)
@@ -1046,7 +1117,7 @@ def cmd_check_spec(a: argparse.Namespace) -> int:
         problems += [f"slot {p.get('slot')} {p.get('story_id')}: {x}" for x in ev_problems]
         evidence += ev_files
         still_dir = repo / "v" / spec["date"] / p["story_id"] / "still"
-        evidence += [still_dir / n for n in ("feed_4x5.jpg", "feed_4x5.png") if (still_dir / n).is_file()]
+        evidence += [still_dir / n for n in ("feed_4x5.jpg", "feed_4x5.png", "reel_9x16.jpg", "reel_9x16.png") if (still_dir / n).is_file()]
         music_file = repo / "v" / spec["date"] / p["story_id"] / "music.json"
         if music_file.is_file():
             evidence.append(music_file)

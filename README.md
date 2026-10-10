@@ -28,6 +28,21 @@ private `preflight-4.json` and `readiness-4.json` by 14:00 New York time; media 
 from the posting agents' delivery receipt. Run the offline regression suite with the project conda
 Python: `python -m pytest tools/tests -q`.
 
+Instagram is Reels only (Growth decision 2026-10-10: a Reel is the only Instagram format non-followers see). From
+`manifest.IG_REELS_ONLY_FROM` (2026-10-11) every Instagram post, weekday and weekend, is placement `reel` with its
+`reel_9x16.mp4`; the weekday cap is 5 Reels (the old 1 Reel + 4 feed posts), no feed post, no Story. An image story
+(earnings week / today) used to go out as a feed image: its render hook (`hook_v6cat.py`) now also runs growth-video
+`scripts/v6cat/still_reel.py` (a ~9 s Reel made from the story's own approved image: slow push-in, the standard 3 s end
+card, a VSCO bed with provenance; its QA must pass), `daily.py stage` puts `reel_9x16.mp4`, `still/reel_9x16.jpg|png` and
+`music.json` (the Reel's provenance and file hash) beside the images, and the manifest post carries
+`media: {"reel_9x16": url}` next to its `images`: Instagram posts the Reel, X / Threads / Pinterest keep the images. An
+image story without a passing Reel is not staged (no feed-image fallback). Manifests of earlier days stay valid.
+Deploy the kit change first (`tools/kit-patch/socialKitVideos-reels-only.patch`, applied to the app repo's
+`frontend/src/lib/socialKitVideos.ts` and its test from a fresh worktree off origin/main: `git apply <patch>`): the kit
+rejects a whole day whose manifest it does not understand, and the old kit takes neither a lone `reel_9x16` in `media`
+nor more than one Reel on a weekday. Merge this branch only after that kit is on prod and before the first run on or after
+2026-10-11 (or move `IG_REELS_ONLY_FROM` later with it).
+
 Access policy (2026-10-09): the API and site answer non-browser clients with 403 unless they send the
 private `X-RTV-Automated-QA` header. The runner's tools read it at run time through `tools/qa_header.py`
 (the key lives in a local file outside the repo, is sent to our own hosts only, and is never printed,

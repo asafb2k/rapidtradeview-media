@@ -21,6 +21,11 @@ Usage (conda python):
       MP4s to REPO/v/<date>/<story_id>/, and write the manifest spec (manifest.py write --spec). A video story
       must also hold its still (still/feed_4x5.jpg + .png: frame 0 + brand footer, for platforms where a video
       upload fails); it is copied to v/<date>/<story_id>/still/ and committed with the MP4s (not in the manifest).
+      An image story also holds its Reel (reel_9x16.mp4, growth-video still_reel.py) and the Reel's still
+      (still/reel_9x16.jpg + .png) and music provenance (post-package.json "music", vsco-instruments.json):
+      Instagram posts are Reels only from manifest.IG_REELS_ONLY_FROM (Growth decision 2026-10-10), so from that date
+      an image story without its Reel is NOT staged (no feed-image fallback). The Reel's still, music.json (the
+      Reel's hash) and the Reel go in the same commit as the images.
       Exit 2 when nothing is ready to stage.
 
 Rendered outputs each story directory must hold (the render / package hooks write them): a
@@ -128,8 +133,12 @@ def is_image(path: Path) -> bool:
     return head.startswith(b"\x89PNG\r\n\x1a\n") or head.startswith(b"\xff\xd8\xff")
 
 
-def rendered_files(sdir: Path) -> tuple[list[str], str | None]:
-    """(file names to publish, problem): the three MP4s, else the images present."""
+REEL_FILE = "reel_9x16.mp4"
+
+
+def rendered_files(sdir: Path, reel_required: bool = False) -> tuple[list[str], str | None]:
+    """(file names to publish, problem): the three MP4s, else the images present, plus an image story's own Reel
+    (REEL_FILE; required when Instagram is Reels only: `reel_required`)."""
     mp4s = [f"{f}.mp4" for f in mf.FORMATS]
     if all((sdir / n).exists() for n in mp4s):
         bad = [n for n in mp4s if not is_mp4(sdir / n)]
@@ -138,10 +147,20 @@ def rendered_files(sdir: Path) -> tuple[list[str], str | None]:
     if not images:
         return [], "neither the three MP4s nor any image"
     bad = [n for n in images if not is_image(sdir / n)]
-    return (images, None) if not bad else ([], f"not a PNG / JPEG: {', '.join(bad)}")
+    if bad:
+        return [], f"not a PNG / JPEG: {', '.join(bad)}"
+    if (sdir / REEL_FILE).exists():
+        if not is_mp4(sdir / REEL_FILE):
+            return [], f"not an MP4: {REEL_FILE}"
+        images.append(REEL_FILE)
+    elif reel_required:
+        return [], (f"an image story needs its Reel ({REEL_FILE}, growth-video still_reel.py): Instagram posts are Reels only "
+                    f"from {mf.IG_REELS_ONLY_FROM}")
+    return images, None
 
 
 STILL_FILES = ("feed_4x5.jpg", "feed_4x5.png")   # a video post's still (Threads web fallback), in still/
+REEL_STILL_FILES = ("reel_9x16.jpg", "reel_9x16.png")   # an image story's Reel still (frame 0 of the MP4), in still/
 
 
 def cmd_stage(a: argparse.Namespace) -> int:
@@ -158,17 +177,23 @@ def cmd_stage(a: argparse.Namespace) -> int:
         if not (sdir / "qa-passed.json").exists():
             problems.append(f"slot {s['slot']} {s['story_id']}: not rendered or QA not passed (no qa-passed.json)")
             continue
-        files, problem = rendered_files(sdir)
+        files, problem = rendered_files(sdir, mf.reels_only(date))
         if problem:
             problems.append(f"slot {s['slot']} {s['story_id']}: {problem}")
             continue
         if not (sdir / "post-package.json").exists():
             problems.append(f"slot {s['slot']} {s['story_id']}: post-package.json missing")
             continue
-        stills = [f"still/{n}" for n in STILL_FILES] if files[0].endswith(".mp4") else []
+        video_post = files[0].endswith(".mp4")               # the three MP4s (the list starts with reel_9x16.mp4)
+        reel_of_image = REEL_FILE in files and not video_post   # an image story's own Reel
+        stills = [f"still/{n}" for n in STILL_FILES] if video_post else [f"still/{n}" for n in REEL_STILL_FILES] if reel_of_image else []
         bad = [n for n in stills if not is_image(sdir / n)]
         if bad:
-            problems.append(f"slot {s['slot']} {s['story_id']}: video without its still ({', '.join(bad)} missing or not an image)")
+            problems.append(f"slot {s['slot']} {s['story_id']}: {'video' if video_post else 'Reel'} without its still ({', '.join(bad)} missing or not an image)")
+            continue
+        music = _load(sdir / "post-package.json").get("music") if REEL_FILE in files else None
+        if reel_of_image and not music:
+            problems.append(f"slot {s['slot']} {s['story_id']}: the Reel has no music provenance (post-package.json music): the posting agents hold a video without it")
             continue
         dest = repo / "v" / date / s["story_id"]
         dest.mkdir(parents=True, exist_ok=True)
@@ -178,10 +203,9 @@ def cmd_stage(a: argparse.Namespace) -> int:
             (dest / "still").mkdir(exist_ok=True)
             for name in stills:
                 shutil.copy2(sdir / name, dest / name)
-        music = _load(sdir / "post-package.json").get("music") if files[0].endswith(".mp4") else None
         if music:   # the score's provenance next to the files it is in (posting agents check it before uploading)
             record = {"music": music, "files": {
-                name: hashlib.sha256((dest / name).read_bytes()).hexdigest() for name in files}}
+                name: hashlib.sha256((dest / name).read_bytes()).hexdigest() for name in files if name.endswith(".mp4")}}
             if (sdir / "vsco-instruments.json").is_file():   # every sample file the score used, with its sha256
                 record["samples_used"] = _load(sdir / "vsco-instruments.json")
             mf.write_json(dest / "music.json", record)

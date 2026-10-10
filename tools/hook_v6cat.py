@@ -17,22 +17,33 @@ Wired categories:
                    weekday slot 1)
   earnings_week    earnings_image.py week --weeks-ahead 0 (Monday: this week) / 1 (Saturday: next week), same
                    steps (still images). The Tue-Fri "rest of the week" fallback has no image variant: skipped.
+  Instagram is Reels only from manifest.IG_REELS_ONLY_FROM (Growth decision 2026-10-10): an image story then also runs
+  growth-video scripts/v6cat/still_reel.py --id <story_id> (a 9:16 Reel of ~9 s built from the story's own approved image:
+  push-in, VSCO bed, standard end card; its QA must pass) and this hook copies reel_9x16.mp4, still/reel_9x16.jpg + .png and
+  vsco-instruments.json too, and writes the Reel's music provenance into the work copy of post-package.json ("music"; the
+  manifest and music.json carry it). A story whose Reel fails is skipped: no feed-image fallback.
 Trades have their own hook (growth-video scripts/v6t-auto.py).
 """
 from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import manifest as mf  # noqa: E402  (IG_REELS_ONLY_FROM, reels_only)
+
 VIDEO_ROOT = Path("D:/rtvw/growth-video")
 CATEGORIES_OUT = Path("D:/rtv-ops/tracks/growth/research/video-v6/categories")
 VIDEO_FILES = ("reel_9x16.mp4", "feed_4x5.mp4", "square_1x1.mp4", "post-package.json")
 IMAGE_FORMATS = ("feed_4x5", "square_1x1", "pin_2x3", "story_9x16")
+REEL_FILES = ("reel_9x16.mp4", "still/reel_9x16.png", "still/reel_9x16.jpg", "vsco-instruments.json")   # copied for an image story's Reel
+REEL_AUDIT_FILES = ("reel.json", "reel-qa.json", "reel_9x16-contact.png")   # copied beside them for review (never published)
 
 
 def make_args(data: dict) -> list[str]:
@@ -48,7 +59,8 @@ def make_args(data: dict) -> list[str]:
 
 
 def image_steps(data: dict, py: str) -> list[list[str]]:
-    """Earnings still images: build (API) -> render -> post-package -> QA (writes the JPEGs and qa.json)."""
+    """Earnings still images: build (API) -> render -> post-package -> QA (writes the JPEGs and qa.json); from
+    manifest.IG_REELS_ONLY_FROM then the story's Reel (still_reel.py: its own QA must pass)."""
     sid, story, date = data["story_id"], data["story"], data["date"]
     s = "scripts/v6cat/"
     if data["category"] == "earnings_today":
@@ -67,9 +79,40 @@ def image_steps(data: dict, py: str) -> list[list[str]]:
             raise SystemExit(f"hook_v6cat: the earnings image has no variant for mode {mode!r} on a {dt.date.fromisoformat(date):%A} "
                              "(only the full week: Monday this week, Saturday next week); story skipped")
         build = [py, s + "earnings_image.py", "week", "--id", sid, "--week-start", week_start.isoformat()]
-    return [build, ["node", s + "render-stills.mjs", "--id", sid],
-            [py, s + "earnings_image.py", "post", "--id", sid, "--publish-date", date],
-            [py, s + "qa_stills.py", "--id", sid]]
+    steps = [build, ["node", s + "render-stills.mjs", "--id", sid],
+             [py, s + "earnings_image.py", "post", "--id", sid, "--publish-date", date],
+             [py, s + "qa_stills.py", "--id", sid]]
+    if mf.reels_only(date):
+        steps.append([py, s + "still_reel.py", "--id", sid])
+    return steps
+
+
+def sha256_file(path: Path) -> str:
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def check_reel(src: Path) -> tuple[dict | None, str | None]:
+    """(reel.json, problem). The Reel must be one whose QA passed for the images now in `src`: reel.json and reel-qa.json both say
+    pass, the MP4 is the file reel.json hashed, the picture it was built from has the bytes of the image in `src`, and its
+    music provenance and still exist. A leftover from an earlier run or a different image never goes out."""
+    try:
+        reel = json.loads((src / "reel.json").read_text(encoding="utf-8"))
+        qa = json.loads((src / "reel-qa.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        return None, f"{src}: reel.json / reel-qa.json unreadable ({type(e).__name__}): the Reel was not made"
+    if qa.get("pass") is not True or reel.get("qa_pass") is not True:
+        return None, f"{src / 'reel-qa.json'}: the Reel's QA did not pass"
+    missing = [n for n in REEL_FILES if not (src / n).is_file()]
+    if missing:
+        return None, f"{src}: Reel files missing ({', '.join(missing)})"
+    if sha256_file(src / "reel_9x16.mp4") != (reel.get("files") or {}).get("reel_9x16.mp4"):
+        return None, f"{src / 'reel_9x16.mp4'} is not the MP4 reel.json recorded (a stale Reel)"
+    source = (src / (reel.get("source") or {}).get("file", "?"))
+    if not source.is_file() or sha256_file(source) != reel["source"].get("sha256"):
+        return None, f"{src}: the Reel was built from a different image than the one now in the story (re-run still_reel.py)"
+    if not isinstance(reel.get("music"), dict):
+        return None, f"{src / 'reel.json'}: no music provenance"
+    return reel, None
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -85,6 +128,7 @@ def main(argv: list[str] | None = None) -> int:
     images = data["category"] in ("earnings_today", "earnings_week")
     cmds = image_steps(data, a.python) if images else [[a.python, "scripts/v6cat/make.py", *make_args(data)]]
     rid = a.use_existing or data["story_id"]
+    reel_wanted = images and mf.reels_only(data["date"])
     still = None if images else [a.python, "scripts/v6_still.py", "category", "--id", rid]
     if a.dry_run:
         for cmd in cmds + ([still] if still else []):
@@ -106,11 +150,17 @@ def main(argv: list[str] | None = None) -> int:
     if qa.get("pass") is not True:
         print(f"{src / 'qa.json'}: QA did not pass; story skipped")
         return 1
+    reel = None
     if images:
         files = [f"{f}.{e}" for f in IMAGE_FORMATS for e in ("png", "jpg") if (src / f"{f}.{e}").exists()] + ["post-package.json"]
         if not any(f.endswith(".jpg") for f in files) or not (src / "post-package.json").exists():
             print(f"{src}: images or post-package.json missing; story skipped")
             return 1
+        if reel_wanted:   # Instagram is Reels only: no Reel, no story (never a feed-image fallback)
+            reel, problem = check_reel(src)
+            if problem:
+                print(f"{problem}; story skipped")
+                return 1
     else:
         files = list(VIDEO_FILES)
         missing = [f for f in files if not (src / f).exists()]
@@ -146,6 +196,19 @@ def main(argv: list[str] | None = None) -> int:
         for ext in ("jpg", "png"):
             shutil.copy2(src / "still" / f"feed_4x5.{ext}", out / "still" / f"feed_4x5.{ext}")
         files = files + ["still/feed_4x5.jpg", "still/feed_4x5.png"]
+    if reel:
+        (out / "still").mkdir(exist_ok=True)
+        for n in REEL_FILES:
+            shutil.copy2(src / n, out / n)
+        for n in REEL_AUDIT_FILES:
+            if (src / n).is_file():
+                shutil.copy2(src / n, out / n)
+        # The Reel's score provenance goes into the work copy of the post-package (the manifest keeps a present music block
+        # unchanged; daily.py stage writes music.json from it): the images carry no audio, the Reel does.
+        pkg_out = json.loads((out / "post-package.json").read_text(encoding="utf-8"))
+        pkg_out["music"] = reel["music"]
+        (out / "post-package.json").write_text(json.dumps(pkg_out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        files = files + list(REEL_FILES) + ["music (post-package.json)"]
     (out / "evidence").mkdir(exist_ok=True)
     for n in ev["files"]:
         shutil.copy2(src / "evidence" / n, out / "evidence" / n)
