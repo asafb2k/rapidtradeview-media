@@ -53,7 +53,8 @@ never re-posts a filing inside an earlier story. The API figure is a sum of API 
 the trade template (growth-video scripts/v6t-auto.py) takes every number from the SEC XML of the filings.
 Congress stories = one House PTR (the PDF on disclosures-clerk.house.gov) per member, ticker and side.
 Senate eFD reports are not renderable by the trade template (their site needs a terms click-through), so
-Senate trades are left out ("not_renderable").
+Senate trades are left out ("not_renderable"). A Congress row traded more than 90 days before its disclosure
+(a re-filing or a very late filing) is left out too ("late_filing_over_90d"): it is never posted as a fresh trade.
 
 Slot 7 themes: congress_30d (Tue) renders with the Congress Big Tech template for the last 30 days, at most
 once in 7 days (a Big Tech theme posted in the previous 6 days leaves the slot empty). congress_week (Mon) has
@@ -92,6 +93,9 @@ MIN_TRADE_SCORE = 0.30
 BACKLOG_DAYS = 30
 INSIDER_MIN_USD = 1_000_000
 CONGRESS_MIN_LOW = 15_000
+# Growth 2026-10-10: a House PTR row traded more than this many days before it was disclosed is a re-filing or a
+# very late filing; it is never posted as a fresh Congress trade ("late_filing_over_90d" in the left-out tally).
+CONGRESS_MAX_FILING_LAG_DAYS = 90
 EARNINGS_MIN_CAP = 10e9
 # Owner / HQ 2026-09-30: the morning pass posts the earnings-today image instead of a trade only on a day a company
 # of this size reports with a set time (a confirmed date with a session).
@@ -425,7 +429,7 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
     while weekday_age(since - dt.timedelta(days=1), target) <= window:
         since -= dt.timedelta(days=1)
     dropped = {"out_of_window": 0, "not_listed": 0, "sale_or_other": 0, "pre_planned": 0, "flagged_value": 0, "below_minimum": 0,
-               "not_renderable": 0}
+               "not_renderable": 0, "late_filing_over_90d": 0}
     errors: list[str] = []
     groups: dict[tuple, Trade] = {}
 
@@ -480,6 +484,15 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
         if it.get("side") not in ("buy", "sell") or fig.get("kind") != "politician":
             dropped["sale_or_other"] += 1
             continue
+        if it.get("transaction_date"):  # a row without a trade date has no lag to judge
+            try:
+                lag = (d(filed) - d(it["transaction_date"])).days
+            except ValueError:  # a trade date we cannot read cannot show the trade is fresh
+                dropped["flagged_value"] += 1
+                continue
+            if lag > CONGRESS_MAX_FILING_LAG_DAYS:
+                dropped["late_filing_over_90d"] += 1
+                continue
         ticker = primary_ticker(it.get("ticker"), names)
         if not listed(ticker, names):
             dropped["not_listed"] += 1

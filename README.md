@@ -27,3 +27,10 @@ already does `git pull --ff-only`, so no task re-registration or time change is 
 private `preflight-4.json` and `readiness-4.json` by 14:00 New York time; media readiness is separate
 from the posting agents' delivery receipt. Run the offline regression suite with the project conda
 Python: `python -m pytest tools/tests -q`.
+
+Access policy (2026-10-09): the API and site answer non-browser clients with 403 unless they send the
+private `X-RTV-Automated-QA` header. The runner's tools read it at run time through `tools/qa_header.py`
+(the key lives in a local file outside the repo, is sent to our own hosts only, and is never printed,
+logged or written to a manifest, evidence file or test fixture). A missing key sends no header and prints
+one warning that names the file. The selector leaves out Congress rows traded more than 90 days before
+their disclosure (re-filings and very late filings): they are counted as `late_filing_over_90d`.
