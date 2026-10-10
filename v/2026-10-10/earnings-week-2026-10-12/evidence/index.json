@@ -1,0 +1,27 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "earnings-week-2026-10-12",
+ "media_date": "2026-10-10",
+ "files": [
+  {
+   "name": "earnings-calendar-w0.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-10/earnings-week-2026-10-12/evidence/earnings-calendar-w0.json",
+   "request_url": "https://api.rapidtradeview.trade/earnings?weeks_ahead=0&scope=all",
+   "fetched_at_utc": "2026-10-10T09:27:30.414780+00:00",
+   "status": 200,
+   "sha256": "05528b927ee3c59c24603692dcde97fbe8f7e5285dc000b89b0813b83367a687",
+   "bytes": 18045
+  },
+  {
+   "name": "earnings-calendar-w1.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-10/earnings-week-2026-10-12/evidence/earnings-calendar-w1.json",
+   "request_url": "https://api.rapidtradeview.trade/earnings?weeks_ahead=1&scope=all",
+   "fetched_at_utc": "2026-10-10T09:27:30.921657+00:00",
+   "status": 200,
+   "sha256": "d89ff9536f70d32eed878df29cf7480aac241d98288ed64425a02de819844002",
+   "bytes": 32492
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
