@@ -60,4 +60,8 @@ def test_the_copies_stay_identical(other):
     """qa_header.py lives in this repo (tools/), in growth-video (scripts/) and in tracks/growth/bin: one module, three places."""
     if not other.is_file():
         pytest.skip(f"{other} is not on this machine (or not merged yet)")
-    assert other.read_bytes() == (TOOLS / "qa_header.py").read_bytes()
+    assert other.read_bytes().replace(b"
+", b"
+") == (TOOLS / "qa_header.py").read_bytes().replace(b"
+", b"
+")   # git autocrlf may differ per checkout
