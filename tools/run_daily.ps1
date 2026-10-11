@@ -13,7 +13,9 @@
                               the morning theme in slot 7)
     -Pass picks     13:45 ET  slot 4 (today's picks, published ~13:30; retried up to -RetryEmptyMinutes;
                               the slot posts at 15:00, so it is ready about an hour before)
-    -Pass preflight every 15 min: the preflight gate for posts due in 60-90 minutes (see below)
+    -Pass preflight every 15 min: the preflight gate for posts due in 60-90 minutes (see below); on weekdays
+                              07:00-17:00 ET it also refreshes the Grok facts feed at most every 30 minutes
+                              (Update-FactsIfDue; -Now sets its clock for a dry run)
   Owner rule 2026-09-28: every post is ready at least an hour before it goes live. Each render pass ends
   with the preflight gate (manifest.py preflight) on the slots it published, and the 15-minute
   preflight pass re-checks every post 60-90 minutes before its time. A failing post is marked "status":
@@ -22,7 +24,8 @@
   Weekends: one 08:00 ET run with no -Pass (slot 1). -Slots "5,7" picks slots by hand instead.
   Every pass but preflight first writes the Grok social facts feed v/<date>/facts.json (tools/facts.py) and pushes
   it on its own (Publish-Facts in daily_common.ps1), before selection, so it publishes when every video slot is
-  empty; the picks pass refreshes it once the day's picks are out. A facts failure is logged; the exit codes below
+  empty; the picks pass refreshes it once the day's picks are out, and the preflight pass every 30 minutes in
+  market hours. It is pushed only when its item set changed. A facts failure is logged; the exit codes below
   do not change.
   A slot today's manifest already fills is never re-rendered or replaced (daily.py stories).
 
@@ -64,7 +67,8 @@ param(
     [string]$WorkRoot = 'D:\rtv-ops\tracks\growth\research\daily-video',
     [string]$LogDir = 'D:\rtv-ops\tracks\growth\research\daily-video-logs',
     [string]$Hooks,
-    [int]$PagesTimeoutSec = 900
+    [int]$PagesTimeoutSec = 900,
+    [string]$Now
 )
 
 $ErrorActionPreference = 'Stop'
@@ -105,6 +109,11 @@ if ($Pass -eq 'preflight') {
     $LogFile = Join-Path $LogDir "$Date-preflight.log"
     Enter-RunLock (Join-Path $WorkRoot '.run.lock') 10
     if ((Invoke-Git @('pull', '--ff-only', '--quiet')) -ne 0) { Fail 'git pull --ff-only on the media repo' }
+    # Grok facts refresh first: it runs on a day with no manifest too, and its outcome never sets the exit code.
+    $clock = [DateTime]::UtcNow
+    if ($Now) { $clock = [DateTimeOffset]::Parse($Now, [Globalization.CultureInfo]::InvariantCulture).UtcDateTime }
+    $skip = Update-FactsIfDue $Date $Work (-not $NoPush) $clock
+    if ($skip -and $skip -notmatch '^facts refresh: (not a weekday|outside)') { Log $skip }
     if (-not (Test-Path (Join-Path $Repo "v/$Date/manifest.json"))) { Stop-Run 0 "preflight: no manifest for $Date yet" }
     $code = Invoke-Preflight $Date @('--due-within-min', '90', '--due-after-min', '60')
     if ($code -eq 2) { Stop-Run 0 'preflight: nothing due in 60-90 min' }
