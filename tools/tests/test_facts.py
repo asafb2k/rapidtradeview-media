@@ -129,7 +129,7 @@ def test_congress_rules_and_item_shape():
     assert unh["source_url"] == PTR
     assert unh["office"] == "U.S. Representative (R-FL)"
     assert unh["page_url"] == ("https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}"
-                               f"&utm_medium=social&utm_campaign=grok&utm_content={unh['item_id']}")
+                               f"&utm_medium=social&utm_campaign=grok&utm_content={unh['item_id']}#trades")
     for n in ("$15K", "$50K", "$1K", "$15,001", "2026-10-07", "Oct 7", "2026-09-24", "2"):
         assert n in unh["allowed_numbers"]
     assert unh["must_include"] == ["Not investment advice."]
@@ -281,7 +281,7 @@ def test_chart_pattern_item():
     assert it["pattern"]["name"] == "Rising wedge" and it["pattern"]["start_text"] == "Jul 31, 2026"
     assert it["levels"] == {"key_level_name": "lower line", "key_level": "$12.22", "breakout_close": "$12.11"}
     assert it["page_url"] == ("https://www.rapidtradeview.trade/dashboard/MARA?utm_source={platform}&utm_medium=social"
-                              f"&utm_campaign=grok&utm_content={it['item_id']}")
+                              f"&utm_campaign=grok&utm_content={it['item_id']}#pattern")
     assert it["source_url"] == "https://www.rapidtradeview.trade/dashboard/MARA"
     assert it["facts_text"].startswith("Automatic technical analysis flagged a rising wedge on $MARA (MARA Holdings, Inc.) "
                                        "(scan 2026-10-09): pattern 2026-07-31 to 2026-09-21. Confirmed Sep 28: closed $12.11")
@@ -461,3 +461,13 @@ def test_item_ids_survive_the_analytics_sanitizer():
     for kind in ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready", "chart_pattern", "moves_like"):
         iid = fx.item_id("2026-10-13", kind, "BRK.B", "k")
         assert re.fullmatch(r"[A-Za-z0-9._:~-]{1,64}", iid), iid
+
+
+def test_page_url_anchors_after_the_query():
+    """HQ PR #466: #trades on figure pages, #moves-like / #pattern on /dashboard, fragment after the UTM query."""
+    fig = fx.page_url("/smart-money/figures/maria-elvira-salazar", "id1", "congress_trade")
+    assert fig.endswith("&utm_content=id1#trades") and "utm_medium=social" in fig
+    assert fx.page_url("/dashboard/NVDA", "id2", "moves_like").endswith("&utm_content=id2#moves-like")
+    assert fx.page_url("/dashboard/MARA", "id3", "chart_pattern").endswith("&utm_content=id3#pattern")
+    assert fx.page_url("/earnings/reports/dal-2026-q3", "id4", "earnings_result").endswith("&utm_content=id4")
+    assert fx.page_url("/picks/2026-10-09", "id5", "picks_ready").endswith("&utm_content=id5")

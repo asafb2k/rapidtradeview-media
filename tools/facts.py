@@ -232,9 +232,21 @@ def item_id(date: str, kind: str, ticker: str, key: str) -> str:
     return f"{date}-{kind.replace('_', '-')}-{ticker.upper().replace('.', '-')}-{hashlib.sha1(key.encode('utf-8')).hexdigest()[:6]}"
 
 
-def page_url(path: str, iid: str) -> str:
+# Section anchors live on prod since HQ PR #466 (2026-10-11); the fragment goes after the query string.
+KIND_ANCHORS = {"moves_like": "#moves-like", "chart_pattern": "#pattern"}
+
+
+def anchor_for(kind: str, path: str) -> str:
+    if path.startswith("/smart-money/figures/"):
+        return "#trades"
+    if path.startswith("/dashboard/"):
+        return KIND_ANCHORS.get(kind, "")
+    return ""
+
+
+def page_url(path: str, iid: str, kind: str = "") -> str:
     return (f"{SITE}{path}?utm_source={PLATFORM_PLACEHOLDER}&utm_medium=social&utm_campaign=grok"
-            f"&utm_content={iid}")
+            f"&utm_content={iid}{anchor_for(kind, path)}")
 
 
 def make_item(date: str, kind: str, ticker: str | None, key: str, path: str, **fields) -> dict:
@@ -242,7 +254,7 @@ def make_item(date: str, kind: str, ticker: str | None, key: str, path: str, **f
     item = {
         "item_id": iid, "type": kind, "ticker": ticker, "tickers": [ticker] if ticker else [],
         "name": None, "office": None, "amount_text": None, "traded": [], "filed": None,
-        "source_url": None, "page_url": page_url(path, iid), "allowed_numbers": [],
+        "source_url": None, "page_url": page_url(path, iid, kind), "allowed_numbers": [],
         "must_include": [DISCLAIMER], "facts_text": "", "dedupe_key": key,
     }
     item.update(fields)
