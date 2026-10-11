@@ -26,14 +26,24 @@ def facts_fixture() -> dict:
     picks = fx.make_item(DATE, "picks_ready", None, f"picks:{DATE}", f"/picks/{DATE}", tickers=["XE", "AMPX"],
                          source_url=f"https://www.rapidtradeview.trade/picks/{DATE}",
                          facts_text="The daily picks list is published.", allowed_numbers=[*fx.date_forms(DATE), "2"])
+    pattern = fx.make_item(
+        DATE, "chart_pattern", "MARA", "pattern:MARA:rising_wedge:confirmed:2026-09-28", "/dashboard/MARA",
+        name="MARA Holdings, Inc.", banned_words=fx.PREDICTION_WORDS, source_url="https://www.rapidtradeview.trade/dashboard/MARA",
+        facts_text="Automatic technical analysis flagged a rising wedge on $MARA (scan 2026-10-09): Confirmed Sep 28.",
+        allowed_numbers=["$12.11", "$12.22", "Sep 28", "Jul 31", "Sep 21", *fx.date_forms("2026-10-09")])
+    moves = fx.make_item(
+        DATE, "moves_like", "AAPL", "moves:AAPL:2026-10-09", "/dashboard/AAPL", tickers=["AAPL", "TU", "WU", "HLN"],
+        name="Apple Inc.", banned_words=fx.PREDICTION_WORDS, source_url="https://www.rapidtradeview.trade/dashboard/AAPL",
+        facts_text="Moves Like: over the 60 sessions before Oct 9, 2026, $AAPL moved most like $TU (Sync 55, Loose).",
+        allowed_numbers=["60", "100", "55", "54", *fx.date_forms("2026-10-09"), "−4.0%", "4.0%"])
     return {"schema": fx.SCHEMA, "date": DATE,
             "rules": {"banned_words": fx.BANNED_WORDS, "disclaimer": fx.DISCLAIMER, "max_len": fx.MAX_LEN,
                       "platform_placeholder": "{platform}"},
-            "items": [congress, picks]}
+            "items": [congress, picks, pattern, moves]}
 
 
 FACTS = facts_fixture()
-CONGRESS, PICKS = FACTS["items"]
+CONGRESS, PICKS, PATTERN, MOVES = FACTS["items"]
 
 
 def link(item, platform):
@@ -138,6 +148,51 @@ def test_picks_good_and_number_one_hints():
         assert v == "REJECT" and any("#1" in r for r in why), hint
     v, why = gr.review(picks_draft("$XE, $AMPX and $NVDA today. Not investment advice."), FACTS)
     assert v == "REJECT" and any("$NVDA" in r for r in why)
+
+
+def feature_draft(item, text, platform="x"):
+    return {"item_id": item["item_id"], "platform": platform, "text": text,
+            "reply_text": f"See it on the chart: {link(item, platform)}", "link": link(item, platform)}
+
+
+PATTERN_TEXT = ("$MARA: automatic technical analysis flagged a rising wedge (Jul 31 to Sep 21). Confirmed Sep 28: "
+                "closed $12.11, below the lower line at $12.22. Not investment advice.")
+MOVES_TEXT = ("$AAPL moved most like $TU and $WU over the 60 sessions before Oct 9 (Sync 55 and 54, out of 100). "
+              "$TU fell 4.0% on Oct 9. Not investment advice.")
+
+
+def test_chart_pattern_and_moves_like_good_drafts_are_approved():
+    assert gr.review(feature_draft(PATTERN, PATTERN_TEXT), FACTS) == ("APPROVE", [])
+    assert gr.review(feature_draft(MOVES, MOVES_TEXT), FACTS) == ("APPROVE", [])
+    ig = feature_draft(MOVES, MOVES_TEXT.replace("Not investment", "Link in bio. Not investment"), "instagram")
+    assert gr.review(dict(ig, reply_text=None), FACTS) == ("APPROVE", [])
+
+
+@pytest.mark.parametrize("phrase", ["a breakout coming", "it will drop", "about to break", "set to fall", "going to bounce"])
+def test_feature_predictions_are_rejected(phrase):
+    for item, text in ((PATTERN, PATTERN_TEXT), (MOVES, MOVES_TEXT)):
+        v, why = gr.review(feature_draft(item, text.replace("Not investment", f"{phrase}. Not investment")), FACTS)
+        assert v == "REJECT" and any("banned words" in r for r in why), (item["type"], phrase)
+
+
+def test_will_is_banned_only_where_the_item_says():
+    v, why = gr.review(good_x(text="$UNH: Rep. Salazar disclosed a $15K–$50K purchase; the filing will stay public. "
+                                   "Not investment advice."), FACTS)
+    assert v == "APPROVE", why
+
+
+def test_peer_not_in_the_item_is_rejected():
+    v, why = gr.review(feature_draft(MOVES, MOVES_TEXT.replace("$WU", "$NVDA")), FACTS)
+    assert v == "REJECT" and any("cashtag not in this item: $NVDA" in r for r in why)
+    v, why = gr.review(feature_draft(PATTERN, PATTERN_TEXT.replace("rising wedge", "rising wedge like $TU")), FACTS)
+    assert v == "REJECT" and any("$TU" in r for r in why)          # peers belong to the moves_like item only
+    v, why = gr.review(feature_draft(MOVES, MOVES_TEXT.replace("Sync 55", "Sync 91")), FACTS)
+    assert v == "REJECT" and any("91" in r for r in why)
+
+
+def test_feature_posts_never_touch_the_number_one():
+    v, why = gr.review(feature_draft(PATTERN, PATTERN_TEXT.replace("Confirmed", "Also our top pick. Confirmed")), FACTS)
+    assert v == "REJECT" and any("#1" in r for r in why)
 
 
 # ---------------------------------------------------------------------------

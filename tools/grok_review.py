@@ -8,14 +8,17 @@ A draft is {"item_id", "platform": "x"|"instagram", "text", "reply_text"?, "link
 facts.json (tools/facts.py): the date is the item_id's first 10 characters; --facts-base is the Pages site by
 default (what Grok reads) or a local v/ directory. Checks:
   - the item exists in that day's facts;
-  - ticker: the item's $cashtag is in the text and no other cashtag is (picks: only the list's public tickers);
+  - ticker: the item's $cashtag is in the text and no other cashtag is (picks: only the list's public tickers;
+    moves_like: the subject and the peers listed in the item);
   - every number-like token in text and reply is one of the item's allowed_numbers (or the cashtag);
-  - banned words (case-insensitive); "Not investment advice." in the text;
+  - banned words (case-insensitive): the rules' list plus the item's own banned_words (chart_pattern / moves_like:
+    no predictions such as "will"); "Not investment advice." in the text;
   - link == the item's page_url with {platform} filled in; every URL in text / reply is that link or the item's
     source_url; X: the link and (Congress / Form 4) the source link go in the self-reply (reply_text);
     Instagram: a Congress / Form 4 caption carries the source link;
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
-  - picks_ready: no "#1" / top-pick hint.
+  - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
+    Moves Like post never touches picks).
 
 --inbox reads unacked from_instinct rows of social_kit_messages whose body starts with "DRAFT" (through
 D:/rtv-ops/tracks/growth/bin/instinct.py's gateway client), reviews each and answers with
@@ -47,6 +50,7 @@ DEFAULT_INSTINCT = Path("D:/rtv-ops/tracks/growth/bin/instinct.py")
 PYTHON = sys.executable
 UA = "RapidTradeView grok-review (contact@rapidtradeview.trade)"
 SOURCE_TYPES = ("congress_trade", "form4_buy")
+NO_PICK_HINT_TYPES = ("picks_ready", "chart_pattern", "moves_like")
 URL = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
 CASHTAG = re.compile(r"(?<![\w$])\$([A-Za-z]{1,5}(?:[.-][A-Za-z]{1,2})?)(?![\w])")
 DIGIT_TOKEN = re.compile(r"\S*\d\S*")
@@ -140,6 +144,14 @@ def unexplained_numbers(text: str, allowed: list[str], tickers: list[str]) -> li
     return out
 
 
+def uniq_words(words) -> list[str]:
+    out: list[str] = []
+    for w in words:
+        if isinstance(w, str) and w and w.lower() not in (o.lower() for o in out):
+            out.append(w)
+    return out
+
+
 def review(draft: dict, facts: dict | None) -> tuple[str, list[str]]:
     """("APPROVE", []) or ("REJECT", reasons)."""
     reasons: list[str] = []
@@ -182,7 +194,8 @@ def review(draft: dict, facts: dict | None) -> tuple[str, list[str]]:
 
     # Words
     low = both.lower()
-    banned = [w for w in rules.get("banned_words") or [] if re.search(rf"(?<!\w){re.escape(w.lower())}(?!\w)", low)]
+    words = uniq_words([*(rules.get("banned_words") or []), *(item.get("banned_words") or [])])
+    banned = [w for w in words if re.search(rf"(?<!\w){re.escape(w.lower())}(?!\w)", low)]
     if banned:
         reasons.append(f"banned words: {', '.join(banned)}")
     disclaimer = rules.get("disclaimer") or "Not investment advice."
@@ -218,7 +231,7 @@ def review(draft: dict, facts: dict | None) -> tuple[str, list[str]]:
                 reasons.append(f"X {name} is {n} characters (limit {limit})")
 
     # Picks
-    if item.get("type") == "picks_ready":
+    if item.get("type") in NO_PICK_HINT_TYPES:
         hint = PICK_HINT.search(both)
         if hint:
             reasons.append(f"picks: no #1 / top-pick hint ({short(hint.group(0))!r})")

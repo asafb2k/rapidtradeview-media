@@ -19,6 +19,16 @@ post for a New York market date. Every item is read from RapidTradeView's public
   earnings_upcoming  the next weekday's reporters in our universe with a confirmed date (/earnings/tomorrow).
   picks_ready        the public picks of the list /tips/daily serves at 15:00 ET (select_stories.picks_slot: the #1
                      pick is locked and never read, so its ticker is never in this file).
+  chart_pattern      the one tile /notable/pattern-showcase serves (automatic technical analysis), when its scan is in
+                     the last 5 weekdays, its ticker is in our names list and it is not a #1 pick the picks list
+                     exposes (for guests the #1 ticker is hidden, so this can only catch a leaked one). The pattern's
+                     own text (pill, chip, key lines, points) is kept as the API writes it for our pages; the history
+                     record ("past ... fell over the next 5 trading days") is left out: it is an outcome claim.
+  moves_like         /moves-like/<T> for up to 5 tickers of the day's other items (round robin over congress_trade,
+                     form4_buy, earnings_result, earnings_upcoming, chart_pattern; at most 5 GETs, 0.5 s apart): the
+                     peers the stock card lists, with Sync and band as the card shows them. not_covered, disabled,
+                     unavailable or no peer: no item.
+chart_pattern and moves_like carry banned_words of their own (PREDICTION_WORDS): descriptive wording only.
 Each item carries item_id, type, ticker, name / office, amount text as our pages show it, dates, the official
 source_url, page_url (UTM built in; "{platform}" is a literal placeholder Grok fills with x or instagram),
 allowed_numbers (every numeric token a post may print), must_include and a one-line facts_text.
@@ -35,9 +45,10 @@ import hashlib
 import json
 import re
 import sys
+import time
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import manifest as mf  # noqa: E402
@@ -46,12 +57,14 @@ import select_stories as ss  # noqa: E402
 SCHEMA = "rtv-facts/1"
 SITE = ss.SITE
 DISCLAIMER = "Not investment advice."
-BANNED_WORDS = ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon"]
+BANNED_WORDS = ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon",
+                "breakout coming", "about to", "set to"]
+PREDICTION_WORDS = ["will", "going to"]  # per item (chart_pattern, moves_like): descriptive wording only
 MAX_LEN = {"x": 270}
 PLATFORMS = ["x", "instagram"]
 PLATFORM_PLACEHOLDER = "{platform}"
 PARTIAL = 4  # exit code: written, but a source failed (2 is argparse's usage error)
-TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready")
+TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready", "chart_pattern", "moves_like")
 WINDOW_WEEKDAYS = 4  # weekday age 0..4 = the last 5 weekdays
 RESULT_HOURS = 24
 PICKS_SLOT_ET = "15:00"  # the picks post time (GROK-SOCIAL.md §2)
@@ -62,6 +75,13 @@ MINUS = "\u2212"
 # Form 4 relationships as our pages label them (frontend/src/lib/roleTitle.ts); an officer's own title is kept as filed.
 ROLE_LABELS = {"officer": "Officer", "director": "Director", "ten_pct": "10% owner", "other": "Insider"}
 EN_DASH = "\u2013"
+SHOWCASE = "/notable/pattern-showcase"
+MOVES_LIKE_MAX = 5
+MOVES_LIKE_GAP_S = 0.5
+MOVES_LIKE_SESSIONS = 60  # shared/lib/movesLike.ts MOVES_LIKE_SYNC_SESSIONS
+BAND_LABELS = {"tight": "Tight", "close": "Close", "loose": "Loose"}  # movesLike.ts bandLabel
+MOVES_LIKE_SUBJECT_TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "chart_pattern")
+SLEEP = time.sleep
 
 
 # ---------------------------------------------------------------------------
@@ -157,6 +177,21 @@ def date_forms(iso: str | None) -> list[str]:
         return [iso]
     md = f"{MONTHS[int(m.group(2)) - 1]} {int(m.group(3))}"
     return [iso[:10], f"{md}, {m.group(1)}", md]
+
+
+SHORT_DATE = re.compile(rf"\b(?:{'|'.join(MONTHS)}) \d{{1,2}}(?:, \d{{4}})?\b")
+
+
+def short_dates(*texts: str | None) -> list[str]:
+    """"Sep 28" / "Sep 28, 2026" as the API's pattern text writes them."""
+    return [m.group(0) for t in texts if t for m in SHORT_DATE.finditer(t)]
+
+
+def move_pct(x: float) -> str:
+    """movesLike.ts fmtMovePct: "−6.2%", "+6.4%", and "0.0%" when it rounds to zero."""
+    if abs(x) < 0.05:
+        return "0.0%"
+    return f"{MINUS if x < 0 else '+'}{js_fixed(abs(x), 1)}%"
 
 
 def digit_words(*texts: str | None) -> list[str]:
@@ -501,6 +536,220 @@ def picks_items(api, target: dt.date) -> tuple[list[dict], str | None]:
 
 
 # ---------------------------------------------------------------------------
+# Chart pattern (automatic technical analysis) and Moves Like
+
+def stale_reason(iso, target: dt.date, what: str) -> str | None:
+    """Why a date-stamped answer cannot stand for the facts date (None when it can): the API serves only the current one."""
+    try:
+        day = ss.d(iso)
+    except (TypeError, ValueError):
+        return f"{what} has no valid date"
+    if day > target:
+        return f"{what} is for {iso}, after {target} (the API serves only the current one)"
+    if ss.weekday_age(day, target) > WINDOW_WEEKDAYS:
+        return f"{what} is from {iso}, older than the last 5 weekdays"
+    return None
+
+
+def exposed_top_picks(api) -> tuple[set[str], bool, str | None]:
+    """(#1 tickers the public picks list exposes, whether a #1 row hides its ticker, error). Guests get the #1 row with an
+    empty ticker, so the set is normally empty: this only catches a leaked one. The ticker is compared, never written."""
+    data, err = api.get("/tips/daily")
+    if err or not isinstance(data, dict):
+        return set(), False, err or "/tips/daily: unreadable response"
+    if data.get("status") != "ready":
+        return set(), False, None
+    tops = [t for t in data.get("tips") or [] if isinstance(t, dict) and (t.get("locked") or t.get("rank") == 1)]
+    return {str(t["ticker"]).upper() for t in tops if t.get("ticker")}, any(not t.get("ticker") for t in tops), None
+
+
+def _article(word: str) -> str:
+    return "an" if word[:1].lower() in "aeiou" else "a"
+
+
+def pattern_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[dict], dict, list[str], str | None]:
+    """(items, left_out, errors, empty reason) for the pattern showcase tile."""
+    data, err = api.get(SHOWCASE)
+    if err or not isinstance(data, dict):
+        e = err or f"{SHOWCASE}: unreadable response"
+        return [], {}, [e], f"the chart pattern showcase did not load ({e})"
+    status = data.get("status")
+    if status == "unavailable":
+        code = (data.get("error") or {}).get("code") if isinstance(data.get("error"), dict) else None
+        e = f"{SHOWCASE}: unavailable ({code or 'no code'})"
+        return [], {}, [e], f"the chart pattern showcase did not load ({e})"
+    if status != "ok":
+        return [], {}, [], f"the chart pattern showcase is {status!r}"
+    tile = data.get("tile")
+    if tile is None:
+        return [], {"tiles": 0}, [], "the chart pattern showcase has no tile"
+    cp = tile.get("chart_pattern") if isinstance(tile, dict) else None
+    text = cp.get("text") if isinstance(cp, dict) else None
+    ticker = str(tile.get("ticker") or "").upper() if isinstance(tile, dict) else ""
+    if (not isinstance(text, dict) or not ticker or not isinstance(cp.get("name"), str)
+            or cp.get("status") not in ("confirmed", "forming") or not isinstance(text.get("chip"), str)):
+        e = f"{SHOWCASE}: the tile has no readable pattern"
+        return [], {"tiles": 1}, [e], e
+    left = {"tiles": 1}
+    tops, hidden, perr = exposed_top_picks(api)
+    why = None
+    if perr:
+        why = f"the picks list did not load ({perr}), so the #1 guard cannot run"
+    elif ticker in tops:
+        why = "the tile's ticker is a #1 pick"  # never named
+    elif not ss.listed(ticker, names):
+        why = f"{ticker} is not in our names list"
+    elif cp["status"] == "confirmed" and cp.get("in_window") is not True:
+        why = f"{ticker}'s confirmed pattern is outside the window our pages show"
+    else:
+        why = stale_reason(tile.get("scan_date"), target, "the showcase scan")
+    if why:
+        return [], left, [perr] if perr else [], why
+
+    scan_date = tile["scan_date"][:10]
+    company = names.get(ticker) or names.get(ticker.replace(".", "-"))
+    name = cp["name"]
+    key_lines = [k for k in text.get("key") or [] if isinstance(k, str)]
+    points = [p["t"] for p in text.get("points") or [] if isinstance(p, dict) and isinstance(p.get("t"), str)]
+    texts = [text.get("pill"), text.get("chip"), text.get("callout"), text.get("detail"), text.get("what"), *key_lines, *points]
+    prices = uniq(t for x in texts if isinstance(x, str) for t in money_tokens(x))
+
+    def shown(v) -> str | None:  # a level as the pattern text prints it, when it does
+        if not isinstance(v, (int, float)):
+            return None
+        want = f"${js_fixed(float(v), 2)}"
+        return next((p for p in prices if p.replace(",", "") == want), None)
+
+    kl = cp.get("key_level") if isinstance(cp.get("key_level"), dict) else {}
+    bo = cp.get("breakout") if isinstance(cp.get("breakout"), dict) else {}
+    dates = [scan_date, cp.get("start"), cp.get("end"), cp.get("confirmed_on"), cp.get("as_of"),
+             *(p.get("d") for p in cp.get("pivots") or [] if isinstance(p, dict))]
+    start, end = cp.get("start"), cp.get("end")
+    span = f": pattern {start} to {end}" if start and end else ""
+    lead = key_lines[0] if key_lines and key_lines[0].startswith(text["chip"]) else None  # says the chip and more
+    facts_text = (f"Automatic technical analysis flagged {_article(name)} {name.lower()} on ${ticker}"
+                  f"{f' ({company})' if company else ''} (scan {scan_date}){span}. {lead or text['chip'] + '.'}"
+                  f"{' ' + key_lines[0] if key_lines and not lead else ''}")
+    item = make_item(
+        target.isoformat(), "chart_pattern", ticker,
+        f"pattern:{ticker}:{cp.get('type')}:{cp['status']}:{cp.get('confirmed_on') or start}", f"/dashboard/{ticker}",
+        name=company, scan_date=scan_date,
+        pattern={"type": cp.get("type"), "name": name, "status": cp["status"], "direction": cp.get("direction"),
+                 "start": start, "end": end, "start_text": (date_forms(start) or [None, None])[1],
+                 "end_text": (date_forms(end) or [None, None])[1], "confirmed_on": cp.get("confirmed_on"),
+                 "as_of": cp.get("as_of")},
+        levels={k: v for k, v in {"key_level_name": kl.get("name"), "key_level": shown(kl.get("price")),
+                                  "breakout_close": shown(bo.get("close"))}.items() if v},
+        page_text={"pill": text.get("pill"), "chip": text["chip"], "detail": text.get("detail"), "what": text.get("what"),
+                   "key": key_lines, "points": points},
+        top_pick_check=("the #1 ticker is hidden from the public picks list; this item never mentions picks"
+                        if hidden else "no #1 pick exposed"),
+        banned_words=PREDICTION_WORDS, source_url=f"{SITE}/dashboard/{ticker}", facts_text=facts_text,
+        allowed_numbers=[*prices, *short_dates(*texts), *(f for x in dates for f in date_forms(x)),
+                         *digit_words(company, name)])
+    return [item], left, [], None
+
+
+def moves_subjects(items: list[dict]) -> tuple[list[str], int]:
+    """Up to MOVES_LIKE_MAX tickers, round robin over the subject types (deduped), and how many distinct there were."""
+    per: dict[str, list[str]] = {k: [] for k in MOVES_LIKE_SUBJECT_TYPES}
+    for it in items:
+        t = it.get("ticker")
+        if it.get("type") in per and t and t not in per[it["type"]]:
+            per[it["type"]].append(t)
+    distinct = len({t for ts in per.values() for t in ts})
+    out: list[str] = []
+    while len(out) < MOVES_LIKE_MAX and any(per.values()):
+        for k in MOVES_LIKE_SUBJECT_TYPES:
+            if per[k] and len(out) < MOVES_LIKE_MAX:
+                t = per[k].pop(0)
+                if t not in out:
+                    out.append(t)
+    return out, distinct
+
+
+def _peer(p) -> dict | None:
+    if not isinstance(p, dict) or not isinstance(p.get("ticker"), str) or not mf.TICKER.match(p["ticker"]):
+        return None
+    sync, band, move = p.get("sync"), p.get("band"), p.get("day_pct")
+    if not isinstance(sync, int) or isinstance(sync, bool) or not 0 <= sync <= 100 or band not in BAND_LABELS:
+        return None
+    if not isinstance(move, (int, float)) or isinstance(move, bool):
+        return None
+    label = BAND_LABELS[band]
+    return {"ticker": p["ticker"], "name": p.get("name") if isinstance(p.get("name"), str) else None, "sync": sync,
+            "band": label, "sync_text": f"Sync {sync} · {label}", "day_move": move_pct(float(move))}
+
+
+def _move_numbers(text: str) -> list[str]:
+    """A move as the card prints it ("−4.0%") and unsigned ("4.0%"), so "fell 4.0%" reads; "+4.0%" for a fall does not."""
+    return [text] if text == "0.0%" else [text, text.lstrip(f"+{MINUS}")]
+
+
+def moves_like_items(api, target: dt.date, items: list[dict]) -> tuple[list[dict], dict, list[str]]:
+    subjects, distinct = moves_subjects(items)
+    left = {"tickers_in_items": distinct, "requested": len(subjects), "not_covered": 0, "disabled": 0, "no_peer": 0,
+            "stale": 0, "unavailable": 0, "unreadable": 0}
+    errors: list[str] = []
+    out = []
+    for n, ticker in enumerate(subjects):
+        if n:
+            SLEEP(MOVES_LIKE_GAP_S)
+        path = f"/moves-like/{quote(ticker, safe='')}"
+        data, err = api.get(path)
+        if err or not isinstance(data, dict):
+            left["unreadable"] += 1
+            errors.append(err or f"{path}: unreadable response")
+            continue
+        status = data.get("status")
+        if status in ("not_covered", "disabled"):
+            left[status] += 1
+            continue
+        if status == "unavailable":
+            left["unavailable"] += 1
+            code = (data.get("error") or {}).get("code") if isinstance(data.get("error"), dict) else None
+            errors.append(f"{path}: unavailable ({code or 'no code'})")
+            continue
+        subject = data.get("subject")
+        if (status != "ok" or str(data.get("ticker") or "").upper() != ticker or data.get("window") != MOVES_LIKE_SESSIONS
+                or not isinstance(subject, dict) or not isinstance(data.get("peers"), list)):
+            left["unreadable"] += 1
+            errors.append(f"{path}: unexpected response (status {status!r:.30})")
+            continue
+        session = data.get("session")
+        if stale_reason(session, target, "the Moves Like session"):
+            left["stale"] += 1
+            continue
+        peers = [p for p in (_peer(x) for x in data["peers"]) if p and p["ticker"] != ticker]
+        if data["peers"] and not peers:
+            left["unreadable"] += 1
+            errors.append(f"{path}: no readable peer")
+            continue
+        if not peers:
+            left["no_peer"] += 1
+            continue
+        peers = sorted(peers, key=lambda p: -p["sync"])[:3]
+        session = session[:10]
+        when = date_forms(session)[1]
+        subj_move = move_pct(float(subject["day_pct"])) if isinstance(subject.get("day_pct"), (int, float)) else None
+        name = subject.get("name") if isinstance(subject.get("name"), str) else None
+        facts_text = (f"Moves Like: over the {MOVES_LIKE_SESSIONS} sessions before {when}, ${ticker}"
+                      f"{f' ({name})' if name else ''} moved most like "
+                      + ", ".join(f"${p['ticker']} (Sync {p['sync']}, {p['band']})" for p in peers)
+                      + ". Sync is 0 to 100; past moves, not a prediction.")
+        out.append(make_item(
+            target.isoformat(), "moves_like", ticker, f"moves:{ticker}:{session}", f"/dashboard/{ticker}",
+            tickers=[ticker, *(p["ticker"] for p in peers)], name=name, session=session,
+            valid_through=data.get("valid_through"), window_sessions=MOVES_LIKE_SESSIONS, subject_day_move=subj_move,
+            peers=peers, banned_words=PREDICTION_WORDS, source_url=f"{SITE}/dashboard/{ticker}", facts_text=facts_text,
+            allowed_numbers=[str(MOVES_LIKE_SESSIONS), "100", *(str(p["sync"]) for p in peers), *date_forms(session),
+                             *(_move_numbers(subj_move) if subj_move else []),
+                             *(x for p in peers for x in _move_numbers(p["day_move"])),
+                             *digit_words(name, *(p["name"] for p in peers))]))
+    return out, left, errors
+
+
+# ---------------------------------------------------------------------------
 # Feed
 
 def default_as_of(target: dt.date, now: dt.datetime) -> dt.datetime:
@@ -563,6 +812,23 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
             errors.append(f"/tips/daily: {preason}")
     items += p
 
+    if names:
+        cp, left["chart_pattern"], cperr, cpreason = pattern_items(api, target, names)
+        errors += cperr
+        items += cp
+    else:
+        cpreason = f"the ticker list did not load ({nerr or 'empty'}): the tile cannot be checked as listed"
+    if cpreason:
+        reasons["chart_pattern"] = cpreason
+
+    m, left["moves_like"], merr = moves_like_items(api, target, items)
+    errors += merr
+    if not m:
+        reasons["moves_like"] = (f"Moves Like did not load ({'; '.join(merr)})" if merr else
+                                 "no ticker of today's items has Moves Like peers (left_out has the counts)"
+                                 if left["moves_like"]["requested"] else "no ticker in today's other items to look up")
+    items += m
+
     counts = {k: sum(1 for i in items if i["type"] == k) for k in TYPES}
     return {
         "schema": SCHEMA,
@@ -578,6 +844,8 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
             "numbers": "every number, date or amount in a post must be one of the item's allowed_numbers, as written there",
             "picks": "never name or hint at the #1 pick; it is locked and not in this file",
             "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
+            "descriptive": ("chart_pattern and moves_like describe what happened only (no forecasts; their items' "
+                            "banned_words apply too); moves_like may cashtag only the peers listed in its item"),
         },
         "counts": counts,
         "reasons": reasons,
