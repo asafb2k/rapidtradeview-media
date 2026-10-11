@@ -109,6 +109,44 @@ function Publish-Spec([string]$SpecFile, [int]$PagesTimeoutSec = 900) {
     Log "PUBLISHED: https://asafb2k.github.io/rapidtradeview-media/v/$date/manifest.json is live and valid."
 }
 
+# Facts feed for Grok-run brand social (tools/facts.py -> v/<date>/facts.json; GROK-SOCIAL.md). It never depends
+# on a render and never changes the run's exit code: every failure here is logged and the run goes on.
+# facts.py exit 0 = every source loaded; 4 = a source failed (the file says which): a partial file is published only
+# when no facts.json for the date exists yet, so a passing outage never replaces a complete feed. $Push = $false
+# (-NoPush / -SelectOnly) writes the file into the repo without committing it.
+function Publish-Facts([string]$Date, [string]$Work, [bool]$Push) {
+    try {
+        $tmp = Join-Path $Work 'facts.json'
+        $rel = "v/$Date/facts.json"
+        $dest = Join-Path $script:Repo $rel
+        Remove-Item -Force -ErrorAction SilentlyContinue $tmp
+        $code = Invoke-Native $script:Python @((Join-Path $script:Tools 'facts.py'), '--date', $Date, '--out', $tmp, '--print')
+        if (($code -eq 0 -or $code -eq 4) -and -not (Test-Path $tmp)) { Log "FACTS FAILED: facts.py exit $code but no $tmp"; return }
+        if ($code -eq 4 -and (Test-Path $dest)) { Log "FACTS PARTIAL (a source failed): kept the existing $rel; this run's file is $tmp"; return }
+        if ($code -ne 0 -and $code -ne 4) { Log "FACTS FAILED (facts.py exit $code): $rel not updated; the videos go on"; return }
+        if ($code -eq 4) { Log "FACTS PARTIAL (a source failed): publishing it, there is no $rel yet" }
+        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $dest) | Out-Null
+        Copy-Item -Force $tmp $dest
+        if (-not $Push) { Log "facts: wrote $dest (not committed: -NoPush / -SelectOnly)"; return }
+        if ((Invoke-Git @('add', '--', $rel)) -ne 0) { Log "FACTS: git add $rel failed"; return }
+        & git.exe -C $script:Repo diff --cached --quiet -- $rel
+        if ($LASTEXITCODE -eq 0) { Log "facts: $rel unchanged"; return }
+        if ((Invoke-Git @('commit', '--quiet', '-m', "Facts $Date", '--', $rel)) -ne 0) { Log "FACTS: git commit failed"; return }
+        if ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) {
+            Log 'facts push rejected; merging origin and retrying'
+            if ((Invoke-Git @('pull', '--no-rebase', '--no-edit', '--quiet', 'origin', 'main')) -ne 0) {
+                [void](Invoke-Git @('merge', '--abort'))
+                Log "FACTS: git pull failed; the facts commit stays local and goes out with the next push"
+                return
+            }
+            if ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) { Log "FACTS: git push failed; the facts commit stays local"; return }
+        }
+        Log "facts: pushed $rel (Pages: https://asafb2k.github.io/rapidtradeview-media/$rel)"
+    } catch {
+        Log "FACTS FAILED: $($_.Exception.Message); the videos go on"
+    }
+}
+
 # Preflight gate (manifest.py preflight; owner rule 2026-09-28: every post ready an hour before it goes
 # live). $Select = the posts to check ('--slots', '1,2' or '--due-within-min', '90', '--due-after-min', '60').
 # A failing post is marked "status": "held" in the manifest (manifest.py --hold; nothing is deleted),
