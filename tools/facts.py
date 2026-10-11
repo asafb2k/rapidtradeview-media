@@ -229,7 +229,7 @@ def uniq(xs) -> list[str]:
 # Item shape
 
 def item_id(date: str, kind: str, ticker: str, key: str) -> str:
-    return f"{date}-{kind}-{ticker.upper().replace('.', '-')}-{hashlib.sha1(key.encode('utf-8')).hexdigest()[:6]}"
+    return f"{date}-{kind.replace('_', '-')}-{ticker.upper().replace('.', '-')}-{hashlib.sha1(key.encode('utf-8')).hexdigest()[:6]}"
 
 
 def page_url(path: str, iid: str) -> str:

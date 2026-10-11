@@ -125,7 +125,7 @@ def test_congress_rules_and_item_shape():
     assert left["refiles_older_report"] == 1 and left["no_official_source"] == 1
     unh = next(i for i in c if i["ticker"] == "UNH")
     assert unh["rows"] == 2 and unh["amount_text"] == "$15K–$50K; $1K–$15K"
-    assert re.match(r"^2026-10-09-congress_trade-UNH-[0-9a-f]{6}$", unh["item_id"])
+    assert re.match(r"^2026-10-09-congress-trade-UNH-[0-9a-f]{6}$", unh["item_id"])
     assert unh["source_url"] == PTR
     assert unh["office"] == "U.S. Representative (R-FL)"
     assert unh["page_url"] == ("https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}"
@@ -454,3 +454,10 @@ def test_one_calendar_week_is_read():
     api.get = lambda path, _g=api.get: (seen.append(path), _g(path))[1]
     fx.build_facts(FRI, api, FAME, now=NOW)
     assert [p for p in seen if p.startswith("/earnings?")] == ["/earnings?weeks_ahead=1&scope=all"]   # Fri -> Mon
+
+
+def test_item_ids_survive_the_analytics_sanitizer():
+    """HQ stores utm_content as [A-Za-z0-9._:~-] only (PR #465); an id with other characters would not join back."""
+    for kind in ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready", "chart_pattern", "moves_like"):
+        iid = fx.item_id("2026-10-13", kind, "BRK.B", "k")
+        assert re.fullmatch(r"[A-Za-z0-9._:~-]{1,64}", iid), iid

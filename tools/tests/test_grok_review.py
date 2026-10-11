@@ -112,7 +112,7 @@ def test_wrong_utm_is_rejected():
 
 
 def test_unknown_item_and_missing_facts():
-    assert gr.review(good_x(item_id=f"{DATE}-congress_trade-UNH-zzzzzz"), FACTS)[0] == "REJECT"
+    assert gr.review(good_x(item_id=f"{DATE}-congress-trade-UNH-zzzzzz"), FACTS)[0] == "REJECT"
     assert gr.review(good_x(), None) == ("REJECT", [f"no facts.json for {DATE}"])
 
 
