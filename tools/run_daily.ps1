@@ -20,6 +20,10 @@
   "held" in the manifest (the kit shows "do not post"); nothing is deleted. Reports:
   D:\rtv-ops\tracks\growth\research\daily-video\<date>\preflight-<slot>.json.
   Weekends: one 08:00 ET run with no -Pass (slot 1). -Slots "5,7" picks slots by hand instead.
+  Every pass but preflight first writes the Grok social facts feed v/<date>/facts.json (tools/facts.py) and pushes
+  it on its own (Publish-Facts in daily_common.ps1), before selection, so it publishes when every video slot is
+  empty; the picks pass refreshes it once the day's picks are out. A facts failure is logged; the exit codes below
+  do not change.
   A slot today's manifest already fills is never re-rendered or replaced (daily.py stories).
 
   Everything is logged to D:\rtv-ops\tracks\growth\research\daily-video-logs\. Work files (plan,
@@ -112,6 +116,10 @@ Log "=== daily video run $Date$slotTag (repo $Repo, work $Work) ==="
 
 # 0. Latest media repo (earlier manifests feed the novelty rule; today's tells what is published).
 if ((Invoke-Git @('pull', '--ff-only', '--quiet')) -ne 0) { Fail 'git pull --ff-only on the media repo' }
+
+# 0b. Facts feed for Grok social (v/<date>/facts.json): before any selection or render, so it publishes on a day
+# every video slot is empty; a facts failure is logged and never blocks the videos or changes the exit code.
+Publish-Facts $Date $Work (-not ($NoPush -or $SelectOnly))
 
 # 1-3. Select, write the data.json files, render. The morning pass repeats this after a failed render
 # (the failed story excluded through $failedFile) for up to -MaxRenderAttempts selections.
