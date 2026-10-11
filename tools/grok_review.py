@@ -102,12 +102,29 @@ def short(s: str, n: int = 40) -> str:
     return s if len(s) <= n else s[: n - 1] + "~"
 
 
+MARK = "\u00a7"  # stands in for a matched number, so "$15K-$50K" still reads as a range after "$15K" is blanked
+
+
+def _norm(s: str) -> str:
+    return s.replace("\u00a0", " ").replace("\u202f", " ").replace("\u2212", "-")
+
+
 def strip_allowed(text: str, allowed: list[str]) -> str:
-    """The text with every allowed number phrase (longest first, whole tokens only) blanked out."""
-    s = text.replace("\u00a0", " ").replace("\u202f", " ")
-    for a in sorted({a for a in allowed if a}, key=len, reverse=True):
-        s = re.sub(rf"(?<![\w.,]){re.escape(a)}(?![\w]|[.,]\d)", " ", s, flags=re.IGNORECASE)
-    return s
+    """The text with every allowed number phrase (longest first, whole tokens only) blanked out. A sign the facts do
+    not carry ("-$1.72" when the allowed number is "$1.72") keeps the number in; a range dash ("$15K-$50K") does not."""
+    s = _norm(text)
+
+    def repl(m: re.Match) -> str:
+        i = m.start()
+        if m.group(0)[0] not in "-+" and i > 0 and m.string[i - 1] in "-+":
+            prev = m.string[i - 2] if i > 1 else ""
+            if not (prev.isalnum() or prev in f"%{MARK}"):
+                return m.group(0)
+        return MARK
+
+    for a in sorted({_norm(a) for a in allowed if a}, key=len, reverse=True):
+        s = re.sub(rf"(?<![\w.,]){re.escape(a)}(?![\w]|[.,]\d)", repl, s, flags=re.IGNORECASE)
+    return s.replace(MARK, " ")
 
 
 def unexplained_numbers(text: str, allowed: list[str], tickers: list[str]) -> list[str]:

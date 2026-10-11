@@ -67,6 +67,15 @@ def test_hallucinated_number_is_rejected():
     assert any("numbers not in allowed_numbers" in r and "$20K" in r and "12%" in r for r in why)
 
 
+def test_number_forms():
+    allowed = ["$15K", "$50K", "$1.72", "−$0.12", "2026-10-07", "Oct 7, 2026", "Oct 7"]
+    assert gr.unexplained_numbers("a $15K-$50K range, $50K–$15K, filed 2026-10-07 (Oct 7, 2026)", allowed, []) == []
+    assert gr.unexplained_numbers("EPS -$0.12 and −$0.12", allowed, []) == []
+    assert gr.unexplained_numbers("EPS -$1.72", allowed, []) == ["-$1.72"]          # a sign the facts do not carry
+    assert gr.unexplained_numbers("$150K, Oct 7th, $15K.5", allowed, []) == ["$150K", "7th", "$15K.5"]
+    assert gr.unexplained_numbers("$UNH and $BRK.B", allowed, ["UNH", "BRK.B"]) == []
+
+
 @pytest.mark.parametrize("word", ["insider trading", "To The Moon", "guaranteed", "price target"])
 def test_banned_words_are_rejected(word):
     v, why = gr.review(good_x(text=f"$UNH {word}: Rep. Salazar disclosed a $15K–$50K purchase. Not investment advice."), FACTS)
