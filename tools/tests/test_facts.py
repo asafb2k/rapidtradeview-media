@@ -5,6 +5,8 @@ import re
 import sys
 from pathlib import Path
 
+import pytest
+
 TOOLS = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(TOOLS))
 import facts as fx  # noqa: E402
@@ -16,7 +18,8 @@ NOW = dt.datetime(2026, 10, 9, 20, 0, tzinfo=dt.timezone.utc)
 PTR = "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf"
 EFD = "https://efdsearch.senate.gov/search/view/ptr/abc-123/"
 NAMES = {"UNH": "UnitedHealth Group Incorporated", "MSFT": "Microsoft Corporation", "BPRE": "Bluerock Fund",
-         "AAPL": "Apple Inc.", "DAL": "Delta Air Lines, Inc.", "XE": "X-Energy", "AMPX": "Amprius"}
+         "AAPL": "Apple Inc.", "DAL": "Delta Air Lines, Inc.", "XE": "X-Energy", "AMPX": "Amprius",
+         "MARA": "MARA Holdings, Inc."}
 
 
 class StubApi:
@@ -62,9 +65,20 @@ def answers(**over):
         "/earnings/reports/archive": {"reports": []},
         "/earnings?weeks_ahead=": {"days": []},
         "/tips/daily": {"status": "pending"},
+        "/notable/pattern-showcase": {"v": 1, "status": "ok", "tile": None, "error": None},
+        "/moves-like/": {"v": 1, "status": "not_covered", "ticker": "X", "session": None, "valid_through": None,
+                         "window": 60, "baseline_same_dir": None, "subject": None, "peers": [], "error": None},
     }
     base.update(over)
+    base["/moves-like/"] = base.pop("/moves-like/")  # the catch-all prefix goes last: a ticker's own answer wins
     return base
+
+
+@pytest.fixture(autouse=True)
+def no_sleep(monkeypatch):
+    slept: list[float] = []
+    monkeypatch.setattr(fx, "SLEEP", slept.append)
+    return slept
 
 
 def build(**over):
@@ -206,7 +220,8 @@ def test_empty_day_is_valid_with_reasons():
     f = build()
     assert f["items"] == [] and not f["errors"]
     assert set(f["reasons"]) == set(fx.TYPES)
-    assert f["rules"]["banned_words"] == ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon"]
+    assert f["rules"]["banned_words"] == ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon",
+                                          "breakout coming", "about to", "set to"]
     assert f["rules"]["disclaimer"] == "Not investment advice." and f["rules"]["max_len"] == {"x": 270}
 
 
@@ -224,3 +239,132 @@ def test_main_exit_codes(tmp_path, monkeypatch):
     assert json.loads(out.read_text(encoding="utf-8"))["schema"] == "rtv-facts/1"
     monkeypatch.setattr(fx.ss, "Api", lambda base: StubApi(answers(**{"/tickers/names": None})))
     assert fx.main(["--date", "2026-10-09", "--out", str(out)]) == fx.PARTIAL == 4
+
+
+# ---------------------------------------------------------------------------
+# chart_pattern / moves_like
+
+def mara_tile(**over):
+    cp = {"v": 1, "type": "rising_wedge", "name": "Rising wedge", "status": "confirmed", "in_window": True,
+          "direction": "down", "start": "2026-07-31", "end": "2026-09-21", "as_of": "2026-10-08",
+          "confirmed_on": "2026-09-28", "bars_since_breakout": 8,
+          "pivots": [{"d": "2026-07-31", "p": 12.07, "at": "high"}, {"d": "2026-08-19", "p": 8.68, "at": "low"}],
+          "breakout": {"d": "2026-09-28", "close": 12.11, "level": 12.217, "high": 12.74, "low": 12.09},
+          "key_level": {"name": "lower line", "price": 12.217, "flat": False}, "cancel_level": None,
+          "text": {"pill": "Rising wedge · Confirmed Sep 28", "chip": "Confirmed Sep 28", "callout": "Confirmed Sep 28",
+                   "what": "Price climbing between two rising lines that come together.",
+                   "detail": "confirmed by the Sep 28 close of $12.11, clearly below the lower line",
+                   "key": ["Confirmed Sep 28: closed $12.11, clearly below the lower line at $12.22.",
+                           "Shows for 10 trading days after the breakout."],
+                   "points": [{"n": None, "t": "Highs $12.07 (Jul 31) → $13.98 (Sep 21)"},
+                              {"n": None, "t": "Lows $8.68 (Aug 19) → $9.99 (Sep 2)"}]},
+          "record": {"n": 1204, "years": "2022–2026", "pattern_pct": 49, "ordinary_pct": 47,
+                     "pattern_label": "past rising wedge breakdowns fell over the next 5 trading days"}}
+    tile = {"ticker": "MARA", "yours": False, "scan_date": "2026-10-09", "chart_pattern": cp, "bars": []}
+    tile.update(over)
+    return {"v": 1, "status": "ok", "tile": tile, "error": None}
+
+
+def ml(ticker, peers, session="2026-10-09", status="ok"):
+    return {"v": 1, "status": status, "ticker": ticker, "session": session, "valid_through": "2026-10-12", "window": 60,
+            "baseline_same_dir": 31, "error": None,
+            "subject": {"ticker": ticker, "name": NAMES.get(ticker), "day_pct": -1.1, "from": "2026-07-15", "closes": []},
+            "peers": [{"ticker": t, "name": f"{t} Corp", "sync": s, "band": b, "same_dir": 37, "days": 58, "beta": 0.4,
+                       "day_pct": d, "thr_pct": 3, "big_today": False, "event": None} for t, s, b, d in peers]}
+
+
+def test_chart_pattern_item():
+    f = build(**{"/notable/pattern-showcase": mara_tile()})
+    [it] = [i for i in f["items"] if i["type"] == "chart_pattern"]
+    assert it["ticker"] == "MARA" and it["tickers"] == ["MARA"] and it["scan_date"] == "2026-10-09"
+    assert it["pattern"]["name"] == "Rising wedge" and it["pattern"]["start_text"] == "Jul 31, 2026"
+    assert it["levels"] == {"key_level_name": "lower line", "key_level": "$12.22", "breakout_close": "$12.11"}
+    assert it["page_url"] == ("https://www.rapidtradeview.trade/dashboard/MARA?utm_source={platform}&utm_medium=social"
+                              f"&utm_campaign=grok&utm_content={it['item_id']}")
+    assert it["source_url"] == "https://www.rapidtradeview.trade/dashboard/MARA"
+    assert it["facts_text"].startswith("Automatic technical analysis flagged a rising wedge on $MARA (MARA Holdings, Inc.) "
+                                       "(scan 2026-10-09): pattern 2026-07-31 to 2026-09-21. Confirmed Sep 28: closed $12.11")
+    for n in ("$12.11", "$12.22", "$12.07", "$8.68", "Sep 28", "2026-07-31", "Jul 31, 2026", "2026-09-21"):
+        assert n in it["allowed_numbers"], n
+    for n in ("49%", "49", "1204", "10"):              # the history record and page mechanics are not facts to post
+        assert n not in it["allowed_numbers"], n
+    assert "record" not in it and "will" in it["banned_words"]
+    assert "chart_pattern" not in f["reasons"] and not f["errors"]
+
+
+@pytest.mark.parametrize("over, tips, why", [
+    ({"ticker": "ZZZZ"}, {"status": "pending"}, "not in our names list"),
+    ({"scan_date": "2026-10-12"}, {"status": "pending"}, "after 2026-10-09"),
+    ({"scan_date": "2026-09-25"}, {"status": "pending"}, "older than the last 5 weekdays"),
+    ({}, {"status": "ready", "trade_date": "2026-10-09", "valid_until": "2026-10-12T17:30:00+00:00",
+          "tips": [{"rank": 1, "locked": False, "ticker": "MARA"}]}, "is a #1 pick"),
+])
+def test_chart_pattern_skips(over, tips, why):
+    f = build(**{"/notable/pattern-showcase": mara_tile(**over), "/tips/daily": tips})
+    assert f["counts"]["chart_pattern"] == 0 and why in f["reasons"]["chart_pattern"]
+    if "#1" in why:
+        assert "MARA" not in json.dumps(f["reasons"]) and "MARA" not in json.dumps(f["items"])
+
+
+def test_chart_pattern_hidden_number_one_is_noted():
+    tips = {"status": "ready", "trade_date": "2026-10-09", "valid_until": "2026-10-12T17:30:00+00:00",
+            "publish_time_et": "1:30 PM ET", "tips": [{"rank": 1, "locked": True, "ticker": ""}, {"rank": 2, "ticker": "XE"}]}
+    f = build(**{"/notable/pattern-showcase": mara_tile(), "/tips/daily": tips})
+    [it] = [i for i in f["items"] if i["type"] == "chart_pattern"]
+    assert "hidden" in it["top_pick_check"]
+
+
+def test_chart_pattern_failures_are_errors():
+    f = build(**{"/notable/pattern-showcase": None})
+    assert f["counts"]["chart_pattern"] == 0 and any("pattern-showcase" in e for e in f["errors"])
+    f = build(**{"/notable/pattern-showcase": {"v": 1, "status": "unavailable", "tile": None, "error": {"code": "pattern_timeout"}}})
+    assert any("pattern_timeout" in e for e in f["errors"]) and "did not load" in f["reasons"]["chart_pattern"]
+    f = build(**{"/notable/pattern-showcase": {"v": 1, "status": "disabled", "tile": None, "error": None}})
+    assert not f["errors"] and "'disabled'" in f["reasons"]["chart_pattern"]
+    f = build(**{"/notable/pattern-showcase": mara_tile(), "/tips/daily": None})
+    assert f["counts"]["chart_pattern"] == 0 and "#1 guard cannot run" in f["reasons"]["chart_pattern"]
+
+
+def test_moves_like_items(no_sleep):
+    rows = [crow("UNH", "buy", "2026-09-24", "2026-10-07", 15001, 50000)]
+    f = build(**{"/notable/feed?tab=congress": {"items": rows, "has_more": False},
+                 "/notable/pattern-showcase": mara_tile(),
+                 "/moves-like/UNH": ml("UNH", [("TU", 55, "loose", -4.0), ("WU", 54, "loose", -3.3),
+                                               ("HLN", 54, "loose", 0.6), ("UNH", 99, "tight", 0.0)]),
+                 "/moves-like/MARA": ml("MARA", [], status="not_covered")})
+    m = [i for i in f["items"] if i["type"] == "moves_like"]
+    assert [i["ticker"] for i in m] == ["UNH"]
+    it = m[0]
+    assert it["tickers"] == ["UNH", "TU", "WU", "HLN"] and it["session"] == "2026-10-09" and it["window_sessions"] == 60
+    assert it["peers"][0] == {"ticker": "TU", "name": "TU Corp", "sync": 55, "band": "Loose",
+                              "sync_text": "Sync 55 · Loose", "day_move": "−4.0%"}
+    assert it["peers"][2]["day_move"] == "+0.6%" and it["subject_day_move"] == "−1.1%"
+    for n in ("55", "54", "60", "2026-10-09", "Oct 9, 2026", "Oct 9", "−4.0%", "4.0%", "+0.6%", "0.6%"):
+        assert n in it["allowed_numbers"], n
+    assert "/dashboard/UNH?utm_source={platform}" in it["page_url"] and it["item_id"] in it["page_url"]
+    assert it["facts_text"].startswith("Moves Like: over the 60 sessions before Oct 9, 2026, $UNH "
+                                       "(UnitedHealth Group Incorporated) moved most like $TU (Sync 55, Loose)")
+    assert f["left_out"]["moves_like"]["not_covered"] == 1 and f["left_out"]["moves_like"]["requested"] == 2
+    assert no_sleep == [0.5]                       # two GETs, one 0.5 s gap
+
+
+def test_moves_like_subjects_round_robin_and_cap():
+    items = ([{"type": "congress_trade", "ticker": t} for t in ("A", "B", "C", "A")]
+             + [{"type": "form4_buy", "ticker": t} for t in ("B", "D")]
+             + [{"type": "earnings_upcoming", "ticker": t} for t in ("E", "F", "G")]
+             + [{"type": "chart_pattern", "ticker": "H"}, {"type": "picks_ready", "ticker": None}])
+    assert fx.moves_subjects(items) == (["A", "B", "E", "H", "D"], 8)
+
+
+def test_moves_like_failures_and_empty():
+    rows = [crow("UNH", "buy", "2026-09-24", "2026-10-07", 15001, 50000)]
+    feed = {"/notable/feed?tab=congress": {"items": rows, "has_more": False}}
+    f = build(**feed, **{"/moves-like/UNH": None})
+    assert f["counts"]["moves_like"] == 0 and any("/moves-like/UNH" in e for e in f["errors"])
+    f = build(**feed, **{"/moves-like/UNH": dict(ml("UNH", []), status="unavailable", session=None, subject=None,
+                                                 error={"code": "moves_like_timeout"})})
+    assert any("moves_like_timeout" in e for e in f["errors"]) and "did not load" in f["reasons"]["moves_like"]
+    f = build(**feed, **{"/moves-like/UNH": ml("UNH", [])})
+    assert not f["errors"] and f["left_out"]["moves_like"]["no_peer"] == 1
+    f = build(**feed, **{"/moves-like/UNH": ml("UNH", [("TU", 55, "loose", -4.0)], session="2026-10-12")})
+    assert f["counts"]["moves_like"] == 0 and f["left_out"]["moves_like"]["stale"] == 1
