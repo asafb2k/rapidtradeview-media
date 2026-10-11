@@ -24,18 +24,24 @@ post for a New York market date. Every item is read from RapidTradeView's public
                      exposes (for guests the #1 ticker is hidden, so this can only catch a leaked one). The pattern's
                      own text (pill, chip, key lines, points) is kept as the API writes it for our pages; the history
                      record ("past ... fell over the next 5 trading days") is left out: it is an outcome claim.
-  moves_like         /moves-like/<T> for up to 5 tickers of the day's other items (round robin over congress_trade,
-                     form4_buy, earnings_result, earnings_upcoming, chart_pattern; at most 5 GETs, 0.5 s apart): the
-                     peers the stock card lists, with Sync and band as the card shows them. not_covered, disabled,
-                     unavailable or no peer: no item.
+  moves_like         /moves-like/<T> for up to 5 tickers a day of the day's other items (round robin over
+                     congress_trade, form4_buy, earnings_result, earnings_upcoming, chart_pattern; 0.5 s apart): the
+                     peers the stock card lists with Sync >= 65 (Close / Tight), Sync and band as the card shows them.
+                     not_covered, disabled, unavailable or no peer at the floor: no item. With --previous (the day's
+                     published file) a ticker already looked up today is not asked again: its item is carried over.
 chart_pattern and moves_like carry banned_words of their own (PREDICTION_WORDS): descriptive wording only.
 Each item carries item_id, type, ticker, name / office, amount text as our pages show it, dates, the official
 source_url, page_url (UTM built in; "{platform}" is a literal placeholder Grok fills with x or instagram),
 allowed_numbers (every numeric token a post may print), must_include and a one-line facts_text.
 An empty type is valid: items [] and reasons say why. Nothing is estimated or invented (No Fallbacks).
 
-Exit codes: 0 written, every source loaded; 4 written, but a source failed (its errors and reasons are in the file);
+Exit codes: 0 written, every core source loaded (a failed chart_pattern / moves_like read is in errors, its item
+dropped); 4 written, but a core source failed (ticker list, congress, insiders, earnings, picks: partial_sources);
 anything else: crashed / not written (1, or 2 for a usage error).
+
+  facts.py --compare-items OLD NEW    OLD / NEW: a file or an https URL (Pages; fetched past its cache). Exit 0 when
+                                      both carry the same items (item_id + dedupe_key; generated_at and the rest do
+                                      not count), 1 when they differ, 2 when one cannot be read.
 """
 from __future__ import annotations
 
@@ -46,6 +52,8 @@ import json
 import re
 import sys
 import time
+import urllib.error
+import urllib.request
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 from urllib.parse import quote, urlsplit
@@ -58,7 +66,9 @@ SCHEMA = "rtv-facts/1"
 SITE = ss.SITE
 DISCLAIMER = "Not investment advice."
 BANNED_WORDS = ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon",
-                "breakout coming", "about to", "set to"]
+                "breakout coming", "about to", "set to",
+                # stocks and ETFs only: no crypto talk, also on items about crypto-adjacent miners (MARA, RIOT, ...)
+                "bitcoin", "btc", "crypto", "cryptocurrency", "ethereum", "blockchain"]
 PREDICTION_WORDS = ["will", "going to"]  # per item (chart_pattern, moves_like): descriptive wording only
 MAX_LEN = {"x": 270}
 PLATFORMS = ["x", "instagram"]
@@ -79,6 +89,9 @@ SHOWCASE = "/notable/pattern-showcase"
 MOVES_LIKE_MAX = 5
 MOVES_LIKE_GAP_S = 0.5
 MOVES_LIKE_SESSIONS = 60  # shared/lib/movesLike.ts MOVES_LIKE_SYNC_SESSIONS
+MOVES_LIKE_SYNC_FLOOR = 65  # movesLike.ts MOVES_LIKE_BAND_CLOSE: Close and Tight peers only (Growth lead 2026-10-11)
+MOVES_LIKE_KEEP = ("item", "not_covered", "no_peer", "below_floor")  # answers a later run of the day does not ask again
+CORE_TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready")
 BAND_LABELS = {"tight": "Tight", "close": "Close", "loose": "Loose"}  # movesLike.ts bandLabel
 MOVES_LIKE_SUBJECT_TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "chart_pattern")
 SLEEP = time.sleep
@@ -413,6 +426,10 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
     items = []
     date = target.isoformat()
     for tile in cands:
+        upd = _ts(tile.get("updated_at"))
+        if upd is not None and upd <= lo:  # published_at <= updated_at: published before the window, no need to read it
+            left["outside_24h"] += 1
+            continue
         full, ferr = api.get(f"/earnings/reports/{tile['id']}")
         if ferr or not isinstance(full, dict):
             left["unreadable"] += 1
@@ -477,10 +494,23 @@ def next_weekday(day: dt.date) -> dt.date:
     return cur
 
 
-def upcoming_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[dict], dict, list[str], str | None]:
+def calendar_week(api, nxt: dt.date, now: dt.datetime) -> tuple[list[dict], list[str]]:
+    """The one /earnings week (weeks_ahead counts from New York's current week) that holds `nxt`."""
+    today = now.astimezone(ss.NY).date() if ss.NY else now.date()
+    w = (ss.week_monday(nxt) - ss.week_monday(today)).days // 7
+    if not 0 <= w <= 2:
+        return [], [f"/earnings: {nxt} is outside the calendar's reach (weeks_ahead {w})"]
+    data, err = api.get(f"/earnings?weeks_ahead={w}&scope=all")
+    if err:
+        return [], [err]
+    return ([data] if isinstance(data, dict) and isinstance(data.get("days"), list) else []), []
+
+
+def upcoming_items(api, target: dt.date, names: dict[str, str], now: dt.datetime | None = None
+                   ) -> tuple[list[dict], dict, list[str], str | None]:
     """(items, counts, errors, empty reason) for the next weekday's confirmed universe reporters."""
     nxt = next_weekday(target)
-    weeks, errors = ss.load_weeks(api)
+    weeks, errors = calendar_week(api, nxt, now or dt.datetime.now(dt.timezone.utc))
     rows, counts, complete = ss.week_rows(weeks, [nxt])
     if not complete:
         return [], {}, errors, f"the earnings calendar for {nxt} did not load"
@@ -650,18 +680,18 @@ def pattern_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[dic
     return [item], left, [], None
 
 
-def moves_subjects(items: list[dict]) -> tuple[list[str], int]:
-    """Up to MOVES_LIKE_MAX tickers, round robin over the subject types (deduped), and how many distinct there were."""
+def moves_subjects(items: list[dict], limit: int = MOVES_LIKE_MAX, skip=()) -> tuple[list[str], int]:
+    """Up to `limit` tickers not in `skip`, round robin over the subject types (deduped), and how many distinct there were."""
     per: dict[str, list[str]] = {k: [] for k in MOVES_LIKE_SUBJECT_TYPES}
     for it in items:
         t = it.get("ticker")
-        if it.get("type") in per and t and t not in per[it["type"]]:
+        if it.get("type") in per and t and t not in per[it["type"]] and t not in skip:
             per[it["type"]].append(t)
     distinct = len({t for ts in per.values() for t in ts})
     out: list[str] = []
-    while len(out) < MOVES_LIKE_MAX and any(per.values()):
+    while len(out) < limit and any(per.values()):
         for k in MOVES_LIKE_SUBJECT_TYPES:
-            if per[k] and len(out) < MOVES_LIKE_MAX:
+            if per[k] and len(out) < limit:
                 t = per[k].pop(0)
                 if t not in out:
                     out.append(t)
@@ -686,12 +716,28 @@ def _move_numbers(text: str) -> list[str]:
     return [text] if text == "0.0%" else [text, text.lstrip(f"+{MINUS}")]
 
 
-def moves_like_items(api, target: dt.date, items: list[dict]) -> tuple[list[dict], dict, list[str]]:
-    subjects, distinct = moves_subjects(items)
-    left = {"tickers_in_items": distinct, "requested": len(subjects), "not_covered": 0, "disabled": 0, "no_peer": 0,
-            "stale": 0, "unavailable": 0, "unreadable": 0}
+def previous_moves(previous: dict | None, target: dt.date) -> tuple[dict[str, str], list[dict]]:
+    """The day's earlier answers ({ticker: outcome}) and moves_like items from --previous (same date only)."""
+    if not isinstance(previous, dict) or previous.get("date") != target.isoformat():
+        return {}, []
+    items = [i for i in previous.get("items") or [] if isinstance(i, dict) and i.get("type") == "moves_like" and i.get("ticker")]
+    checked = {t: o for t, o in (previous.get("moves_like_checked") or {}).items() if o in MOVES_LIKE_KEEP}
+    for i in items:
+        checked[i["ticker"]] = "item"
+    return checked, [i for i in items if checked.get(i["ticker"]) == "item"]
+
+
+def moves_like_items(api, target: dt.date, items: list[dict], previous: dict | None = None
+                     ) -> tuple[list[dict], dict, list[str], dict[str, str]]:
+    """(items, left_out, errors, the day's answers by ticker). At most MOVES_LIKE_MAX tickers a day are looked up; one
+    answered earlier the same day (--previous) is carried over without a GET; a failed read is retried next run."""
+    checked, out = previous_moves(previous, target)
+    out = [i for i in out if i["ticker"] in checked][:MOVES_LIKE_MAX]
+    checked = dict(list(checked.items())[:MOVES_LIKE_MAX])
+    subjects, distinct = moves_subjects(items, MOVES_LIKE_MAX - len(checked), skip=set(checked))
+    left = {"tickers_in_items": distinct, "carried_over": len(checked), "requested": len(subjects), "not_covered": 0,
+            "disabled": 0, "no_peer": 0, "below_floor": 0, "stale": 0, "unavailable": 0, "unreadable": 0}
     errors: list[str] = []
-    out = []
     for n, ticker in enumerate(subjects):
         if n:
             SLEEP(MOVES_LIKE_GAP_S)
@@ -704,6 +750,8 @@ def moves_like_items(api, target: dt.date, items: list[dict]) -> tuple[list[dict
         status = data.get("status")
         if status in ("not_covered", "disabled"):
             left[status] += 1
+            if status == "not_covered":
+                checked[ticker] = status
             continue
         if status == "unavailable":
             left["unavailable"] += 1
@@ -727,8 +775,15 @@ def moves_like_items(api, target: dt.date, items: list[dict]) -> tuple[list[dict
             continue
         if not peers:
             left["no_peer"] += 1
+            checked[ticker] = "no_peer"
+            continue
+        peers = [p for p in peers if p["sync"] >= MOVES_LIKE_SYNC_FLOOR]
+        if not peers:
+            left["below_floor"] += 1
+            checked[ticker] = "below_floor"
             continue
         peers = sorted(peers, key=lambda p: -p["sync"])[:3]
+        checked[ticker] = "item"
         session = session[:10]
         when = date_forms(session)[1]
         subj_move = move_pct(float(subject["day_pct"])) if isinstance(subject.get("day_pct"), (int, float)) else None
@@ -746,7 +801,7 @@ def moves_like_items(api, target: dt.date, items: list[dict]) -> tuple[list[dict
                              *(_move_numbers(subj_move) if subj_move else []),
                              *(x for p in peers for x in _move_numbers(p["day_move"])),
                              *digit_words(name, *(p["name"] for p in peers))]))
-    return out, left, errors
+    return out, left, errors, checked
 
 
 # ---------------------------------------------------------------------------
@@ -760,10 +815,12 @@ def default_as_of(target: dt.date, now: dt.datetime) -> dt.datetime:
     return min(now, end)
 
 
-def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None, as_of: dt.datetime | None = None) -> dict:
+def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None, as_of: dt.datetime | None = None,
+                previous: dict | None = None) -> dict:
     now = now or dt.datetime.now(dt.timezone.utc)
     as_of = as_of or default_as_of(target, now)
     errors: list[str] = []
+    partial: list[str] = []  # core sources that failed: exit 4
     reasons: dict[str, str] = {}
     left: dict[str, dict] = {}
     items: list[dict] = []
@@ -772,12 +829,14 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
     names = names_data.get("names") if isinstance(names_data, dict) and isinstance(names_data.get("names"), dict) else {}
     if nerr or not names:
         errors.append(nerr or "/tickers/names: empty")
+        partial.append("tickers_names")
         for k in ("congress_trade", "form4_buy"):
             reasons[k] = f"the ticker list did not load ({nerr or 'empty'}): no trade can be checked as listed"
     else:
         c, left["congress_trade"], cerr = congress_items(api, target, names)
         if cerr:
             errors.append(cerr)
+            partial.append("congress_trade")
             reasons["congress_trade"] = f"the Congress feed did not load ({cerr})"
         elif not c:
             reasons["congress_trade"] = "no Congress trade passed the rules in the last 5 weekdays (left_out has the counts)"
@@ -785,6 +844,7 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
         f, left["form4_buy"], ferr = form4_items(api, target, names, fame)
         errors += ferr
         if ferr:
+            partial.append("form4_buy")
             reasons["form4_buy"] = f"the insider feed did not load ({'; '.join(ferr)})"
         elif not f:
             reasons["form4_buy"] = ("no material open-market Form 4 buy ($1M+ or a famous executive) filed in the "
@@ -793,14 +853,18 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
 
     r, left["earnings_result"], rerr = result_items(api, target, as_of)
     errors += rerr
+    if rerr:
+        partial.append("earnings_result")
     if not r:
         reasons["earnings_result"] = (f"earnings reports did not load ({'; '.join(rerr)})" if rerr else
                                       f"no earnings report published between {(as_of - dt.timedelta(hours=RESULT_HOURS)):%Y-%m-%dT%H:%MZ} "
                                       f"and {as_of:%Y-%m-%dT%H:%MZ}")
     items += r
 
-    u, left["earnings_upcoming"], uerr, ureason = upcoming_items(api, target, names)
+    u, left["earnings_upcoming"], uerr, ureason = upcoming_items(api, target, names, now)
     errors += uerr
+    if uerr:
+        partial.append("earnings_upcoming")
     if ureason:
         reasons["earnings_upcoming"] = ureason
     items += u
@@ -810,6 +874,7 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
         reasons["picks_ready"] = preason
         if "did not load" in preason:
             errors.append(f"/tips/daily: {preason}")
+            partial.append("picks_ready")
     items += p
 
     if names:
@@ -821,12 +886,13 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
     if cpreason:
         reasons["chart_pattern"] = cpreason
 
-    m, left["moves_like"], merr = moves_like_items(api, target, items)
+    m, left["moves_like"], merr, checked = moves_like_items(api, target, items, previous)
     errors += merr
     if not m:
         reasons["moves_like"] = (f"Moves Like did not load ({'; '.join(merr)})" if merr else
-                                 "no ticker of today's items has Moves Like peers (left_out has the counts)"
-                                 if left["moves_like"]["requested"] else "no ticker in today's other items to look up")
+                                 f"no ticker of today's items has a Moves Like peer at Sync {MOVES_LIKE_SYNC_FLOOR}+ "
+                                 "(left_out has the counts)"
+                                 if checked else "no ticker in today's other items to look up")
     items += m
 
     counts = {k: sum(1 for i in items if i["type"] == k) for k in TYPES}
@@ -851,8 +917,41 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
         "reasons": reasons,
         "left_out": left,
         "errors": errors,
+        "partial_sources": partial,
+        "moves_like_checked": checked,
+        "api_requests": getattr(api, "requests", None),
         "items": items,
     }
+
+
+# ---------------------------------------------------------------------------
+# Comparing two feeds (the runner publishes only when the item set changed)
+
+def item_set(facts: dict) -> set[tuple[str, str]]:
+    return {(str(i.get("item_id")), str(i.get("dedupe_key"))) for i in facts.get("items") or [] if isinstance(i, dict)}
+
+
+def read_facts(where: str) -> dict:
+    """A facts file, or an https URL read past the Pages cache (a fresh query string, no-cache)."""
+    if re.match(r"^https?://", where):
+        url = f"{where}{'&' if '?' in where else '?'}fresh={time.time_ns()}"
+        req = urllib.request.Request(url, headers={"User-Agent": ss.UA, "Cache-Control": "no-cache"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.loads(r.read().decode("utf-8-sig"))
+    return json.loads(Path(where).read_text(encoding="utf-8-sig"))
+
+
+def compare_items(old: str, new: str) -> int:
+    try:
+        a, b = item_set(read_facts(old)), item_set(read_facts(new))
+    except (OSError, ValueError, urllib.error.URLError) as e:
+        print(f"unreadable: {type(e).__name__}: {str(e)[:200]}")
+        return 2
+    if a == b:
+        print(f"same items ({len(b)})")
+        return 0
+    print(f"changed: {len(b)} items, {len(b - a)} new, {len(a - b)} gone")
+    return 1
 
 
 def print_facts(f: dict) -> None:
@@ -868,7 +967,9 @@ def print_facts(f: dict) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--date", required=True)
+    ap.add_argument("--date")
+    ap.add_argument("--compare-items", nargs=2, metavar=("OLD", "NEW"))
+    ap.add_argument("--previous", help="the day's published facts.json: Moves Like answers of the day are carried over")
     ap.add_argument("--out")
     ap.add_argument("--print", action="store_true")
     ap.add_argument("--repo", default=str(mf.REPO))
@@ -877,16 +978,26 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--as-of", help="end of the 24-hour earnings window (ISO, UTC if no offset)")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if a.compare_items:
+        return compare_items(*a.compare_items)
+    if not a.date:
+        ap.error("--date is required")
     target = ss.d(a.date)
     fame = json.loads(Path(a.fame).read_text(encoding="utf-8"))
     as_of = _ts(a.as_of) if a.as_of else None
-    facts = build_facts(target, ss.Api(a.api), fame, as_of=as_of)
+    previous = None
+    if a.previous and Path(a.previous).exists():
+        try:
+            previous = read_facts(a.previous)
+        except (OSError, ValueError) as e:
+            print(f"--previous unreadable ({type(e).__name__}): every Moves Like ticker is asked again")
+    facts = build_facts(target, ss.Api(a.api), fame, as_of=as_of, previous=previous)
     out = Path(a.out) if a.out else Path(a.repo) / "v" / target.isoformat() / "facts.json"
     mf.write_json(out, facts)
     if a.print:
         print_facts(facts)
-    print(f"wrote {out}")
-    return PARTIAL if facts["errors"] else 0
+    print(f"wrote {out} ({facts['api_requests']} API requests)")
+    return PARTIAL if facts["partial_sources"] else 0
 
 
 if __name__ == "__main__":

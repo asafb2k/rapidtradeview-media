@@ -111,23 +111,37 @@ function Publish-Spec([string]$SpecFile, [int]$PagesTimeoutSec = 900) {
 
 # Facts feed for Grok-run brand social (tools/facts.py -> v/<date>/facts.json; GROK-SOCIAL.md). It never depends
 # on a render and never changes the run's exit code: every failure here is logged and the run goes on.
-# facts.py exit 0 = every source loaded; 4 = a source failed (the file says which): a partial file is published only
-# when no facts.json for the date exists yet, so a passing outage never replaces a complete feed. $Push = $false
-# (-NoPush / -SelectOnly) writes the file into the repo without committing it.
-function Publish-Facts([string]$Date, [string]$Work, [bool]$Push) {
+# facts.py gets the day's published file as --previous (Moves Like answers of the day are not asked again).
+# facts.py exit 0 = every core source loaded; 4 = a core source failed (the file says which): a partial file is
+# published only when no facts.json for the date exists yet, so a passing outage never replaces a complete feed.
+# The file is published only when its item set (item_id + dedupe_key) differs from the published one; then it is
+# committed, pushed, and Pages is read until it serves the new item set (or $PagesTimeoutSec passes: logged).
+# $Push = $false (-NoPush / -SelectOnly) writes the file into the repo without committing it.
+function Publish-Facts([string]$Date, [string]$Work, [bool]$Push, [int]$PagesTimeoutSec = 420) {
     try {
         $tmp = Join-Path $Work 'facts.json'
         $rel = "v/$Date/facts.json"
         $dest = Join-Path $script:Repo $rel
+        $facts = Join-Path $script:Tools 'facts.py'
         Remove-Item -Force -ErrorAction SilentlyContinue $tmp
-        $code = Invoke-Native $script:Python @((Join-Path $script:Tools 'facts.py'), '--date', $Date, '--out', $tmp, '--print')
+        $argv = @($facts, '--date', $Date, '--out', $tmp, '--print')
+        if (Test-Path $dest) { $argv += @('--previous', $dest) }
+        $code = Invoke-Native $script:Python $argv
+        [System.IO.File]::WriteAllText((Join-Path $Work 'facts-last-run.txt'), [DateTime]::UtcNow.ToString('o'))
         if (($code -eq 0 -or $code -eq 4) -and -not (Test-Path $tmp)) { Log "FACTS FAILED: facts.py exit $code but no $tmp"; return }
-        if ($code -eq 4 -and (Test-Path $dest)) { Log "FACTS PARTIAL (a source failed): kept the existing $rel; this run's file is $tmp"; return }
+        if ($code -eq 4 -and (Test-Path $dest)) { Log "FACTS PARTIAL (a core source failed): kept the existing $rel; this run's file is $tmp"; return }
         if ($code -ne 0 -and $code -ne 4) { Log "FACTS FAILED (facts.py exit $code): $rel not updated; the videos go on"; return }
-        if ($code -eq 4) { Log "FACTS PARTIAL (a source failed): publishing it, there is no $rel yet" }
+        if ($code -eq 4) { Log "FACTS PARTIAL (a core source failed): publishing it, there is no $rel yet" }
+        if (Test-Path $dest) {
+            $same = Invoke-Native $script:Python @($facts, '--compare-items', $dest, $tmp)
+            if ($same -eq 0) { Log "facts: item set unchanged -> skip (nothing published)"; return }
+            if ($same -eq 1) { Log "facts: item set changed" } else { Log "facts: the published $rel could not be read (exit $same): replacing it" }
+        } else {
+            Log "facts: no $rel yet"
+        }
         New-Item -ItemType Directory -Force -Path (Split-Path -Parent $dest) | Out-Null
         Copy-Item -Force $tmp $dest
-        if (-not $Push) { Log "facts: wrote $dest (not committed: -NoPush / -SelectOnly)"; return }
+        if (-not $Push) { Log "facts: changed -> would publish $rel (-NoPush / -SelectOnly: written to $dest, not committed)"; return }
         if ((Invoke-Git @('add', '--', $rel)) -ne 0) { Log "FACTS: git add $rel failed"; return }
         & git.exe -C $script:Repo diff --cached --quiet -- $rel
         if ($LASTEXITCODE -eq 0) { Log "facts: $rel unchanged"; return }
@@ -141,9 +155,41 @@ function Publish-Facts([string]$Date, [string]$Work, [bool]$Push) {
             }
             if ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) { Log "FACTS: git push failed; the facts commit stays local"; return }
         }
-        Log "facts: pushed $rel (Pages: https://asafb2k.github.io/rapidtradeview-media/$rel)"
+        $url = "https://asafb2k.github.io/rapidtradeview-media/$rel"
+        $deadline = (Get-Date).AddSeconds($PagesTimeoutSec)
+        while ((Invoke-Native $script:Python @($facts, '--compare-items', $url, $dest)) -ne 0) {
+            if ((Get-Date) -gt $deadline) { Log "FACTS: pushed $rel, but Pages did not serve the new item set within $PagesTimeoutSec s"; return }
+            Start-Sleep -Seconds 20
+        }
+        Log "facts: published $rel; Pages serves the new item set ($url)"
     } catch {
         Log "FACTS FAILED: $($_.Exception.Message); the videos go on"
+    }
+}
+
+# Intraday facts refresh (the 15-minute preflight pass; Grok re-reads facts.json every 30 min 07:00-17:00 ET):
+# weekdays 07:00-17:00 ET, at most every 30 minutes (<work>\facts-last-run.txt, written by every facts run; 28 min
+# so a 15-minute tick a few seconds early still counts). $NowUtc is the clock (run_daily.ps1 -Now for a dry run).
+# Returns why it did not run, or $null after a run. Never throws and never touches the video / manifest steps.
+function Update-FactsIfDue([string]$Date, [string]$Work, [bool]$Push, [DateTime]$NowUtc) {
+    try {
+        $et = [System.TimeZoneInfo]::ConvertTimeFromUtc($NowUtc, [System.TimeZoneInfo]::FindSystemTimeZoneById('Eastern Standard Time'))
+        $label = $et.ToString('ddd HH:mm') + ' ET'
+        if ($et.DayOfWeek -eq [DayOfWeek]::Saturday -or $et.DayOfWeek -eq [DayOfWeek]::Sunday) { return "facts refresh: not a weekday ($label)" }
+        $min = $et.Hour * 60 + $et.Minute
+        if ($min -lt 420 -or $min -gt 1020) { return "facts refresh: outside 07:00-17:00 ET ($label)" }
+        $stamp = Join-Path $Work 'facts-last-run.txt'
+        if (Test-Path $stamp) {
+            $last = [DateTime]::Parse((Get-Content -Raw $stamp).Trim(), [Globalization.CultureInfo]::InvariantCulture, [Globalization.DateTimeStyles]::RoundtripKind).ToUniversalTime()
+            $age = ($NowUtc - $last).TotalMinutes
+            if ($age -ge 0 -and $age -lt 28) { return "facts refresh: last run $([int]$age) min ago ($label)" }
+        }
+        Log "facts refresh ($label)"
+        Publish-Facts $Date $Work $Push
+        [System.IO.File]::WriteAllText($stamp, $NowUtc.ToString('o'))
+        return $null
+    } catch {
+        return "FACTS REFRESH FAILED: $($_.Exception.Message)"
     }
 }
 

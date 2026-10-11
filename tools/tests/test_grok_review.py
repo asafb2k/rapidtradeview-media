@@ -279,3 +279,11 @@ def test_draft_cli(tmp_path, facts_dir):
     assert gr.main(["--draft", str(p), "--facts-base", facts_dir]) == 0
     p.write_text(json.dumps(good_x(text="$UNH guaranteed. Not investment advice.")), encoding="utf-8")
     assert gr.main(["--draft", str(p), "--facts-base", facts_dir]) == 1
+
+
+@pytest.mark.parametrize("word", ["Bitcoin", "BTC", "crypto", "cryptocurrency", "Ethereum", "blockchain"])
+def test_crypto_words_are_banned_on_every_item(word):
+    v, why = gr.review(feature_draft(PATTERN, PATTERN_TEXT.replace("Not investment", f"Tracks {word}. Not investment")), FACTS)
+    assert v == "REJECT" and any("banned words" in r for r in why)
+    v, why = gr.review(good_x(text=f"$UNH: Rep. Salazar disclosed a $15K–$50K purchase; {word}. Not investment advice."), FACTS)
+    assert v == "REJECT" and any("banned words" in r for r in why)

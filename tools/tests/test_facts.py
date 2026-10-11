@@ -221,7 +221,8 @@ def test_empty_day_is_valid_with_reasons():
     assert f["items"] == [] and not f["errors"]
     assert set(f["reasons"]) == set(fx.TYPES)
     assert f["rules"]["banned_words"] == ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon",
-                                          "breakout coming", "about to", "set to"]
+                                          "breakout coming", "about to", "set to",
+                                          "bitcoin", "btc", "crypto", "cryptocurrency", "ethereum", "blockchain"]
     assert f["rules"]["disclaimer"] == "Not investment advice." and f["rules"]["max_len"] == {"x": 270}
 
 
@@ -329,21 +330,23 @@ def test_moves_like_items(no_sleep):
     rows = [crow("UNH", "buy", "2026-09-24", "2026-10-07", 15001, 50000)]
     f = build(**{"/notable/feed?tab=congress": {"items": rows, "has_more": False},
                  "/notable/pattern-showcase": mara_tile(),
-                 "/moves-like/UNH": ml("UNH", [("TU", 55, "loose", -4.0), ("WU", 54, "loose", -3.3),
-                                               ("HLN", 54, "loose", 0.6), ("UNH", 99, "tight", 0.0)]),
+                 "/moves-like/UNH": ml("UNH", [("TU", 82, "tight", -4.0), ("WU", 70, "close", -3.3),
+                                               ("DIN", 64, "loose", 1.0), ("HLN", 65, "close", 0.6),
+                                               ("UNH", 99, "tight", 0.0)]),
                  "/moves-like/MARA": ml("MARA", [], status="not_covered")})
     m = [i for i in f["items"] if i["type"] == "moves_like"]
     assert [i["ticker"] for i in m] == ["UNH"]
     it = m[0]
     assert it["tickers"] == ["UNH", "TU", "WU", "HLN"] and it["session"] == "2026-10-09" and it["window_sessions"] == 60
-    assert it["peers"][0] == {"ticker": "TU", "name": "TU Corp", "sync": 55, "band": "Loose",
-                              "sync_text": "Sync 55 · Loose", "day_move": "−4.0%"}
+    assert it["peers"][0] == {"ticker": "TU", "name": "TU Corp", "sync": 82, "band": "Tight",
+                              "sync_text": "Sync 82 · Tight", "day_move": "−4.0%"}
     assert it["peers"][2]["day_move"] == "+0.6%" and it["subject_day_move"] == "−1.1%"
-    for n in ("55", "54", "60", "2026-10-09", "Oct 9, 2026", "Oct 9", "−4.0%", "4.0%", "+0.6%", "0.6%"):
+    assert "64" not in it["allowed_numbers"] and "DIN" not in it["tickers"]   # below the Sync 65 floor
+    for n in ("82", "70", "65", "60", "2026-10-09", "Oct 9, 2026", "Oct 9", "−4.0%", "4.0%", "+0.6%", "0.6%"):
         assert n in it["allowed_numbers"], n
     assert "/dashboard/UNH?utm_source={platform}" in it["page_url"] and it["item_id"] in it["page_url"]
     assert it["facts_text"].startswith("Moves Like: over the 60 sessions before Oct 9, 2026, $UNH "
-                                       "(UnitedHealth Group Incorporated) moved most like $TU (Sync 55, Loose)")
+                                       "(UnitedHealth Group Incorporated) moved most like $TU (Sync 82, Tight)")
     assert f["left_out"]["moves_like"]["not_covered"] == 1 and f["left_out"]["moves_like"]["requested"] == 2
     assert no_sleep == [0.5]                       # two GETs, one 0.5 s gap
 
@@ -366,5 +369,88 @@ def test_moves_like_failures_and_empty():
     assert any("moves_like_timeout" in e for e in f["errors"]) and "did not load" in f["reasons"]["moves_like"]
     f = build(**feed, **{"/moves-like/UNH": ml("UNH", [])})
     assert not f["errors"] and f["left_out"]["moves_like"]["no_peer"] == 1
-    f = build(**feed, **{"/moves-like/UNH": ml("UNH", [("TU", 55, "loose", -4.0)], session="2026-10-12")})
+    f = build(**feed, **{"/moves-like/UNH": ml("UNH", [("TU", 75, "close", -4.0)], session="2026-10-12")})
     assert f["counts"]["moves_like"] == 0 and f["left_out"]["moves_like"]["stale"] == 1
+
+
+def test_moves_like_floor_and_partial_exit():
+    rows = [crow("UNH", "buy", "2026-09-24", "2026-10-07", 15001, 50000)]
+    feed = {"/notable/feed?tab=congress": {"items": rows, "has_more": False}}
+    f = build(**feed, **{"/moves-like/UNH": ml("UNH", [("TU", 64, "loose", -4.0), ("WU", 50, "loose", -3.3)])})
+    assert f["counts"]["moves_like"] == 0 and f["left_out"]["moves_like"]["below_floor"] == 1
+    assert "Sync 65+" in f["reasons"]["moves_like"] and f["moves_like_checked"] == {"UNH": "below_floor"}
+    # A failed Moves Like or pattern read is an error, not a partial file: only core sources make exit 4.
+    f = build(**feed, **{"/moves-like/UNH": None, "/notable/pattern-showcase": None})
+    assert f["errors"] and f["partial_sources"] == []
+    f = build(**{"/notable/feed?tab=congress": None})
+    assert "congress_trade" in f["partial_sources"]   # (gather_trades also reads the congress feed: form4_buy too)
+
+
+def test_main_exit_0_when_only_moves_like_failed(tmp_path, monkeypatch):
+    rows = [crow("UNH", "buy", "2026-09-24", "2026-10-07", 15001, 50000)]
+    over = {"/notable/feed?tab=congress": {"items": rows, "has_more": False}, "/moves-like/UNH": None}
+    monkeypatch.setattr(fx.ss, "Api", lambda base: StubApi(answers(**over)))
+    out = tmp_path / "facts.json"
+    assert fx.main(["--date", "2026-10-09", "--out", str(out)]) == 0
+    written = json.loads(out.read_text(encoding="utf-8"))
+    assert any("/moves-like/UNH" in e for e in written["errors"]) and written["counts"]["moves_like"] == 0
+
+
+def test_previous_answers_are_carried_over_without_a_get(no_sleep):
+    rows = [crow(t, "buy", "2026-09-24", "2026-10-07", 15001, 50000) for t in ("UNH", "MSFT", "AAPL")]
+    over = {"/notable/feed?tab=congress": {"items": rows, "has_more": False},
+            "/moves-like/UNH": ml("UNH", [("TU", 82, "tight", -4.0)]),
+            "/moves-like/MSFT": ml("MSFT", [("WU", 60, "loose", -1.0)]),
+            "/moves-like/AAPL": ml("AAPL", [], status="not_covered")}
+    first = build(**over)
+    assert first["moves_like_checked"] == {"UNH": "item", "MSFT": "below_floor", "AAPL": "not_covered"}
+    api = StubApi(answers(**over))
+    again = fx.build_facts(FRI, api, FAME, now=NOW, previous=json.loads(json.dumps(first)))
+    asked = []
+    assert fx.item_set(again) == fx.item_set(first)
+    assert again["left_out"]["moves_like"]["carried_over"] == 3 and again["left_out"]["moves_like"]["requested"] == 0
+    # No GET for a ticker answered earlier today; a new ticker still gets one (5 a day at most).
+    rows.append(crow("DAL", "buy", "2026-09-24", "2026-10-07", 15001, 50000))
+    api = StubApi(answers(**over, **{"/moves-like/DAL": ml("DAL", [("UAL", 92, "tight", 0.0)])}))
+    api.get = lambda path, _g=api.get: (asked.append(path), _g(path))[1]
+    third = fx.build_facts(FRI, api, FAME, now=NOW, previous=first)
+    assert [p for p in asked if p.startswith("/moves-like/")] == ["/moves-like/DAL"]
+    assert sorted(i["ticker"] for i in third["items"] if i["type"] == "moves_like") == ["DAL", "UNH"]
+    # Another day's file is ignored.
+    other = dict(first, date="2026-10-08")
+    assert fx.previous_moves(other, FRI) == ({}, [])
+
+
+def test_compare_items(tmp_path, capsys):
+    a = {"date": "2026-10-09", "generated_at": "x", "items": [{"item_id": "i1", "dedupe_key": "k1", "facts_text": "a"}]}
+    b = dict(a, generated_at="y", items=[{"item_id": "i1", "dedupe_key": "k1", "facts_text": "changed wording"}])
+    c = dict(a, items=[*a["items"], {"item_id": "i2", "dedupe_key": "k2"}])
+    for name, v in (("a", a), ("b", b), ("c", c)):
+        (tmp_path / f"{name}.json").write_text(json.dumps(v), encoding="utf-8")
+    assert fx.main(["--compare-items", str(tmp_path / "a.json"), str(tmp_path / "b.json")]) == 0
+    assert fx.main(["--compare-items", str(tmp_path / "a.json"), str(tmp_path / "c.json")]) == 1
+    assert "1 new, 0 gone" in capsys.readouterr().out
+    assert fx.main(["--compare-items", str(tmp_path / "a.json"), str(tmp_path / "missing.json")]) == 2
+
+
+def test_old_archive_tiles_are_not_fetched():
+    archive = {"reports": [
+        {"id": "new-q3", "ticker": "DAL", "release_date": "2026-10-09", "summary_status": "ready",
+         "updated_at": "2026-10-09T10:32:21+00:00"},
+        {"id": "old-q3", "ticker": "AAPL", "release_date": "2026-10-07", "summary_status": "ready",
+         "updated_at": "2026-10-07T12:00:00+00:00"},
+    ]}
+    api = StubApi(answers(**{"/earnings/reports/archive": archive}))
+    seen = []
+    api.get = lambda path, _g=api.get: (seen.append(path), _g(path))[1]
+    f = fx.build_facts(FRI, api, FAME, now=NOW)
+    assert "/earnings/reports/new-q3" in seen and "/earnings/reports/old-q3" not in seen
+    assert f["left_out"]["earnings_result"]["outside_24h"] >= 1
+
+
+def test_one_calendar_week_is_read():
+    api = StubApi(answers())
+    seen = []
+    api.get = lambda path, _g=api.get: (seen.append(path), _g(path))[1]
+    fx.build_facts(FRI, api, FAME, now=NOW)
+    assert [p for p in seen if p.startswith("/earnings?")] == ["/earnings?weeks_ahead=1&scope=all"]   # Fri -> Mon
