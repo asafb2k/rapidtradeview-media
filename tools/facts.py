@@ -69,6 +69,9 @@ SITE = ss.SITE
 DISCLAIMER = "Not investment advice."
 BANNED_WORDS = ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon",
                 "breakout coming", "about to", "set to",
+                # plain advice wording (comments and posts alike): no calls to act
+                "should buy", "should sell", "load up", "buy the dip", "time to buy", "time to sell", "don't miss",
+                "dont miss", "easy money", "can't lose", "cant lose", "free money", "sell now", "get in now",
                 # stocks and ETFs only: no crypto talk, also on items about crypto-adjacent miners (MARA, RIOT, ...)
                 "bitcoin", "btc", "crypto", "cryptocurrency", "ethereum", "blockchain"]
 PREDICTION_WORDS = ["will", "going to"]  # per item (chart_pattern, moves_like): descriptive wording only
