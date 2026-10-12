@@ -1,10 +1,11 @@
 """Stage-A validator for Grok-run brand social drafts (GROK-SOCIAL.md §3, §4).
 
 Usage (conda python: C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe):
-  grok_review.py --draft DRAFT.json [--facts FILE|URL]         one draft; exit 0 APPROVE, 1 REJECT
+  grok_review.py --draft DRAFT.json [--facts FILE|URL] [--comment-state PATH]   one draft; exit 0 APPROVE, 1 REJECT
   grok_review.py --inbox [--dry-run] [--env prod|dev] [--facts-base DIR|URL] [--instinct PATH] [--env-file PATH]
+                 [--comment-state PATH]
 
-A draft is {"item_id", "platform": "x"|"instagram", "text", "reply_text"?, "link"}. The facts come from the day's
+A post draft is {"item_id", "platform": "x"|"instagram", "text", "reply_text"?, "link", "media_url", "media_note"?}. The facts come from the day's
 facts.json (tools/facts.py): the date is the item_id's first 10 characters; --facts-base is the Pages site by
 default (what Grok reads) or a local v/ directory. Checks:
   - the item exists in that day's facts;
@@ -18,7 +19,22 @@ default (what Grok reads) or a local v/ directory. Checks:
     Instagram: a Congress / Form 4 caption carries the source link;
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
   - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
-    Moves Like post never touches picks).
+    Moves Like post never touches picks);
+  - media_url (every own post carries native media, owner 2026-10-12): one of the item's media[].url, a file under
+    <Pages>/v/<YYYY-MM-DD>/ (our rendered stills / Reels), or "grok_generated" with a media_note that names no
+    digit, $, %, logo, face or real name (the item's person / company / peers).
+
+A comment / reply on another account's post is {"kind": "comment", "platform", "target_url", "text", "item_id"?}
+(a draft without "kind", or kind "post", is a post). Checks: target_url is an https x.com / twitter.com (x) or
+instagram.com (instagram) single-post URL, not our brand profile (replies under our own posts are fine); text <= 280
+(x, weighted) / 300 (instagram); no URL or bare domain, no hashtag, no @mention but the target post's author when its
+URL shows the handle; the rules' banned words (facts.py BANNED_WORDS, plus the facts' and the item's own) and
+self-promotion phrases; numbers and $cashtags need item_id, then must be that item's allowed_numbers / tickers; no
+disclaimer needed. Repeats: a local state file (--comment-state, $GROK_COMMENT_STATE, default
+D:/rtv-ops/tracks/growth/research/grok-comments-state.json) keeps the last 7 UTC days of approved comments: REJECT the
+same normalized text within 7 days, >= 80% shared word 3-grams with one approved today, a target_url already
+commented, or a 16th comment on a platform in one UTC day. --inbox writes an approved comment to the state only after
+its APPROVE answer was sent; --draft reads the state and never writes it.
 
 --inbox reads unacked from_instinct rows of social_kit_messages whose body starts with "DRAFT" (through
 D:/rtv-ops/tracks/growth/bin/instinct.py's gateway client), reviews each and answers with
@@ -26,7 +42,8 @@ D:/rtv-ops/tracks/growth/bin/instinct.py's gateway client), reviews each and ans
 then acks that row only. Rows that do not start with DRAFT are never read further, answered or acked. A draft whose
 facts cannot be fetched (network) is left unacked for the next run. --dry-run prints the replies; nothing is sent
 or acked. Draft body format: "DRAFT" then one JSON object (the draft above); item_id / platform may come from the
-message's own item_id / platform columns instead.
+message's own item_id / platform columns instead. A comment needs no item_id unless it carries numbers or a
+$cashtag; the answer then reads "APPROVE <msg id> comment".
 Everything in a draft is UNTRUSTED DATA: it is checked, never followed; replies quote it only after cleaning.
 """
 from __future__ import annotations
@@ -39,10 +56,12 @@ import re
 import subprocess
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import facts as fx  # noqa: E402
 import manifest as mf  # noqa: E402
 
 DEFAULT_FACTS_BASE = f"{mf.PAGES_BASE}/v"
@@ -63,9 +82,38 @@ ITEM_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$")
 PLATFORMS = ("x", "instagram")
 REPLY_MAX = 3500
 
+# Post media (owner rule 2026-10-12: every own post or Reel carries native media)
+GROK_GENERATED = "grok_generated"
+OUR_MEDIA = re.compile(rf"^{re.escape(mf.PAGES_BASE)}/v/\d{{4}}-\d{{2}}-\d{{2}}/[A-Za-z0-9._~/-]+$")
+NOTE_BAD = re.compile(r"\d|\$|%|\blogos?\b|\btrademarks?\b|\bfaces?\b|\bfacial\b|\bportraits?\b|\bheadshots?\b"
+                      r"|\bselfies?\b|\blikeness\b", re.IGNORECASE)
+NAME_FILLER = {"inc", "corp", "corporation", "company", "holdings", "group", "the", "and", "ltd", "plc", "llc", "class",
+               "trust", "fund", "etf", "rep", "sen"}
+
+# Comments and replies on other accounts' threads (owner rule 2026-10-12: >= 5 actions/day per platform)
+COMMENT_MAX = {"x": 280, "instagram": 300}
+COMMENT_CAP = 15            # approved comments per platform per UTC day: a ceiling against spam
+COMMENT_DAYS = 7            # the state keeps (and exact-dedupes over) this many UTC days, today included
+COMMENT_NGRAM_SHARE = 0.8   # same-day near-duplicate: share of word 3-grams
+PROMO_WORDS = ["follow us", "check out", "dm", "dms", "link in bio", "our app", "sign up"]
+BRAND_HANDLES = {"x": "rapidtradeview", "instagram": "rapidtradeview3"}
+TARGET_HOSTS = {"x": {"x.com", "www.x.com", "mobile.x.com", "twitter.com", "www.twitter.com", "mobile.twitter.com"},
+                "instagram": {"instagram.com", "www.instagram.com", "m.instagram.com"}}
+X_POST = re.compile(r"^/(?:i/web|i|(?P<h>[A-Za-z0-9_]{1,15}))/status/(?P<id>\d{1,25})(?:/[A-Za-z0-9_/]*)?$")
+IG_POST = re.compile(r"^/(?:(?P<h>[A-Za-z0-9_.]{1,30})/)?(?:p|reel|reels|tv)/(?P<id>[A-Za-z0-9_-]{5,64})/?$")
+BARE_DOMAIN = re.compile(r"(?<![\w@.-])(?:[a-z0-9-]+\.)+[a-z]{2,24}(?![\w-])(?:/\S*)?", re.IGNORECASE)
+HASHTAG = re.compile(r"(?<![\w&/])[#\uff03](?=\w*[^\W\d_])\w+")
+MENTION = re.compile(r"(?<![\w@])@([A-Za-z0-9_.]{1,30})")
+DEFAULT_COMMENT_STATE = Path("D:/rtv-ops/tracks/growth/research/grok-comments-state.json")
+COMMENT_STATE_ENV = "GROK_COMMENT_STATE"
+
 
 class FactsUnavailable(Exception):
     """facts.json could not be fetched right now (network): try again later, do not answer."""
+
+
+class StateUnreadable(Exception):
+    """The comment state file exists but cannot be read: comment drafts are not answered until it is fixed."""
 
 
 # ---------------------------------------------------------------------------
@@ -222,6 +270,9 @@ def review(draft: dict, facts: dict | None) -> tuple[str, list[str]]:
     elif platform == "instagram" and item.get("type") in SOURCE_TYPES and src and src not in both:
         reasons.append("Instagram: the caption must carry the official source link")
 
+    # Media
+    reasons += media_reasons(draft, item)
+
     # Length
     if platform == "x":
         limit = int((rules.get("max_len") or {}).get("x") or 270)
@@ -236,6 +287,216 @@ def review(draft: dict, facts: dict | None) -> tuple[str, list[str]]:
         if hint:
             reasons.append(f"picks: no #1 / top-pick hint ({short(hint.group(0))!r})")
 
+    return ("REJECT", reasons) if reasons else ("APPROVE", [])
+
+
+def item_names(item: dict) -> list[str]:
+    """Name words a Grok-made image note must not carry: the item's person / company and its peers' names."""
+    names = [item.get("name"), *((p or {}).get("name") for p in item.get("peers") or [] if isinstance(p, dict))]
+    out: list[str] = []
+    for n in names:
+        if isinstance(n, str) and n.strip():
+            out.append(n.strip())
+            out += [w for w in re.split(r"[^A-Za-z]+", n) if len(w) >= 3 and w.lower() not in NAME_FILLER]
+    return uniq_words(out)
+
+
+def media_reasons(draft: dict, item: dict) -> list[str]:
+    """A post carries native media: one of the item's media urls, our rendered file on Pages, or a Grok-made image
+    whose media_note shows no number, logo or real person."""
+    media = draft.get("media_url")
+    ours = [m.get("url") for m in item.get("media") or [] if isinstance(m, dict) and m.get("url")]
+    if not isinstance(media, str) or not media.strip():
+        return ["media_url missing: every post carries an image or video (one of the item's media urls, our file "
+                f"under {mf.PAGES_BASE}/v/<date>/, or \"{GROK_GENERATED}\" with a media_note)"]
+    if media == GROK_GENERATED:
+        note = draft.get("media_note")
+        if not isinstance(note, str) or not note.strip():
+            return [f"media_url {GROK_GENERATED} needs a media_note describing the image"]
+        bad = [m.group(0) for m in NOTE_BAD.finditer(note)]
+        low = note.lower()
+        bad += [n for n in item_names(item) if re.search(rf"(?<!\w){re.escape(n.lower())}(?!\w)", low)]
+        if bad:
+            return ["media_note: a Grok-made image carries no numbers, $, %, logos, faces or real names "
+                    f"({', '.join(sorted({short(b, 24) for b in bad}))})"]
+        return []
+    if media in ours or (OUR_MEDIA.match(media) and ".." not in media):
+        return []
+    return [f"media_url {short(media, 80)} is not one of the item's media urls, a file under {mf.PAGES_BASE}/v/<date>/ "
+            f"or {GROK_GENERATED}"]
+
+
+# ---------------------------------------------------------------------------
+# Comments and replies
+
+def norm_comment(text: str) -> str:
+    """Lowercase words only: punctuation, digits and underscores removed."""
+    return " ".join(re.sub(r"[^\w\s]|[\d_]", " ", text.lower()).split())
+
+
+def trigrams(norm: str) -> set[tuple[str, ...]]:
+    w = norm.split()
+    return {tuple(w[i:i + 3]) for i in range(len(w) - 2)}
+
+
+def parse_target(platform: str, url) -> tuple[str | None, str | None, str | None]:
+    """(post key, author handle or None, error) for the post a comment replies to."""
+    if not isinstance(url, str) or not url.strip():
+        return None, None, "no target_url"
+    try:
+        p = urllib.parse.urlsplit(url.strip())
+        port = p.port
+    except ValueError:
+        return None, None, f"target_url is not a URL: {short(url, 80)}"
+    host = (p.hostname or "").lower()
+    if p.scheme != "https" or p.username or p.password or port is not None or host not in TARGET_HOSTS.get(platform, ()):
+        site = "x.com / twitter.com" if platform == "x" else "instagram.com"
+        return None, None, f"target_url must be an https {site} post URL (got {short(url, 80)})"
+    first = p.path.strip("/").split("/")[0].lower() if p.path.strip("/") else ""
+    m = (X_POST if platform == "x" else IG_POST).match(p.path)
+    if not m:
+        if first == BRAND_HANDLES[platform]:
+            return None, None, "target_url is our own brand account: comment on other accounts' posts"
+        return None, None, f"target_url must be a single post's URL (got {short(url, 80)})"
+    return f"{platform}:{m.group('id')}", m.group("h"), None
+
+
+class CommentState:
+    """Approved comments of the last COMMENT_DAYS UTC days: {"approved": [{date, platform, target, target_url, text,
+    norm, msg_id, at}]}. Written only when an APPROVE answer was sent."""
+
+    def __init__(self, path: Path):
+        self.path = Path(path)
+        self.approved: list[dict] = []
+        if self.path.exists():
+            try:
+                data = json.loads(self.path.read_text(encoding="utf-8-sig"))
+            except (OSError, ValueError) as e:
+                raise StateUnreadable(f"{self.path}: {type(e).__name__}") from None
+            if not isinstance(data, dict) or not isinstance(data.get("approved"), list):
+                raise StateUnreadable(f"{self.path}: expected {{\"approved\": [...]}}")
+            self.approved = [a for a in data["approved"] if isinstance(a, dict)]
+
+    @staticmethod
+    def day(now: dt.datetime) -> str:
+        return now.astimezone(dt.timezone.utc).date().isoformat()
+
+    def recent(self, now: dt.datetime) -> list[dict]:
+        since = (now.astimezone(dt.timezone.utc).date() - dt.timedelta(days=COMMENT_DAYS - 1)).isoformat()
+        return [a for a in self.approved if str(a.get("date") or "") >= since]
+
+    def reasons(self, platform: str, target: str | None, text: str, now: dt.datetime) -> list[str]:
+        today, out = self.day(now), []
+        recent = self.recent(now)
+        n_today = sum(1 for a in recent if a.get("date") == today and a.get("platform") == platform)
+        if n_today >= COMMENT_CAP:
+            out.append(f"daily cap: {n_today} {platform} comments already approved today (UTC; cap {COMMENT_CAP})")
+        if target and any(a.get("target") == target for a in recent):
+            out.append("this target_url already got an approved comment")
+        norm = norm_comment(text)
+        grams = trigrams(norm)
+        for a in recent:
+            if norm and a.get("norm") == norm:
+                out.append(f"duplicate: the same text was approved on {short(a.get('date'), 10)}")
+                break
+            if a.get("date") == today and grams:
+                old = trigrams(str(a.get("norm") or ""))
+                if old and len(grams & old) / min(len(grams), len(old)) >= COMMENT_NGRAM_SHARE:
+                    out.append("near-duplicate of a comment approved today (>= 80% shared word 3-grams)")
+                    break
+        return out
+
+    def add(self, draft: dict, msg_id, now: dt.datetime) -> None:
+        platform = draft.get("platform")
+        target, _, _ = parse_target(platform, draft.get("target_url"))
+        self.approved.append({"date": self.day(now), "platform": platform, "target": target,
+                              "target_url": draft.get("target_url"), "text": draft.get("text"),
+                              "norm": norm_comment(draft.get("text") or ""), "msg_id": msg_id,
+                              "at": now.astimezone(dt.timezone.utc).isoformat()})
+
+    def save(self, now: dt.datetime) -> None:
+        self.approved = self.recent(now)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = self.path.with_name(self.path.name + ".tmp")
+        tmp.write_text(json.dumps({"approved": self.approved}, ensure_ascii=False, indent=1), encoding="utf-8")
+        tmp.replace(self.path)
+
+
+def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
+                   now: dt.datetime | None = None) -> tuple[str, list[str]]:
+    """("APPROVE", []) or ("REJECT", reasons) for a comment / reply on another account's post."""
+    now = now or dt.datetime.now(dt.timezone.utc)
+    reasons: list[str] = []
+    platform = draft.get("platform")
+    text = draft.get("text")
+    iid = draft.get("item_id")
+    if platform not in PLATFORMS:
+        return "REJECT", [f"platform must be x or instagram (got {short(platform)!r})"]
+    if not isinstance(text, str) or not text.strip():
+        return "REJECT", ["no text"]
+    if iid is not None and (not isinstance(iid, str) or not ITEM_ID.match(iid)):
+        return "REJECT", ["item_id must be a facts item id"]
+    target, author, err = parse_target(platform, draft.get("target_url"))
+    if err:
+        reasons.append(err)
+
+    # Length
+    limit = COMMENT_MAX[platform]
+    n = mf.x_weighted_length(text) if platform == "x" else len(text)
+    if n > limit:
+        reasons.append(f"{platform} comment is {n} characters (limit {limit})")
+
+    # Links, hashtags, mentions
+    if URL.search(text) or BARE_DOMAIN.search(text):
+        reasons.append("no links in comments")
+    tags = HASHTAG.findall(text)
+    if tags:
+        reasons.append(f"no hashtags in comments ({', '.join(short(t, 24) for t in tags)})")
+    handles = [m.group(1).rstrip(".") for m in MENTION.finditer(text)]
+    extra = sorted({h for h in handles if not author or h.lower() != author.lower()})
+    if extra:
+        reasons.append("@mentions: only the target post's author" + (f" (@{author})" if author else " (not shown in its URL)")
+                       + f"; got {', '.join('@' + short(h, 30) for h in extra)}")
+
+    # Item, cashtags, numbers
+    rules = (facts or {}).get("rules") or {}
+    item = None
+    scan = MENTION.sub(" ", text)
+    cashtags = [m.group(1).upper() for m in CASHTAG.finditer(scan)]
+    has_number = bool(re.search(r"\d", CASHTAG.sub(" ", scan)))
+    if iid:
+        if facts is None:
+            reasons.append(f"no facts.json for {short(iid[:10])}")
+        else:
+            item = next((i for i in facts.get("items") or [] if i.get("item_id") == iid), None)
+            if item is None:
+                reasons.append(f"item {short(iid, 80)} is not in the {facts.get('date')} facts")
+    elif cashtags or has_number:
+        reasons.append("a comment with numbers or a $cashtag needs the item_id of the facts it uses")
+    if item is not None:
+        tickers = [t.upper() for t in (item.get("tickers") or ([item["ticker"]] if item.get("ticker") else []))]
+        other = sorted({t for t in cashtags if t not in tickers})
+        if other:
+            reasons.append(f"cashtag not in this item: {', '.join('$' + short(t, 8) for t in other)}")
+        bad = unexplained_numbers(scan, [str(a) for a in item.get("allowed_numbers") or []], tickers)
+        if bad:
+            reasons.append("numbers not in allowed_numbers: " + ", ".join(sorted({short(b, 24) for b in bad})))
+        if item.get("type") in NO_PICK_HINT_TYPES:
+            hint = PICK_HINT.search(text)
+            if hint:
+                reasons.append(f"picks: no #1 / top-pick hint ({short(hint.group(0))!r})")
+
+    # Words
+    low = text.lower()
+    words = uniq_words([*fx.BANNED_WORDS, *(rules.get("banned_words") or []), *((item or {}).get("banned_words") or []),
+                        *PROMO_WORDS])
+    banned = [w for w in words if re.search(rf"(?<!\w){re.escape(w.lower())}(?!\w)", low)]
+    if banned:
+        reasons.append(f"banned words: {', '.join(banned)}")
+
+    # Repeats and the daily cap
+    if state is not None:
+        reasons += state.reasons(platform, target, text, now)
     return ("REJECT", reasons) if reasons else ("APPROVE", [])
 
 
@@ -256,7 +517,8 @@ def parse_draft(row: dict) -> tuple[dict | None, str | None]:
     try:
         d = json.loads(rest)
     except ValueError:
-        return None, 'the body must be "DRAFT" followed by one JSON object {item_id, platform, text, reply_text, link}'
+        return None, ('the body must be "DRAFT" followed by one JSON object: a post {item_id, platform, text, reply_text, '
+                      'link, media_url} or a comment {kind: comment, platform, target_url, text, item_id?}')
     if not isinstance(d, dict):
         return None, "the draft must be a JSON object"
     for k in ("item_id", "platform"):
@@ -270,7 +532,8 @@ def parse_draft(row: dict) -> tuple[dict | None, str | None]:
 
 def reply_line(row: dict, draft: dict | None, verdict: str, reasons: list[str]) -> str:
     iid = (draft or {}).get("item_id") or row.get("item_id") or ""
-    iid = iid if isinstance(iid, str) and ITEM_ID.match(iid) else "(no valid item_id)"
+    if not (isinstance(iid, str) and ITEM_ID.match(iid)):
+        iid = "comment" if (draft or {}).get("kind") == "comment" else "(no valid item_id)"
     head = f"{verdict} {int(row['id'])} {iid}"
     if verdict == "APPROVE":
         return head
@@ -290,8 +553,26 @@ def send_reply(instinct_path: Path, env: str, env_file: str | None, platform: st
     return r.returncode == 0
 
 
-def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, limit: int = 200) -> dict:
-    """Review every unacked DRAFT row; `send(platform, body) -> bool` answers one. Returns counts."""
+def comment_state_path(flag: str | None = None) -> Path:
+    """--comment-state, else $GROK_COMMENT_STATE, else DEFAULT_COMMENT_STATE."""
+    import os
+    return Path(flag or os.environ.get(COMMENT_STATE_ENV) or DEFAULT_COMMENT_STATE)
+
+
+def draft_kind(draft: dict) -> tuple[str | None, str | None]:
+    """("post" | "comment", None) or (None, error). A draft without "kind" is a post."""
+    kind = draft.get("kind")
+    if kind in (None, "", "post"):
+        return "post", None
+    if kind == "comment":
+        return "comment", None
+    return None, f"kind must be post or comment (got {short(kind)!r})"
+
+
+def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, limit: int = 200,
+              comment_state: Path | None = None, now: dt.datetime | None = None) -> dict:
+    """Review every unacked DRAFT row; `send(platform, body) -> bool` answers one. Returns counts. An approved comment
+    is written to the comment state only once its APPROVE answer was sent (a dry run keeps it in memory only)."""
     rows = rest.call("GET", instinct.q("select=id,created_at,kind,platform,item_id,body", f"env=eq.{env}",
                                        "direction=eq.from_instinct", "acked_at=is.null", "order=created_at.asc,id.asc",
                                        f"limit={min(limit, instinct.PAGE_ROWS)}")) or []
@@ -300,36 +581,60 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
     print(f"inbox ({env}): {len(rows)} unacked from_instinct rows, {len(drafts)} DRAFT"
           + (" (dry run: nothing sent or acked)" if dry_run else ""))
     cache: dict[str, dict | None] = {}
+    state: CommentState | None = None
     for row in drafts:
         draft, err = parse_draft(row)
+        kind = None
+        if not err:
+            kind, err = draft_kind(draft)
         verdict, reasons = ("REJECT", [err]) if err else ("", [])
         if not err:
-            iid = str(draft.get("item_id") or "")
-            date = iid[:10]
-            if not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
+            clock = now or dt.datetime.now(dt.timezone.utc)
+            iid = draft.get("item_id")
+            date = str(iid or "")[:10]
+            facts = None
+            if (kind == "post" or iid) and not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
                 verdict, reasons = "REJECT", ["item_id must start with the facts date (YYYY-MM-DD)"]
             else:
-                if date not in cache:
-                    try:
-                        cache[date] = load_facts(facts_location(facts_base, date))
-                    except FactsUnavailable as e:
-                        print(f"  #{row['id']}: facts unavailable ({e}); left unacked for the next run")
-                        stats["deferred"] += 1
-                        continue
-                verdict, reasons = review(draft, cache[date])
+                if kind == "post" or iid:
+                    if date not in cache:
+                        try:
+                            cache[date] = load_facts(facts_location(facts_base, date))
+                        except FactsUnavailable as e:
+                            print(f"  #{row['id']}: facts unavailable ({e}); left unacked for the next run")
+                            stats["deferred"] += 1
+                            continue
+                    facts = cache[date]
+                if kind == "post":
+                    verdict, reasons = review(draft, facts)
+                else:
+                    if state is None:
+                        try:
+                            state = CommentState(comment_state or comment_state_path())
+                        except StateUnreadable as e:
+                            print(f"  #{row['id']}: comment state unreadable ({e}); left unacked for the next run")
+                            stats["deferred"] += 1
+                            continue
+                    verdict, reasons = review_comment(draft, facts, state, clock)
         body = reply_line(row, draft, verdict, reasons)
         stats["approved" if verdict == "APPROVE" else "rejected"] += 1
         platform = (draft or {}).get("platform") or row.get("platform")
         print(f"  #{row['id']} -> {body}")
+        approved_comment = verdict == "APPROVE" and kind == "comment"
         if dry_run:
+            if approved_comment:
+                state.add(draft, int(row["id"]), clock)
             continue
         if not send(platform if platform in PLATFORMS else None, body):
             print(f"  #{row['id']}: the answer was not sent; left unacked")
             continue
         stats["answered"] += 1
-        now = dt.datetime.now(dt.timezone.utc).isoformat()
+        if approved_comment:
+            state.add(draft, int(row["id"]), clock)
+            state.save(clock)
+        stamp = dt.datetime.now(dt.timezone.utc).isoformat()
         out = rest.call("PATCH", instinct.q(f"id=eq.{int(row['id'])}", f"env=eq.{env}", "direction=eq.from_instinct",
-                                            "acked_at=is.null", "select=id"), {"acked_at": now}, prefer="return=representation")
+                                            "acked_at=is.null", "select=id"), {"acked_at": stamp}, prefer="return=representation")
         stats["acked"] += len(out or [])
     print("done: " + ", ".join(f"{k} {v}" for k, v in stats.items()))
     return stats
@@ -350,24 +655,41 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--env-file", help="instinct.py --env-file (default: instinct.py's own)")
     ap.add_argument("--instinct", default=str(DEFAULT_INSTINCT))
     ap.add_argument("--limit", type=int, default=200)
+    ap.add_argument("--comment-state", help=f"approved-comments state JSON (default: ${COMMENT_STATE_ENV}, else "
+                                            f"{DEFAULT_COMMENT_STATE})")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if a.draft:
         draft = json.loads(Path(a.draft).read_text(encoding="utf-8-sig"))
-        where = a.facts or facts_location(a.facts_base, str(draft.get("item_id") or "")[:10])
-        try:
-            facts = load_facts(where)
-        except FactsUnavailable as e:
-            print(f"facts unavailable: {e}")
-            return 2
-        verdict, reasons = review(draft, facts)
+        kind, err = draft_kind(draft)
+        if err:
+            print(json.dumps({"verdict": "REJECT", "item_id": draft.get("item_id"), "reasons": [err]}, indent=2))
+            return 1
+        facts = None
+        if kind == "post" or draft.get("item_id"):
+            where = a.facts or facts_location(a.facts_base, str(draft.get("item_id") or "")[:10])
+            try:
+                facts = load_facts(where)
+            except FactsUnavailable as e:
+                print(f"facts unavailable: {e}")
+                return 2
+        if kind == "post":
+            verdict, reasons = review(draft, facts)
+        else:
+            try:
+                state = CommentState(comment_state_path(a.comment_state))
+            except StateUnreadable as e:
+                print(f"comment state unreadable: {e}")
+                return 2
+            verdict, reasons = review_comment(draft, facts, state)  # --draft reads the state, never writes it
         print(json.dumps({"verdict": verdict, "item_id": draft.get("item_id"), "reasons": reasons}, ensure_ascii=False, indent=2))
         return 0 if verdict == "APPROVE" else 1
     instinct = load_instinct(Path(a.instinct))
     env_file = Path(a.env_file) if a.env_file else instinct.DEFAULT_ENV_FILE
     rest = instinct.Rest(*instinct.load_config(env_file))
     run_inbox(rest, instinct, a.env, a.facts_base, a.dry_run,
-              lambda platform, body: send_reply(Path(a.instinct), a.env, a.env_file, platform, body), a.limit)
+              lambda platform, body: send_reply(Path(a.instinct), a.env, a.env_file, platform, body), a.limit,
+              comment_state_path(a.comment_state))
     return 0
 
 

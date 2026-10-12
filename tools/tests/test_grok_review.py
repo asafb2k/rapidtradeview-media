@@ -55,7 +55,7 @@ def good_x(**over):
          "text": "$UNH: Rep. Maria Elvira Salazar (R-FL) disclosed a $15K–$50K purchase, traded Sep 24, filed Oct 7, 2026. "
                  "Not investment advice.",
          "reply_text": f"Filing: {PTR}\nAll her trades: {link(CONGRESS, 'x')}",
-         "link": link(CONGRESS, "x")}
+         "link": link(CONGRESS, "x"), "media_url": CONGRESS["media"][0]["url"]}
     d.update(over)
     return d
 
@@ -67,7 +67,7 @@ def test_good_draft_is_approved():
 def test_good_instagram_caption_is_approved():
     d = {"item_id": CONGRESS["item_id"], "platform": "instagram",
          "text": f"$UNH: a $15K–$50K purchase disclosed 2026-10-07. Source: {PTR} Link in bio. Not investment advice.",
-         "link": link(CONGRESS, "instagram")}
+         "link": link(CONGRESS, "instagram"), "media_url": CONGRESS["media"][0]["url"]}
     assert gr.review(d, FACTS) == ("APPROVE", [])
 
 
@@ -138,7 +138,8 @@ def test_x_length_limit():
 
 
 def picks_draft(text):
-    return {"item_id": PICKS["item_id"], "platform": "x", "text": text, "reply_text": link(PICKS, "x"), "link": link(PICKS, "x")}
+    return {"item_id": PICKS["item_id"], "platform": "x", "text": text, "reply_text": link(PICKS, "x"), "link": link(PICKS, "x"),
+            "media_url": PICKS["media"][0]["url"]}
 
 
 def test_picks_good_and_number_one_hints():
@@ -152,7 +153,8 @@ def test_picks_good_and_number_one_hints():
 
 def feature_draft(item, text, platform="x"):
     return {"item_id": item["item_id"], "platform": platform, "text": text,
-            "reply_text": f"See it on the chart: {link(item, platform)}", "link": link(item, platform)}
+            "reply_text": f"See it on the chart: {link(item, platform)}", "link": link(item, platform),
+            "media_url": item["media"][0]["url"]}
 
 
 PATTERN_TEXT = ("$MARA: automatic technical analysis flagged a rising wedge (Jul 31 to Sep 21). Confirmed Sep 28: "
