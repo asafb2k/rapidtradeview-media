@@ -495,11 +495,12 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
     tags = HASHTAG.findall(text)
     if tags:
         reasons.append(f"no hashtags in comments ({', '.join(short(t, 24) for t in tags)})")
+    # No @mention at all: X and Instagram add the reply-to handle themselves, so a typed one shows twice and reads as
+    # bot-like (10-12, the first live reply showed "@christankerfund @christankerfund ...").
     handles = [m.group(1).rstrip(".") for m in MENTION.finditer(text)]
-    extra = sorted({h for h in handles if not author or h.lower() != author.lower()})
-    if extra:
-        reasons.append("@mentions: only the target post's author" + (f" (@{author})" if author else " (not shown in its URL)")
-                       + f"; got {', '.join('@' + short(h, 30) for h in extra)}")
+    if handles:
+        reasons.append("no @mentions in comments: the platform adds the reply-to handle itself (typed one shows twice); "
+                       f"remove {', '.join('@' + short(h, 30) for h in sorted(set(handles)))}")
 
     # Item, cashtags, numbers
     rules = (facts or {}).get("rules") or {}

@@ -44,10 +44,15 @@ def test_good_comment_is_approved(state):
     assert gr.review_comment(ig, None, state, NOW) == ("APPROVE", [])
 
 
-def test_comment_with_item_numbers_and_author_mention_is_approved(state):
+def test_comment_with_item_numbers_is_approved_and_any_mention_rejected(state):
+    d = comment(item_id=CONGRESS["item_id"],
+                text="The $UNH filing shows a $15K–$50K purchase, traded Sep 24 and filed Oct 7.")
+    assert gr.review_comment(d, FACTS, state, NOW) == ("APPROVE", [])
+    # 10-12: the platform adds the reply-to handle; a typed one (even the author's) showed twice on the live reply
     d = comment(item_id=CONGRESS["item_id"],
                 text="@sometrader the $UNH filing shows a $15K–$50K purchase, traded Sep 24 and filed Oct 7.")
-    assert gr.review_comment(d, FACTS, state, NOW) == ("APPROVE", [])
+    v, why = gr.review_comment(d, FACTS, state, NOW)
+    assert v == "REJECT" and any("no @mentions" in r and "@sometrader" in r for r in why)
 
 
 def test_comment_filing_names_are_not_numbers(state):
@@ -112,7 +117,7 @@ def test_comment_hashtags_and_other_mentions_are_rejected(state):
     assert v == "REJECT" and any("@someoneelse" in r for r in why)
     v, why = gr.review_comment(comment(platform="instagram", target_url=IG_TARGET, text="@sometrader great post"),
                                None, state, NOW)
-    assert v == "REJECT" and any("not shown in its URL" in r for r in why)
+    assert v == "REJECT" and any("no @mentions" in r for r in why)
 
 
 def test_comment_length_limits(state):
