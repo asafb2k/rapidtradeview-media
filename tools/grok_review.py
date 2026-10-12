@@ -11,7 +11,8 @@ default (what Grok reads) or a local v/ directory. Checks:
   - the item exists in that day's facts;
   - ticker: the item's $cashtag is in the text and no other cashtag is (picks: only the list's public tickers;
     moves_like: the subject and the peers listed in the item);
-  - every number-like token in text and reply is one of the item's allowed_numbers (or the cashtag);
+  - every number-like token in text and reply is one of the item's allowed_numbers (or the cashtag); the filing names
+    Form 4, Form 144, Form 13F, 8-K, 10-Q, 10-K and 13F are words, not numbers (posts and comments);
   - banned words (case-insensitive): the rules' list plus the item's own banned_words (chart_pattern / moves_like:
     no predictions such as "will"); "Not investment advice." in the text;
   - link == the item's page_url with {platform} filled in; every URL in text / reply is that link or the item's
@@ -73,6 +74,9 @@ NO_PICK_HINT_TYPES = ("picks_ready", "chart_pattern", "moves_like")
 URL = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
 CASHTAG = re.compile(r"(?<![\w$])\$([A-Za-z]{1,5}(?:[.-][A-Za-z]{1,2})?)(?![\w])")
 DIGIT_TOKEN = re.compile(r"\S*\d\S*")
+# Filing names are words, not numbers (Growth 2026-10-12: "insider buy (Form 4)"): these exact tokens are blanked before
+# the number check in posts and comments; anything glued to them ("Form 4%", "Form 44", "110-K", "8-K.5") stays a number.
+DOC_NAME = re.compile(r"(?<![\w$.,/-])(?:Form\s+(?:4|144|13F)|8-K|10-Q|10-K|13F)(?![\w%$/]|[.,-]\d)", re.IGNORECASE)
 PICK_HINT = re.compile(
     r"#\s*1\b|\bno\.?\s*1\b|\bnumber\s+(?:one|1)\b|\btop\s+(?:pick|idea|stock|choice)|\bbest\s+pick|\bfirst\s+pick"
     r"|\b(?:top|highest)[\s-]+rank|\brank(?:ed)?\s*#?\s*(?:1|one)\b|\block(?:ed)?\b|\bpick\s+of\s+the\s+day\b|\bfavou?rite\b",
@@ -180,8 +184,10 @@ def strip_allowed(text: str, allowed: list[str]) -> str:
 
 
 def unexplained_numbers(text: str, allowed: list[str], tickers: list[str]) -> list[str]:
-    """Number-like tokens of `text` that are not an allowed number (URLs and the item's cashtags are not numbers)."""
+    """Number-like tokens of `text` that are not an allowed number (URLs, filing names such as "Form 4" / "10-K" and the
+    item's cashtags are not numbers)."""
     s = URL.sub(" ", text)
+    s = DOC_NAME.sub(" ", s)
     s = strip_allowed(s, allowed)
     s = CASHTAG.sub(lambda m: " " if m.group(1).upper() in tickers else m.group(0), s)
     out = []
@@ -463,7 +469,7 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
     item = None
     scan = MENTION.sub(" ", text)
     cashtags = [m.group(1).upper() for m in CASHTAG.finditer(scan)]
-    has_number = bool(re.search(r"\d", CASHTAG.sub(" ", scan)))
+    has_number = bool(re.search(r"\d", DOC_NAME.sub(" ", CASHTAG.sub(" ", scan))))
     if iid:
         if facts is None:
             reasons.append(f"no facts.json for {short(iid[:10])}")
