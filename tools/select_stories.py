@@ -128,6 +128,25 @@ def report_page_in(value) -> bool:
     return False
 
 
+def report_page_paths(value, at: str = "") -> list[str]:
+    """Where report_page_in finds a report page: the path of each string (a.b[0].c; "<at> key" for a dict key), never
+    the string itself, so the answer can go in an error message."""
+    if isinstance(value, str):
+        return [at or "(value)"] if report_page_in(value) else []
+    if isinstance(value, dict):
+        out: list[str] = []
+        for k, v in value.items():
+            p = f"{at}.{k}" if at else str(k)
+            if report_page_in(k):
+                out.append(f"{at or '(top)'} key")
+            else:
+                out += report_page_paths(v, p)
+        return out
+    if isinstance(value, (list, tuple)):
+        return [p for i, v in enumerate(value) for p in report_page_paths(v, f"{at}[{i}]")]
+    return []
+
+
 NOVELTY_DAYS = 14
 SAME_TRADE_DAYS = 30
 MAX_SNAPSHOTS = 40

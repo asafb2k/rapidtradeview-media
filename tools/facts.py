@@ -41,10 +41,13 @@ a day to one item: its share card as a 9:16 Reel for Instagram.
 An empty type is valid: items [] and reasons say why. Nothing is estimated or invented (No Fallbacks).
 G-N1 holdout (tracks/growth/bets/g-n1-holdout-prereg.md, Amendment 2): for a date before 2026-11-21 no item may carry
 a /earnings/reports/ URL in any field; an item that does is not built (errors "not built: ...", left_out.g_n1_holdout).
+Errors name a report by its ticker and the HTTP status, never its path; the whole document is screened before writing.
 
 Exit codes: 0 written, every core source loaded (a failed chart_pattern / moves_like read is in errors, its item
 dropped); 4 written, but a core source failed (ticker list, congress, insiders, earnings, picks: partial_sources);
-anything else: crashed / not written (1, or 2 for a usage error).
+5 not written: some field of the document (an item, an error, a reason, anything) carries /earnings/reports/ inside
+the G-N1 holdout (the paths are printed, never the text); anything else: crashed / not written (1, or 2 for a usage
+error).
 
   facts.py --compare-items OLD NEW    OLD / NEW: a file or an https URL (Pages; fetched past its cache). Exit 0 when
                                       both carry the same items (item_id + dedupe_key + media URLs: a card Reel the
@@ -85,6 +88,7 @@ MAX_LEN = {"x": 270}
 PLATFORMS = ["x", "instagram"]
 PLATFORM_PLACEHOLDER = "{platform}"
 PARTIAL = 4  # exit code: written, but a source failed (2 is argparse's usage error)
+HOLDOUT_LEAK = 5  # exit code: not written, the document carries a report page inside the G-N1 holdout
 TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready", "chart_pattern", "moves_like")
 WINDOW_WEEKDAYS = 4  # weekday age 0..4 = the last 5 weekdays
 RESULT_HOURS = 24
@@ -303,6 +307,12 @@ def screen_holdout(items: list[dict], target: dt.date) -> tuple[list[dict], list
     return kept, dropped
 
 
+def holdout_doc_leaks(doc: dict, target: dt.date) -> list[str]:
+    """G-N1 holdout: the paths in the whole facts document (items, errors, reasons, left_out, any field) that carry a
+    report page; [] after the holdout. main() does not write a document that has one."""
+    return ss.report_page_paths(doc) if ss.g_n1_holdout(target) else []
+
+
 def og_media(kind: str, path: str, facts_text: str) -> dict:
     """The landing page's own Open Graph card (a 1200x630 PNG the site renders; not fetched here). earnings_upcoming
     lands on /earnings/tomorrow, whose card is the /earnings one."""
@@ -473,10 +483,19 @@ def fiscal_tokens(label: str | None, quarter=None, year=None) -> list[str]:
     return out
 
 
+def api_status(err: str | None, path: str) -> str | None:
+    """Api.get's error without its path ("<path>: HTTP 503" -> "HTTP 503"): a report's path never goes in an error
+    (G-N1 holdout; the errors and reasons are published in facts.json)."""
+    if not err:
+        return None
+    return err[len(path) + 2:] if err.startswith(f"{path}: ") else err
+
+
 def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], dict, list[str]]:
-    data, err = api.get("/earnings/reports/archive")
+    path = "/earnings/reports/archive"
+    data, err = api.get(path)
     if err or not isinstance(data, dict) or not isinstance(data.get("reports"), list):
-        return [], {}, [err or "/earnings/reports/archive: unreadable response"]
+        return [], {}, [f"earnings report archive: {api_status(err, path) or 'unreadable response'}"]
     lo = as_of - dt.timedelta(hours=RESULT_HOURS)
     # A report published in the window was released at most a few days before it (release_date is a NY date).
     cands = [r for r in data["reports"] if isinstance(r, dict) and r.get("id") and r.get("summary_status") == "ready"
@@ -490,10 +509,12 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
         if upd is not None and upd <= lo:  # published_at <= updated_at: published before the window, no need to read it
             left["outside_24h"] += 1
             continue
-        full, ferr = api.get(f"/earnings/reports/{tile['id']}")
+        path = f"/earnings/reports/{tile['id']}"
+        full, ferr = api.get(path)
         if ferr or not isinstance(full, dict):
             left["unreadable"] += 1
-            errors.append(ferr or f"/earnings/reports/{tile['id']}: unreadable response")
+            errors.append(f"earnings report {tile.get('ticker') or '(no ticker)'}: "
+                          f"{api_status(ferr, path) or 'unreadable response'}")
             continue
         pub = _ts(full.get("published_at"))
         if pub is None or not (lo < pub <= as_of):
@@ -1068,6 +1089,10 @@ def main(argv: list[str] | None = None) -> int:
             print(f"--previous unreadable ({type(e).__name__}): every Moves Like ticker is asked again")
     facts = build_facts(target, ss.Api(a.api), fame, as_of=as_of, previous=previous)
     out = Path(a.out) if a.out else Path(a.repo) / "v" / target.isoformat() / "facts.json"
+    leaks = holdout_doc_leaks(facts, target)
+    if leaks:
+        print(f"NOT WRITTEN: {', '.join(leaks)} carry an earnings report page ({ss.G_N1_REASON}); {out} not updated")
+        return HOLDOUT_LEAK
     mf.write_json(out, facts)
     if a.print:
         print_facts(facts)

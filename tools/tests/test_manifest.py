@@ -510,3 +510,64 @@ def test_live_two_post_days_keep_the_instagram_mix(live):
     image = mf.assign_instagram([1], "weekday", {}, mf.reserved_ig(), image_slots={1})
     assert image == {1: "feed"}
     assert mf.assign_instagram([1, 4], "weekday", dict(image), mf.reserved_ig()) == {1: "feed", 4: "feed"}
+
+
+# ---------------------------------------------------------------------------
+# G-N1 holdout: no /earnings/reports/ in any field of a post dated before 2026-11-21
+
+import hook_v6cat as hook  # noqa: E402
+import select_stories as ss  # noqa: E402
+
+OCT9 = TOOLS.parent / "v" / "2026-10-09" / "manifest.json"
+REPORT_URL = "https://www.rapidtradeview.trade/earnings/reports/dal-2026-q3?utm_source=pinterest&utm_medium=social"
+
+
+@pytest.mark.parametrize("mutate,where", [
+    (lambda p: p["platforms"]["pinterest"].__setitem__("link", REPORT_URL), "posts[0].platforms.pinterest.link"),
+    (lambda p: p["platforms"]["x"].__setitem__("reply", "Summary: rapidtradeview.trade/earnings/reports/dal-2026-q3"),
+     "posts[0].platforms.x.reply"),
+    (lambda p: p["source_urls"].__setitem__(0, "https://www.rapidtradeview.trade/Earnings%2FReports%2Fdal-2026-q3"),
+     "posts[0].source_urls[0]"),
+    (lambda p: p.__setitem__("alt_text", "Card from /earnings/reports/dal-2026-q3"), "posts[0].alt_text"),
+])
+def test_g_n1_a_report_page_in_any_post_field_is_rejected(mutate, where):
+    m = json.loads(OCT9.read_text(encoding="utf-8"))
+    assert mf.validate_manifest(m, "2026-10-09") == []
+    mutate(m["posts"][0])
+    errs = mf.validate_manifest(m, "2026-10-09")
+    assert any(e.startswith(f"{where}: no /earnings/reports/") and "G-N1 holdout" in e for e in errs), errs
+
+
+def test_g_n1_the_manifest_gate_ends_on_11_21(monkeypatch):
+    m = json.loads(OCT9.read_text(encoding="utf-8"))
+    m["posts"][0]["platforms"]["pinterest"]["link"] = REPORT_URL
+    assert any("G-N1" in e for e in mf.validate_manifest(m, "2026-10-09"))
+    monkeypatch.setattr(ss, "G_N1_HOLDOUT_END", dt.date(2026, 10, 9))   # the manifest's date is the readout day
+    assert mf.validate_manifest(m, "2026-10-09") == []
+
+
+def test_g_n1_report_page_paths_names_where_never_what():
+    doc = {"a": "ok", "b": [{"c": "x /earnings/reports/y"}], "/earnings/reports/k": 1, "d": {"e": "%2Fearnings%2Freports%2Fz"}}
+    assert ss.report_page_paths(doc) == ["b[0].c", "(top) key", "d.e"]
+    assert ss.report_page_paths(doc, "p") == ["p.b[0].c", "p key", "p.d.e"]
+    assert ss.report_page_paths({"a": "/earnings/today", "b": 3, "c": None}) == []
+
+
+def _story(tmp_path, date):
+    f = tmp_path / "data.json"
+    f.write_text(json.dumps({"category": "earnings_report", "date": date, "story_id": "dal-report",
+                             "story": {"report_id": "dal-2026-q3"}}), encoding="utf-8")
+    return f
+
+
+def test_g_n1_the_hook_refuses_an_earnings_report_story_until_11_21(tmp_path, monkeypatch, capsys):
+    def no_run(*a, **k):
+        raise AssertionError("nothing may render inside the holdout")
+    monkeypatch.setattr(hook.subprocess, "run", no_run)
+    for date in ("2026-10-13", "2026-11-20"):
+        for extra in ([], ["--dry-run"]):
+            assert hook.main(["--data", str(_story(tmp_path, date)), "--out", str(tmp_path / "out"), *extra]) == 1
+            assert "refused (G-N1 holdout until 11-21" in capsys.readouterr().out
+    assert not (tmp_path / "out").exists()
+    assert hook.main(["--data", str(_story(tmp_path, "2026-11-23")), "--out", str(tmp_path / "out"), "--dry-run"]) == 0
+    assert "report-summary --id dal-report --report dal-2026-q3" in capsys.readouterr().out

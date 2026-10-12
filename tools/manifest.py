@@ -68,6 +68,9 @@ Rules checked (both here and in the kit):
     1 Reel, 2 Stories and 4 feed posts and Stories together (the writer: 1 Reel + 4 feed, no Story), and
     platforms.threads may carry "topic" (Stocks, Stock Market, Earnings or Investing; the writer sets it
     from the category).
+Checked here only (not in the kit): G-N1 holdout (select_stories.G_N1_HOLDOUT_END): a manifest dated before 2026-11-21
+  is rejected when any post carries /earnings/reports/ (percent-decoded, any case) in any field; the earnings link is
+  /dashboard/<T>#earnings-history.
 """
 from __future__ import annotations
 
@@ -394,6 +397,10 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
     if not isinstance(posts, list) or not posts:
         return errors + ["manifest: posts must be a non-empty list"]
     reels = reels_only(date)
+    # G-N1 holdout (select_stories.G_N1_HOLDOUT_END): a post dated before 2026-11-21 carries no earnings report page
+    # (/earnings/reports/<id>) in any field. Imported here: select_stories imports this module.
+    import select_stories as ss
+    holdout = ss.g_n1_holdout(dt.date.fromisoformat(date))
     cap = 1 if dtype == "weekend" else MAX_POSTS
     if len(posts) > cap:
         errors.append(f"manifest: {len(posts)} posts; a {dtype} has at most {cap}")
@@ -406,6 +413,11 @@ def validate_manifest(m: object, expected_date: str | None = None) -> list[str]:
             errors.append(f"{at}: must be an object")
             continue
         _keys(errors, at, p, POST_KEYS | POST_OPTIONAL_KEYS, POST_KEYS)
+        if holdout:
+            leaks = ss.report_page_paths(p, at)
+            if leaks:
+                errors.append(f"{', '.join(leaks)}: no {ss.REPORT_PAGE_PATH} link, text or media in a post dated before "
+                              f"{ss.G_N1_HOLDOUT_END} (G-N1 holdout); link /dashboard/<T>#earnings-history")
         if "music" in p:
             _music(errors, f"{at}.music", p["music"])
         if "status" in p or "held_reason" in p:

@@ -247,6 +247,38 @@ def test_g_n1_holdout_drops_any_item_with_a_report_url_until_11_21():
         assert kept == [base] and len(dropped) == 1
 
 
+def test_g_n1_a_failed_report_read_names_the_ticker_never_the_report_path():
+    """errors and reasons are published in facts.json: a failed archive or report read says the ticker + HTTP status."""
+    f = build(**{"/earnings/reports/archive": None})
+    assert "earnings report archive: HTTP 503" in f["errors"]
+    assert "earnings report archive: HTTP 503" in f["reasons"]["earnings_result"]
+    assert "earnings_result" in f["partial_sources"]
+    assert "/earnings/reports/" not in json.dumps(f) and fx.holdout_doc_leaks(f, FRI) == []
+    tile = {"id": "jpm-2026-q3", "ticker": "JPM", "release_date": "2026-10-09", "summary_status": "ready"}
+    f = build(**{"/earnings/reports/archive": {"reports": [tile]}, "/earnings/reports/jpm-2026-q3": None})
+    assert "earnings report JPM: HTTP 503" in f["errors"] and f["left_out"]["earnings_result"]["unreadable"] == 1
+    assert "/earnings/reports/" not in json.dumps(f) and fx.holdout_doc_leaks(f, FRI) == []
+    assert fx.api_status("/earnings/reports/jpm-2026-q3: HTTP 503", "/earnings/reports/jpm-2026-q3") == "HTTP 503"
+    assert fx.api_status(None, "/x") is None
+
+
+def test_g_n1_main_does_not_write_a_document_with_a_report_path(tmp_path, monkeypatch):
+    """The whole document is screened before writing: any field (here an error and a reason) blocks the write (exit 5)."""
+    monkeypatch.setattr(fx.ss, "Api", lambda base: StubApi(answers()))
+    good = fx.build_facts(FRI, StubApi(answers()), FAME, now=NOW)
+    leak = dict(good, errors=["/earnings/reports/jpm-2026-q3: HTTP 503"],
+                reasons=dict(good["reasons"], earnings_result="see /Earnings%2FReports/jpm-2026-q3"))
+    assert sorted(fx.holdout_doc_leaks(leak, FRI)) == ["errors[0]", "reasons.earnings_result"]
+    monkeypatch.setattr(fx, "build_facts", lambda *a, **k: leak)
+    out = tmp_path / "facts.json"
+    assert fx.main(["--date", "2026-10-09", "--out", str(out)]) == fx.HOLDOUT_LEAK == 5
+    assert not out.exists()
+    out.write_text("{}", encoding="utf-8")                               # an earlier file stays as it was
+    assert fx.main(["--date", "2026-11-20", "--out", str(out)]) == 5 and out.read_text(encoding="utf-8") == "{}"
+    assert fx.main(["--date", "2026-11-21", "--out", str(out)]) == 0     # the readout: the gate is off
+    assert fx.holdout_doc_leaks(leak, dt.date(2026, 11, 21)) == []
+
+
 def test_earnings_upcoming_next_weekday_confirmed_universe_only():
     week = {"days": [{"date": "2026-10-12", "count": 3, "reports": [
         {"symbol": "AAPL", "date": "2026-10-12", "hour": "amc", "quarter": 4, "year": 2026, "date_confirmed": True, "in_universe": True, "market_cap": 3e12},
