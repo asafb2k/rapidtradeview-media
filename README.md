@@ -45,8 +45,9 @@ nor more than one Reel on a weekday. Merge this branch only after that kit is on
 
 Card Reel (Growth 2026-10-12: a second Instagram Reel a day). Every facts build (`Publish-Facts`) runs `tools/card_reel.py`
 first. Weekdays from 10:00 New York time (the first facts build at or after it, normally the 10:00 intraday refresh) and
-on the weekend pass, it picks ONE item a day, the first available of earnings_result (largest market cap), congress_trade
-(freshest filing), form4_buy (freshest filing), chart_pattern; renders its share card (media[0], our page's 1200x630 Open
+on the weekend pass, it picks ONE item a day, the first available of earnings_result (largest market cap), congress_trade,
+form4_buy (both: buys before sales, then the largest amount at the top of its range, then the freshest filing),
+chart_pattern; ties keep the facts order; renders its share card (media[0], our page's 1200x630 Open
 Graph PNG, never the site's generic card) through growth-video `scripts/v6cat/card_reel.py` (the item's facts_text as the
 caption, a slow push-in on a plain dark background, the standard end card, the VSCO bed, 13 s; its QA must pass), commits
 `v/<date>/cards/<item_id>/reel_9x16.mp4` + `music.json` (provenance and file hash), waits for Pages, and then adds
