@@ -1,0 +1,2779 @@
+{
+  "schema": "rtv-facts/1",
+  "date": "2026-10-12",
+  "generated_at": "2026-10-12T09:00:03Z",
+  "as_of": "2026-10-12T09:00:03Z",
+  "rules": {
+    "banned_words": [
+      "insider trading",
+      "guaranteed",
+      "moon",
+      "buy now",
+      "will rise",
+      "price target",
+      "to the moon",
+      "breakout coming",
+      "about to",
+      "set to",
+      "should buy",
+      "should sell",
+      "load up",
+      "buy the dip",
+      "time to buy",
+      "time to sell",
+      "don't miss",
+      "dont miss",
+      "easy money",
+      "can't lose",
+      "cant lose",
+      "free money",
+      "sell now",
+      "get in now",
+      "bitcoin",
+      "btc",
+      "crypto",
+      "cryptocurrency",
+      "ethereum",
+      "blockchain"
+    ],
+    "disclaimer": "Not investment advice.",
+    "max_len": {
+      "x": 270
+    },
+    "platforms": [
+      "x",
+      "instagram"
+    ],
+    "platform_placeholder": "{platform}",
+    "numbers": "every number, date or amount in a post must be one of the item's allowed_numbers, as written there",
+    "picks": "never name or hint at the #1 pick; it is locked and not in this file",
+    "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
+    "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item"
+  },
+  "counts": {
+    "congress_trade": 35,
+    "form4_buy": 5,
+    "earnings_result": 0,
+    "earnings_upcoming": 9,
+    "picks_ready": 0,
+    "chart_pattern": 1,
+    "moves_like": 3
+  },
+  "reasons": {
+    "earnings_result": "no earnings report published between 2026-10-11T09:00Z and 2026-10-12T09:00Z",
+    "picks_ready": "the published list (2026-10-09) expires 2026-10-12T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
+  },
+  "left_out": {
+    "congress_trade": {
+      "rows_read": 50,
+      "out_of_window": 6,
+      "not_congress": 0,
+      "other_side": 0,
+      "late_filing_over_90d": 0,
+      "refiles_older_report": 0,
+      "bad_date": 0,
+      "not_listed": 0,
+      "no_amount": 0,
+      "no_official_source": 0
+    },
+    "form4_buy": {
+      "rows_read": 20,
+      "filings_passing_filters": 15,
+      "below_minimum": 10,
+      "no_sec_index": 0
+    },
+    "earnings_result": {
+      "archive_reports": 1289,
+      "recent_ready": 13,
+      "outside_24h": 13,
+      "unreadable": 0
+    },
+    "earnings_upcoming": {
+      "listed": 24,
+      "confirmed_in_universe": 9
+    },
+    "chart_pattern": {
+      "tiles": 1
+    },
+    "moves_like": {
+      "tickers_in_items": 43,
+      "carried_over": 0,
+      "requested": 5,
+      "not_covered": 0,
+      "disabled": 0,
+      "no_peer": 0,
+      "below_floor": 2,
+      "stale": 0,
+      "unavailable": 0,
+      "unreadable": 0
+    }
+  },
+  "errors": [],
+  "partial_sources": [],
+  "moves_like_checked": {
+    "URI": "item",
+    "BPRE": "below_floor",
+    "JPM": "item",
+    "SPGI": "item",
+    "UNH": "below_floor"
+  },
+  "api_requests": 18,
+  "items": [
+    {
+      "item_id": "2026-10-12-congress-trade-URI-4fcdab",
+      "type": "congress_trade",
+      "ticker": "URI",
+      "tickers": [
+        "URI"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-URI-4fcdab#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of URI (United Rentals, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:URI:sell",
+      "company": "United Rentals, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of URI (United Rentals, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-UNH-ccb587",
+      "type": "congress_trade",
+      "ticker": "UNH",
+      "tickers": [
+        "UNH"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-UNH-ccb587#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of UNH (UnitedHealth Group Incorporated), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:UNH:sell",
+      "company": "UnitedHealth Group Incorporated",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of UNH (UnitedHealth Group Incorporated), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-SPCX-8e0eda",
+      "type": "congress_trade",
+      "ticker": "SPCX",
+      "tickers": [
+        "SPCX"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-SPCX-8e0eda#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of SPCX (Space Exploration Technologies Corp.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:SPCX:sell",
+      "company": "Space Exploration Technologies Corp.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of SPCX (Space Exploration Technologies Corp.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-SNOW-65f027",
+      "type": "congress_trade",
+      "ticker": "SNOW",
+      "tickers": [
+        "SNOW"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $15K–$50K",
+      "traded": [
+        "2026-09-04"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-SNOW-65f027#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$15K–$50K",
+        "$1K",
+        "$15K",
+        "$50K",
+        "$1,001–$15,000",
+        "$15,001–$50,000",
+        "$1,001",
+        "$15,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-04",
+        "Sep 4, 2026",
+        "Sep 4",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of SNOW (Snowflake Inc.), $1K–$15K; $15K–$50K, traded 2026-09-04; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:SNOW:buy",
+      "company": "Snowflake Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000; $15,001–$50,000",
+      "rows": 2,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of SNOW (Snowflake Inc.), $1K–$15K; $15K–$50K, traded 2026-09-04; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-SNOW-f7a4a9",
+      "type": "congress_trade",
+      "ticker": "SNOW",
+      "tickers": [
+        "SNOW"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-SNOW-f7a4a9#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of SNOW (Snowflake Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:SNOW:sell",
+      "company": "Snowflake Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of SNOW (Snowflake Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-RH-ae32b9",
+      "type": "congress_trade",
+      "ticker": "RH",
+      "tickers": [
+        "RH"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-RH-ae32b9#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of RH (RH), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:RH:sell",
+      "company": "RH",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of RH (RH), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-PTON-446b58",
+      "type": "congress_trade",
+      "ticker": "PTON",
+      "tickers": [
+        "PTON"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-PTON-446b58#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of PTON (Peloton Interactive, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:PTON:sell",
+      "company": "Peloton Interactive, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of PTON (Peloton Interactive, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-OKTA-b73a28",
+      "type": "congress_trade",
+      "ticker": "OKTA",
+      "tickers": [
+        "OKTA"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $1K–$15K",
+      "traded": [
+        "2026-09-04"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-OKTA-b73a28#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-04",
+        "Sep 4, 2026",
+        "Sep 4",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of OKTA (Okta, Inc.), $1K–$15K; $1K–$15K, traded 2026-09-04; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:OKTA:buy",
+      "company": "Okta, Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000; $1,001–$15,000",
+      "rows": 2,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of OKTA (Okta, Inc.), $1K–$15K; $1K–$15K, traded 2026-09-04; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-OKTA-ec1bc2",
+      "type": "congress_trade",
+      "ticker": "OKTA",
+      "tickers": [
+        "OKTA"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-OKTA-ec1bc2#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of OKTA (Okta, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:OKTA:sell",
+      "company": "Okta, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of OKTA (Okta, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-MSFT-3db025",
+      "type": "congress_trade",
+      "ticker": "MSFT",
+      "tickers": [
+        "MSFT"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-MSFT-3db025#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of MSFT (Microsoft Corporation), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:MSFT:sell",
+      "company": "Microsoft Corporation",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of MSFT (Microsoft Corporation), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-MRVL-07f646",
+      "type": "congress_trade",
+      "ticker": "MRVL",
+      "tickers": [
+        "MRVL"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-MRVL-07f646#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of MRVL (Marvell Technology, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:MRVL:sell",
+      "company": "Marvell Technology, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of MRVL (Marvell Technology, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-MRNA-1520cc",
+      "type": "congress_trade",
+      "ticker": "MRNA",
+      "tickers": [
+        "MRNA"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-MRNA-1520cc#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of MRNA (Moderna, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:MRNA:sell",
+      "company": "Moderna, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of MRNA (Moderna, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-MRK-467b68",
+      "type": "congress_trade",
+      "ticker": "MRK",
+      "tickers": [
+        "MRK"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-MRK-467b68#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of MRK (Merck & Co., Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:MRK:sell",
+      "company": "Merck & Co., Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of MRK (Merck & Co., Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-META-f84b44",
+      "type": "congress_trade",
+      "ticker": "META",
+      "tickers": [
+        "META"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $1K–$15K",
+      "traded": [
+        "2026-09-22"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-META-f84b44#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-22",
+        "Sep 22, 2026",
+        "Sep 22",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of META (Meta Platforms, Inc.), $1K–$15K; $1K–$15K, traded 2026-09-22; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:META:buy",
+      "company": "Meta Platforms, Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000; $1,001–$15,000",
+      "rows": 2,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of META (Meta Platforms, Inc.), $1K–$15K; $1K–$15K, traded 2026-09-22; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-META-596f99",
+      "type": "congress_trade",
+      "ticker": "META",
+      "tickers": [
+        "META"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-META-596f99#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of META (Meta Platforms, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:META:sell",
+      "company": "Meta Platforms, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of META (Meta Platforms, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-MCD-ab8b40",
+      "type": "congress_trade",
+      "ticker": "MCD",
+      "tickers": [
+        "MCD"
+      ],
+      "name": "Josh Gottheimer",
+      "office": "U.S. Representative (D-NJ)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-25"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035590.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-MCD-ab8b40#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-25",
+        "Sep 25, 2026",
+        "Sep 25"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a sale of MCD (McDonald's Corporation), $1K–$15K, traded 2026-09-25; filed 2026-10-07 (owner: joint).",
+      "dedupe_key": "ptr:20035590:MCD:sell",
+      "company": "McDonald's Corporation",
+      "side": "sell",
+      "owner": [
+        "joint"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a sale of MCD (McDonald's Corporation), $1K–$15K, traded 2026-09-25; filed 2026-10-07 (owner: joint)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-IBM-105bdb",
+      "type": "congress_trade",
+      "ticker": "IBM",
+      "tickers": [
+        "IBM"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $1K–$15K",
+      "traded": [
+        "2026-09-04"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-IBM-105bdb#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-04",
+        "Sep 4, 2026",
+        "Sep 4",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 sales of IBM (International Business Machines Corporation), $1K–$15K; $1K–$15K, traded 2026-09-04; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:IBM:sell",
+      "company": "International Business Machines Corporation",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000; $1,001–$15,000",
+      "rows": 2,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 sales of IBM (International Business Machines Corporation), $1K–$15K; $1K–$15K, traded 2026-09-04; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-HONA-ec373f",
+      "type": "congress_trade",
+      "ticker": "HONA",
+      "tickers": [
+        "HONA"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-HONA-ec373f#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of HONA (Honeywell Aerospace Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:HONA:sell",
+      "company": "Honeywell Aerospace Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of HONA (Honeywell Aerospace Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-HON-f516ed",
+      "type": "congress_trade",
+      "ticker": "HON",
+      "tickers": [
+        "HON"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-HON-f516ed#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of HON (Honeywell International Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:HON:sell",
+      "company": "Honeywell International Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of HON (Honeywell International Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-GS-3643da",
+      "type": "congress_trade",
+      "ticker": "GS",
+      "tickers": [
+        "GS"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-GS-3643da#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of GS (The Goldman Sachs Group, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:GS:sell",
+      "company": "The Goldman Sachs Group, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of GS (The Goldman Sachs Group, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-GLW-274f31",
+      "type": "congress_trade",
+      "ticker": "GLW",
+      "tickers": [
+        "GLW"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $1K–$15K; $1K–$15K",
+      "traded": [
+        "2026-09-04",
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-GLW-274f31#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-04",
+        "Sep 4, 2026",
+        "Sep 4",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24",
+        "3"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 3 sales of GLW (Corning Incorporated), $1K–$15K; $1K–$15K; $1K–$15K, traded 2026-09-04, 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:GLW:sell",
+      "company": "Corning Incorporated",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000; $1,001–$15,000; $1,001–$15,000",
+      "rows": 3,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 3 sales of GLW (Corning Incorporated), $1K–$15K; $1K–$15K; $1K–$15K, traded 2026-09-04, 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-GLW-b5183d",
+      "type": "congress_trade",
+      "ticker": "GLW",
+      "tickers": [
+        "GLW"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $1K–$15K",
+      "traded": [
+        "2026-09-08"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-GLW-b5183d#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-08",
+        "Sep 8, 2026",
+        "Sep 8",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of GLW (Corning Incorporated), $1K–$15K; $1K–$15K, traded 2026-09-08; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:GLW:buy",
+      "company": "Corning Incorporated",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000; $1,001–$15,000",
+      "rows": 2,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of GLW (Corning Incorporated), $1K–$15K; $1K–$15K, traded 2026-09-08; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-GE-71edaa",
+      "type": "congress_trade",
+      "ticker": "GE",
+      "tickers": [
+        "GE"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-GE-71edaa#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of GE (GE Aerospace), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:GE:sell",
+      "company": "GE Aerospace",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of GE (GE Aerospace), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-FDX-af9851",
+      "type": "congress_trade",
+      "ticker": "FDX",
+      "tickers": [
+        "FDX"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-FDX-af9851#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of FDX (FedEx Corporation), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:FDX:sell",
+      "company": "FedEx Corporation",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of FDX (FedEx Corporation), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-DDOG-d4bc6d",
+      "type": "congress_trade",
+      "ticker": "DDOG",
+      "tickers": [
+        "DDOG"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-DDOG-d4bc6d#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of DDOG (Datadog, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:DDOG:sell",
+      "company": "Datadog, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of DDOG (Datadog, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-CVX-ce0235",
+      "type": "congress_trade",
+      "ticker": "CVX",
+      "tickers": [
+        "CVX"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-02"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-CVX-ce0235#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-02",
+        "Sep 2, 2026",
+        "Sep 2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a purchase of CVX (Chevron Corporation), $1K–$15K, traded 2026-09-02; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:CVX:buy",
+      "company": "Chevron Corporation",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a purchase of CVX (Chevron Corporation), $1K–$15K, traded 2026-09-02; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-CSCO-438126",
+      "type": "congress_trade",
+      "ticker": "CSCO",
+      "tickers": [
+        "CSCO"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $15K–$50K; $1K–$15K",
+      "traded": [
+        "2026-09-08",
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-CSCO-438126#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$15K–$50K",
+        "$1K",
+        "$15K",
+        "$50K",
+        "$1,001–$15,000",
+        "$15,001–$50,000",
+        "$1,001",
+        "$15,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-08",
+        "Sep 8, 2026",
+        "Sep 8",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24",
+        "3"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 3 sales of CSCO (Cisco Systems, Inc.), $1K–$15K; $15K–$50K; $1K–$15K, traded 2026-09-08, 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:CSCO:sell",
+      "company": "Cisco Systems, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000; $15,001–$50,000; $1,001–$15,000",
+      "rows": 3,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 3 sales of CSCO (Cisco Systems, Inc.), $1K–$15K; $15K–$50K; $1K–$15K, traded 2026-09-08, 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-CRM-6d52b9",
+      "type": "congress_trade",
+      "ticker": "CRM",
+      "tickers": [
+        "CRM"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-CRM-6d52b9#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of CRM (Salesforce, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:CRM:sell",
+      "company": "Salesforce, Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of CRM (Salesforce, Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-CB-c753b4",
+      "type": "congress_trade",
+      "ticker": "CB",
+      "tickers": [
+        "CB"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-CB-c753b4#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of CB (Chubb Limited), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:CB:sell",
+      "company": "Chubb Limited",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of CB (Chubb Limited), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-C-ecb9e3",
+      "type": "congress_trade",
+      "ticker": "C",
+      "tickers": [
+        "C"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-C-ecb9e3#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of C (Citigroup Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:C:sell",
+      "company": "Citigroup Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of C (Citigroup Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-BRK-B-fd1052",
+      "type": "congress_trade",
+      "ticker": "BRK.B",
+      "tickers": [
+        "BRK.B"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-BRK-B-fd1052#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of BRK.B (Berkshire Hathaway Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:BRK.B:sell",
+      "company": "Berkshire Hathaway Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of BRK.B (Berkshire Hathaway Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-BIIB-c4d858",
+      "type": "congress_trade",
+      "ticker": "BIIB",
+      "tickers": [
+        "BIIB"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-BIIB-c4d858#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of BIIB (Biogen Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:BIIB:sell",
+      "company": "Biogen Inc.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of BIIB (Biogen Inc.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-BEP-e2f4db",
+      "type": "congress_trade",
+      "ticker": "BEP",
+      "tickers": [
+        "BEP"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-BEP-e2f4db#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of BEP (Brookfield Renewable Partners L.P.), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:BEP:sell",
+      "company": "Brookfield Renewable Partners L.P.",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of BEP (Brookfield Renewable Partners L.P.), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-BA-17b72d",
+      "type": "congress_trade",
+      "ticker": "BA",
+      "tickers": [
+        "BA"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-24"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-BA-17b72d#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "Sep 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of BA (The Boeing Company), $1K–$15K, traded 2026-09-24; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:BA:sell",
+      "company": "The Boeing Company",
+      "side": "sell",
+      "owner": [
+        "self"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed a sale of BA (The Boeing Company), $1K–$15K, traded 2026-09-24; filed 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-congress-trade-AMAT-ddd49c",
+      "type": "congress_trade",
+      "ticker": "AMAT",
+      "tickers": [
+        "AMAT"
+      ],
+      "name": "Josh Gottheimer",
+      "office": "U.S. Representative (D-NJ)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-15"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035590.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-AMAT-ddd49c#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-15",
+        "Sep 15, 2026",
+        "Sep 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a sale of AMAT (Applied Materials, Inc.), $1K–$15K, traded 2026-09-15; filed 2026-10-07 (owner: joint).",
+      "dedupe_key": "ptr:20035590:AMAT:sell",
+      "company": "Applied Materials, Inc.",
+      "side": "sell",
+      "owner": [
+        "joint"
+      ],
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a sale of AMAT (Applied Materials, Inc.), $1K–$15K, traded 2026-09-15; filed 2026-10-07 (owner: joint)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-form4-buy-BPRE-ccd9d3",
+      "type": "form4_buy",
+      "ticker": "BPRE",
+      "tickers": [
+        "BPRE"
+      ],
+      "name": "Ramin Kamfar",
+      "office": "Director at Bluerock Private Real Estate Fund",
+      "amount_text": "$2.42M",
+      "traded": [
+        "2026-10-07"
+      ],
+      "filed": "2026-10-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551047/000139834426018110/0001398344-26-018110-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kamfar-ramin-1111908?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-form4-buy-BPRE-ccd9d3#trades",
+      "allowed_numbers": [
+        "$2.42M",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Ramin Kamfar (Director at Bluerock Private Real Estate Fund) reported an open-market purchase of BPRE totaling $2.42M on a Form 4 filed 2026-10-09, traded 2026-10-07.",
+      "dedupe_key": "form4:0001398344-26-018110:BPRE",
+      "company": "Bluerock Private Real Estate Fund",
+      "side": "buy",
+      "accession": "0001398344-26-018110",
+      "rows": 1,
+      "row_amounts": [
+        "$2.42M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/kamfar-ramin-1111908/opengraph-image",
+          "kind": "image",
+          "alt": "Ramin Kamfar (Director at Bluerock Private Real Estate Fund) reported an open-market purchase of BPRE totaling $2.42M on a Form 4 filed 2026-10-09, traded 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-form4-buy-PRTA-e4cfa8",
+      "type": "form4_buy",
+      "ticker": "PRTA",
+      "tickers": [
+        "PRTA"
+      ],
+      "name": "William P. Scully",
+      "office": "10% owner at Prothena Corporation plc",
+      "amount_text": "$1.05M",
+      "traded": [
+        "2026-10-07"
+      ],
+      "filed": "2026-10-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1559053/000104546326000020/0001045463-26-000020-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/scully-william-p-1045463?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-form4-buy-PRTA-e4cfa8#trades",
+      "allowed_numbers": [
+        "$1.05M",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "William P. Scully (10% owner at Prothena Corporation plc) reported an open-market purchase of PRTA totaling $1.05M on a Form 4 filed 2026-10-09, traded 2026-10-07.",
+      "dedupe_key": "form4:0001045463-26-000020:PRTA",
+      "company": "Prothena Corporation plc",
+      "side": "buy",
+      "accession": "0001045463-26-000020",
+      "rows": 1,
+      "row_amounts": [
+        "$1.05M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/scully-william-p-1045463/opengraph-image",
+          "kind": "image",
+          "alt": "William P. Scully (10% owner at Prothena Corporation plc) reported an open-market purchase of PRTA totaling $1.05M on a Form 4 filed 2026-10-09, traded 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-form4-buy-COE-b2e823",
+      "type": "form4_buy",
+      "ticker": "COE",
+      "tickers": [
+        "COE"
+      ],
+      "name": "Jack Jiajia Huang",
+      "office": "Chief Executive Officer at 51Talk Online Education Group",
+      "amount_text": "$14.12M",
+      "traded": [
+        "2026-09-25"
+      ],
+      "filed": "2026-10-08",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1659494/000202976026000010/0002029760-26-000010-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/huang-jack-jiajia-2029760?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-form4-buy-COE-b2e823#trades",
+      "allowed_numbers": [
+        "$14.12M",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8",
+        "2026-09-25",
+        "Sep 25, 2026",
+        "Sep 25",
+        "51Talk"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Jack Jiajia Huang (Chief Executive Officer at 51Talk Online Education Group) reported an open-market purchase of COE totaling $14.12M on a Form 4 filed 2026-10-08, traded 2026-09-25.",
+      "dedupe_key": "form4:0002029760-26-000010:COE",
+      "company": "51Talk Online Education Group",
+      "side": "buy",
+      "accession": "0002029760-26-000010",
+      "rows": 1,
+      "row_amounts": [
+        "$14.12M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/huang-jack-jiajia-2029760/opengraph-image",
+          "kind": "image",
+          "alt": "Jack Jiajia Huang (Chief Executive Officer at 51Talk Online Education Group) reported an open-market purchase of COE totaling $14.12M on a Form 4 filed 2026-10-08, traded 2026-09-25."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-form4-buy-BORR-5443be",
+      "type": "form4_buy",
+      "ticker": "BORR",
+      "tickers": [
+        "BORR"
+      ],
+      "name": "Tor Olav Troim",
+      "office": "Director at Borr Drilling Limited",
+      "amount_text": "$5.39M",
+      "traded": [
+        "2026-10-07"
+      ],
+      "filed": "2026-10-08",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1715497/000162828026065416/0001628280-26-065416-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-form4-buy-BORR-5443be#trades",
+      "allowed_numbers": [
+        "$5.39M",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $5.39M on a Form 4 filed 2026-10-08, traded 2026-10-07.",
+      "dedupe_key": "form4:0001628280-26-065416:BORR",
+      "company": "Borr Drilling Limited",
+      "side": "buy",
+      "accession": "0001628280-26-065416",
+      "rows": 1,
+      "row_amounts": [
+        "$5.39M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630/opengraph-image",
+          "kind": "image",
+          "alt": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $5.39M on a Form 4 filed 2026-10-08, traded 2026-10-07."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-form4-buy-AVR-a39a70",
+      "type": "form4_buy",
+      "ticker": "AVR",
+      "tickers": [
+        "AVR"
+      ],
+      "name": "L1 Capital Pty Ltd",
+      "office": "10% owner at Anteris Technologies Global Corp.",
+      "amount_text": "$1.96M",
+      "traded": [
+        "2026-10-06"
+      ],
+      "filed": "2026-10-08",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2011514/000181764626000032/0001817646-26-000032-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/l1-capital-pty-ltd-1817646?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-form4-buy-AVR-a39a70#trades",
+      "allowed_numbers": [
+        "$1.96M",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8",
+        "2026-10-06",
+        "Oct 6, 2026",
+        "Oct 6",
+        "L1",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "L1 Capital Pty Ltd (10% owner at Anteris Technologies Global Corp.) reported an open-market purchase of AVR totaling $1.96M on a Form 4 filed 2026-10-08, traded 2026-10-06.",
+      "dedupe_key": "form4:0001817646-26-000032:AVR",
+      "company": "Anteris Technologies Global Corp.",
+      "side": "buy",
+      "accession": "0001817646-26-000032",
+      "rows": 1,
+      "row_amounts": [
+        "$1.96M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/l1-capital-pty-ltd-1817646/opengraph-image",
+          "kind": "image",
+          "alt": "L1 Capital Pty Ltd (10% owner at Anteris Technologies Global Corp.) reported an open-market purchase of AVR totaling $1.96M on a Form 4 filed 2026-10-08, traded 2026-10-06."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-JPM-70a467",
+      "type": "earnings_upcoming",
+      "ticker": "JPM",
+      "tickers": [
+        "JPM"
+      ],
+      "name": "JPMorgan Chase & Co.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-JPM-70a467",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "JPMorgan Chase & Co. (JPM) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:JPM:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "JPMorgan Chase & Co. (JPM) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-JNJ-6000a6",
+      "type": "earnings_upcoming",
+      "ticker": "JNJ",
+      "tickers": [
+        "JNJ"
+      ],
+      "name": "Johnson & Johnson",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-JNJ-6000a6",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Johnson & Johnson (JNJ) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:JNJ:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Johnson & Johnson (JNJ) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-UNH-cc8fad",
+      "type": "earnings_upcoming",
+      "ticker": "UNH",
+      "tickers": [
+        "UNH"
+      ],
+      "name": "UnitedHealth Group Incorporated",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-UNH-cc8fad",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "UnitedHealth Group Incorporated (UNH) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:UNH:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "UnitedHealth Group Incorporated (UNH) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-GS-ff8e31",
+      "type": "earnings_upcoming",
+      "ticker": "GS",
+      "tickers": [
+        "GS"
+      ],
+      "name": "The Goldman Sachs Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-GS-ff8e31",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Goldman Sachs Group, Inc. (GS) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:GS:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "The Goldman Sachs Group, Inc. (GS) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-WFC-865d7e",
+      "type": "earnings_upcoming",
+      "ticker": "WFC",
+      "tickers": [
+        "WFC"
+      ],
+      "name": "Wells Fargo & Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-WFC-865d7e",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Wells Fargo & Company (WFC) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WFC:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Wells Fargo & Company (WFC) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-C-3b8658",
+      "type": "earnings_upcoming",
+      "ticker": "C",
+      "tickers": [
+        "C"
+      ],
+      "name": "Citigroup Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-C-3b8658",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Citigroup Inc. (C) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:C:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Citigroup Inc. (C) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-DPZ-42812e",
+      "type": "earnings_upcoming",
+      "ticker": "DPZ",
+      "tickers": [
+        "DPZ"
+      ],
+      "name": "Domino's Pizza, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-DPZ-42812e",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Domino's Pizza, Inc. (DPZ) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:DPZ:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Domino's Pizza, Inc. (DPZ) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-AZZ-46b8bb",
+      "type": "earnings_upcoming",
+      "ticker": "AZZ",
+      "tickers": [
+        "AZZ"
+      ],
+      "name": "AZZ Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-AZZ-46b8bb",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q2",
+        "Q2 2027",
+        "FY2027"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "AZZ Inc. (AZZ) reports earnings on 2026-10-13, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:AZZ:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "AZZ Inc. (AZZ) reports earnings on 2026-10-13, after the close (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-earnings-upcoming-FBK-3af549",
+      "type": "earnings_upcoming",
+      "ticker": "FBK",
+      "tickers": [
+        "FBK"
+      ],
+      "name": "FB Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-earnings-upcoming-FBK-3af549",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "FB Financial Corporation (FBK) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:FBK:2026-10-13",
+      "report_date": "2026-10-13",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "FB Financial Corporation (FBK) reports earnings on 2026-10-13, before the open (confirmed date; source: calendar)."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-chart-pattern-SPGI-91b9ed",
+      "type": "chart_pattern",
+      "ticker": "SPGI",
+      "tickers": [
+        "SPGI"
+      ],
+      "name": "S&P Global Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/SPGI",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SPGI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-chart-pattern-SPGI-91b9ed#pattern",
+      "allowed_numbers": [
+        "$395.92",
+        "$403.45",
+        "$462.02",
+        "$454.92",
+        "$402.73",
+        "Sep 28",
+        "Jul 17",
+        "Aug 6",
+        "Sep 1",
+        "Oct 8",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "2026-07-17",
+        "Jul 17, 2026",
+        "2026-09-01",
+        "Sep 1, 2026",
+        "2026-09-28",
+        "Sep 28, 2026",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "2026-08-06",
+        "Aug 6, 2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Automatic technical analysis flagged a double top on $SPGI (S&P Global Inc.) (scan 2026-10-09): pattern 2026-07-17 to 2026-09-01. Confirmed Sep 28: closed $395.92, clearly below the $403.45 neckline.",
+      "dedupe_key": "pattern:SPGI:double_top:confirmed:2026-09-28",
+      "scan_date": "2026-10-09",
+      "pattern": {
+        "type": "double_top",
+        "name": "Double top",
+        "status": "confirmed",
+        "direction": "down",
+        "start": "2026-07-17",
+        "end": "2026-09-01",
+        "start_text": "Jul 17, 2026",
+        "end_text": "Sep 1, 2026",
+        "confirmed_on": "2026-09-28",
+        "as_of": "2026-10-08"
+      },
+      "levels": {
+        "key_level_name": "neckline",
+        "key_level": "$403.45",
+        "breakout_close": "$395.92"
+      },
+      "page_text": {
+        "pill": "Double top · Confirmed Sep 28",
+        "chip": "Confirmed Sep 28",
+        "detail": "confirmed by the Sep 28 close of $395.92 · neckline $403.45",
+        "what": "Two peaks at about the same price, with a dip between them.",
+        "key": [
+          "Confirmed Sep 28: closed $395.92, clearly below the $403.45 neckline.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $403.45."
+        ],
+        "points": [
+          "Peak 1 $462.02 on Jul 17",
+          "Low between $403.45 on Aug 6",
+          "Peak 2 $454.92 on Sep 1",
+          "Sep 28 closed $395.92: confirmed · last close $402.73 (Oct 8)"
+        ]
+      },
+      "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SPGI/opengraph-image",
+          "kind": "image",
+          "alt": "Automatic technical analysis flagged a double top on $SPGI (S&P Global Inc.) (scan 2026-10-09): pattern 2026-07-17 to 2026-09-01. Confirmed Sep 28: closed $395.92, clearly below the $403.45 neckline."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-moves-like-URI-20f4fe",
+      "type": "moves_like",
+      "ticker": "URI",
+      "tickers": [
+        "URI",
+        "HRI",
+        "SUNB"
+      ],
+      "name": "United Rentals, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/URI",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/URI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-moves-like-URI-20f4fe#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "83",
+        "74",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "+0.6%",
+        "0.6%",
+        "−0.3%",
+        "0.3%",
+        "+0.4%",
+        "0.4%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 9, 2026, $URI (United Rentals, Inc.) moved most like $HRI (Sync 83, Tight), $SUNB (Sync 74, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:URI:2026-10-09",
+      "session": "2026-10-09",
+      "valid_through": "2026-10-12",
+      "window_sessions": 60,
+      "subject_day_move": "+0.6%",
+      "peers": [
+        {
+          "ticker": "HRI",
+          "name": "Herc Holdings Inc.",
+          "sync": 83,
+          "band": "Tight",
+          "sync_text": "Sync 83 · Tight",
+          "day_move": "−0.3%"
+        },
+        {
+          "ticker": "SUNB",
+          "name": "Sunbelt Rentals Holdings, Inc.",
+          "sync": 74,
+          "band": "Close",
+          "sync_text": "Sync 74 · Close",
+          "day_move": "+0.4%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/URI/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 9, 2026, $URI (United Rentals, Inc.) moved most like $HRI (Sync 83, Tight), $SUNB (Sync 74, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-moves-like-JPM-e0881a",
+      "type": "moves_like",
+      "ticker": "JPM",
+      "tickers": [
+        "JPM",
+        "BAC",
+        "C",
+        "WFC"
+      ],
+      "name": "JPMorgan Chase & Co.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/JPM",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/JPM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-moves-like-JPM-e0881a#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "80",
+        "77",
+        "76",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "+0.5%",
+        "0.5%",
+        "+1.3%",
+        "1.3%",
+        "+1.2%",
+        "1.2%",
+        "+1.9%",
+        "1.9%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 9, 2026, $JPM (JPMorgan Chase & Co.) moved most like $BAC (Sync 80, Tight), $C (Sync 77, Close), $WFC (Sync 76, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:JPM:2026-10-09",
+      "session": "2026-10-09",
+      "valid_through": "2026-10-12",
+      "window_sessions": 60,
+      "subject_day_move": "+0.5%",
+      "peers": [
+        {
+          "ticker": "BAC",
+          "name": "Bank of America Corporation",
+          "sync": 80,
+          "band": "Tight",
+          "sync_text": "Sync 80 · Tight",
+          "day_move": "+1.3%"
+        },
+        {
+          "ticker": "C",
+          "name": "Citigroup Inc.",
+          "sync": 77,
+          "band": "Close",
+          "sync_text": "Sync 77 · Close",
+          "day_move": "+1.2%"
+        },
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo & Company",
+          "sync": 76,
+          "band": "Close",
+          "sync_text": "Sync 76 · Close",
+          "day_move": "+1.9%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/JPM/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 9, 2026, $JPM (JPMorgan Chase & Co.) moved most like $BAC (Sync 80, Tight), $C (Sync 77, Close), $WFC (Sync 76, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ]
+    },
+    {
+      "item_id": "2026-10-12-moves-like-SPGI-28f862",
+      "type": "moves_like",
+      "ticker": "SPGI",
+      "tickers": [
+        "SPGI",
+        "MCO"
+      ],
+      "name": "S&P Global Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/SPGI",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SPGI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-moves-like-SPGI-28f862#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "83",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "+1.3%",
+        "1.3%",
+        "+1.2%",
+        "1.2%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 9, 2026, $SPGI (S&P Global Inc.) moved most like $MCO (Sync 83, Tight). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:SPGI:2026-10-09",
+      "session": "2026-10-09",
+      "valid_through": "2026-10-12",
+      "window_sessions": 60,
+      "subject_day_move": "+1.3%",
+      "peers": [
+        {
+          "ticker": "MCO",
+          "name": "Moody's Corporation",
+          "sync": 83,
+          "band": "Tight",
+          "sync_text": "Sync 83 · Tight",
+          "day_move": "+1.2%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SPGI/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 9, 2026, $SPGI (S&P Global Inc.) moved most like $MCO (Sync 83, Tight). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ]
+    }
+  ]
+}
