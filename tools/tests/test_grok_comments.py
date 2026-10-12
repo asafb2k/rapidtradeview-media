@@ -355,9 +355,9 @@ def test_facts_items_carry_their_og_card():
     assert PICKS["media"] == [{"url": f"https://www.rapidtradeview.trade/picks/{DATE}/opengraph-image", "kind": "image",
                                "alt": PICKS["facts_text"]}]
     assert PATTERN["media"][0]["url"] == "https://www.rapidtradeview.trade/dashboard/MARA/opengraph-image"
-    up = fx.make_item(DATE, "earnings_upcoming", "DAL", "upcoming:DAL:2026-10-10", "/earnings/tomorrow",
+    up = fx.make_item(DATE, "earnings_upcoming", "DAL", "upcoming:DAL:2026-10-10", "/dashboard/DAL",
                       facts_text="Delta Air Lines (DAL) reports\nearnings on 2026-10-10.")
-    assert up["media"] == [{"url": "https://www.rapidtradeview.trade/earnings/opengraph-image", "kind": "image",
+    assert up["media"] == [{"url": "https://www.rapidtradeview.trade/dashboard/DAL/opengraph-image", "kind": "image",
                             "alt": "Delta Air Lines (DAL) reports earnings on 2026-10-10."}]
     rep = fx.make_item(DATE, "earnings_result", "DAL", "report:dal-2026-q3", "/earnings/reports/dal-2026-q3")
     assert rep["media"][0]["url"] == "https://www.rapidtradeview.trade/earnings/reports/dal-2026-q3/opengraph-image"

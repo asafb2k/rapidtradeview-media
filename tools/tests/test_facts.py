@@ -290,7 +290,8 @@ def test_earnings_upcoming_next_weekday_confirmed_universe_only():
     assert [i["ticker"] for i in u] == ["AAPL"]
     assert u[0]["report_date"] == "2026-10-12" and u[0]["hour_text"] == "after the close"
     assert "Oct 12" in u[0]["allowed_numbers"] and "Q4" in u[0]["allowed_numbers"]
-    assert "/earnings/tomorrow?utm_source={platform}" in u[0]["page_url"]
+    assert "/dashboard/AAPL?utm_source={platform}" in u[0]["page_url"] and u[0]["page_url"].endswith("#earnings-history")
+    assert u[0]["media"][0]["url"] == "https://www.rapidtradeview.trade/dashboard/AAPL/opengraph-image"
 
 
 def test_empty_day_is_valid_with_reasons():

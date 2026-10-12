@@ -337,9 +337,10 @@ def holdout_doc_leaks(doc: dict, target: dt.date) -> list[str]:
 
 
 def og_media(kind: str, path: str, facts_text: str) -> dict:
-    """The landing page's own Open Graph card (a 1200x630 PNG the site renders; not fetched here). earnings_upcoming
-    and earnings_tomorrow_roundup land on /earnings/tomorrow, whose card is the /earnings one."""
-    page = ("/earnings" if kind in ("earnings_upcoming", "earnings_tomorrow_roundup")
+    """The landing page's own Open Graph card (a 1200x630 PNG the site renders; not fetched here).
+    earnings_tomorrow_roundup lands on /earnings/tomorrow, whose card is the /earnings one; a single-ticker item uses its
+    ticker's own card, which names the company (HQ 10-12: the week card did not show DPZ on the DPZ post)."""
+    page = ("/earnings" if kind == "earnings_tomorrow_roundup"
             else path.split("?")[0].split("#")[0].rstrip("/"))
     return {"url": f"{SITE}{page}/opengraph-image", "kind": "image", "alt": " ".join(str(facts_text or "").split())}
 
@@ -674,7 +675,7 @@ def upcoming_items(api, target: dt.date, names: dict[str, str], now: dt.datetime
         facts_text = (f"{company or sym} ({sym}) reports earnings on {nxt.isoformat()}, {when} "
                       f"(confirmed date; source: {r.get('date_confirmed_source') or 'calendar'}).")
         items.append(make_item(
-            date, "earnings_upcoming", sym, f"upcoming:{sym}:{nxt.isoformat()}", "/earnings/tomorrow",
+            date, "earnings_upcoming", sym, f"upcoming:{sym}:{nxt.isoformat()}", f"/dashboard/{sym}",
             name=company, report_date=nxt.isoformat(), hour=r.get("hour"), hour_text=when,
             market_cap_usd=r.get("market_cap") if isinstance(r.get("market_cap"), (int, float)) else None,
             date_confirmed_source=r.get("date_confirmed_source"), source_url=f"{SITE}/earnings/tomorrow",
