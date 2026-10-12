@@ -29,8 +29,12 @@ post for a New York market date. Every item is read from RapidTradeView's public
                      universe reporters: up to 4 of them (largest market cap first) as cashtags; landing /earnings/tomorrow
                      (no anchor), media the /earnings card; allowed_numbers the report date and the session only.
   ptr_summary        per member and filing date with 2+ Congress items: the count of trades and up to 4 tickers (the
-                     member's most newsworthy); landing the figure page #trades, media the figure card. Built before the
-                     per-filer cap below, so it counts every trade.
+                     member's most newsworthy); landing the figure page #trades, media the figure card, source_urls every
+                     filing's official URL (source_url only when there is one filing). Built before the per-filer cap
+                     below, so it counts every trade; built only for a whole filing: the capped feed read reaches past
+                     the window start and no row of that member's filing date (or of its filings) was filtered out
+                     (other side, late filing, re-filing, not listed, no amount, ...). Otherwise skipped:
+                     left_out.ptr_summary_incomplete says why. A partial count is never published as a filing's total.
   moves_like         /moves-like/<T> for up to 5 tickers a day of the day's other items (round robin over
                      congress_trade, form4_buy, earnings_result, earnings_upcoming, chart_pattern; 0.5 s apart): the
                      peers the stock card lists with Sync >= 65 (Close / Tight), Sync and band as the card shows them.
@@ -48,8 +52,8 @@ Rank (Growth B1 2026-10-12): every item carries a numeric rank (higher = more ne
 sorted by rank, highest first. Points: a base per type, buys over sales, the top of the amount range (summed when an item
 has several trades), a known name (fame.json, or a CEO / CFO / director title), a mid / large market cap the item already
 carries (form4_buy from select_stories' snapshot read, earnings from the calendar row; no extra GET) and freshness. At
-most one congress_trade item per filer a day (the highest-ranked); the rest are counted in left_out.per_filer_cap and
-summed up in that member's ptr_summary.
+most one Congress item per filer a day, congress_trade and ptr_summary alike (the highest-ranked; one filer, one post);
+the rest are counted in left_out.per_filer_cap (dropped, and per type).
 An empty type is valid: items [] and reasons say why. Nothing is estimated or invented (No Fallbacks).
 G-N1 holdout (tracks/growth/bets/g-n1-holdout-prereg.md, Amendment 2): for a date before 2026-11-21 no item may carry
 a /earnings/reports/ URL in any field; an item that does is not built (errors "not built: ...", left_out.g_n1_holdout).
@@ -359,13 +363,33 @@ def range_tops(rows: list[dict]) -> float | None:
     return float(sum(tops)) if tops else None
 
 
-def congress_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[dict], dict, str | None]:
+def window_start(target: dt.date) -> dt.date:
+    """The oldest date of weekday age <= WINDOW_WEEKDAYS (the last 5 weekdays)."""
     since = target
     while ss.weekday_age(since - dt.timedelta(days=1), target) <= WINDOW_WEEKDAYS:
         since -= dt.timedelta(days=1)
+    return since
+
+
+def congress_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[dict], dict, str | None, dict]:
+    """(items, left_out counts, feed error, coverage). coverage tells ptr_summary_items whether a filing's count is
+    whole: the window start, the oldest disclosure date the capped public read reached (the feed is disclosure_date
+    desc) and, per member and filing date and per filing URL, the Congress rows the filters below left out."""
+    since = window_start(target)
     rows, err = ss.fetch_feed(api, "congress", since)
     left = {"rows_read": len(rows), "out_of_window": 0, "not_congress": 0, "other_side": 0, "late_filing_over_90d": 0,
             "refiles_older_report": 0, "bad_date": 0, "not_listed": 0, "no_amount": 0, "no_official_source": 0}
+    read_dates = [str(r["disclosure_date"])[:10] for r in rows if isinstance(r, dict) and r.get("disclosure_date")]
+    coverage: dict = {"since": since.isoformat(), "oldest_read": min(read_dates) if read_dates else None, "error": err,
+                      "dropped": []}
+
+    def drop(it: dict, reason: str, fd: dt.date | None) -> None:
+        """Count a left-out Congress row; remember its member, filing date and filing URL for summary_gaps."""
+        left[reason] += 1
+        src = it.get("source_url")
+        coverage["dropped"].append({"slug": it["figure"].get("slug"), "filed": fd.isoformat() if fd else None,
+                                    "src": src if isinstance(src, str) and src else None, "reason": reason})
+
     groups: dict[tuple, list[dict]] = {}
     for it in rows:
         if not isinstance(it, dict) or not isinstance(it.get("figure"), dict) or it["figure"].get("kind") != "politician":
@@ -376,33 +400,36 @@ def congress_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[di
             fd = ss.d(filed) if filed else None
         except ValueError:
             fd = None
-        if fd is None or fd > target or ss.weekday_age(fd, target) > WINDOW_WEEKDAYS:
-            left["out_of_window"] += 1
+        if fd is None:  # no readable filing date: it may belong to any filing with its URL
+            drop(it, "out_of_window", None)
+            continue
+        if fd > target or ss.weekday_age(fd, target) > WINDOW_WEEKDAYS:
+            left["out_of_window"] += 1  # another filing date: not part of any summary of this window
             continue
         if it.get("side") not in ("buy", "sell"):
-            left["other_side"] += 1
+            drop(it, "other_side", fd)
             continue
         if it.get("transaction_date"):
             try:
                 lag = (fd - ss.d(it["transaction_date"])).days
             except ValueError:
-                left["bad_date"] += 1
+                drop(it, "bad_date", fd)
                 continue
             if lag > ss.CONGRESS_MAX_FILING_LAG_DAYS:
-                left["late_filing_over_90d"] += 1
+                drop(it, "late_filing_over_90d", fd)
                 continue
         if it.get("refiles_older_report"):
-            left["refiles_older_report"] += 1
+            drop(it, "refiles_older_report", fd)
             continue
         ticker = ss.primary_ticker(it.get("ticker"), names)
         if not ss.listed(ticker, names):
-            left["not_listed"] += 1
+            drop(it, "not_listed", fd)
             continue
         if trade_amount(it.get("amount") or {}) is None:
-            left["no_amount"] += 1
+            drop(it, "no_amount", fd)
             continue
         if not official(it.get("source_url"), OFFICIAL_PTR_HOSTS):
-            left["no_official_source"] += 1
+            drop(it, "no_official_source", fd)
             continue
         groups.setdefault((it["figure"].get("slug"), ticker, it["side"], it["source_url"]), []).append(it)
 
@@ -442,7 +469,7 @@ def congress_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[di
                              *(f for t in traded for f in date_forms(t)), str(len(rs)) if len(rs) > 1 else None,
                              *digit_words(fig.get("display_name"), company)]))
     items.sort(key=lambda x: (x["filed"], x["ticker"]), reverse=True)
-    return items, left, err
+    return items, left, err, coverage
 
 
 # ---------------------------------------------------------------------------
@@ -926,19 +953,48 @@ def moves_like_items(api, target: dt.date, items: list[dict], previous: dict | N
 # ---------------------------------------------------------------------------
 # Roundups (Growth B1 2026-10-12): several cashtags in one post, landing a page that lists them all
 
-def ptr_summary_items(target: dt.date, congress: list[dict], fame: dict) -> tuple[list[dict], dict]:
+def summary_gaps(slug: str, filed: str, srcs: list[str], coverage: dict) -> list[str]:
+    """Why a member's count for one filing date may not be the whole filing ([] when it is): the capped public feed
+    read did not reach past the window start, or a row of that member and filing date (or of one of its filings) was
+    left out by a filter. No Fallbacks: a partial count is never published as the filing's total."""
+    if coverage.get("error"):
+        return ["the Congress feed did not load"]
+    why = []
+    oldest, since = coverage.get("oldest_read"), coverage.get("since")
+    if not oldest or not since or oldest >= since:
+        why.append(f"the feed read (newest rows only) reaches back to {oldest or 'no dated row'}, not before the window "
+                   f"start {since}: rows of the filing may be cut off")
+    dropped: dict[str, int] = {}
+    for r in coverage.get("dropped") or []:
+        if (r["slug"] == slug and r["filed"] == filed) or (r["src"] and r["src"] in srcs):
+            dropped[r["reason"]] = dropped.get(r["reason"], 0) + 1
+    if dropped:
+        why.append("rows of the filing were left out (" + ", ".join(f"{k} {n}" for k, n in sorted(dropped.items())) + ")")
+    return why
+
+
+def ptr_summary_items(target: dt.date, congress: list[dict], fame: dict, coverage: dict) -> tuple[list[dict], dict, dict]:
     """One item per member and filing date with 2+ Congress items: the count of trades (rows) and up to
     ROUNDUP_MAX_TICKERS tickers (the member's most newsworthy, rank()), landing the figure page #trades. Built from the
-    day's congress_trade items before the per-filer cap, so the trades the cap leaves out are still counted here."""
+    day's congress_trade items before the per-filer cap, so the trades the cap leaves out are still counted here.
+    Only for a whole filing (summary_gaps, congress_items' coverage): otherwise the item is skipped and the third value
+    (left_out.ptr_summary_incomplete) says why."""
     groups: dict[tuple[str, str], list[dict]] = {}
     for it in congress:
         if it.get("figure_slug") and it.get("filed"):
             groups.setdefault((it["figure_slug"], it["filed"]), []).append(it)
     left = {"members_filing_dates": len(groups), "single_item": 0}
+    incomplete = {"window_start": coverage.get("since"), "oldest_row_read": coverage.get("oldest_read"), "skipped": 0,
+                  "reasons": []}
     items = []
     for (slug, filed), its in groups.items():
         if len(its) < 2:
             left["single_item"] += 1
+            continue
+        gaps = summary_gaps(slug, filed, uniq(i.get("source_url") for i in its), coverage)
+        if gaps:
+            incomplete["skipped"] += 1
+            incomplete["reasons"].append(f"{slug} filed {filed}: {'; '.join(gaps)}")
             continue
         its = sorted(its, key=lambda i: -rank(i, target, fame)[0])
         tickers = uniq(i["ticker"] for i in its)
@@ -969,7 +1025,7 @@ def ptr_summary_items(target: dt.date, congress: list[dict], fame: dict) -> tupl
             allowed_numbers=[str(trades), str(len(tickers)), str(buys) if buys else None, str(sales) if sales else None,
                              str(rest) if rest else None, str(len(srcs)) if len(srcs) > 1 else None,
                              *date_forms(filed), *digit_words(head.get("name"))]))
-    return items, left
+    return items, left, incomplete
 
 
 def earnings_roundup_items(target: dt.date, upcoming: list[dict]) -> tuple[list[dict], dict]:
@@ -1088,16 +1144,19 @@ def rank_items(items: list[dict], target: dt.date, fame: dict) -> list[dict]:
     return sorted(items, key=lambda i: -i["rank"])
 
 
-def cap_per_filer(congress: list[dict], target: dt.date, fame: dict) -> tuple[list[dict], int]:
-    """At most one congress_trade item per filer (figure) a day: the highest-ranked one. (kept, how many left out)"""
+def cap_per_filer(congress: list[dict], target: dt.date, fame: dict) -> tuple[list[dict], dict]:
+    """At most one Congress item per filer (figure) a day, congress_trade and ptr_summary alike: the highest-ranked one
+    (one filer, one post). (kept, how many of each type were left out)"""
     kept, seen = [], set()
+    dropped = {"congress_trade": 0, "ptr_summary": 0}
     for it in rank_items(congress, target, fame):
         who = it.get("figure_slug") or it.get("name")
         if who in seen:
+            dropped[it["type"]] = dropped.get(it["type"], 0) + 1
             continue
         seen.add(who)
         kept.append(it)
-    return kept, len(congress) - len(kept)
+    return kept, dropped
 
 
 # ---------------------------------------------------------------------------
@@ -1109,6 +1168,18 @@ def default_as_of(target: dt.date, now: dt.datetime) -> dt.datetime:
         return now
     end = dt.datetime(target.year, target.month, target.day, 23, 59, 59, tzinfo=ss.NY).astimezone(dt.timezone.utc)
     return min(now, end)
+
+
+def ptr_summary_reason(skipped: int, capped: int) -> str:
+    """Why the file has no ptr_summary: incomplete filings (left_out.ptr_summary_incomplete), the per-filer cap, or none."""
+    why = []
+    if skipped:
+        why.append(f"{skipped} member filing date(s) with 2+ Congress items were not whole filings "
+                   "(left_out.ptr_summary_incomplete)")
+    if capped:
+        why.append(f"{capped} member summary(ies) lost to a higher-ranked congress_trade of the same filer "
+                   "(left_out.per_filer_cap)")
+    return "; ".join(why) or "no member has 2+ Congress items on one filing date in the last 5 weekdays"
 
 
 def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None, as_of: dt.datetime | None = None,
@@ -1129,20 +1200,22 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
         for k in ("congress_trade", "form4_buy", "ptr_summary"):
             reasons[k] = f"the ticker list did not load ({nerr or 'empty'}): no trade can be checked as listed"
     else:
-        c, left["congress_trade"], cerr = congress_items(api, target, names)
+        c, left["congress_trade"], cerr, coverage = congress_items(api, target, names)
         if cerr:
             errors.append(cerr)
             partial.append("congress_trade")
             reasons["congress_trade"] = f"the Congress feed did not load ({cerr})"
         elif not c:
             reasons["congress_trade"] = "no Congress trade passed the rules in the last 5 weekdays (left_out has the counts)"
-        ps, left["ptr_summary"] = ptr_summary_items(target, c, fame)
-        if not ps:
-            reasons["ptr_summary"] = "no member has 2+ Congress items on one filing date in the last 5 weekdays"
+        ps, left["ptr_summary"], left["ptr_summary_incomplete"] = ptr_summary_items(target, c, fame, coverage)
         filers = len({i.get("figure_slug") or i.get("name") for i in c})
-        c, capped = cap_per_filer(c, target, fame)
-        left["per_filer_cap"] = {"dropped": capped, "filers": filers}
-        items += c + ps
+        kept, capped = cap_per_filer(c + ps, target, fame)
+        left["per_filer_cap"] = {"dropped": sum(capped.values()), "filers": filers,
+                                 "dropped_congress_trade": capped["congress_trade"],
+                                 "dropped_ptr_summary": capped["ptr_summary"]}
+        if not any(i["type"] == "ptr_summary" for i in kept):
+            reasons["ptr_summary"] = ptr_summary_reason(left["ptr_summary_incomplete"]["skipped"], capped["ptr_summary"])
+        items += kept
         f, left["form4_buy"], ferr = form4_items(api, target, names, fame)
         errors += ferr
         if ferr:

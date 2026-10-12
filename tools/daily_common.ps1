@@ -207,7 +207,7 @@ function Publish-Facts([string]$Date, [string]$Work, [bool]$Push, [int]$PagesTim
 # IndexNow ping of the day's facts landing pages (tools/indexnow_facts.py; Growth B3 2026-10-12): after every Publish-Facts on
 # weekdays (the New York date's weekday). It reads the day's v/<date>/facts.json, strips UTMs and anchors, never sends an
 # /earnings/reports/ page (G-N1 holdout), dedupes over 7 days and sends at most 100 URLs a day; a 429 / 403 pauses it for
-# 24 h. $Push = $false (-NoPush / -SelectOnly) is a dry run (prints what it would send). Every failure is logged; nothing
+# 24 h, any other 4xx for 6 h. $Push = $false (-NoPush / -SelectOnly) is a dry run (prints what it would send). Every failure is logged; nothing
 # here throws or changes the run's exit code.
 function Invoke-IndexNowFacts([string]$Date, [bool]$Push) {
     try {
@@ -218,7 +218,7 @@ function Invoke-IndexNowFacts([string]$Date, [bool]$Push) {
         $argv = @((Join-Path $script:Tools 'indexnow_facts.py'), '--date', $Date, '--facts', $file)
         if (-not $Push) { $argv += @('--dry-run') }
         $code = Invoke-Native $script:Python $argv
-        if ($code -eq 3) { Log "indexnow-facts: paused after a 429 / 403 (see indexnow-facts.log)"; return }
+        if ($code -eq 3) { Log "indexnow-facts: paused after a 4xx (see indexnow-facts.log)"; return }
         if ($code -ne 0) { Log "INDEXNOW-FACTS FAILED (exit $code): logged; the run goes on" }
     } catch {
         Log "INDEXNOW-FACTS FAILED: $($_.Exception.Message); the run goes on"

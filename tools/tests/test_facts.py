@@ -559,10 +559,6 @@ def test_page_url_anchors_after_the_query():
 # ---------------------------------------------------------------------------
 # Rank, the per-filer cap and the roundups (Growth B1 2026-10-12)
 
-SALAZAR_ROWS = [crow(t, "sell", "2026-09-24", "2026-10-07", 1001, 15000) for t in ("UNH", "MSFT", "AAPL", "DAL", "XE")] + [
-    crow("AMPX", "buy", "2026-09-24", "2026-10-07", 15001, 50000)]
-
-
 def test_rank_sorts_the_file_and_explains_every_point():
     pelosi = politician("Nancy Pelosi", "nancy-pelosi", "house", "Democratic", "CA")
     rows = [crow("UNH", "sell", "2026-09-24", "2026-10-05", 1001, 15000),                          # Salazar: a small, older sale
@@ -600,27 +596,109 @@ def test_rank_factors():
     assert fx.range_tops([{"amount": {"low": 1001, "high": 15000}}, {"amount": {"low": 15001, "high": 50000}}]) == 65000.0
 
 
+GOTT = politician("Josh Gottheimer", "josh-gottheimer", "house", "Democratic", "NJ")
+# An older row (filed before the window start, 2026-10-05 for Fri 10-09): the capped public read reaches past the window,
+# so no row of a filing inside it can be cut off.
+OLD_ROW = crow("MSFT", "buy", "2026-09-20", "2026-09-25", 1001, 15000, fig=GOTT)
+SALAZAR_SALES = [crow(t, "sell", "2026-09-24", "2026-10-07", 1001, 15000) for t in ("UNH", "MSFT", "AAPL", "DAL", "XE")]
+
+
+def congress_feed(rows):
+    return {"/notable/feed?tab=congress": {"items": rows, "has_more": True}}
+
+
 def test_one_congress_item_per_filer_and_the_ptr_summary():
-    gott = politician("Josh Gottheimer", "josh-gottheimer", "house", "Democratic", "NJ")
-    rows = SALAZAR_ROWS + [crow("MSFT", "buy", "2026-09-25", "2026-10-08", 1001, 15000, fig=gott)]
-    f = build(**{"/notable/feed?tab=congress": {"items": rows, "has_more": False}})
+    rows = SALAZAR_SALES + [crow("MSFT", "buy", "2026-09-25", "2026-10-08", 1001, 15000, fig=GOTT), OLD_ROW]
+    f = build(**congress_feed(rows))
     c = [i for i in f["items"] if i["type"] == "congress_trade"]
-    assert sorted((i["name"], i["ticker"]) for i in c) == [("Josh Gottheimer", "MSFT"), ("Maria Elvira Salazar", "AMPX")]
-    assert f["left_out"]["per_filer_cap"] == {"dropped": 5, "filers": 2}
     s = [i for i in f["items"] if i["type"] == "ptr_summary"]
-    assert len(s) == 1   # Gottheimer has one item: no summary
+    # Salazar's summary of 5 sales outranks each of her single sales: one Salazar post, the summary
+    assert [(i["name"], i["ticker"]) for i in c] == [("Josh Gottheimer", "MSFT")]
+    assert len(s) == 1 and s[0]["name"] == "Maria Elvira Salazar"
+    assert f["left_out"]["per_filer_cap"] == {"dropped": 5, "filers": 2, "dropped_congress_trade": 5,
+                                              "dropped_ptr_summary": 0}
+    assert f["left_out"]["ptr_summary_incomplete"] == {"window_start": "2026-10-05", "oldest_row_read": "2026-09-25",
+                                                       "skipped": 0, "reasons": []}
     it = s[0]
-    assert it["ticker"] is None and it["tickers"][0] == "AMPX" and len(it["tickers"]) == 4 and it["tickers_total"] == 6
-    assert it["rows"] == 6 and it["buys"] == 1 and it["sales"] == 5 and it["filed"] == "2026-10-07"
-    for n in ("6", "1", "5", "2", "2026-10-07", "Oct 7"):
+    assert it["ticker"] is None and len(it["tickers"]) == 4 and it["tickers_total"] == 5
+    assert it["rows"] == 5 and it["buys"] == 0 and it["sales"] == 5 and it["filed"] == "2026-10-07"
+    for n in ("5", "1", "2026-10-07", "Oct 7"):
         assert n in it["allowed_numbers"]
-    assert it["source_url"] == PTR and it["page_url"].startswith(
+    assert it["source_url"] == PTR and it["source_urls"] == [PTR] and it["page_url"].startswith(
         "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?") and it["page_url"].endswith("#trades")
     assert it["media"][0]["url"] == "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image"
-    assert it["facts_text"].startswith("U.S. Representative Maria Elvira Salazar (R-FL) disclosed 6 trades (1 purchase, 5 sales)")
-    assert "$AMPX" in it["facts_text"] and "and 2 more" in it["facts_text"]
-    assert f["counts"]["ptr_summary"] == 1 and f["counts"]["congress_trade"] == 2
+    assert it["facts_text"].startswith("U.S. Representative Maria Elvira Salazar (R-FL) disclosed 5 trades (5 sales)")
+    assert "and 1 more" in it["facts_text"]
+    assert f["counts"]["ptr_summary"] == 1 and f["counts"]["congress_trade"] == 1
+    assert "ptr_summary" not in f["reasons"]
     assert not fx.holdout_doc_leaks(f, FRI)
+
+
+def test_a_filer_with_a_trade_and_a_summary_keeps_only_the_higher_ranked():
+    # Salazar: 5 small sales and a $15K-$50K buy. The buy outranks her summary: only the buy is posted.
+    rows = SALAZAR_SALES + [crow("AMPX", "buy", "2026-09-24", "2026-10-07", 15001, 50000), OLD_ROW]
+    f = build(**congress_feed(rows))
+    sal = [i for i in f["items"] if i.get("figure_slug") == "maria-elvira-salazar"]
+    assert [(i["type"], i["ticker"]) for i in sal] == [("congress_trade", "AMPX")]
+    assert f["left_out"]["per_filer_cap"] == {"dropped": 6, "filers": 1, "dropped_congress_trade": 5,
+                                              "dropped_ptr_summary": 1}
+    assert f["counts"]["ptr_summary"] == 0
+    assert "lost to a higher-ranked congress_trade" in f["reasons"]["ptr_summary"]
+    # Two filing dates of one filer: two summaries, one post
+    later = [crow(t, "sell", "2026-09-30", "2026-10-08", 15001, 50000, src=PTR.replace("20035562", "20035599"))
+             for t in ("UNH", "DAL")]
+    f = build(**congress_feed(SALAZAR_SALES + later + [OLD_ROW]))
+    sal = [i for i in f["items"] if i.get("figure_slug") == "maria-elvira-salazar"]
+    assert len(sal) == 1 and sal[0]["type"] == "ptr_summary"
+    assert f["left_out"]["per_filer_cap"]["dropped_ptr_summary"] == 1
+
+
+def test_ptr_summary_needs_the_feed_read_to_reach_past_the_window_start():
+    f = build(**congress_feed(SALAZAR_SALES))   # newest 50 rows, all inside the window: the filing may be cut off
+    assert f["counts"]["ptr_summary"] == 0
+    inc = f["left_out"]["ptr_summary_incomplete"]
+    assert inc["skipped"] == 1 and inc["oldest_row_read"] == "2026-10-07" and inc["window_start"] == "2026-10-05"
+    assert inc["reasons"][0].startswith("maria-elvira-salazar filed 2026-10-07: the feed read")
+    assert "not before the window start 2026-10-05" in inc["reasons"][0]
+    assert "not whole filings" in f["reasons"]["ptr_summary"]
+    # the trades are still posted one per filer
+    assert f["counts"]["congress_trade"] == 1 and f["left_out"]["per_filer_cap"]["dropped_congress_trade"] == 4
+    # an old row that is exactly the window start is not "before" it
+    edge = crow("MSFT", "buy", "2026-09-20", "2026-10-05", 1001, 15000, fig=GOTT)
+    assert build(**congress_feed(SALAZAR_SALES + [edge]))["counts"]["ptr_summary"] == 0
+    # a failed feed read: nothing to summarise, the error is the reason for congress_trade
+    failed = build(**{"/notable/feed?tab=congress": None})
+    assert failed["counts"]["ptr_summary"] == 0 and "congress_trade" in failed["partial_sources"]
+
+
+@pytest.mark.parametrize("bad,reason", [
+    (crow("ZZZZ", "buy", "2026-09-24", "2026-10-07", 1001, 15000), "not_listed 1"),
+    (crow("UNH", "exchange", "2026-09-24", "2026-10-07", 1001, 15000), "other_side 1"),
+    (crow("MSFT", "sell", "2026-05-01", "2026-10-07", 1001, 15000), "late_filing_over_90d 1"),
+    (dict(crow("AAPL", "sell", "2026-09-24", "2026-10-07", None, None)), "no_amount 1"),
+    (crow("AAPL", "buy", "2026-09-30", "2026-10-07", 1001, 15000, refiles_older_report=True), "refiles_older_report 1"),
+    (crow("DAL", "buy", "2026-09-24", "2026-10-07", 1001, 15000, src="https://example.com/x.pdf"), "no_official_source 1"),
+    (crow("DAL", "buy", "2026-09-24", None, 1001, 15000), "out_of_window 1"),   # same PTR URL, no filing date
+])
+def test_ptr_summary_skipped_when_a_row_of_the_filing_was_left_out(bad, reason):
+    f = build(**congress_feed(SALAZAR_SALES + [bad, OLD_ROW]))
+    assert f["counts"]["ptr_summary"] == 0
+    inc = f["left_out"]["ptr_summary_incomplete"]
+    assert inc["skipped"] == 1 and inc["reasons"] == [
+        f"maria-elvira-salazar filed 2026-10-07: rows of the filing were left out ({reason})"]
+    # the same row of another member's filing does not touch Salazar's summary
+    other = dict(bad, figure=GOTT, source_url=EFD if bad["source_url"] == PTR else bad["source_url"])
+    g = build(**congress_feed(SALAZAR_SALES + [other, OLD_ROW]))
+    assert g["counts"]["ptr_summary"] == 1 and g["left_out"]["ptr_summary_incomplete"]["skipped"] == 0
+
+
+def test_multi_filing_ptr_summary_carries_every_official_url():
+    second = PTR.replace("20035562", "20035570")
+    rows = SALAZAR_SALES[:3] + [crow(t, "sell", "2026-09-24", "2026-10-07", 1001, 15000, src=second) for t in ("DAL", "XE")]
+    f = build(**congress_feed(rows + [OLD_ROW]))
+    s = [i for i in f["items"] if i["type"] == "ptr_summary"]
+    assert len(s) == 1 and s[0]["source_url"] is None and sorted(s[0]["source_urls"]) == [PTR, second]
+    assert "on 2 reports filed 2026-10-07" in s[0]["facts_text"] and "2" in s[0]["allowed_numbers"]
 
 
 def test_earnings_tomorrow_roundup():

@@ -116,6 +116,22 @@ def test_pause_on_429_and_403(env, status):
     assert run(doc, status=202, now=NOW + dt.timedelta(hours=25)) == 0 and len(post.calls) == 2
 
 
+@pytest.mark.parametrize("status", [400, 404, 422])
+def test_other_4xx_pause_6_hours(env, status):
+    run, post, tmp = env
+    doc = facts(page("/dashboard/JPM"))
+    assert run(doc, status=status) == 3
+    state = json.loads((tmp / "state.json").read_text(encoding="utf-8"))
+    assert state["sent"] == {} and state["paused_until"] == "2026-10-12T21:00:00Z"
+    assert state["pause_reason"] == f"HTTP {status} at 2026-10-12T15:00Z"
+    assert f"status={status} sent=0 paused_until=2026-10-12T21:00:00Z" in (tmp / "indexnow.log").read_text(encoding="utf-8")
+    # the next facts refreshes inside the 6 hours do not re-POST the rejected request
+    for h in (1, 3, 5.9):
+        assert run(doc, status=202, now=NOW + dt.timedelta(hours=h)) == 3
+    assert len(post.calls) == 1
+    assert run(doc, status=202, now=NOW + dt.timedelta(hours=6, minutes=1)) == 0 and len(post.calls) == 2
+
+
 def test_other_failures_retry_next_run(env):
     run, post, tmp = env
     doc = facts(page("/dashboard/JPM"))

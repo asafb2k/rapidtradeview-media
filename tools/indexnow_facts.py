@@ -11,7 +11,8 @@ of its items (page_url without the UTM query or the #anchor, in the file's rank 
   - skips a URL already sent in the last 7 days (the state file, default
     D:/rtv-ops/tracks/growth/research/indexnow-facts-state.json);
   - sends at most 100 URLs a UTC day, in one POST to https://api.indexnow.org/indexnow with the site's IndexNow key;
-  - pauses 24 hours after a 429 or 403 (no POST until then; the state says why);
+  - pauses after any 4xx (no POST until then; the state and the log say why): 24 hours after a 429 or 403, 6 hours
+    after any other 4xx (a request the endpoint rejects is not re-sent at every facts refresh);
   - writes one receipt line per send (UTC time, date, count, HTTP status) to
     D:/rtv-ops/tracks/growth/research/indexnow-facts.log.
 --dry-run prints what would be sent (the key is never printed) and writes neither the state nor the log.
@@ -21,8 +22,9 @@ https://www.rapidtradeview.trade/<key>.txt). --key-file names it; by default the
 D:/Coding_projects/rapidtradeview/frontend/public whose name is <hex>.txt and whose content is that hex. No such file,
 or more than one: exit 2, nothing sent (No Fallbacks: a key is never made up).
 
-Exit codes: 0 sent (200 / 202), nothing new to send, or a dry run; 1 the POST failed (state unchanged: the next run tries
-again); 2 usage / key / facts error; 3 paused (a 429 / 403 now or within the last 24 hours).
+Exit codes: 0 sent (200 / 202), nothing new to send, or a dry run; 1 the POST failed with a 5xx / other status or a
+network error (state unchanged: the next run tries again); 2 usage / key / facts error; 3 paused (a 4xx now, or a pause
+from an earlier 4xx still running).
 """
 from __future__ import annotations
 
@@ -44,8 +46,9 @@ ENDPOINT = "https://api.indexnow.org/indexnow"
 REPORT_PATH = "/earnings/reports/"
 DAILY_MAX = 100
 DEDUPE_DAYS = 7
-PAUSE_HOURS = 24
+PAUSE_HOURS = 24          # after a 429 / 403: the endpoint asks us to back off
 PAUSE_STATUSES = (403, 429)
+PAUSE_HOURS_OTHER_4XX = 6  # after any other 4xx (400 bad request, 422 URLs not for the key's host, ...)
 DEFAULT_STATE = Path("D:/rtv-ops/tracks/growth/research/indexnow-facts-state.json")
 DEFAULT_LOG = Path("D:/rtv-ops/tracks/growth/research/indexnow-facts.log")
 DEFAULT_KEY_DIR = Path("D:/Coding_projects/rapidtradeview/frontend/public")
@@ -121,6 +124,15 @@ def save_state(path: Path, state: dict, today: dt.date) -> None:
     tmp = path.with_name(path.name + ".tmp")
     tmp.write_text(json.dumps(state, indent=1, sort_keys=True), encoding="utf-8")
     tmp.replace(path)
+
+
+def pause_hours(status: int) -> int | None:
+    """How long a POST answered with `status` pauses the next ones (None: not a pause; 5xx and the rest retry)."""
+    if status in PAUSE_STATUSES:
+        return PAUSE_HOURS
+    if 400 <= status <= 499:
+        return PAUSE_HOURS_OTHER_4XX
+    return None
 
 
 def paused(state: dict, now: dt.datetime) -> str | None:
@@ -253,24 +265,25 @@ def run(date: str, facts_file: Path, state_path: Path, log_path: Path, key_file:
         log_line(log_path, f"{now:%Y-%m-%dT%H:%M:%SZ} {date} count={len(send)} status=network-error sent=0")
         return 1
     ok = status in (200, 202)
+    hours = None if ok else pause_hours(status)
     note = ""
     if ok:
         for u in send:
             state["sent"][u] = today.isoformat()
         state["days"][today.isoformat()] = int(state["days"].get(today.isoformat()) or 0) + len(send)
-    elif status in PAUSE_STATUSES:
-        until = now + dt.timedelta(hours=PAUSE_HOURS)
+    elif hours:
+        until = now + dt.timedelta(hours=hours)
         state["paused_until"] = until.strftime("%Y-%m-%dT%H:%M:%SZ")
         state["pause_reason"] = f"HTTP {status} at {now:%Y-%m-%dT%H:%MZ}"
         note = f" paused_until={state['paused_until']}"
     log_line(log_path, f"{now:%Y-%m-%dT%H:%M:%SZ} {date} count={len(send)} status={status} sent={len(send) if ok else 0}{note}")
-    if ok or status in PAUSE_STATUSES:
+    if ok or hours:
         save_state(state_path, state, today)
     print(f"indexnow-facts: HTTP {status} for {len(send)} URLs" + (f" ({' '.join(text.split())[:120]})" if text and not ok else "")
-          + (f"; paused for {PAUSE_HOURS} h" if note else ""))
+          + (f"; paused for {hours} h" if note else ""))
     if ok:
         return 0
-    return 3 if status in PAUSE_STATUSES else 1
+    return 3 if hours else 1
 
 
 def main(argv: list[str] | None = None) -> int:
