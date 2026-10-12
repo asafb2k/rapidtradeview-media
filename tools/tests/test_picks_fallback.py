@@ -308,3 +308,26 @@ def test_the_dry_run_lists_the_normal_steps_only(tmp_path, monkeypatch, capsys):
     assert hook.main(["--data", str(data_file), "--out", str(tmp_path / "o"), "--dry-run", "--python", "py"]) == 0
     log = capsys.readouterr().out
     assert "make.py daily-picks" in log and "v6_still.py" in log and "picks_still_reel" not in log and not fake.calls
+
+
+def test_a_fallback_after_an_earlier_staged_video_never_mixes_the_two(tmp_path, monkeypatch, capsys):
+    """An earlier same-day attempt staged the video's three MP4s (no manifest yet); the rerun takes the fallback: the folder must read
+    as the still and its Reel, never as a video post with the still Reel next to the old feed / square MP4s."""
+    code, out, fake = run_hook(tmp_path, monkeypatch, qa=qa_json(DATE, reel_ok=False))
+    assert code == 0
+    (out / "qa-passed.json").write_text("{}", encoding="utf-8")
+    repo = tmp_path / "repo"
+    dest = repo / "v" / DATE / sid(DATE)
+    dest.mkdir(parents=True)
+    for f in mf.FORMATS:
+        (dest / f"{f}.mp4").write_bytes(MP4)
+    s = story_data(DATE)
+    plan = tmp_path / "plan.json"
+    jw(plan, {"date": DATE, "day_type": "weekday", "slots": [{**s, "status": "filled"}]})
+    jw(out.parent / "stories.json", [{"slot": 4, "story_id": sid(DATE)}])
+    spec = tmp_path / "spec.json"
+    assert daily.main(["stage", "--plan", str(plan), "--work", str(out.parent), "--spec", str(spec), "--repo", str(repo)]) == 0
+    assert "removed feed_4x5.mp4 of an earlier attempt" in capsys.readouterr().out
+    assert sorted(p.name for p in dest.glob("*.mp4")) == ["reel_9x16.mp4"] and (dest / "reel_9x16.mp4").read_bytes() == STILL_MP4
+    m = mf.build_manifest(json.loads(spec.read_text(encoding="utf-8")), repo=repo)
+    assert m["posts"][0]["media"] == {"reel_9x16": mf.media_url(DATE, sid(DATE), "reel_9x16")} and mf.validate_manifest(m, DATE) == []

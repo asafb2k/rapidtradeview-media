@@ -201,6 +201,13 @@ def cmd_stage(a: argparse.Namespace) -> int:
             continue
         dest = repo / "v" / date / s["story_id"]
         dest.mkdir(parents=True, exist_ok=True)
+        if reel_of_image and (sdir / FALLBACK_FILE).is_file():
+            # the picks fallback after an earlier same-day attempt staged the video: its feed / square MP4s are not this post's
+            # (with them the folder would read as a video post mixing two runs); the manifest never listed them
+            for name in ("feed_4x5.mp4", "square_1x1.mp4"):
+                if (dest / name).exists():
+                    (dest / name).unlink()
+                    print(f"slot {s['slot']} {s['story_id']}: removed {name} of an earlier attempt (this post is the fallback still Reel)")
         for name in files:
             shutil.copy2(sdir / name, dest / name)
         if stills:
