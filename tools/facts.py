@@ -32,7 +32,9 @@ post for a New York market date. Every item is read from RapidTradeView's public
 chart_pattern and moves_like carry banned_words of their own (PREDICTION_WORDS): descriptive wording only.
 Each item carries item_id, type, ticker, name / office, amount text as our pages show it, dates, the official
 source_url, page_url (UTM built in; "{platform}" is a literal placeholder Grok fills with x or instagram),
-allowed_numbers (every numeric token a post may print), must_include and a one-line facts_text.
+allowed_numbers (every numeric token a post may print), must_include, a one-line facts_text and media: the
+images a post may carry ([{url, kind: image, alt}], the landing page's Open Graph card <SITE><page>/opengraph-image;
+earnings_upcoming: <SITE>/earnings/opengraph-image; never fetched here).
 An empty type is valid: items [] and reasons say why. Nothing is estimated or invented (No Fallbacks).
 
 Exit codes: 0 written, every core source loaded (a failed chart_pattern / moves_like read is in errors, its item
@@ -259,7 +261,16 @@ def make_item(date: str, kind: str, ticker: str | None, key: str, path: str, **f
     }
     item.update(fields)
     item["allowed_numbers"] = uniq(item["allowed_numbers"])
+    if "media" not in fields:
+        item["media"] = [og_media(kind, path, item["facts_text"])]
     return item
+
+
+def og_media(kind: str, path: str, facts_text: str) -> dict:
+    """The landing page's own Open Graph card (a 1200x630 PNG the site renders; not fetched here). earnings_upcoming
+    lands on /earnings/tomorrow, whose card is the /earnings one."""
+    page = "/earnings" if kind == "earnings_upcoming" else path.split("?")[0].split("#")[0].rstrip("/")
+    return {"url": f"{SITE}{page}/opengraph-image", "kind": "image", "alt": " ".join(str(facts_text or "").split())}
 
 
 def official(url: str | None, hosts: tuple[str, ...]) -> bool:
@@ -736,6 +747,8 @@ def previous_moves(previous: dict | None, target: dt.date) -> tuple[dict[str, st
     checked = {t: o for t, o in (previous.get("moves_like_checked") or {}).items() if o in MOVES_LIKE_KEEP}
     for i in items:
         checked[i["ticker"]] = "item"
+        if not i.get("media"):  # carried over from a file written before items carried media
+            i["media"] = [og_media("moves_like", f"/dashboard/{i['ticker']}", i.get("facts_text") or "")]
     return checked, [i for i in items if checked.get(i["ticker"]) == "item"]
 
 
