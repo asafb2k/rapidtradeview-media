@@ -26,6 +26,9 @@ Usage (conda python):
       Instagram posts are Reels only from manifest.IG_REELS_ONLY_FROM (Growth decision 2026-10-10), so from that date
       an image story without its Reel is NOT staged (no feed-image fallback). The Reel's still, music.json (the
       Reel's hash) and the Reel go in the same commit as the images.
+      The picks slot's Reel fallback (hook_v6cat.py, owner/HQ rule 2026-10-12) stages the same way (an image story with its Reel:
+      the picks still + its Still -> Reel); its DIR/fallback.json goes into the spec post as "fallback" (never into the manifest,
+      whose post keys the social kit fixes) and the log says "FALLBACK still_reel" with the failed gates.
       Exit 2 when nothing is ready to stage.
 
 Rendered outputs each story directory must hold (the render / package hooks write them): a
@@ -48,6 +51,7 @@ import manifest as mf  # noqa: E402
 STORY_SCHEMA = "rtv-daily-story/1"
 MORNING_SLOTS = (1, 2)   # weekday morning post: the trade (2) or, when no trade clears the bar, the earnings image (1)
 RENDER_FAILED = "render-failed.json"
+FALLBACK_FILE = "fallback.json"   # written by hook_v6cat.py when the picks slot goes out as the still-based Reel
 
 
 def _slots(raw: str | None) -> set[int] | None:
@@ -197,6 +201,13 @@ def cmd_stage(a: argparse.Namespace) -> int:
             continue
         dest = repo / "v" / date / s["story_id"]
         dest.mkdir(parents=True, exist_ok=True)
+        if reel_of_image and (sdir / FALLBACK_FILE).is_file():
+            # the picks fallback after an earlier same-day attempt staged the video: its feed / square MP4s are not this post's
+            # (with them the folder would read as a video post mixing two runs); the manifest never listed them
+            for name in ("feed_4x5.mp4", "square_1x1.mp4"):
+                if (dest / name).exists():
+                    (dest / name).unlink()
+                    print(f"slot {s['slot']} {s['story_id']}: removed {name} of an earlier attempt (this post is the fallback still Reel)")
         for name in files:
             shutil.copy2(sdir / name, dest / name)
         if stills:
@@ -217,6 +228,9 @@ def cmd_stage(a: argparse.Namespace) -> int:
         posts.append({"slot": s["slot"], "time_et": s["time_et"], "category": s["category"], "story_id": s["story_id"],
                       "story_key": s["story_key"], "tickers": s["tickers"], "people": s["people"],
                       "post_package": str(sdir / "post-package.json")})
+        if reel_of_image and (sdir / FALLBACK_FILE).is_file():   # (a video post staged here is the normal path: a leftover file is not it)
+            fb = _load(sdir / FALLBACK_FILE)
+            posts[-1]["fallback"] = {"type": fb.get("fallback"), "reason": fb.get("reason")}
     for p in problems:
         print(f"NOT STAGED: {p}")
     if not posts:
@@ -224,7 +238,9 @@ def cmd_stage(a: argparse.Namespace) -> int:
         return 2
     mf.write_json(Path(a.spec), {"date": date, "posts": posts})
     for p in posts:
-        print(f"staged slot {p['slot']} {p['story_id']} -> v/{date}/{p['story_id']}/")
+        fb = p.get("fallback")
+        print(f"staged slot {p['slot']} {p['story_id']} -> v/{date}/{p['story_id']}/"
+              + (f" (FALLBACK {fb['type']}: {fb['reason']})" if fb else ""))
     return 0
 
 
