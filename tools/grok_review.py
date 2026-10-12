@@ -16,9 +16,10 @@ default (what Grok reads) or a local v/ directory. Checks:
     Form 4, Form 144, Form 13F, 8-K, 10-Q, 10-K and 13F are words, not numbers (posts and comments);
   - banned words (case-insensitive): the rules' list plus the item's own banned_words (chart_pattern / moves_like:
     no predictions such as "will"); "Not investment advice." in the text;
-  - link == the item's page_url with {platform} filled in; every URL in text / reply is that link or the item's
-    source_url; X: the link and (Congress / Form 4) the source link go in the self-reply (reply_text);
-    Instagram: a Congress / Form 4 caption carries the source link;
+  - link == the item's page_url with {platform} filled in; every URL in text / reply is that link, the item's
+    source_url or one of its source_urls (ptr_summary: one official PTR URL per filing); X: the link and (Congress /
+    Form 4 / ptr_summary) at least one source link go in the self-reply (reply_text); Instagram: a Congress / Form 4 /
+    ptr_summary caption carries one;
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
   - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
     Moves Like post never touches picks);
@@ -299,17 +300,19 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     if link != want:
         reasons.append(f"link must be the item's page_url for {short(platform)} (utm_source={short(platform)}, "
                        f"utm_content={short(iid, 80)})")
-    src = item.get("source_url")
+    srcs = item_sources(item)
     for u in URL.findall(both):
         u = u.rstrip(".,;:!?)]}")
-        if u not in (want, src):
+        if u != want and u not in srcs:
             reasons.append(f"URL not from this item: {short(u, 80)}")
+    if item.get("type") == "ptr_summary" and not srcs:
+        reasons.append("ptr_summary: the item has no official source URL to cite")
     if platform == "x":
         if want and want not in reply:
             reasons.append("X: the page link goes in the self-reply (reply_text)")
-        if item.get("type") in SOURCE_TYPES and src and src not in reply:
+        if item.get("type") in SOURCE_TYPES and srcs and not any(u in reply for u in srcs):
             reasons.append("X: the official source link goes in the self-reply (reply_text)")
-    elif platform == "instagram" and item.get("type") in SOURCE_TYPES and src and src not in both:
+    elif platform == "instagram" and item.get("type") in SOURCE_TYPES and srcs and not any(u in both for u in srcs):
         reasons.append("Instagram: the caption must carry the official source link")
 
     # Media
@@ -330,6 +333,15 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
             reasons.append(f"picks: no #1 / top-pick hint ({short(hint.group(0))!r})")
 
     return ("REJECT", reasons) if reasons else ("APPROVE", [])
+
+
+def item_sources(item: dict) -> list[str]:
+    """The item's source URLs a post may carry: source_url and every source_urls entry (a ptr_summary over several
+    filings has source_url null and one official URL per filing). ptr_summary: official PTR hosts only."""
+    urls = [u for u in [item.get("source_url"), *(item.get("source_urls") or [])] if isinstance(u, str) and u]
+    if item.get("type") == "ptr_summary":
+        urls = [u for u in urls if fx.official(u, fx.OFFICIAL_PTR_HOSTS)]
+    return list(dict.fromkeys(urls))
 
 
 def item_names(item: dict) -> list[str]:

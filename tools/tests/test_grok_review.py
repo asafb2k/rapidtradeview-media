@@ -412,6 +412,10 @@ def test_g_n1_the_whole_draft_is_screened(over, where):
 # ---------------------------------------------------------------------------
 # Several cashtags: only the roundup kinds, at most 4 (Growth B1 2026-10-12)
 
+WHOLE = {"since": "2026-10-05", "oldest_read": "2026-09-25", "error": None, "dropped": []}  # a whole-filing read
+PTR2 = "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035570.pdf"
+
+
 def roundup_facts() -> dict:
     up = [fx.make_item(DATE, "earnings_upcoming", t, f"upcoming:{t}:2026-10-12", "/earnings/tomorrow", name=f"{t} Inc.",
                        report_date="2026-10-12", hour="bmo", market_cap_usd=cap)
@@ -422,7 +426,7 @@ def roundup_facts() -> dict:
                              figure_slug="maria-elvira-salazar", filed="2026-10-07", rows=1, source_url=PTR,
                              amount_top_usd=15000)
                 for t in ("UNH", "MSFT", "AAPL", "DAL", "XE")]
-    summary, _ = fx.ptr_summary_items(dt.date(2026, 10, 9), congress, {"members": [], "insiders": []})
+    summary, _, _ = fx.ptr_summary_items(dt.date(2026, 10, 9), congress, {"members": [], "insiders": []}, WHOLE)
     five = dict(roundup[0], item_id=f"{DATE}-earnings-tomorrow-roundup-LIST-fffff5",
                 tickers=["JPM", "JNJ", "UNH", "WFC", "C"])   # a malformed item with 5 tickers: the cap still holds
     return {"schema": fx.SCHEMA, "date": DATE, "rules": FACTS["rules"], "items": [roundup[0], summary[0], five, CONGRESS]}
@@ -464,3 +468,52 @@ def test_single_ticker_kinds_keep_one_cashtag():
     v, why = gr.review(good_x(text="$UNH and $MSFT: Rep. Salazar disclosed a $15K–$50K purchase. Not investment advice."), rf)
     assert v == "REJECT" and any("one cashtag per post" in r for r in why)
     assert gr.review(good_x(), rf) == ("APPROVE", [])
+
+
+def multi_filing_summary() -> tuple[dict, dict]:
+    congress = [fx.make_item(DATE, "congress_trade", t, f"ptr:{src[-12:-4]}:{t}:sell", "/smart-money/figures/maria-elvira-salazar",
+                             name="Maria Elvira Salazar", office="U.S. Representative (R-FL)", side="sell",
+                             figure_slug="maria-elvira-salazar", filed="2026-10-07", rows=1, source_url=src,
+                             amount_top_usd=15000)
+                for t, src in (("UNH", PTR), ("MSFT", PTR), ("AAPL", PTR2))]
+    summary, _, _ = fx.ptr_summary_items(dt.date(2026, 10, 9), congress, {"members": [], "insiders": []}, WHOLE)
+    item = summary[0]
+    return item, {"schema": fx.SCHEMA, "date": DATE, "rules": FACTS["rules"], "items": [item]}
+
+
+def test_ptr_summary_over_several_filings_cites_any_of_its_official_urls():
+    item, facts = multi_filing_summary()
+    assert item["source_url"] is None and sorted(item["source_urls"]) == [PTR, PTR2]
+    text = "Rep. Maria Elvira Salazar disclosed 3 trades (3 sales) on 2 reports filed Oct 7: $UNH $MSFT $AAPL. Not investment advice."
+    lk = link(item, "x")
+    for src in (PTR, PTR2):   # either filing's URL is the item's own
+        assert gr.review(roundup_post(item, text, reply=f"Filings: {src}\n{lk}"), facts) == ("APPROVE", [])
+    assert gr.review(roundup_post(item, text, reply=f"{PTR} {PTR2}\n{lk}"), facts) == ("APPROVE", [])
+    # X: at least one official source URL in the self-reply
+    v, why = gr.review(roundup_post(item, text, reply=lk), facts)
+    assert v == "REJECT" and any("official source link goes in the self-reply" in r for r in why)
+    v, why = gr.review(roundup_post(item, f"{text} {PTR2}", reply=lk), facts)   # in the text only: still not in the reply
+    assert v == "REJECT" and any("official source link goes in the self-reply" in r for r in why)
+    # a URL that is no filing of this item
+    other = PTR.replace("20035562", "20035599")
+    v, why = gr.review(roundup_post(item, text, reply=f"{other}\n{lk}"), facts)
+    assert v == "REJECT" and any("URL not from this item" in r for r in why)
+    # Instagram: the caption carries one of them
+    ig = link(item, "instagram")
+    post = {"item_id": item["item_id"], "platform": "instagram", "text": f"{text}\nFiling: {PTR2}\n{ig}", "link": ig,
+            "media_url": item["media"][0]["url"]}
+    assert gr.review(post, facts) == ("APPROVE", [])
+    v, why = gr.review(dict(post, text=f"{text}\n{ig}"), facts)
+    assert v == "REJECT" and any("caption must carry the official source link" in r for r in why)
+
+
+def test_ptr_summary_source_urls_must_be_official():
+    item, facts = multi_filing_summary()
+    bad = "https://example.com/ptr.pdf"
+    item = dict(item, source_urls=[bad])
+    facts = dict(facts, items=[item])
+    text = "Rep. Maria Elvira Salazar disclosed 3 trades (3 sales) on 2 reports filed Oct 7: $UNH. Not investment advice."
+    lk = link(item, "x")
+    v, why = gr.review(roundup_post(item, text, reply=f"{bad}\n{lk}"), facts)
+    assert v == "REJECT" and any("URL not from this item" in r for r in why)
+    assert any("no official source URL" in r for r in why)
