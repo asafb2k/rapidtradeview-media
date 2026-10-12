@@ -43,6 +43,17 @@ rejects a whole day whose manifest it does not understand, and the old kit takes
 nor more than one Reel on a weekday. Merge this branch only after that kit is on prod and before the first run on or after
 2026-10-11 (or move `IG_REELS_ONLY_FROM` later with it).
 
+Card Reel (Growth 2026-10-12: a second Instagram Reel a day). Every facts build (`Publish-Facts`) runs `tools/card_reel.py`
+first. Weekdays from 10:00 New York time (the first facts build at or after it, normally the 10:00 intraday refresh) and
+on the weekend pass, it picks ONE item a day, the first available of earnings_result (largest market cap), congress_trade
+(freshest filing), form4_buy (freshest filing), chart_pattern; renders its share card (media[0], our page's 1200x630 Open
+Graph PNG, never the site's generic card) through growth-video `scripts/v6cat/card_reel.py` (the item's facts_text as the
+caption, a slow push-in on a plain dark background, the standard end card, the VSCO bed, 13 s; its QA must pass), commits
+`v/<date>/cards/<item_id>/reel_9x16.mp4` + `music.json` (provenance and file hash), waits for Pages, and then adds
+`{"url": <that Pages URL>, "kind": "reel", "alt": <facts_text>}` to that item's `media` in facts.json (the compare counts
+media URLs, so the file republishes). A failed download, card check, render or QA is logged in
+`<work>/card-reel.json`; the same item gets one more try, never another item, and the facts and videos go on.
+
 Access policy (2026-10-09): the API and site answer non-browser clients with 403 unless they send the
 private `X-RTV-Automated-QA` header. The runner's tools read it at run time through `tools/qa_header.py`
 (the key lives in a local file outside the repo, is sent to our own hosts only, and is never printed,

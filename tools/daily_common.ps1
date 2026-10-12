@@ -109,15 +109,49 @@ function Publish-Spec([string]$SpecFile, [int]$PagesTimeoutSec = 900) {
     Log "PUBLISHED: https://asafb2k.github.io/rapidtradeview-media/v/$date/manifest.json is live and valid."
 }
 
+# Card Reel (Growth 2026-10-12: a second Instagram Reel a day; tools/card_reel.py says when and which item). prepare renders and
+# stages it (exit 10) or attaches the live one / skips (exit 0); a staged reel is committed and pushed on its own, then `live` waits
+# for Pages and adds {"url", "kind": "reel", "alt"} to the item's media in $FactsFile. Every failure is logged; nothing here throws.
+function Invoke-CardReel([string]$Date, [string]$Work, [string]$FactsFile, [bool]$Push, [string]$NowIso) {
+    try {
+        $tool = Join-Path $script:Tools 'card_reel.py'
+        $argv = @($tool, 'prepare', '--date', $Date, '--facts', $FactsFile, '--work', $Work, '--repo', $script:Repo, '--python', $script:Python)
+        if ($NowIso) { $argv += @('--now', $NowIso) }
+        if (-not $Push) { $argv += '--no-push' }
+        $code = Invoke-Native $script:Python $argv
+        if ($code -eq 0) { return }
+        if ($code -ne 10) { Log "CARD REEL: card_reel.py prepare exit $code; the facts go on without a card Reel"; return }
+        $files = @(Get-Content -Encoding UTF8 (Join-Path $Work 'card-reel-files.txt') | Where-Object { $_.Trim() })
+        if ((Invoke-Git (@('add', '--') + $files)) -ne 0) { Log 'CARD REEL: git add failed; next facts run retries'; return }
+        & git.exe -C $script:Repo diff --cached --quiet -- @files
+        if ($LASTEXITCODE -ne 0) {
+            if ((Invoke-Git (@('commit', '--quiet', '-m', "Card Reel $Date", '--') + $files)) -ne 0) { Log 'CARD REEL: git commit failed'; return }
+        }
+        if ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) {
+            Log 'card reel push rejected; merging origin and retrying'
+            if ((Invoke-Git @('pull', '--no-rebase', '--no-edit', '--quiet', 'origin', 'main')) -ne 0) {
+                [void](Invoke-Git @('merge', '--abort'))
+                Log 'CARD REEL: git pull failed; the commit stays local and goes out with the next push'
+                return
+            }
+            if ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) { Log 'CARD REEL: git push failed; the commit stays local'; return }
+        }
+        $code = Invoke-Native $script:Python @($tool, 'live', '--date', $Date, '--facts', $FactsFile, '--work', $Work, '--repo', $script:Repo, '--timeout', '600')
+        if ($code -ne 0) { Log "CARD REEL: pushed, but Pages does not serve it yet (exit $code); the next facts run checks again" }
+    } catch {
+        Log "CARD REEL FAILED: $($_.Exception.Message); the facts go on"
+    }
+}
+
 # Facts feed for Grok-run brand social (tools/facts.py -> v/<date>/facts.json; GROK-SOCIAL.md). It never depends
 # on a render and never changes the run's exit code: every failure here is logged and the run goes on.
 # facts.py gets the day's published file as --previous (Moves Like answers of the day are not asked again).
 # facts.py exit 0 = every core source loaded; 4 = a core source failed (the file says which): a partial file is
 # published only when no facts.json for the date exists yet, so a passing outage never replaces a complete feed.
-# The file is published only when its item set (item_id + dedupe_key) differs from the published one; then it is
+# The file is published only when its item set (item_id + dedupe_key + media URLs) differs from the published one; then it is
 # committed, pushed, and Pages is read until it serves the new item set (or $PagesTimeoutSec passes: logged).
 # $Push = $false (-NoPush / -SelectOnly) writes the file into the repo without committing it.
-function Publish-Facts([string]$Date, [string]$Work, [bool]$Push, [int]$PagesTimeoutSec = 420) {
+function Publish-Facts([string]$Date, [string]$Work, [bool]$Push, [int]$PagesTimeoutSec = 420, [string]$NowIso = '') {
     try {
         $tmp = Join-Path $Work 'facts.json'
         $rel = "v/$Date/facts.json"
@@ -132,6 +166,9 @@ function Publish-Facts([string]$Date, [string]$Work, [bool]$Push, [int]$PagesTim
         if ($code -eq 4 -and (Test-Path $dest)) { Log "FACTS PARTIAL (a core source failed): kept the existing $rel; this run's file is $tmp"; return }
         if ($code -ne 0 -and $code -ne 4) { Log "FACTS FAILED (facts.py exit $code): $rel not updated; the videos go on"; return }
         if ($code -eq 4) { Log "FACTS PARTIAL (a core source failed): publishing it, there is no $rel yet" }
+        # The day's card Reel (tools/card_reel.py): rendered, pushed and served by Pages first, then added to its item's media in
+        # $tmp, so the compare below publishes it. It never blocks the facts or changes the exit code.
+        Invoke-CardReel $Date $Work $tmp $Push $NowIso
         if (Test-Path $dest) {
             $same = Invoke-Native $script:Python @($facts, '--compare-items', $dest, $tmp)
             if ($same -eq 0) { Log "facts: item set unchanged -> skip (nothing published)"; return }
@@ -185,7 +222,7 @@ function Update-FactsIfDue([string]$Date, [string]$Work, [bool]$Push, [DateTime]
             if ($age -ge 0 -and $age -lt 28) { return "facts refresh: last run $([int]$age) min ago ($label)" }
         }
         Log "facts refresh ($label)"
-        Publish-Facts $Date $Work $Push
+        Publish-Facts $Date $Work $Push 420 ($NowUtc.ToString('o'))
         [System.IO.File]::WriteAllText($stamp, $NowUtc.ToString('o'))
         return $null
     } catch {

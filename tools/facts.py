@@ -34,7 +34,9 @@ Each item carries item_id, type, ticker, name / office, amount text as our pages
 source_url, page_url (UTM built in; "{platform}" is a literal placeholder Grok fills with x or instagram),
 allowed_numbers (every numeric token a post may print), must_include, a one-line facts_text and media: the
 images a post may carry ([{url, kind: image, alt}], the landing page's Open Graph card <SITE><page>/opengraph-image;
-earnings_upcoming: <SITE>/earnings/opengraph-image; never fetched here).
+earnings_upcoming: <SITE>/earnings/opengraph-image; never fetched here). The runner (tools/card_reel.py, via
+daily_common.ps1 Publish-Facts) may append one {url: <Pages>/v/<date>/cards/<item_id>/reel_9x16.mp4, kind: reel, alt}
+a day to one item: its share card as a 9:16 Reel for Instagram.
 An empty type is valid: items [] and reasons say why. Nothing is estimated or invented (No Fallbacks).
 
 Exit codes: 0 written, every core source loaded (a failed chart_pattern / moves_like read is in errors, its item
@@ -42,8 +44,9 @@ dropped); 4 written, but a core source failed (ticker list, congress, insiders, 
 anything else: crashed / not written (1, or 2 for a usage error).
 
   facts.py --compare-items OLD NEW    OLD / NEW: a file or an https URL (Pages; fetched past its cache). Exit 0 when
-                                      both carry the same items (item_id + dedupe_key; generated_at and the rest do
-                                      not count), 1 when they differ, 2 when one cannot be read.
+                                      both carry the same items (item_id + dedupe_key + media URLs: a card Reel the
+                                      runner adds counts; generated_at and the rest do not), 1 when they differ, 2 when
+                                      one cannot be read.
 """
 from __future__ import annotations
 
@@ -955,8 +958,11 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
 # ---------------------------------------------------------------------------
 # Comparing two feeds (the runner publishes only when the item set changed)
 
-def item_set(facts: dict) -> set[tuple[str, str]]:
-    return {(str(i.get("item_id")), str(i.get("dedupe_key"))) for i in facts.get("items") or [] if isinstance(i, dict)}
+def item_set(facts: dict) -> set[tuple[str, str, tuple[str, ...]]]:
+    """item_id, dedupe_key and the media URLs of every item (a card Reel added to an item's media is a change to publish)."""
+    return {(str(i.get("item_id")), str(i.get("dedupe_key")),
+             tuple(str(m.get("url")) for m in i.get("media") or [] if isinstance(m, dict)))
+            for i in facts.get("items") or [] if isinstance(i, dict)}
 
 
 def read_facts(where: str) -> dict:
