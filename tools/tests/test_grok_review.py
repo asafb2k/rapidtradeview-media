@@ -321,3 +321,62 @@ def test_crypto_words_are_banned_on_every_item(word):
     assert v == "REJECT" and any("banned words" in r for r in why)
     v, why = gr.review(good_x(text=f"$UNH: Rep. Salazar disclosed a $15K–$50K purchase; {word}. Not investment advice."), FACTS)
     assert v == "REJECT" and any("banned words" in r for r in why)
+
+
+# ---------------------------------------------------------------------------
+# G-N1 holdout: no /earnings/reports/ in a post, self-reply, comment, link or media until 2026-11-21
+
+import datetime as _dt  # noqa: E402
+
+IN_HOLDOUT = _dt.datetime(2026, 10, 13, 15, 0, tzinfo=_dt.timezone.utc)
+AFTER = _dt.datetime(2026, 11, 21, 0, 0, tzinfo=_dt.timezone.utc)
+SEC = "https://www.sec.gov/Archives/edgar/data/19617/000001961726000099/ex99.htm"
+REPORT = "https://www.rapidtradeview.trade/earnings/reports/jpm-2026-q3"
+
+
+def earnings_facts(path="/dashboard/JPM"):
+    er = fx.make_item("2026-10-13", "earnings_result", "JPM", "report:jpm-2026-q3", path, name="JPMorgan Chase & Co.",
+                      source_url=SEC, facts_text="JPMorgan Chase & Co. (JPM) published FY2026 (Q3) results: Beat estimates.",
+                      allowed_numbers=["Q3", "FY2026"])
+    return {**FACTS, "date": "2026-10-13", "items": [er]}, er
+
+
+def er_draft(er, **over):
+    d = {"item_id": er["item_id"], "platform": "x", "text": "$JPM published FY2026 Q3 results: beat estimates. Not investment advice.",
+         "reply_text": f"Filing: {SEC}\nEarnings history: {link(er, 'x')}", "link": link(er, "x"), "media_url": er["media"][0]["url"]}
+    d.update(over)
+    return d
+
+
+def test_g_n1_the_dashboard_earnings_post_is_approved():
+    facts, er = earnings_facts()
+    assert er["page_url"].endswith("#earnings-history") and er["media"][0]["url"].endswith("/dashboard/JPM/opengraph-image")
+    assert gr.review(er_draft(er), facts, IN_HOLDOUT) == ("APPROVE", [])
+
+
+@pytest.mark.parametrize("field,value", [
+    ("text", f"$JPM beat estimates, summary at {REPORT}. Not investment advice."),
+    ("reply_text", f"Summary: {REPORT}"),
+    ("media_url", f"{REPORT}/opengraph-image"),
+    ("media_url", "https://www.rapidtradeview.trade/earnings%2Freports%2Fjpm-2026-q3/opengraph-image"),
+])
+def test_g_n1_report_page_in_a_post_is_rejected(field, value):
+    facts, er = earnings_facts()
+    v, why = gr.review(er_draft(er, **{field: value}), facts, IN_HOLDOUT)
+    assert v == "REJECT" and any(field in r and "G-N1 holdout" in r for r in why), why
+    assert not any("G-N1" in r for r in gr.review(er_draft(er, **{field: value}), facts, AFTER)[1])   # gate off on 11-21
+
+
+def test_g_n1_an_old_report_item_cannot_be_posted_even_with_its_own_link():
+    """A facts file built before the holdout code (page_url and card on the report page): the matching link is rejected."""
+    facts, er = earnings_facts(path="/earnings/reports/jpm-2026-q3")
+    v, why = gr.review(er_draft(er), facts, IN_HOLDOUT)
+    assert v == "REJECT" and any(r.startswith("reply_text, link, media_url: no /earnings/reports/") for r in why), why
+
+
+def test_g_n1_report_page_in_a_comment_is_rejected():
+    d = {"kind": "comment", "platform": "x", "target_url": "https://x.com/sometrader/status/1844000000000000001",
+         "text": "Nice breakdown, the JPM summary at rapidtradeview.trade/earnings/reports/jpm-2026-q3 has the numbers too."}
+    v, why = gr.review_comment(d, None, None, IN_HOLDOUT)
+    assert v == "REJECT" and any("G-N1 holdout" in r for r in why)
+    assert gr.holdout_reasons(d, AFTER) == []

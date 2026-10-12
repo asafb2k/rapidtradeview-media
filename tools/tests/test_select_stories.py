@@ -416,3 +416,45 @@ def test_load_exclude(tmp_path):
     f = tmp_path / "render-failed.json"
     f.write_text(json.dumps({"story_keys": {"ptr:20035491:DVN:sell": "slot 2 dvn-hern: step 'render' failed"}}), encoding="utf-8")
     assert ss.load_exclude(str(f)) == {"ptr:20035491:DVN:sell": "slot 2 dvn-hern: step 'render' failed"}
+
+
+# ---------------------------------------------------------------------------
+# G-N1 holdout (prereg Amendment 2 §3d): no report slot can be planned before 2026-11-21
+
+JPM_TILE = {"id": "jpm-2026-q3", "ticker": "JPM", "release_date": "2026-10-13", "summary_status": "ready"}
+JPM_REPORT = {**JPM_TILE, "company_name": "JPMorgan Chase & Co.", "fiscal_label": "FY2026 (Q3)", "tile_label": "Beat estimates",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000099/ex99.htm",
+              "consensus": {"revenue": {"status": "ready"}}, "results": {"revenue": {"verdict": "beat", "label": "Beat by $1B"}}}
+
+
+def report_api(day):
+    tile = dict(JPM_TILE, release_date=day)
+    return StubApi({"/earnings/reports?days=7": {"recent": [tile]}, "/earnings/reports/jpm-2026-q3": dict(JPM_REPORT, **tile),
+                    "/snapshot/JPM": {"company_name": "JPMorgan Chase & Co.", "profile": {"stats": {"market_cap": 8e11}}}})
+
+
+@pytest.mark.parametrize("day", [D(2026, 10, 13), D(2026, 10, 14), D(2026, 11, 20)])
+def test_g_n1_no_report_candidates_before_11_21(day, capsys):
+    api = report_api(day.isoformat())
+    assert ss.report_candidates(api, day, []) == ([], None, 0)
+    assert api.requests == 0                                              # not even read
+    assert "G-N1 holdout until 11-21" in capsys.readouterr().err
+
+
+def test_g_n1_report_candidates_come_back_after_the_readout():
+    day = D(2026, 11, 23)
+    reports, err, looked = ss.report_candidates(report_api(day.isoformat()), day, [])
+    assert err is None and looked == 1 and [r["report"]["id"] for r in reports] == ["jpm-2026-q3"]
+
+
+def test_g_n1_the_plan_has_no_report_slot(tmp_path, monkeypatch):
+    calls = []
+    monkeypatch.setattr(ss, "report_slot", lambda c: calls.append(c) or {"category": "earnings_report"})
+    api = plan_api(HERN_0930, CAL_0930)
+    api.answers.update({"/earnings/reports?days=7": {"recent": [JPM_TILE]}, "/earnings/reports/jpm-2026-q3": JPM_REPORT})
+    plan = ss.build_plan(D(2026, 10, 13), api, tmp_path, load_fame(), tmp_path / "none.json")
+    assert calls == []
+    assert all(s.get("category") != "earnings_report" for s in plan["slots"])
+    s5 = next(s for s in plan["slots"] if s["slot"] == 5)
+    assert s5["status"] == "empty" and "G-N1 holdout until 11-21" in s5["reason"]
+    assert "/earnings/reports/" not in json.dumps(plan)
