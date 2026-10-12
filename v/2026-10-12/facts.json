@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-12",
-  "generated_at": "2026-10-12T14:00:04Z",
-  "as_of": "2026-10-12T14:00:04Z",
+  "generated_at": "2026-10-12T15:00:04Z",
+  "as_of": "2026-10-12T15:00:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -64,7 +64,7 @@
     "ptr_summary": 1
   },
   "reasons": {
-    "earnings_result": "no earnings report published between 2026-10-11T14:00Z and 2026-10-12T14:00Z",
+    "earnings_result": "no earnings report published between 2026-10-11T15:00Z and 2026-10-12T15:00Z",
     "picks_ready": "the published list (2026-10-09) expires 2026-10-12T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
   },
   "left_out": {
@@ -121,7 +121,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 12,
+      "tickers_in_items": 13,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -946,81 +946,97 @@
       "rank_why": "earnings_upcoming 1; mid cap $2.85B +1; today 2026-10-12 (age 0) +2"
     },
     {
-      "item_id": "2026-10-12-chart-pattern-SPGI-91b9ed",
+      "item_id": "2026-10-12-chart-pattern-UTHR-f1ccb6",
       "type": "chart_pattern",
-      "ticker": "SPGI",
+      "ticker": "UTHR",
       "tickers": [
-        "SPGI"
+        "UTHR"
       ],
-      "name": "S&P Global Inc.",
+      "name": "United Therapeutics Corporation",
       "office": null,
       "amount_text": null,
       "traded": [],
       "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/dashboard/SPGI",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/SPGI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-chart-pattern-SPGI-91b9ed#pattern",
+      "source_url": "https://www.rapidtradeview.trade/dashboard/UTHR",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/UTHR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-chart-pattern-UTHR-f1ccb6#pattern",
       "allowed_numbers": [
-        "$395.92",
-        "$403.45",
-        "$462.02",
-        "$454.92",
-        "$402.73",
-        "Sep 28",
-        "Jul 17",
-        "Aug 6",
-        "Sep 1",
+        "$541.89",
+        "$504.19",
+        "$609.35",
+        "$541.03",
+        "$535.77",
+        "$551.30",
+        "$490.80",
+        "$494.35",
+        "$468.97",
+        "$532.78",
+        "Sep 30",
+        "May 6",
+        "Aug 7",
+        "Aug 19",
+        "Apr 2",
+        "Aug 5",
+        "Aug 14",
+        "Sep 24",
         "Oct 8",
         "2026-10-09",
         "Oct 9, 2026",
         "Oct 9",
-        "2026-07-17",
-        "Jul 17, 2026",
-        "2026-09-01",
-        "Sep 1, 2026",
-        "2026-09-28",
-        "Sep 28, 2026",
+        "2026-04-02",
+        "Apr 2, 2026",
+        "2026-09-24",
+        "Sep 24, 2026",
+        "2026-09-30",
+        "Sep 30, 2026",
         "2026-10-08",
         "Oct 8, 2026",
-        "2026-08-06",
-        "Aug 6, 2026"
+        "2026-05-06",
+        "May 6, 2026",
+        "2026-08-05",
+        "Aug 5, 2026",
+        "2026-08-07",
+        "Aug 7, 2026",
+        "2026-08-14",
+        "Aug 14, 2026",
+        "2026-08-19",
+        "Aug 19, 2026"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Automatic technical analysis flagged a double top on $SPGI (S&P Global Inc.) (scan 2026-10-09): pattern 2026-07-17 to 2026-09-01. Confirmed Sep 28: closed $395.92, clearly below the $403.45 neckline.",
-      "dedupe_key": "pattern:SPGI:double_top:confirmed:2026-09-28",
+      "facts_text": "Automatic technical analysis flagged a falling wedge on $UTHR (United Therapeutics Corporation) (scan 2026-10-09): pattern 2026-04-02 to 2026-09-24. Confirmed Sep 30: closed $541.89, clearly above the upper line at $504.19.",
+      "dedupe_key": "pattern:UTHR:falling_wedge:confirmed:2026-09-30",
       "scan_date": "2026-10-09",
       "pattern": {
-        "type": "double_top",
-        "name": "Double top",
+        "type": "falling_wedge",
+        "name": "Falling wedge",
         "status": "confirmed",
-        "direction": "down",
-        "start": "2026-07-17",
-        "end": "2026-09-01",
-        "start_text": "Jul 17, 2026",
-        "end_text": "Sep 1, 2026",
-        "confirmed_on": "2026-09-28",
+        "direction": "up",
+        "start": "2026-04-02",
+        "end": "2026-09-24",
+        "start_text": "Apr 2, 2026",
+        "end_text": "Sep 24, 2026",
+        "confirmed_on": "2026-09-30",
         "as_of": "2026-10-08"
       },
       "levels": {
-        "key_level_name": "neckline",
-        "key_level": "$403.45",
-        "breakout_close": "$395.92"
+        "key_level_name": "upper line",
+        "key_level": "$504.19",
+        "breakout_close": "$541.89"
       },
       "page_text": {
-        "pill": "Double top · Confirmed Sep 28",
-        "chip": "Confirmed Sep 28",
-        "detail": "confirmed by the Sep 28 close of $395.92 · neckline $403.45",
-        "what": "Two peaks at about the same price, with a dip between them.",
+        "pill": "Falling wedge · Confirmed Sep 30",
+        "chip": "Confirmed Sep 30",
+        "detail": "confirmed by the Sep 30 close of $541.89, clearly above the upper line",
+        "what": "Price sliding between two falling lines that come together.",
         "key": [
-          "Confirmed Sep 28: closed $395.92, clearly below the $403.45 neckline.",
-          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $403.45."
+          "Confirmed Sep 30: closed $541.89, clearly above the upper line at $504.19.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back below $504.19, where the upper line was on Sep 30."
         ],
         "points": [
-          "Peak 1 $462.02 on Jul 17",
-          "Low between $403.45 on Aug 6",
-          "Peak 2 $454.92 on Sep 1",
-          "Sep 28 closed $395.92: confirmed · last close $402.73 (Oct 8)"
+          "Highs $609.35 (May 6) → $541.03 (Aug 7) → $535.77 (Aug 19)",
+          "Lows $551.30 (Apr 2) → $490.80 (Aug 5) → $494.35 (Aug 14) → $468.97 (Sep 24)",
+          "Sep 30 closed $541.89: confirmed · last close $532.78 (Oct 8)"
         ]
       },
       "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
@@ -1030,9 +1046,9 @@
       ],
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/dashboard/SPGI/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/UTHR/opengraph-image",
           "kind": "image",
-          "alt": "Automatic technical analysis flagged a double top on $SPGI (S&P Global Inc.) (scan 2026-10-09): pattern 2026-07-17 to 2026-09-01. Confirmed Sep 28: closed $395.92, clearly below the $403.45 neckline."
+          "alt": "Automatic technical analysis flagged a falling wedge on $UTHR (United Therapeutics Corporation) (scan 2026-10-09): pattern 2026-04-02 to 2026-09-24. Confirmed Sep 30: closed $541.89, clearly above the upper line at $504.19."
         }
       ],
       "rank": 2.5,
