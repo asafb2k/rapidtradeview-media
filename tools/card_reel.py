@@ -14,7 +14,8 @@ prepare
   - which item: the first available of earnings_result (largest market cap, from /snapshot), congress_trade, form4_buy (both:
     buys before sales, then the largest amount at the top of its range, then the freshest filing), chart_pattern (freshest scan);
     then the facts order. An item qualifies when it has facts_text and its media[0] is our
-    page's Open Graph card (https://www.rapidtradeview.trade/.../opengraph-image).
+    page's Open Graph card (https://www.rapidtradeview.trade/.../opengraph-image), and (G-N1 holdout, until 2026-11-21) carries
+    no /earnings/reports/ URL anywhere: an earnings_result's card is its ticker page's (/dashboard/<T>/opengraph-image).
   - the chosen item is fixed for the day: a failed download, card check, render or QA logs its reason in the state and the item stays
     without a reel; the same item is tried once more on the next build (MAX_ATTEMPTS), never another one (No Fallbacks).
   - the card: media[0].url downloaded with the access header (qa_header), a 1200 x 630 PNG that is not the site's generic card.
@@ -80,10 +81,20 @@ def due(now: dt.datetime) -> str | None:
     return f"weekday before {WEEKDAY_FROM_ET[0]:02d}:{WEEKDAY_FROM_ET[1]:02d} ET ({et:%a %H:%M} ET): the morning's reports may still come"
 
 
+def report_leak(item: dict) -> bool:
+    """G-N1 holdout (select_stories.G_N1_HOLDOUT_END): an item dated (item_id) before 2026-11-21 that carries a
+    /earnings/reports/ URL anywhere never becomes a Reel. An item_id without a date counts as inside the holdout."""
+    try:
+        day = dt.date.fromisoformat(str(item.get("item_id") or "")[:10])
+    except ValueError:
+        day = ss.G_N1_HOLDOUT_END - dt.timedelta(days=1)
+    return ss.g_n1_holdout(day) and ss.report_page_in(item)
+
+
 def eligible(item: dict) -> bool:
     media = item.get("media") or []
     first = media[0] if media and isinstance(media[0], dict) else {}
-    return (item.get("type") in ORDER and isinstance(item.get("item_id"), str) and isinstance(item.get("facts_text"), str)
+    return (not report_leak(item) and item.get("type") in ORDER and isinstance(item.get("item_id"), str) and isinstance(item.get("facts_text"), str)
             and bool(item["facts_text"].strip()) and first.get("kind") == "image" and bool(OG_CARD.match(str(first.get("url") or ""))))
 
 
@@ -315,6 +326,11 @@ def cmd_prepare(a: argparse.Namespace) -> int:
         item = next((i for i in items if i.get("item_id") == state["item_id"]), None)
         if item is None:
             note(state, f"FAILED {state['item_id']}: the chosen item left the facts; no other item is used today", now)
+            state["attempts"] = MAX_ATTEMPTS
+            save_state(work, state)
+            return 0
+        if report_leak(item):
+            note(state, f"FAILED {state['item_id']}: it carries a report page URL ({ss.G_N1_REASON}); no other item is used today", now)
             state["attempts"] = MAX_ATTEMPTS
             save_state(work, state)
             return 0

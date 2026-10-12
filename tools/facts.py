@@ -15,7 +15,8 @@ post for a New York market date. Every item is read from RapidTradeView's public
                      (fame.json, or CEO / Chair / President of a $200B+ company). One item per person, ticker and Form 4.
   earnings_result    earnings reports published in the 24 hours before --as-of (default: now, or the end of the
                      date's New York day for a past date), with the tile label and revenue / EPS where the report
-                     gives them.
+                     gives them. page_url /dashboard/<T>#earnings-history, media the ticker page's card, source_url
+                     the company's SEC filing (sec.gov) or null: never the report page (G-N1 holdout, below).
   earnings_upcoming  the next weekday's reporters in our universe with a confirmed date (/earnings/tomorrow).
   picks_ready        the public picks of the list /tips/daily serves at 15:00 ET (select_stories.picks_slot: the #1
                      pick is locked and never read, so its ticker is never in this file).
@@ -38,6 +39,8 @@ earnings_upcoming: <SITE>/earnings/opengraph-image; never fetched here). The run
 daily_common.ps1 Publish-Facts) may append one {url: <Pages>/v/<date>/cards/<item_id>/reel_9x16.mp4, kind: reel, alt}
 a day to one item: its share card as a 9:16 Reel for Instagram.
 An empty type is valid: items [] and reasons say why. Nothing is estimated or invented (No Fallbacks).
+G-N1 holdout (tracks/growth/bets/g-n1-holdout-prereg.md, Amendment 2): for a date before 2026-11-21 no item may carry
+a /earnings/reports/ URL in any field; an item that does is not built (errors "not built: ...", left_out.g_n1_holdout).
 
 Exit codes: 0 written, every core source loaded (a failed chart_pattern / moves_like read is in errors, its item
 dropped); 4 written, but a core source failed (ticker list, congress, insiders, earnings, picks: partial_sources);
@@ -241,7 +244,10 @@ def item_id(date: str, kind: str, ticker: str, key: str) -> str:
 
 
 # Section anchors live on prod since HQ PR #466 (2026-10-11); the fragment goes after the query string.
-KIND_ANCHORS = {"moves_like": "#moves-like", "chart_pattern": "#pattern"}
+# #earnings-history: the ticker page's earnings history section (<section id="earnings-history">, checked on
+# /dashboard/JPM 2026-10-12). Applied only to /dashboard/<T> pages.
+KIND_ANCHORS = {"moves_like": "#moves-like", "chart_pattern": "#pattern",
+                "earnings_result": "#earnings-history", "earnings_upcoming": "#earnings-history"}
 
 
 def anchor_for(kind: str, path: str) -> str:
@@ -270,6 +276,31 @@ def make_item(date: str, kind: str, ticker: str | None, key: str, path: str, **f
     if "media" not in fields:
         item["media"] = [og_media(kind, path, item["facts_text"])]
     return item
+
+
+class HoldoutLeak(AssertionError):
+    """An item carries a /earnings/reports/ URL inside the G-N1 holdout: that item is not built."""
+
+
+def assert_no_report_page(item: dict, target: dt.date) -> None:
+    """G-N1 holdout (select_stories.G_N1_HOLDOUT_END): before 2026-11-21 no item may carry a report page URL anywhere
+    (page_url, source_url, media, facts_text, any other field)."""
+    if ss.g_n1_holdout(target) and ss.report_page_in(item):
+        bad = sorted(k for k, v in item.items() if ss.report_page_in(v))
+        raise HoldoutLeak(f"{item.get('item_id')}: {', '.join(bad)} carries a report page URL ({ss.G_N1_REASON})")
+
+
+def screen_holdout(items: list[dict], target: dt.date) -> tuple[list[dict], list[str]]:
+    """(items that pass assert_no_report_page, one reason per item dropped)."""
+    kept, dropped = [], []
+    for it in items:
+        try:
+            assert_no_report_page(it, target)
+        except HoldoutLeak as e:
+            dropped.append(str(e))
+            continue
+        kept.append(it)
+    return kept, dropped
 
 
 def og_media(kind: str, path: str, facts_text: str) -> dict:
@@ -469,6 +500,9 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
             left["outside_24h"] += 1
             continue
         ticker = full.get("ticker") or tile.get("ticker")
+        if not ticker:
+            left["no_ticker"] = left.get("no_ticker", 0) + 1
+            continue
         res = full.get("results") or {}
         results: dict = {}
         nums: list[str | None] = []
@@ -500,14 +534,16 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
             bits = [b for b in [m.get("reported"), f"vs {m['consensus']} consensus" if m.get("consensus") else None,
                                 f"({m['label']})" if m.get("label") else None] if b]
             parts.append(f"{what} {' '.join(bits)}.")
+        # The company's own SEC filing (8-K / press release exhibit on sec.gov) or nothing: never our report page
+        # (G-N1 holdout until 2026-11-21; No Fallbacks). The landing page and its card are the ticker page's.
         src = full.get("source_url") if official(full.get("source_url"), ("www.sec.gov", "sec.gov")) else None
         items.append(make_item(
-            date, "earnings_result", ticker, f"report:{full.get('id')}", f"/earnings/reports/{full.get('id')}",
+            date, "earnings_result", ticker, f"report:{full.get('id')}", f"/dashboard/{ticker}",
             name=full.get("company_name"), report_id=full.get("id"), fiscal_label=full.get("fiscal_label"),
             release_date=full.get("release_date"), published_at=full.get("published_at"),
             tile_label=full.get("tile_label"), tile_state=full.get("tile_state"), results=results,
             filed=(full.get("filing_date") or full.get("release_date")),
-            source_url=src or f"{SITE}/earnings/reports/{full.get('id')}", facts_text=" ".join(parts),
+            source_url=src, facts_text=" ".join(parts),
             allowed_numbers=[*nums, *money_tokens(full.get("tile_label")),
                              *fiscal_tokens(full.get("fiscal_label"), full.get("fiscal_quarter"), full.get("fiscal_year")),
                              *date_forms(full.get("release_date")), *date_forms(full.get("filing_date")),
@@ -925,6 +961,11 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                                  "(left_out has the counts)"
                                  if checked else "no ticker in today's other items to look up")
     items += m
+
+    items, leaks = screen_holdout(items, target)
+    if leaks:
+        errors += [f"not built: {why}" for why in leaks]
+        left["g_n1_holdout"] = {"dropped": len(leaks), "reasons": leaks}
 
     counts = {k: sum(1 for i in items if i["type"] == k) for k in TYPES}
     return {

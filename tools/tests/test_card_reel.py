@@ -22,7 +22,7 @@ SITE = "https://www.rapidtradeview.trade"
 
 
 def item(kind, ticker, key, filed=None, **over):
-    path = {"earnings_result": f"/earnings/reports/{ticker.lower()}-2026-q3", "chart_pattern": f"/dashboard/{ticker}"}.get(
+    path = {"earnings_result": f"/dashboard/{ticker}", "chart_pattern": f"/dashboard/{ticker}"}.get(
         kind, f"/smart-money/figures/f-{ticker.lower()}")
     it = fx.make_item(DATE, kind, ticker, key, path, filed=filed, facts_text=f"{ticker} fact text, filed {filed}.",
                       allowed_numbers=fx.date_forms(filed) if filed else [])
@@ -255,3 +255,88 @@ def test_publish_facts_runs_the_card_reel_before_the_compare():
     fn = ps[ps.index("function Invoke-CardReel"):ps.index("function Publish-Facts")]
     assert "Fail " not in fn and "Push-Repo" not in fn                       # never ends the run
     assert fn.index("'push', '--quiet'") < fn.index("'live'")                # pushed before Pages is checked and it is attached
+
+
+# ---------------------------------------------------------------------------
+# G-N1 holdout (until 2026-11-21): the earnings_result Reel is the ticker page's card, never a report page
+
+class _ReportApi:
+    """The two report reads facts.result_items makes, for one JPM report published on 10-13."""
+    REPORT = {"id": "jpm-2026-q3", "ticker": "JPM", "company_name": "JPMorgan Chase & Co.", "fiscal_label": "FY2026 (Q3)",
+              "release_date": "2026-10-13", "filing_date": "2026-10-13", "tile_label": "Beat estimates",
+              "summary_status": "ready", "published_at": "2026-10-13T11:00:00+00:00",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000001961726000099/ex99.htm", "results": {}}
+
+    def get(self, path):
+        if path == "/earnings/reports/archive":
+            return {"reports": [self.REPORT]}, None
+        if path == "/earnings/reports/jpm-2026-q3":
+            return self.REPORT, None
+        return None, f"{path}: HTTP 404"
+
+
+def test_g_n1_a_report_page_item_never_becomes_the_reel():
+    old_style = item("earnings_result", "JPM", "report:jpm-old", filed="2026-10-13")
+    old_style.update(page_url=f"{SITE}/earnings/reports/jpm-2026-q3?utm_source={{platform}}",
+                     media=[{"url": f"{SITE}/earnings/reports/jpm-2026-q3/opengraph-image", "kind": "image", "alt": "x"}])
+    assert cr.report_leak(old_style) and not cr.eligible(old_style)
+    assert cr.choose([old_style, CONG_NEW], {"JPM": 8e11})[0] is CONG_NEW
+    after = dict(old_style, item_id="2026-11-23" + old_style["item_id"][10:])
+    assert not cr.report_leak(after)                                       # the gate ends with the readout
+
+
+def test_g_n1_a_chosen_item_that_carries_a_report_url_is_not_rendered(env, tmp_path):
+    leak = item("earnings_result", "JPM", "report:jpm-old", filed="2026-10-12")
+    env.work.mkdir(parents=True)
+    mf.write_json(env.work / cr.STATE,
+                  {"schema": "rtv-card-reel-state/1", "date": DATE, "status": "failed", "attempts": 1, "log": [],
+                   "item_id": leak["item_id"]})
+    leak["source_url"] = f"{SITE}/earnings/reports/jpm-2026-q3"
+    assert prepare(env, facts_file(tmp_path, [leak, CONG_NEW])) == 0
+    assert env.calls == []
+    state = json.loads((env.work / cr.STATE).read_text(encoding="utf-8"))
+    assert state["attempts"] == cr.MAX_ATTEMPTS and "G-N1 holdout until 11-21" in state["log"][-1]
+
+
+def test_g_n1_reel_spec_carries_no_report_url(tmp_path, monkeypatch):
+    """facts.result_items -> choose -> the real render() (download + renderer stubbed): the item handed to the renderer,
+    the card it downloads, the staged music.json and the state carry no /earnings/reports/ URL."""
+    items, _, errors = fx.result_items(_ReportApi(), dt.date(2026, 10, 13), dt.datetime(2026, 10, 13, 15, 0, tzinfo=dt.timezone.utc))
+    assert errors == [] and len(items) == 1
+    er = items[0]
+    assert er["media"][0]["url"] == f"{SITE}/dashboard/JPM/opengraph-image"
+    chosen, why = cr.choose([CONG_NEW, er], {"JPM": 8e11})
+    assert chosen is er and why.startswith("earnings_result")              # earnings_result still goes first
+
+    fetched = []
+    card, generic = png(colour=(13, 13, 13)), png(colour=(20, 20, 20))
+
+    def fake_fetch(url, timeout=60.0):
+        fetched.append(url)
+        return (generic if url == cr.GENERIC_CARD else card), "image/png"
+
+    def fake_run(cmd, cwd=None, timeout=None):
+        out = Path(cmd[cmd.index("--out") + 1])
+        out.mkdir(parents=True)
+        (out / "reel_9x16.mp4").write_bytes(b"mp4")
+        spec = json.loads(Path(cmd[cmd.index("--item") + 1]).read_text(encoding="utf-8"))
+        mf.write_json(out / "reel.json", {"qa_pass": True, "item_id": spec["item"]["item_id"], "music": {"bed": "x"},
+                                          "files": {"reel_9x16.mp4": cr.sha256(out / "reel_9x16.mp4")},
+                                          "card": {"sha256": cr.sha256(Path(cmd[cmd.index("--card") + 1])),
+                                                   "url": spec["item"]["media"][0]["url"]}})
+        mf.write_json(out / "reel-qa.json", {"pass": True, "summary": {}})
+        return type("R", (), {"returncode": 0})()
+
+    monkeypatch.setattr(cr, "fetch", fake_fetch)
+    monkeypatch.setattr(cr.subprocess, "run", fake_run)
+    repo, work = tmp_path / "repo", tmp_path / "work"
+    repo.mkdir()
+    a = cr.argparse.Namespace(work=str(work), repo=str(repo), date="2026-10-13", gv=str(tmp_path), python="py")
+    state = {"item_id": er["item_id"], "log": []}
+    assert cr.render(state, er, {}, a, cr.now_utc("2026-10-13T14:05:00Z")) is True
+    spec = (work / "card-reel" / er["item_id"] / "item.json").read_text(encoding="utf-8")
+    staged = (repo / f"v/2026-10-13/cards/{er['item_id']}/music.json").read_text(encoding="utf-8")
+    assert fetched[0] == f"{SITE}/dashboard/JPM/opengraph-image"
+    for text in (spec, staged, json.dumps(state), json.dumps(fetched)):
+        assert "/earnings/reports/" not in text
+    assert "/dashboard/JPM" in spec and "#earnings-history" in spec

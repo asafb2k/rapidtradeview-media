@@ -21,6 +21,8 @@ default (what Grok reads) or a local v/ directory. Checks:
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
   - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
     Moves Like post never touches picks);
+  - G-N1 holdout: until 2026-11-21 (UTC date of the review) no text, reply_text, link or media_url carries
+    "/earnings/reports/" (an earnings report page of either arm); comments likewise;
   - media_url (every own post carries native media, owner 2026-10-12): one of the item's media[].url, a file under
     <Pages>/v/<YYYY-MM-DD>/ (our rendered stills / Reels), or "grok_generated" with a media_note that names no
     digit, $, %, logo, face or real name (the item's person / company / peers).
@@ -64,6 +66,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import facts as fx  # noqa: E402
 import manifest as mf  # noqa: E402
+import select_stories as ss  # noqa: E402
 
 DEFAULT_FACTS_BASE = f"{mf.PAGES_BASE}/v"
 DEFAULT_INSTINCT = Path("D:/rtv-ops/tracks/growth/bin/instinct.py")
@@ -206,9 +209,24 @@ def uniq_words(words) -> list[str]:
     return out
 
 
-def review(draft: dict, facts: dict | None) -> tuple[str, list[str]]:
+# G-N1 holdout (select_stories.G_N1_HOLDOUT_END, 2026-11-21): no post, self-reply, comment, link or media of ours carries
+# an earnings report page (/earnings/reports/<id>) of either arm before the readout.
+HOLDOUT_FIELDS = ("text", "reply_text", "link", "media_url", "media_note", "target_url")
+
+
+def holdout_reasons(draft: dict, now: dt.datetime | None = None) -> list[str]:
+    """REJECT reasons for a draft that carries /earnings/reports/ inside the G-N1 holdout (the review's UTC date)."""
+    now = now or dt.datetime.now(dt.timezone.utc)
+    if not ss.g_n1_holdout(now.astimezone(dt.timezone.utc).date()):
+        return []
+    bad = [f for f in HOLDOUT_FIELDS if ss.report_page_in(draft.get(f))]
+    return [f"{', '.join(bad)}: no {ss.REPORT_PAGE_PATH} link or media until {ss.G_N1_HOLDOUT_END} (G-N1 holdout); "
+            "link /dashboard/<T>#earnings-history"] if bad else []
+
+
+def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> tuple[str, list[str]]:
     """("APPROVE", []) or ("REJECT", reasons)."""
-    reasons: list[str] = []
+    reasons: list[str] = holdout_reasons(draft, now)
     iid = draft.get("item_id")
     platform = draft.get("platform")
     text = draft.get("text")
@@ -436,12 +454,13 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
     platform = draft.get("platform")
     text = draft.get("text")
     iid = draft.get("item_id")
+    reasons += holdout_reasons(draft, now)
     if platform not in PLATFORMS:
-        return "REJECT", [f"platform must be x or instagram (got {short(platform)!r})"]
+        return "REJECT", reasons + [f"platform must be x or instagram (got {short(platform)!r})"]
     if not isinstance(text, str) or not text.strip():
-        return "REJECT", ["no text"]
+        return "REJECT", reasons + ["no text"]
     if iid is not None and (not isinstance(iid, str) or not ITEM_ID.match(iid)):
-        return "REJECT", ["item_id must be a facts item id"]
+        return "REJECT", reasons + ["item_id must be a facts item id"]
     target, author, err = parse_target(platform, draft.get("target_url"))
     if err:
         reasons.append(err)
@@ -612,7 +631,7 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                             continue
                     facts = cache[date]
                 if kind == "post":
-                    verdict, reasons = review(draft, facts)
+                    verdict, reasons = review(draft, facts, clock)
                 else:
                     if state is None:
                         try:

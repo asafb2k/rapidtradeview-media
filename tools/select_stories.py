@@ -105,6 +105,29 @@ SET_TIMES = ("bmo", "amc", "dmh")
 # failed trades on a day no trade is chosen, so the earnings fallback comes next.
 MAX_TRADE_RENDER_FAILURES = 2
 REPORT_MIN_CAP = 10e9
+# G-N1 holdout (D:/rtv-ops/tracks/growth/bets/g-n1-holdout-prereg.md, Amendment 2 §3d / §4): until the readout our own
+# social and promotion never link or show an earnings REPORT page (/earnings/reports/<id>) of either arm. Dates before
+# G_N1_HOLDOUT_END are inside it. The earnings link is /dashboard/<T>#earnings-history instead.
+G_N1_HOLDOUT_END = dt.date(2026, 11, 21)
+REPORT_PAGE_PATH = "/earnings/reports/"
+G_N1_REASON = "G-N1 holdout until 11-21: no earnings report page is linked or shown by our own social"
+
+
+def g_n1_holdout(day: dt.date) -> bool:
+    return day < G_N1_HOLDOUT_END
+
+
+def report_page_in(value) -> bool:
+    """True when a string, or any string inside a dict / list, carries a report page path (percent-decoded, any case)."""
+    if isinstance(value, str):
+        return REPORT_PAGE_PATH in urllib.parse.unquote(value).lower().replace("\\/", "/")
+    if isinstance(value, dict):
+        return any(report_page_in(k) or report_page_in(v) for k, v in value.items())
+    if isinstance(value, (list, tuple)):
+        return any(report_page_in(v) for v in value)
+    return False
+
+
 NOVELTY_DAYS = 14
 SAME_TRADE_DAYS = 30
 MAX_SNAPSHOTS = 40
@@ -811,7 +834,11 @@ def earnings_fallback(api: Api, target: dt.date, weeks: list[dict], names: dict[
 
 def report_candidates(api: Api, target: dt.date, weeks: list[dict]) -> tuple[list[dict], str | None, int]:
     """Reports released from the previous weekday through the target with a confirmed consensus and a
-    $10B+ market cap, largest first; the error; how many releases were looked at."""
+    $10B+ market cap, largest first; the error; how many releases were looked at.
+    Inside the G-N1 holdout (before G_N1_HOLDOUT_END): nothing, without a request, so no report slot can be planned."""
+    if g_n1_holdout(target):
+        print(f"report candidates {target}: none ({G_N1_REASON})", file=sys.stderr, flush=True)
+        return [], None, 0
     data, err = api.get("/earnings/reports?days=7&limit=50")
     if err or not isinstance(data, dict):
         return [], err or "/earnings/reports: unreadable response", 0
@@ -1051,6 +1078,8 @@ def build_plan(target: dt.date, api: Api, repo: Path, fame: dict, track_record: 
             slots[5] = {"empty": f"earnings reports did not load ({rerr})"}
         elif reports:
             slots[5] = report_slot(reports[0])
+        elif g_n1_holdout(target):
+            slots[5] = {"empty": G_N1_REASON}
         else:
             slots[5] = {"empty": f"no report released {lo}..{target} with a confirmed consensus and a $10B+ market cap "
                                  f"({looked} released reports looked at; the 10:00 ET pass looks again after the morning releases)"}

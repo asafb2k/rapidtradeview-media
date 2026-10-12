@@ -198,8 +198,53 @@ def test_earnings_results_in_the_last_24_hours():
     assert it["results"]["eps"]["reported"] == "$1.72" and it["results"]["eps"]["consensus"] == "$1.86"
     for n in ("$20.19B", "$1.27B", "$0.14", "Q3", "FY2026", "2026-10-09"):
         assert n in it["allowed_numbers"]
-    assert it["source_url"].startswith("https://www.sec.gov/")
-    assert "/earnings/reports/dal-2026-q3?utm_source={platform}" in it["page_url"]
+    assert it["source_url"] == "https://www.sec.gov/Archives/edgar/data/27904/000002790426000035/x.htm"
+    # G-N1 holdout: the ticker page's earnings history and its card, never the report page
+    assert it["page_url"].startswith("https://www.rapidtradeview.trade/dashboard/DAL?utm_source={platform}&")
+    assert it["page_url"].endswith("#earnings-history")
+    assert it["media"] == [{"url": "https://www.rapidtradeview.trade/dashboard/DAL/opengraph-image", "kind": "image",
+                            "alt": it["facts_text"]}]
+    assert "/earnings/reports/" not in json.dumps(f)  # no field of the published file, item or not
+
+
+DAL_REPORT = {"id": "dal-2026-q3", "ticker": "DAL", "company_name": "Delta Air Lines, Inc.", "fiscal_label": "FY2026 (Q3)",
+              "release_date": "2026-10-09", "filing_date": "2026-10-09", "tile_label": "Mixed vs estimates",
+              "published_at": "2026-10-09T10:32:21+00:00", "results": {}}
+
+
+def test_earnings_result_without_an_sec_source_has_no_source_url():
+    """No report-page fallback (No Fallbacks): a non-SEC or missing source_url leaves source_url null."""
+    for src in (None, "https://www.rapidtradeview.trade/earnings/reports/dal-2026-q3", "https://ir.delta.com/x"):
+        f = build(**{"/earnings/reports/archive": {"reports": [dict(DAL_REPORT, summary_status="ready")]},
+                     "/earnings/reports/dal-2026-q3": dict(DAL_REPORT, source_url=src)})
+        r = [i for i in f["items"] if i["type"] == "earnings_result"]
+        assert len(r) == 1 and r[0]["source_url"] is None, src
+        assert "/earnings/reports/" not in json.dumps(f)
+
+
+def test_g_n1_holdout_drops_any_item_with_a_report_url_until_11_21():
+    """Before 2026-11-21 an item that carries /earnings/reports/ in any field is not built; the reason is recorded."""
+    fact = "See https://www.rapidtradeview.trade/earnings/reports/dal-2026-q3 for more."
+    f = build(**{"/earnings/reports/archive": {"reports": [dict(DAL_REPORT, summary_status="ready")]},
+                 "/earnings/reports/dal-2026-q3": dict(DAL_REPORT, company_name=fact)})
+    assert [i for i in f["items"] if i["type"] == "earnings_result"] == []
+    assert f["counts"]["earnings_result"] == 0
+    assert f["left_out"]["g_n1_holdout"]["dropped"] == 1
+    assert "G-N1 holdout until 11-21" in f["left_out"]["g_n1_holdout"]["reasons"][0]
+    assert any(e.startswith("not built: 2026-10-09-earnings-result-DAL-") for e in f["errors"])
+    # each field the brief names, one at a time, and the percent-encoded form
+    base = fx.make_item("2026-10-13", "earnings_result", "JPM", "report:jpm", "/dashboard/JPM", facts_text="JPM fact.")
+    fx.assert_no_report_page(base, dt.date(2026, 10, 13))
+    for field, val in (("page_url", "https://www.rapidtradeview.trade/earnings/reports/jpm-2026-q3?utm_source=x"),
+                       ("source_url", "https://www.rapidtradeview.trade/Earnings/Reports/jpm-2026-q3"),
+                       ("media", [{"url": "https://www.rapidtradeview.trade/earnings/reports/jpm-2026-q3/opengraph-image"}]),
+                       ("facts_text", "Read it at rapidtradeview.trade%2Fearnings%2Freports%2Fjpm-2026-q3.")):
+        bad = dict(base, **{field: val})
+        with pytest.raises(fx.HoldoutLeak, match=field):
+            fx.assert_no_report_page(bad, dt.date(2026, 11, 20))
+        fx.assert_no_report_page(bad, dt.date(2026, 11, 21))  # the readout: the gate is off
+        kept, dropped = fx.screen_holdout([base, bad], dt.date(2026, 10, 13))
+        assert kept == [base] and len(dropped) == 1
 
 
 def test_earnings_upcoming_next_weekday_confirmed_universe_only():
@@ -470,5 +515,7 @@ def test_page_url_anchors_after_the_query():
     assert fig.endswith("&utm_content=id1#trades") and "utm_medium=social" in fig
     assert fx.page_url("/dashboard/NVDA", "id2", "moves_like").endswith("&utm_content=id2#moves-like")
     assert fx.page_url("/dashboard/MARA", "id3", "chart_pattern").endswith("&utm_content=id3#pattern")
-    assert fx.page_url("/earnings/reports/dal-2026-q3", "id4", "earnings_result").endswith("&utm_content=id4")
+    assert fx.page_url("/dashboard/DAL", "id4", "earnings_result").endswith("&utm_content=id4#earnings-history")
+    assert fx.page_url("/dashboard/DAL", "id6", "earnings_upcoming").endswith("&utm_content=id6#earnings-history")
+    assert fx.page_url("/earnings/tomorrow", "id7", "earnings_upcoming").endswith("&utm_content=id7")
     assert fx.page_url("/picks/2026-10-09", "id5", "picks_ready").endswith("&utm_content=id5")
