@@ -61,3 +61,13 @@ private `X-RTV-Automated-QA` header. The runner's tools read it at run time thro
 logged or written to a manifest, evidence file or test fixture). A missing key sends no header and prints
 one warning that names the file. The selector leaves out Congress rows traded more than 90 days before
 their disclosure (re-filings and very late filings): they are counted as `late_filing_over_90d`.
+
+Facts rank and IndexNow (Growth 2026-10-12, bets B1 / B3). `tools/facts.py` gives every item a `rank` (higher = more
+newsworthy) and a `rank_why`, sorts the file by it, keeps one `congress_trade` item per filer a day (the rest counted in
+`left_out.per_filer_cap` and summed in that member's `ptr_summary`), and adds two roundup kinds, `earnings_tomorrow_roundup`
+and `ptr_summary`: the only posts `tools/grok_review.py` lets carry several cashtags (at most 4, all from the item). After
+every facts build on a weekday the runner calls `tools/indexnow_facts.py` (`Invoke-IndexNowFacts`): it pings IndexNow with
+the day's distinct landing pages (no UTM, no anchor, never an `/earnings/reports/` page), deduped over 7 days, at most
+100 a day, paused 24 h after a 429 / 403; each send's count and status go to
+`D:\rtv-ops\tracks\growth\research\indexnow-facts.log`. The key is the site's own `<key>.txt` in the app repo's
+`frontend/public` (never copied here). `-NoPush` / `-SelectOnly` make it a dry run.
