@@ -86,6 +86,38 @@ def test_number_forms():
     assert gr.unexplained_numbers("$UNH and $BRK.B", allowed, ["UNH", "BRK.B"]) == []
 
 
+SEC_INDEX = "https://www.sec.gov/Archives/edgar/data/1551047/000139834426018110/0001398344-26-018110-index.htm"
+FORM4 = fx.make_item(
+    DATE, "form4_buy", "BPRE", "form4:0001398344-26-018110:BPRE", "/smart-money/figures/kamfar-ramin-1111908",
+    name="Ramin Kamfar", office="Director at Bluerock Private Real Estate Fund", amount_text="$2.42M",
+    traded=["2026-10-07"], filed="2026-10-09", source_url=SEC_INDEX,
+    facts_text="Ramin Kamfar reported an open-market purchase of BPRE totaling $2.42M on a Form 4 filed 2026-10-09.",
+    allowed_numbers=["$2.42M", *fx.date_forms("2026-10-09"), *fx.date_forms("2026-10-07")])
+FACTS_F4 = {**FACTS, "items": [*FACTS["items"], FORM4]}
+
+
+def form4_x(text):
+    return {"item_id": FORM4["item_id"], "platform": "x", "text": text,
+            "reply_text": f"Filing: {SEC_INDEX}\nAll his trades: {link(FORM4, 'x')}",
+            "link": link(FORM4, "x"), "media_url": FORM4["media"][0]["url"]}
+
+
+def test_filing_names_are_words_not_numbers():
+    ok = "$BPRE: a director's insider buy (Form 4) of $2.42M, filed Oct 9, 2026. Not investment advice."
+    assert gr.review(form4_x(ok), FACTS_F4) == ("APPROVE", [])
+    names = "Form 4, form 144, Form 13F, 8-K, 10-Q, 10-K and 13F filings"
+    assert gr.unexplained_numbers(names, [], []) == []
+    # anything glued to a filing name, or a bare number, is still a number
+    assert gr.unexplained_numbers("Form 4% Form 44 110-K 8-K.5 Form 4-2 10-K2", [], []) == \
+        ["4%", "44", "110-K", "8-K.5", "4-2", "10-K2"]
+
+
+def test_stray_percent_next_to_a_filing_name_is_rejected():
+    v, why = gr.review(form4_x("$BPRE: insider buy (Form 4) of $2.42M, up 4% since. Not investment advice."), FACTS_F4)
+    assert v == "REJECT"
+    assert any("numbers not in allowed_numbers" in r and "4%" in r for r in why)
+
+
 @pytest.mark.parametrize("word", ["insider trading", "To The Moon", "guaranteed", "price target"])
 def test_banned_words_are_rejected(word):
     v, why = gr.review(good_x(text=f"$UNH {word}: Rep. Salazar disclosed a $15K–$50K purchase. Not investment advice."), FACTS)

@@ -50,6 +50,17 @@ def test_comment_with_item_numbers_and_author_mention_is_approved(state):
     assert gr.review_comment(d, FACTS, state, NOW) == ("APPROVE", [])
 
 
+def test_comment_filing_names_are_not_numbers(state):
+    d = comment(text="Worth reading the Form 4 and the 10-K side by side before the 8-K lands.")
+    assert gr.review_comment(d, None, state, NOW) == ("APPROVE", [])
+    d = comment(item_id=CONGRESS["item_id"], text="The $UNH insider buy (Form 4) was $15K–$50K, filed Oct 7.")
+    assert gr.review_comment(d, FACTS, state, NOW) == ("APPROVE", [])
+    v, why = gr.review_comment(comment(item_id=CONGRESS["item_id"], text="The $UNH Form 4 shows a 4% stake."), FACTS, state, NOW)
+    assert v == "REJECT" and any("4%" in r for r in why)
+    v, why = gr.review_comment(comment(text="A Form 4 filing, up 4% since."), None, state, NOW)
+    assert v == "REJECT" and any("needs the item_id" in r for r in why)
+
+
 def test_reply_under_our_own_post_is_fine(state):
     d = comment(target_url="https://x.com/RapidTradeView/status/1844000000000000002")
     assert gr.review_comment(d, None, state, NOW) == ("APPROVE", [])
