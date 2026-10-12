@@ -11,7 +11,8 @@ Usage (conda python):
 
 Wired categories:
   daily_picks      make.py daily-picks --id <story_id> --date <story.trade_date>                 (video)
-  earnings_report  make.py report-summary --id <story_id> --report <story.report_id>            (video)
+  earnings_report  make.py report-summary --id <story_id> --report <story.report_id>            (video; refused for a
+                   date before select_stories.G_N1_HOLDOUT_END, 2026-11-21: G-N1 holdout, exit 1, nothing rendered)
   congress_theme   make.py congress-theme --id <story_id> --days <story.days>                   (video; Big Tech split)
   earnings_today   earnings_image.py day --date <date> -> render-stills -> post -> qa_stills     (still images,
                    weekday slot 1)
@@ -48,6 +49,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import manifest as mf  # noqa: E402  (IG_REELS_ONLY_FROM, reels_only)
+import select_stories as ss  # noqa: E402  (G-N1 holdout)
 
 VIDEO_ROOT = Path("D:/rtvw/growth-video")
 CATEGORIES_OUT = Path("D:/rtv-ops/tracks/growth/research/video-v6/categories")
@@ -272,6 +274,10 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     data = json.loads(Path(a.data).read_text(encoding="utf-8-sig"))
+    if data["category"] == "earnings_report" and ss.g_n1_holdout(dt.date.fromisoformat(data["date"])):
+        # G-N1 holdout: a report-summary video shows and links an earnings report page; none before the readout
+        print(f"earnings_report {data['story_id']} on {data['date']} refused ({ss.G_N1_REASON}); story skipped")
+        return 1
     images = data["category"] in ("earnings_today", "earnings_week")
     cmds = image_steps(data, a.python) if images else [[a.python, "scripts/v6cat/make.py", *make_args(data)]]
     rid = a.use_existing or data["story_id"]

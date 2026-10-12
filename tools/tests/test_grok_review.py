@@ -329,7 +329,7 @@ def test_crypto_words_are_banned_on_every_item(word):
 import datetime as _dt  # noqa: E402
 
 IN_HOLDOUT = _dt.datetime(2026, 10, 13, 15, 0, tzinfo=_dt.timezone.utc)
-AFTER = _dt.datetime(2026, 11, 21, 0, 0, tzinfo=_dt.timezone.utc)
+AFTER = _dt.datetime(2026, 11, 21, 5, 0, tzinfo=_dt.timezone.utc)   # 00:00 New York (EST) on 11-21: the gate is off
 SEC = "https://www.sec.gov/Archives/edgar/data/19617/000001961726000099/ex99.htm"
 REPORT = "https://www.rapidtradeview.trade/earnings/reports/jpm-2026-q3"
 
@@ -380,3 +380,29 @@ def test_g_n1_report_page_in_a_comment_is_rejected():
     v, why = gr.review_comment(d, None, None, IN_HOLDOUT)
     assert v == "REJECT" and any("G-N1 holdout" in r for r in why)
     assert gr.holdout_reasons(d, AFTER) == []
+
+
+def test_g_n1_the_cutoff_is_the_new_york_date():
+    """11-21 00:00-04:59 UTC is still 11-20 in New York: inside the holdout (facts.py / select_stories date in New York)."""
+    d = {"kind": "comment", "platform": "x", "text": f"see {REPORT}"}
+    assert gr.holdout_reasons(d, _dt.datetime(2026, 11, 21, 4, 59, tzinfo=_dt.timezone.utc))
+    assert gr.holdout_reasons(d, _dt.datetime(2026, 11, 21, 5, 0, tzinfo=_dt.timezone.utc)) == []
+    # 10-13 02:00 UTC is 10-12 22:00 New York: inside either way
+    assert gr.holdout_reasons(d, _dt.datetime(2026, 10, 13, 2, 0, tzinfo=_dt.timezone.utc))
+
+
+@pytest.mark.parametrize("over,where", [
+    ({"alt_text": f"Card of {REPORT}"}, "alt_text"),                                   # a field not named before
+    ({"extra": {"links": ["https://x.com/a", REPORT]}}, "extra.links[1]"),             # nested list in a dict
+    ({"media": [{"url": f"{REPORT}/opengraph-image"}]}, "media[0].url"),
+    ({"notes": {REPORT: "key"}}, "notes key"),                                           # a dict key
+    ({"first_reply": "https://www.rapidtradeview.trade/EARNINGS%2Freports%2Fjpm-2026-q3"}, "first_reply"),
+])
+def test_g_n1_the_whole_draft_is_screened(over, where):
+    facts, er = earnings_facts()
+    v, why = gr.review(er_draft(er, **over), facts, IN_HOLDOUT)
+    assert v == "REJECT" and any(r.startswith(f"{where}: no /earnings/reports/") for r in why), why
+    assert gr.holdout_reasons(er_draft(er, **over), AFTER) == []
+    c = {"kind": "comment", "platform": "x", "target_url": "https://x.com/sometrader/status/1844000000000000001",
+         "text": "Good thread.", **over}
+    assert any(r.startswith(f"{where}: ") and "G-N1 holdout" in r for r in gr.review_comment(c, None, None, IN_HOLDOUT)[1])
