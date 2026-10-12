@@ -11,8 +11,9 @@ prepare
     {"url": <Pages URL>, "kind": "reel", "alt": <the item's facts_text>} appended to that item's media (when the item is still in it).
   - when it renders: weekdays from 10:00 ET (America/New_York; the first facts build at or after it: the 10:00 intraday refresh), so
     the morning's 06:45-08:30 ET reporters are in the earnings_result list; weekends on the weekend pass (any time).
-  - which item: the first available of earnings_result (largest market cap, from /snapshot), congress_trade (freshest filing),
-    form4_buy (freshest filing), chart_pattern (freshest scan). An item qualifies when it has facts_text and its media[0] is our
+  - which item: the first available of earnings_result (largest market cap, from /snapshot), congress_trade, form4_buy (both:
+    buys before sales, then the largest amount at the top of its range, then the freshest filing), chart_pattern (freshest scan);
+    then the facts order. An item qualifies when it has facts_text and its media[0] is our
     page's Open Graph card (https://www.rapidtradeview.trade/.../opengraph-image).
   - the chosen item is fixed for the day: a failed download, card check, render or QA logs its reason in the state and the item stays
     without a reel; the same item is tried once more on the next build (MAX_ATTEMPTS), never another one (No Fallbacks).
@@ -87,9 +88,11 @@ def eligible(item: dict) -> bool:
 
 
 def choose(items: list[dict], caps: dict[str, float | None]) -> tuple[dict | None, str]:
-    """The day's card item: the first type of ORDER with an eligible item; within it the largest market cap (earnings_result; an
-    unknown cap ranks last), the freshest filing (congress_trade, form4_buy) or the freshest scan (chart_pattern); ties keep the
-    facts order. Returns (item, why)."""
+    """The day's card item: the first type of ORDER with an eligible item; within it
+      earnings_result               the largest market cap (an unknown cap ranks last),
+      congress_trade / form4_buy    buys before sales, then the largest amount (amount_upper), then the freshest filing,
+      chart_pattern                 the freshest scan;
+    then the facts order. Returns (item, why)."""
     for kind in ORDER:
         cands = [(n, i) for n, i in enumerate(items) if i.get("type") == kind and eligible(i)]
         if not cands:
@@ -99,10 +102,26 @@ def choose(items: list[dict], caps: dict[str, float | None]) -> tuple[dict | Non
         elif kind == "chart_pattern":
             rank, why = (lambda c: (str(c[1].get("scan_date") or ""), -c[0])), "freshest scan"
         else:
-            rank, why = (lambda c: (str(c[1].get("filed") or ""), -c[0])), "freshest filing"
+            rank, why = (lambda c: (c[1].get("side") == "buy", amount_upper(c[1]), str(c[1].get("filed") or ""), -c[0])),                 "buys first, largest amount, freshest filing"
         best = max(cands, key=rank)[1]
         return best, f"{kind}: {why} of {len(cands)}"
     return None, "no earnings_result, congress_trade, form4_buy or chart_pattern item with a facts_text and an Open Graph card"
+
+
+MONEY = re.compile(r"\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*([KMB])?", re.IGNORECASE)
+SCALE = {"": 1.0, "K": 1e3, "M": 1e6, "B": 1e9}
+
+
+def amount_upper(item: dict) -> float:
+    """The item's amount in USD at the top of its range: per disclosed row ("; "-separated) the largest $ figure (a range's upper
+    bound, "$1,001-$15,000" -> 15,000; a Form 4 total "$2.42M" -> 2,420,000), summed over the rows. Congress items use
+    amount_exact_text (whole dollars), else amount_text. Nothing readable -> 0 (ranks last)."""
+    text = item.get("amount_exact_text") or item.get("amount_text") or ""
+    total = 0.0
+    for row in str(text).split(";"):
+        vals = [float(m.group(1).replace(",", "")) * SCALE[(m.group(2) or "").upper()] for m in MONEY.finditer(row)]
+        total += max(vals, default=0.0)
+    return total
 
 
 def market_caps(items: list[dict]) -> dict[str, float | None]:

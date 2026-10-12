@@ -65,6 +65,31 @@ def test_the_order_earnings_then_congress_then_form4_then_pattern():
     assert none is None and "no earnings_result" in why
 
 
+def test_tie_break_buys_first_then_largest_amount_then_freshest_filing_then_facts_order():
+    def cong(tk, side, exact, filed):
+        return item("congress_trade", tk, f"ptr:{tk}:{side}", filed=filed, side=side, amount_exact_text=exact)
+    sale_big = cong("CSCO", "sell", "$1,001–$15,000; $15,001–$50,000; $1,001–$15,000", "2026-10-07")
+    buy_small = cong("CVX", "buy", "$1,001–$15,000", "2026-10-07")
+    buy_two = cong("META", "buy", "$1,001–$15,000; $1,001–$15,000", "2026-10-07")
+    buy_big = cong("SNOW", "buy", "$1,001–$15,000; $15,001–$50,000", "2026-10-07")
+    buy_big_newer = cong("OKTA", "buy", "$15,001–$50,000; $1,001–$15,000", "2026-10-08")
+    buy_big_twin = cong("GLW", "buy", "$1,001–$15,000; $15,001–$50,000", "2026-10-07")
+    assert [cr.amount_upper(i) for i in (sale_big, buy_small, buy_two, buy_big)] == [80000.0, 15000.0, 30000.0, 65000.0]
+    assert cr.choose([sale_big, buy_small], {})[0] is buy_small                                # a buy beats a bigger sale
+    assert cr.choose([sale_big, buy_small, buy_two, buy_big], {})[0] is buy_big                # then the largest amount
+    assert cr.choose([buy_big, buy_big_newer], {})[0] is buy_big_newer                         # then the freshest filing
+    assert cr.choose([buy_big, buy_big_twin], {})[0] is buy_big                                # then the facts order
+    assert cr.choose([buy_big_twin, buy_big], {})[0] is buy_big_twin
+    # Form 4 totals ("$2.42M") rank the same way
+    f4 = [item("form4_buy", tk, f"form4:{tk}", filed=fd, side="buy", amount_text=amt)
+          for tk, amt, fd in (("BPRE", "$2.42M", "2026-10-09"), ("COE", "$14.12M", "2026-10-08"), ("PRTA", "$1.05M", "2026-10-09"))]
+    assert cr.amount_upper(f4[1]) == pytest.approx(14.12e6)
+    assert cr.choose(f4, {})[0] is f4[1]
+    # earnings_result keeps the largest market cap
+    assert cr.choose([ER_SMALL, ER_BIG], {"JPM": 8e11, "FBK": 2e9})[0] is ER_BIG
+    assert cr.amount_upper({"amount_text": None}) == 0
+
+
 def test_only_items_with_a_facts_text_and_our_og_card_qualify():
     assert cr.eligible(CONG_NEW)
     assert not cr.eligible(dict(CONG_NEW, facts_text=" "))
