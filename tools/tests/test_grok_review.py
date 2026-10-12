@@ -1,4 +1,5 @@
 """Stage-A draft validator (tools/grok_review.py). Run: python -m pytest tools/tests -q (offline)."""
+import datetime as dt
 import json
 import sys
 import types
@@ -406,3 +407,60 @@ def test_g_n1_the_whole_draft_is_screened(over, where):
     c = {"kind": "comment", "platform": "x", "target_url": "https://x.com/sometrader/status/1844000000000000001",
          "text": "Good thread.", **over}
     assert any(r.startswith(f"{where}: ") and "G-N1 holdout" in r for r in gr.review_comment(c, None, None, IN_HOLDOUT)[1])
+
+
+# ---------------------------------------------------------------------------
+# Several cashtags: only the roundup kinds, at most 4 (Growth B1 2026-10-12)
+
+def roundup_facts() -> dict:
+    up = [fx.make_item(DATE, "earnings_upcoming", t, f"upcoming:{t}:2026-10-12", "/earnings/tomorrow", name=f"{t} Inc.",
+                       report_date="2026-10-12", hour="bmo", market_cap_usd=cap)
+          for t, cap in (("JPM", 8e11), ("JNJ", 4e11), ("UNH", 3e11), ("WFC", 2e11), ("C", 1e11))]
+    roundup, _ = fx.earnings_roundup_items(dt.date(2026, 10, 9), up)
+    congress = [fx.make_item(DATE, "congress_trade", t, f"ptr:20035562:{t}:sell", "/smart-money/figures/maria-elvira-salazar",
+                             name="Maria Elvira Salazar", office="U.S. Representative (R-FL)", side="sell",
+                             figure_slug="maria-elvira-salazar", filed="2026-10-07", rows=1, source_url=PTR,
+                             amount_top_usd=15000)
+                for t in ("UNH", "MSFT", "AAPL", "DAL", "XE")]
+    summary, _ = fx.ptr_summary_items(dt.date(2026, 10, 9), congress, {"members": [], "insiders": []})
+    five = dict(roundup[0], item_id=f"{DATE}-earnings-tomorrow-roundup-LIST-fffff5",
+                tickers=["JPM", "JNJ", "UNH", "WFC", "C"])   # a malformed item with 5 tickers: the cap still holds
+    return {"schema": fx.SCHEMA, "date": DATE, "rules": FACTS["rules"], "items": [roundup[0], summary[0], five, CONGRESS]}
+
+
+def roundup_post(item, text, platform="x", reply=None):
+    lk = link(item, platform)
+    return {"item_id": item["item_id"], "platform": platform, "text": text,
+            "reply_text": reply if reply is not None else (f"{item['source_url']}\n{lk}" if item.get("source_url") else lk),
+            "link": lk, "media_url": item["media"][0]["url"]}
+
+
+def test_roundup_four_cashtags_approve_five_reject_outside_reject():
+    rf = roundup_facts()
+    roundup, summary, five, _ = rf["items"]
+    assert roundup["tickers"] == ["JPM", "JNJ", "UNH", "WFC"]
+    four = roundup_post(roundup, "Reporting Oct 12, before the open: $JPM $JNJ $UNH $WFC. Not investment advice.")
+    assert gr.review(four, rf) == ("APPROVE", [])
+    v, why = gr.review(roundup_post(five, "Reporting Oct 12, before the open: $JPM $JNJ $UNH $WFC $C. "
+                                          "Not investment advice."), rf)
+    assert v == "REJECT" and any("at most 4 cashtags (got 5)" in r for r in why)
+    v, why = gr.review(roundup_post(roundup, "Reporting Oct 12: $JPM $JNJ $UNH $GS. Not investment advice."), rf)
+    assert v == "REJECT" and any("cashtag not in this item: $GS" in r for r in why)
+    v, why = gr.review(roundup_post(roundup, "Big banks report Oct 12. Not investment advice."), rf)
+    assert v == "REJECT" and any("at least one of the item's tickers" in r for r in why)
+    # ptr_summary: the member's tickers, the counts and the filing date; the PTR goes in the X self-reply
+    s_text = "Rep. Maria Elvira Salazar disclosed 5 trades (5 sales) filed Oct 7: $UNH $MSFT $AAPL $DAL. Not investment advice."
+    assert gr.review(roundup_post(summary, s_text), rf) == ("APPROVE", [])
+    v, why = gr.review(roundup_post(summary, s_text.replace("$DAL", "$DAL $XE")), rf)
+    assert v == "REJECT" and any("cashtag not in this item: $XE" in r for r in why)
+    v, why = gr.review(roundup_post(summary, s_text, reply=link(summary, "x")), rf)
+    assert v == "REJECT" and any("official source link" in r for r in why)
+
+
+def test_single_ticker_kinds_keep_one_cashtag():
+    rf = roundup_facts()
+    congress = dict(CONGRESS, tickers=["UNH", "MSFT"])   # even if a single-ticker item listed more, one cashtag only
+    rf["items"][3] = congress
+    v, why = gr.review(good_x(text="$UNH and $MSFT: Rep. Salazar disclosed a $15K–$50K purchase. Not investment advice."), rf)
+    assert v == "REJECT" and any("one cashtag per post" in r for r in why)
+    assert gr.review(good_x(), rf) == ("APPROVE", [])

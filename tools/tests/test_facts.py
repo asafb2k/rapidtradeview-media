@@ -475,7 +475,10 @@ def test_main_exit_0_when_only_moves_like_failed(tmp_path, monkeypatch):
 
 
 def test_previous_answers_are_carried_over_without_a_get(no_sleep):
-    rows = [crow(t, "buy", "2026-09-24", "2026-10-07", 15001, 50000) for t in ("UNH", "MSFT", "AAPL")]
+    # One filer per ticker: the per-filer cap keeps one congress_trade item per member a day.
+    def member(t):
+        return politician(f"Member {t}", f"member-{t.lower()}")
+    rows = [crow(t, "buy", "2026-09-24", "2026-10-07", 15001, 50000, fig=member(t)) for t in ("UNH", "MSFT", "AAPL")]
     over = {"/notable/feed?tab=congress": {"items": rows, "has_more": False},
             "/moves-like/UNH": ml("UNH", [("TU", 82, "tight", -4.0)]),
             "/moves-like/MSFT": ml("MSFT", [("WU", 60, "loose", -1.0)]),
@@ -488,7 +491,7 @@ def test_previous_answers_are_carried_over_without_a_get(no_sleep):
     assert fx.item_set(again) == fx.item_set(first)
     assert again["left_out"]["moves_like"]["carried_over"] == 3 and again["left_out"]["moves_like"]["requested"] == 0
     # No GET for a ticker answered earlier today; a new ticker still gets one (5 a day at most).
-    rows.append(crow("DAL", "buy", "2026-09-24", "2026-10-07", 15001, 50000))
+    rows.append(crow("DAL", "buy", "2026-09-24", "2026-10-07", 15001, 50000, fig=member("DAL")))
     api = StubApi(answers(**over, **{"/moves-like/DAL": ml("DAL", [("UAL", 92, "tight", 0.0)])}))
     api.get = lambda path, _g=api.get: (asked.append(path), _g(path))[1]
     third = fx.build_facts(FRI, api, FAME, now=NOW, previous=first)
@@ -551,3 +554,92 @@ def test_page_url_anchors_after_the_query():
     assert fx.page_url("/dashboard/DAL", "id6", "earnings_upcoming").endswith("&utm_content=id6#earnings-history")
     assert fx.page_url("/earnings/tomorrow", "id7", "earnings_upcoming").endswith("&utm_content=id7")
     assert fx.page_url("/picks/2026-10-09", "id5", "picks_ready").endswith("&utm_content=id5")
+
+
+# ---------------------------------------------------------------------------
+# Rank, the per-filer cap and the roundups (Growth B1 2026-10-12)
+
+SALAZAR_ROWS = [crow(t, "sell", "2026-09-24", "2026-10-07", 1001, 15000) for t in ("UNH", "MSFT", "AAPL", "DAL", "XE")] + [
+    crow("AMPX", "buy", "2026-09-24", "2026-10-07", 15001, 50000)]
+
+
+def test_rank_sorts_the_file_and_explains_every_point():
+    pelosi = politician("Nancy Pelosi", "nancy-pelosi", "house", "Democratic", "CA")
+    rows = [crow("UNH", "sell", "2026-09-24", "2026-10-05", 1001, 15000),                          # Salazar: a small, older sale
+            crow("AAPL", "buy", "2026-09-30", "2026-10-08", 1000001, 5000000, fig=pelosi)]         # famous, $1M-$5M, fresh buy
+    f = build(**{"/notable/feed?tab=congress": {"items": rows, "has_more": False}})
+    ranks = [i["rank"] for i in f["items"]]
+    assert ranks and all(isinstance(r, float) for r in ranks) and ranks == sorted(ranks, reverse=True)
+    assert all(isinstance(i["rank_why"], str) and i["rank_why"] for i in f["items"])
+    c = [i for i in f["items"] if i["type"] == "congress_trade"]
+    assert [i["ticker"] for i in c] == ["AAPL", "UNH"]
+    top, low = c
+    assert "buy +2" in top["rank_why"] and "known name Nancy Pelosi (fame) +2" in top["rank_why"]
+    assert "top $5M +3.7" in top["rank_why"] and "filed 2026-10-08 (age 1) +1.5" in top["rank_why"]
+    assert "sale +0" in low["rank_why"] and "known name" not in low["rank_why"]
+    assert top["rank"] > low["rank"]
+
+
+def test_rank_factors():
+    t = FRI
+    base = {"type": "form4_buy", "side": "buy", "name": "Jane Roe", "office": "Director at Foo", "filed": "2026-10-09"}
+    plain = dict(base, office="10% owner at Foo")
+    assert fx.rank(base, t, FAME)[0] - fx.rank(plain, t, FAME)[0] == 2.0           # a director title is a known name
+    assert "known name Director (title) +2" in fx.rank(base, t, FAME)[1]
+    assert "known name Warren Buffett (fame)" in fx.rank(dict(plain, name="Warren E. Buffett"), t, FAME)[1]
+    big = dict(plain, market_cap_usd=250e9)
+    mid = dict(plain, market_cap_usd=5e9)
+    small = dict(plain, market_cap_usd=1e9)
+    assert fx.rank(big, t, FAME)[0] - fx.rank(small, t, FAME)[0] == 2.0 and "large cap $250B +2" in fx.rank(big, t, FAME)[1]
+    assert fx.rank(mid, t, FAME)[0] - fx.rank(small, t, FAME)[0] == 1.0
+    # buys over sales; the top of the range, summed over trades; freshness
+    sale = {"type": "congress_trade", "side": "sell", "name": "X Y", "filed": "2026-10-09", "amount_top_usd": 15000}
+    assert fx.rank(dict(sale, side="buy"), t, FAME)[0] - fx.rank(sale, t, FAME)[0] == 2.0
+    assert fx.rank(dict(sale, amount_top_usd=1e6), t, FAME)[0] > fx.rank(sale, t, FAME)[0]
+    assert fx.rank(dict(sale, filed="2026-10-05"), t, FAME)[0] == pytest.approx(fx.rank(sale, t, FAME)[0] - 2.0)  # age 4: +0
+    assert fx.range_tops([{"amount": {"low": 1001, "high": 15000}}, {"amount": {"low": 15001, "high": 50000}}]) == 65000.0
+
+
+def test_one_congress_item_per_filer_and_the_ptr_summary():
+    gott = politician("Josh Gottheimer", "josh-gottheimer", "house", "Democratic", "NJ")
+    rows = SALAZAR_ROWS + [crow("MSFT", "buy", "2026-09-25", "2026-10-08", 1001, 15000, fig=gott)]
+    f = build(**{"/notable/feed?tab=congress": {"items": rows, "has_more": False}})
+    c = [i for i in f["items"] if i["type"] == "congress_trade"]
+    assert sorted((i["name"], i["ticker"]) for i in c) == [("Josh Gottheimer", "MSFT"), ("Maria Elvira Salazar", "AMPX")]
+    assert f["left_out"]["per_filer_cap"] == {"dropped": 5, "filers": 2}
+    s = [i for i in f["items"] if i["type"] == "ptr_summary"]
+    assert len(s) == 1   # Gottheimer has one item: no summary
+    it = s[0]
+    assert it["ticker"] is None and it["tickers"][0] == "AMPX" and len(it["tickers"]) == 4 and it["tickers_total"] == 6
+    assert it["rows"] == 6 and it["buys"] == 1 and it["sales"] == 5 and it["filed"] == "2026-10-07"
+    for n in ("6", "1", "5", "2", "2026-10-07", "Oct 7"):
+        assert n in it["allowed_numbers"]
+    assert it["source_url"] == PTR and it["page_url"].startswith(
+        "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?") and it["page_url"].endswith("#trades")
+    assert it["media"][0]["url"] == "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image"
+    assert it["facts_text"].startswith("U.S. Representative Maria Elvira Salazar (R-FL) disclosed 6 trades (1 purchase, 5 sales)")
+    assert "$AMPX" in it["facts_text"] and "and 2 more" in it["facts_text"]
+    assert f["counts"]["ptr_summary"] == 1 and f["counts"]["congress_trade"] == 2
+    assert not fx.holdout_doc_leaks(f, FRI)
+
+
+def test_earnings_tomorrow_roundup():
+    rep = lambda sym, hour, cap, confirmed=True, uni=True: {"symbol": sym, "date": "2026-10-12", "hour": hour,
+                                                             "date_confirmed": confirmed, "in_universe": uni, "market_cap": cap}
+    week = {"days": [{"date": "2026-10-12", "count": 8, "reports": [
+        rep("AAPL", "bmo", 3e12), rep("MSFT", "bmo", 2e12), rep("UNH", "bmo", 4e11), rep("DAL", "bmo", 3e10),
+        rep("XE", "bmo", 5e9), rep("AMPX", "amc", 1e9), rep("BPRE", "bmo", 9e12, confirmed=False), rep("MARA", None, 4e9)]}]}
+    f = build(**{"/earnings?weeks_ahead=": week})
+    r = [i for i in f["items"] if i["type"] == "earnings_tomorrow_roundup"]
+    assert len(r) == 1   # one after-the-close reporter only: no amc roundup
+    it = r[0]
+    assert it["tickers"] == ["AAPL", "MSFT", "UNH", "DAL"] and it["hour"] == "bmo" and it["reporters_in_session"] == 5
+    assert it["allowed_numbers"] == ["2026-10-12", "Oct 12, 2026", "Oct 12", "before the open"]
+    assert it["page_url"].startswith("https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}")
+    assert "#" not in it["page_url"]
+    assert it["media"][0]["url"] == "https://www.rapidtradeview.trade/earnings/opengraph-image"
+    assert it["facts_text"].startswith("Reporting earnings on 2026-10-12, before the open (confirmed dates): $AAPL")
+    assert f["left_out"]["earnings_tomorrow_roundup"] == {"bmo": 5, "amc": 1, "no_set_session": 1}
+    assert "earnings_tomorrow_roundup" not in f["reasons"]
+    empty = build()
+    assert "earnings_tomorrow_roundup" in empty["reasons"] and "ptr_summary" in empty["reasons"]
