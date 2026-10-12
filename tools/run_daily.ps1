@@ -129,6 +129,8 @@ if ((Invoke-Git @('pull', '--ff-only', '--quiet')) -ne 0) { Fail 'git pull --ff-
 # 0b. Facts feed for Grok social (v/<date>/facts.json): before any selection or render, so it publishes on a day
 # every video slot is empty; a facts failure is logged and never blocks the videos or changes the exit code.
 Publish-Facts $Date $Work (-not ($NoPush -or $SelectOnly))
+# 0c. IndexNow ping of the facts landing pages (weekdays; a failure is logged and never blocks).
+Invoke-IndexNowFacts $Date (-not ($NoPush -or $SelectOnly))
 
 # 1-3. Select, write the data.json files, render. The morning pass repeats this after a failed render
 # (the failed story excluded through $failedFile) for up to -MaxRenderAttempts selections.

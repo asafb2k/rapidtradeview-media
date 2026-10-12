@@ -25,6 +25,12 @@ post for a New York market date. Every item is read from RapidTradeView's public
                      exposes (for guests the #1 ticker is hidden, so this can only catch a leaked one). The pattern's
                      own text (pill, chip, key lines, points) is kept as the API writes it for our pages; the history
                      record ("past ... fell over the next 5 trading days") is left out: it is an outcome claim.
+  earnings_tomorrow_roundup  per set session (before the open / after the close) of the next weekday with 2+ confirmed
+                     universe reporters: up to 4 of them (largest market cap first) as cashtags; landing /earnings/tomorrow
+                     (no anchor), media the /earnings card; allowed_numbers the report date and the session only.
+  ptr_summary        per member and filing date with 2+ Congress items: the count of trades and up to 4 tickers (the
+                     member's most newsworthy); landing the figure page #trades, media the figure card. Built before the
+                     per-filer cap below, so it counts every trade.
   moves_like         /moves-like/<T> for up to 5 tickers a day of the day's other items (round robin over
                      congress_trade, form4_buy, earnings_result, earnings_upcoming, chart_pattern; 0.5 s apart): the
                      peers the stock card lists with Sync >= 65 (Close / Tight), Sync and band as the card shows them.
@@ -38,6 +44,12 @@ images a post may carry ([{url, kind: image, alt}], the landing page's Open Grap
 earnings_upcoming: <SITE>/earnings/opengraph-image; never fetched here). The runner (tools/card_reel.py, via
 daily_common.ps1 Publish-Facts) may append one {url: <Pages>/v/<date>/cards/<item_id>/reel_9x16.mp4, kind: reel, alt}
 a day to one item: its share card as a 9:16 Reel for Instagram.
+Rank (Growth B1 2026-10-12): every item carries a numeric rank (higher = more newsworthy) and rank_why; the items are
+sorted by rank, highest first. Points: a base per type, buys over sales, the top of the amount range (summed when an item
+has several trades), a known name (fame.json, or a CEO / CFO / director title), a mid / large market cap the item already
+carries (form4_buy from select_stories' snapshot read, earnings from the calendar row; no extra GET) and freshness. At
+most one congress_trade item per filer a day (the highest-ranked); the rest are counted in left_out.per_filer_cap and
+summed up in that member's ptr_summary.
 An empty type is valid: items [] and reasons say why. Nothing is estimated or invented (No Fallbacks).
 G-N1 holdout (tracks/growth/bets/g-n1-holdout-prereg.md, Amendment 2): for a date before 2026-11-21 no item may carry
 a /earnings/reports/ URL in any field; an item that does is not built (errors "not built: ...", left_out.g_n1_holdout).
@@ -60,6 +72,7 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import math
 import re
 import sys
 import time
@@ -89,7 +102,13 @@ PLATFORMS = ["x", "instagram"]
 PLATFORM_PLACEHOLDER = "{platform}"
 PARTIAL = 4  # exit code: written, but a source failed (2 is argparse's usage error)
 HOLDOUT_LEAK = 5  # exit code: not written, the document carries a report page inside the G-N1 holdout
-TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready", "chart_pattern", "moves_like")
+TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready", "chart_pattern", "moves_like",
+         "earnings_tomorrow_roundup", "ptr_summary")
+# Roundups (Growth B1 2026-10-12): the only kinds whose posts may carry several cashtags of their own (grok_review.py),
+# at most ROUNDUP_MAX_TICKERS. moves_like (its peers) and picks_ready (the public picks) keep their own ticker lists.
+ROUNDUP_TYPES = ("earnings_tomorrow_roundup", "ptr_summary")
+ROUNDUP_MAX_TICKERS = 4
+ROUNDUP_SESSIONS = ("bmo", "amc")  # a roundup groups one set session; "time not announced" rows are no session
 WINDOW_WEEKDAYS = 4  # weekday age 0..4 = the last 5 weekdays
 RESULT_HOURS = 24
 PICKS_SLOT_ET = "15:00"  # the picks post time (GROK-SOCIAL.md §2)
@@ -315,8 +334,9 @@ def holdout_doc_leaks(doc: dict, target: dt.date) -> list[str]:
 
 def og_media(kind: str, path: str, facts_text: str) -> dict:
     """The landing page's own Open Graph card (a 1200x630 PNG the site renders; not fetched here). earnings_upcoming
-    lands on /earnings/tomorrow, whose card is the /earnings one."""
-    page = "/earnings" if kind == "earnings_upcoming" else path.split("?")[0].split("#")[0].rstrip("/")
+    and earnings_tomorrow_roundup land on /earnings/tomorrow, whose card is the /earnings one."""
+    page = ("/earnings" if kind in ("earnings_upcoming", "earnings_tomorrow_roundup")
+            else path.split("?")[0].split("#")[0].rstrip("/"))
     return {"url": f"{SITE}{page}/opengraph-image", "kind": "image", "alt": " ".join(str(facts_text or "").split())}
 
 
@@ -330,6 +350,14 @@ def official(url: str | None, hosts: tuple[str, ...]) -> bool:
 
 # ---------------------------------------------------------------------------
 # Congress
+
+def range_tops(rows: list[dict]) -> float | None:
+    """The top of each row's amount range (its low when it has no top), summed: what rank() sizes a Congress item by."""
+    tops = [hi if hi is not None else lo for r in rows
+            for lo, hi in [((r.get("amount") or {}).get("low"), (r.get("amount") or {}).get("high"))]
+            if isinstance(hi if hi is not None else lo, (int, float))]
+    return float(sum(tops)) if tops else None
+
 
 def congress_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[dict], dict, str | None]:
     since = target
@@ -407,7 +435,8 @@ def congress_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[di
         items.append(make_item(
             date, "congress_trade", ticker, key, f"/smart-money/figures/{slug}",
             name=fig.get("display_name"), office=office, company=company, side=side, owner=owners or ["self"],
-            amount_text=amount_text, amount_exact_text="; ".join(e for e in exact if e), rows=len(rs),
+            figure_slug=slug, amount_text=amount_text, amount_exact_text="; ".join(e for e in exact if e), rows=len(rs),
+            amount_top_usd=range_tops(rs),
             traded=traded, filed=filed, source_url=src, facts_text=facts_text,
             allowed_numbers=[*amounts, *ends, *[e for e in exact if e], *ends_exact, *date_forms(filed),
                              *(f for t in traded for f in date_forms(t)), str(len(rs)) if len(rs) > 1 else None,
@@ -452,6 +481,7 @@ def form4_items(api, target: dt.date, names: dict[str, str], fame: dict) -> tupl
         items.append(make_item(
             date, "form4_buy", t.ticker, f"form4:{acc}:{t.ticker}", f"/smart-money/figures/{t.slug}",
             name=t.name, office=office, company=company, side="buy", accession=acc, rows=t.rows,
+            amount_top_usd=float(t.value_usd), market_cap_usd=t.market_cap, famous_person=t.famous_person,
             amount_text=total, row_amounts=row_amounts, traded=traded, filed=filed, source_url=index,
             facts_text=facts_text,
             allowed_numbers=[total, *row_amounts, str(t.rows) if t.rows > 1 else None, *date_forms(filed),
@@ -619,6 +649,7 @@ def upcoming_items(api, target: dt.date, names: dict[str, str], now: dt.datetime
         items.append(make_item(
             date, "earnings_upcoming", sym, f"upcoming:{sym}:{nxt.isoformat()}", "/earnings/tomorrow",
             name=company, report_date=nxt.isoformat(), hour=r.get("hour"), hour_text=when,
+            market_cap_usd=r.get("market_cap") if isinstance(r.get("market_cap"), (int, float)) else None,
             date_confirmed_source=r.get("date_confirmed_source"), source_url=f"{SITE}/earnings/tomorrow",
             facts_text=facts_text,
             allowed_numbers=[*date_forms(nxt.isoformat()), *fiscal_tokens(None, r.get("quarter"), r.get("year")),
@@ -893,6 +924,183 @@ def moves_like_items(api, target: dt.date, items: list[dict], previous: dict | N
 
 
 # ---------------------------------------------------------------------------
+# Roundups (Growth B1 2026-10-12): several cashtags in one post, landing a page that lists them all
+
+def ptr_summary_items(target: dt.date, congress: list[dict], fame: dict) -> tuple[list[dict], dict]:
+    """One item per member and filing date with 2+ Congress items: the count of trades (rows) and up to
+    ROUNDUP_MAX_TICKERS tickers (the member's most newsworthy, rank()), landing the figure page #trades. Built from the
+    day's congress_trade items before the per-filer cap, so the trades the cap leaves out are still counted here."""
+    groups: dict[tuple[str, str], list[dict]] = {}
+    for it in congress:
+        if it.get("figure_slug") and it.get("filed"):
+            groups.setdefault((it["figure_slug"], it["filed"]), []).append(it)
+    left = {"members_filing_dates": len(groups), "single_item": 0}
+    items = []
+    for (slug, filed), its in groups.items():
+        if len(its) < 2:
+            left["single_item"] += 1
+            continue
+        its = sorted(its, key=lambda i: -rank(i, target, fame)[0])
+        tickers = uniq(i["ticker"] for i in its)
+        shown = tickers[:ROUNDUP_MAX_TICKERS]
+        trades = sum(int(i.get("rows") or 1) for i in its)
+        buys = sum(int(i.get("rows") or 1) for i in its if i.get("side") == "buy")
+        sales = trades - buys
+        srcs = uniq(i.get("source_url") for i in its)
+        head = its[0]
+        office = head.get("office") or "Member of Congress"
+        title = office.split(" (")[0]
+        tag = office[len(title):].strip()
+        sides = ", ".join(x for x in [f"{buys} {'purchase' if buys == 1 else 'purchases'}" if buys else None,
+                                      f"{sales} {'sale' if sales == 1 else 'sales'}" if sales else None] if x)
+        rest = len(tickers) - len(shown)
+        reports = "a report" if len(srcs) == 1 else f"{len(srcs)} reports"
+        more = f" and {rest} more" if rest else ""
+        facts_text = (f"{title} {head.get('name')}{' ' + tag if tag else ''} disclosed {trades} trades ({sides}) in "
+                      f"{len(tickers)} tickers on {reports} filed {filed}, including "
+                      f"{', '.join('$' + t for t in shown)}{more}.")
+        tops = sum(i.get("amount_top_usd") or 0 for i in its)
+        items.append(make_item(
+            target.isoformat(), "ptr_summary", None, f"ptrsum:{slug}:{filed}", f"/smart-money/figures/{slug}",
+            tickers=shown, tickers_total=len(tickers), name=head.get("name"), office=office, figure_slug=slug,
+            filed=filed, rows=trades, buys=buys, sales=sales, amount_top_usd=tops or None,
+            source_url=srcs[0] if len(srcs) == 1 else None, source_urls=srcs,
+            item_ids=[i["item_id"] for i in its], facts_text=facts_text,
+            allowed_numbers=[str(trades), str(len(tickers)), str(buys) if buys else None, str(sales) if sales else None,
+                             str(rest) if rest else None, str(len(srcs)) if len(srcs) > 1 else None,
+                             *date_forms(filed), *digit_words(head.get("name"))]))
+    return items, left
+
+
+def earnings_roundup_items(target: dt.date, upcoming: list[dict]) -> tuple[list[dict], dict]:
+    """One item per set session (before the open / after the close) of the next weekday with 2+ confirmed reporters in
+    our universe: up to ROUNDUP_MAX_TICKERS of them, largest market cap first (the earnings_upcoming order), landing
+    /earnings/tomorrow (no anchor) with the /earnings card. allowed_numbers: the report date and the session only."""
+    by: dict[str, list[dict]] = {}
+    for it in upcoming:
+        if it.get("hour") in ROUNDUP_SESSIONS:
+            by.setdefault(it["hour"], []).append(it)
+    left = {s: len(by.get(s, [])) for s in ROUNDUP_SESSIONS}
+    left["no_set_session"] = sum(1 for it in upcoming if it.get("hour") not in ROUNDUP_SESSIONS)
+    items = []
+    for session in ROUNDUP_SESSIONS:
+        its = by.get(session) or []
+        if len(its) < 2:
+            continue
+        day = its[0]["report_date"]
+        when = HOURS[session]
+        shown = its[:ROUNDUP_MAX_TICKERS]
+        rest = len(its) - len(shown)
+        names = ", ".join(f"${i['ticker']}" + (f" ({i['name']})" if i.get("name") else "") for i in shown)
+        facts_text = f"Reporting earnings on {day}, {when} (confirmed dates): {names}{' and more' if rest else ''}."
+        caps = [i["market_cap_usd"] for i in shown if isinstance(i.get("market_cap_usd"), (int, float))]
+        items.append(make_item(
+            target.isoformat(), "earnings_tomorrow_roundup", None, f"roundup:{day}:{session}", "/earnings/tomorrow",
+            tickers=[i["ticker"] for i in shown], names={i["ticker"]: i.get("name") for i in shown}, report_date=day,
+            hour=session, hour_text=when, reporters_in_session=len(its), market_cap_usd=max(caps) if caps else None,
+            item_ids=[i["item_id"] for i in shown], source_url=f"{SITE}/earnings/tomorrow", facts_text=facts_text,
+            allowed_numbers=[*date_forms(day), when]))
+    return items, left
+
+
+# ---------------------------------------------------------------------------
+# Newsworthiness rank (Growth B1 2026-10-12): the file is sorted by it, highest first; Grok posts in that order.
+# Points: a base per type, then buys over sales, the top of the amount range (summed over the item's trades), a known
+# name (fame.json, or a CEO / CFO / director title), a mid / large company (a market cap the item already carries:
+# no extra GET), and freshness (the filed / release / scan date, weekday age 0-4). rank_why spells out every point.
+
+RANK_BASE = {"earnings_result": 3.0, "earnings_tomorrow_roundup": 2.5, "ptr_summary": 2.0, "congress_trade": 2.0,
+             "form4_buy": 2.0, "picks_ready": 2.0, "earnings_upcoming": 1.0, "chart_pattern": 1.0, "moves_like": 0.5}
+RANK_BUY = 2.0
+RANK_KNOWN = 2.0
+RANK_AMOUNT_MAX = 4.0  # log10(top / $1K): $15K 1.18, $50K 1.7, $1M 3, $10M+ 4
+RANK_CAP = ((10e9, 2.0, "large"), (2e9, 1.0, "mid"))  # defaults of fame.json company_tiers_usd large / mid
+RANK_FRESH = 2.0       # minus 0.5 per weekday of age
+KNOWN_TITLE = re.compile(r"\b(?:ceo|cfo|chief executive|chief financial|director)\b", re.IGNORECASE)
+RANK_DATE_FIELD = {"congress_trade": "filed", "form4_buy": "filed", "ptr_summary": "filed", "earnings_result": "release_date",
+                   "chart_pattern": "scan_date", "moves_like": "session"}  # the rest are about today / tomorrow: age 0
+
+
+def _cap_tiers(fame: dict) -> tuple:
+    tiers = fame.get("company_tiers_usd") or {}
+    return ((float(tiers.get("large") or RANK_CAP[0][0]), RANK_CAP[0][1], "large"),
+            (float(tiers.get("mid") or RANK_CAP[1][0]), RANK_CAP[1][1], "mid"))
+
+
+def known_name(item: dict, fame: dict) -> str | None:
+    """Why the item's person counts as a known name (fame.json, or a CEO / CFO / director title), else None."""
+    name = item.get("name") or ""
+    if item.get("type") in ("congress_trade", "ptr_summary"):
+        hit = ss.matches_any(name, fame.get("members") or [])
+        return f"{hit} (fame)" if hit else None
+    if item.get("type") == "form4_buy":
+        hit = item.get("famous_person") or ss.matches_any(name, fame.get("insiders") or [])
+        if hit:
+            return f"{hit} (fame)"
+        m = KNOWN_TITLE.search(str(item.get("office") or "").split(" at ")[0])
+        return f"{m.group(0)} (title)" if m else None
+    return None
+
+
+def rank(item: dict, target: dt.date, fame: dict) -> tuple[float, str]:
+    """(rank, rank_why) for one item: higher is more newsworthy."""
+    kind = item.get("type")
+    pts = RANK_BASE.get(kind, 0.0)
+    why = [f"{kind} {pts:g}"]
+    if item.get("side") == "buy":
+        pts += RANK_BUY
+        why.append(f"buy +{RANK_BUY:g}")
+    elif item.get("side") == "sell":
+        why.append("sale +0")
+    top = item.get("amount_top_usd")
+    if isinstance(top, (int, float)) and top > 0:
+        p = round(min(RANK_AMOUNT_MAX, max(0.0, math.log10(top / 1e3))), 2)
+        pts += p
+        why.append(f"top {usd_compact(top)} +{p:g}")
+    known = known_name(item, fame)
+    if known:
+        pts += RANK_KNOWN
+        why.append(f"known name {known} +{RANK_KNOWN:g}")
+    cap = item.get("market_cap_usd")
+    if isinstance(cap, (int, float)) and cap > 0:
+        for floor, p, label in _cap_tiers(fame):
+            if cap >= floor:
+                pts += p
+                why.append(f"{label} cap {usd_compact(cap)} +{p:g}")
+                break
+    key = RANK_DATE_FIELD.get(kind)
+    day = item.get(key) if key else target.isoformat()
+    try:
+        age = ss.weekday_age(ss.d(day), target) if day else None
+    except (TypeError, ValueError):
+        age = None
+    if age is not None and age >= 0:
+        p = max(0.0, RANK_FRESH - 0.5 * age)
+        pts += p
+        why.append(f"{key or 'today'} {str(day)[:10]} (age {age}) +{p:g}")
+    return round(pts, 2), "; ".join(why)
+
+
+def rank_items(items: list[dict], target: dt.date, fame: dict) -> list[dict]:
+    """Every item gets rank and rank_why; the list comes back sorted by rank, highest first (ties keep their order)."""
+    for it in items:
+        it["rank"], it["rank_why"] = rank(it, target, fame)
+    return sorted(items, key=lambda i: -i["rank"])
+
+
+def cap_per_filer(congress: list[dict], target: dt.date, fame: dict) -> tuple[list[dict], int]:
+    """At most one congress_trade item per filer (figure) a day: the highest-ranked one. (kept, how many left out)"""
+    kept, seen = [], set()
+    for it in rank_items(congress, target, fame):
+        who = it.get("figure_slug") or it.get("name")
+        if who in seen:
+            continue
+        seen.add(who)
+        kept.append(it)
+    return kept, len(congress) - len(kept)
+
+
+# ---------------------------------------------------------------------------
 # Feed
 
 def default_as_of(target: dt.date, now: dt.datetime) -> dt.datetime:
@@ -918,7 +1126,7 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
     if nerr or not names:
         errors.append(nerr or "/tickers/names: empty")
         partial.append("tickers_names")
-        for k in ("congress_trade", "form4_buy"):
+        for k in ("congress_trade", "form4_buy", "ptr_summary"):
             reasons[k] = f"the ticker list did not load ({nerr or 'empty'}): no trade can be checked as listed"
     else:
         c, left["congress_trade"], cerr = congress_items(api, target, names)
@@ -928,7 +1136,13 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
             reasons["congress_trade"] = f"the Congress feed did not load ({cerr})"
         elif not c:
             reasons["congress_trade"] = "no Congress trade passed the rules in the last 5 weekdays (left_out has the counts)"
-        items += c
+        ps, left["ptr_summary"] = ptr_summary_items(target, c, fame)
+        if not ps:
+            reasons["ptr_summary"] = "no member has 2+ Congress items on one filing date in the last 5 weekdays"
+        filers = len({i.get("figure_slug") or i.get("name") for i in c})
+        c, capped = cap_per_filer(c, target, fame)
+        left["per_filer_cap"] = {"dropped": capped, "filers": filers}
+        items += c + ps
         f, left["form4_buy"], ferr = form4_items(api, target, names, fame)
         errors += ferr
         if ferr:
@@ -955,7 +1169,11 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
         partial.append("earnings_upcoming")
     if ureason:
         reasons["earnings_upcoming"] = ureason
-    items += u
+    eu, left["earnings_tomorrow_roundup"] = earnings_roundup_items(target, u)
+    if not eu:
+        reasons["earnings_tomorrow_roundup"] = (ureason or "no session (before the open / after the close) of the next "
+                                                "weekday has 2+ confirmed reporters in our universe")
+    items += u + eu
 
     p, preason = picks_items(api, target)
     if preason:
@@ -974,6 +1192,7 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
     if cpreason:
         reasons["chart_pattern"] = cpreason
 
+    items = rank_items(items, target, fame)  # Moves Like looks up the most newsworthy tickers first
     m, left["moves_like"], merr, checked = moves_like_items(api, target, items, previous)
     errors += merr
     if not m:
@@ -983,7 +1202,7 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                                  if checked else "no ticker in today's other items to look up")
     items += m
 
-    items, leaks = screen_holdout(items, target)
+    items, leaks = screen_holdout(rank_items(items, target, fame), target)
     if leaks:
         errors += [f"not built: {why}" for why in leaks]
         left["g_n1_holdout"] = {"dropped": len(leaks), "reasons": leaks}
@@ -1005,6 +1224,10 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
             "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
             "descriptive": ("chart_pattern and moves_like describe what happened only (no forecasts; their items' "
                             "banned_words apply too); moves_like may cashtag only the peers listed in its item"),
+            "cashtags": (f"one cashtag per post (the item's ticker); several only for {' and '.join(ROUNDUP_TYPES)} "
+                         f"(at most {ROUNDUP_MAX_TICKERS}, all from the item's tickers), moves_like (its peers) and "
+                         "picks_ready (the public picks)"),
+            "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order",
         },
         "counts": counts,
         "reasons": reasons,

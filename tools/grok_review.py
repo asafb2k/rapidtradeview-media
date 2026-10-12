@@ -10,7 +10,8 @@ facts.json (tools/facts.py): the date is the item_id's first 10 characters; --fa
 default (what Grok reads) or a local v/ directory. Checks:
   - the item exists in that day's facts;
   - ticker: the item's $cashtag is in the text and no other cashtag is (picks: only the list's public tickers;
-    moves_like: the subject and the peers listed in the item);
+    moves_like: the subject and the peers listed in the item); several cashtags only for earnings_tomorrow_roundup and
+    ptr_summary: at most 4, each one of the item's tickers, at least one;
   - every number-like token in text and reply is one of the item's allowed_numbers (or the cashtag); the filing names
     Form 4, Form 144, Form 13F, 8-K, 10-Q, 10-K and 13F are words, not numbers (posts and comments);
   - banned words (case-insensitive): the rules' list plus the item's own banned_words (chart_pattern / moves_like:
@@ -73,7 +74,12 @@ DEFAULT_FACTS_BASE = f"{mf.PAGES_BASE}/v"
 DEFAULT_INSTINCT = Path("D:/rtv-ops/tracks/growth/bin/instinct.py")
 PYTHON = sys.executable
 UA = "RapidTradeView grok-review (contact@rapidtradeview.trade)"
-SOURCE_TYPES = ("congress_trade", "form4_buy")
+SOURCE_TYPES = ("congress_trade", "form4_buy", "ptr_summary")
+# Several cashtags in one post: only the roundup kinds (facts.ROUNDUP_TYPES, at most facts.ROUNDUP_MAX_TICKERS, all from
+# the item's tickers). moves_like (subject + listed peers) and picks_ready (the public picks) keep their item's own list.
+MULTI_CASHTAG_TYPES = fx.ROUNDUP_TYPES
+MULTI_CASHTAG_MAX = fx.ROUNDUP_MAX_TICKERS
+LIST_TYPES = ("moves_like", "picks_ready")
 NO_PICK_HINT_TYPES = ("picks_ready", "chart_pattern", "moves_like")
 URL = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
 CASHTAG = re.compile(r"(?<![\w$])\$([A-Za-z]{1,5}(?:[.-][A-Za-z]{1,2})?)(?![\w])")
@@ -258,6 +264,15 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     other = sorted({t for t in tags if t not in tickers})
     if other:
         reasons.append(f"cashtag not in this item: {', '.join('$' + short(t, 8) for t in other)}")
+    distinct = set(tags)
+    kind = item.get("type")
+    if kind in MULTI_CASHTAG_TYPES:
+        if len(distinct) > MULTI_CASHTAG_MAX:
+            reasons.append(f"{kind}: at most {MULTI_CASHTAG_MAX} cashtags (got {len(distinct)})")
+        if not distinct & set(tickers):
+            reasons.append(f"{kind}: the text must name at least one of the item's tickers")
+    elif kind not in LIST_TYPES and len(distinct) > 1:
+        reasons.append(f"one cashtag per post: several only for {' / '.join(MULTI_CASHTAG_TYPES)} (got {len(distinct)})")
     if item.get("ticker") and f"${item['ticker'].upper()}" not in {f"${m.group(1).upper()}" for m in CASHTAG.finditer(text)}:
         reasons.append(f"the text must name ${item['ticker']}")
 
