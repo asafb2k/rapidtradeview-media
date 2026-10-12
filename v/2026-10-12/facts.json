@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-12",
-  "generated_at": "2026-10-12T12:00:04Z",
-  "as_of": "2026-10-12T12:00:04Z",
+  "generated_at": "2026-10-12T12:30:04Z",
+  "as_of": "2026-10-12T12:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -53,7 +53,7 @@
     "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order"
   },
   "counts": {
-    "congress_trade": 2,
+    "congress_trade": 1,
     "form4_buy": 5,
     "earnings_result": 0,
     "earnings_upcoming": 9,
@@ -61,10 +61,10 @@
     "chart_pattern": 1,
     "moves_like": 3,
     "earnings_tomorrow_roundup": 1,
-    "ptr_summary": 2
+    "ptr_summary": 1
   },
   "reasons": {
-    "earnings_result": "no earnings report published between 2026-10-11T12:00Z and 2026-10-12T12:00Z",
+    "earnings_result": "no earnings report published between 2026-10-11T12:30Z and 2026-10-12T12:30Z",
     "picks_ready": "the published list (2026-10-09) expires 2026-10-12T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
   },
   "left_out": {
@@ -84,9 +84,17 @@
       "members_filing_dates": 2,
       "single_item": 0
     },
+    "ptr_summary_incomplete": {
+      "window_start": "2026-10-06",
+      "oldest_row_read": "2026-10-02",
+      "skipped": 0,
+      "reasons": []
+    },
     "per_filer_cap": {
-      "dropped": 33,
-      "filers": 2
+      "dropped": 35,
+      "filers": 2,
+      "dropped_congress_trade": 34,
+      "dropped_ptr_summary": 1
     },
     "form4_buy": {
       "rows_read": 20,
@@ -113,7 +121,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 13,
+      "tickers_in_items": 12,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -553,146 +561,6 @@
       ],
       "rank": 5.98,
       "rank_why": "ptr_summary 2; top $30K +1.48; known name Josh Gottheimer (fame) +2; filed 2026-10-07 (age 3) +0.5"
-    },
-    {
-      "item_id": "2026-10-12-congress-trade-MCD-ab8b40",
-      "type": "congress_trade",
-      "ticker": "MCD",
-      "tickers": [
-        "MCD"
-      ],
-      "name": "Josh Gottheimer",
-      "office": "U.S. Representative (D-NJ)",
-      "amount_text": "$1K–$15K",
-      "traded": [
-        "2026-09-25"
-      ],
-      "filed": "2026-10-07",
-      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035590.pdf",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-congress-trade-MCD-ab8b40#trades",
-      "allowed_numbers": [
-        "$1K–$15K",
-        "$1K",
-        "$15K",
-        "$1,001–$15,000",
-        "$1,001",
-        "$15,000",
-        "2026-10-07",
-        "Oct 7, 2026",
-        "Oct 7",
-        "2026-09-25",
-        "Sep 25, 2026",
-        "Sep 25"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a sale of MCD (McDonald's Corporation), $1K–$15K, traded 2026-09-25; filed 2026-10-07 (owner: joint).",
-      "dedupe_key": "ptr:20035590:MCD:sell",
-      "company": "McDonald's Corporation",
-      "side": "sell",
-      "owner": [
-        "joint"
-      ],
-      "figure_slug": "josh-gottheimer",
-      "amount_exact_text": "$1,001–$15,000",
-      "rows": 1,
-      "amount_top_usd": 15000.0,
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer/opengraph-image",
-          "kind": "image",
-          "alt": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a sale of MCD (McDonald's Corporation), $1K–$15K, traded 2026-09-25; filed 2026-10-07 (owner: joint)."
-        }
-      ],
-      "rank": 5.68,
-      "rank_why": "congress_trade 2; sale +0; top $15K +1.18; known name Josh Gottheimer (fame) +2; filed 2026-10-07 (age 3) +0.5"
-    },
-    {
-      "item_id": "2026-10-12-ptr-summary-LIST-65fbab",
-      "type": "ptr_summary",
-      "ticker": null,
-      "tickers": [
-        "SNOW",
-        "OKTA",
-        "META",
-        "GLW"
-      ],
-      "name": "Maria Elvira Salazar",
-      "office": "U.S. Representative (R-FL)",
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-07",
-      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-ptr-summary-LIST-65fbab#trades",
-      "allowed_numbers": [
-        "42",
-        "29",
-        "9",
-        "33",
-        "25",
-        "2026-10-07",
-        "Oct 7, 2026",
-        "Oct 7"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 42 trades (9 purchases, 33 sales) in 29 tickers on a report filed 2026-10-07, including $SNOW, $OKTA, $META, $GLW and 25 more.",
-      "dedupe_key": "ptrsum:maria-elvira-salazar:2026-10-07",
-      "tickers_total": 29,
-      "figure_slug": "maria-elvira-salazar",
-      "rows": 42,
-      "buys": 9,
-      "sales": 33,
-      "amount_top_usd": 700000.0,
-      "source_urls": [
-        "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf"
-      ],
-      "item_ids": [
-        "2026-10-12-congress-trade-SNOW-65f027",
-        "2026-10-12-congress-trade-OKTA-b73a28",
-        "2026-10-12-congress-trade-META-f84b44",
-        "2026-10-12-congress-trade-GLW-b5183d",
-        "2026-10-12-congress-trade-CVX-ce0235",
-        "2026-10-12-congress-trade-CSCO-438126",
-        "2026-10-12-congress-trade-GLW-274f31",
-        "2026-10-12-congress-trade-IBM-105bdb",
-        "2026-10-12-congress-trade-URI-4fcdab",
-        "2026-10-12-congress-trade-UNH-ccb587",
-        "2026-10-12-congress-trade-SPCX-8e0eda",
-        "2026-10-12-congress-trade-SNOW-f7a4a9",
-        "2026-10-12-congress-trade-RH-ae32b9",
-        "2026-10-12-congress-trade-PTON-446b58",
-        "2026-10-12-congress-trade-OKTA-ec1bc2",
-        "2026-10-12-congress-trade-MSFT-3db025",
-        "2026-10-12-congress-trade-MRVL-07f646",
-        "2026-10-12-congress-trade-MRNA-1520cc",
-        "2026-10-12-congress-trade-MRK-467b68",
-        "2026-10-12-congress-trade-META-596f99",
-        "2026-10-12-congress-trade-HONA-ec373f",
-        "2026-10-12-congress-trade-HON-f516ed",
-        "2026-10-12-congress-trade-GS-3643da",
-        "2026-10-12-congress-trade-GE-71edaa",
-        "2026-10-12-congress-trade-FDX-af9851",
-        "2026-10-12-congress-trade-DDOG-d4bc6d",
-        "2026-10-12-congress-trade-CRM-6d52b9",
-        "2026-10-12-congress-trade-CB-c753b4",
-        "2026-10-12-congress-trade-C-ecb9e3",
-        "2026-10-12-congress-trade-BRK-B-fd1052",
-        "2026-10-12-congress-trade-BIIB-c4d858",
-        "2026-10-12-congress-trade-BEP-e2f4db",
-        "2026-10-12-congress-trade-BA-17b72d"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
-          "kind": "image",
-          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 42 trades (9 purchases, 33 sales) in 29 tickers on a report filed 2026-10-07, including $SNOW, $OKTA, $META, $GLW and 25 more."
-        }
-      ],
-      "rank": 5.35,
-      "rank_why": "ptr_summary 2; top $700K +2.85; filed 2026-10-07 (age 3) +0.5"
     },
     {
       "item_id": "2026-10-12-earnings-upcoming-JPM-70a467",
