@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-12",
-  "generated_at": "2026-10-12T15:00:04Z",
-  "as_of": "2026-10-12T15:00:04Z",
+  "generated_at": "2026-10-12T17:30:04Z",
+  "as_of": "2026-10-12T17:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -57,15 +57,14 @@
     "form4_buy": 5,
     "earnings_result": 0,
     "earnings_upcoming": 9,
-    "picks_ready": 0,
+    "picks_ready": 1,
     "chart_pattern": 1,
     "moves_like": 3,
     "earnings_tomorrow_roundup": 1,
     "ptr_summary": 1
   },
   "reasons": {
-    "earnings_result": "no earnings report published between 2026-10-11T15:00Z and 2026-10-12T15:00Z",
-    "picks_ready": "the published list (2026-10-09) expires 2026-10-12T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
+    "earnings_result": "no earnings report published between 2026-10-11T17:30Z and 2026-10-12T17:30Z"
   },
   "left_out": {
     "congress_trade": {
@@ -946,6 +945,54 @@
       "rank_why": "earnings_upcoming 1; mid cap $2.85B +1; today 2026-10-12 (age 0) +2"
     },
     {
+      "item_id": "2026-10-12-picks-ready-LIST-7625d1",
+      "type": "picks_ready",
+      "ticker": null,
+      "tickers": [
+        "RTX",
+        "EROC"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/picks/2026-10-12",
+      "page_url": "https://www.rapidtradeview.trade/picks/2026-10-12?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-12-picks-ready-LIST-7625d1",
+      "allowed_numbers": [
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The RapidTradeView daily picks list for 2026-10-12 is published; the public picks are RTX, EROC.",
+      "dedupe_key": "picks:2026-10-12",
+      "trade_date": "2026-10-12",
+      "valid_until": "2026-10-13T17:30:00+00:00",
+      "picks": [
+        {
+          "ticker": "RTX",
+          "direction": "bullish"
+        },
+        {
+          "ticker": "EROC",
+          "direction": "bullish"
+        }
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/picks/2026-10-12/opengraph-image",
+          "kind": "image",
+          "alt": "The RapidTradeView daily picks list for 2026-10-12 is published; the public picks are RTX, EROC."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "picks_ready 2; today 2026-10-12 (age 0) +2"
+    },
+    {
       "item_id": "2026-10-12-chart-pattern-UTHR-f1ccb6",
       "type": "chart_pattern",
       "ticker": "UTHR",
@@ -969,7 +1016,7 @@
         "$490.80",
         "$494.35",
         "$468.97",
-        "$532.78",
+        "$549.16",
         "Sep 30",
         "May 6",
         "Aug 7",
@@ -978,18 +1025,18 @@
         "Aug 5",
         "Aug 14",
         "Sep 24",
-        "Oct 8",
-        "2026-10-09",
-        "Oct 9, 2026",
         "Oct 9",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
         "2026-04-02",
         "Apr 2, 2026",
         "2026-09-24",
         "Sep 24, 2026",
         "2026-09-30",
         "Sep 30, 2026",
-        "2026-10-08",
-        "Oct 8, 2026",
+        "2026-10-09",
+        "Oct 9, 2026",
         "2026-05-06",
         "May 6, 2026",
         "2026-08-05",
@@ -1004,9 +1051,9 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Automatic technical analysis flagged a falling wedge on $UTHR (United Therapeutics Corporation) (scan 2026-10-09): pattern 2026-04-02 to 2026-09-24. Confirmed Sep 30: closed $541.89, clearly above the upper line at $504.19.",
+      "facts_text": "Automatic technical analysis flagged a falling wedge on $UTHR (United Therapeutics Corporation) (scan 2026-10-12): pattern 2026-04-02 to 2026-09-24. Confirmed Sep 30: closed $541.89, clearly above the upper line at $504.19.",
       "dedupe_key": "pattern:UTHR:falling_wedge:confirmed:2026-09-30",
-      "scan_date": "2026-10-09",
+      "scan_date": "2026-10-12",
       "pattern": {
         "type": "falling_wedge",
         "name": "Falling wedge",
@@ -1017,7 +1064,7 @@
         "start_text": "Apr 2, 2026",
         "end_text": "Sep 24, 2026",
         "confirmed_on": "2026-09-30",
-        "as_of": "2026-10-08"
+        "as_of": "2026-10-09"
       },
       "levels": {
         "key_level_name": "upper line",
@@ -1036,7 +1083,7 @@
         "points": [
           "Highs $609.35 (May 6) → $541.03 (Aug 7) → $535.77 (Aug 19)",
           "Lows $551.30 (Apr 2) → $490.80 (Aug 5) → $494.35 (Aug 14) → $468.97 (Sep 24)",
-          "Sep 30 closed $541.89: confirmed · last close $532.78 (Oct 8)"
+          "Sep 30 closed $541.89: confirmed · last close $549.16 (Oct 9)"
         ]
       },
       "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
@@ -1048,11 +1095,11 @@
         {
           "url": "https://www.rapidtradeview.trade/dashboard/UTHR/opengraph-image",
           "kind": "image",
-          "alt": "Automatic technical analysis flagged a falling wedge on $UTHR (United Therapeutics Corporation) (scan 2026-10-09): pattern 2026-04-02 to 2026-09-24. Confirmed Sep 30: closed $541.89, clearly above the upper line at $504.19."
+          "alt": "Automatic technical analysis flagged a falling wedge on $UTHR (United Therapeutics Corporation) (scan 2026-10-12): pattern 2026-04-02 to 2026-09-24. Confirmed Sep 30: closed $541.89, clearly above the upper line at $504.19."
         }
       ],
-      "rank": 2.5,
-      "rank_why": "chart_pattern 1; scan_date 2026-10-09 (age 1) +1.5"
+      "rank": 3.0,
+      "rank_why": "chart_pattern 1; scan_date 2026-10-12 (age 0) +2"
     },
     {
       "item_id": "2026-10-12-moves-like-URI-20f4fe",
