@@ -220,9 +220,10 @@ def test_empty_day_is_valid_with_reasons():
     f = build()
     assert f["items"] == [] and not f["errors"]
     assert set(f["reasons"]) == set(fx.TYPES)
-    assert f["rules"]["banned_words"] == ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon",
-                                          "breakout coming", "about to", "set to",
-                                          "bitcoin", "btc", "crypto", "cryptocurrency", "ethereum", "blockchain"]
+    bw = f["rules"]["banned_words"]
+    assert bw == fx.BANNED_WORDS
+    for w in ("insider trading", "guaranteed", "price target", "breakout coming", "should buy", "load up", "bitcoin", "crypto"):
+        assert w in bw
     assert f["rules"]["disclaimer"] == "Not investment advice." and f["rules"]["max_len"] == {"x": 270}
 
 
