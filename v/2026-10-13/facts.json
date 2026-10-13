@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T19:15:03Z",
-  "as_of": "2026-10-13T19:15:03Z",
+  "generated_at": "2026-10-13T20:45:03Z",
+  "as_of": "2026-10-13T20:45:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 1,
     "form4_buy": 3,
-    "earnings_result": 12,
+    "earnings_result": 13,
     "earnings_upcoming": 6,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -100,8 +100,8 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1359,
-      "recent_ready": 20,
+      "archive_reports": 1360,
+      "recent_ready": 21,
       "outside_24h": 8,
       "unreadable": 0
     },
@@ -118,7 +118,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 18,
+      "tickers_in_items": 19,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -139,7 +139,7 @@
     "EQT": "item",
     "PRTA": "below_floor"
   },
-  "api_requests": 22,
+  "api_requests": 23,
   "items": [
     {
       "item_id": "2026-10-13-form4-buy-GGR-594f85",
@@ -455,6 +455,70 @@
       ],
       "rank": 5.48,
       "rank_why": "ptr_summary 2; top $30K +1.48; known name Josh Gottheimer (fame) +2; filed 2026-10-07 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-AZZ-faf9b7",
+      "type": "earnings_result",
+      "ticker": "AZZ",
+      "tickers": [
+        "AZZ"
+      ],
+      "name": "AZZ Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/8947/000000894726000188/exhibit991q2fy27earningsre.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AZZ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-AZZ-faf9b7#earnings-history",
+      "allowed_numbers": [
+        "$487M",
+        "$463M",
+        "$23.5M",
+        "$2.00",
+        "$1.84",
+        "$0.16",
+        "Q2 2027",
+        "Q2",
+        "FY2027",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "AZZ Inc. (AZZ) published Q2 2027 results on 2026-10-13: Beat estimates. Revenue $487M vs $463M consensus (Beat by $23.5M). Adjusted diluted EPS $2.00 vs $1.84 consensus (Beat by $0.16).",
+      "dedupe_key": "report:azz-2027-q2",
+      "report_id": "azz-2027-q2",
+      "fiscal_label": "Q2 2027",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T20:18:53.695292+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$487M",
+          "consensus": "$463M",
+          "label": "Beat by $23.5M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted diluted EPS",
+          "reported": "$2.00",
+          "consensus": "$1.84",
+          "label": "Beat by $0.16",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AZZ/opengraph-image",
+          "kind": "image",
+          "alt": "AZZ Inc. (AZZ) published Q2 2027 results on 2026-10-13: Beat estimates. Revenue $487M vs $463M consensus (Beat by $23.5M). Adjusted diluted EPS $2.00 vs $1.84 consensus (Beat by $0.16)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
     },
     {
       "item_id": "2026-10-13-earnings-result-C-cd8841",
