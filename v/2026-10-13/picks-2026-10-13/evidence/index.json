@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-13",
+ "media_date": "2026-10-13",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-13/picks-2026-10-13/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-13",
+   "fetched_at_utc": "2026-10-13T17:45:21.181242+00:00",
+   "status": 200,
+   "sha256": "6599bf304f0c714bbfdcc2f33cffcabd2a13bbc0bb8c7c206f3dd1eab2a615a7",
+   "bytes": 5290
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-13/picks-2026-10-13/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-13T17:45:21.703964+00:00",
+   "status": 200,
+   "sha256": "3d75d951b7d98c2b4fba23bf43bd32ae0c6da071e205b83913ea4c88300193e0",
+   "bytes": 9974
+  },
+  {
+   "name": "search-OPRA.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-13/picks-2026-10-13/evidence/search-OPRA.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=OPRA",
+   "fetched_at_utc": "2026-10-13T17:45:22.208531+00:00",
+   "status": 200,
+   "sha256": "2747c0e09291acd52551e97be4d123617fec3f99cc7a7c57d2b055664c357dc6",
+   "bytes": 445
+  },
+  {
+   "name": "search-LTH.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-13/picks-2026-10-13/evidence/search-LTH.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=LTH",
+   "fetched_at_utc": "2026-10-13T17:45:22.732547+00:00",
+   "status": 200,
+   "sha256": "8b228ff41375a3bb54bf400673c495832927f9dcb2c55d24925407feabcfb91c",
+   "bytes": 459
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
