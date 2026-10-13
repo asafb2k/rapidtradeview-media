@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T15:30:04Z",
-  "as_of": "2026-10-13T15:30:04Z",
+  "generated_at": "2026-10-13T17:30:04Z",
+  "as_of": "2026-10-13T17:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -57,15 +57,13 @@
     "form4_buy": 3,
     "earnings_result": 11,
     "earnings_upcoming": 6,
-    "picks_ready": 0,
+    "picks_ready": 1,
     "chart_pattern": 1,
     "moves_like": 3,
     "earnings_tomorrow_roundup": 1,
     "ptr_summary": 1
   },
-  "reasons": {
-    "picks_ready": "the published list (2026-10-12) expires 2026-10-13T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
-  },
+  "reasons": {},
   "left_out": {
     "congress_trade": {
       "rows_read": 50,
@@ -1370,6 +1368,54 @@
       "rank_why": "earnings_upcoming 1; mid cap $6.03B +1; today 2026-10-13 (age 0) +2"
     },
     {
+      "item_id": "2026-10-13-picks-ready-LIST-052ec1",
+      "type": "picks_ready",
+      "ticker": null,
+      "tickers": [
+        "OPRA",
+        "LTH"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/picks/2026-10-13",
+      "page_url": "https://www.rapidtradeview.trade/picks/2026-10-13?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-picks-ready-LIST-052ec1",
+      "allowed_numbers": [
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The RapidTradeView daily picks list for 2026-10-13 is published; the public picks are OPRA, LTH.",
+      "dedupe_key": "picks:2026-10-13",
+      "trade_date": "2026-10-13",
+      "valid_until": "2026-10-14T17:30:00+00:00",
+      "picks": [
+        {
+          "ticker": "OPRA",
+          "direction": "bullish"
+        },
+        {
+          "ticker": "LTH",
+          "direction": "bullish"
+        }
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/picks/2026-10-13/opengraph-image",
+          "kind": "image",
+          "alt": "The RapidTradeView daily picks list for 2026-10-13 is published; the public picks are OPRA, LTH."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "picks_ready 2; today 2026-10-13 (age 0) +2"
+    },
+    {
       "item_id": "2026-10-13-chart-pattern-EQT-c3958a",
       "type": "chart_pattern",
       "ticker": "EQT",
@@ -1391,25 +1437,25 @@
         "$51.08",
         "$48.93",
         "$48.17",
-        "$52.83",
+        "$53.22",
         "Oct 2",
         "Sep 3",
         "Sep 23",
         "Aug 5",
         "Sep 21",
         "Oct 1",
-        "Oct 9",
-        "2026-10-12",
-        "Oct 12, 2026",
         "Oct 12",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
         "2026-08-05",
         "Aug 5, 2026",
         "2026-10-01",
         "Oct 1, 2026",
         "2026-10-02",
         "Oct 2, 2026",
-        "2026-10-09",
-        "Oct 9, 2026",
+        "2026-10-12",
+        "Oct 12, 2026",
         "2026-09-03",
         "Sep 3, 2026",
         "2026-09-21",
@@ -1420,9 +1466,9 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Automatic technical analysis flagged a falling wedge on $EQT (EQT Corporation) (scan 2026-10-12): pattern 2026-08-05 to 2026-10-01. Confirmed Oct 2: closed $50.17, clearly above the upper line at $49.72.",
+      "facts_text": "Automatic technical analysis flagged a falling wedge on $EQT (EQT Corporation) (scan 2026-10-13): pattern 2026-08-05 to 2026-10-01. Confirmed Oct 2: closed $50.17, clearly above the upper line at $49.72.",
       "dedupe_key": "pattern:EQT:falling_wedge:confirmed:2026-10-02",
-      "scan_date": "2026-10-12",
+      "scan_date": "2026-10-13",
       "pattern": {
         "type": "falling_wedge",
         "name": "Falling wedge",
@@ -1433,7 +1479,7 @@
         "start_text": "Aug 5, 2026",
         "end_text": "Oct 1, 2026",
         "confirmed_on": "2026-10-02",
-        "as_of": "2026-10-09"
+        "as_of": "2026-10-12"
       },
       "levels": {
         "key_level_name": "upper line",
@@ -1452,7 +1498,7 @@
         "points": [
           "Highs $56.52 (Sep 3) → $52.10 (Sep 23)",
           "Lows $51.08 (Aug 5) → $48.93 (Sep 21) → $48.17 (Oct 1)",
-          "Oct 2 closed $50.17: confirmed · last close $52.83 (Oct 9)"
+          "Oct 2 closed $50.17: confirmed · last close $53.22 (Oct 12)"
         ]
       },
       "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
@@ -1464,11 +1510,11 @@
         {
           "url": "https://www.rapidtradeview.trade/dashboard/EQT/opengraph-image",
           "kind": "image",
-          "alt": "Automatic technical analysis flagged a falling wedge on $EQT (EQT Corporation) (scan 2026-10-12): pattern 2026-08-05 to 2026-10-01. Confirmed Oct 2: closed $50.17, clearly above the upper line at $49.72."
+          "alt": "Automatic technical analysis flagged a falling wedge on $EQT (EQT Corporation) (scan 2026-10-13): pattern 2026-08-05 to 2026-10-01. Confirmed Oct 2: closed $50.17, clearly above the upper line at $49.72."
         }
       ],
-      "rank": 2.5,
-      "rank_why": "chart_pattern 1; scan_date 2026-10-12 (age 1) +1.5"
+      "rank": 3.0,
+      "rank_why": "chart_pattern 1; scan_date 2026-10-13 (age 0) +2"
     },
     {
       "item_id": "2026-10-13-moves-like-BPRE-eb445c",
