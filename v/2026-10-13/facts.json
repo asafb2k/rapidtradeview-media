@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T09:00:03Z",
-  "as_of": "2026-10-13T09:00:03Z",
+  "generated_at": "2026-10-13T11:00:04Z",
+  "as_of": "2026-10-13T11:00:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 1,
     "form4_buy": 2,
-    "earnings_result": 0,
+    "earnings_result": 7,
     "earnings_upcoming": 6,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -64,7 +64,6 @@
     "ptr_summary": 1
   },
   "reasons": {
-    "earnings_result": "no earnings report published between 2026-10-12T09:00Z and 2026-10-13T09:00Z",
     "picks_ready": "the published list (2026-10-12) expires 2026-10-13T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
   },
   "left_out": {
@@ -103,8 +102,8 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1327,
-      "recent_ready": 8,
+      "archive_reports": 1334,
+      "recent_ready": 15,
       "outside_24h": 8,
       "unreadable": 0
     },
@@ -121,13 +120,13 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 10,
-      "carried_over": 0,
-      "requested": 5,
+      "tickers_in_items": 12,
+      "carried_over": 5,
+      "requested": 0,
       "not_covered": 0,
       "disabled": 0,
       "no_peer": 0,
-      "below_floor": 2,
+      "below_floor": 0,
       "stale": 0,
       "unavailable": 0,
       "unreadable": 0
@@ -142,7 +141,7 @@
     "EQT": "item",
     "PRTA": "below_floor"
   },
-  "api_requests": 14,
+  "api_requests": 16,
   "items": [
     {
       "item_id": "2026-10-13-form4-buy-BPRE-ccd9d3",
@@ -410,6 +409,309 @@
       "rank_why": "ptr_summary 2; top $30K +1.48; known name Josh Gottheimer (fame) +2; filed 2026-10-07 (age 4) +0"
     },
     {
+      "item_id": "2026-10-13-earnings-result-JPM-810c72",
+      "type": "earnings_result",
+      "ticker": "JPM",
+      "tickers": [
+        "JPM"
+      ],
+      "name": "JPMorgan Chase & Co.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026065582/a3q26erfexhibit991narrative.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/JPM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-JPM-810c72#earnings-history",
+      "allowed_numbers": [
+        "$50.91B",
+        "$51.22B",
+        "$309M",
+        "$5.75",
+        "$5.94",
+        "$0.19",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "JPMorgan Chase & Co. (JPM) published Q3 2026 results on 2026-10-13: Missed estimates. Revenue $50.91B vs $51.22B consensus (Missed by $309M). EPS excluding a significant item $5.75 vs $5.94 consensus (Missed by $0.19).",
+      "dedupe_key": "report:jpm-2026-q3",
+      "report_id": "jpm-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:32:47.526757+00:00",
+      "tile_label": "Missed estimates",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$50.91B",
+          "consensus": "$51.22B",
+          "label": "Missed by $309M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "EPS excluding a significant item",
+          "reported": "$5.75",
+          "consensus": "$5.94",
+          "label": "Missed by $0.19",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/JPM/opengraph-image",
+          "kind": "image",
+          "alt": "JPMorgan Chase & Co. (JPM) published Q3 2026 results on 2026-10-13: Missed estimates. Revenue $50.91B vs $51.22B consensus (Missed by $309M). EPS excluding a significant item $5.75 vs $5.94 consensus (Missed by $0.19)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-WFC-22e4ce",
+      "type": "earnings_result",
+      "ticker": "WFC",
+      "tickers": [
+        "WFC"
+      ],
+      "name": "Wells Fargo & Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/72971/000007297126000318/wfc3qer10-13x26ex991xrelea.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-WFC-22e4ce#earnings-history",
+      "allowed_numbers": [
+        "$21.87B",
+        "$22.32B",
+        "$454M",
+        "$1.87",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Wells Fargo & Company (WFC) published Q3 2026 results on 2026-10-13: Revenue miss. Revenue $21.87B vs $22.32B consensus (Missed by $454M). GAAP EPS $1.87.",
+      "dedupe_key": "report:wfc-2026-q3",
+      "report_id": "wfc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:30:48.539830+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$21.87B",
+          "consensus": "$22.32B",
+          "label": "Missed by $454M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$1.87"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WFC/opengraph-image",
+          "kind": "image",
+          "alt": "Wells Fargo & Company (WFC) published Q3 2026 results on 2026-10-13: Revenue miss. Revenue $21.87B vs $22.32B consensus (Missed by $454M). GAAP EPS $1.87."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-FBK-e4f78e",
+      "type": "earnings_result",
+      "ticker": "FBK",
+      "tickers": [
+        "FBK"
+      ],
+      "name": "FB Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1649749/000164974926000063/a3q26pressreleasetablesfor.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FBK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-FBK-e4f78e#earnings-history",
+      "allowed_numbers": [
+        "$174M",
+        "$182M",
+        "$7.11M",
+        "$1.21",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "FB Financial Corporation (FBK) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $174M vs $182M consensus (Missed by $7.11M). Adjusted diluted earnings per common share* $1.21 vs $1.21 consensus (In line).",
+      "dedupe_key": "report:fbk-2026-q3",
+      "report_id": "fbk-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:20:49.604006+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$174M",
+          "consensus": "$182M",
+          "label": "Missed by $7.11M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adjusted diluted earnings per common share*",
+          "reported": "$1.21",
+          "consensus": "$1.21",
+          "label": "In line",
+          "verdict": "in_line"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FBK/opengraph-image",
+          "kind": "image",
+          "alt": "FB Financial Corporation (FBK) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $174M vs $182M consensus (Missed by $7.11M). Adjusted diluted earnings per common share* $1.21 vs $1.21 consensus (In line)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-UNH-1bb788",
+      "type": "earnings_result",
+      "ticker": "UNH",
+      "tickers": [
+        "UNH"
+      ],
+      "name": "UnitedHealth Group Incorporated",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/731766/000073176626000255/earningsrelease3q26unh.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/UNH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-UNH-1bb788#earnings-history",
+      "allowed_numbers": [
+        "$112.7B",
+        "$111.49B",
+        "$1.21B",
+        "$4.69",
+        "$4.14",
+        "$0.55",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "UnitedHealth Group Incorporated (UNH) published Q3 2026 results on 2026-10-13: Beat estimates. Revenue $112.7B vs $111.49B consensus (Beat by $1.21B). Adjusted Earnings $4.69 vs $4.14 consensus (Beat by $0.55).",
+      "dedupe_key": "report:unh-2026-q3",
+      "report_id": "unh-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:16:46.930791+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$112.7B",
+          "consensus": "$111.49B",
+          "label": "Beat by $1.21B",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted Earnings",
+          "reported": "$4.69",
+          "consensus": "$4.14",
+          "label": "Beat by $0.55",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/UNH/opengraph-image",
+          "kind": "image",
+          "alt": "UnitedHealth Group Incorporated (UNH) published Q3 2026 results on 2026-10-13: Beat estimates. Revenue $112.7B vs $111.49B consensus (Beat by $1.21B). Adjusted Earnings $4.69 vs $4.14 consensus (Beat by $0.55)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-DPZ-5dfc07",
+      "type": "earnings_result",
+      "ticker": "DPZ",
+      "tickers": [
+        "DPZ"
+      ],
+      "name": "Domino's Pizza, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000039/dpz-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DPZ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-DPZ-5dfc07#earnings-history",
+      "allowed_numbers": [
+        "$1.19B",
+        "$4.60",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Domino's Pizza, Inc. (DPZ) published Q3 2026 results on 2026-10-13: Published. Revenue $1.19B. GAAP EPS $4.60.",
+      "dedupe_key": "report:dpz-2026-q3",
+      "report_id": "dpz-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:06:49.963183+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$1.19B"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$4.60"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/DPZ/opengraph-image",
+          "kind": "image",
+          "alt": "Domino's Pizza, Inc. (DPZ) published Q3 2026 results on 2026-10-13: Published. Revenue $1.19B. GAAP EPS $4.60."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
+    },
+    {
       "item_id": "2026-10-13-earnings-upcoming-BAC-940cab",
       "type": "earnings_upcoming",
       "ticker": "BAC",
@@ -618,6 +920,135 @@
       ],
       "rank": 5.0,
       "rank_why": "earnings_upcoming 1; large cap $48.06B +2; today 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-NRIX-5d7fc7",
+      "type": "earnings_result",
+      "ticker": "NRIX",
+      "tickers": [
+        "NRIX"
+      ],
+      "name": "Nurix Therapeutics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1549595/000154959526000048/nrix-20261013xexx991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/NRIX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-NRIX-5d7fc7#earnings-history",
+      "allowed_numbers": [
+        "$673M",
+        "$480M",
+        "$194M",
+        "$4.73",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Nurix Therapeutics, Inc. (NRIX) published Q3 2026 results on 2026-10-12: Revenue beat. Revenue $673M vs $480M consensus (Beat by $194M). GAAP EPS $4.73.",
+      "dedupe_key": "report:nrix-2026-q3",
+      "report_id": "nrix-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-12",
+      "published_at": "2026-10-13T10:22:51.287834+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$673M",
+          "consensus": "$480M",
+          "label": "Beat by $194M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$4.73"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/NRIX/opengraph-image",
+          "kind": "image",
+          "alt": "Nurix Therapeutics, Inc. (NRIX) published Q3 2026 results on 2026-10-12: Revenue beat. Revenue $673M vs $480M consensus (Beat by $194M). GAAP EPS $4.73."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-12 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-ENVX-4120b4",
+      "type": "earnings_result",
+      "ticker": "ENVX",
+      "tickers": [
+        "ENVX"
+      ],
+      "name": "Enovix Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1828318/000182831826000058/exhibit991-pressreleasepre.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ENVX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-ENVX-4120b4#earnings-history",
+      "allowed_numbers": [
+        "$11.0M",
+        "$9.53M",
+        "$1.47M",
+        "−$0.14",
+        "−$0.15",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Enovix Corporation (ENVX) published Q3 2026 results on 2026-10-12: Beat estimates. Revenue $11.0M vs $9.53M consensus (Beat by $1.47M). Non-GAAP net loss per share, diluted −$0.14 vs −$0.15 consensus (Beat by $0.01).",
+      "dedupe_key": "report:envx-2026-q3",
+      "report_id": "envx-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-12",
+      "published_at": "2026-10-13T10:12:48.445125+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$11.0M",
+          "consensus": "$9.53M",
+          "label": "Beat by $1.47M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP net loss per share, diluted",
+          "reported": "−$0.14",
+          "consensus": "−$0.15",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ENVX/opengraph-image",
+          "kind": "image",
+          "alt": "Enovix Corporation (ENVX) published Q3 2026 results on 2026-10-12: Beat estimates. Revenue $11.0M vs $9.53M consensus (Beat by $1.47M). Non-GAAP net loss per share, diluted −$0.14 vs −$0.15 consensus (Beat by $0.01)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-12 (age 1) +1.5"
     },
     {
       "item_id": "2026-10-13-earnings-upcoming-HOMB-643204",
