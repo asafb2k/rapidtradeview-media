@@ -1,0 +1,992 @@
+{
+  "schema": "rtv-facts/1",
+  "date": "2026-10-13",
+  "generated_at": "2026-10-13T09:00:03Z",
+  "as_of": "2026-10-13T09:00:03Z",
+  "rules": {
+    "banned_words": [
+      "insider trading",
+      "guaranteed",
+      "moon",
+      "buy now",
+      "will rise",
+      "price target",
+      "to the moon",
+      "breakout coming",
+      "about to",
+      "set to",
+      "should buy",
+      "should sell",
+      "load up",
+      "buy the dip",
+      "time to buy",
+      "time to sell",
+      "don't miss",
+      "dont miss",
+      "easy money",
+      "can't lose",
+      "cant lose",
+      "free money",
+      "sell now",
+      "get in now",
+      "bitcoin",
+      "btc",
+      "crypto",
+      "cryptocurrency",
+      "ethereum",
+      "blockchain"
+    ],
+    "disclaimer": "Not investment advice.",
+    "max_len": {
+      "x": 270
+    },
+    "platforms": [
+      "x",
+      "instagram"
+    ],
+    "platform_placeholder": "{platform}",
+    "numbers": "every number, date or amount in a post must be one of the item's allowed_numbers, as written there",
+    "picks": "never name or hint at the #1 pick; it is locked and not in this file",
+    "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
+    "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
+    "cashtags": "one cashtag per post (the item's ticker); several only for earnings_tomorrow_roundup and ptr_summary (at most 4, all from the item's tickers), moves_like (its peers) and picks_ready (the public picks)",
+    "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order"
+  },
+  "counts": {
+    "congress_trade": 1,
+    "form4_buy": 2,
+    "earnings_result": 0,
+    "earnings_upcoming": 6,
+    "picks_ready": 0,
+    "chart_pattern": 1,
+    "moves_like": 3,
+    "earnings_tomorrow_roundup": 1,
+    "ptr_summary": 1
+  },
+  "reasons": {
+    "earnings_result": "no earnings report published between 2026-10-12T09:00Z and 2026-10-13T09:00Z",
+    "picks_ready": "the published list (2026-10-12) expires 2026-10-13T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
+  },
+  "left_out": {
+    "congress_trade": {
+      "rows_read": 50,
+      "out_of_window": 6,
+      "not_congress": 0,
+      "other_side": 0,
+      "late_filing_over_90d": 0,
+      "refiles_older_report": 0,
+      "bad_date": 0,
+      "not_listed": 0,
+      "no_amount": 0,
+      "no_official_source": 0
+    },
+    "ptr_summary": {
+      "members_filing_dates": 2,
+      "single_item": 0
+    },
+    "ptr_summary_incomplete": {
+      "window_start": "2026-10-07",
+      "oldest_row_read": "2026-10-02",
+      "skipped": 0,
+      "reasons": []
+    },
+    "per_filer_cap": {
+      "dropped": 35,
+      "filers": 2,
+      "dropped_congress_trade": 34,
+      "dropped_ptr_summary": 1
+    },
+    "form4_buy": {
+      "rows_read": 20,
+      "filings_passing_filters": 8,
+      "below_minimum": 6,
+      "no_sec_index": 0
+    },
+    "earnings_result": {
+      "archive_reports": 1327,
+      "recent_ready": 8,
+      "outside_24h": 8,
+      "unreadable": 0
+    },
+    "earnings_upcoming": {
+      "listed": 16,
+      "confirmed_in_universe": 6
+    },
+    "earnings_tomorrow_roundup": {
+      "bmo": 5,
+      "amc": 1,
+      "no_set_session": 0
+    },
+    "chart_pattern": {
+      "tiles": 1
+    },
+    "moves_like": {
+      "tickers_in_items": 10,
+      "carried_over": 0,
+      "requested": 5,
+      "not_covered": 0,
+      "disabled": 0,
+      "no_peer": 0,
+      "below_floor": 2,
+      "stale": 0,
+      "unavailable": 0,
+      "unreadable": 0
+    }
+  },
+  "errors": [],
+  "partial_sources": [],
+  "moves_like_checked": {
+    "SNOW": "below_floor",
+    "BPRE": "item",
+    "BAC": "item",
+    "EQT": "item",
+    "PRTA": "below_floor"
+  },
+  "api_requests": 14,
+  "items": [
+    {
+      "item_id": "2026-10-13-form4-buy-BPRE-ccd9d3",
+      "type": "form4_buy",
+      "ticker": "BPRE",
+      "tickers": [
+        "BPRE"
+      ],
+      "name": "Ramin Kamfar",
+      "office": "Director at Bluerock Private Real Estate Fund",
+      "amount_text": "$2.42M",
+      "traded": [
+        "2026-10-07"
+      ],
+      "filed": "2026-10-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551047/000139834426018110/0001398344-26-018110-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kamfar-ramin-1111908?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-form4-buy-BPRE-ccd9d3#trades",
+      "allowed_numbers": [
+        "$2.42M",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Ramin Kamfar (Director at Bluerock Private Real Estate Fund) reported an open-market purchase of BPRE totaling $2.42M on a Form 4 filed 2026-10-09, traded 2026-10-07.",
+      "dedupe_key": "form4:0001398344-26-018110:BPRE",
+      "company": "Bluerock Private Real Estate Fund",
+      "side": "buy",
+      "accession": "0001398344-26-018110",
+      "rows": 1,
+      "amount_top_usd": 2424164.52,
+      "market_cap_usd": null,
+      "famous_person": null,
+      "row_amounts": [
+        "$2.42M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/kamfar-ramin-1111908/opengraph-image",
+          "kind": "image",
+          "alt": "Ramin Kamfar (Director at Bluerock Private Real Estate Fund) reported an open-market purchase of BPRE totaling $2.42M on a Form 4 filed 2026-10-09, traded 2026-10-07."
+        }
+      ],
+      "rank": 10.38,
+      "rank_why": "form4_buy 2; buy +2; top $2.42M +3.38; known name Director (title) +2; filed 2026-10-09 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-13-form4-buy-PRTA-e4cfa8",
+      "type": "form4_buy",
+      "ticker": "PRTA",
+      "tickers": [
+        "PRTA"
+      ],
+      "name": "William P. Scully",
+      "office": "10% owner at Prothena Corporation plc",
+      "amount_text": "$1.05M",
+      "traded": [
+        "2026-10-07"
+      ],
+      "filed": "2026-10-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1559053/000104546326000020/0001045463-26-000020-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/scully-william-p-1045463?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-form4-buy-PRTA-e4cfa8#trades",
+      "allowed_numbers": [
+        "$1.05M",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "William P. Scully (10% owner at Prothena Corporation plc) reported an open-market purchase of PRTA totaling $1.05M on a Form 4 filed 2026-10-09, traded 2026-10-07.",
+      "dedupe_key": "form4:0001045463-26-000020:PRTA",
+      "company": "Prothena Corporation plc",
+      "side": "buy",
+      "accession": "0001045463-26-000020",
+      "rows": 1,
+      "amount_top_usd": 1050150.0,
+      "market_cap_usd": 432770720.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.05M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/scully-william-p-1045463/opengraph-image",
+          "kind": "image",
+          "alt": "William P. Scully (10% owner at Prothena Corporation plc) reported an open-market purchase of PRTA totaling $1.05M on a Form 4 filed 2026-10-09, traded 2026-10-07."
+        }
+      ],
+      "rank": 8.02,
+      "rank_why": "form4_buy 2; buy +2; top $1.05M +3.02; filed 2026-10-09 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-13-earnings-tomorrow-roundup-LIST-d59b50",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "BAC",
+        "MS",
+        "BLK",
+        "FAST"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-tomorrow-roundup-LIST-d59b50",
+      "allowed_numbers": [
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "before the open"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-10-14, before the open (confirmed dates): $BAC (Bank of America Corporation), $MS (Morgan Stanley), $BLK (BlackRock, Inc.), $FAST (Fastenal Company) and more.",
+      "dedupe_key": "roundup:2026-10-14:bmo",
+      "names": {
+        "BAC": "Bank of America Corporation",
+        "MS": "Morgan Stanley",
+        "BLK": "BlackRock, Inc.",
+        "FAST": "Fastenal Company"
+      },
+      "report_date": "2026-10-14",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "reporters_in_session": 5,
+      "market_cap_usd": 374251913216.0,
+      "item_ids": [
+        "2026-10-13-earnings-upcoming-BAC-940cab",
+        "2026-10-13-earnings-upcoming-MS-be4b36",
+        "2026-10-13-earnings-upcoming-BLK-84e7dd",
+        "2026-10-13-earnings-upcoming-FAST-754c7e"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-10-14, before the open (confirmed dates): $BAC (Bank of America Corporation), $MS (Morgan Stanley), $BLK (BlackRock, Inc.), $FAST (Fastenal Company) and more."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_tomorrow_roundup 2.5; large cap $374.25B +2; today 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-congress-trade-SNOW-65f027",
+      "type": "congress_trade",
+      "ticker": "SNOW",
+      "tickers": [
+        "SNOW"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $15K–$50K",
+      "traded": [
+        "2026-09-04"
+      ],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035562.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-congress-trade-SNOW-65f027#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$15K–$50K",
+        "$1K",
+        "$15K",
+        "$50K",
+        "$1,001–$15,000",
+        "$15,001–$50,000",
+        "$1,001",
+        "$15,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7",
+        "2026-09-04",
+        "Sep 4, 2026",
+        "Sep 4",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of SNOW (Snowflake Inc.), $1K–$15K; $15K–$50K, traded 2026-09-04; filed 2026-10-07.",
+      "dedupe_key": "ptr:20035562:SNOW:buy",
+      "company": "Snowflake Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "maria-elvira-salazar",
+      "amount_exact_text": "$1,001–$15,000; $15,001–$50,000",
+      "rows": 2,
+      "amount_top_usd": 65000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of SNOW (Snowflake Inc.), $1K–$15K; $15K–$50K, traded 2026-09-04; filed 2026-10-07."
+        }
+      ],
+      "rank": 5.81,
+      "rank_why": "congress_trade 2; buy +2; top $65K +1.81; filed 2026-10-07 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-13-ptr-summary-LIST-9809da",
+      "type": "ptr_summary",
+      "ticker": null,
+      "tickers": [
+        "MCD",
+        "AMAT"
+      ],
+      "name": "Josh Gottheimer",
+      "office": "U.S. Representative (D-NJ)",
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-07",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035590.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-ptr-summary-LIST-9809da#trades",
+      "allowed_numbers": [
+        "2",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Josh Gottheimer (D-NJ) disclosed 2 trades (2 sales) in 2 tickers on a report filed 2026-10-07, including $MCD, $AMAT.",
+      "dedupe_key": "ptrsum:josh-gottheimer:2026-10-07",
+      "tickers_total": 2,
+      "figure_slug": "josh-gottheimer",
+      "rows": 2,
+      "buys": 0,
+      "sales": 2,
+      "amount_top_usd": 30000.0,
+      "source_urls": [
+        "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035590.pdf"
+      ],
+      "item_ids": [
+        "2026-10-13-congress-trade-MCD-ab8b40",
+        "2026-10-13-congress-trade-AMAT-ddd49c"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Josh Gottheimer (D-NJ) disclosed 2 trades (2 sales) in 2 tickers on a report filed 2026-10-07, including $MCD, $AMAT."
+        }
+      ],
+      "rank": 5.48,
+      "rank_why": "ptr_summary 2; top $30K +1.48; known name Josh Gottheimer (fame) +2; filed 2026-10-07 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-13-earnings-upcoming-BAC-940cab",
+      "type": "earnings_upcoming",
+      "ticker": "BAC",
+      "tickers": [
+        "BAC"
+      ],
+      "name": "Bank of America Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BAC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-upcoming-BAC-940cab#earnings-history",
+      "allowed_numbers": [
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Bank of America Corporation (BAC) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:BAC:2026-10-14",
+      "report_date": "2026-10-14",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 374251913216.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BAC/opengraph-image",
+          "kind": "image",
+          "alt": "Bank of America Corporation (BAC) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $374.25B +2; today 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-upcoming-MS-be4b36",
+      "type": "earnings_upcoming",
+      "ticker": "MS",
+      "tickers": [
+        "MS"
+      ],
+      "name": "Morgan Stanley",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-upcoming-MS-be4b36#earnings-history",
+      "allowed_numbers": [
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Morgan Stanley (MS) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:MS:2026-10-14",
+      "report_date": "2026-10-14",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 294386958336.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MS/opengraph-image",
+          "kind": "image",
+          "alt": "Morgan Stanley (MS) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $294.39B +2; today 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-upcoming-BLK-84e7dd",
+      "type": "earnings_upcoming",
+      "ticker": "BLK",
+      "tickers": [
+        "BLK"
+      ],
+      "name": "BlackRock, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BLK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-upcoming-BLK-84e7dd#earnings-history",
+      "allowed_numbers": [
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "BlackRock, Inc. (BLK) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:BLK:2026-10-14",
+      "report_date": "2026-10-14",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 173789413376.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BLK/opengraph-image",
+          "kind": "image",
+          "alt": "BlackRock, Inc. (BLK) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $173.79B +2; today 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-upcoming-FAST-754c7e",
+      "type": "earnings_upcoming",
+      "ticker": "FAST",
+      "tickers": [
+        "FAST"
+      ],
+      "name": "Fastenal Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FAST?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-upcoming-FAST-754c7e#earnings-history",
+      "allowed_numbers": [
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Fastenal Company (FAST) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:FAST:2026-10-14",
+      "report_date": "2026-10-14",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 57179807744.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FAST/opengraph-image",
+          "kind": "image",
+          "alt": "Fastenal Company (FAST) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $57.18B +2; today 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-upcoming-STT-7104c5",
+      "type": "earnings_upcoming",
+      "ticker": "STT",
+      "tickers": [
+        "STT"
+      ],
+      "name": "State Street Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/STT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-upcoming-STT-7104c5#earnings-history",
+      "allowed_numbers": [
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "State Street Corporation (STT) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:STT:2026-10-14",
+      "report_date": "2026-10-14",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 48061820928.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/STT/opengraph-image",
+          "kind": "image",
+          "alt": "State Street Corporation (STT) reports earnings on 2026-10-14, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $48.06B +2; today 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-upcoming-HOMB-643204",
+      "type": "earnings_upcoming",
+      "ticker": "HOMB",
+      "tickers": [
+        "HOMB"
+      ],
+      "name": "Home BancShares, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/HOMB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-upcoming-HOMB-643204#earnings-history",
+      "allowed_numbers": [
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Home BancShares, Inc. (HOMB) reports earnings on 2026-10-14, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:HOMB:2026-10-14",
+      "report_date": "2026-10-14",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 6031496192.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/HOMB/opengraph-image",
+          "kind": "image",
+          "alt": "Home BancShares, Inc. (HOMB) reports earnings on 2026-10-14, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $6.03B +1; today 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-chart-pattern-EQT-c3958a",
+      "type": "chart_pattern",
+      "ticker": "EQT",
+      "tickers": [
+        "EQT"
+      ],
+      "name": "EQT Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/EQT",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/EQT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-chart-pattern-EQT-c3958a#pattern",
+      "allowed_numbers": [
+        "$50.17",
+        "$49.72",
+        "$56.52",
+        "$52.10",
+        "$51.08",
+        "$48.93",
+        "$48.17",
+        "$52.83",
+        "Oct 2",
+        "Sep 3",
+        "Sep 23",
+        "Aug 5",
+        "Sep 21",
+        "Oct 1",
+        "Oct 9",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-08-05",
+        "Aug 5, 2026",
+        "2026-10-01",
+        "Oct 1, 2026",
+        "2026-10-02",
+        "Oct 2, 2026",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "2026-09-03",
+        "Sep 3, 2026",
+        "2026-09-21",
+        "Sep 21, 2026",
+        "2026-09-23",
+        "Sep 23, 2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Automatic technical analysis flagged a falling wedge on $EQT (EQT Corporation) (scan 2026-10-12): pattern 2026-08-05 to 2026-10-01. Confirmed Oct 2: closed $50.17, clearly above the upper line at $49.72.",
+      "dedupe_key": "pattern:EQT:falling_wedge:confirmed:2026-10-02",
+      "scan_date": "2026-10-12",
+      "pattern": {
+        "type": "falling_wedge",
+        "name": "Falling wedge",
+        "status": "confirmed",
+        "direction": "up",
+        "start": "2026-08-05",
+        "end": "2026-10-01",
+        "start_text": "Aug 5, 2026",
+        "end_text": "Oct 1, 2026",
+        "confirmed_on": "2026-10-02",
+        "as_of": "2026-10-09"
+      },
+      "levels": {
+        "key_level_name": "upper line",
+        "key_level": "$49.72",
+        "breakout_close": "$50.17"
+      },
+      "page_text": {
+        "pill": "Falling wedge · Confirmed Oct 2",
+        "chip": "Confirmed Oct 2",
+        "detail": "confirmed by the Oct 2 close of $50.17, clearly above the upper line",
+        "what": "Price sliding between two falling lines that come together.",
+        "key": [
+          "Confirmed Oct 2: closed $50.17, clearly above the upper line at $49.72.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back below $49.72, where the upper line was on Oct 2."
+        ],
+        "points": [
+          "Highs $56.52 (Sep 3) → $52.10 (Sep 23)",
+          "Lows $51.08 (Aug 5) → $48.93 (Sep 21) → $48.17 (Oct 1)",
+          "Oct 2 closed $50.17: confirmed · last close $52.83 (Oct 9)"
+        ]
+      },
+      "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/EQT/opengraph-image",
+          "kind": "image",
+          "alt": "Automatic technical analysis flagged a falling wedge on $EQT (EQT Corporation) (scan 2026-10-12): pattern 2026-08-05 to 2026-10-01. Confirmed Oct 2: closed $50.17, clearly above the upper line at $49.72."
+        }
+      ],
+      "rank": 2.5,
+      "rank_why": "chart_pattern 1; scan_date 2026-10-12 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-13-moves-like-BPRE-eb445c",
+      "type": "moves_like",
+      "ticker": "BPRE",
+      "tickers": [
+        "BPRE",
+        "ZBRA"
+      ],
+      "name": "Bluerock Private Real Estate Fund",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/BPRE",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BPRE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-moves-like-BPRE-eb445c#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "67",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "−0.8%",
+        "0.8%",
+        "+0.2%",
+        "0.2%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 12, 2026, $BPRE (Bluerock Private Real Estate Fund) moved most like $ZBRA (Sync 67, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:BPRE:2026-10-12",
+      "session": "2026-10-12",
+      "valid_through": "2026-10-13",
+      "window_sessions": 60,
+      "subject_day_move": "−0.8%",
+      "peers": [
+        {
+          "ticker": "ZBRA",
+          "name": "Zebra Technologies Corporation",
+          "sync": 67,
+          "band": "Close",
+          "sync_text": "Sync 67 · Close",
+          "day_move": "+0.2%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BPRE/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 12, 2026, $BPRE (Bluerock Private Real Estate Fund) moved most like $ZBRA (Sync 67, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-12 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-13-moves-like-BAC-572c22",
+      "type": "moves_like",
+      "ticker": "BAC",
+      "tickers": [
+        "BAC",
+        "JPM",
+        "WFC",
+        "C"
+      ],
+      "name": "Bank of America Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/BAC",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BAC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-moves-like-BAC-572c22#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "80",
+        "76",
+        "69",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "+0.5%",
+        "0.5%",
+        "+0.4%",
+        "0.4%",
+        "−0.3%",
+        "0.3%",
+        "+1.8%",
+        "1.8%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 12, 2026, $BAC (Bank of America Corporation) moved most like $JPM (Sync 80, Tight), $WFC (Sync 76, Close), $C (Sync 69, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:BAC:2026-10-12",
+      "session": "2026-10-12",
+      "valid_through": "2026-10-13",
+      "window_sessions": 60,
+      "subject_day_move": "+0.5%",
+      "peers": [
+        {
+          "ticker": "JPM",
+          "name": "JPMorgan Chase & Co.",
+          "sync": 80,
+          "band": "Tight",
+          "sync_text": "Sync 80 · Tight",
+          "day_move": "+0.4%"
+        },
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo & Company",
+          "sync": 76,
+          "band": "Close",
+          "sync_text": "Sync 76 · Close",
+          "day_move": "−0.3%"
+        },
+        {
+          "ticker": "C",
+          "name": "Citigroup Inc.",
+          "sync": 69,
+          "band": "Close",
+          "sync_text": "Sync 69 · Close",
+          "day_move": "+1.8%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BAC/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 12, 2026, $BAC (Bank of America Corporation) moved most like $JPM (Sync 80, Tight), $WFC (Sync 76, Close), $C (Sync 69, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-12 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-13-moves-like-EQT-ee421b",
+      "type": "moves_like",
+      "ticker": "EQT",
+      "tickers": [
+        "EQT",
+        "EXE",
+        "AR",
+        "CNX"
+      ],
+      "name": "EQT Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/EQT",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/EQT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-moves-like-EQT-ee421b#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "87",
+        "84",
+        "78",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "+0.7%",
+        "0.7%",
+        "+1.8%",
+        "1.8%",
+        "+1.2%",
+        "1.2%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 12, 2026, $EQT (EQT Corporation) moved most like $EXE (Sync 87, Tight), $AR (Sync 84, Tight), $CNX (Sync 78, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:EQT:2026-10-12",
+      "session": "2026-10-12",
+      "valid_through": "2026-10-13",
+      "window_sessions": 60,
+      "subject_day_move": "+0.7%",
+      "peers": [
+        {
+          "ticker": "EXE",
+          "name": "Expand Energy Corporation",
+          "sync": 87,
+          "band": "Tight",
+          "sync_text": "Sync 87 · Tight",
+          "day_move": "+0.7%"
+        },
+        {
+          "ticker": "AR",
+          "name": "Antero Resources Corporation",
+          "sync": 84,
+          "band": "Tight",
+          "sync_text": "Sync 84 · Tight",
+          "day_move": "+1.8%"
+        },
+        {
+          "ticker": "CNX",
+          "name": "CNX Resources Corporation",
+          "sync": 78,
+          "band": "Close",
+          "sync_text": "Sync 78 · Close",
+          "day_move": "+1.2%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/EQT/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 12, 2026, $EQT (EQT Corporation) moved most like $EXE (Sync 87, Tight), $AR (Sync 84, Tight), $CNX (Sync 78, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-12 (age 1) +1.5"
+    }
+  ]
+}
