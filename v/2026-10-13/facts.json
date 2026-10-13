@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T11:30:03Z",
-  "as_of": "2026-10-13T11:30:03Z",
+  "generated_at": "2026-10-13T12:00:03Z",
+  "as_of": "2026-10-13T12:00:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 1,
     "form4_buy": 3,
-    "earnings_result": 8,
+    "earnings_result": 10,
     "earnings_upcoming": 6,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -102,8 +102,8 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1349,
-      "recent_ready": 16,
+      "archive_reports": 1351,
+      "recent_ready": 18,
       "outside_24h": 8,
       "unreadable": 0
     },
@@ -120,7 +120,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 14,
+      "tickers_in_items": 16,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -141,7 +141,7 @@
     "EQT": "item",
     "PRTA": "below_floor"
   },
-  "api_requests": 18,
+  "api_requests": 20,
   "items": [
     {
       "item_id": "2026-10-13-form4-buy-GGR-594f85",
@@ -457,6 +457,109 @@
       ],
       "rank": 5.48,
       "rank_why": "ptr_summary 2; top $30K +1.48; known name Josh Gottheimer (fame) +2; filed 2026-10-07 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-WTTR-57680c",
+      "type": "earnings_result",
+      "ticker": "WTTR",
+      "tickers": [
+        "WTTR"
+      ],
+      "name": "Select Water Solutions, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1693256/000110465926115262/tm2627372d1_ex99-2.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WTTR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-WTTR-57680c#earnings-history",
+      "allowed_numbers": [
+        "Q2 2026",
+        "Q2",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Select Water Solutions, Inc. (WTTR) published Q2 2026 results on 2026-10-13: Published.",
+      "dedupe_key": "report:wttr-2026-q2",
+      "report_id": "wttr-2026-q2",
+      "fiscal_label": "Q2 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T11:42:48.830190+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WTTR/opengraph-image",
+          "kind": "image",
+          "alt": "Select Water Solutions, Inc. (WTTR) published Q2 2026 results on 2026-10-13: Published."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-GS-5360ec",
+      "type": "earnings_result",
+      "ticker": "GS",
+      "tickers": [
+        "GS"
+      ],
+      "name": "The Goldman Sachs Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/886982/000088698226000529/a3q26gsearningsresults.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/GS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-GS-5360ec#earnings-history",
+      "allowed_numbers": [
+        "$18.68B",
+        "$16.89B",
+        "$1.79B",
+        "$17.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Revenue beat. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). GAAP EPS $17.01.",
+      "dedupe_key": "report:gs-2026-q3",
+      "report_id": "gs-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T11:34:49.067192+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$18.68B",
+          "consensus": "$16.89B",
+          "label": "Beat by $1.79B",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$17.01"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/GS/opengraph-image",
+          "kind": "image",
+          "alt": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Revenue beat. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). GAAP EPS $17.01."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
     },
     {
       "item_id": "2026-10-13-earnings-result-EMR-8b2342",
