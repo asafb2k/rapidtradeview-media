@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T12:00:03Z",
-  "as_of": "2026-10-13T12:00:03Z",
+  "generated_at": "2026-10-13T12:30:04Z",
+  "as_of": "2026-10-13T12:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 1,
     "form4_buy": 3,
-    "earnings_result": 10,
+    "earnings_result": 11,
     "earnings_upcoming": 6,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -102,8 +102,8 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1351,
-      "recent_ready": 18,
+      "archive_reports": 1352,
+      "recent_ready": 19,
       "outside_24h": 8,
       "unreadable": 0
     },
@@ -120,7 +120,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 16,
+      "tickers_in_items": 17,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -141,7 +141,7 @@
     "EQT": "item",
     "PRTA": "below_floor"
   },
-  "api_requests": 20,
+  "api_requests": 21,
   "items": [
     {
       "item_id": "2026-10-13-form4-buy-GGR-594f85",
@@ -457,6 +457,70 @@
       ],
       "rank": 5.48,
       "rank_why": "ptr_summary 2; top $30K +1.48; known name Josh Gottheimer (fame) +2; filed 2026-10-07 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-13-earnings-result-JNJ-885eed",
+      "type": "earnings_result",
+      "ticker": "JNJ",
+      "tickers": [
+        "JNJ"
+      ],
+      "name": "Johnson & Johnson",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/200406/000020040626000189/a2026q3exhibit991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/JNJ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-13-earnings-result-JNJ-885eed#earnings-history",
+      "allowed_numbers": [
+        "$25.4B",
+        "$25.38B",
+        "$16.9M",
+        "$2.59",
+        "$2.53",
+        "$0.06",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Johnson & Johnson (JNJ) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $25.4B vs $25.38B consensus (In line (+$16.9M)). adjusted EPS $2.59 vs $2.53 consensus (Beat by $0.06).",
+      "dedupe_key": "report:jnj-2026-q3",
+      "report_id": "jnj-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T12:14:47.121988+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$25.4B",
+          "consensus": "$25.38B",
+          "label": "In line (+$16.9M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "adjusted EPS",
+          "reported": "$2.59",
+          "consensus": "$2.53",
+          "label": "Beat by $0.06",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/JNJ/opengraph-image",
+          "kind": "image",
+          "alt": "Johnson & Johnson (JNJ) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $25.4B vs $25.38B consensus (In line (+$16.9M)). adjusted EPS $2.59 vs $2.53 consensus (Beat by $0.06)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 0) +2"
     },
     {
       "item_id": "2026-10-13-earnings-result-WTTR-57680c",
