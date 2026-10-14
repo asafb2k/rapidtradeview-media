@@ -1,0 +1,2168 @@
+{
+  "schema": "rtv-facts/1",
+  "date": "2026-10-14",
+  "generated_at": "2026-10-14T09:00:33Z",
+  "as_of": "2026-10-14T09:00:33Z",
+  "rules": {
+    "banned_words": [
+      "insider trading",
+      "guaranteed",
+      "moon",
+      "buy now",
+      "will rise",
+      "price target",
+      "to the moon",
+      "breakout coming",
+      "about to",
+      "set to",
+      "should buy",
+      "should sell",
+      "load up",
+      "buy the dip",
+      "time to buy",
+      "time to sell",
+      "don't miss",
+      "dont miss",
+      "easy money",
+      "can't lose",
+      "cant lose",
+      "free money",
+      "sell now",
+      "get in now",
+      "bitcoin",
+      "btc",
+      "crypto",
+      "cryptocurrency",
+      "ethereum",
+      "blockchain"
+    ],
+    "disclaimer": "Not investment advice.",
+    "max_len": {
+      "x": 270
+    },
+    "platforms": [
+      "x",
+      "instagram"
+    ],
+    "platform_placeholder": "{platform}",
+    "numbers": "every number, date or amount in a post must be one of the item's allowed_numbers, as written there",
+    "picks": "never name or hint at the #1 pick; it is locked and not in this file",
+    "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
+    "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
+    "cashtags": "one cashtag per post (the item's ticker); several only for earnings_tomorrow_roundup and ptr_summary (at most 4, all from the item's tickers), moves_like (its peers) and picks_ready (the public picks)",
+    "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order"
+  },
+  "counts": {
+    "congress_trade": 0,
+    "form4_buy": 1,
+    "earnings_result": 13,
+    "earnings_upcoming": 16,
+    "picks_ready": 0,
+    "chart_pattern": 1,
+    "moves_like": 4,
+    "earnings_tomorrow_roundup": 2,
+    "ptr_summary": 0
+  },
+  "reasons": {
+    "congress_trade": "no Congress trade passed the rules in the last 5 weekdays (left_out has the counts)",
+    "ptr_summary": "no member has 2+ Congress items on one filing date in the last 5 weekdays",
+    "picks_ready": "the published list (2026-10-13) expires 2026-10-14T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
+  },
+  "left_out": {
+    "congress_trade": {
+      "rows_read": 50,
+      "out_of_window": 50,
+      "not_congress": 0,
+      "other_side": 0,
+      "late_filing_over_90d": 0,
+      "refiles_older_report": 0,
+      "bad_date": 0,
+      "not_listed": 0,
+      "no_amount": 0,
+      "no_official_source": 0
+    },
+    "ptr_summary": {
+      "members_filing_dates": 0,
+      "single_item": 0
+    },
+    "ptr_summary_incomplete": {
+      "window_start": "2026-10-08",
+      "oldest_row_read": "2026-10-02",
+      "skipped": 0,
+      "reasons": []
+    },
+    "per_filer_cap": {
+      "dropped": 0,
+      "filers": 0,
+      "dropped_congress_trade": 0,
+      "dropped_ptr_summary": 0
+    },
+    "form4_buy": {
+      "rows_read": 20,
+      "filings_passing_filters": 9,
+      "below_minimum": 8,
+      "no_sec_index": 0
+    },
+    "earnings_result": {
+      "archive_reports": 1381,
+      "recent_ready": 14,
+      "outside_24h": 1,
+      "unreadable": 0
+    },
+    "earnings_upcoming": {
+      "listed": 48,
+      "confirmed_in_universe": 16
+    },
+    "earnings_tomorrow_roundup": {
+      "bmo": 9,
+      "amc": 7,
+      "no_set_session": 0
+    },
+    "chart_pattern": {
+      "tiles": 1
+    },
+    "moves_like": {
+      "tickers_in_items": 31,
+      "carried_over": 0,
+      "requested": 5,
+      "not_covered": 0,
+      "disabled": 0,
+      "no_peer": 0,
+      "below_floor": 1,
+      "stale": 0,
+      "unavailable": 0,
+      "unreadable": 0
+    }
+  },
+  "errors": [],
+  "partial_sources": [],
+  "moves_like_checked": {
+    "GGR": "below_floor",
+    "AZZ": "item",
+    "SCHW": "item",
+    "AMZN": "item",
+    "C": "item"
+  },
+  "api_requests": 26,
+  "items": [
+    {
+      "item_id": "2026-10-14-form4-buy-GGR-594f85",
+      "type": "form4_buy",
+      "ticker": "GGR",
+      "tickers": [
+        "GGR"
+      ],
+      "name": "Chung-Yao Yin",
+      "office": "Director at Gogoro Inc.",
+      "amount_text": "$26.52M",
+      "traded": [
+        "2026-10-07"
+      ],
+      "filed": "2026-10-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1886190/000119312526418446/0001193125-26-418446-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/yin-chung-yao-1916103?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-form4-buy-GGR-594f85#trades",
+      "allowed_numbers": [
+        "$26.52M",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "2026-10-07",
+        "Oct 7, 2026",
+        "Oct 7"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Chung-Yao Yin (Director at Gogoro Inc.) reported an open-market purchase of GGR totaling $26.52M on a Form 4 filed 2026-10-09, traded 2026-10-07.",
+      "dedupe_key": "form4:0001193125-26-418446:GGR",
+      "company": "Gogoro Inc.",
+      "side": "buy",
+      "accession": "0001193125-26-418446",
+      "rows": 1,
+      "amount_top_usd": 26517848.88,
+      "market_cap_usd": 65038400.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$26.52M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/yin-chung-yao-1916103/opengraph-image",
+          "kind": "image",
+          "alt": "Chung-Yao Yin (Director at Gogoro Inc.) reported an open-market purchase of GGR totaling $26.52M on a Form 4 filed 2026-10-09, traded 2026-10-07."
+        }
+      ],
+      "rank": 10.5,
+      "rank_why": "form4_buy 2; buy +2; top $26.52M +4; known name Director (title) +2; filed 2026-10-09 (age 3) +0.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-tomorrow-roundup-LIST-afe585",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "SCHW",
+        "PLD",
+        "BNY",
+        "USB"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-tomorrow-roundup-LIST-afe585",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "before the open"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-10-15, before the open (confirmed dates): $SCHW (The Charles Schwab Corporation), $PLD (Prologis, Inc.), $BNY (The Bank of New York Mellon Corporation), $USB (U.S. Bancorp) and more.",
+      "dedupe_key": "roundup:2026-10-15:bmo",
+      "names": {
+        "SCHW": "The Charles Schwab Corporation",
+        "PLD": "Prologis, Inc.",
+        "BNY": "The Bank of New York Mellon Corporation",
+        "USB": "U.S. Bancorp"
+      },
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "reporters_in_session": 9,
+      "market_cap_usd": 167226753024.0,
+      "item_ids": [
+        "2026-10-14-earnings-upcoming-SCHW-62bf40",
+        "2026-10-14-earnings-upcoming-PLD-7ccf52",
+        "2026-10-14-earnings-upcoming-BNY-d60c5d",
+        "2026-10-14-earnings-upcoming-USB-1c3c14"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-10-15, before the open (confirmed dates): $SCHW (The Charles Schwab Corporation), $PLD (Prologis, Inc.), $BNY (The Bank of New York Mellon Corporation), $USB (U.S. Bancorp) and more."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_tomorrow_roundup 2.5; large cap $167.23B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-tomorrow-roundup-LIST-f2c71b",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "IBKR",
+        "JBHT",
+        "AA",
+        "INDB"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-tomorrow-roundup-LIST-f2c71b",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "after the close"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-10-15, after the close (confirmed dates): $IBKR (Interactive Brokers Group, Inc.), $JBHT (J.B. Hunt Transport Services, Inc.), $AA (Alcoa Corporation), $INDB (Independent Bank Corp.) and more.",
+      "dedupe_key": "roundup:2026-10-15:amc",
+      "names": {
+        "IBKR": "Interactive Brokers Group, Inc.",
+        "JBHT": "J.B. Hunt Transport Services, Inc.",
+        "AA": "Alcoa Corporation",
+        "INDB": "Independent Bank Corp."
+      },
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "reporters_in_session": 7,
+      "market_cap_usd": 147328925696.0,
+      "item_ids": [
+        "2026-10-14-earnings-upcoming-IBKR-ccb566",
+        "2026-10-14-earnings-upcoming-JBHT-9e9e59",
+        "2026-10-14-earnings-upcoming-AA-12dc4b",
+        "2026-10-14-earnings-upcoming-INDB-eb4808"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-10-15, after the close (confirmed dates): $IBKR (Interactive Brokers Group, Inc.), $JBHT (J.B. Hunt Transport Services, Inc.), $AA (Alcoa Corporation), $INDB (Independent Bank Corp.) and more."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_tomorrow_roundup 2.5; large cap $147.33B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-SCHW-62bf40",
+      "type": "earnings_upcoming",
+      "ticker": "SCHW",
+      "tickers": [
+        "SCHW"
+      ],
+      "name": "The Charles Schwab Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SCHW?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-SCHW-62bf40#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Charles Schwab Corporation (SCHW) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:SCHW:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 167226753024.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SCHW/opengraph-image",
+          "kind": "image",
+          "alt": "The Charles Schwab Corporation (SCHW) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $167.23B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-IBKR-ccb566",
+      "type": "earnings_upcoming",
+      "ticker": "IBKR",
+      "tickers": [
+        "IBKR"
+      ],
+      "name": "Interactive Brokers Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IBKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-IBKR-ccb566#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Interactive Brokers Group, Inc. (IBKR) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:IBKR:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 147328925696.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IBKR/opengraph-image",
+          "kind": "image",
+          "alt": "Interactive Brokers Group, Inc. (IBKR) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $147.33B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-PLD-7ccf52",
+      "type": "earnings_upcoming",
+      "ticker": "PLD",
+      "tickers": [
+        "PLD"
+      ],
+      "name": "Prologis, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PLD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-PLD-7ccf52#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Prologis, Inc. (PLD) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:PLD:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 125876117504.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PLD/opengraph-image",
+          "kind": "image",
+          "alt": "Prologis, Inc. (PLD) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $125.88B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-BNY-d60c5d",
+      "type": "earnings_upcoming",
+      "ticker": "BNY",
+      "tickers": [
+        "BNY"
+      ],
+      "name": "The Bank of New York Mellon Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BNY?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-BNY-d60c5d#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Bank of New York Mellon Corporation (BNY) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:BNY:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 96829325312.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BNY/opengraph-image",
+          "kind": "image",
+          "alt": "The Bank of New York Mellon Corporation (BNY) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $96.83B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-USB-1c3c14",
+      "type": "earnings_upcoming",
+      "ticker": "USB",
+      "tickers": [
+        "USB"
+      ],
+      "name": "U.S. Bancorp",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/USB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-USB-1c3c14#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Bancorp (USB) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:USB:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 88933580800.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/USB/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Bancorp (USB) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $88.93B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-PNC-cfec75",
+      "type": "earnings_upcoming",
+      "ticker": "PNC",
+      "tickers": [
+        "PNC"
+      ],
+      "name": "The PNC Financial Services Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PNC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-PNC-cfec75#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The PNC Financial Services Group, Inc. (PNC) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:PNC:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 87452450816.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PNC/opengraph-image",
+          "kind": "image",
+          "alt": "The PNC Financial Services Group, Inc. (PNC) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $87.45B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-MRSH-d73ce9",
+      "type": "earnings_upcoming",
+      "ticker": "MRSH",
+      "tickers": [
+        "MRSH"
+      ],
+      "name": "Marsh & McLennan Companies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MRSH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-MRSH-d73ce9#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Marsh & McLennan Companies, Inc. (MRSH) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:MRSH:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 84308910080.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MRSH/opengraph-image",
+          "kind": "image",
+          "alt": "Marsh & McLennan Companies, Inc. (MRSH) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $84.31B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-JBHT-9e9e59",
+      "type": "earnings_upcoming",
+      "ticker": "JBHT",
+      "tickers": [
+        "JBHT"
+      ],
+      "name": "J.B. Hunt Transport Services, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/JBHT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-JBHT-9e9e59#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "J.B. Hunt Transport Services, Inc. (JBHT) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:JBHT:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 25825667072.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/JBHT/opengraph-image",
+          "kind": "image",
+          "alt": "J.B. Hunt Transport Services, Inc. (JBHT) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $25.83B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-AA-12dc4b",
+      "type": "earnings_upcoming",
+      "ticker": "AA",
+      "tickers": [
+        "AA"
+      ],
+      "name": "Alcoa Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-AA-12dc4b#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Alcoa Corporation (AA) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:AA:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 11210872832.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AA/opengraph-image",
+          "kind": "image",
+          "alt": "Alcoa Corporation (AA) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $11.21B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-FHN-4a4355",
+      "type": "earnings_upcoming",
+      "ticker": "FHN",
+      "tickers": [
+        "FHN"
+      ],
+      "name": "First Horizon Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FHN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-FHN-4a4355#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "First Horizon Corporation (FHN) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:FHN:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 10892136448.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FHN/opengraph-image",
+          "kind": "image",
+          "alt": "First Horizon Corporation (FHN) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $10.89B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-AZZ-faf9b7",
+      "type": "earnings_result",
+      "ticker": "AZZ",
+      "tickers": [
+        "AZZ"
+      ],
+      "name": "AZZ Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/8947/000000894726000188/exhibit991q2fy27earningsre.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AZZ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-AZZ-faf9b7#earnings-history",
+      "allowed_numbers": [
+        "$487M",
+        "$463M",
+        "$23.5M",
+        "$2.00",
+        "$1.84",
+        "$0.16",
+        "Q2 2027",
+        "Q2",
+        "FY2027",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "AZZ Inc. (AZZ) published Q2 2027 results on 2026-10-13: Beat estimates. Revenue $487M vs $463M consensus (Beat by $23.5M). Adjusted diluted EPS $2.00 vs $1.84 consensus (Beat by $0.16).",
+      "dedupe_key": "report:azz-2027-q2",
+      "report_id": "azz-2027-q2",
+      "fiscal_label": "Q2 2027",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T20:18:53.695292+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$487M",
+          "consensus": "$463M",
+          "label": "Beat by $23.5M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted diluted EPS",
+          "reported": "$2.00",
+          "consensus": "$1.84",
+          "label": "Beat by $0.16",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AZZ/opengraph-image",
+          "kind": "image",
+          "alt": "AZZ Inc. (AZZ) published Q2 2027 results on 2026-10-13: Beat estimates. Revenue $487M vs $463M consensus (Beat by $23.5M). Adjusted diluted EPS $2.00 vs $1.84 consensus (Beat by $0.16)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-C-cd8841",
+      "type": "earnings_result",
+      "ticker": "C",
+      "tickers": [
+        "C"
+      ],
+      "name": "Citigroup Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/831001/000110465926115323/c-ex99d1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/C?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-C-cd8841#earnings-history",
+      "allowed_numbers": [
+        "$23.84B",
+        "$23.72B",
+        "$126M",
+        "$2.85",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Citigroup Inc. (C) published Q3 2026 results on 2026-10-13: Revenue beat. Revenue $23.84B vs $23.72B consensus (Beat by $126M). GAAP EPS $2.85.",
+      "dedupe_key": "report:c-2026-q3",
+      "report_id": "c-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T19:02:50.870592+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$23.84B",
+          "consensus": "$23.72B",
+          "label": "Beat by $126M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$2.85"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/C/opengraph-image",
+          "kind": "image",
+          "alt": "Citigroup Inc. (C) published Q3 2026 results on 2026-10-13: Revenue beat. Revenue $23.84B vs $23.72B consensus (Beat by $126M). GAAP EPS $2.85."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-JNJ-885eed",
+      "type": "earnings_result",
+      "ticker": "JNJ",
+      "tickers": [
+        "JNJ"
+      ],
+      "name": "Johnson & Johnson",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/200406/000020040626000189/a2026q3exhibit991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/JNJ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-JNJ-885eed#earnings-history",
+      "allowed_numbers": [
+        "$25.4B",
+        "$25.38B",
+        "$16.9M",
+        "$2.59",
+        "$2.53",
+        "$0.06",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Johnson & Johnson (JNJ) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $25.4B vs $25.38B consensus (In line (+$16.9M)). adjusted EPS $2.59 vs $2.53 consensus (Beat by $0.06).",
+      "dedupe_key": "report:jnj-2026-q3",
+      "report_id": "jnj-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T12:14:47.121988+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$25.4B",
+          "consensus": "$25.38B",
+          "label": "In line (+$16.9M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "adjusted EPS",
+          "reported": "$2.59",
+          "consensus": "$2.53",
+          "label": "Beat by $0.06",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/JNJ/opengraph-image",
+          "kind": "image",
+          "alt": "Johnson & Johnson (JNJ) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $25.4B vs $25.38B consensus (In line (+$16.9M)). adjusted EPS $2.59 vs $2.53 consensus (Beat by $0.06)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-WTTR-57680c",
+      "type": "earnings_result",
+      "ticker": "WTTR",
+      "tickers": [
+        "WTTR"
+      ],
+      "name": "Select Water Solutions, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1693256/000110465926115262/tm2627372d1_ex99-2.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WTTR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-WTTR-57680c#earnings-history",
+      "allowed_numbers": [
+        "Q2 2026",
+        "Q2",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Select Water Solutions, Inc. (WTTR) published Q2 2026 results on 2026-10-13: Published.",
+      "dedupe_key": "report:wttr-2026-q2",
+      "report_id": "wttr-2026-q2",
+      "fiscal_label": "Q2 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T11:42:48.830190+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WTTR/opengraph-image",
+          "kind": "image",
+          "alt": "Select Water Solutions, Inc. (WTTR) published Q2 2026 results on 2026-10-13: Published."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-GS-5360ec",
+      "type": "earnings_result",
+      "ticker": "GS",
+      "tickers": [
+        "GS"
+      ],
+      "name": "The Goldman Sachs Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/886982/000088698226000529/a3q26gsearningsresults.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/GS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-GS-5360ec#earnings-history",
+      "allowed_numbers": [
+        "$18.68B",
+        "$16.89B",
+        "$1.79B",
+        "$17.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Revenue beat. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). GAAP EPS $17.01.",
+      "dedupe_key": "report:gs-2026-q3",
+      "report_id": "gs-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T11:34:49.067192+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$18.68B",
+          "consensus": "$16.89B",
+          "label": "Beat by $1.79B",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$17.01"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/GS/opengraph-image",
+          "kind": "image",
+          "alt": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Revenue beat. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). GAAP EPS $17.01."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-EMR-8b2342",
+      "type": "earnings_result",
+      "ticker": "EMR",
+      "tickers": [
+        "EMR"
+      ],
+      "name": "Emerson Electric Co.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/32604/000003260426000047/apensionrestatementxex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/EMR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-EMR-8b2342#earnings-history",
+      "allowed_numbers": [
+        "$1.71",
+        "$1.68",
+        "$0.03",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Emerson Electric Co. (EMR) published Q3 2026 results on 2026-10-13: EPS beat. Adjusted earnings per share $1.71 vs $1.68 consensus (Beat by $0.03).",
+      "dedupe_key": "report:emr-2026-q3",
+      "report_id": "emr-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T11:00:51.964071+00:00",
+      "tile_label": "EPS beat",
+      "tile_state": "beat",
+      "results": {
+        "eps": {
+          "basis": "Adjusted earnings per share",
+          "reported": "$1.71",
+          "consensus": "$1.68",
+          "label": "Beat by $0.03",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/EMR/opengraph-image",
+          "kind": "image",
+          "alt": "Emerson Electric Co. (EMR) published Q3 2026 results on 2026-10-13: EPS beat. Adjusted earnings per share $1.71 vs $1.68 consensus (Beat by $0.03)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-JPM-810c72",
+      "type": "earnings_result",
+      "ticker": "JPM",
+      "tickers": [
+        "JPM"
+      ],
+      "name": "JPMorgan Chase & Co.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026065582/a3q26erfexhibit991narrative.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/JPM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-JPM-810c72#earnings-history",
+      "allowed_numbers": [
+        "$50.91B",
+        "$51.22B",
+        "$309M",
+        "$5.75",
+        "$5.94",
+        "$0.19",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "JPMorgan Chase & Co. (JPM) published Q3 2026 results on 2026-10-13: Missed estimates. Revenue $50.91B vs $51.22B consensus (Missed by $309M). EPS excluding a significant item $5.75 vs $5.94 consensus (Missed by $0.19).",
+      "dedupe_key": "report:jpm-2026-q3",
+      "report_id": "jpm-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:32:47.526757+00:00",
+      "tile_label": "Missed estimates",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$50.91B",
+          "consensus": "$51.22B",
+          "label": "Missed by $309M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "EPS excluding a significant item",
+          "reported": "$5.75",
+          "consensus": "$5.94",
+          "label": "Missed by $0.19",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/JPM/opengraph-image",
+          "kind": "image",
+          "alt": "JPMorgan Chase & Co. (JPM) published Q3 2026 results on 2026-10-13: Missed estimates. Revenue $50.91B vs $51.22B consensus (Missed by $309M). EPS excluding a significant item $5.75 vs $5.94 consensus (Missed by $0.19)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-WFC-22e4ce",
+      "type": "earnings_result",
+      "ticker": "WFC",
+      "tickers": [
+        "WFC"
+      ],
+      "name": "Wells Fargo & Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/72971/000007297126000318/wfc3qer10-13x26ex991xrelea.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-WFC-22e4ce#earnings-history",
+      "allowed_numbers": [
+        "$21.87B",
+        "$22.32B",
+        "$454M",
+        "$1.87",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Wells Fargo & Company (WFC) published Q3 2026 results on 2026-10-13: Revenue miss. Revenue $21.87B vs $22.32B consensus (Missed by $454M). GAAP EPS $1.87.",
+      "dedupe_key": "report:wfc-2026-q3",
+      "report_id": "wfc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:30:48.539830+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$21.87B",
+          "consensus": "$22.32B",
+          "label": "Missed by $454M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$1.87"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WFC/opengraph-image",
+          "kind": "image",
+          "alt": "Wells Fargo & Company (WFC) published Q3 2026 results on 2026-10-13: Revenue miss. Revenue $21.87B vs $22.32B consensus (Missed by $454M). GAAP EPS $1.87."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-FBK-e4f78e",
+      "type": "earnings_result",
+      "ticker": "FBK",
+      "tickers": [
+        "FBK"
+      ],
+      "name": "FB Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1649749/000164974926000063/a3q26pressreleasetablesfor.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FBK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-FBK-e4f78e#earnings-history",
+      "allowed_numbers": [
+        "$174M",
+        "$182M",
+        "$7.11M",
+        "$1.21",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "FB Financial Corporation (FBK) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $174M vs $182M consensus (Missed by $7.11M). Adjusted diluted earnings per common share* $1.21 vs $1.21 consensus (In line).",
+      "dedupe_key": "report:fbk-2026-q3",
+      "report_id": "fbk-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:20:49.604006+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$174M",
+          "consensus": "$182M",
+          "label": "Missed by $7.11M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adjusted diluted earnings per common share*",
+          "reported": "$1.21",
+          "consensus": "$1.21",
+          "label": "In line",
+          "verdict": "in_line"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FBK/opengraph-image",
+          "kind": "image",
+          "alt": "FB Financial Corporation (FBK) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $174M vs $182M consensus (Missed by $7.11M). Adjusted diluted earnings per common share* $1.21 vs $1.21 consensus (In line)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-UNH-1bb788",
+      "type": "earnings_result",
+      "ticker": "UNH",
+      "tickers": [
+        "UNH"
+      ],
+      "name": "UnitedHealth Group Incorporated",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/731766/000073176626000255/earningsrelease3q26unh.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/UNH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-UNH-1bb788#earnings-history",
+      "allowed_numbers": [
+        "$112.7B",
+        "$111.49B",
+        "$1.21B",
+        "$4.69",
+        "$4.14",
+        "$0.55",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "UnitedHealth Group Incorporated (UNH) published Q3 2026 results on 2026-10-13: Beat estimates. Revenue $112.7B vs $111.49B consensus (Beat by $1.21B). Adjusted Earnings $4.69 vs $4.14 consensus (Beat by $0.55).",
+      "dedupe_key": "report:unh-2026-q3",
+      "report_id": "unh-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:16:46.930791+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$112.7B",
+          "consensus": "$111.49B",
+          "label": "Beat by $1.21B",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted Earnings",
+          "reported": "$4.69",
+          "consensus": "$4.14",
+          "label": "Beat by $0.55",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/UNH/opengraph-image",
+          "kind": "image",
+          "alt": "UnitedHealth Group Incorporated (UNH) published Q3 2026 results on 2026-10-13: Beat estimates. Revenue $112.7B vs $111.49B consensus (Beat by $1.21B). Adjusted Earnings $4.69 vs $4.14 consensus (Beat by $0.55)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-DPZ-5dfc07",
+      "type": "earnings_result",
+      "ticker": "DPZ",
+      "tickers": [
+        "DPZ"
+      ],
+      "name": "Domino's Pizza, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000039/dpz-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DPZ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-DPZ-5dfc07#earnings-history",
+      "allowed_numbers": [
+        "$1.19B",
+        "$4.60",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Domino's Pizza, Inc. (DPZ) published Q3 2026 results on 2026-10-13: Published. Revenue $1.19B. GAAP EPS $4.60.",
+      "dedupe_key": "report:dpz-2026-q3",
+      "report_id": "dpz-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-13",
+      "published_at": "2026-10-13T10:06:49.963183+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$1.19B"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$4.60"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/DPZ/opengraph-image",
+          "kind": "image",
+          "alt": "Domino's Pizza, Inc. (DPZ) published Q3 2026 results on 2026-10-13: Published. Revenue $1.19B. GAAP EPS $4.60."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-NRIX-5d7fc7",
+      "type": "earnings_result",
+      "ticker": "NRIX",
+      "tickers": [
+        "NRIX"
+      ],
+      "name": "Nurix Therapeutics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1549595/000154959526000048/nrix-20261013xexx991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/NRIX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-NRIX-5d7fc7#earnings-history",
+      "allowed_numbers": [
+        "$673M",
+        "$480M",
+        "$194M",
+        "$4.73",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Nurix Therapeutics, Inc. (NRIX) published Q3 2026 results on 2026-10-12: Revenue beat. Revenue $673M vs $480M consensus (Beat by $194M). GAAP EPS $4.73.",
+      "dedupe_key": "report:nrix-2026-q3",
+      "report_id": "nrix-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-12",
+      "published_at": "2026-10-13T10:22:51.287834+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$673M",
+          "consensus": "$480M",
+          "label": "Beat by $194M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$4.73"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/NRIX/opengraph-image",
+          "kind": "image",
+          "alt": "Nurix Therapeutics, Inc. (NRIX) published Q3 2026 results on 2026-10-12: Revenue beat. Revenue $673M vs $480M consensus (Beat by $194M). GAAP EPS $4.73."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-12 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-ENVX-4120b4",
+      "type": "earnings_result",
+      "ticker": "ENVX",
+      "tickers": [
+        "ENVX"
+      ],
+      "name": "Enovix Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1828318/000182831826000058/exhibit991-pressreleasepre.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ENVX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-ENVX-4120b4#earnings-history",
+      "allowed_numbers": [
+        "$11.0M",
+        "$9.53M",
+        "$1.47M",
+        "−$0.14",
+        "−$0.15",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Enovix Corporation (ENVX) published Q3 2026 results on 2026-10-12: Beat estimates. Revenue $11.0M vs $9.53M consensus (Beat by $1.47M). Non-GAAP net loss per share, diluted −$0.14 vs −$0.15 consensus (Beat by $0.01).",
+      "dedupe_key": "report:envx-2026-q3",
+      "report_id": "envx-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-12",
+      "published_at": "2026-10-13T10:12:48.445125+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$11.0M",
+          "consensus": "$9.53M",
+          "label": "Beat by $1.47M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP net loss per share, diluted",
+          "reported": "−$0.14",
+          "consensus": "−$0.15",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ENVX/opengraph-image",
+          "kind": "image",
+          "alt": "Enovix Corporation (ENVX) published Q3 2026 results on 2026-10-12: Beat estimates. Revenue $11.0M vs $9.53M consensus (Beat by $1.47M). Non-GAAP net loss per share, diluted −$0.14 vs −$0.15 consensus (Beat by $0.01)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-12 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-CMC-9a0406",
+      "type": "earnings_upcoming",
+      "ticker": "CMC",
+      "tickers": [
+        "CMC"
+      ],
+      "name": "Commercial Metals Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CMC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-CMC-9a0406#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q4",
+        "Q4 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Commercial Metals Company (CMC) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:CMC:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 6996989440.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CMC/opengraph-image",
+          "kind": "image",
+          "alt": "Commercial Metals Company (CMC) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $7B +1; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-INDB-eb4808",
+      "type": "earnings_upcoming",
+      "ticker": "INDB",
+      "tickers": [
+        "INDB"
+      ],
+      "name": "Independent Bank Corp.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/INDB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-INDB-eb4808#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Independent Bank Corp. (INDB) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:INDB:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 3636052224.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/INDB/opengraph-image",
+          "kind": "image",
+          "alt": "Independent Bank Corp. (INDB) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $3.64B +1; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-CNS-b0cf6a",
+      "type": "earnings_upcoming",
+      "ticker": "CNS",
+      "tickers": [
+        "CNS"
+      ],
+      "name": "Cohen & Steers, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CNS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-CNS-b0cf6a#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Cohen & Steers, Inc. (CNS) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:CNS:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 3625218048.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CNS/opengraph-image",
+          "kind": "image",
+          "alt": "Cohen & Steers, Inc. (CNS) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $3.63B +1; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-SFNC-e5ea5f",
+      "type": "earnings_upcoming",
+      "ticker": "SFNC",
+      "tickers": [
+        "SFNC"
+      ],
+      "name": "Simmons First National Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SFNC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-SFNC-e5ea5f#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Simmons First National Corporation (SFNC) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:SFNC:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 3305753088.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SFNC/opengraph-image",
+          "kind": "image",
+          "alt": "Simmons First National Corporation (SFNC) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $3.31B +1; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-MAN-e0325b",
+      "type": "earnings_upcoming",
+      "ticker": "MAN",
+      "tickers": [
+        "MAN"
+      ],
+      "name": "ManpowerGroup Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MAN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-MAN-e0325b#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "ManpowerGroup Inc. (MAN) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:MAN:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 2528042752.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MAN/opengraph-image",
+          "kind": "image",
+          "alt": "ManpowerGroup Inc. (MAN) reports earnings on 2026-10-15, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $2.53B +1; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-upcoming-LOOP-355332",
+      "type": "earnings_upcoming",
+      "ticker": "LOOP",
+      "tickers": [
+        "LOOP"
+      ],
+      "name": "Loop Industries, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/LOOP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-upcoming-LOOP-355332#earnings-history",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q2",
+        "Q2 2027",
+        "FY2027"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Loop Industries, Inc. (LOOP) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:LOOP:2026-10-15",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 19344690.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/LOOP/opengraph-image",
+          "kind": "image",
+          "alt": "Loop Industries, Inc. (LOOP) reports earnings on 2026-10-15, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 3.0,
+      "rank_why": "earnings_upcoming 1; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-chart-pattern-AMZN-5290e6",
+      "type": "chart_pattern",
+      "ticker": "AMZN",
+      "tickers": [
+        "AMZN"
+      ],
+      "name": "Amazon.com, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/AMZN",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AMZN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-chart-pattern-AMZN-5290e6#pattern",
+      "allowed_numbers": [
+        "$256.29",
+        "$250.53",
+        "$287.20",
+        "$259.49",
+        "$226.16",
+        "$244.30",
+        "$244.73",
+        "$259.53",
+        "Oct 6",
+        "Aug 3",
+        "Sep 21",
+        "Jul 29",
+        "Sep 16",
+        "Sep 28",
+        "Oct 12",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-07-29",
+        "Jul 29, 2026",
+        "2026-09-28",
+        "Sep 28, 2026",
+        "2026-10-06",
+        "Oct 6, 2026",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "2026-08-03",
+        "Aug 3, 2026",
+        "2026-09-16",
+        "Sep 16, 2026",
+        "2026-09-21",
+        "Sep 21, 2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Automatic technical analysis flagged a symmetrical triangle on $AMZN (Amazon.com, Inc.) (scan 2026-10-13): pattern 2026-07-29 to 2026-09-28. Confirmed Oct 6: closed $256.29, clearly above the upper line at $250.53.",
+      "dedupe_key": "pattern:AMZN:symmetrical_triangle:confirmed:2026-10-06",
+      "scan_date": "2026-10-13",
+      "pattern": {
+        "type": "symmetrical_triangle",
+        "name": "Symmetrical triangle",
+        "status": "confirmed",
+        "direction": "up",
+        "start": "2026-07-29",
+        "end": "2026-09-28",
+        "start_text": "Jul 29, 2026",
+        "end_text": "Sep 28, 2026",
+        "confirmed_on": "2026-10-06",
+        "as_of": "2026-10-12"
+      },
+      "levels": {
+        "key_level_name": "upper line",
+        "key_level": "$250.53",
+        "breakout_close": "$256.29"
+      },
+      "page_text": {
+        "pill": "Symmetrical triangle · Confirmed Oct 6",
+        "chip": "Confirmed Oct 6",
+        "detail": "confirmed by the Oct 6 close of $256.29, clearly above the upper line",
+        "what": "Swings that get narrower between a falling line across the highs and a rising line across the lows.",
+        "key": [
+          "Confirmed Oct 6: closed $256.29, clearly above the upper line at $250.53.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back below $250.53, where the upper line was on Oct 6."
+        ],
+        "points": [
+          "Highs $287.20 (Aug 3) → $259.49 (Sep 21)",
+          "Lows $226.16 (Jul 29) → $244.30 (Sep 16) → $244.73 (Sep 28)",
+          "Oct 6 closed $256.29: confirmed · last close $259.53 (Oct 12)"
+        ]
+      },
+      "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AMZN/opengraph-image",
+          "kind": "image",
+          "alt": "Automatic technical analysis flagged a symmetrical triangle on $AMZN (Amazon.com, Inc.) (scan 2026-10-13): pattern 2026-07-29 to 2026-09-28. Confirmed Oct 6: closed $256.29, clearly above the upper line at $250.53."
+        }
+      ],
+      "rank": 2.5,
+      "rank_why": "chart_pattern 1; scan_date 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-moves-like-AZZ-dd0b51",
+      "type": "moves_like",
+      "ticker": "AZZ",
+      "tickers": [
+        "AZZ",
+        "WCC",
+        "FLEX",
+        "CAT"
+      ],
+      "name": "AZZ Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/AZZ",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AZZ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-moves-like-AZZ-dd0b51#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "78",
+        "76",
+        "75",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "−0.8%",
+        "0.8%",
+        "+0.4%",
+        "0.4%",
+        "−5.4%",
+        "5.4%",
+        "−3.3%",
+        "3.3%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 13, 2026, $AZZ (AZZ Inc.) moved most like $WCC (Sync 78, Close), $FLEX (Sync 76, Close), $CAT (Sync 75, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:AZZ:2026-10-13",
+      "session": "2026-10-13",
+      "valid_through": "2026-10-14",
+      "window_sessions": 60,
+      "subject_day_move": "−0.8%",
+      "peers": [
+        {
+          "ticker": "WCC",
+          "name": "WESCO International, Inc.",
+          "sync": 78,
+          "band": "Close",
+          "sync_text": "Sync 78 · Close",
+          "day_move": "+0.4%"
+        },
+        {
+          "ticker": "FLEX",
+          "name": "Flex Ltd.",
+          "sync": 76,
+          "band": "Close",
+          "sync_text": "Sync 76 · Close",
+          "day_move": "−5.4%"
+        },
+        {
+          "ticker": "CAT",
+          "name": "Caterpillar Inc.",
+          "sync": 75,
+          "band": "Close",
+          "sync_text": "Sync 75 · Close",
+          "day_move": "−3.3%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AZZ/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 13, 2026, $AZZ (AZZ Inc.) moved most like $WCC (Sync 78, Close), $FLEX (Sync 76, Close), $CAT (Sync 75, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-moves-like-SCHW-8d8d5f",
+      "type": "moves_like",
+      "ticker": "SCHW",
+      "tickers": [
+        "SCHW",
+        "RJF"
+      ],
+      "name": "The Charles Schwab Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/SCHW",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SCHW?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-moves-like-SCHW-8d8d5f#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "68",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "−1.2%",
+        "1.2%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 13, 2026, $SCHW (The Charles Schwab Corporation) moved most like $RJF (Sync 68, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:SCHW:2026-10-13",
+      "session": "2026-10-13",
+      "valid_through": "2026-10-14",
+      "window_sessions": 60,
+      "subject_day_move": "−1.2%",
+      "peers": [
+        {
+          "ticker": "RJF",
+          "name": "Raymond James Financial, Inc.",
+          "sync": 68,
+          "band": "Close",
+          "sync_text": "Sync 68 · Close",
+          "day_move": "−1.2%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SCHW/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 13, 2026, $SCHW (The Charles Schwab Corporation) moved most like $RJF (Sync 68, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-moves-like-AMZN-60d5b5",
+      "type": "moves_like",
+      "ticker": "AMZN",
+      "tickers": [
+        "AMZN",
+        "GOOG",
+        "GOOGL",
+        "REPL"
+      ],
+      "name": "Amazon.com, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/AMZN",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AMZN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-moves-like-AMZN-60d5b5#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "71",
+        "69",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "−0.4%",
+        "0.4%",
+        "+0.2%",
+        "0.2%",
+        "+0.3%",
+        "0.3%",
+        "−7.3%",
+        "7.3%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 13, 2026, $AMZN (Amazon.com, Inc.) moved most like $GOOG (Sync 71, Close), $GOOGL (Sync 69, Close), $REPL (Sync 69, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:AMZN:2026-10-13",
+      "session": "2026-10-13",
+      "valid_through": "2026-10-14",
+      "window_sessions": 60,
+      "subject_day_move": "−0.4%",
+      "peers": [
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "sync": 71,
+          "band": "Close",
+          "sync_text": "Sync 71 · Close",
+          "day_move": "+0.2%"
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "sync": 69,
+          "band": "Close",
+          "sync_text": "Sync 69 · Close",
+          "day_move": "+0.3%"
+        },
+        {
+          "ticker": "REPL",
+          "name": "Replimune Group, Inc.",
+          "sync": 69,
+          "band": "Close",
+          "sync_text": "Sync 69 · Close",
+          "day_move": "−7.3%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AMZN/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 13, 2026, $AMZN (Amazon.com, Inc.) moved most like $GOOG (Sync 71, Close), $GOOGL (Sync 69, Close), $REPL (Sync 69, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-moves-like-C-435853",
+      "type": "moves_like",
+      "ticker": "C",
+      "tickers": [
+        "C",
+        "MS",
+        "GS",
+        "JPM"
+      ],
+      "name": "Citigroup Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/C",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/C?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-moves-like-C-435853#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "81",
+        "80",
+        "77",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "−5.6%",
+        "5.6%",
+        "−1.8%",
+        "1.8%",
+        "−0.2%",
+        "0.2%",
+        "−0.9%",
+        "0.9%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 13, 2026, $C (Citigroup Inc.) moved most like $MS (Sync 81, Tight), $GS (Sync 80, Tight), $JPM (Sync 77, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:C:2026-10-13",
+      "session": "2026-10-13",
+      "valid_through": "2026-10-14",
+      "window_sessions": 60,
+      "subject_day_move": "−5.6%",
+      "peers": [
+        {
+          "ticker": "MS",
+          "name": "Morgan Stanley",
+          "sync": 81,
+          "band": "Tight",
+          "sync_text": "Sync 81 · Tight",
+          "day_move": "−1.8%"
+        },
+        {
+          "ticker": "GS",
+          "name": "The Goldman Sachs Group, Inc.",
+          "sync": 80,
+          "band": "Tight",
+          "sync_text": "Sync 80 · Tight",
+          "day_move": "−0.2%"
+        },
+        {
+          "ticker": "JPM",
+          "name": "JPMorgan Chase & Co.",
+          "sync": 77,
+          "band": "Close",
+          "sync_text": "Sync 77 · Close",
+          "day_move": "−0.9%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/C/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 13, 2026, $C (Citigroup Inc.) moved most like $MS (Sync 81, Tight), $GS (Sync 80, Tight), $JPM (Sync 77, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-13 (age 1) +1.5"
+    }
+  ]
+}
