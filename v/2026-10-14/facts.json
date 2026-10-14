@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T11:00:03Z",
-  "as_of": "2026-10-14T11:00:03Z",
+  "generated_at": "2026-10-14T11:30:03Z",
+  "as_of": "2026-10-14T11:30:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -53,9 +53,9 @@
     "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order"
   },
   "counts": {
-    "congress_trade": 0,
-    "form4_buy": 1,
-    "earnings_result": 8,
+    "congress_trade": 3,
+    "form4_buy": 4,
+    "earnings_result": 7,
     "earnings_upcoming": 16,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -64,49 +64,52 @@
     "ptr_summary": 0
   },
   "reasons": {
-    "congress_trade": "no Congress trade passed the rules in the last 5 weekdays (left_out has the counts)",
-    "ptr_summary": "no member has 2+ Congress items on one filing date in the last 5 weekdays",
+    "ptr_summary": "3 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
     "picks_ready": "the published list (2026-10-13) expires 2026-10-14T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
   },
   "left_out": {
     "congress_trade": {
       "rows_read": 50,
-      "out_of_window": 50,
+      "out_of_window": 0,
       "not_congress": 0,
-      "other_side": 0,
+      "other_side": 1,
       "late_filing_over_90d": 0,
       "refiles_older_report": 0,
       "bad_date": 0,
-      "not_listed": 0,
+      "not_listed": 1,
       "no_amount": 0,
       "no_official_source": 0
     },
     "ptr_summary": {
-      "members_filing_dates": 0,
+      "members_filing_dates": 3,
       "single_item": 0
     },
     "ptr_summary_incomplete": {
       "window_start": "2026-10-08",
-      "oldest_row_read": "2026-10-02",
-      "skipped": 0,
-      "reasons": []
+      "oldest_row_read": "2026-10-12",
+      "skipped": 3,
+      "reasons": [
+        "gilbert-ray-cisneros-jr filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-08: rows of the filing may be cut off; rows of the filing were left out (not_listed 1, other_side 1)",
+        "rick-larsen filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-08: rows of the filing may be cut off",
+        "lisa-c-mcclain filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-08: rows of the filing may be cut off"
+      ]
     },
     "per_filer_cap": {
-      "dropped": 0,
-      "filers": 0,
-      "dropped_congress_trade": 0,
+      "dropped": 39,
+      "filers": 3,
+      "dropped_congress_trade": 39,
       "dropped_ptr_summary": 0
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 9,
-      "below_minimum": 8,
+      "filings_passing_filters": 16,
+      "below_minimum": 12,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1383,
+      "archive_reports": 1392,
       "recent_ready": 16,
-      "outside_24h": 8,
+      "outside_24h": 9,
       "unreadable": 0
     },
     "earnings_upcoming": {
@@ -122,7 +125,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 21,
+      "tickers_in_items": 27,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -143,57 +146,324 @@
     "AMZN": "item",
     "C": "item"
   },
-  "api_requests": 16,
+  "api_requests": 22,
   "items": [
     {
-      "item_id": "2026-10-14-form4-buy-GGR-594f85",
+      "item_id": "2026-10-14-form4-buy-GME-cac4e5",
       "type": "form4_buy",
-      "ticker": "GGR",
+      "ticker": "GME",
       "tickers": [
-        "GGR"
+        "GME"
       ],
-      "name": "Chung-Yao Yin",
-      "office": "Director at Gogoro Inc.",
-      "amount_text": "$26.52M",
+      "name": "Ryan Cohen",
+      "office": "President, CEO and Chairman at GameStop Corp.",
+      "amount_text": "$20.98M",
       "traded": [
-        "2026-10-07"
+        "2026-10-13"
       ],
-      "filed": "2026-10-09",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1886190/000119312526418446/0001193125-26-418446-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/yin-chung-yao-1916103?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-form4-buy-GGR-594f85#trades",
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000092189526002784/0000921895-26-002784-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/cohen-ryan-1767470?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-form4-buy-GME-cac4e5#trades",
       "allowed_numbers": [
-        "$26.52M",
-        "2026-10-09",
-        "Oct 9, 2026",
-        "Oct 9",
-        "2026-10-07",
-        "Oct 7, 2026",
-        "Oct 7"
+        "$20.98M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Chung-Yao Yin (Director at Gogoro Inc.) reported an open-market purchase of GGR totaling $26.52M on a Form 4 filed 2026-10-09, traded 2026-10-07.",
-      "dedupe_key": "form4:0001193125-26-418446:GGR",
-      "company": "Gogoro Inc.",
+      "facts_text": "Ryan Cohen (President, CEO and Chairman at GameStop Corp.) reported an open-market purchase of GME totaling $20.98M on a Form 4 filed 2026-10-13, traded 2026-10-13.",
+      "dedupe_key": "form4:0000921895-26-002784:GME",
+      "company": "GameStop Corp.",
       "side": "buy",
-      "accession": "0001193125-26-418446",
+      "accession": "0000921895-26-002784",
       "rows": 1,
-      "amount_top_usd": 26517848.88,
-      "market_cap_usd": 65038400.0,
-      "famous_person": null,
+      "amount_top_usd": 20979000.0,
+      "market_cap_usd": 12400633856.0,
+      "famous_person": "Ryan Cohen",
       "row_amounts": [
-        "$26.52M"
+        "$20.98M"
       ],
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/yin-chung-yao-1916103/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/cohen-ryan-1767470/opengraph-image",
           "kind": "image",
-          "alt": "Chung-Yao Yin (Director at Gogoro Inc.) reported an open-market purchase of GGR totaling $26.52M on a Form 4 filed 2026-10-09, traded 2026-10-07."
+          "alt": "Ryan Cohen (President, CEO and Chairman at GameStop Corp.) reported an open-market purchase of GME totaling $20.98M on a Form 4 filed 2026-10-13, traded 2026-10-13."
         }
       ],
-      "rank": 10.5,
-      "rank_why": "form4_buy 2; buy +2; top $26.52M +4; known name Director (title) +2; filed 2026-10-09 (age 3) +0.5"
+      "rank": 13.5,
+      "rank_why": "form4_buy 2; buy +2; top $20.98M +4; known name Ryan Cohen (fame) +2; large cap $12.4B +2; filed 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-form4-buy-BORR-617145",
+      "type": "form4_buy",
+      "ticker": "BORR",
+      "tickers": [
+        "BORR"
+      ],
+      "name": "Tor Olav Troim",
+      "office": "Director at Borr Drilling Limited",
+      "amount_text": "$11.84M",
+      "traded": [
+        "2026-10-09"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1715497/000162828026065603/0001628280-26-065603-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-form4-buy-BORR-617145#trades",
+      "allowed_numbers": [
+        "$11.84M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $11.84M on a Form 4 filed 2026-10-13, traded 2026-10-09.",
+      "dedupe_key": "form4:0001628280-26-065603:BORR",
+      "company": "Borr Drilling Limited",
+      "side": "buy",
+      "accession": "0001628280-26-065603",
+      "rows": 1,
+      "amount_top_usd": 11843500.0,
+      "market_cap_usd": 1326604800.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$11.84M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630/opengraph-image",
+          "kind": "image",
+          "alt": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $11.84M on a Form 4 filed 2026-10-13, traded 2026-10-09."
+        }
+      ],
+      "rank": 11.5,
+      "rank_why": "form4_buy 2; buy +2; top $11.84M +4; known name Director (title) +2; filed 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-form4-buy-PED-a5be71",
+      "type": "form4_buy",
+      "ticker": "PED",
+      "tickers": [
+        "PED"
+      ],
+      "name": "Simon G. Kukes",
+      "office": "10% owner at PEDEVCO Corp.",
+      "amount_text": "$1.91M",
+      "traded": [
+        "2026-10-08"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1141197/000165495426008905/0001654954-26-008905-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kukes-simon-g-1222390?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-form4-buy-PED-a5be71#trades",
+      "allowed_numbers": [
+        "$1.91M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Simon G. Kukes (10% owner at PEDEVCO Corp.) reported an open-market purchase of PED totaling $1.91M on a Form 4 filed 2026-10-13, traded 2026-10-08.",
+      "dedupe_key": "form4:0001654954-26-008905:PED",
+      "company": "PEDEVCO Corp.",
+      "side": "buy",
+      "accession": "0001654954-26-008905",
+      "rows": 1,
+      "amount_top_usd": 1911910.0,
+      "market_cap_usd": 175986256.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.91M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/kukes-simon-g-1222390/opengraph-image",
+          "kind": "image",
+          "alt": "Simon G. Kukes (10% owner at PEDEVCO Corp.) reported an open-market purchase of PED totaling $1.91M on a Form 4 filed 2026-10-13, traded 2026-10-08."
+        }
+      ],
+      "rank": 8.78,
+      "rank_why": "form4_buy 2; buy +2; top $1.91M +3.28; filed 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-form4-buy-GOLD-d8502b",
+      "type": "form4_buy",
+      "ticker": "GOLD",
+      "tickers": [
+        "GOLD"
+      ],
+      "name": "Tether Global Investments Fund, S.i.c.a.f., S.a.",
+      "office": "10% owner at Gold.com, Inc.",
+      "amount_text": "$1.24M",
+      "traded": [
+        "2026-10-12"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1591588/000110465926115328/0001104659-26-115328-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/tether-global-investments-fund-s-i-c-a-f-s-a-2025889?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-form4-buy-GOLD-d8502b#trades",
+      "allowed_numbers": [
+        "$1.24M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tether Global Investments Fund, S.i.c.a.f., S.a. (10% owner at Gold.com, Inc.) reported an open-market purchase of GOLD totaling $1.24M on a Form 4 filed 2026-10-13, traded 2026-10-12.",
+      "dedupe_key": "form4:0001104659-26-115328:GOLD",
+      "company": "Gold.com, Inc.",
+      "side": "buy",
+      "accession": "0001104659-26-115328",
+      "rows": 1,
+      "amount_top_usd": 1239375.97,
+      "market_cap_usd": 1183643648.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.24M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/tether-global-investments-fund-s-i-c-a-f-s-a-2025889/opengraph-image",
+          "kind": "image",
+          "alt": "Tether Global Investments Fund, S.i.c.a.f., S.a. (10% owner at Gold.com, Inc.) reported an open-market purchase of GOLD totaling $1.24M on a Form 4 filed 2026-10-13, traded 2026-10-12."
+        }
+      ],
+      "rank": 8.59,
+      "rank_why": "form4_buy 2; buy +2; top $1.24M +3.09; filed 2026-10-13 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-14-congress-trade-NXPI-8766e3",
+      "type": "congress_trade",
+      "ticker": "NXPI",
+      "tickers": [
+        "NXPI"
+      ],
+      "name": "Gilbert Ray Cisneros, Jr.",
+      "office": "U.S. Representative (D-CA)",
+      "amount_text": "$1K–$15K; $15K–$50K",
+      "traded": [
+        "2026-09-09",
+        "2026-09-17"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035622.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/gilbert-ray-cisneros-jr?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-congress-trade-NXPI-8766e3#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$15K–$50K",
+        "$1K",
+        "$15K",
+        "$50K",
+        "$1,001–$15,000",
+        "$15,001–$50,000",
+        "$1,001",
+        "$15,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-09-09",
+        "Sep 9, 2026",
+        "Sep 9",
+        "2026-09-17",
+        "Sep 17, 2026",
+        "Sep 17",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Gilbert Ray Cisneros, Jr. (D-CA) disclosed 2 purchases of NXPI (NXP Semiconductors N.V.), $1K–$15K; $15K–$50K, traded 2026-09-09, 2026-09-17; filed 2026-10-12.",
+      "dedupe_key": "ptr:20035622:NXPI:buy",
+      "company": "NXP Semiconductors N.V.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "gilbert-ray-cisneros-jr",
+      "amount_exact_text": "$1,001–$15,000; $15,001–$50,000",
+      "rows": 2,
+      "amount_top_usd": 65000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/gilbert-ray-cisneros-jr/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Gilbert Ray Cisneros, Jr. (D-CA) disclosed 2 purchases of NXPI (NXP Semiconductors N.V.), $1K–$15K; $15K–$50K, traded 2026-09-09, 2026-09-17; filed 2026-10-12."
+        }
+      ],
+      "rank": 6.81,
+      "rank_why": "congress_trade 2; buy +2; top $65K +1.81; filed 2026-10-12 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-14-congress-trade-RIG-402823",
+      "type": "congress_trade",
+      "ticker": "RIG",
+      "tickers": [
+        "RIG"
+      ],
+      "name": "Lisa C. McClain",
+      "office": "U.S. Representative (R-MI)",
+      "amount_text": "$15K–$50K",
+      "traded": [
+        "2026-09-14"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035585.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/lisa-c-mcclain?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-congress-trade-RIG-402823#trades",
+      "allowed_numbers": [
+        "$15K–$50K",
+        "$15K",
+        "$50K",
+        "$15,001–$50,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-09-14",
+        "Sep 14, 2026",
+        "Sep 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Lisa C. McClain (R-MI) disclosed a purchase of RIG (Transocean Ltd.), $15K–$50K, traded 2026-09-14; filed 2026-10-12 (owner: spouse).",
+      "dedupe_key": "ptr:20035585:RIG:buy",
+      "company": "Transocean Ltd.",
+      "side": "buy",
+      "owner": [
+        "spouse"
+      ],
+      "figure_slug": "lisa-c-mcclain",
+      "amount_exact_text": "$15,001–$50,000",
+      "rows": 1,
+      "amount_top_usd": 50000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/lisa-c-mcclain/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Lisa C. McClain (R-MI) disclosed a purchase of RIG (Transocean Ltd.), $15K–$50K, traded 2026-09-14; filed 2026-10-12 (owner: spouse)."
+        }
+      ],
+      "rank": 6.7,
+      "rank_why": "congress_trade 2; buy +2; top $50K +1.7; filed 2026-10-12 (age 2) +1"
     },
     {
       "item_id": "2026-10-14-earnings-tomorrow-roundup-LIST-afe585",
@@ -304,6 +574,60 @@
       ],
       "rank": 6.5,
       "rank_why": "earnings_tomorrow_roundup 2.5; large cap $147.33B +2; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-congress-trade-WSM-c46d2a",
+      "type": "congress_trade",
+      "ticker": "WSM",
+      "tickers": [
+        "WSM"
+      ],
+      "name": "Rick Larsen",
+      "office": "U.S. Representative (D-WA)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-10-08"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035635.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/rick-larsen?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-congress-trade-WSM-c46d2a#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Rick Larsen (D-WA) disclosed a purchase of WSM (Williams-Sonoma, Inc.), $1K–$15K, traded 2026-10-08; filed 2026-10-12.",
+      "dedupe_key": "ptr:20035635:WSM:buy",
+      "company": "Williams-Sonoma, Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "rick-larsen",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/rick-larsen/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Rick Larsen (D-WA) disclosed a purchase of WSM (Williams-Sonoma, Inc.), $1K–$15K, traded 2026-10-08; filed 2026-10-12."
+        }
+      ],
+      "rank": 6.18,
+      "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 2) +1"
     },
     {
       "item_id": "2026-10-14-earnings-result-BAC-0fc0d3",
@@ -1069,6 +1393,8 @@
         "$16.89B",
         "$1.79B",
         "$17.01",
+        "$13.09",
+        "$3.92",
         "Q3 2026",
         "Q3",
         "FY2026",
@@ -1079,13 +1405,13 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Revenue beat. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). GAAP EPS $17.01.",
+      "facts_text": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Beat estimates. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). Diluted EPS (GAAP, street basis) $17.01 vs $13.09 consensus (Beat by $3.92).",
       "dedupe_key": "report:gs-2026-q3",
       "report_id": "gs-2026-q3",
       "fiscal_label": "Q3 2026",
       "release_date": "2026-10-13",
       "published_at": "2026-10-13T11:34:49.067192+00:00",
-      "tile_label": "Revenue beat",
+      "tile_label": "Beat estimates",
       "tile_state": "beat",
       "results": {
         "revenue": {
@@ -1095,70 +1421,18 @@
           "verdict": "beat"
         },
         "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$17.01"
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "$17.01",
+          "consensus": "$13.09",
+          "label": "Beat by $3.92",
+          "verdict": "beat"
         }
       },
       "media": [
         {
           "url": "https://www.rapidtradeview.trade/dashboard/GS/opengraph-image",
           "kind": "image",
-          "alt": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Revenue beat. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). GAAP EPS $17.01."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-14-earnings-result-EMR-8b2342",
-      "type": "earnings_result",
-      "ticker": "EMR",
-      "tickers": [
-        "EMR"
-      ],
-      "name": "Emerson Electric Co.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-13",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/32604/000003260426000047/apensionrestatementxex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/EMR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-EMR-8b2342#earnings-history",
-      "allowed_numbers": [
-        "$1.71",
-        "$1.68",
-        "$0.03",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-13",
-        "Oct 13, 2026",
-        "Oct 13"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Emerson Electric Co. (EMR) published Q3 2026 results on 2026-10-13: EPS beat. Adjusted earnings per share $1.71 vs $1.68 consensus (Beat by $0.03).",
-      "dedupe_key": "report:emr-2026-q3",
-      "report_id": "emr-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-13",
-      "published_at": "2026-10-13T11:00:51.964071+00:00",
-      "tile_label": "EPS beat",
-      "tile_state": "beat",
-      "results": {
-        "eps": {
-          "basis": "Adjusted earnings per share",
-          "reported": "$1.71",
-          "consensus": "$1.68",
-          "label": "Beat by $0.03",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/EMR/opengraph-image",
-          "kind": "image",
-          "alt": "Emerson Electric Co. (EMR) published Q3 2026 results on 2026-10-13: EPS beat. Adjusted earnings per share $1.71 vs $1.68 consensus (Beat by $0.03)."
+          "alt": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Beat estimates. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). Diluted EPS (GAAP, street basis) $17.01 vs $13.09 consensus (Beat by $3.92)."
         }
       ],
       "rank": 4.5,
