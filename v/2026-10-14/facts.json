@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T15:00:04Z",
-  "as_of": "2026-10-14T15:00:04Z",
+  "generated_at": "2026-10-14T17:30:04Z",
+  "as_of": "2026-10-14T17:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -57,15 +57,14 @@
     "form4_buy": 4,
     "earnings_result": 9,
     "earnings_upcoming": 16,
-    "picks_ready": 0,
+    "picks_ready": 1,
     "chart_pattern": 1,
     "moves_like": 4,
     "earnings_tomorrow_roundup": 2,
     "ptr_summary": 0
   },
   "reasons": {
-    "ptr_summary": "3 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "picks_ready": "the published list (2026-10-13) expires 2026-10-14T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
+    "ptr_summary": "3 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)"
   },
   "left_out": {
     "congress_trade": {
@@ -1742,6 +1741,54 @@
       ],
       "rank": 4.0,
       "rank_why": "earnings_upcoming 1; mid cap $2.53B +1; today 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-picks-ready-LIST-f94ba2",
+      "type": "picks_ready",
+      "ticker": null,
+      "tickers": [
+        "IBKR",
+        "PGY"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/picks/2026-10-14",
+      "page_url": "https://www.rapidtradeview.trade/picks/2026-10-14?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-picks-ready-LIST-f94ba2",
+      "allowed_numbers": [
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The RapidTradeView daily picks list for 2026-10-14 is published; the public picks are IBKR, PGY.",
+      "dedupe_key": "picks:2026-10-14",
+      "trade_date": "2026-10-14",
+      "valid_until": "2026-10-15T17:30:00+00:00",
+      "picks": [
+        {
+          "ticker": "IBKR",
+          "direction": "bullish"
+        },
+        {
+          "ticker": "PGY",
+          "direction": "bullish"
+        }
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/picks/2026-10-14/opengraph-image",
+          "kind": "image",
+          "alt": "The RapidTradeView daily picks list for 2026-10-14 is published; the public picks are IBKR, PGY."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "picks_ready 2; today 2026-10-14 (age 0) +2"
     },
     {
       "item_id": "2026-10-14-earnings-upcoming-LOOP-355332",
