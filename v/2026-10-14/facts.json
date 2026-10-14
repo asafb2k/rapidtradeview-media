@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T11:30:03Z",
-  "as_of": "2026-10-14T11:30:03Z",
+  "generated_at": "2026-10-14T12:00:03Z",
+  "as_of": "2026-10-14T12:00:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 3,
     "form4_buy": 4,
-    "earnings_result": 7,
+    "earnings_result": 8,
     "earnings_upcoming": 16,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -107,9 +107,9 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1392,
-      "recent_ready": 16,
-      "outside_24h": 9,
+      "archive_reports": 1395,
+      "recent_ready": 19,
+      "outside_24h": 11,
       "unreadable": 0
     },
     "earnings_upcoming": {
@@ -125,7 +125,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 27,
+      "tickers_in_items": 28,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -146,7 +146,7 @@
     "AMZN": "item",
     "C": "item"
   },
-  "api_requests": 22,
+  "api_requests": 24,
   "items": [
     {
       "item_id": "2026-10-14-form4-buy-GME-cac4e5",
@@ -628,6 +628,165 @@
       ],
       "rank": 6.18,
       "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-FAST-3864ac",
+      "type": "earnings_result",
+      "ticker": "FAST",
+      "tickers": [
+        "FAST"
+      ],
+      "name": "Fastenal Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/815556/000081555626000046/ex_99109302026earningsrele.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FAST?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-FAST-3864ac#earnings-history",
+      "allowed_numbers": [
+        "$0.35",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Fastenal Company (FAST) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $0.35.",
+      "dedupe_key": "report:fast-2026-q3",
+      "report_id": "fast-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T11:56:49.960574+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.35"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FAST/opengraph-image",
+          "kind": "image",
+          "alt": "Fastenal Company (FAST) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $0.35."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-MS-b854bd",
+      "type": "earnings_result",
+      "ticker": "MS",
+      "tickers": [
+        "MS"
+      ],
+      "name": "Morgan Stanley",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/895421/000089542126000288/a3q26msearningsrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-MS-b854bd#earnings-history",
+      "allowed_numbers": [
+        "$20.34B",
+        "$20.11B",
+        "$228M",
+        "$3.03",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Morgan Stanley (MS) published Q3 2026 results on 2026-10-14: Revenue beat. Revenue $20.34B vs $20.11B consensus (Beat by $228M). GAAP EPS $3.03.",
+      "dedupe_key": "report:ms-2026-q3",
+      "report_id": "ms-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T11:40:47.897985+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$20.34B",
+          "consensus": "$20.11B",
+          "label": "Beat by $228M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$3.03"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MS/opengraph-image",
+          "kind": "image",
+          "alt": "Morgan Stanley (MS) published Q3 2026 results on 2026-10-14: Revenue beat. Revenue $20.34B vs $20.11B consensus (Beat by $228M). GAAP EPS $3.03."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-STT-15a5da",
+      "type": "earnings_result",
+      "ticker": "STT",
+      "tickers": [
+        "STT"
+      ],
+      "name": "State Street Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/93751/000009375126000592/a3q26earningspressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/STT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-STT-15a5da#earnings-history",
+      "allowed_numbers": [
+        "$3.69",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "State Street Corporation (STT) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $3.69.",
+      "dedupe_key": "report:stt-2026-q3",
+      "report_id": "stt-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T11:32:48.395985+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$3.69"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/STT/opengraph-image",
+          "kind": "image",
+          "alt": "State Street Corporation (STT) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $3.69."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 0) +2"
     },
     {
       "item_id": "2026-10-14-earnings-result-BAC-0fc0d3",
@@ -1325,114 +1484,6 @@
           "url": "https://www.rapidtradeview.trade/dashboard/JNJ/opengraph-image",
           "kind": "image",
           "alt": "Johnson & Johnson (JNJ) published Q3 2026 results on 2026-10-13: Mixed vs estimates. Revenue $25.4B vs $25.38B consensus (In line (+$16.9M)). adjusted EPS $2.59 vs $2.53 consensus (Beat by $0.06)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-14-earnings-result-WTTR-57680c",
-      "type": "earnings_result",
-      "ticker": "WTTR",
-      "tickers": [
-        "WTTR"
-      ],
-      "name": "Select Water Solutions, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-13",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1693256/000110465926115262/tm2627372d1_ex99-2.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/WTTR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-WTTR-57680c#earnings-history",
-      "allowed_numbers": [
-        "Q2 2026",
-        "Q2",
-        "FY2026",
-        "2026-10-13",
-        "Oct 13, 2026",
-        "Oct 13"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Select Water Solutions, Inc. (WTTR) published Q2 2026 results on 2026-10-13: Published.",
-      "dedupe_key": "report:wttr-2026-q2",
-      "report_id": "wttr-2026-q2",
-      "fiscal_label": "Q2 2026",
-      "release_date": "2026-10-13",
-      "published_at": "2026-10-13T11:42:48.830190+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {},
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/WTTR/opengraph-image",
-          "kind": "image",
-          "alt": "Select Water Solutions, Inc. (WTTR) published Q2 2026 results on 2026-10-13: Published."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-13 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-14-earnings-result-GS-5360ec",
-      "type": "earnings_result",
-      "ticker": "GS",
-      "tickers": [
-        "GS"
-      ],
-      "name": "The Goldman Sachs Group, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-13",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/886982/000088698226000529/a3q26gsearningsresults.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/GS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-GS-5360ec#earnings-history",
-      "allowed_numbers": [
-        "$18.68B",
-        "$16.89B",
-        "$1.79B",
-        "$17.01",
-        "$13.09",
-        "$3.92",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-13",
-        "Oct 13, 2026",
-        "Oct 13"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Beat estimates. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). Diluted EPS (GAAP, street basis) $17.01 vs $13.09 consensus (Beat by $3.92).",
-      "dedupe_key": "report:gs-2026-q3",
-      "report_id": "gs-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-13",
-      "published_at": "2026-10-13T11:34:49.067192+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$18.68B",
-          "consensus": "$16.89B",
-          "label": "Beat by $1.79B",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "$17.01",
-          "consensus": "$13.09",
-          "label": "Beat by $3.92",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/GS/opengraph-image",
-          "kind": "image",
-          "alt": "The Goldman Sachs Group, Inc. (GS) published Q3 2026 results on 2026-10-13: Beat estimates. Revenue $18.68B vs $16.89B consensus (Beat by $1.79B). Diluted EPS (GAAP, street basis) $17.01 vs $13.09 consensus (Beat by $3.92)."
         }
       ],
       "rank": 4.5,
