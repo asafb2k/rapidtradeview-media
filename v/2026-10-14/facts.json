@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T12:30:03Z",
-  "as_of": "2026-10-14T12:30:03Z",
+  "generated_at": "2026-10-14T13:30:04Z",
+  "as_of": "2026-10-14T13:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 3,
     "form4_buy": 4,
-    "earnings_result": 8,
+    "earnings_result": 9,
     "earnings_upcoming": 16,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -107,13 +107,13 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1396,
-      "recent_ready": 20,
+      "archive_reports": 1397,
+      "recent_ready": 21,
       "outside_24h": 12,
       "unreadable": 0
     },
     "earnings_upcoming": {
-      "listed": 47,
+      "listed": 48,
       "confirmed_in_universe": 16
     },
     "earnings_tomorrow_roundup": {
@@ -125,7 +125,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 28,
+      "tickers_in_items": 29,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -146,7 +146,7 @@
     "AMZN": "item",
     "C": "item"
   },
-  "api_requests": 24,
+  "api_requests": 25,
   "items": [
     {
       "item_id": "2026-10-14-form4-buy-GME-cac4e5",
@@ -628,6 +628,65 @@
       ],
       "rank": 6.18,
       "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-14-earnings-result-PGR-1ca1ba",
+      "type": "earnings_result",
+      "ticker": "PGR",
+      "tickers": [
+        "PGR"
+      ],
+      "name": "The Progressive Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/80661/000008066126000367/pgr202609ex99earningsrelea.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PGR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-14-earnings-result-PGR-1ca1ba#earnings-history",
+      "allowed_numbers": [
+        "$7.43B",
+        "$22.51B",
+        "$15.08B",
+        "$1.08",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Progressive Corporation (PGR) published Q3 2026 results on 2026-10-14: Revenue miss. Revenue $7.43B vs $22.51B consensus (Missed by $15.08B). GAAP EPS $1.08.",
+      "dedupe_key": "report:pgr-2026-q3",
+      "report_id": "pgr-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T13:02:52.526182+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$7.43B",
+          "consensus": "$22.51B",
+          "label": "Missed by $15.08B",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$1.08"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PGR/opengraph-image",
+          "kind": "image",
+          "alt": "The Progressive Corporation (PGR) published Q3 2026 results on 2026-10-14: Revenue miss. Revenue $7.43B vs $22.51B consensus (Missed by $15.08B). GAAP EPS $1.08."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 0) +2"
     },
     {
       "item_id": "2026-10-14-earnings-result-MXCT-d0c41d",
