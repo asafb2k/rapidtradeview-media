@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-14",
+ "media_date": "2026-10-14",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-14/picks-2026-10-14/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-14",
+   "fetched_at_utc": "2026-10-14T17:45:28.517455+00:00",
+   "status": 200,
+   "sha256": "ee04e128ff36b057008aef07053b00f86fb36e67478b00b1cd80127ccdb17313",
+   "bytes": 5525
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-14/picks-2026-10-14/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-14T17:45:28.906520+00:00",
+   "status": 200,
+   "sha256": "b6ac1d3a7179874ae0a53d99095ce6b76c133e786fae2ab26ba95771878c95ad",
+   "bytes": 9977
+  },
+  {
+   "name": "search-IBKR.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-14/picks-2026-10-14/evidence/search-IBKR.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=IBKR",
+   "fetched_at_utc": "2026-10-14T17:45:29.378037+00:00",
+   "status": 200,
+   "sha256": "bd5fa97340d283929cbf31bd3bde36597c3d225e6aeea7c472cd0e6ee75f4cc4",
+   "bytes": 481
+  },
+  {
+   "name": "search-PGY.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-14/picks-2026-10-14/evidence/search-PGY.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=PGY",
+   "fetched_at_utc": "2026-10-14T17:45:29.837091+00:00",
+   "status": 200,
+   "sha256": "0effd1054ea1e6a0918ca283677ea307d5022ed5bff5cc50972d6c346fa8aa47",
+   "bytes": 469
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
