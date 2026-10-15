@@ -247,14 +247,17 @@ class AgeBasis:
 
 
 
-def fit_age_adjustment(d: pd.DataFrame, cfg: dict, rng) -> tuple[np.ndarray, dict]:
+def fit_age_adjustment(d: pd.DataFrame, cfg: dict, rng) -> tuple[np.ndarray, dict, object]:
     """Model log(views+1) on f(log age_hours) with author fixed effects, pooled across posts, and
-    return (adjustment, info) where adjustment = f(age) - f(target age) per post: subtracting it from
-    log(views+1) moves every post to the fixed target age. With age_adjust_controls='features'
-    (default) the content features enter the same within-author regression as controls, so a
-    feature mix that drifts with age does not leak into f; the features' own coefficients are not
-    used here (the effects table re-estimates them on the adjusted target, which by Frisch-Waugh-Lovell
-    equals the joint estimate). Age is never a model feature and is not used at scoring."""
+    return (adjustment, info, refit) where adjustment = f(age) - f(target age) per post: subtracting it
+    from log(views+1) moves every post to the fixed target age, and refit(rows) is the same adjustment
+    with f refitted on those rows only (row indices into d; used by the effects bootstrap so its CIs
+    carry the age-fit uncertainty). With age_adjust_controls='features' (default) the content features
+    enter the same within-author regression as controls, so a feature mix that drifts with age does not
+    leak into f; the features' own coefficients are not used here (the effects table re-estimates them
+    on the adjusted target, which by Frisch-Waugh-Lovell approximately equals the joint estimate: the
+    target also subtracts the author's leave-one-out median). f is fitted once on all posts, before
+    GroupKFold. Age is never a model feature and is not used at scoring."""
     t = cfg["target"]
     kind, controls = t["age_adjust"], t.get("age_adjust_controls", "features")
     if controls not in ("features", "none"):
@@ -280,7 +283,11 @@ def fit_age_adjustment(d: pd.DataFrame, cfg: dict, rng) -> tuple[np.ndarray, dic
     gamma = np.linalg.lstsq(Zd, lvd, rcond=None)[0][:p]
     ref_age = float(t["age_hours"])
     g_ref = basis.transform(np.array([ref_age]))[0]
-    adjustment = (G - g_ref) @ gamma
+    Gc = G - g_ref
+    adjustment = Gc @ gamma
+
+    def refit(rows):
+        return Gc @ np.linalg.lstsq(Zd[rows], lvd[rows], rcond=None)[0][:p]
 
     # Curve on an age grid (data quantiles + the target age) and the average slope d f / d log(age).
     grid = sorted({round(float(v), 1) for v in np.quantile(age, [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0])} | {ref_age})
@@ -310,6 +317,9 @@ def fit_age_adjustment(d: pd.DataFrame, cfg: dict, rng) -> tuple[np.ndarray, dic
         "controls": controls,
         "n_control_columns": int(n_controls),
         "basis": basis.describe(),
+        "fit_scope": ("all posts, once, before GroupKFold (not refitted per fold; on synthetic data refitting "
+                      "per fold moved pairwise accuracy by at most 0.0003)"),
+        "effects_ci_include_age_fit": True,
         "reference_age_hours": ref_age,
         "outcome": "log(views+1) - [f(age) - f(reference age)], then the within-author target as usual",
         "slope_per_log_age": slope,
@@ -327,7 +337,14 @@ def fit_age_adjustment(d: pd.DataFrame, cfg: dict, rng) -> tuple[np.ndarray, dic
         "adjustment_summary": {"p10": float(np.quantile(adjustment, 0.1)), "median": float(np.median(adjustment)),
                                "p90": float(np.quantile(adjustment, 0.9))},
     }
-    return adjustment, info
+    return adjustment, info, refit
+
+
+def adjusted_target(lv: np.ndarray, adjustment: np.ndarray, groups) -> np.ndarray:
+    """y = log(views_adj+1) - log(leave-one-out author median views_adj+1), views_adj+1 = (views+1) moved
+    to the target age by the adjustment."""
+    views_t = np.expm1(lv - adjustment)
+    return np.log1p(views_t) - np.log1p(loo_median(views_t, groups))
 
 
 def _stage(df: pd.DataFrame, name: str, post_key: str | None = None) -> dict:
@@ -432,9 +449,10 @@ def prepare(raw_df: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
     groups = d["author"].to_numpy()
 
     views_t = d["views"].to_numpy(dtype=float)
+    views_all = views_t
     age_info = None
     if age_adjust != "none":
-        adjustment, age_info = fit_age_adjustment(d, cfg, np.random.default_rng(int(cfg["seed"]) + 31337))
+        adjustment, age_info, age_refit = fit_age_adjustment(d, cfg, np.random.default_rng(int(cfg["seed"]) + 31337))
         views_t = np.expm1(np.log1p(views_t) - adjustment)  # views+1 moved to the target age
         d["views_age_adjusted"] = views_t
     elif tcfg["age_filter"] and float(tcfg["age_tolerance_hours"]) > 6:
@@ -454,7 +472,15 @@ def prepare(raw_df: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
         raise ValueError("target.author_median_source must be 'leave_one_out' or 'column'")
     d["author_median_views_used"] = med
     d["y"] = np.log1p(views_t) - np.log1p(med)
-    d = d[np.isfinite(d["y"])].reset_index(drop=True)
+    ok = np.isfinite(d["y"]).to_numpy()
+    d = d[ok].reset_index(drop=True)
+    y_redraw = None
+    if age_adjust != "none":
+        lv_all, kept = np.log1p(views_all), np.flatnonzero(ok)
+
+        def y_redraw(rows):
+            """The target with the age curve refitted on these rows (indices into the returned df)."""
+            return adjusted_target(lv_all, age_refit(kept[np.asarray(rows)]), groups)[kept]
 
     # Secondary: within-author engagement rate.
     d["er"] = np.nan
@@ -490,6 +516,7 @@ def prepare(raw_df: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
         "er_source": er_source,
         "composition": composition(d, found_via_loaded),
         "age_adjustment": age_info,
+        "y_redraw": y_redraw,
     }
     return d, info
 
@@ -744,9 +771,10 @@ class LinearModel:
             pywarnings.simplefilter("ignore")
             return Ridge(alpha=alpha).fit(Xs, yy).coef_ / self.scaler.scale_
 
-    def bootstrap(self, raw, y, groups, B, rng, alpha=None):
+    def bootstrap(self, raw, y, groups, B, rng, alpha=None, y_redraw=None):
         """Author-resampled bootstrap of the per-unit coefficients; alpha overrides the model's
-        penalty (ridge only)."""
+        penalty (ridge only). y_redraw(rows), if given (age-adjusted runs), rebuilds the target with the
+        age curve refitted on the drawn rows, so the draws carry the age-fit uncertainty."""
         Xs, y = self._fit_space(self.design(raw), y, groups)
         uniq = np.unique(groups)
         pos = pd.Series(np.arange(len(y))).groupby(np.asarray(groups)).indices
@@ -756,8 +784,12 @@ class LinearModel:
             for b in range(B):
                 pick = rng.choice(uniq, len(uniq), replace=True)
                 rows = np.concatenate([pos[g] for g in pick])
+                yb = y
+                if y_redraw is not None:
+                    yr = np.asarray(y_redraw(rows), dtype=float)
+                    yb = author_demean(yr[:, None], groups)[:, 0] if self.demean else yr
                 est = Ridge(alpha=alpha) if alpha is not None else self._estimator()
-                draws[b] = est.fit(Xs[rows], y[rows]).coef_ / self.scaler.scale_
+                draws[b] = est.fit(Xs[rows], yb[rows]).coef_ / self.scaler.scale_
         return draws
 
 
@@ -959,7 +991,8 @@ def effects_table(model: LinearModel, draws, raw, groups, point=None):
     return rows
 
 
-def drop_top_authors_effects(model: LinearModel, rows: list, raw, y, groups, features, K, B, alpha, rng) -> list:
+def drop_top_authors_effects(model: LinearModel, rows: list, raw, y, groups, features, K, B, alpha, rng,
+                             y_redraw=None) -> list:
     """For each named effect (a linear column such as 'opener=number' or 'cashtag_count'): drop the
     K authors with the most posts at that level (nonzero value) and re-estimate the effects-table
     regression (same encoding, within-author least squares at `alpha`, author bootstrap B) on the
@@ -999,7 +1032,9 @@ def drop_top_authors_effects(model: LinearModel, rows: list, raw, y, groups, fea
         else:
             r["per_unit"] = float(model.effect_estimates(rk, yk, gk, alpha)[k])
             if B:
-                draws = model.bootstrap(rk, yk, gk, B, rng, alpha=alpha)[:, k]
+                kidx = np.flatnonzero(keep)
+                yr = None if y_redraw is None else (lambda r, kidx=kidx: y_redraw(kidx[r])[kidx])
+                draws = model.bootstrap(rk, yk, gk, B, rng, alpha=alpha, y_redraw=yr)[:, k]
                 r["ci95"] = [float(np.quantile(draws, 0.025)), float(np.quantile(draws, 0.975))]
             else:
                 r["ci95"] = None
@@ -1083,6 +1118,16 @@ def run(cfg: dict, data: pd.DataFrame | None = None, out_dir: str | None = None,
     probe = F.FeatureSpec("linear", m["min_level_count"]).fit(raw)
     if len(np.unique(groups)) < 4:
         raise ValueError("need at least 4 authors for GroupKFold validation")
+    K_drop = int(m.get("drop_top_authors") or 0)
+    if K_drop < 0:
+        raise ValueError("models.drop_top_authors (--drop-top-authors) must be >= 0")
+    if m.get("drop_top_effects") and K_drop == 0:
+        raise ValueError("models.drop_top_effects (--drop-effect) needs models.drop_top_authors "
+                         "(--drop-top-authors K) > 0")
+    if K_drop and "ridge" not in names:
+        info["warnings"].append("drop_top_authors ignored: it re-estimates the ridge effects table and "
+                                "models.ridge is off")
+    y_redraw = info.get("y_redraw")
 
     age_info = info.get("age_adjustment")
     report = {
@@ -1233,25 +1278,31 @@ def run(cfg: dict, data: pd.DataFrame | None = None, out_dir: str | None = None,
         B = int(m["bootstrap"] or 0)
         log(f"effects: {'within-author ' if within else ''}least squares, bootstrap x{B} (authors resampled)")
         point = final["ridge"].effect_estimates(raw, y, groups, ea)
-        draws = final["ridge"].bootstrap(raw, y, groups, B, rng, alpha=ea) if B else None
+        draws = final["ridge"].bootstrap(raw, y, groups, B, rng, alpha=ea, y_redraw=y_redraw) if B else None
         effects["ridge"] = {
             "method": ("within-author (author-demeaned) " if within else "") + f"least squares, ridge alpha {ea:g}; "
                       "not the predictive ridge, whose cross-validated penalty shrinks coefficients",
             "alpha": ea, "predictive_ridge_alpha": final["ridge"].alpha, "bootstrap": B,
+            "age_fit_refitted_in_bootstrap": y_redraw is not None,
             "rows": effects_table(final["ridge"], draws, raw, groups, point),
             "validation": eff_val}
-        K = int(m.get("drop_top_authors") or 0)
+        K = K_drop
         if K > 0:
             feats = list(m.get("drop_top_effects") or []) or [
                 r["feature"] for r in effects["ridge"]["rows"] if r["ci_excludes_zero"]]
-            log(f"drop-top-{K}-authors re-estimates: {feats} (bootstrap x{B})")
-            effects["ridge"]["drop_top_authors"] = drop_top_authors_effects(
-                final["ridge"], effects["ridge"]["rows"], raw, y, groups, feats, K, B, ea,
-                np.random.default_rng(int(cfg["seed"]) + 104729))
+            if not feats:
+                report["warnings"].append(
+                    f"drop_top_authors = {K} did nothing: no effect named (drop_top_effects / --drop-effect) and no "
+                    "effect's CI excludes 0" + (" (models.bootstrap = 0: no CIs)" if not B else ""))
+            else:
+                log(f"drop-top-{K}-authors re-estimates: {feats} (bootstrap x{B})")
+                effects["ridge"]["drop_top_authors"] = drop_top_authors_effects(
+                    final["ridge"], effects["ridge"]["rows"], raw, y, groups, feats, K, B, ea,
+                    np.random.default_rng(int(cfg["seed"]) + 104729), y_redraw=y_redraw)
     if "elastic_net" in final:
         B = int(m.get("bootstrap_enet") or 0)
         log(f"elastic-net bootstrap x{B}")
-        draws = final["elastic_net"].bootstrap(raw, y, groups, B, rng) if B else None
+        draws = final["elastic_net"].bootstrap(raw, y, groups, B, rng, y_redraw=y_redraw) if B else None
         effects["elastic_net"] = {"alpha": final["elastic_net"].alpha, "l1_ratio": final["elastic_net"].l1_ratio,
                                   "bootstrap": B, "rows": effects_table(final["elastic_net"], draws, raw, groups)}
     if "text" in final:
@@ -1427,7 +1478,10 @@ def render_markdown(r: dict) -> str:
               f"authors ({ag['n_authors_with_age_variation']:,} with more than one distinct age). Snapshot age "
               f"{ag['age_hours']['min']:.1f}-{ag['age_hours']['max']:.1f} h (median {ag['age_hours']['median']:.1f}). "
               f"Every post is moved to {ag['reference_age_hours']:g} h before the within-author target is built. "
-              "Age is not a model feature and is not used at scoring.", "",
+              "Age is not a model feature and is not used at scoring. The curve is fitted once on all posts, "
+              "before GroupKFold (not per fold; on synthetic data refitting it per fold moved pairwise accuracy "
+              "by at most 0.0003). Effects CIs refit the curve in every bootstrap draw, so they include its "
+              "uncertainty.", "",
               f"**Age slope** (d log(views+1) / d log(age)): {ag['slope_per_log_age']:+.3f} "
               f"{_ci(ag.get('slope_ci95'))}, bootstrap B = {ag['bootstrap']} (authors resampled); {ag['slope_note']}.",
               "", "| age (h) | f(age) - f(ref) | 95% CI | x views vs ref |", "|---|---|---|---|"]

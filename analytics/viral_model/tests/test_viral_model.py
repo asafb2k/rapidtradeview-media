@@ -298,7 +298,8 @@ def _effects_ls(df, mode, controls="features", B=0):
     est = dict(zip(m.spec.names, m.per_unit()))
     ci = {}
     if B:
-        draws = m.bootstrap(raw, y, g, B, np.random.default_rng(0), alpha=cfg["models"]["effects_alpha"])
+        draws = m.bootstrap(raw, y, g, B, np.random.default_rng(0), alpha=cfg["models"]["effects_alpha"],
+                            y_redraw=info["y_redraw"])
         ci = {n: np.quantile(draws[:, k], [0.025, 0.975]) for k, n in enumerate(m.spec.names)}
     return est, ci, info.get("age_adjustment"), m
 
@@ -446,3 +447,45 @@ def test_cli_age_adjust_and_drop_top_authors(tmp_path):
     js = json.load(open(tmp_path / "out" / "report.json", encoding="utf-8"))
     assert js["age_adjustment"]["method"] == "loglinear" and js["age_adjustment"]["bootstrap"] == 30
     assert [r["feature"] for r in js["effects"]["ridge"]["drop_top_authors"]] == ["media_type=video"]
+
+
+def test_effects_bootstrap_refits_the_age_curve(wide_pair):
+    wide, _ = wide_pair
+    over = S.synthetic_config("unused.csv")
+    over["target"] = {"age_tolerance_hours": 12, "age_adjust": "loglinear"}
+    cfg = T.load_config(None, over)
+    d, info = T.prepare(wide, cfg)
+    raw = T.build_raw(d, cfg)
+    y, g = d["y"].to_numpy(float), d["author"].to_numpy()
+    redraw = info["y_redraw"]
+    assert np.allclose(redraw(np.arange(len(d))), y)  # all rows -> the full-sample target exactly
+    m = T.make_model("effects_ls", cfg).fit(raw, y, g)
+    ea = cfg["models"]["effects_alpha"]
+    fixed = m.bootstrap(raw, y, g, 200, np.random.default_rng(1), alpha=ea)
+    refit = m.bootstrap(raw, y, g, 200, np.random.default_rng(1), alpha=ea, y_redraw=redraw)
+    ratio = {n: np.std(refit[:, k]) / np.std(fixed[:, k]) for k, n in enumerate(m.spec.names)}
+    assert ratio["media_type=video"] > 1.04, ratio  # seen 6 h older: correlates with age, wider CI (~1.10)
+    for n in ("media_type=image", "cashtag_count"):  # age-neutral: same spread
+        assert 0.97 < ratio[n] < 1.03, (n, ratio[n])
+    df0 = S.make_synthetic(n_authors=20, seed=5, mean_posts=10)
+    assert T.prepare(df0, T.load_config(None, S.synthetic_config("unused.csv")))[1]["y_redraw"] is None
+
+
+def test_drop_top_authors_flags_are_validated(tmp_path):
+    df = S.make_synthetic(n_authors=30, seed=2, mean_posts=20)
+    over = S.synthetic_config("unused.csv")
+    over["models"] = {"bootstrap": 0, "bootstrap_enet": 0, "text": False, "drop_top_effects": ["opener=breaking"]}
+    with pytest.raises(ValueError, match="drop_top_authors"):
+        T.run(T.load_config(None, over), data=df, out_dir=str(tmp_path / "a"), verbose=False)
+    over["models"].update({"drop_top_effects": [], "drop_top_authors": 2})
+    over["validation"] = {"metric_bootstrap": 50, "shuffle_control": False, "permutation_repeats": 1}
+    rep = T.run(T.load_config(None, over), data=df, out_dir=str(tmp_path / "b"), verbose=False)
+    assert "drop_top_authors" not in rep["effects"]["ridge"]
+    assert any("did nothing" in w for w in rep["warnings"])
+    py = sys.executable
+    data, conf = tmp_path / "syn.csv", tmp_path / "syn_config.json"
+    subprocess.run([py, os.path.join(KIT, "synthetic.py"), "--out", str(data), "--config-out", str(conf),
+                    "--authors", "20"], check=True, cwd=tmp_path)
+    r = subprocess.run([py, os.path.join(KIT, "train.py"), "--config", str(conf), "--out", str(tmp_path / "c"),
+                        "--quick", "--drop-effect", "opener=breaking"], cwd=tmp_path, capture_output=True, text=True)
+    assert r.returncode != 0 and "--drop-top-authors" in r.stderr

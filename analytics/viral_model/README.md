@@ -157,7 +157,8 @@ The report prints, for this effects model:
   (`--drop-effect opener=number`, repeatable; empty = every effect whose CI excludes 0), the K authors with the
   most posts at that level (nonzero value) are removed and the same regression and bootstrap are rerun. The
   report shows both estimates side by side, with N posts / N authors nonzero and the dropped authors (posts at the
-  level each). An effect that halves or loses its CI is carried by a few accounts.
+  level each). An effect that halves or loses its CI is carried by a few accounts. `--drop-effect` without
+  `--drop-top-authors K` is an error; with K but nothing named and no CI excluding 0, the report warns.
 
 **Validation.**
 - **GroupKFold by author** (5 folds): no author is ever in both train and test (checked; the report prints the
@@ -236,18 +237,26 @@ prints the slope `d log(views+1) / d log(age)` (for the spline, its average over
 
 Why the features are controls: if the feature mix correlates with age, an age-only regression attributes the
 features' effect to age and the adjustment over-corrects. `age_adjust_controls = "none"` gives that age-only
-fit, for comparison. With the features as controls, the effects table on the adjusted target equals the effect
-estimates of one regression with age as a control (Frisch-Waugh-Lovell).
+fit, for comparison. With the features as controls, the effects table on the adjusted target approximately
+equals the effect estimates of one regression with age as a control (Frisch-Waugh-Lovell; only approximately,
+because the target also subtracts the author's leave-one-out median of the adjusted views).
+
+The age curve is fitted once on all posts, before GroupKFold, not refitted inside each fold, so test-fold views
+help choose it. On synthetic data (4 seeds, null and planted effects) refitting it per fold moved pairwise
+accuracy by at most 0.0003; the report states this. The effects-table bootstrap (and the elastic-net and
+`--drop-top-authors` bootstraps) refits the age curve on every author resample, so the effects CIs include the
+age-fit uncertainty; without that, CIs of features that correlate with age would be too narrow.
 
 Synthetic check (`make_synthetic(age_window=(12, 36), age_exponent=0.6)`: views grow as age^0.6; videos are seen
 6 h older, BREAKING 5 h older, questions 4 h younger; N = 10 seeds, 5,484-5,772 posts and 140 authors each after
-filters). Mean estimate over seeds, (seeds whose 95 % CI, B = 100, covers the planted value). The "fixed 24 h
+filters). Mean estimate over seeds, (seeds whose 95 % CI, B = 100, covers the planted value; in the adjusted
+columns each bootstrap draw also refits the age curve). The "fixed 24 h
 twin" is the same data with every snapshot at exactly 24 h, i.e. what the wide window should reproduce:
 
 | effect | planted | fixed 24 h twin | wide, unadjusted | wide, loglinear | wide, spline | wide, loglinear age-only |
 |---|---|---|---|---|---|---|
-| media_type=video | +0.50 | +0.516 (10/10) | +0.646 (0/10) | +0.512 (10/10) | +0.513 (9/10) | +0.407 (1/10) |
-| opener=breaking | +0.40 | +0.419 (9/10) | +0.526 (0/10) | +0.417 (9/10) | +0.418 (9/10) | +0.332 (4/10) |
+| media_type=video | +0.50 | +0.516 (10/10) | +0.646 (0/10) | +0.512 (9/10) | +0.513 (9/10) | +0.407 (0/10) |
+| opener=breaking | +0.40 | +0.419 (9/10) | +0.526 (0/10) | +0.417 (9/10) | +0.418 (9/10) | +0.332 (5/10) |
 | has_question | -0.30 | -0.279 (10/10) | -0.370 (9/10) | -0.275 (8/10) | -0.275 (8/10) | -0.201 (4/10) |
 | media_type=image (age-neutral) | +0.25 | +0.260 (9/10) | +0.261 (8/10) | +0.260 (9/10) | +0.260 (9/10) | +0.258 (9/10) |
 | cashtag_count (age-neutral) | +0.10 | +0.124 (10/10) | +0.122 (10/10) | +0.123 (10/10) | +0.123 (10/10) | +0.125 (8/10) |
