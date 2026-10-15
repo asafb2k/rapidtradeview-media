@@ -14,7 +14,7 @@ unknown: every column is mapped in a JSON config. Python 3 with pandas, numpy an
 | `features.py` | derives text features from raw text; encodes features identically for training and drafts |
 | `config.example.json` | the column map and every setting, with defaults |
 | `drafts.example.json` | input format for `score_drafts.py` |
-| `synthetic.py` | synthetic dataset with planted effects, for a dry run and the tests |
+| `synthetic.py` | synthetic dataset with planted effects, for a dry run and the tests (`--age-window 12 36`: one snapshot per post at an age that correlates with the features) |
 | `tests/test_viral_model.py` | recovery, leakage, chance-level and end-to-end tests |
 
 ## Run it
@@ -29,7 +29,16 @@ python score_drafts.py --model out/model.pkl --drafts drafts.json --author-media
 python score_drafts.py --model out/model.pkl \
     --text 'BREAKING: $NVDA insider bought $12M' --media video --hour 14 \
     --text '$NVDA insider bought $12M. Signal or noise?' --media image --hour 14
+
+# wide age window (e.g. 24 h +/- 12 h, one snapshot per post): adjust for age, see "Wide age window"
+python train.py --config config.json --age-adjust loglinear          # or spline
+# is an effect carried by a few authors? re-estimate it without the K authors with most posts at that level
+python train.py --config config.json --drop-top-authors 5 --drop-effect opener=number --drop-effect media_type=video
 ```
+
+`--age-adjust`, `--drop-top-authors` and `--drop-effect` override `target.age_adjust`, `models.drop_top_authors`
+and `models.drop_top_effects` in the config. Both are off by default, so a config without them reproduces earlier
+results exactly.
 
 Dry run without data:
 
@@ -86,6 +95,8 @@ The author median is the median views of that author's **other** posts at the sa
 so a post never sets its own baseline; or a supplied column (`author_median_source = "column"`, which must already
 exclude the post). Authors with fewer than 5 posts at the fixed age are dropped (`min_posts_per_author`).
 `y = 0` means "a typical post for this author"; `exp(y)` is "x the author's median views".
+With `target.age_adjust` on, views are first moved to the fixed age (see "Wide age window") and `y` is built from
+the adjusted views the same way.
 
 Optional binary label: the top 20 % of `y` (`binary_top_fraction`), threshold taken from the training rows.
 Secondary target: within-author engagement rate,
@@ -109,7 +120,8 @@ Secondary target: within-author engagement rate,
 Caveat: X API text often ends with a `t.co` link for attached media, which would make `link_present` track media.
 If your text has those, strip them before training or map your own `link_present` column.
 
-Never features: followers, the author median or any author baseline, engagement counts, snapshot age, author
+Never features: followers, the author median or any author baseline, engagement counts, snapshot age (also not
+with `age_adjust`: it changes the target, never the features, and drafts are scored without an age), author
 identity. Categorical levels seen < 30 times collapse into `other`; the most common level is the reference.
 
 **Within-author estimation.** Ridge and elastic net are fitted on author-demeaned features and target
@@ -133,6 +145,19 @@ image +0.258, BREAKING +0.423, question -0.309, per cashtag +0.107, 12-15 UTC +0
 approximate: over the same 30 seeds (200 bootstraps each) they covered the planted value 0.92 of the time on
 average, 0.83 for `cashtag_count` and `hour_bin=h12-15`, and 0.93 for the zero-effect features. Read them as
 a guide, not an exact 95 %.
+
+The report prints, for this effects model:
+- the bootstrap B in the section heading (`bootstrap B = 200`);
+- `N posts nonzero` and `N authors nonzero` per row: how many posts and how many distinct authors have the
+  feature (level) at all. An effect seen in 400 posts from 6 authors is mostly those 6 authors;
+- its **own** within-author pairwise accuracy (GroupKFold by author, same folds and metric as the predictive
+  models) next to a shuffled-target control of the same model (target permuted within author, 5 permutations).
+  This checks that the model the effects come from ranks posts at all, not only the primary model;
+- with `models.drop_top_authors = K` (`--drop-top-authors K`): for each effect named in `drop_top_effects`
+  (`--drop-effect opener=number`, repeatable; empty = every effect whose CI excludes 0), the K authors with the
+  most posts at that level (nonzero value) are removed and the same regression and bootstrap are rerun. The
+  report shows both estimates side by side, with N posts / N authors nonzero and the dropped authors (posts at the
+  level each). An effect that halves or loses its CI is carried by a few accounts.
 
 **Validation.**
 - **GroupKFold by author** (5 folds): no author is ever in both train and test (checked; the report prints the
@@ -171,10 +196,11 @@ Every rate in the report carries its N. Rows with fewer than 200 pairs or 10 aut
    bigger authors' pairs, ranks posts of the small authors in the corpus (count their authors: often a few dozen).
    They do not estimate the effects for small accounts, and they do not show that the effects hold for an account
    with 5-50 views a post (see below).
-4. **Feature effects (within-author least squares).** `per unit` is the change in `y` (log views vs the author's median) for one unit of
+4. **Feature effects (within-author least squares).** First line: the effects model's own pairwise accuracy vs
+   its shuffled control; if it does not clear the control, do not read the table. `per unit` is the change in `y` (log views vs the author's median) for one unit of
    the feature; `x views` = exp(per unit), e.g. `media_type=video 1.60` = +60 % views vs the author's median compared
    with the reference level (`none`), holding the other features fixed. Trust an effect when its CI excludes 0,
-   `N posts nonzero` and `N authors` are large, and it also appears in the elastic net (selected in most bootstraps)
+   `N posts nonzero` and `N authors nonzero` are large, it survives `--drop-top-authors`, and it also appears in the elastic net (selected in most bootstraps)
    and in the permutation table. With ~30 features expect one or two CIs to exclude 0 by chance (the synthetic run
    shows `is_quote` doing exactly that).
 5. **Permutation importance.** How much pairwise accuracy drops when one feature is shuffled: the features the
@@ -186,6 +212,59 @@ Every rate in the report carries its N. Rows with fewer than 200 pairs or 10 aut
 
 These are observational estimates. Comparing within an author removes author size and style, not news flow: a
 BREAKING post often rides a bigger story. Use the effects to choose between drafts, then test them on real posts.
+
+## Wide age window
+
+The target compares posts **at the same age**. With the default window (24 h +/- 3 h, closest snapshot per post)
+age barely varies. A wide window (24 h +/- 12 h, one snapshot per post) lets views grow with age inside the window:
+a post seen at 36 h has more views than the same post at 12 h. If the feature mix differs with age (for example
+the scraper reached videos or BREAKING posts later), the age gap shows up as a feature effect. Author fixed effects
+do not fix this: the age varies between posts of the same author.
+
+`target.age_adjust` (default `"none"`):
+
+- `"loglinear"`: `log(views+1) = author effect + slope * log(age_hours) + content features + noise`;
+- `"spline"`: the same with a natural cubic spline of `log(age_hours)` (`age_spline_df`, default 3: knots at the
+  data range and the 1/3 and 2/3 quantiles; linear beyond the range).
+
+The regression is pooled across posts, with author fixed effects (demeaned within author), and with the content
+features as controls (`age_adjust_controls = "features"`, default). Every post is then moved to the fixed age,
+`log(views_adj+1) = log(views+1) - [f(age) - f(24 h)]`, and the within-author target is built from the adjusted
+views as usual. Age is never a model feature and is not used at scoring. The report's "Age adjustment" section
+prints the slope `d log(views+1) / d log(age)` (for the spline, its average over posts) with an author-bootstrap
+95 % CI (B = `models.bootstrap`), and the fitted curve on an age grid (`x views vs ref`).
+
+Why the features are controls: if the feature mix correlates with age, an age-only regression attributes the
+features' effect to age and the adjustment over-corrects. `age_adjust_controls = "none"` gives that age-only
+fit, for comparison. With the features as controls, the effects table on the adjusted target equals the effect
+estimates of one regression with age as a control (Frisch-Waugh-Lovell).
+
+Synthetic check (`make_synthetic(age_window=(12, 36), age_exponent=0.6)`: views grow as age^0.6; videos are seen
+6 h older, BREAKING 5 h older, questions 4 h younger; N = 10 seeds, 5,484-5,772 posts and 140 authors each after
+filters). Mean estimate over seeds, (seeds whose 95 % CI, B = 100, covers the planted value). The "fixed 24 h
+twin" is the same data with every snapshot at exactly 24 h, i.e. what the wide window should reproduce:
+
+| effect | planted | fixed 24 h twin | wide, unadjusted | wide, loglinear | wide, spline | wide, loglinear age-only |
+|---|---|---|---|---|---|---|
+| media_type=video | +0.50 | +0.516 (10/10) | +0.646 (0/10) | +0.512 (10/10) | +0.513 (9/10) | +0.407 (1/10) |
+| opener=breaking | +0.40 | +0.419 (9/10) | +0.526 (0/10) | +0.417 (9/10) | +0.418 (9/10) | +0.332 (4/10) |
+| has_question | -0.30 | -0.279 (10/10) | -0.370 (9/10) | -0.275 (8/10) | -0.275 (8/10) | -0.201 (4/10) |
+| media_type=image (age-neutral) | +0.25 | +0.260 (9/10) | +0.261 (8/10) | +0.260 (9/10) | +0.260 (9/10) | +0.258 (9/10) |
+| cashtag_count (age-neutral) | +0.10 | +0.124 (10/10) | +0.122 (10/10) | +0.123 (10/10) | +0.123 (10/10) | +0.125 (8/10) |
+| age slope | +0.60 | - | - | +0.612 (10/10) | +0.596 (10/10) | +1.085 (0/10) |
+
+What the adjustment assumes, and what it cannot fix:
+
+- **One growth curve for all posts.** It removes the average age trend. If videos accrue views later than text
+  posts (a different curve shape), a wide window still mixes that into the video effect. Compare the effects from
+  a narrow window (`age_tolerance_hours = 3`, adjustment off) with the adjusted wide window: if they agree, the
+  wide window only added posts; if they disagree, prefer the narrow one.
+- **Age must vary within authors.** Authors whose posts were all seen at the same age add nothing to the slope;
+  the report counts the authors with more than one distinct age.
+- **Selection by age.** If posts seen late were found because they were already popular (search results), that
+  is selection on the outcome, not growth with age; no age model removes it (see "Selection on the outcome").
+- With several snapshots per post, the kit still keeps one per post (closest to the target age); the slope comes
+  from differences between posts, not from a post's own growth.
 
 ## Transfer to a tiny account
 
@@ -273,6 +352,11 @@ rank   score  x median    P(top 20%)  ER score  variant
 | `models.min_level_count` | 30 | rarer categorical levels -> `other` |
 | `models.bootstrap` / `bootstrap_enet` | 200 / 100 | author-resampled bootstraps for CIs |
 | `models.effects_alpha` | 1e-6 | penalty of the effects-table regression (near zero = unshrunk) |
+| `target.age_adjust` | `none` | `loglinear` or `spline`: move every post to the fixed age first (wide age window) |
+| `target.age_adjust_controls` | `features` | content features as controls in the age fit; `none` = age only |
+| `target.age_spline_df` | 3 | natural-spline df for `age_adjust = "spline"` |
+| `models.drop_top_authors` | 0 | K > 0: re-estimate effects without the K authors with most posts at that level |
+| `models.drop_top_effects` | [] | effects to re-estimate (e.g. `opener=number`); empty = every effect whose CI excludes 0 |
 | `validation.max_pairs_per_author` | 1,000,000 | pairs per author before sampling (effectively no cap) |
 
 Model hyper-parameters (`ridge_alphas`, `enet_alphas`, `enet_l1_ratios`, `hgb_params`, `tfidf`, `text_alphas`)
