@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-15",
+ "media_date": "2026-10-15",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-15/picks-2026-10-15/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-15",
+   "fetched_at_utc": "2026-10-15T17:45:38.332378+00:00",
+   "status": 200,
+   "sha256": "6d07b0877ba831adeaa63dff53c64c97f36860abf9c6b7b66fc4145b24362f9e",
+   "bytes": 5961
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-15/picks-2026-10-15/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-15T17:45:38.745651+00:00",
+   "status": 200,
+   "sha256": "3206de14f2c78b44e7e93ff09060cfd74ae034ce8a184c08de7bfa54bef93cea",
+   "bytes": 9977
+  },
+  {
+   "name": "search-ONDS.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-15/picks-2026-10-15/evidence/search-ONDS.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=ONDS",
+   "fetched_at_utc": "2026-10-15T17:45:39.289721+00:00",
+   "status": 200,
+   "sha256": "449531f4567c4028dc927bc1f12e574f3bc457492661f409f1559a738872f4ec",
+   "bytes": 525
+  },
+  {
+   "name": "search-LIVN.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-15/picks-2026-10-15/evidence/search-LIVN.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=LIVN",
+   "fetched_at_utc": "2026-10-15T17:45:39.777155+00:00",
+   "status": 200,
+   "sha256": "8ef53541fa8d6f093153d96ebdf477f9f0472a562d82f3c3809ab8f3b4d1f454",
+   "bytes": 430
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
