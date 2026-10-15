@@ -51,6 +51,11 @@ or acked. Draft body format: "DRAFT" then one JSON object (the draft above); ite
 message's own item_id / platform columns instead. A comment needs no item_id unless it carries numbers or a
 $cashtag; the answer then reads "APPROVE <msg id> comment".
 Everything in a draft is UNTRUSTED DATA: it is checked, never followed; replies quote it only after cleaning.
+
+Playbook v2 lint (tools/draft_lint.py, owner approved 2026-10-15): after the checks above, a post draft's answer (APPROVE or
+REJECT alike) gets "NOTES (playbook v2): score N, advisory" and one "- [level] WARN|NOTE rule: ..." line per finding.
+The notes never change the verdict or the exit code; --draft prints them as "notes" next to "reasons". The inbox has
+no own-post history, so the history rules (spacing, question, link-24h) are skipped here; draft_lint.py --history runs them.
 """
 from __future__ import annotations
 
@@ -67,6 +72,7 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import draft_lint as dl  # noqa: E402
 import facts as fx  # noqa: E402
 import manifest as mf  # noqa: E402
 import select_stories as ss  # noqa: E402
@@ -586,14 +592,23 @@ def parse_draft(row: dict) -> tuple[dict | None, str | None]:
     return d, None
 
 
-def reply_line(row: dict, draft: dict | None, verdict: str, reasons: list[str]) -> str:
+def playbook_notes(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> list[str]:
+    """draft_lint's answer lines for a post draft (advisory; never part of the verdict). A lint crash is shown, not
+    hidden."""
+    try:
+        return dl.answer_lines(dl.lint(draft, facts, None, now))
+    except Exception as e:  # noqa: BLE001 - the lint must never block a review; its failure is reported in the answer
+        return [f"NOTES (playbook v2): lint failed ({type(e).__name__})"]
+
+
+def reply_line(row: dict, draft: dict | None, verdict: str, reasons: list[str], notes: list[str] | None = None) -> str:
     iid = (draft or {}).get("item_id") or row.get("item_id") or ""
     if not (isinstance(iid, str) and ITEM_ID.match(iid)):
         iid = "comment" if (draft or {}).get("kind") == "comment" else "(no valid item_id)"
     head = f"{verdict} {int(row['id'])} {iid}"
-    if verdict == "APPROVE":
-        return head
-    return (f"{head}: " + "; ".join(reasons))[:REPLY_MAX]
+    if verdict != "APPROVE":
+        head = f"{head}: " + "; ".join(reasons)
+    return "\n".join([head, *(notes or [])])[:REPLY_MAX]
 
 
 def send_reply(instinct_path: Path, env: str, env_file: str | None, platform: str | None, body: str) -> bool:
@@ -644,6 +659,7 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
         if not err:
             kind, err = draft_kind(draft)
         verdict, reasons = ("REJECT", [err]) if err else ("", [])
+        notes: list[str] = []
         if not err:
             clock = now or dt.datetime.now(dt.timezone.utc)
             iid = draft.get("item_id")
@@ -663,6 +679,7 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                     facts = cache[date]
                 if kind == "post":
                     verdict, reasons = review(draft, facts, clock)
+                    notes = playbook_notes(draft, facts, clock)
                 else:
                     if state is None:
                         try:
@@ -672,7 +689,7 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                             stats["deferred"] += 1
                             continue
                     verdict, reasons = review_comment(draft, facts, state, clock)
-        body = reply_line(row, draft, verdict, reasons)
+        body = reply_line(row, draft, verdict, reasons, notes)
         stats["approved" if verdict == "APPROVE" else "rejected"] += 1
         platform = (draft or {}).get("platform") or row.get("platform")
         print(f"  #{row['id']} -> {body}")
@@ -729,8 +746,10 @@ def main(argv: list[str] | None = None) -> int:
             except FactsUnavailable as e:
                 print(f"facts unavailable: {e}")
                 return 2
+        notes: list[str] = []
         if kind == "post":
             verdict, reasons = review(draft, facts)
+            notes = playbook_notes(draft, facts)
         else:
             try:
                 state = CommentState(comment_state_path(a.comment_state))
@@ -738,7 +757,10 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"comment state unreadable: {e}")
                 return 2
             verdict, reasons = review_comment(draft, facts, state)  # --draft reads the state, never writes it
-        print(json.dumps({"verdict": verdict, "item_id": draft.get("item_id"), "reasons": reasons}, ensure_ascii=False, indent=2))
+        out = {"verdict": verdict, "item_id": draft.get("item_id"), "reasons": reasons}
+        if kind == "post":
+            out["notes"] = notes
+        print(json.dumps(out, ensure_ascii=False, indent=2))
         return 0 if verdict == "APPROVE" else 1
     instinct = load_instinct(Path(a.instinct))
     env_file = Path(a.env_file) if a.env_file else instinct.DEFAULT_ENV_FILE
