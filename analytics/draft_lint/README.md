@@ -14,8 +14,8 @@ python draft_lint.py --facts https://asafb2k.github.io/rapidtradeview-media/v/20
 | flag | meaning |
 |---|---|
 | `--facts` | the day's facts.json, URL or local path (the only network read) |
-| `--draft` | one draft object or a list of them |
-| `--history` | optional: our own recent posts, for the spacing, question and link-per-day rules |
+| `--draft` | local path: one draft object or a list of them |
+| `--history` | optional local path: our own recent posts, for the spacing, question and link-per-day rules (platform matched case-insensitively) |
 | `--now` | optional ISO time to lint at (default: now, UTC); a draft's `planned_at` wins |
 | `--format` | `text`, `json` or `both` (default) |
 
@@ -55,14 +55,14 @@ Each finding is `[level] WARN|NOTE rule: message`:
 | rule | level | fires when |
 |---|---|---|
 | cashtags | real | fewer than 2 or more than 5 distinct cashtags; only mega-caps / only index-ETFs; a cashtag the facts do not support (the item's tickers, other items' tickers in the same facts, moves_like peers). For item types compliance holds to ONE cashtag today (everything but the earnings roundup, PTR summary, moves_like and picks), the count and mega-only findings are NOTEs |
-| numbers | real | fewer than 2 concrete figures, or none in the first line (filing names such as Form 4 and cashtags are not figures) |
-| macro | real | Fed / FOMC / CPI / PPI / yields / Treasury / oil / jobs report / GDP / inflation with no stock cashtag; predictive words (will, expect, likely, set to, poised) in a macro post |
+| numbers | real | fewer than 2 concrete figures, or none in the first line (filing names such as Form 4, fiscal-period labels such as Q3 2026 / FY26, and cashtags are not figures) |
+| macro | real | Fed / FOMC / CPI / PPI / yields / Treasury / oil / jobs report / GDP / inflation with no stock cashtag; predictive words (will, expect, likely, set to, poised) in a macro post; "vs $5.56B expected" / "than expected" is results wording and does not count |
 | spacing | real | `--history`: our last post on that platform went out less than 2 h before the planned time |
 | length | likely | under 25 words; over 60 words on a niche item (congress, Form 4, earnings) |
 | link | likely | NOTE for any link in the body ("E2 arm?"); WARN when `--history` shows another body-link post on that platform in the last 24 h |
 | mention | likely | an @mention in the post or its self-reply |
 | question | likely | `--history`: the draft asks a question and one of our last 2 posts did too |
-| breaking | likely | BREAKING / JUST IN unless the item's event time (published_at, updated, filed ...) is under 60 min old; a date without a time cannot be verified |
+| breaking | likely | the BREAKING / JUST IN label (upper case anywhere, or "Breaking:" / "Just in -" leading a line; "Just in time", "Breaking down" are not it) unless the item's event time (published_at, updated, filed ...) is under 60 min old; a date without a time cannot be verified |
 | video | likely | NOTE on X when the item has a Reel but the draft's media is not video ("E1 arm?") |
 | earnings_speed | likely | NOTE when an earnings result first appeared (first_seen_at, else published_at) more than 60 min before the planned time |
 | list | likely | 4+ list lines (bullet, numbered, emoji- or cashtag-led) in a niche post |

@@ -115,6 +115,12 @@ def test_numbers():
     assert msgs == ["no figure in the first line; lead with the headline number"]
     # filing names and cashtags are not figures
     assert dl.figures("$BPRE insider buy (Form 4) and an 8-K") == []
+    # fiscal-period labels are not figures (the usual earnings_result wording)
+    assert dl.figures("$PLD Prologis published Q3 2026 results. Not investment advice.") == []
+    assert dl.figures("Q3'26, Q3 FY26, FY2026, FY 26 and H1 2025") == []
+    assert dl.figures("Q3 GAAP EPS $0.86 vs $0.80 in Q3 2025") == ["0.86", "0.80"]
+    pld = run(draft("$PLD Prologis published Q3 2026 results: GAAP EPS $0.86. Not investment advice.", PLD))
+    assert any(f["message"].startswith("1 concrete figure;") for f in pld["findings"] if f["rule"] == "numbers")
 
 
 # macro [real] ----------------------------------------------------------------------------------------------------
@@ -126,6 +132,12 @@ def test_macro_only_and_predictive():
     tied = run(draft("Bank stocks after CPI: $NXPI fell 2.4% and $ON 4.3% on Oct 14. " + "word " * 15))
     assert "macro" not in rules(tied)
     assert "macro" not in rules(run(draft("FedEx $GME $NXPI shipped 2 and 3 " + "word " * 25)))
+    # "vs $5.56B expected" / "than expected" is results wording, not a forecast
+    beat = ("$BNY Q3 revenue $5.68B vs $5.56B expected, EPS better than expected; inflation-linked fees rose 4%. "
+            + "word " * 10)
+    assert "macro" not in rules(run(draft(beat, BNY)))
+    fwd = run(draft("$BNY: Treasury yields are expected to fall 0.25% by Dec. " + "word " * 15, BNY))
+    assert any("predictive framing in a macro post (expected)" in f["message"] for f in fwd["findings"])
 
 
 # spacing [real] --------------------------------------------------------------------------------------------------
@@ -141,6 +153,11 @@ def test_spacing():
     later = draft(planned_at=(NOW + dt.timedelta(hours=2)).isoformat())
     assert "spacing" not in rules(run(later, history=[post(70)]))
     assert "spacing, question, link-24h (no --history)" in run(draft())["skipped"]
+    # platform is compared case-insensitively, both sides
+    assert "spacing" in rules(run(draft(), history=[post(45, platform="X")]))
+    assert "spacing" in rules(run(draft(platform=" X "), history=[post(45)]))
+    ig_only = run(draft(), history=[post(45, platform="instagram")])
+    assert "spacing, question, link-24h (no history rows for platform 'x')" in ig_only["skipped"]
 
 
 # length [likely] -------------------------------------------------------------------------------------------------
@@ -198,6 +215,13 @@ def test_breaking():
     assert "breaking" not in rules(run(draft("$NXPI breakingly 2.4% 3.1 " + "word " * 25)))
     assert "breaking" not in rules(run(draft("$NXPI fell 2.4%, just in time for 3 reports " + "word " * 25)))
     assert "breaking" in rules(run(draft("Breaking: $NXPI fell 2.4% and 3.1 " + "word " * 25)))
+    # ordinary words leading a line are not the label
+    for t in ("Just in time for the open, $NXPI fell 2.4% and 3.1 ", "Breaking down $NXPI: fell 2.4% and 3.1 ",
+              "Justin says $NXPI fell 2.4% and 3.1 ", "$NXPI JUSTIN fell 2.4% and 3.1 "):
+        assert "breaking" not in rules(run(draft(t + "word " * 25))), t
+    for t in ("Just in: $NXPI fell 2.4% and 3.1 ", "🚨 Breaking news - $NXPI fell 2.4% and 3.1 ",
+              "$NXPI JUST-IN fell 2.4% and 3.1 "):
+        assert "breaking" in rules(run(draft(t + "word " * 25))), t
 
 
 # video [likely] --------------------------------------------------------------------------------------------------
@@ -293,6 +317,21 @@ def test_cli(tmp_path, capsys):
     assert [r["score"] for r in out][0] == 1 and out[1]["score"] > 1
     assert dl.main(["--facts", str(tmp_path / "missing.json"), "--draft", str(d)]) == 2
     assert dl.main(["--facts", str(f), "--draft", str(d), "--now", "yesterday"]) == 2
+
+
+def test_only_facts_may_be_a_url(monkeypatch, tmp_path, capsys):
+    def no_network(*a, **k):
+        raise AssertionError("network read attempted")
+    monkeypatch.setattr(dl.urllib.request, "urlopen", no_network)
+    for what in ("draft", "history"):
+        with pytest.raises(dl.InputError, match="must be a local path"):
+            dl.load_json("https://example.invalid/d.json", what)
+    with pytest.raises(dl.InputError, match="must be a local path"):
+        dl.load_json("file:///C:/d.json", "draft")
+    f = tmp_path / "facts.json"
+    f.write_text(json.dumps(FACTS), encoding="utf-8")
+    assert dl.main(["--facts", str(f), "--draft", "https://example.invalid/d.json"]) == 2
+    assert "only --facts may be a URL" in capsys.readouterr().err
 
 
 def test_pages_copy_is_identical():

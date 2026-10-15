@@ -84,6 +84,9 @@ URL = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
 CASHTAG = re.compile(r"(?<![\w$])\$([A-Za-z]{1,5}(?:[.-][A-Za-z]{1,2})?)(?![\w])")
 DOC_NAME = re.compile(r"(?<![\w$.,/-])(?:Form\s+(?:4|144|13F)|8-K|10-Q|10-K|13F)(?![\w%$/]|[.,-]\d)", re.IGNORECASE)
 NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
+# Fiscal-period labels (Q3 2026, Q3'26, Q3 FY26, FY2026, H1) name the period; they are not figures.
+PERIOD = re.compile(r"\b(?:(?:Q[1-4]|H[12])(?:\s*(?:(?:19|20)\d{2}\b|'\d{2}\b|FY\s*'?\d{2,4}\b))?|FY\s*'?\d{2,4})\b",
+                    re.IGNORECASE)
 HASHTAG = re.compile(r"(?<![\w&/])[#\uff03](?=\w*[^\W\d_])\w+")
 MENTION = re.compile(r"(?<![\w@.])@([A-Za-z0-9_]{1,30})")
 WORD = re.compile(r"[A-Za-z0-9]")
@@ -97,8 +100,12 @@ MACRO_CASE = re.compile(r"\b(?:Fed|FOMC|CPI|PPI|GDP)\b")
 MACRO_WORDS = re.compile(r"\b(?:federal reserve|yields?|treasury|treasuries|oil|crude|jobs reports?|payrolls?|inflation)\b",
                          re.IGNORECASE)
 PREDICTIVE = re.compile(r"\b(?:will|expects?|expected|expecting|likely|set to|poised)\b", re.IGNORECASE)
-# The label, not the phrase: upper case anywhere, or any case leading a line ("Breaking:"); "just in time" is not it.
-BREAKING = re.compile(r"\b(?:BREAKING|JUST[\s-]*IN)\b|^\W*(?i:breaking|just[\s-]*in)\b", re.MULTILINE)
+# "expected" after vs / versus / than (within 3 words) compares a result with the estimate: results wording, not a forecast.
+ESTIMATE_LEAD = re.compile(r"(?:^|\s)(?:vs\.?|versus|than)(?:\s+\S+){0,2}\s*$", re.IGNORECASE)
+# The label, not the words: upper case anywhere, or any case leading a line AS a label ("Breaking:", "Just in -").
+# "Just in time for the open", "Breaking down Q3" and "Justin" are not it.
+BREAKING = re.compile(r"\b(?:BREAKING|JUST[\s-]+IN)\b"
+                      r"|^\W*(?i:breaking(?:\s+news)?|just[\s-]+in)\s*[:|!–—-]", re.MULTILINE)
 VIDEO_EXT = re.compile(r"\.(?:mp4|mov|m4v|webm)(?:[?#].*)?$", re.IGNORECASE)
 EVENT_KEYS = ("published_at", "published", "updated_at", "updated", "filed_at", "filed")
 FIRST_SEEN_KEYS = ("first_seen_at", "first_seen", "published_at")
@@ -111,9 +118,11 @@ class InputError(Exception):
 # ---------------------------------------------------------------------------
 # Inputs
 
-def load_json(where: str, what: str):
-    """JSON from a URL (facts only) or a local path."""
-    if re.match(r"^https?://", str(where)):
+def load_json(where: str, what: str, allow_url: bool = False):
+    """JSON from a local path, or from a URL when allow_url (facts only: the lint reads nothing else off the network)."""
+    if re.match(r"^[A-Za-z][A-Za-z0-9+.-]*://", str(where)):
+        if not allow_url:
+            raise InputError(f"{what} {short(where)}: must be a local path (only --facts may be a URL)")
         req = urllib.request.Request(str(where), headers={"User-Agent": UA, "Accept": "application/json",
                                                           "Cache-Control": "no-cache"})
         try:
@@ -147,6 +156,11 @@ def parse_time(v) -> dt.datetime | None:
     return t.astimezone(dt.timezone.utc)
 
 
+def norm_platform(v) -> str:
+    """'X ' and 'x' are the same platform."""
+    return str(v or "").strip().lower()
+
+
 def history_rows(history) -> list[dict]:
     """Own top-level posts with a parseable time, oldest first."""
     if history is None:
@@ -161,7 +175,7 @@ def history_rows(history) -> list[dict]:
         t = parse_time(r.get("posted_at") or r.get("at") or r.get("created_at"))
         if t is None:
             continue
-        out.append({"platform": r.get("platform"), "at": t, "text": str(r.get("text") or "")})
+        out.append({"platform": norm_platform(r.get("platform")), "at": t, "text": str(r.get("text") or "")})
     return sorted(out, key=lambda r: r["at"])
 
 
@@ -179,8 +193,9 @@ def cashtags(text: str) -> list[str]:
 
 
 def figures(text: str) -> list[str]:
-    """Concrete figures: number tokens outside URLs, cashtags and filing names (Form 4, 8-K, 13F ...)."""
-    s = DOC_NAME.sub(" ", CASHTAG.sub(" ", core(text)))
+    """Concrete figures: number tokens outside URLs, cashtags, filing names (Form 4, 8-K, 13F ...) and fiscal-period
+    labels (Q3 2026, FY26)."""
+    s = PERIOD.sub(" ", DOC_NAME.sub(" ", CASHTAG.sub(" ", core(text))))
     return NUMBER.findall(s)
 
 
@@ -262,7 +277,7 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
         raise InputError("the draft must be a JSON object")
     text = draft.get("text") if isinstance(draft.get("text"), str) else ""
     reply = draft.get("reply_text") if isinstance(draft.get("reply_text"), str) else ""
-    platform = draft.get("platform")
+    platform = norm_platform(draft.get("platform"))
     iid = draft.get("item_id")
     items = (facts or {}).get("items") or []
     item = next((i for i in items if isinstance(i, dict) and i.get("item_id") == iid), None)
@@ -315,7 +330,8 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
         if not stock:
             add("macro", "real", "warn", f"macro-only post ({', '.join(macro)}) with no stock cashtag (-15%); "
                                          "tie it to tickers with facts")
-        pred = sorted({m.group(0).lower() for m in PREDICTIVE.finditer(body)})
+        pred = sorted({m.group(0).lower() for m in PREDICTIVE.finditer(body)
+                       if not (m.group(0).lower() == "expected" and ESTIMATE_LEAD.search(body[:m.start()]))})
         if pred:
             add("macro", "real", "warn", f"predictive framing in a macro post ({', '.join(pred)}); facts only")
 
@@ -324,6 +340,8 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
     mine = [r for r in rows if r["platform"] == platform and r["at"] < planned]  # strictly before: not the post itself
     if history is None:
         skipped.append("spacing, question, link-24h (no --history)")
+    elif rows and not any(r["platform"] == platform for r in rows):
+        skipped.append(f"spacing, question, link-24h (no history rows for platform '{short(platform, 12)}')")
     else:
         # spacing [real]
         if mine:
@@ -473,7 +491,7 @@ def main(argv: list[str] | None = None) -> int:
             now = parse_time(a.now)
             if now is None:
                 raise InputError(f"--now {short(a.now)}: not an ISO time with hours and minutes")
-        facts = load_json(a.facts, "facts")
+        facts = load_json(a.facts, "facts", allow_url=True)
         if not isinstance(facts, dict):
             raise InputError("facts must be a JSON object")
         drafts = load_json(a.draft, "draft")
