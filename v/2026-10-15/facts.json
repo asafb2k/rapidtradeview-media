@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-15",
-  "generated_at": "2026-10-15T14:00:04Z",
-  "as_of": "2026-10-15T14:00:04Z",
+  "generated_at": "2026-10-15T17:30:04Z",
+  "as_of": "2026-10-15T17:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -57,15 +57,14 @@
     "form4_buy": 7,
     "earnings_result": 13,
     "earnings_upcoming": 5,
-    "picks_ready": 0,
+    "picks_ready": 1,
     "chart_pattern": 1,
     "moves_like": 4,
     "earnings_tomorrow_roundup": 1,
     "ptr_summary": 0
   },
   "reasons": {
-    "ptr_summary": "4 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "picks_ready": "the published list (2026-10-14) expires 2026-10-15T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
+    "ptr_summary": "4 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)"
   },
   "left_out": {
     "congress_trade": {
@@ -1799,6 +1798,54 @@
       "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
     },
     {
+      "item_id": "2026-10-15-picks-ready-LIST-5f8241",
+      "type": "picks_ready",
+      "ticker": null,
+      "tickers": [
+        "ONDS",
+        "LIVN"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/picks/2026-10-15",
+      "page_url": "https://www.rapidtradeview.trade/picks/2026-10-15?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-picks-ready-LIST-5f8241",
+      "allowed_numbers": [
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The RapidTradeView daily picks list for 2026-10-15 is published; the public picks are ONDS, LIVN.",
+      "dedupe_key": "picks:2026-10-15",
+      "trade_date": "2026-10-15",
+      "valid_until": "2026-10-16T17:30:00+00:00",
+      "picks": [
+        {
+          "ticker": "ONDS",
+          "direction": "bullish"
+        },
+        {
+          "ticker": "LIVN",
+          "direction": "bullish"
+        }
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/picks/2026-10-15/opengraph-image",
+          "kind": "image",
+          "alt": "The RapidTradeView daily picks list for 2026-10-15 is published; the public picks are ONDS, LIVN."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "picks_ready 2; today 2026-10-15 (age 0) +2"
+    },
+    {
       "item_id": "2026-10-15-chart-pattern-CRWV-9c6f5c",
       "type": "chart_pattern",
       "ticker": "CRWV",
@@ -1821,7 +1868,7 @@
         "$60.55",
         "$79.03",
         "$78.27",
-        "$77.81",
+        "$65.78",
         "Oct 8",
         "Aug 13",
         "Sep 8",
@@ -1829,18 +1876,18 @@
         "Jul 29",
         "Sep 3",
         "Sep 17",
-        "Oct 13",
-        "2026-10-14",
-        "Oct 14, 2026",
         "Oct 14",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
         "2026-07-29",
         "Jul 29, 2026",
         "2026-10-06",
         "Oct 6, 2026",
         "2026-10-08",
         "Oct 8, 2026",
-        "2026-10-13",
-        "Oct 13, 2026",
+        "2026-10-14",
+        "Oct 14, 2026",
         "2026-08-13",
         "Aug 13, 2026",
         "2026-09-03",
@@ -1853,9 +1900,9 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Automatic technical analysis flagged a symmetrical triangle on $CRWV (CoreWeave, Inc.) (scan 2026-10-14): pattern 2026-07-29 to 2026-10-06. Confirmed Oct 8: closed $81.58, clearly below the lower line at $88.99.",
+      "facts_text": "Automatic technical analysis flagged a symmetrical triangle on $CRWV (CoreWeave, Inc.) (scan 2026-10-15): pattern 2026-07-29 to 2026-10-06. Confirmed Oct 8: closed $81.58, clearly below the lower line at $88.99.",
       "dedupe_key": "pattern:CRWV:symmetrical_triangle:confirmed:2026-10-08",
-      "scan_date": "2026-10-14",
+      "scan_date": "2026-10-15",
       "pattern": {
         "type": "symmetrical_triangle",
         "name": "Symmetrical triangle",
@@ -1866,7 +1913,7 @@
         "start_text": "Jul 29, 2026",
         "end_text": "Oct 6, 2026",
         "confirmed_on": "2026-10-08",
-        "as_of": "2026-10-13"
+        "as_of": "2026-10-14"
       },
       "levels": {
         "key_level_name": "lower line",
@@ -1885,7 +1932,7 @@
         "points": [
           "Highs $117.49 (Aug 13) → $104.59 (Sep 8) → $93.21 (Oct 6)",
           "Lows $60.55 (Jul 29) → $79.03 (Sep 3) → $78.27 (Sep 17)",
-          "Oct 8 closed $81.58: confirmed · last close $77.81 (Oct 13)"
+          "Oct 8 closed $81.58: confirmed · last close $65.78 (Oct 14)"
         ]
       },
       "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
@@ -1897,11 +1944,11 @@
         {
           "url": "https://www.rapidtradeview.trade/dashboard/CRWV/opengraph-image",
           "kind": "image",
-          "alt": "Automatic technical analysis flagged a symmetrical triangle on $CRWV (CoreWeave, Inc.) (scan 2026-10-14): pattern 2026-07-29 to 2026-10-06. Confirmed Oct 8: closed $81.58, clearly below the lower line at $88.99."
+          "alt": "Automatic technical analysis flagged a symmetrical triangle on $CRWV (CoreWeave, Inc.) (scan 2026-10-15): pattern 2026-07-29 to 2026-10-06. Confirmed Oct 8: closed $81.58, clearly below the lower line at $88.99."
         }
       ],
-      "rank": 2.5,
-      "rank_why": "chart_pattern 1; scan_date 2026-10-14 (age 1) +1.5"
+      "rank": 3.0,
+      "rank_why": "chart_pattern 1; scan_date 2026-10-15 (age 0) +2"
     },
     {
       "item_id": "2026-10-15-moves-like-NXPI-7cf083",
