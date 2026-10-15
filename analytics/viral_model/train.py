@@ -41,7 +41,7 @@ from sklearn.preprocessing import StandardScaler
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import features as F  # noqa: E402
 
-KIT_VERSION = "1.0.0"
+KIT_VERSION = "1.1.0"
 
 ROLES = [
     "id", "url", "author", "text", "created_at", "snapshot_utc", "age_hours",
@@ -70,6 +70,9 @@ DEFAULTS = {
         "binary": True,
         "binary_top_fraction": 0.2,
         "secondary_er": True,
+        "age_adjust": "none",
+        "age_adjust_controls": "features",
+        "age_spline_df": 3,
     },
     "validation": {
         "group_folds": 5,
@@ -107,6 +110,8 @@ DEFAULTS = {
         "bootstrap": 200,
         "bootstrap_enet": 100,
         "effects_alpha": 1e-6,
+        "drop_top_authors": 0,
+        "drop_top_effects": [],
     },
 }
 
@@ -200,6 +205,148 @@ def loo_median(values: np.ndarray, groups: np.ndarray) -> np.ndarray:
     return out
 
 
+AGE_ADJUST_MODES = ("none", "loglinear", "spline")
+
+
+class AgeBasis:
+    """log(age_hours) (loglinear) or a natural cubic spline of log(age_hours) with df columns
+    (spline: df + 1 knots, boundaries at the data range, interior knots at equal quantiles;
+    linear beyond the boundaries). No intercept: author fixed effects absorb the level."""
+
+    def __init__(self, kind: str, df: int = 3):
+        self.kind, self.df = kind, int(df)
+
+    def fit(self, age_hours) -> "AgeBasis":
+        x = np.log(np.asarray(age_hours, dtype=float))
+        if self.kind == "spline":
+            if self.df < 1:
+                raise ValueError("target.age_spline_df must be >= 1")
+            self.knots = np.quantile(x, np.linspace(0, 1, self.df + 1))
+            if len(np.unique(self.knots)) < len(self.knots):
+                raise ValueError(f"age spline: {self.df + 1} knots on log(age_hours) are not distinct "
+                                 "(too few distinct ages); use age_adjust='loglinear' or a smaller age_spline_df")
+        return self
+
+    def transform(self, age_hours) -> np.ndarray:
+        x = np.log(np.asarray(age_hours, dtype=float))
+        if self.kind == "loglinear":
+            return x[:, None]
+        k = self.knots
+        K = len(k)
+
+        def d(j):
+            return (np.clip(x - k[j], 0, None) ** 3 - np.clip(x - k[K - 1], 0, None) ** 3) / (k[K - 1] - k[j])
+
+        return np.column_stack([x] + [d(j) - d(K - 2) for j in range(K - 2)])
+
+    def describe(self) -> dict:
+        out = {"kind": self.kind, "variable": "log(age_hours)"}
+        if self.kind == "spline":
+            out.update({"df": self.df, "knots_age_hours": [float(math.exp(v)) for v in self.knots]})
+        return out
+
+
+
+def fit_age_adjustment(d: pd.DataFrame, cfg: dict, rng) -> tuple[np.ndarray, dict, object]:
+    """Model log(views+1) on f(log age_hours) with author fixed effects, pooled across posts, and
+    return (adjustment, info, refit) where adjustment = f(age) - f(target age) per post: subtracting it
+    from log(views+1) moves every post to the fixed target age, and refit(rows) is the same adjustment
+    with f refitted on those rows only (row indices into d; used by the effects bootstrap so its CIs
+    carry the age-fit uncertainty). With age_adjust_controls='features' (default) the content features
+    enter the same within-author regression as controls, so a feature mix that drifts with age does not
+    leak into f; the features' own coefficients are not used here (the effects table re-estimates them
+    on the adjusted target, which by Frisch-Waugh-Lovell approximately equals the joint estimate: the
+    target also subtracts the author's leave-one-out median). f is fitted once on all posts, before
+    GroupKFold. Age is never a model feature and is not used at scoring."""
+    t = cfg["target"]
+    kind, controls = t["age_adjust"], t.get("age_adjust_controls", "features")
+    if controls not in ("features", "none"):
+        raise ValueError("target.age_adjust_controls must be 'features' or 'none'")
+    groups = d["author"].to_numpy()
+    age = d["age_hours"].to_numpy(dtype=float)
+    lv = np.log1p(d["views"].to_numpy(dtype=float))
+    basis = AgeBasis(kind, t.get("age_spline_df", 3)).fit(age)
+    G = basis.transform(age)
+    p = G.shape[1]
+    Z = G
+    n_controls = 0
+    if controls == "features":
+        raw = F.build_raw_features(d, cfg)
+        X = F.FeatureSpec("linear", cfg["models"]["min_level_count"]).fit(raw).transform(raw)
+        Z = np.column_stack([G, X])
+        n_controls = X.shape[1]
+    # Author fixed effects: demean once; an author drawn twice in the bootstrap keeps the same rows.
+    Zd = author_demean(Z, groups)
+    lvd = author_demean(lv[:, None], groups)[:, 0]
+    if np.allclose(Zd[:, :p], 0):
+        raise ValueError("age_adjust: snapshot age does not vary within any author; nothing to fit")
+    gamma = np.linalg.lstsq(Zd, lvd, rcond=None)[0][:p]
+    ref_age = float(t["age_hours"])
+    g_ref = basis.transform(np.array([ref_age]))[0]
+    Gc = G - g_ref
+    adjustment = Gc @ gamma
+
+    def refit(rows):
+        return Gc @ np.linalg.lstsq(Zd[rows], lvd[rows], rcond=None)[0][:p]
+
+    # Curve on an age grid (data quantiles + the target age) and the average slope d f / d log(age).
+    grid = sorted({round(float(v), 1) for v in np.quantile(age, [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0])} | {ref_age})
+    Ggrid = basis.transform(np.array(grid)) - g_ref
+    h = 1e-3
+    Dslope = (basis.transform(age * math.exp(h)) - basis.transform(age * math.exp(-h))) / (2 * h)
+
+    def summaries(gm):
+        return float(np.mean(Dslope @ gm)), Ggrid @ gm
+
+    slope, curve = summaries(gamma)
+    B = int(cfg["models"].get("bootstrap") or 0)
+    slope_ci, curve_ci = None, None
+    if B:
+        uniq = np.unique(groups)
+        pos = pd.Series(np.arange(len(lv))).groupby(groups).indices
+        bs, bc = np.zeros(B), np.zeros((B, len(grid)))
+        for b in range(B):
+            rows = np.concatenate([pos[g] for g in rng.choice(uniq, len(uniq), replace=True)])
+            gb = np.linalg.lstsq(Zd[rows], lvd[rows], rcond=None)[0][:p]
+            bs[b], bc[b] = summaries(gb)
+        slope_ci = [float(np.quantile(bs, 0.025)), float(np.quantile(bs, 0.975))]
+        curve_ci = np.quantile(bc, [0.025, 0.975], axis=0).T
+    a_var = d.assign(_a=age).groupby("author")["_a"].nunique()
+    info = {
+        "method": kind,
+        "controls": controls,
+        "n_control_columns": int(n_controls),
+        "basis": basis.describe(),
+        "fit_scope": ("all posts, once, before GroupKFold (not refitted per fold; on synthetic data refitting "
+                      "per fold moved pairwise accuracy by at most 0.0003)"),
+        "effects_ci_include_age_fit": True,
+        "reference_age_hours": ref_age,
+        "outcome": "log(views+1) - [f(age) - f(reference age)], then the within-author target as usual",
+        "slope_per_log_age": slope,
+        "slope_ci95": slope_ci,
+        "slope_note": ("coefficient on log(age_hours): views+1 scale as age ** slope" if kind == "loglinear" else
+                       "average over posts of d f / d log(age_hours) of the spline"),
+        "bootstrap": B,
+        "n_posts": int(len(d)),
+        "n_authors": int(len(np.unique(groups))),
+        "n_authors_with_age_variation": int((a_var > 1).sum()),
+        "age_hours": {"min": float(age.min()), "median": float(np.median(age)), "max": float(age.max())},
+        "curve": [{"age_hours": a, "log_adjustment": float(c),
+                   "ci95": [float(curve_ci[i, 0]), float(curve_ci[i, 1])] if curve_ci is not None else None,
+                   "x_views_vs_reference": float(math.exp(c))} for i, (a, c) in enumerate(zip(grid, curve))],
+        "adjustment_summary": {"p10": float(np.quantile(adjustment, 0.1)), "median": float(np.median(adjustment)),
+                               "p90": float(np.quantile(adjustment, 0.9))},
+    }
+    return adjustment, info, refit
+
+
+def adjusted_target(lv: np.ndarray, adjustment: np.ndarray, groups) -> np.ndarray:
+    """y = log(views_adj+1) - log(leave-one-out author median views_adj+1), views_adj+1 = (views+1) moved
+    to the target age by the adjustment."""
+    views_t = np.expm1(lv - adjustment)
+    return np.log1p(views_t) - np.log1p(loo_median(views_t, groups))
+
+
 def _stage(df: pd.DataFrame, name: str, post_key: str | None = None) -> dict:
     posts = int(df[post_key].nunique()) if post_key and post_key in df.columns else len(df)
     return {"stage": name, "rows": int(len(df)), "posts": posts, "authors": int(df["author"].nunique())}
@@ -261,13 +408,23 @@ def prepare(raw_df: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
 
     tcfg = cfg["target"]
     target_age = float(tcfg["age_hours"])
+    age_adjust = tcfg.get("age_adjust", "none")
+    if age_adjust not in AGE_ADJUST_MODES:
+        raise ValueError(f"target.age_adjust must be one of {AGE_ADJUST_MODES}")
     if "age_hours" in d.columns:
         d["age_hours"] = pd.to_numeric(d["age_hours"], errors="coerce")
     elif "created_at" in d.columns and "snapshot_utc" in d.columns:
         d["age_hours"] = (d["snapshot_utc"] - d["created_at"]).dt.total_seconds() / 3600.0
-    elif tcfg["age_filter"]:
+    elif tcfg["age_filter"] or age_adjust != "none":
         raise ValueError("cannot determine post age: map age_hours, or created_at + snapshot_utc, "
-                         "or set target.age_filter=false if every row is already at the fixed age")
+                         "or set target.age_filter=false if every row is already at the fixed age"
+                         + (" (target.age_adjust needs the age)" if age_adjust != "none" else ""))
+    if age_adjust != "none":
+        if tcfg["author_median_source"] != "leave_one_out":
+            raise ValueError("target.age_adjust needs author_median_source='leave_one_out': a supplied "
+                             "author median is not on the age-adjusted scale")
+        d = d[np.isfinite(d["age_hours"]) & (d["age_hours"] > 0)]
+        funnel.append(_stage(d, "age_known_and_positive", "_post"))
     if tcfg["age_filter"]:
         tol = float(tcfg["age_tolerance_hours"])
         d = d[(d["age_hours"] - target_age).abs() <= tol]
@@ -291,6 +448,18 @@ def prepare(raw_df: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
     d = d.reset_index(drop=True)
     groups = d["author"].to_numpy()
 
+    views_t = d["views"].to_numpy(dtype=float)
+    views_all = views_t
+    age_info = None
+    if age_adjust != "none":
+        adjustment, age_info, age_refit = fit_age_adjustment(d, cfg, np.random.default_rng(int(cfg["seed"]) + 31337))
+        views_t = np.expm1(np.log1p(views_t) - adjustment)  # views+1 moved to the target age
+        d["views_age_adjusted"] = views_t
+    elif tcfg["age_filter"] and float(tcfg["age_tolerance_hours"]) > 6:
+        warn.append(f"wide age window (+/- {float(tcfg['age_tolerance_hours']):g} h) without target.age_adjust: "
+                    "views grow with age inside the window, so a feature whose posts were seen older looks better; "
+                    "set target.age_adjust to 'loglinear' or 'spline' (README: wide age window)")
+
     src = tcfg["author_median_source"]
     if src == "column":
         if "author_median_views" not in d.columns:
@@ -298,12 +467,20 @@ def prepare(raw_df: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
         med = pd.to_numeric(d["author_median_views"], errors="coerce").to_numpy()
         warn.append("author median taken from the supplied column; it must exclude the post itself")
     elif src == "leave_one_out":
-        med = loo_median(d["views"].to_numpy(), groups)
+        med = loo_median(views_t, groups)
     else:
         raise ValueError("target.author_median_source must be 'leave_one_out' or 'column'")
     d["author_median_views_used"] = med
-    d["y"] = np.log1p(d["views"].to_numpy(dtype=float)) - np.log1p(med)
-    d = d[np.isfinite(d["y"])].reset_index(drop=True)
+    d["y"] = np.log1p(views_t) - np.log1p(med)
+    ok = np.isfinite(d["y"]).to_numpy()
+    d = d[ok].reset_index(drop=True)
+    y_redraw = None
+    if age_adjust != "none":
+        lv_all, kept = np.log1p(views_all), np.flatnonzero(ok)
+
+        def y_redraw(rows):
+            """The target with the age curve refitted on these rows (indices into the returned df)."""
+            return adjusted_target(lv_all, age_refit(kept[np.asarray(rows)]), groups)[kept]
 
     # Secondary: within-author engagement rate.
     d["er"] = np.nan
@@ -338,6 +515,8 @@ def prepare(raw_df: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
         "post_key": post_key,
         "er_source": er_source,
         "composition": composition(d, found_via_loaded),
+        "age_adjustment": age_info,
+        "y_redraw": y_redraw,
     }
     return d, info
 
@@ -528,7 +707,7 @@ class LinearModel:
 
     def __init__(self, cfg, kind="ridge"):
         self.cfg, self.kind = cfg, kind
-        self.name = "ridge" if kind == "ridge" else "elastic_net"
+        self.name = {"ridge": "ridge", "enet": "elastic_net", "effects": "effects_ls"}[kind]
 
     def design(self, raw):
         return self.scaler.transform(self.spec.transform(raw))
@@ -542,7 +721,9 @@ class LinearModel:
         self.demean = bool(m.get("within_author_demean", True))
         Xs, y_fit = self._fit_space(Xs, y, groups)
         cv = inner_splits(groups, 3, self.cfg["seed"])
-        if self.kind == "ridge":
+        if self.kind == "effects":  # the effects-table regression: fixed near-zero penalty, no CV
+            self.alpha, self.l1_ratio = float(m.get("effects_alpha", 1e-6)), 0.0
+        elif self.kind == "ridge":
             self.alpha = float(RidgeCV(alphas=m["ridge_alphas"], cv=cv).fit(Xs, y_fit).alpha_)
             self.l1_ratio = 0.0
         else:
@@ -551,7 +732,10 @@ class LinearModel:
                 cvm = ElasticNetCV(l1_ratio=m["enet_l1_ratios"], alphas=m["enet_alphas"], cv=cv,
                                    max_iter=5000).fit(Xs, y_fit)
             self.alpha, self.l1_ratio = float(cvm.alpha_), float(cvm.l1_ratio_)
-        self.model = self._estimator().fit(Xs, y_fit)
+        with pywarnings.catch_warnings():
+            if self.kind == "effects":  # near-singular at alpha 1e-6 is expected (LinAlgWarning)
+                pywarnings.simplefilter("ignore")
+            self.model = self._estimator().fit(Xs, y_fit)
         if self.demean:
             self.model.intercept_ = float(np.mean(y))  # raw design is centered by the scaler
         return self
@@ -563,7 +747,7 @@ class LinearModel:
         return author_demean(Xs, groups), author_demean(y[:, None], groups)[:, 0]
 
     def _estimator(self):
-        if self.kind == "ridge":
+        if self.kind in ("ridge", "effects"):
             return Ridge(alpha=self.alpha)
         return ElasticNet(alpha=self.alpha, l1_ratio=self.l1_ratio, max_iter=5000)
 
@@ -587,9 +771,10 @@ class LinearModel:
             pywarnings.simplefilter("ignore")
             return Ridge(alpha=alpha).fit(Xs, yy).coef_ / self.scaler.scale_
 
-    def bootstrap(self, raw, y, groups, B, rng, alpha=None):
+    def bootstrap(self, raw, y, groups, B, rng, alpha=None, y_redraw=None):
         """Author-resampled bootstrap of the per-unit coefficients; alpha overrides the model's
-        penalty (ridge only)."""
+        penalty (ridge only). y_redraw(rows), if given (age-adjusted runs), rebuilds the target with the
+        age curve refitted on the drawn rows, so the draws carry the age-fit uncertainty."""
         Xs, y = self._fit_space(self.design(raw), y, groups)
         uniq = np.unique(groups)
         pos = pd.Series(np.arange(len(y))).groupby(np.asarray(groups)).indices
@@ -599,8 +784,12 @@ class LinearModel:
             for b in range(B):
                 pick = rng.choice(uniq, len(uniq), replace=True)
                 rows = np.concatenate([pos[g] for g in pick])
+                yb = y
+                if y_redraw is not None:
+                    yr = np.asarray(y_redraw(rows), dtype=float)
+                    yb = author_demean(yr[:, None], groups)[:, 0] if self.demean else yr
                 est = Ridge(alpha=alpha) if alpha is not None else self._estimator()
-                draws[b] = est.fit(Xs[rows], y[rows]).coef_ / self.scaler.scale_
+                draws[b] = est.fit(Xs[rows], yb[rows]).coef_ / self.scaler.scale_
         return draws
 
 
@@ -693,6 +882,8 @@ def make_model(name, cfg):
         return LinearModel(cfg, "ridge")
     if name == "elastic_net":
         return LinearModel(cfg, "enet")
+    if name == "effects_ls":
+        return LinearModel(cfg, "effects")
     if name == "hgb":
         return HGBModel(cfg)
     if name == "text":
@@ -800,6 +991,57 @@ def effects_table(model: LinearModel, draws, raw, groups, point=None):
     return rows
 
 
+def drop_top_authors_effects(model: LinearModel, rows: list, raw, y, groups, features, K, B, alpha, rng,
+                             y_redraw=None) -> list:
+    """For each named effect (a linear column such as 'opener=number' or 'cashtag_count'): drop the
+    K authors with the most posts at that level (nonzero value) and re-estimate the effects-table
+    regression (same encoding, within-author least squares at `alpha`, author bootstrap B) on the
+    remaining posts. Returns one row per effect with the full-sample row and the re-estimate."""
+    names = list(model.spec.names)
+    unknown = [f for f in features if f not in names]
+    if unknown:
+        raise ValueError(f"drop-top-authors: unknown effect(s) {unknown}; valid names: {names}")
+    full = {r["feature"]: r for r in rows}
+    X = model.spec.transform(raw)
+    groups = np.asarray(groups)
+    out = []
+    for feat in features:
+        k = names.index(feat)
+        nz = X[:, k] != 0
+        at_level = pd.Series(nz.astype(int)).groupby(groups).sum()
+        at_level = at_level[at_level > 0]
+        top = sorted(at_level.items(), key=lambda kv: (-kv[1], str(kv[0])))[:K]
+        dropped = {a for a, _ in top}
+        keep = ~np.isin(groups, list(dropped))
+        rk, yk, gk = raw[keep].reset_index(drop=True), y[keep], groups[keep]
+        nzk = nz[keep]
+        within = author_demean(X[keep][:, [k]], gk)[:, 0]
+        r = {
+            "feature": feat,
+            "k": int(K),
+            "full": {key: full[feat][key] for key in ("per_unit", "ci95", "n_posts_nonzero", "n_authors_nonzero")},
+            "dropped_authors": [{"author": str(a), "posts_at_level": int(n)} for a, n in top],
+            "posts_removed": int((~keep).sum()),
+            "n_posts_nonzero": int(nzk.sum()),
+            "n_authors_nonzero": int(len(np.unique(gk[nzk]))),
+            "bootstrap": int(B),
+        }
+        if not np.any(np.abs(within) > 1e-12) or len(np.unique(gk)) < 2:
+            r.update({"per_unit": None, "ci95": None,
+                      "note": "not estimable: no within-author variation left at this level"})
+        else:
+            r["per_unit"] = float(model.effect_estimates(rk, yk, gk, alpha)[k])
+            if B:
+                kidx = np.flatnonzero(keep)
+                yr = None if y_redraw is None else (lambda r, kidx=kidx: y_redraw(kidx[r])[kidx])
+                draws = model.bootstrap(rk, yk, gk, B, rng, alpha=alpha, y_redraw=yr)[:, k]
+                r["ci95"] = [float(np.quantile(draws, 0.025)), float(np.quantile(draws, 0.975))]
+            else:
+                r["ci95"] = None
+        out.append(r)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Main pipeline
 # ---------------------------------------------------------------------------
@@ -876,13 +1118,28 @@ def run(cfg: dict, data: pd.DataFrame | None = None, out_dir: str | None = None,
     probe = F.FeatureSpec("linear", m["min_level_count"]).fit(raw)
     if len(np.unique(groups)) < 4:
         raise ValueError("need at least 4 authors for GroupKFold validation")
+    K_drop = int(m.get("drop_top_authors") or 0)
+    if K_drop < 0:
+        raise ValueError("models.drop_top_authors (--drop-top-authors) must be >= 0")
+    if m.get("drop_top_effects") and K_drop == 0:
+        raise ValueError("models.drop_top_effects (--drop-effect) needs models.drop_top_authors "
+                         "(--drop-top-authors K) > 0")
+    if K_drop and "ridge" not in names:
+        info["warnings"].append("drop_top_authors ignored: it re-estimates the ridge effects table and "
+                                "models.ridge is off")
+    y_redraw = info.get("y_redraw")
 
+    age_info = info.get("age_adjustment")
     report = {
         "kit_version": KIT_VERSION,
         "generated_utc": t0.isoformat(timespec="seconds"),
         "sklearn_version": sklearn.__version__,
         "target": {
-            "definition": "y = log(views+1) - log(author_median_views+1) at a fixed age",
+            "definition": ("y = log(views+1) - log(author_median_views+1) at a fixed age" if not age_info else
+                           f"y = log(views_adj+1) - log(author_median views_adj+1), log(views_adj+1) = log(views+1) "
+                           f"- [f(age) - f({float(cfg['target']['age_hours']):g} h)], f = {age_info['method']} "
+                           "in log(age_hours) with author fixed effects"),
+            "age_adjust": cfg["target"].get("age_adjust", "none"),
             "age_filter": cfg["target"]["age_filter"],
             "age_hours": cfg["target"]["age_hours"],
             "age_tolerance_hours": cfg["target"]["age_tolerance_hours"],
@@ -893,6 +1150,7 @@ def run(cfg: dict, data: pd.DataFrame | None = None, out_dir: str | None = None,
             "pair_margin": cfg["validation"]["pair_margin"],
         },
         "data": {"funnel": info["funnel"], "composition": info["composition"]},
+        "age_adjustment": age_info,
         "features": {
             "text_feature_source": cfg.get("text_feature_source", "derive"),
             "linear_columns": probe.names,
@@ -941,6 +1199,27 @@ def run(cfg: dict, data: pd.DataFrame | None = None, out_dir: str | None = None,
         gk["by_found_via"] = fv
     report["group_kfold"] = gk
     report["primary_model"] = primary
+
+    # The effects-table model itself (within-author least squares, effects_alpha) through the same
+    # GroupKFold; its own rng so the other numbers in the report do not move.
+    eff_val = None
+    if "ridge" in names:
+        rng_e = np.random.default_rng(int(cfg["seed"]) + 7919)
+        oof_e, _ = group_kfold(raw, y, groups, ["effects_ls"], cfg)
+        eff_val = {"group_kfold": evaluate(y, oof_e["effects_ls"], groups, cfg, rng_e)}
+        if cfg["validation"]["shuffle_control"]:
+            log("shuffled-target control for the effects model")
+            reps_e = max(1, int(cfg["validation"]["shuffle_control_repeats"]))
+            accs_e = []
+            for k in range(reps_e):
+                ys = shuffle_within_author(y, groups, np.random.default_rng(cfg["seed"] + 1 + k))
+                oc, _ = group_kfold(raw, ys, groups, ["effects_ls"], cfg)
+                accs_e.append(evaluate(ys, oc["effects_ls"], groups, _no_boot(cfg), rng_e).get("pairwise_accuracy"))
+            accs_e = np.array([a for a in accs_e if a is not None], dtype=float)
+            eff_val["shuffled_control"] = {
+                "n": int(len(accs_e)), "pairwise_accuracy": accs_e.tolist(), "mean": float(accs_e.mean()),
+                "sd": float(accs_e.std(ddof=1)) if len(accs_e) > 1 else None,
+                "min": float(accs_e.min()), "max": float(accs_e.max())}
 
     # --- shuffled-target control --------------------------------------------
     if cfg["validation"]["shuffle_control"]:
@@ -999,16 +1278,31 @@ def run(cfg: dict, data: pd.DataFrame | None = None, out_dir: str | None = None,
         B = int(m["bootstrap"] or 0)
         log(f"effects: {'within-author ' if within else ''}least squares, bootstrap x{B} (authors resampled)")
         point = final["ridge"].effect_estimates(raw, y, groups, ea)
-        draws = final["ridge"].bootstrap(raw, y, groups, B, rng, alpha=ea) if B else None
+        draws = final["ridge"].bootstrap(raw, y, groups, B, rng, alpha=ea, y_redraw=y_redraw) if B else None
         effects["ridge"] = {
             "method": ("within-author (author-demeaned) " if within else "") + f"least squares, ridge alpha {ea:g}; "
                       "not the predictive ridge, whose cross-validated penalty shrinks coefficients",
             "alpha": ea, "predictive_ridge_alpha": final["ridge"].alpha, "bootstrap": B,
-            "rows": effects_table(final["ridge"], draws, raw, groups, point)}
+            "age_fit_refitted_in_bootstrap": y_redraw is not None,
+            "rows": effects_table(final["ridge"], draws, raw, groups, point),
+            "validation": eff_val}
+        K = K_drop
+        if K > 0:
+            feats = list(m.get("drop_top_effects") or []) or [
+                r["feature"] for r in effects["ridge"]["rows"] if r["ci_excludes_zero"]]
+            if not feats:
+                report["warnings"].append(
+                    f"drop_top_authors = {K} did nothing: no effect named (drop_top_effects / --drop-effect) and no "
+                    "effect's CI excludes 0" + (" (models.bootstrap = 0: no CIs)" if not B else ""))
+            else:
+                log(f"drop-top-{K}-authors re-estimates: {feats} (bootstrap x{B})")
+                effects["ridge"]["drop_top_authors"] = drop_top_authors_effects(
+                    final["ridge"], effects["ridge"]["rows"], raw, y, groups, feats, K, B, ea,
+                    np.random.default_rng(int(cfg["seed"]) + 104729), y_redraw=y_redraw)
     if "elastic_net" in final:
         B = int(m.get("bootstrap_enet") or 0)
         log(f"elastic-net bootstrap x{B}")
-        draws = final["elastic_net"].bootstrap(raw, y, groups, B, rng) if B else None
+        draws = final["elastic_net"].bootstrap(raw, y, groups, B, rng, y_redraw=y_redraw) if B else None
         effects["elastic_net"] = {"alpha": final["elastic_net"].alpha, "l1_ratio": final["elastic_net"].l1_ratio,
                                   "bootstrap": B, "rows": effects_table(final["elastic_net"], draws, raw, groups)}
     if "text" in final:
@@ -1171,6 +1465,30 @@ def render_markdown(r: dict) -> str:
     if comp.get("authors_by_followers"):
         L += ["Authors by followers: " + ", ".join(f"{k} {v:,}" for k, v in comp["authors_by_followers"].items())]
 
+    ag = r.get("age_adjustment")
+    if ag:
+        ctl = ("with the content features as within-author controls" if ag["controls"] == "features"
+               else "age only (no feature controls)")
+        L += ["", f"## Age adjustment ({ag['method']})", "",
+              f"log(views+1) modelled on {ag['basis']['variable']}"
+              + (f" (natural spline, df {ag['basis']['df']}, knots at "
+                 + ", ".join(f"{k:.1f}" for k in ag["basis"]["knots_age_hours"]) + " h)"
+                 if ag["method"] == "spline" else "")
+              + f", author fixed effects, {ctl}; pooled over N = {ag['n_posts']:,} posts from {ag['n_authors']:,} "
+              f"authors ({ag['n_authors_with_age_variation']:,} with more than one distinct age). Snapshot age "
+              f"{ag['age_hours']['min']:.1f}-{ag['age_hours']['max']:.1f} h (median {ag['age_hours']['median']:.1f}). "
+              f"Every post is moved to {ag['reference_age_hours']:g} h before the within-author target is built. "
+              "Age is not a model feature and is not used at scoring. The curve is fitted once on all posts, "
+              "before GroupKFold (not per fold; on synthetic data refitting it per fold moved pairwise accuracy "
+              "by at most 0.0003). Effects CIs refit the curve in every bootstrap draw, so they include its "
+              "uncertainty.", "",
+              f"**Age slope** (d log(views+1) / d log(age)): {ag['slope_per_log_age']:+.3f} "
+              f"{_ci(ag.get('slope_ci95'))}, bootstrap B = {ag['bootstrap']} (authors resampled); {ag['slope_note']}.",
+              "", "| age (h) | f(age) - f(ref) | 95% CI | x views vs ref |", "|---|---|---|---|"]
+        for c in ag["curve"]:
+            L.append(f"| {c['age_hours']:g} | {c['log_adjustment']:+.3f} | {_ci(c.get('ci95'))} | "
+                     f"{c['x_views_vs_reference']:.3f} |")
+
     L += ["", "## Validation: GroupKFold by author (no author in both train and test)", "",
           f"Folds: {len(gk['folds'])}; author overlap across all folds: {gk['author_overlap_total']}.", ""]
     L += _metric_rows(gk["models"])
@@ -1208,26 +1526,55 @@ def render_markdown(r: dict) -> str:
     eff = r.get("effects", {})
     if eff.get("ridge"):
         e = eff["ridge"]
-        L += ["", "## Feature effects (within-author least squares)", "",
-              f"{e.get('method', '')}. Approximate 95% CIs from {e.get('bootstrap', 0)} author-resampled bootstraps "
+        L += ["", f"## Feature effects (within-author least squares, bootstrap B = {e.get('bootstrap', 0)})", ""]
+        ev = e.get("validation")
+        if ev:
+            g = ev["group_kfold"]
+            vline = (f"Effects model's own within-author pairwise accuracy (GroupKFold by author): "
+                     f"{_f(g.get('pairwise_accuracy'))} {_ci(g.get('pairwise_accuracy_ci95'))}, "
+                     f"N = {g.get('n_pairs', 0):,} pairs from {g.get('n_authors_with_pairs', 0)} authors; author-macro "
+                     f"{_f(g.get('pairwise_accuracy_author_macro'))} (N = {g.get('n_authors_macro', 0)} authors)")
+            sc = ev.get("shuffled_control")
+            if sc:
+                vline += (f". Shuffled-target control, same model ({sc['n']} permutations): mean {_f(sc['mean'])}, "
+                          f"range {_f(sc['min'])}-{_f(sc['max'])}")
+            L += [vline + (". LOW N: not a finding." if g.get("low_n") else "."), ""]
+        L += [f"{e.get('method', '')}. Approximate 95% CIs from {e.get('bootstrap', 0)} author-resampled bootstraps "
               "(percentile; on synthetic data they cover the true value somewhat less than 95% of the time). "
               "`per unit` is in log views vs the author median; `x views` = exp(per unit), e.g. 1.30 = +30% "
               "views vs the author's median for a one-unit change (0 -> 1 for flags and categories, vs the "
               "reference level). Sorted by |per SD|.",
               "References: " + ", ".join(f"{k}={v}" for k, v in r["features"]["linear_references"].items()), "",
-              "| feature | per unit | 95% CI | x views | per SD | CI excludes 0 | N posts nonzero | N authors |",
+              "| feature | per unit | 95% CI | x views | per SD | CI excludes 0 | N posts nonzero | N authors nonzero |",
               "|---|---|---|---|---|---|---|---|"]
         for row in e["rows"]:
             L.append(f"| {row['feature']} | {row['per_unit']:+.4f} | {_ci(row['ci95'], 4)} | "
                      f"{row['x_views_per_unit']:.3f} | {row['per_sd']:+.3f} | {'yes' if row['ci_excludes_zero'] else ''} | "
                      f"{row['n_posts_nonzero']:,} | {row['n_authors_nonzero']:,} |")
+        if e.get("drop_top_authors"):
+            dk = e["drop_top_authors"][0]["k"]
+            L += ["", f"### Without the top {dk} authors at each level (re-estimated, bootstrap B = "
+                  f"{e['drop_top_authors'][0]['bootstrap']})", "",
+                  f"For each effect, the {dk} authors with the most posts at that level (nonzero value) are removed "
+                  "and the same within-author regression is refitted. A big move means a few authors carry the effect.",
+                  "", "| feature | per unit (all) | 95% CI | N posts nonzero | N authors nonzero | per unit (drop top "
+                  f"{dk}) | 95% CI | N posts nonzero | N authors nonzero | authors dropped (posts at level) |",
+                  "|---|---|---|---|---|---|---|---|---|---|"]
+            for dd in e["drop_top_authors"]:
+                fu = dd["full"]
+                pu = f"{dd['per_unit']:+.4f}" if dd.get("per_unit") is not None else dd.get("note", "-")
+                L.append(f"| {dd['feature']} | {fu['per_unit']:+.4f} | {_ci(fu['ci95'], 4)} | "
+                         f"{fu['n_posts_nonzero']:,} | {fu['n_authors_nonzero']:,} | {pu} | {_ci(dd.get('ci95'), 4)} | "
+                         f"{dd['n_posts_nonzero']:,} | {dd['n_authors_nonzero']:,} | "
+                         + ", ".join(f"{a['author']} ({a['posts_at_level']})" for a in dd["dropped_authors"]) + " |")
     if eff.get("elastic_net"):
         e = eff["elastic_net"]
         L += ["", f"## Elastic net (alpha {e['alpha']:g}, l1_ratio {e['l1_ratio']:g}, {e['bootstrap']} bootstraps)",
-              "", "| feature | per unit | 95% CI | selected in share of bootstraps |", "|---|---|---|---|"]
+              "", "| feature | per unit | 95% CI | selected in share of bootstraps | N authors nonzero |",
+              "|---|---|---|---|---|"]
         for row in e["rows"]:
             L.append(f"| {row['feature']} | {row['per_unit']:+.4f} | {_ci(row['ci95'], 4)} | "
-                     f"{_f(row.get('selection_frequency'), 2)} |")
+                     f"{_f(row.get('selection_frequency'), 2)} | {row['n_authors_nonzero']:,} |")
     if eff.get("permutation_pairwise"):
         p = eff["permutation_pairwise"]
         L += ["", f"## Permutation importance ({prim}, GroupKFold fold 0)", "",
@@ -1245,10 +1592,11 @@ def render_markdown(r: dict) -> str:
         s = r["secondary_er"]
         L += ["", "## Secondary target: within-author engagement rate", "",
               f"`{s['definition']}`; ER source: {s['er_source']}.", ""] + _metric_rows(s["group_kfold"])
-        L += ["", "| feature (ridge, ER) | per unit | 95% CI | CI excludes 0 |", "|---|---|---|---|"]
+        L += ["", "| feature (ridge, ER) | per unit | 95% CI | CI excludes 0 | N authors nonzero |",
+              "|---|---|---|---|---|"]
         for row in s["ridge_effects"]:
             L.append(f"| {row['feature']} | {row['per_unit']:+.4f} | {_ci(row['ci95'], 4)} | "
-                     f"{'yes' if row['ci_excludes_zero'] else ''} |")
+                     f"{'yes' if row['ci_excludes_zero'] else ''} | {row['n_authors_nonzero']:,} |")
     agree = r["features"].get("agreement_with_supplied_columns")
     if agree:
         L += ["", "## Derived vs supplied feature columns", "",
@@ -1270,8 +1618,20 @@ def main(argv=None):
     ap.add_argument("--out", help="override output_dir")
     ap.add_argument("--quick", action="store_true", help="fewer bootstraps, no text model (smoke run)")
     ap.add_argument("--seed", type=int)
+    ap.add_argument("--age-adjust", choices=AGE_ADJUST_MODES, help="override target.age_adjust")
+    ap.add_argument("--drop-top-authors", type=int, metavar="K",
+                    help="re-estimate effects without the K authors with the most posts at that level")
+    ap.add_argument("--drop-effect", action="append", metavar="NAME",
+                    help="effect for --drop-top-authors, e.g. opener=number (repeatable; default: every "
+                         "effect whose CI excludes 0)")
     a = ap.parse_args(argv)
     over = {}
+    if a.age_adjust:
+        over["target"] = {"age_adjust": a.age_adjust}
+    if a.drop_top_authors is not None:
+        over.setdefault("models", {})["drop_top_authors"] = a.drop_top_authors
+    if a.drop_effect:
+        over.setdefault("models", {})["drop_top_effects"] = a.drop_effect
     if a.data:
         over["data_path"] = os.path.abspath(a.data)
     if a.seed is not None:

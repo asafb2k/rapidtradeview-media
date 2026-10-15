@@ -28,6 +28,9 @@ PLANTED = {
 NULL_FEATURES = ["hashtag_count", "emoji_count", "link_present", "poll"]
 NOISE_SD = 0.8
 ER_QUESTION_EFFECT = 0.30  # questions raise engagement rate (log ER), within author
+# Wide-window mode (make_synthetic(age_window=...)): hours added to a post's snapshot age per feature,
+# so videos and BREAKING posts are seen older (more views) and questions younger.
+AGE_SHIFT = {"media_type=video": 6.0, "opener=breaking": 5.0, "has_question": -4.0}
 
 TICKERS = ["NVDA", "AAPL", "TSLA", "AMD", "MSFT", "META", "AMZN", "SPY", "QQQ", "PLTR", "SMCI", "COIN"]
 BODIES = [
@@ -44,8 +47,15 @@ EMOJIS = ["\U0001F680", "\U0001F525", "\U0001F4C8", "\U0001F6A8", "✅"]
 
 
 def make_synthetic(n_authors: int = 120, seed: int = 0, mean_posts: int = 40, weeks: int = 16,
-                   effects: dict | None = None) -> pd.DataFrame:
+                   effects: dict | None = None, age_window: tuple | None = None, age_exponent: float = 0.3,
+                   age_shift: dict | None = None) -> pd.DataFrame:
+    """age_window=None (default): most posts have a snapshot at 21.5-26.5 h, some an extra early one,
+    some only a late one. age_window=(lo, hi): exactly one snapshot per post, scraped at an age in
+    [lo, hi] that depends on the post (age_shift, hours added per planted feature; default
+    AGE_SHIFT), so the feature mix correlates with snapshot age within each author. Views grow
+    with age as (age / 24) ** age_exponent in both modes."""
     eff = dict(PLANTED, **(effects or {}))
+    shift = dict(AGE_SHIFT, **(age_shift or {}))
     rng = np.random.default_rng(seed)
     start = pd.Timestamp("2026-06-01", tz="UTC")
     rows = []
@@ -107,14 +117,21 @@ def make_synthetic(n_authors: int = 120, seed: int = 0, mean_posts: int = 40, we
             log_er = er_base + ER_QUESTION_EFFECT * question + rng.normal(0, 0.5)
             er = float(np.exp(log_er))
             # snapshots: most posts have one near 24 h; some also have an early one; some only a late one
-            r = rng.random()
-            ages = [rng.uniform(21.5, 26.5)]
-            if r < 0.10:
-                ages.append(rng.uniform(2, 8))
-            elif r < 0.15:
-                ages = [rng.uniform(40, 70)]
+            if age_window is None:
+                r = rng.random()
+                ages = [rng.uniform(21.5, 26.5)]
+                if r < 0.10:
+                    ages.append(rng.uniform(2, 8))
+                elif r < 0.15:
+                    ages = [rng.uniform(40, 70)]
+            else:
+                lo, hi = age_window
+                mid = (lo + hi) / 2.0
+                a0 = (mid + shift["media_type=video"] * (media == "video") + shift["opener=breaking"] * breaking
+                      + shift["has_question"] * question + rng.normal(0, (hi - lo) / 4.0))
+                ages = [float(np.clip(a0, lo, hi))]
             for age in ages:
-                views = v24 * (age / 24.0) ** 0.3
+                views = v24 * (age / 24.0) ** age_exponent
                 eng = views * er
                 rows.append({
                     "post_id": f"p{pid}",
@@ -163,11 +180,19 @@ def main():
     ap.add_argument("--config-out", default="synthetic_config.json")
     ap.add_argument("--authors", type=int, default=120)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--age-window", type=float, nargs=2, metavar=("LO", "HI"),
+                    help="one snapshot per post at an age in [LO, HI] that correlates with the features "
+                         "(wide-window demo; the config gets a matching age_tolerance_hours)")
+    ap.add_argument("--age-exponent", type=float, default=0.3, help="views grow as (age / 24) ** this")
     a = ap.parse_args()
-    df = make_synthetic(n_authors=a.authors, seed=a.seed)
+    df = make_synthetic(n_authors=a.authors, seed=a.seed, age_window=tuple(a.age_window) if a.age_window else None,
+                        age_exponent=a.age_exponent)
     df.to_csv(a.out, index=False)
+    conf = synthetic_config(a.out)
+    if a.age_window:
+        conf["target"] = {"age_tolerance_hours": max(abs(a.age_window[0] - 24), abs(a.age_window[1] - 24))}
     with open(a.config_out, "w", encoding="utf-8") as fh:
-        json.dump(synthetic_config(a.out), fh, indent=2)
+        json.dump(conf, fh, indent=2)
     print(f"wrote {len(df)} snapshot rows ({df['post_id'].nunique()} posts, {df['username'].nunique()} authors) "
           f"to {a.out}; config {a.config_out}")
 

@@ -65,7 +65,11 @@
     "author_median_source": "leave_one_out",
     "binary": true,
     "binary_top_fraction": 0.2,
-    "secondary_er": true
+    "secondary_er": true,
+    "_age_adjust": "none | loglinear | spline. Off by default. For a wide age window (e.g. age_tolerance_hours 12): models log(views+1) on log(age_hours) (or a natural spline of it, age_spline_df) with author fixed effects and the content features as controls (age_adjust_controls 'features'; 'none' = age only), moves every post to age_hours, then builds the target. Age is never a model feature. See README 'Wide age window'.",
+    "age_adjust": "none",
+    "age_adjust_controls": "features",
+    "age_spline_df": 3
   },
 
   "validation": {
@@ -91,6 +95,9 @@
     "min_level_count": 30,
     "bootstrap": 200,
     "bootstrap_enet": 100,
-    "effects_alpha": 1e-6
+    "effects_alpha": 1e-6,
+    "_drop_top_authors": "K > 0: re-estimate effects without the K authors with the most posts at that level (CLI --drop-top-authors K --drop-effect opener=number). drop_top_effects empty = every effect whose CI excludes 0.",
+    "drop_top_authors": 0,
+    "drop_top_effects": []
   }
 }

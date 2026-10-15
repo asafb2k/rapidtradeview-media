@@ -269,3 +269,223 @@ def test_cli_end_to_end(tmp_path):
     with open(tmp_path / "out" / "model.pkl", "rb") as fh:
         b = pickle.load(fh)
     assert type(b["models"]["ridge"]).__module__ == "train"
+
+
+# --- wide age window: age adjustment ----------------------------------------------
+
+AGE_EXP = 0.6
+CONFOUNDED = ("media_type=video", "opener=breaking", "has_question")
+
+
+@pytest.fixture(scope="module")
+def wide_pair():
+    # Same seed, same posts and noise; the twin has every snapshot at exactly 24 h (no age confounding),
+    # so its unadjusted estimates are the target the age-adjusted wide-window estimates must hit.
+    wide = S.make_synthetic(n_authors=150, seed=0, mean_posts=40, age_window=(12, 36), age_exponent=AGE_EXP)
+    fixed = S.make_synthetic(n_authors=150, seed=0, mean_posts=40, age_window=(24, 24), age_exponent=AGE_EXP)
+    return wide, fixed
+
+
+def _effects_ls(df, mode, controls="features", B=0):
+    over = S.synthetic_config("unused.csv")
+    over["target"] = {"age_tolerance_hours": 12, "age_adjust": mode, "age_adjust_controls": controls}
+    over["models"] = {"bootstrap": 100}
+    cfg = T.load_config(None, over)
+    d, info = T.prepare(df, cfg)
+    raw = T.build_raw(d, cfg)
+    y, g = d["y"].to_numpy(float), d["author"].to_numpy()
+    m = T.make_model("effects_ls", cfg).fit(raw, y, g)
+    est = dict(zip(m.spec.names, m.per_unit()))
+    ci = {}
+    if B:
+        draws = m.bootstrap(raw, y, g, B, np.random.default_rng(0), alpha=cfg["models"]["effects_alpha"],
+                            y_redraw=info["y_redraw"])
+        ci = {n: np.quantile(draws[:, k], [0.025, 0.975]) for k, n in enumerate(m.spec.names)}
+    return est, ci, info.get("age_adjustment"), m
+
+
+def test_age_adjust_removes_age_confounding(wide_pair):
+    wide, fixed = wide_pair
+    ref, _, _, _ = _effects_ls(fixed, "none")
+    raw_est, raw_ci, _, _ = _effects_ls(wide, "none", B=100)
+    # unadjusted: videos and BREAKING were seen older (more views), questions younger -> biased
+    assert raw_est["media_type=video"] - ref["media_type=video"] > 0.08
+    assert raw_est["opener=breaking"] - ref["opener=breaking"] > 0.08
+    assert raw_est["has_question"] - ref["has_question"] < -0.05
+    assert not raw_ci["media_type=video"][0] <= S.PLANTED["media_type=video"] <= raw_ci["media_type=video"][1]
+    for mode in ("loglinear", "spline"):
+        est, ci, age, m = _effects_ls(wide, mode, B=100)
+        assert not [n for n in m.spec.names if "age" in n and not n.startswith("media_type")]  # never a feature
+        for f in CONFOUNDED:
+            assert abs(est[f] - ref[f]) < 0.03, (mode, f, est[f], ref[f])
+            assert abs(est[f] - S.PLANTED[f]) < 0.12, (mode, f, est[f])
+            assert ci[f][0] <= S.PLANTED[f] <= ci[f][1], (mode, f, ci[f])
+        lo, hi = age["slope_ci95"]
+        assert lo <= AGE_EXP <= hi, (mode, age["slope_per_log_age"], age["slope_ci95"])
+        assert age["bootstrap"] == 100 and age["n_authors_with_age_variation"] > 100
+    # age alone (no feature controls) absorbs the feature mix into the slope and over-corrects
+    est, _, age, _ = _effects_ls(wide, "loglinear", controls="none")
+    assert age["slope_ci95"][0] > AGE_EXP + 0.2
+    assert est["media_type=video"] - ref["media_type=video"] < -0.05
+
+
+def test_age_basis():
+    age = np.linspace(12, 36, 200)
+    ll = T.AgeBasis("loglinear").fit(age)
+    assert np.allclose(ll.transform(age)[:, 0], np.log(age))
+    sp = T.AgeBasis("spline", 3).fit(age)
+    assert sp.transform(age).shape == (200, 3)
+    assert np.allclose(np.exp(sp.knots[[0, -1]]), [12, 36])
+    # natural spline: linear in log(age) beyond the boundary knots
+    out = sp.transform(np.array([40.0, 50, 60, 70]))
+    x = np.log([40.0, 50, 60, 70])
+    for j in range(3):
+        slope = np.diff(out[:, j]) / np.diff(x)
+        assert np.allclose(slope, slope[0]), j
+    with pytest.raises(ValueError):
+        T.AgeBasis("spline", 3).fit(np.full(50, 24.0))
+
+
+def test_age_adjust_is_off_by_default_and_validated():
+    assert T.DEFAULTS["target"]["age_adjust"] == "none"
+    ex = json.load(open(os.path.join(KIT, "config.example.json"), encoding="utf-8"))
+    assert ex["target"]["age_adjust"] == "none" and ex["models"]["drop_top_authors"] == 0
+    df = S.make_synthetic(n_authors=20, seed=5, mean_posts=10)
+    cfg = T.load_config(None, S.synthetic_config("unused.csv"))
+    d, info = T.prepare(df, cfg)
+    assert info["age_adjustment"] is None and "views_age_adjusted" not in d.columns
+    med = T.loo_median(d["views"].to_numpy(float), d["author"].to_numpy())
+    assert np.allclose(d["y"], np.log1p(d["views"].to_numpy(float)) - np.log1p(med))
+    for bad in ({"age_adjust": "quadratic"}, {"age_adjust": "loglinear", "author_median_source": "column"},
+                {"age_adjust": "loglinear", "age_adjust_controls": "some"}):
+        over = S.synthetic_config("unused.csv")
+        over["columns"]["author_median_views"] = "impressions"
+        over["target"] = bad
+        with pytest.raises(ValueError):
+            T.prepare(df, T.load_config(None, over))
+
+
+@pytest.fixture(scope="module")
+def run_wide(tmp_path_factory):
+    df = S.make_synthetic(n_authors=60, seed=4, mean_posts=30, age_window=(12, 36), age_exponent=AGE_EXP)
+    over = S.synthetic_config("unused.csv")
+    over["target"] = {"age_tolerance_hours": 12, "age_adjust": "spline"}
+    over["models"] = {"bootstrap": 40, "bootstrap_enet": 0, "text": False, "drop_top_authors": 3,
+                      "drop_top_effects": ["opener=breaking", "cashtag_count"]}
+    over["validation"] = {"metric_bootstrap": 100, "shuffle_control_repeats": 2, "permutation_repeats": 1}
+    cfg = T.load_config(None, over)
+    out = tmp_path_factory.mktemp("viral_model_wide")
+    return cfg, T.run(cfg, data=df, out_dir=str(out), verbose=False), out
+
+
+def test_age_adjusted_run_reports_slope_and_scores_drafts_without_age(run_wide):
+    cfg, rep, out = run_wide
+    ag = rep["age_adjustment"]
+    assert ag["method"] == "spline" and ag["basis"]["df"] == 3 and ag["bootstrap"] == 40
+    assert ag["slope_ci95"][0] < ag["slope_per_log_age"] < ag["slope_ci95"][1]
+    assert any(c["age_hours"] == 24 and abs(c["log_adjustment"]) < 1e-9 for c in ag["curve"])
+    assert not [c for c in rep["features"]["linear_columns"] if "age" in c and not c.startswith("media")]
+    md = open(os.path.join(out, "report.md"), encoding="utf-8").read()
+    assert "## Age adjustment (spline)" in md and "**Age slope**" in md and "bootstrap B = 40" in md
+    assert rep["target"]["age_adjust"] == "spline" and "f(age)" in rep["target"]["definition"]
+    bundle = SD.load_bundle(os.path.join(out, "model.pkl"))
+    ranked = SD.score(bundle, [{"name": "a", "text": "BREAKING: $AMD stake raised", "media_type": "video",
+                                "hour_utc": 13},
+                               {"name": "b", "text": "$AMD stake raised. Thoughts?", "media_type": "none",
+                                "hour_utc": 22}])
+    assert ranked[0]["name"] == "a"
+
+
+def test_drop_top_authors_reestimates_named_effects(run_wide):
+    cfg, rep, out = run_wide
+    e = rep["effects"]["ridge"]
+    rows = {r["feature"]: r for r in e["drop_top_authors"]}
+    assert set(rows) == {"opener=breaking", "cashtag_count"}
+    d = rep["_prepared"]
+    raw = T.build_raw(d, cfg)
+    brk = (raw["opener"] == "breaking").groupby(d["author"]).sum().sort_values(ascending=False)
+    r = rows["opener=breaking"]
+    full = next(x for x in e["rows"] if x["feature"] == "opener=breaking")
+    assert r["full"]["per_unit"] == full["per_unit"] and r["k"] == 3 and r["bootstrap"] == 40
+    assert [a["posts_at_level"] for a in r["dropped_authors"]] == brk.head(3).tolist()
+    dropped = [a["author"] for a in r["dropped_authors"]]
+    assert r["posts_removed"] == int(d["author"].isin(dropped).sum())
+    assert r["n_authors_nonzero"] == full["n_authors_nonzero"] - 3
+    assert r["n_posts_nonzero"] == full["n_posts_nonzero"] - int(brk.head(3).sum())
+    assert r["ci95"][0] <= r["per_unit"] <= r["ci95"][1]
+    md = open(os.path.join(out, "report.md"), encoding="utf-8").read()
+    assert "### Without the top 3 authors at each level" in md
+    final = SD.load_bundle(os.path.join(out, "model.pkl"))["models"]["ridge"]
+    with pytest.raises(ValueError):
+        T.drop_top_authors_effects(final, e["rows"], raw, d["y"].to_numpy(float), d["author"].to_numpy(),
+                                   ["opener=nope"], 3, 0, 1e-6, np.random.default_rng(0))
+
+
+def test_effects_model_has_its_own_validation_and_control(run_synth):
+    _, _, rep, out = run_synth
+    e = rep["effects"]["ridge"]
+    v = e["validation"]
+    assert v["group_kfold"]["pairwise_accuracy"] > 0.58 and v["group_kfold"]["n_pairs"] > 10000
+    sc = v["shuffled_control"]
+    assert sc["n"] == 5 and abs(sc["mean"] - 0.5) < 0.03
+    assert v["group_kfold"]["pairwise_accuracy"] - sc["max"] > 0.05
+    assert all("n_authors_nonzero" in r for r in e["rows"])
+    md = open(os.path.join(out, "report.md"), encoding="utf-8").read()
+    assert "Effects model's own within-author pairwise accuracy" in md
+    assert "bootstrap B = 100" in md and "N authors nonzero" in md
+
+
+def test_cli_age_adjust_and_drop_top_authors(tmp_path):
+    py = sys.executable
+    data, conf = tmp_path / "syn.csv", tmp_path / "syn_config.json"
+    subprocess.run([py, os.path.join(KIT, "synthetic.py"), "--out", str(data), "--config-out", str(conf),
+                    "--authors", "40", "--age-window", "12", "36", "--age-exponent", "0.6"], check=True, cwd=tmp_path)
+    assert json.load(open(conf, encoding="utf-8"))["target"]["age_tolerance_hours"] == 12
+    subprocess.run([py, os.path.join(KIT, "train.py"), "--config", str(conf), "--out", str(tmp_path / "out"),
+                    "--quick", "--age-adjust", "loglinear", "--drop-top-authors", "2", "--drop-effect",
+                    "media_type=video"], check=True, cwd=tmp_path, capture_output=True, text=True)
+    js = json.load(open(tmp_path / "out" / "report.json", encoding="utf-8"))
+    assert js["age_adjustment"]["method"] == "loglinear" and js["age_adjustment"]["bootstrap"] == 30
+    assert [r["feature"] for r in js["effects"]["ridge"]["drop_top_authors"]] == ["media_type=video"]
+
+
+def test_effects_bootstrap_refits_the_age_curve(wide_pair):
+    wide, _ = wide_pair
+    over = S.synthetic_config("unused.csv")
+    over["target"] = {"age_tolerance_hours": 12, "age_adjust": "loglinear"}
+    cfg = T.load_config(None, over)
+    d, info = T.prepare(wide, cfg)
+    raw = T.build_raw(d, cfg)
+    y, g = d["y"].to_numpy(float), d["author"].to_numpy()
+    redraw = info["y_redraw"]
+    assert np.allclose(redraw(np.arange(len(d))), y)  # all rows -> the full-sample target exactly
+    m = T.make_model("effects_ls", cfg).fit(raw, y, g)
+    ea = cfg["models"]["effects_alpha"]
+    fixed = m.bootstrap(raw, y, g, 200, np.random.default_rng(1), alpha=ea)
+    refit = m.bootstrap(raw, y, g, 200, np.random.default_rng(1), alpha=ea, y_redraw=redraw)
+    ratio = {n: np.std(refit[:, k]) / np.std(fixed[:, k]) for k, n in enumerate(m.spec.names)}
+    assert ratio["media_type=video"] > 1.04, ratio  # seen 6 h older: correlates with age, wider CI (~1.10)
+    for n in ("media_type=image", "cashtag_count"):  # age-neutral: same spread
+        assert 0.97 < ratio[n] < 1.03, (n, ratio[n])
+    df0 = S.make_synthetic(n_authors=20, seed=5, mean_posts=10)
+    assert T.prepare(df0, T.load_config(None, S.synthetic_config("unused.csv")))[1]["y_redraw"] is None
+
+
+def test_drop_top_authors_flags_are_validated(tmp_path):
+    df = S.make_synthetic(n_authors=30, seed=2, mean_posts=20)
+    over = S.synthetic_config("unused.csv")
+    over["models"] = {"bootstrap": 0, "bootstrap_enet": 0, "text": False, "drop_top_effects": ["opener=breaking"]}
+    with pytest.raises(ValueError, match="drop_top_authors"):
+        T.run(T.load_config(None, over), data=df, out_dir=str(tmp_path / "a"), verbose=False)
+    over["models"].update({"drop_top_effects": [], "drop_top_authors": 2})
+    over["validation"] = {"metric_bootstrap": 50, "shuffle_control": False, "permutation_repeats": 1}
+    rep = T.run(T.load_config(None, over), data=df, out_dir=str(tmp_path / "b"), verbose=False)
+    assert "drop_top_authors" not in rep["effects"]["ridge"]
+    assert any("did nothing" in w for w in rep["warnings"])
+    py = sys.executable
+    data, conf = tmp_path / "syn.csv", tmp_path / "syn_config.json"
+    subprocess.run([py, os.path.join(KIT, "synthetic.py"), "--out", str(data), "--config-out", str(conf),
+                    "--authors", "20"], check=True, cwd=tmp_path)
+    r = subprocess.run([py, os.path.join(KIT, "train.py"), "--config", str(conf), "--out", str(tmp_path / "c"),
+                        "--quick", "--drop-effect", "opener=breaking"], cwd=tmp_path, capture_output=True, text=True)
+    assert r.returncode != 0 and "--drop-top-authors" in r.stderr
