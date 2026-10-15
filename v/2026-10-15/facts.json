@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-15",
-  "generated_at": "2026-10-15T20:15:04Z",
-  "as_of": "2026-10-15T20:15:04Z",
+  "generated_at": "2026-10-15T20:45:04Z",
+  "as_of": "2026-10-15T20:45:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 5,
     "form4_buy": 7,
-    "earnings_result": 17,
+    "earnings_result": 23,
     "earnings_upcoming": 5,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -107,8 +107,8 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1440,
-      "recent_ready": 38,
+      "archive_reports": 1446,
+      "recent_ready": 44,
       "outside_24h": 21,
       "unreadable": 0
     },
@@ -125,7 +125,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 30,
+      "tickers_in_items": 36,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -146,7 +146,7 @@
     "TRV": "item",
     "CRWV": "item"
   },
-  "api_requests": 39,
+  "api_requests": 45,
   "items": [
     {
       "item_id": "2026-10-15-form4-buy-GME-cac4e5",
@@ -774,6 +774,385 @@
       ],
       "rank": 5.3,
       "rank_why": "congress_trade 2; sale +0; top $200K +2.3; filed 2026-10-13 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-SFNC-bb5b59",
+      "type": "earnings_result",
+      "ticker": "SFNC",
+      "tickers": [
+        "SFNC"
+      ],
+      "name": "Simmons First National Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/90498/000119312526422936/d439916dex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SFNC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-SFNC-bb5b59#earnings-history",
+      "allowed_numbers": [
+        "$251M",
+        "$253M",
+        "$2.26M",
+        "$0.54",
+        "$0.53",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Simmons First National Corporation (SFNC) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $251M vs $253M consensus (Missed by $2.26M). Adjusted diluted earnings per share $0.54 vs $0.53 consensus (Beat by $0.01).",
+      "dedupe_key": "report:sfnc-2026-q3",
+      "report_id": "sfnc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:32:39.629064+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$251M",
+          "consensus": "$253M",
+          "label": "Missed by $2.26M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adjusted diluted earnings per share",
+          "reported": "$0.54",
+          "consensus": "$0.53",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SFNC/opengraph-image",
+          "kind": "image",
+          "alt": "Simmons First National Corporation (SFNC) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $251M vs $253M consensus (Missed by $2.26M). Adjusted diluted earnings per share $0.54 vs $0.53 consensus (Beat by $0.01)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-CNS-9e851f",
+      "type": "earnings_result",
+      "ticker": "CNS",
+      "tickers": [
+        "CNS"
+      ],
+      "name": "Cohen & Steers, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1284812/000128481226000195/cns-earningsreleasex93026e.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CNS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-CNS-9e851f#earnings-history",
+      "allowed_numbers": [
+        "$157M",
+        "$156M",
+        "$1.86M",
+        "$0.89",
+        "$0.91",
+        "$0.02",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Cohen & Steers, Inc. (CNS) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $157M vs $156M consensus (Beat by $1.86M). adjusted $0.89 vs $0.91 consensus (Missed by $0.02).",
+      "dedupe_key": "report:cns-2026-q3",
+      "report_id": "cns-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:26:36.301863+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$157M",
+          "consensus": "$156M",
+          "label": "Beat by $1.86M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "adjusted",
+          "reported": "$0.89",
+          "consensus": "$0.91",
+          "label": "Missed by $0.02",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CNS/opengraph-image",
+          "kind": "image",
+          "alt": "Cohen & Steers, Inc. (CNS) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $157M vs $156M consensus (Beat by $1.86M). adjusted $0.89 vs $0.91 consensus (Missed by $0.02)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-JBHT-719f9f",
+      "type": "earnings_result",
+      "ticker": "JBHT",
+      "tickers": [
+        "JBHT"
+      ],
+      "name": "J.B. Hunt Transport Services, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/728535/000143774926032715/ex_1025956.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/JBHT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-JBHT-719f9f#earnings-history",
+      "allowed_numbers": [
+        "$3.68B",
+        "$3.59B",
+        "$82.3M",
+        "$1.82",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "J.B. Hunt Transport Services, Inc. (JBHT) published Q3 2026 results on 2026-10-15: Revenue beat. Revenue $3.68B vs $3.59B consensus (Beat by $82.3M). GAAP EPS $1.82.",
+      "dedupe_key": "report:jbht-2026-q3",
+      "report_id": "jbht-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:24:39.097353+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$3.68B",
+          "consensus": "$3.59B",
+          "label": "Beat by $82.3M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$1.82"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/JBHT/opengraph-image",
+          "kind": "image",
+          "alt": "J.B. Hunt Transport Services, Inc. (JBHT) published Q3 2026 results on 2026-10-15: Revenue beat. Revenue $3.68B vs $3.59B consensus (Beat by $82.3M). GAAP EPS $1.82."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-SCHW-39e7f8",
+      "type": "earnings_result",
+      "ticker": "SCHW",
+      "tickers": [
+        "SCHW"
+      ],
+      "name": "The Charles Schwab Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/316709/000031670926000035/a3q26exhibit991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SCHW?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-SCHW-39e7f8#earnings-history",
+      "allowed_numbers": [
+        "$7.17B",
+        "$7.19B",
+        "−$16.4M",
+        "$1.69",
+        "$1.66",
+        "$0.03",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Charles Schwab Corporation (SCHW) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $7.17B vs $7.19B consensus (In line (−$16.4M)). Adjusted $1.69 vs $1.66 consensus (Beat by $0.03).",
+      "dedupe_key": "report:schw-2026-q3",
+      "report_id": "schw-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:22:35.005625+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$7.17B",
+          "consensus": "$7.19B",
+          "label": "In line (−$16.4M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "Adjusted",
+          "reported": "$1.69",
+          "consensus": "$1.66",
+          "label": "Beat by $0.03",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SCHW/opengraph-image",
+          "kind": "image",
+          "alt": "The Charles Schwab Corporation (SCHW) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $7.17B vs $7.19B consensus (In line (−$16.4M)). Adjusted $1.69 vs $1.66 consensus (Beat by $0.03)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-NBBK-b0fa3b",
+      "type": "earnings_result",
+      "ticker": "NBBK",
+      "tickers": [
+        "NBBK"
+      ],
+      "name": "NB Bancorp, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1979330/000110465926116250/nbbk-ex99d1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/NBBK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-NBBK-b0fa3b#earnings-history",
+      "allowed_numbers": [
+        "$76.5M",
+        "$77.3M",
+        "$758K",
+        "$0.60",
+        "$0.58",
+        "$0.02",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "NB Bancorp, Inc. (NBBK) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $76.5M vs $77.3M consensus (Missed by $758K). Operating earnings per share, diluted (non-GAAP) $0.60 vs $0.58 consensus (Beat by $0.02).",
+      "dedupe_key": "report:nbbk-2026-q3",
+      "report_id": "nbbk-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:18:36.486542+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$76.5M",
+          "consensus": "$77.3M",
+          "label": "Missed by $758K",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Operating earnings per share, diluted (non-GAAP)",
+          "reported": "$0.60",
+          "consensus": "$0.58",
+          "label": "Beat by $0.02",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/NBBK/opengraph-image",
+          "kind": "image",
+          "alt": "NB Bancorp, Inc. (NBBK) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $76.5M vs $77.3M consensus (Missed by $758K). Operating earnings per share, diluted (non-GAAP) $0.60 vs $0.58 consensus (Beat by $0.02)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-INDB-ee9d78",
+      "type": "earnings_result",
+      "ticker": "INDB",
+      "tickers": [
+        "INDB"
+      ],
+      "name": "Independent Bank Corp.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/776901/000077690126000152/exhibit991-indb09x30x2026e.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/INDB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-INDB-ee9d78#earnings-history",
+      "allowed_numbers": [
+        "$262M",
+        "$261M",
+        "$701K",
+        "$1.90",
+        "$1.85",
+        "$0.05",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Independent Bank Corp. (INDB) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $262M vs $261M consensus (In line (+$701K)). Diluted earnings per share, on an operating basis (Non-GAAP) $1.90 vs $1.85 consensus (Beat by $0.05).",
+      "dedupe_key": "report:indb-2026-q3",
+      "report_id": "indb-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:16:36.550490+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$262M",
+          "consensus": "$261M",
+          "label": "In line (+$701K)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "Diluted earnings per share, on an operating basis (Non-GAAP)",
+          "reported": "$1.90",
+          "consensus": "$1.85",
+          "label": "Beat by $0.05",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/INDB/opengraph-image",
+          "kind": "image",
+          "alt": "Independent Bank Corp. (INDB) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $262M vs $261M consensus (In line (+$701K)). Diluted earnings per share, on an operating basis (Non-GAAP) $1.90 vs $1.85 consensus (Beat by $0.05)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 0) +2"
     },
     {
       "item_id": "2026-10-15-earnings-result-AA-32e97e",
