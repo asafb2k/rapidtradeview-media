@@ -1,0 +1,1742 @@
+{
+  "schema": "rtv-facts/1",
+  "date": "2026-10-15",
+  "generated_at": "2026-10-15T09:00:03Z",
+  "as_of": "2026-10-15T09:00:03Z",
+  "rules": {
+    "banned_words": [
+      "insider trading",
+      "guaranteed",
+      "moon",
+      "buy now",
+      "will rise",
+      "price target",
+      "to the moon",
+      "breakout coming",
+      "about to",
+      "set to",
+      "should buy",
+      "should sell",
+      "load up",
+      "buy the dip",
+      "time to buy",
+      "time to sell",
+      "don't miss",
+      "dont miss",
+      "easy money",
+      "can't lose",
+      "cant lose",
+      "free money",
+      "sell now",
+      "get in now",
+      "bitcoin",
+      "btc",
+      "crypto",
+      "cryptocurrency",
+      "ethereum",
+      "blockchain"
+    ],
+    "disclaimer": "Not investment advice.",
+    "max_len": {
+      "x": 270
+    },
+    "platforms": [
+      "x",
+      "instagram"
+    ],
+    "platform_placeholder": "{platform}",
+    "numbers": "every number, date or amount in a post must be one of the item's allowed_numbers, as written there",
+    "picks": "never name or hint at the #1 pick; it is locked and not in this file",
+    "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
+    "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
+    "cashtags": "one cashtag per post (the item's ticker); several only for earnings_tomorrow_roundup and ptr_summary (at most 4, all from the item's tickers), moves_like (its peers) and picks_ready (the public picks)",
+    "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order"
+  },
+  "counts": {
+    "congress_trade": 3,
+    "form4_buy": 5,
+    "earnings_result": 9,
+    "earnings_upcoming": 5,
+    "picks_ready": 0,
+    "chart_pattern": 1,
+    "moves_like": 4,
+    "earnings_tomorrow_roundup": 1,
+    "ptr_summary": 0
+  },
+  "reasons": {
+    "ptr_summary": "3 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
+    "picks_ready": "the published list (2026-10-14) expires 2026-10-15T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
+  },
+  "left_out": {
+    "congress_trade": {
+      "rows_read": 50,
+      "out_of_window": 0,
+      "not_congress": 0,
+      "other_side": 1,
+      "late_filing_over_90d": 0,
+      "refiles_older_report": 0,
+      "bad_date": 0,
+      "not_listed": 0,
+      "no_amount": 0,
+      "no_official_source": 0
+    },
+    "ptr_summary": {
+      "members_filing_dates": 3,
+      "single_item": 0
+    },
+    "ptr_summary_incomplete": {
+      "window_start": "2026-10-09",
+      "oldest_row_read": "2026-10-12",
+      "skipped": 3,
+      "reasons": [
+        "gilbert-ray-cisneros-jr filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-09: rows of the filing may be cut off; rows of the filing were left out (other_side 1)",
+        "rick-larsen filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-09: rows of the filing may be cut off",
+        "lisa-c-mcclain filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-09: rows of the filing may be cut off"
+      ]
+    },
+    "per_filer_cap": {
+      "dropped": 40,
+      "filers": 3,
+      "dropped_congress_trade": 40,
+      "dropped_ptr_summary": 0
+    },
+    "form4_buy": {
+      "rows_read": 20,
+      "filings_passing_filters": 18,
+      "below_minimum": 13,
+      "no_sec_index": 0
+    },
+    "earnings_result": {
+      "archive_reports": 1418,
+      "recent_ready": 22,
+      "outside_24h": 13,
+      "unreadable": 0
+    },
+    "earnings_upcoming": {
+      "listed": 17,
+      "confirmed_in_universe": 5
+    },
+    "earnings_tomorrow_roundup": {
+      "bmo": 5,
+      "amc": 0,
+      "no_set_session": 0
+    },
+    "chart_pattern": {
+      "tiles": 1
+    },
+    "moves_like": {
+      "tickers_in_items": 23,
+      "carried_over": 0,
+      "requested": 5,
+      "not_covered": 0,
+      "disabled": 0,
+      "no_peer": 1,
+      "below_floor": 0,
+      "stale": 0,
+      "unavailable": 0,
+      "unreadable": 0
+    }
+  },
+  "errors": [],
+  "partial_sources": [],
+  "moves_like_checked": {
+    "NXPI": "item",
+    "GME": "no_peer",
+    "HOMB": "item",
+    "TRV": "item",
+    "CRWV": "item"
+  },
+  "api_requests": 32,
+  "items": [
+    {
+      "item_id": "2026-10-15-form4-buy-GME-cac4e5",
+      "type": "form4_buy",
+      "ticker": "GME",
+      "tickers": [
+        "GME"
+      ],
+      "name": "Ryan Cohen",
+      "office": "President, CEO and Chairman at GameStop Corp.",
+      "amount_text": "$20.98M",
+      "traded": [
+        "2026-10-13"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000092189526002784/0000921895-26-002784-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/cohen-ryan-1767470?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-form4-buy-GME-cac4e5#trades",
+      "allowed_numbers": [
+        "$20.98M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Ryan Cohen (President, CEO and Chairman at GameStop Corp.) reported an open-market purchase of GME totaling $20.98M on a Form 4 filed 2026-10-13, traded 2026-10-13.",
+      "dedupe_key": "form4:0000921895-26-002784:GME",
+      "company": "GameStop Corp.",
+      "side": "buy",
+      "accession": "0000921895-26-002784",
+      "rows": 1,
+      "amount_top_usd": 20979000.0,
+      "market_cap_usd": 12400633856.0,
+      "famous_person": "Ryan Cohen",
+      "row_amounts": [
+        "$20.98M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/cohen-ryan-1767470/opengraph-image",
+          "kind": "image",
+          "alt": "Ryan Cohen (President, CEO and Chairman at GameStop Corp.) reported an open-market purchase of GME totaling $20.98M on a Form 4 filed 2026-10-13, traded 2026-10-13."
+        }
+      ],
+      "rank": 13.0,
+      "rank_why": "form4_buy 2; buy +2; top $20.98M +4; known name Ryan Cohen (fame) +2; large cap $12.4B +2; filed 2026-10-13 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-15-form4-buy-BORR-617145",
+      "type": "form4_buy",
+      "ticker": "BORR",
+      "tickers": [
+        "BORR"
+      ],
+      "name": "Tor Olav Troim",
+      "office": "Director at Borr Drilling Limited",
+      "amount_text": "$11.84M",
+      "traded": [
+        "2026-10-09"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1715497/000162828026065603/0001628280-26-065603-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-form4-buy-BORR-617145#trades",
+      "allowed_numbers": [
+        "$11.84M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $11.84M on a Form 4 filed 2026-10-13, traded 2026-10-09.",
+      "dedupe_key": "form4:0001628280-26-065603:BORR",
+      "company": "Borr Drilling Limited",
+      "side": "buy",
+      "accession": "0001628280-26-065603",
+      "rows": 1,
+      "amount_top_usd": 11843500.0,
+      "market_cap_usd": 1326604800.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$11.84M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630/opengraph-image",
+          "kind": "image",
+          "alt": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $11.84M on a Form 4 filed 2026-10-13, traded 2026-10-09."
+        }
+      ],
+      "rank": 11.0,
+      "rank_why": "form4_buy 2; buy +2; top $11.84M +4; known name Director (title) +2; filed 2026-10-13 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-15-form4-buy-PED-a5be71",
+      "type": "form4_buy",
+      "ticker": "PED",
+      "tickers": [
+        "PED"
+      ],
+      "name": "Simon G. Kukes",
+      "office": "10% owner at PEDEVCO Corp.",
+      "amount_text": "$1.91M",
+      "traded": [
+        "2026-10-08"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1141197/000165495426008905/0001654954-26-008905-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kukes-simon-g-1222390?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-form4-buy-PED-a5be71#trades",
+      "allowed_numbers": [
+        "$1.91M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Simon G. Kukes (10% owner at PEDEVCO Corp.) reported an open-market purchase of PED totaling $1.91M on a Form 4 filed 2026-10-13, traded 2026-10-08.",
+      "dedupe_key": "form4:0001654954-26-008905:PED",
+      "company": "PEDEVCO Corp.",
+      "side": "buy",
+      "accession": "0001654954-26-008905",
+      "rows": 1,
+      "amount_top_usd": 1911910.0,
+      "market_cap_usd": 175986256.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.91M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/kukes-simon-g-1222390/opengraph-image",
+          "kind": "image",
+          "alt": "Simon G. Kukes (10% owner at PEDEVCO Corp.) reported an open-market purchase of PED totaling $1.91M on a Form 4 filed 2026-10-13, traded 2026-10-08."
+        }
+      ],
+      "rank": 8.28,
+      "rank_why": "form4_buy 2; buy +2; top $1.91M +3.28; filed 2026-10-13 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-15-form4-buy-TRXB-78cb4d",
+      "type": "form4_buy",
+      "ticker": "TRXB",
+      "tickers": [
+        "TRXB"
+      ],
+      "name": "Svlsf Vi, Llc",
+      "office": "10% owner at TRex Bio, Inc.",
+      "amount_text": "$1.26M",
+      "traded": [
+        "2026-10-08"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2139097/000182912626011084/0001829126-26-011084-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/svlsf-vi-llc-1717728?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-form4-buy-TRXB-78cb4d#trades",
+      "allowed_numbers": [
+        "$1.26M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Svlsf Vi, Llc (10% owner at TRex Bio, Inc.) reported an open-market purchase of TRXB totaling $1.26M on a Form 4 filed 2026-10-13, traded 2026-10-08.",
+      "dedupe_key": "form4:0001829126-26-011084:TRXB",
+      "company": "TRex Bio, Inc.",
+      "side": "buy",
+      "accession": "0001829126-26-011084",
+      "rows": 1,
+      "amount_top_usd": 1256962.0,
+      "market_cap_usd": 370516704.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.26M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/svlsf-vi-llc-1717728/opengraph-image",
+          "kind": "image",
+          "alt": "Svlsf Vi, Llc (10% owner at TRex Bio, Inc.) reported an open-market purchase of TRXB totaling $1.26M on a Form 4 filed 2026-10-13, traded 2026-10-08."
+        }
+      ],
+      "rank": 8.1,
+      "rank_why": "form4_buy 2; buy +2; top $1.26M +3.1; filed 2026-10-13 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-15-form4-buy-GOLD-d8502b",
+      "type": "form4_buy",
+      "ticker": "GOLD",
+      "tickers": [
+        "GOLD"
+      ],
+      "name": "Tether Global Investments Fund, S.i.c.a.f., S.a.",
+      "office": "10% owner at Gold.com, Inc.",
+      "amount_text": "$1.24M",
+      "traded": [
+        "2026-10-12"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1591588/000110465926115328/0001104659-26-115328-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/tether-global-investments-fund-s-i-c-a-f-s-a-2025889?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-form4-buy-GOLD-d8502b#trades",
+      "allowed_numbers": [
+        "$1.24M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tether Global Investments Fund, S.i.c.a.f., S.a. (10% owner at Gold.com, Inc.) reported an open-market purchase of GOLD totaling $1.24M on a Form 4 filed 2026-10-13, traded 2026-10-12.",
+      "dedupe_key": "form4:0001104659-26-115328:GOLD",
+      "company": "Gold.com, Inc.",
+      "side": "buy",
+      "accession": "0001104659-26-115328",
+      "rows": 1,
+      "amount_top_usd": 1239375.97,
+      "market_cap_usd": 1183643648.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.24M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/tether-global-investments-fund-s-i-c-a-f-s-a-2025889/opengraph-image",
+          "kind": "image",
+          "alt": "Tether Global Investments Fund, S.i.c.a.f., S.a. (10% owner at Gold.com, Inc.) reported an open-market purchase of GOLD totaling $1.24M on a Form 4 filed 2026-10-13, traded 2026-10-12."
+        }
+      ],
+      "rank": 8.09,
+      "rank_why": "form4_buy 2; buy +2; top $1.24M +3.09; filed 2026-10-13 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-15-earnings-tomorrow-roundup-LIST-162ae6",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "TRV",
+        "TFC",
+        "MTB",
+        "CFG"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-tomorrow-roundup-LIST-162ae6",
+      "allowed_numbers": [
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "before the open"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-10-16, before the open (confirmed dates): $TRV (The Travelers Companies, Inc.), $TFC (Truist Financial Corporation), $MTB (M&T Bank Corporation), $CFG (Citizens Financial Group, Inc.) and more.",
+      "dedupe_key": "roundup:2026-10-16:bmo",
+      "names": {
+        "TRV": "The Travelers Companies, Inc.",
+        "TFC": "Truist Financial Corporation",
+        "MTB": "M&T Bank Corporation",
+        "CFG": "Citizens Financial Group, Inc."
+      },
+      "report_date": "2026-10-16",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "reporters_in_session": 5,
+      "market_cap_usd": 76912041984.0,
+      "item_ids": [
+        "2026-10-15-earnings-upcoming-TRV-563c5b",
+        "2026-10-15-earnings-upcoming-TFC-aa93ec",
+        "2026-10-15-earnings-upcoming-MTB-e12b6f",
+        "2026-10-15-earnings-upcoming-CFG-f2cda0"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-10-16, before the open (confirmed dates): $TRV (The Travelers Companies, Inc.), $TFC (Truist Financial Corporation), $MTB (M&T Bank Corporation), $CFG (Citizens Financial Group, Inc.) and more."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_tomorrow_roundup 2.5; large cap $76.91B +2; today 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-congress-trade-NXPI-8766e3",
+      "type": "congress_trade",
+      "ticker": "NXPI",
+      "tickers": [
+        "NXPI"
+      ],
+      "name": "Gilbert Ray Cisneros, Jr.",
+      "office": "U.S. Representative (D-CA)",
+      "amount_text": "$1K–$15K; $15K–$50K",
+      "traded": [
+        "2026-09-09",
+        "2026-09-17"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035622.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/gilbert-ray-cisneros-jr?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-congress-trade-NXPI-8766e3#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$15K–$50K",
+        "$1K",
+        "$15K",
+        "$50K",
+        "$1,001–$15,000",
+        "$15,001–$50,000",
+        "$1,001",
+        "$15,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-09-09",
+        "Sep 9, 2026",
+        "Sep 9",
+        "2026-09-17",
+        "Sep 17, 2026",
+        "Sep 17",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Gilbert Ray Cisneros, Jr. (D-CA) disclosed 2 purchases of NXPI (NXP Semiconductors N.V.), $1K–$15K; $15K–$50K, traded 2026-09-09, 2026-09-17; filed 2026-10-12.",
+      "dedupe_key": "ptr:20035622:NXPI:buy",
+      "company": "NXP Semiconductors N.V.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "gilbert-ray-cisneros-jr",
+      "amount_exact_text": "$1,001–$15,000; $15,001–$50,000",
+      "rows": 2,
+      "amount_top_usd": 65000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/gilbert-ray-cisneros-jr/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Gilbert Ray Cisneros, Jr. (D-CA) disclosed 2 purchases of NXPI (NXP Semiconductors N.V.), $1K–$15K; $15K–$50K, traded 2026-09-09, 2026-09-17; filed 2026-10-12."
+        }
+      ],
+      "rank": 6.31,
+      "rank_why": "congress_trade 2; buy +2; top $65K +1.81; filed 2026-10-12 (age 3) +0.5"
+    },
+    {
+      "item_id": "2026-10-15-congress-trade-RIG-402823",
+      "type": "congress_trade",
+      "ticker": "RIG",
+      "tickers": [
+        "RIG"
+      ],
+      "name": "Lisa C. McClain",
+      "office": "U.S. Representative (R-MI)",
+      "amount_text": "$15K–$50K",
+      "traded": [
+        "2026-09-14"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035585.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/lisa-c-mcclain?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-congress-trade-RIG-402823#trades",
+      "allowed_numbers": [
+        "$15K–$50K",
+        "$15K",
+        "$50K",
+        "$15,001–$50,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-09-14",
+        "Sep 14, 2026",
+        "Sep 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Lisa C. McClain (R-MI) disclosed a purchase of RIG (Transocean Ltd.), $15K–$50K, traded 2026-09-14; filed 2026-10-12 (owner: spouse).",
+      "dedupe_key": "ptr:20035585:RIG:buy",
+      "company": "Transocean Ltd.",
+      "side": "buy",
+      "owner": [
+        "spouse"
+      ],
+      "figure_slug": "lisa-c-mcclain",
+      "amount_exact_text": "$15,001–$50,000",
+      "rows": 1,
+      "amount_top_usd": 50000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/lisa-c-mcclain/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Lisa C. McClain (R-MI) disclosed a purchase of RIG (Transocean Ltd.), $15K–$50K, traded 2026-09-14; filed 2026-10-12 (owner: spouse)."
+        }
+      ],
+      "rank": 6.2,
+      "rank_why": "congress_trade 2; buy +2; top $50K +1.7; filed 2026-10-12 (age 3) +0.5"
+    },
+    {
+      "item_id": "2026-10-15-congress-trade-WSM-c46d2a",
+      "type": "congress_trade",
+      "ticker": "WSM",
+      "tickers": [
+        "WSM"
+      ],
+      "name": "Rick Larsen",
+      "office": "U.S. Representative (D-WA)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-10-08"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035635.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/rick-larsen?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-congress-trade-WSM-c46d2a#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Rick Larsen (D-WA) disclosed a purchase of WSM (Williams-Sonoma, Inc.), $1K–$15K, traded 2026-10-08; filed 2026-10-12.",
+      "dedupe_key": "ptr:20035635:WSM:buy",
+      "company": "Williams-Sonoma, Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "rick-larsen",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/rick-larsen/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Rick Larsen (D-WA) disclosed a purchase of WSM (Williams-Sonoma, Inc.), $1K–$15K, traded 2026-10-08; filed 2026-10-12."
+        }
+      ],
+      "rank": 5.68,
+      "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 3) +0.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-upcoming-TRV-563c5b",
+      "type": "earnings_upcoming",
+      "ticker": "TRV",
+      "tickers": [
+        "TRV"
+      ],
+      "name": "The Travelers Companies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TRV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-upcoming-TRV-563c5b#earnings-history",
+      "allowed_numbers": [
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Travelers Companies, Inc. (TRV) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:TRV:2026-10-16",
+      "report_date": "2026-10-16",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 76912041984.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TRV/opengraph-image",
+          "kind": "image",
+          "alt": "The Travelers Companies, Inc. (TRV) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $76.91B +2; today 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-upcoming-TFC-aa93ec",
+      "type": "earnings_upcoming",
+      "ticker": "TFC",
+      "tickers": [
+        "TFC"
+      ],
+      "name": "Truist Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-upcoming-TFC-aa93ec#earnings-history",
+      "allowed_numbers": [
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Truist Financial Corporation (TFC) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:TFC:2026-10-16",
+      "report_date": "2026-10-16",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 56329187328.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TFC/opengraph-image",
+          "kind": "image",
+          "alt": "Truist Financial Corporation (TFC) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $56.33B +2; today 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-upcoming-MTB-e12b6f",
+      "type": "earnings_upcoming",
+      "ticker": "MTB",
+      "tickers": [
+        "MTB"
+      ],
+      "name": "M&T Bank Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MTB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-upcoming-MTB-e12b6f#earnings-history",
+      "allowed_numbers": [
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "M&T Bank Corporation (MTB) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:MTB:2026-10-16",
+      "report_date": "2026-10-16",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 31531622400.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MTB/opengraph-image",
+          "kind": "image",
+          "alt": "M&T Bank Corporation (MTB) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $31.53B +2; today 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-upcoming-CFG-f2cda0",
+      "type": "earnings_upcoming",
+      "ticker": "CFG",
+      "tickers": [
+        "CFG"
+      ],
+      "name": "Citizens Financial Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CFG?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-upcoming-CFG-f2cda0#earnings-history",
+      "allowed_numbers": [
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Citizens Financial Group, Inc. (CFG) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:CFG:2026-10-16",
+      "report_date": "2026-10-16",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 26660491264.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CFG/opengraph-image",
+          "kind": "image",
+          "alt": "Citizens Financial Group, Inc. (CFG) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $26.66B +2; today 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-upcoming-RF-4a1b8d",
+      "type": "earnings_upcoming",
+      "ticker": "RF",
+      "tickers": [
+        "RF"
+      ],
+      "name": "Regions Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-upcoming-RF-4a1b8d#earnings-history",
+      "allowed_numbers": [
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Regions Financial Corporation (RF) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:RF:2026-10-16",
+      "report_date": "2026-10-16",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 23027656704.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/RF/opengraph-image",
+          "kind": "image",
+          "alt": "Regions Financial Corporation (RF) reports earnings on 2026-10-16, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $23.03B +2; today 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-HOMB-4959c7",
+      "type": "earnings_result",
+      "ticker": "HOMB",
+      "tickers": [
+        "HOMB"
+      ],
+      "name": "Home BancShares, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1331520/000133152026000117/homb093026earningsrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/HOMB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-HOMB-4959c7#earnings-history",
+      "allowed_numbers": [
+        "$288M",
+        "$294M",
+        "$5.77M",
+        "$0.65",
+        "$0.64",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Home BancShares, Inc. (HOMB) published Q3 2026 results on 2026-10-14: Mixed vs estimates. Revenue $288M vs $294M consensus (Missed by $5.77M). diluted earnings per share, as adjusted (non-GAAP) $0.65 vs $0.64 consensus (Beat by $0.01).",
+      "dedupe_key": "report:homb-2026-q3",
+      "report_id": "homb-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T21:20:49.448845+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$288M",
+          "consensus": "$294M",
+          "label": "Missed by $5.77M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "diluted earnings per share, as adjusted (non-GAAP)",
+          "reported": "$0.65",
+          "consensus": "$0.64",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/HOMB/opengraph-image",
+          "kind": "image",
+          "alt": "Home BancShares, Inc. (HOMB) published Q3 2026 results on 2026-10-14: Mixed vs estimates. Revenue $288M vs $294M consensus (Missed by $5.77M). diluted earnings per share, as adjusted (non-GAAP) $0.65 vs $0.64 consensus (Beat by $0.01)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-WINA-ac5b60",
+      "type": "earnings_result",
+      "ticker": "WINA",
+      "tickers": [
+        "WINA"
+      ],
+      "name": "Winmark Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/908315/000090831526000038/wina-ex99d1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WINA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-WINA-ac5b60#earnings-history",
+      "allowed_numbers": [
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Winmark Corporation (WINA) published Q3 2026 results on 2026-10-14: Published.",
+      "dedupe_key": "report:wina-2026-q3",
+      "report_id": "wina-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T19:02:57.419177+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WINA/opengraph-image",
+          "kind": "image",
+          "alt": "Winmark Corporation (WINA) published Q3 2026 results on 2026-10-14: Published."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-PGR-1ca1ba",
+      "type": "earnings_result",
+      "ticker": "PGR",
+      "tickers": [
+        "PGR"
+      ],
+      "name": "The Progressive Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/80661/000008066126000367/pgr202609ex99earningsrelea.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PGR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-PGR-1ca1ba#earnings-history",
+      "allowed_numbers": [
+        "$7.43B",
+        "$22.51B",
+        "$15.08B",
+        "$1.08",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Progressive Corporation (PGR) published Q3 2026 results on 2026-10-14: Revenue miss. Revenue $7.43B vs $22.51B consensus (Missed by $15.08B). GAAP EPS $1.08.",
+      "dedupe_key": "report:pgr-2026-q3",
+      "report_id": "pgr-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T13:02:52.526182+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$7.43B",
+          "consensus": "$22.51B",
+          "label": "Missed by $15.08B",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$1.08"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PGR/opengraph-image",
+          "kind": "image",
+          "alt": "The Progressive Corporation (PGR) published Q3 2026 results on 2026-10-14: Revenue miss. Revenue $7.43B vs $22.51B consensus (Missed by $15.08B). GAAP EPS $1.08."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-MXCT-d0c41d",
+      "type": "earnings_result",
+      "ticker": "MXCT",
+      "tickers": [
+        "MXCT"
+      ],
+      "name": "MaxCyte, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1287098/000110465926115745/tm2627568d1_ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MXCT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-MXCT-d0c41d#earnings-history",
+      "allowed_numbers": [
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "MaxCyte, Inc. (MXCT) published Q3 2026 results on 2026-10-14: Published.",
+      "dedupe_key": "report:mxct-2026-q3",
+      "report_id": "mxct-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T12:12:47.833649+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MXCT/opengraph-image",
+          "kind": "image",
+          "alt": "MaxCyte, Inc. (MXCT) published Q3 2026 results on 2026-10-14: Published."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-FAST-3864ac",
+      "type": "earnings_result",
+      "ticker": "FAST",
+      "tickers": [
+        "FAST"
+      ],
+      "name": "Fastenal Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/815556/000081555626000046/ex_99109302026earningsrele.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FAST?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-FAST-3864ac#earnings-history",
+      "allowed_numbers": [
+        "$0.35",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Fastenal Company (FAST) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $0.35.",
+      "dedupe_key": "report:fast-2026-q3",
+      "report_id": "fast-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T11:56:49.960574+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.35"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FAST/opengraph-image",
+          "kind": "image",
+          "alt": "Fastenal Company (FAST) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $0.35."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-MS-b854bd",
+      "type": "earnings_result",
+      "ticker": "MS",
+      "tickers": [
+        "MS"
+      ],
+      "name": "Morgan Stanley",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/895421/000089542126000288/a3q26msearningsrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-MS-b854bd#earnings-history",
+      "allowed_numbers": [
+        "$20.34B",
+        "$20.11B",
+        "$228M",
+        "$3.03",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Morgan Stanley (MS) published Q3 2026 results on 2026-10-14: Revenue beat. Revenue $20.34B vs $20.11B consensus (Beat by $228M). GAAP EPS $3.03.",
+      "dedupe_key": "report:ms-2026-q3",
+      "report_id": "ms-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T11:40:47.897985+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$20.34B",
+          "consensus": "$20.11B",
+          "label": "Beat by $228M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$3.03"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MS/opengraph-image",
+          "kind": "image",
+          "alt": "Morgan Stanley (MS) published Q3 2026 results on 2026-10-14: Revenue beat. Revenue $20.34B vs $20.11B consensus (Beat by $228M). GAAP EPS $3.03."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-STT-15a5da",
+      "type": "earnings_result",
+      "ticker": "STT",
+      "tickers": [
+        "STT"
+      ],
+      "name": "State Street Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/93751/000009375126000592/a3q26earningspressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/STT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-STT-15a5da#earnings-history",
+      "allowed_numbers": [
+        "$3.69",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "State Street Corporation (STT) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $3.69.",
+      "dedupe_key": "report:stt-2026-q3",
+      "report_id": "stt-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T11:32:48.395985+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$3.69"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/STT/opengraph-image",
+          "kind": "image",
+          "alt": "State Street Corporation (STT) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $3.69."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-BAC-0fc0d3",
+      "type": "earnings_result",
+      "ticker": "BAC",
+      "tickers": [
+        "BAC"
+      ],
+      "name": "Bank of America Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000481/bac09302026ex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BAC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-BAC-0fc0d3#earnings-history",
+      "allowed_numbers": [
+        "$0.91",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Bank of America Corporation (BAC) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $0.91.",
+      "dedupe_key": "report:bac-2026-q3",
+      "report_id": "bac-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T10:46:48.539866+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.91"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BAC/opengraph-image",
+          "kind": "image",
+          "alt": "Bank of America Corporation (BAC) published Q3 2026 results on 2026-10-14: Published. GAAP EPS $0.91."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-BLK-385840",
+      "type": "earnings_result",
+      "ticker": "BLK",
+      "tickers": [
+        "BLK"
+      ],
+      "name": "BlackRock, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2012383/000119312526420979/blk-ex99_2.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BLK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-BLK-385840#earnings-history",
+      "allowed_numbers": [
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "BlackRock, Inc. (BLK) published Q3 2026 results on 2026-10-14: Published.",
+      "dedupe_key": "report:blk-2026-q3",
+      "report_id": "blk-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-14",
+      "published_at": "2026-10-14T10:42:48.360956+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BLK/opengraph-image",
+          "kind": "image",
+          "alt": "BlackRock, Inc. (BLK) published Q3 2026 results on 2026-10-14: Published."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-chart-pattern-CRWV-9c6f5c",
+      "type": "chart_pattern",
+      "ticker": "CRWV",
+      "tickers": [
+        "CRWV"
+      ],
+      "name": "CoreWeave, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/CRWV",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CRWV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-chart-pattern-CRWV-9c6f5c#pattern",
+      "allowed_numbers": [
+        "$81.58",
+        "$88.99",
+        "$117.49",
+        "$104.59",
+        "$93.21",
+        "$60.55",
+        "$79.03",
+        "$78.27",
+        "$77.81",
+        "Oct 8",
+        "Aug 13",
+        "Sep 8",
+        "Oct 6",
+        "Jul 29",
+        "Sep 3",
+        "Sep 17",
+        "Oct 13",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2026-07-29",
+        "Jul 29, 2026",
+        "2026-10-06",
+        "Oct 6, 2026",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "2026-08-13",
+        "Aug 13, 2026",
+        "2026-09-03",
+        "Sep 3, 2026",
+        "2026-09-08",
+        "Sep 8, 2026",
+        "2026-09-17",
+        "Sep 17, 2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Automatic technical analysis flagged a symmetrical triangle on $CRWV (CoreWeave, Inc.) (scan 2026-10-14): pattern 2026-07-29 to 2026-10-06. Confirmed Oct 8: closed $81.58, clearly below the lower line at $88.99.",
+      "dedupe_key": "pattern:CRWV:symmetrical_triangle:confirmed:2026-10-08",
+      "scan_date": "2026-10-14",
+      "pattern": {
+        "type": "symmetrical_triangle",
+        "name": "Symmetrical triangle",
+        "status": "confirmed",
+        "direction": "down",
+        "start": "2026-07-29",
+        "end": "2026-10-06",
+        "start_text": "Jul 29, 2026",
+        "end_text": "Oct 6, 2026",
+        "confirmed_on": "2026-10-08",
+        "as_of": "2026-10-13"
+      },
+      "levels": {
+        "key_level_name": "lower line",
+        "key_level": "$88.99",
+        "breakout_close": "$81.58"
+      },
+      "page_text": {
+        "pill": "Symmetrical triangle · Confirmed Oct 8",
+        "chip": "Confirmed Oct 8",
+        "detail": "confirmed by the Oct 8 close of $81.58, clearly below the lower line",
+        "what": "Swings that get narrower between a falling line across the highs and a rising line across the lows.",
+        "key": [
+          "Confirmed Oct 8: closed $81.58, clearly below the lower line at $88.99.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $88.99, where the lower line was on Oct 8."
+        ],
+        "points": [
+          "Highs $117.49 (Aug 13) → $104.59 (Sep 8) → $93.21 (Oct 6)",
+          "Lows $60.55 (Jul 29) → $79.03 (Sep 3) → $78.27 (Sep 17)",
+          "Oct 8 closed $81.58: confirmed · last close $77.81 (Oct 13)"
+        ]
+      },
+      "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CRWV/opengraph-image",
+          "kind": "image",
+          "alt": "Automatic technical analysis flagged a symmetrical triangle on $CRWV (CoreWeave, Inc.) (scan 2026-10-14): pattern 2026-07-29 to 2026-10-06. Confirmed Oct 8: closed $81.58, clearly below the lower line at $88.99."
+        }
+      ],
+      "rank": 2.5,
+      "rank_why": "chart_pattern 1; scan_date 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-moves-like-NXPI-7cf083",
+      "type": "moves_like",
+      "ticker": "NXPI",
+      "tickers": [
+        "NXPI",
+        "ON",
+        "ADI",
+        "MCHP"
+      ],
+      "name": "NXP Semiconductors N.V.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/NXPI",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/NXPI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-moves-like-NXPI-7cf083#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "75",
+        "74",
+        "72",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "−2.4%",
+        "2.4%",
+        "−4.3%",
+        "4.3%",
+        "−2.7%",
+        "2.7%",
+        "−3.9%",
+        "3.9%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 14, 2026, $NXPI (NXP Semiconductors N.V.) moved most like $ON (Sync 75, Close), $ADI (Sync 74, Close), $MCHP (Sync 72, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:NXPI:2026-10-14",
+      "session": "2026-10-14",
+      "valid_through": "2026-10-15",
+      "window_sessions": 60,
+      "subject_day_move": "−2.4%",
+      "peers": [
+        {
+          "ticker": "ON",
+          "name": "ON Semiconductor Corporation",
+          "sync": 75,
+          "band": "Close",
+          "sync_text": "Sync 75 · Close",
+          "day_move": "−4.3%"
+        },
+        {
+          "ticker": "ADI",
+          "name": "Analog Devices, Inc.",
+          "sync": 74,
+          "band": "Close",
+          "sync_text": "Sync 74 · Close",
+          "day_move": "−2.7%"
+        },
+        {
+          "ticker": "MCHP",
+          "name": "Microchip Technology Incorporated",
+          "sync": 72,
+          "band": "Close",
+          "sync_text": "Sync 72 · Close",
+          "day_move": "−3.9%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/NXPI/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 14, 2026, $NXPI (NXP Semiconductors N.V.) moved most like $ON (Sync 75, Close), $ADI (Sync 74, Close), $MCHP (Sync 72, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-moves-like-HOMB-54cc7d",
+      "type": "moves_like",
+      "ticker": "HOMB",
+      "tickers": [
+        "HOMB",
+        "CVBF",
+        "CATY",
+        "UCB"
+      ],
+      "name": "Home BancShares, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/HOMB",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/HOMB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-moves-like-HOMB-54cc7d#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "86",
+        "85",
+        "84",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "−0.2%",
+        "0.2%",
+        "−0.6%",
+        "0.6%",
+        "−0.5%",
+        "0.5%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 14, 2026, $HOMB (Home BancShares, Inc.) moved most like $CVBF (Sync 86, Tight), $CATY (Sync 85, Tight), $UCB (Sync 84, Tight). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:HOMB:2026-10-14",
+      "session": "2026-10-14",
+      "valid_through": "2026-10-15",
+      "window_sessions": 60,
+      "subject_day_move": "−0.2%",
+      "peers": [
+        {
+          "ticker": "CVBF",
+          "name": "CVB Financial Corp.",
+          "sync": 86,
+          "band": "Tight",
+          "sync_text": "Sync 86 · Tight",
+          "day_move": "−0.6%"
+        },
+        {
+          "ticker": "CATY",
+          "name": "Cathay General Bancorp",
+          "sync": 85,
+          "band": "Tight",
+          "sync_text": "Sync 85 · Tight",
+          "day_move": "−0.5%"
+        },
+        {
+          "ticker": "UCB",
+          "name": "United Community Banks, Inc.",
+          "sync": 84,
+          "band": "Tight",
+          "sync_text": "Sync 84 · Tight",
+          "day_move": "−0.6%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/HOMB/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 14, 2026, $HOMB (Home BancShares, Inc.) moved most like $CVBF (Sync 86, Tight), $CATY (Sync 85, Tight), $UCB (Sync 84, Tight). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-moves-like-TRV-f11b8b",
+      "type": "moves_like",
+      "ticker": "TRV",
+      "tickers": [
+        "TRV",
+        "L",
+        "MKL",
+        "EG"
+      ],
+      "name": "The Travelers Companies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/TRV",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TRV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-moves-like-TRV-f11b8b#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "78",
+        "76",
+        "74",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "+1.2%",
+        "1.2%",
+        "+0.6%",
+        "0.6%",
+        "+0.4%",
+        "0.4%",
+        "+0.2%",
+        "0.2%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 14, 2026, $TRV (The Travelers Companies, Inc.) moved most like $L (Sync 78, Close), $MKL (Sync 76, Close), $EG (Sync 74, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:TRV:2026-10-14",
+      "session": "2026-10-14",
+      "valid_through": "2026-10-15",
+      "window_sessions": 60,
+      "subject_day_move": "+1.2%",
+      "peers": [
+        {
+          "ticker": "L",
+          "name": "Loews Corporation",
+          "sync": 78,
+          "band": "Close",
+          "sync_text": "Sync 78 · Close",
+          "day_move": "+0.6%"
+        },
+        {
+          "ticker": "MKL",
+          "name": "Markel Group Inc.",
+          "sync": 76,
+          "band": "Close",
+          "sync_text": "Sync 76 · Close",
+          "day_move": "+0.4%"
+        },
+        {
+          "ticker": "EG",
+          "name": "Everest Group, Ltd.",
+          "sync": 74,
+          "band": "Close",
+          "sync_text": "Sync 74 · Close",
+          "day_move": "+0.2%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TRV/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 14, 2026, $TRV (The Travelers Companies, Inc.) moved most like $L (Sync 78, Close), $MKL (Sync 76, Close), $EG (Sync 74, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-14 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-15-moves-like-CRWV-ff8835",
+      "type": "moves_like",
+      "ticker": "CRWV",
+      "tickers": [
+        "CRWV",
+        "NBIS",
+        "WYFI",
+        "IREN"
+      ],
+      "name": "CoreWeave, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/CRWV",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CRWV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-moves-like-CRWV-ff8835#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "86",
+        "80",
+        "79",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "−15.5%",
+        "15.5%",
+        "−10.1%",
+        "10.1%",
+        "−12.4%",
+        "12.4%",
+        "−12.2%",
+        "12.2%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 14, 2026, $CRWV (CoreWeave, Inc.) moved most like $NBIS (Sync 86, Tight), $WYFI (Sync 80, Tight), $IREN (Sync 79, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:CRWV:2026-10-14",
+      "session": "2026-10-14",
+      "valid_through": "2026-10-15",
+      "window_sessions": 60,
+      "subject_day_move": "−15.5%",
+      "peers": [
+        {
+          "ticker": "NBIS",
+          "name": "Nebius Group N.V.",
+          "sync": 86,
+          "band": "Tight",
+          "sync_text": "Sync 86 · Tight",
+          "day_move": "−10.1%"
+        },
+        {
+          "ticker": "WYFI",
+          "name": "WhiteFiber, Inc.",
+          "sync": 80,
+          "band": "Tight",
+          "sync_text": "Sync 80 · Tight",
+          "day_move": "−12.4%"
+        },
+        {
+          "ticker": "IREN",
+          "name": "IREN Limited",
+          "sync": 79,
+          "band": "Close",
+          "sync_text": "Sync 79 · Close",
+          "day_move": "−12.2%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CRWV/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 14, 2026, $CRWV (CoreWeave, Inc.) moved most like $NBIS (Sync 86, Tight), $WYFI (Sync 80, Tight), $IREN (Sync 79, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-14 (age 1) +1.5"
+    }
+  ]
+}
