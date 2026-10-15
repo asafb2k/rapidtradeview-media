@@ -255,7 +255,7 @@ def test_inbox_answers_comments_and_updates_state_only_on_approve(facts_dir, tmp
     assert bodies[0] == "APPROVE 21 comment"
     assert bodies[1].startswith("REJECT 22 comment: duplicate")
     assert bodies[2].startswith("REJECT 23 comment: banned words: follow us")
-    assert bodies[3] == f"APPROVE 24 {CONGRESS['item_id']}"
+    assert bodies[3].splitlines()[0] == f"APPROVE 24 {CONGRESS['item_id']}"   # + playbook v2 NOTES lines
     assert bodies[4].startswith("REJECT 26 (no valid item_id): kind must be post or comment")
     assert sorted(rest.acked) == [21, 22, 23, 24, 26]                    # 25 is not a DRAFT: never acked
     data = json.loads(path.read_text(encoding="utf-8"))

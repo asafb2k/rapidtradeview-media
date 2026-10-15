@@ -279,7 +279,8 @@ def test_inbox_answers_and_acks_only_draft_rows(facts_dir):
     stats = gr.run_inbox(rest, INSTINCT, "prod", facts_dir, False, lambda p, b: sent.append((p, b)) or True)
     assert sorted(rest.acked) == [11, 13, 14]           # 12 (post_log) and 15 ("Drafting") never acked
     bodies = [b for _, b in sent]
-    assert bodies[0] == f"APPROVE 11 {CONGRESS['item_id']}"
+    assert bodies[0].splitlines()[0] == f"APPROVE 11 {CONGRESS['item_id']}"   # + playbook v2 NOTES lines
+    assert bodies[0].splitlines()[1].startswith("NOTES (playbook v2): score ")
     assert bodies[1].startswith(f"REJECT 13 {CONGRESS['item_id']}: ") and "banned words" in bodies[1] and "$20K" in bodies[1]
     assert bodies[2].startswith("REJECT 14 (no valid item_id): the body must be")
     assert [p for p, _ in sent] == ["x", "x", None]
