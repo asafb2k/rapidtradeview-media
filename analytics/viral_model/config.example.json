@@ -1,0 +1,96 @@
+{
+  "_comment": "Copy to config.json and replace every column name with the one in YOUR dataset. A role set to null is treated as absent. Keys starting with _ are ignored. Paths are relative to the working directory, else to this file.",
+  "data_path": "posts.csv",
+  "output_dir": "out",
+  "seed": 0,
+
+  "_columns": "role -> your column name. Required: author, views, and either age_hours or created_at + snapshot_utc. text is strongly recommended (text features and the text model). thread is null on purpose: map it only if it was set when the post was published (posted as a thread), never from the conversation as scraped later, where self-replies added after a post took off make it post-publication information.",
+  "columns": {
+    "id": "id",
+    "url": "url",
+    "author": "author",
+    "text": "text",
+    "created_at": "created_at",
+    "snapshot_utc": "snapshot_utc",
+    "age_hours": "age_hours",
+    "views": "impressions",
+    "likes": "likes",
+    "reposts": "reposts",
+    "replies": "replies",
+    "quotes": "quotes",
+    "bookmarks": "bookmarks",
+    "engagement_rate": null,
+    "viral": null,
+    "followers": "followers",
+    "author_median_views": null,
+    "found_via": "found_via",
+    "media_type": "media_type",
+    "poll": "poll",
+    "thread": null,
+    "is_quote": "quote",
+    "hour_utc": null,
+    "weekday": null
+  },
+
+  "_feature_columns": "Optional: your precomputed text features, by kit feature name. Used only when text_feature_source is 'columns' or there is no text. score_drafts.py always derives features from draft text, so keep 'derive' unless the report's agreement table shows your columns match.",
+  "text_feature_source": "derive",
+  "feature_columns": {
+    "char_len": "length",
+    "word_count": "word_count",
+    "line_breaks": "line_breaks",
+    "list_lines": "list_count",
+    "cashtag_count": "cashtag_count",
+    "hashtag_count": "hashtag_count",
+    "mention_count": "mention_count",
+    "emoji_count": "emoji_count",
+    "emoji_position": "emoji_position",
+    "opener": "opener_type",
+    "number_count": "number_count",
+    "dollar_count": "dollar_count",
+    "percent_count": "percent_count",
+    "has_question": "has_question",
+    "allcaps_ratio": "allcaps_ratio",
+    "link_present": "link_present"
+  },
+
+  "_extra": "Other content features to use as-is, e.g. visual features present for a subset (NaN elsewhere). Only columns known when the post is published. Never list followers, engagement, clicks, scores/ranks, snapshot or age columns: train.py refuses them (also in feature_columns).",
+  "extra_numeric_features": [],
+  "extra_categorical_features": [],
+
+  "target": {
+    "age_filter": true,
+    "age_hours": 24,
+    "age_tolerance_hours": 3,
+    "min_posts_per_author": 5,
+    "author_median_source": "leave_one_out",
+    "binary": true,
+    "binary_top_fraction": 0.2,
+    "secondary_er": true
+  },
+
+  "validation": {
+    "group_folds": 5,
+    "time_test_weeks": 4,
+    "pair_margin": 0.25,
+    "small_author_followers": [1000, 100],
+    "min_pairs_for_rate": 200,
+    "min_authors_for_rate": 10,
+    "metric_bootstrap": 1000,
+    "shuffle_control": true,
+    "shuffle_control_repeats": 5,
+    "permutation_repeats": 3
+  },
+
+  "models": {
+    "ridge": true,
+    "elastic_net": true,
+    "hgb": true,
+    "text": true,
+    "primary_model": "auto",
+    "within_author_demean": true,
+    "min_level_count": 30,
+    "bootstrap": 200,
+    "bootstrap_enet": 100,
+    "effects_alpha": 1e-6
+  }
+}
