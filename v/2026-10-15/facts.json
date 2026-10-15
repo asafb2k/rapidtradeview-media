@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-15",
-  "generated_at": "2026-10-15T11:30:04Z",
-  "as_of": "2026-10-15T11:30:04Z",
+  "generated_at": "2026-10-15T12:00:04Z",
+  "as_of": "2026-10-15T12:00:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 5,
     "form4_buy": 7,
-    "earnings_result": 10,
+    "earnings_result": 9,
     "earnings_upcoming": 5,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -108,9 +108,9 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1425,
-      "recent_ready": 25,
-      "outside_24h": 15,
+      "archive_reports": 1427,
+      "recent_ready": 27,
+      "outside_24h": 18,
       "unreadable": 0
     },
     "earnings_upcoming": {
@@ -126,7 +126,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 24,
+      "tickers_in_items": 23,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -147,7 +147,7 @@
     "TRV": "item",
     "CRWV": "item"
   },
-  "api_requests": 29,
+  "api_requests": 31,
   "items": [
     {
       "item_id": "2026-10-15-form4-buy-GME-cac4e5",
@@ -775,6 +775,132 @@
       ],
       "rank": 5.3,
       "rank_why": "congress_trade 2; sale +0; top $200K +2.3; filed 2026-10-13 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-MAN-bdebe0",
+      "type": "earnings_result",
+      "ticker": "MAN",
+      "tickers": [
+        "MAN"
+      ],
+      "name": "ManpowerGroup Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/871763/000119312526422291/man-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MAN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-MAN-bdebe0#earnings-history",
+      "allowed_numbers": [
+        "$4.84B",
+        "$4.85B",
+        "−$13.9M",
+        "$1.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "ManpowerGroup Inc. (MAN) published Q3 2026 results on 2026-10-15: In line. Revenue $4.84B vs $4.85B consensus (In line (−$13.9M)). earnings per share $1.01 vs $1.01 consensus (In line).",
+      "dedupe_key": "report:man-2026-q3",
+      "report_id": "man-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T11:44:34.614488+00:00",
+      "tile_label": "In line",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$4.84B",
+          "consensus": "$4.85B",
+          "label": "In line (−$13.9M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "earnings per share",
+          "reported": "$1.01",
+          "consensus": "$1.01",
+          "label": "In line",
+          "verdict": "in_line"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MAN/opengraph-image",
+          "kind": "image",
+          "alt": "ManpowerGroup Inc. (MAN) published Q3 2026 results on 2026-10-15: In line. Revenue $4.84B vs $4.85B consensus (In line (−$13.9M)). earnings per share $1.01 vs $1.01 consensus (In line)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-15-earnings-result-FHN-6b3023",
+      "type": "earnings_result",
+      "ticker": "FHN",
+      "tickers": [
+        "FHN"
+      ],
+      "name": "First Horizon Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000178/a3q26earningsslides-fina.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FHN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-FHN-6b3023#earnings-history",
+      "allowed_numbers": [
+        "$407M",
+        "$890M",
+        "$483M",
+        "$0.53",
+        "$0.52",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "First Horizon Corporation (FHN) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $407M vs $890M consensus (Missed by $483M). Adjusted EPS $0.53 vs $0.52 consensus (Beat by $0.01).",
+      "dedupe_key": "report:fhn-2026-q3",
+      "report_id": "fhn-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T11:34:37.947358+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$407M",
+          "consensus": "$890M",
+          "label": "Missed by $483M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adjusted EPS",
+          "reported": "$0.53",
+          "consensus": "$0.52",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FHN/opengraph-image",
+          "kind": "image",
+          "alt": "First Horizon Corporation (FHN) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $407M vs $890M consensus (Missed by $483M). Adjusted EPS $0.53 vs $0.52 consensus (Beat by $0.01)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 0) +2"
     },
     {
       "item_id": "2026-10-15-earnings-result-USB-0b2261",
@@ -1433,180 +1559,6 @@
           "url": "https://www.rapidtradeview.trade/dashboard/MXCT/opengraph-image",
           "kind": "image",
           "alt": "MaxCyte, Inc. (MXCT) published Q3 2026 results on 2026-10-14: Published."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-15-earnings-result-FAST-3864ac",
-      "type": "earnings_result",
-      "ticker": "FAST",
-      "tickers": [
-        "FAST"
-      ],
-      "name": "Fastenal Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-14",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/815556/000081555626000046/ex_99109302026earningsrele.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/FAST?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-FAST-3864ac#earnings-history",
-      "allowed_numbers": [
-        "$0.35",
-        "$0.34",
-        "$0.01",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-14",
-        "Oct 14, 2026",
-        "Oct 14"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Fastenal Company (FAST) published Q3 2026 results on 2026-10-14: EPS beat. Diluted EPS (GAAP, street basis) $0.35 vs $0.34 consensus (Beat by $0.01).",
-      "dedupe_key": "report:fast-2026-q3",
-      "report_id": "fast-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-14",
-      "published_at": "2026-10-14T11:56:49.960574+00:00",
-      "tile_label": "EPS beat",
-      "tile_state": "beat",
-      "results": {
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "$0.35",
-          "consensus": "$0.34",
-          "label": "Beat by $0.01",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/FAST/opengraph-image",
-          "kind": "image",
-          "alt": "Fastenal Company (FAST) published Q3 2026 results on 2026-10-14: EPS beat. Diluted EPS (GAAP, street basis) $0.35 vs $0.34 consensus (Beat by $0.01)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-15-earnings-result-MS-b854bd",
-      "type": "earnings_result",
-      "ticker": "MS",
-      "tickers": [
-        "MS"
-      ],
-      "name": "Morgan Stanley",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-14",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/895421/000089542126000288/a3q26msearningsrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/MS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-MS-b854bd#earnings-history",
-      "allowed_numbers": [
-        "$20.34B",
-        "$20.11B",
-        "$228M",
-        "$3.03",
-        "$2.92",
-        "$0.11",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-14",
-        "Oct 14, 2026",
-        "Oct 14"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Morgan Stanley (MS) published Q3 2026 results on 2026-10-14: Beat estimates. Revenue $20.34B vs $20.11B consensus (Beat by $228M). Diluted EPS (GAAP, street basis) $3.03 vs $2.92 consensus (Beat by $0.11).",
-      "dedupe_key": "report:ms-2026-q3",
-      "report_id": "ms-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-14",
-      "published_at": "2026-10-14T11:40:47.897985+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$20.34B",
-          "consensus": "$20.11B",
-          "label": "Beat by $228M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "$3.03",
-          "consensus": "$2.92",
-          "label": "Beat by $0.11",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/MS/opengraph-image",
-          "kind": "image",
-          "alt": "Morgan Stanley (MS) published Q3 2026 results on 2026-10-14: Beat estimates. Revenue $20.34B vs $20.11B consensus (Beat by $228M). Diluted EPS (GAAP, street basis) $3.03 vs $2.92 consensus (Beat by $0.11)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-14 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-15-earnings-result-STT-15a5da",
-      "type": "earnings_result",
-      "ticker": "STT",
-      "tickers": [
-        "STT"
-      ],
-      "name": "State Street Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-14",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/93751/000009375126000592/a3q26earningspressrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/STT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-15-earnings-result-STT-15a5da#earnings-history",
-      "allowed_numbers": [
-        "$3.69",
-        "$3.68",
-        "$0.01",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-14",
-        "Oct 14, 2026",
-        "Oct 14"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "State Street Corporation (STT) published Q3 2026 results on 2026-10-14: EPS beat. Diluted EPS (GAAP, street basis) $3.69 vs $3.68 consensus (Beat by $0.01).",
-      "dedupe_key": "report:stt-2026-q3",
-      "report_id": "stt-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-14",
-      "published_at": "2026-10-14T11:32:48.395985+00:00",
-      "tile_label": "EPS beat",
-      "tile_state": "beat",
-      "results": {
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "$3.69",
-          "consensus": "$3.68",
-          "label": "Beat by $0.01",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/STT/opengraph-image",
-          "kind": "image",
-          "alt": "State Street Corporation (STT) published Q3 2026 results on 2026-10-14: EPS beat. Diluted EPS (GAAP, street basis) $3.69 vs $3.68 consensus (Beat by $0.01)."
         }
       ],
       "rank": 4.5,
