@@ -114,6 +114,39 @@ def test_forbidden_extra_features_are_refused():
     over["extra_numeric_features"] = ["log_impressions_lag"]
     with pytest.raises(ValueError):
         T.load_config(None, over)
+    # engagement / reach / post-publication names the first guard missed
+    for bad in ("quote_count", "quoteCount", "url_clicks", "profile_clicks", "detail_expands", "rt_count",
+                "share_count", "score_24h", "rank", "snapshot_age", "post_age"):
+        over["extra_numeric_features"] = [bad]
+        with pytest.raises(ValueError):
+            T.load_config(None, over)
+    # content names that only look similar stay allowed
+    for ok in ("is_quote", "image_brightness", "percentage_terms", "vis_brightness", "start_hour"):
+        over["extra_numeric_features"] = [ok]
+        T.load_config(None, over)
+    # feature_columns mappings get the same checks
+    over["extra_numeric_features"] = []
+    over["feature_columns"] = {"char_len": "detail_expands"}
+    with pytest.raises(ValueError):
+        T.load_config(None, over)
+    over["feature_columns"] = {"char_len": "impressions"}  # the mapped views column
+    with pytest.raises(ValueError):
+        T.load_config(None, over)
+    over["feature_columns"] = {"char_len": "length"}
+    T.load_config(None, over)
+
+
+def test_thread_is_unmapped_by_default_and_warned_when_mapped():
+    ex = json.load(open(os.path.join(KIT, "config.example.json"), encoding="utf-8"))
+    assert ex["columns"]["thread"] is None
+    df = S.make_synthetic(n_authors=20, seed=5, mean_posts=10)
+    cfg = T.load_config(None, S.synthetic_config("unused.csv"))
+    _, info = T.prepare(df, cfg)
+    assert any("'thread' is mapped" in w for w in info["warnings"])
+    over = S.synthetic_config("unused.csv")
+    over["columns"]["thread"] = None
+    _, info = T.prepare(df, T.load_config(None, over))
+    assert not any("'thread' is mapped" in w for w in info["warnings"])
 
 
 # --- recovery and validation metrics ------------------------------------------------
@@ -130,6 +163,18 @@ def test_recovers_planted_within_author_effects(run_synth):
     for name in S.NULL_FEATURES:  # planted zero: the 95% CI must cover 0
         r = _effect(rep, name)
         assert r["ci95"][0] <= 0 <= r["ci95"][1], (name, r["per_unit"], r["ci95"])
+
+
+def test_effects_table_is_not_shrunk_by_the_predictive_penalty(run_synth):
+    _, cfg, rep, out = run_synth
+    e = rep["effects"]["ridge"]
+    assert e["alpha"] == cfg["models"]["effects_alpha"] == 1e-6
+    assert e["predictive_ridge_alpha"] > 1  # the CV-chosen penalty is much larger
+    bundle = SD.load_bundle(os.path.join(out, "model.pkl"))
+    ridge = bundle["models"]["ridge"]
+    shrunk = dict(zip(ridge.spec.names, ridge.per_unit()))
+    for name in ("media_type=video", "opener=breaking", "media_type=image", "hour_bin=h12-15"):
+        assert abs(_effect(rep, name)["per_unit"]) > abs(shrunk[name]), name
 
 
 def test_pairwise_accuracy_beats_chance_and_shuffled_control_does_not(run_synth):
@@ -170,6 +215,10 @@ def test_report_files_and_buckets(run_synth):
     assert js["group_kfold"]["binary_top"]["n_posts"] == js["data"]["composition"]["posts"]
     md = open(os.path.join(out, "report.md"), encoding="utf-8").read()
     assert "Shuffled-target control" in md and "N = " in md
+    prim = js["group_kfold"]["models"][js["primary_model"]]
+    macro = f"{prim['pairwise_accuracy_author_macro']:.3f} ({prim['n_authors_macro']})"
+    assert "author-macro acc" in md and macro in md  # in the tables
+    assert md.split("## Corpus")[0].count("Author-macro") == 1  # and in the headline
     assert os.path.exists(os.path.join(out, "predictions_oof.csv"))
 
 
@@ -191,6 +240,18 @@ def test_score_drafts_ranks_the_planted_better_variant_first(run_synth):
     assert ranked[0]["score"] - ranked[1]["score"] > 0.5
     text = SD.render(bundle, ranked, author_median_views=1000)
     assert "planted" in text.splitlines()[4]
+
+
+def test_score_drafts_warns_on_untrained_media_labels(run_synth):
+    _, _, _, out = run_synth
+    bundle = SD.load_bundle(os.path.join(out, "model.pkl"))
+    drafts = [{"name": "photo draft", "text": "BREAKING: $AMD stake raised", "media_type": "photo", "hour_utc": 13},
+              {"name": "video draft", "text": "BREAKING: $AMD stake raised", "media_type": "video", "hour_utc": 13}]
+    ranked = {r["name"]: r for r in SD.score(bundle, drafts)}
+    w = ranked["photo draft"].get("warnings")
+    assert w and len(w) == 1 and "'photo'" in w[0] and "never seen" in w[0] and "video" in w[0], w
+    assert "warnings" not in ranked["video draft"]
+    assert "WARNING photo draft" in SD.render(bundle, list(ranked.values()))
 
 
 def test_cli_end_to_end(tmp_path):

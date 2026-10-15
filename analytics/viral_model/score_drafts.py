@@ -83,6 +83,31 @@ def drafts_frame(drafts: list[dict], cfg: dict) -> pd.DataFrame:
     return df
 
 
+def label_warnings(bundle: dict, raw: pd.DataFrame, did: np.ndarray, drafts: list[dict]) -> dict:
+    """Per draft: user-supplied categorical values (media type, extra categoricals) that are not a
+    trained level and are therefore scored as another level."""
+    spec = next((getattr(m, "spec", None) for m in [bundle["models"].get(bundle["primary"])]
+                 + list(bundle["models"].values()) if getattr(m, "spec", None) is not None), None)
+    out = {}
+    if spec is None:
+        return out
+    cols = ["media_type"] + [c for c in spec.categorical if c.startswith("xc_")]
+    seen = set()
+    for w in spec.level_warnings(raw, cols):
+        i = int(did[raw.index.get_loc(w["row"])])
+        key = (i, w["column"], str(w["value"]))
+        if key in seen:
+            continue
+        seen.add(key)
+        why = ("was never seen in training" if not w["seen_in_training"] else
+               f"appeared only {w['seen_in_training']} times in training (rarer than min_level_count)")
+        name = drafts[i].get("name") or f"draft {i + 1}"
+        out.setdefault(i, []).append(
+            f"{name}: {w['column']}='{w['value']}' {why}; scored as '{w['scored_as']}'. "
+            f"Trained levels: {', '.join(map(str, w['valid_levels']))}")
+    return out
+
+
 def score(bundle: dict, drafts: list[dict]) -> list[dict]:
     cfg = bundle["config"]
     cfg_derive = dict(cfg, text_feature_source="derive")
@@ -90,6 +115,7 @@ def score(bundle: dict, drafts: list[dict]) -> list[dict]:
     raw = F.build_raw_features(df, cfg_derive)
     raw["__text"] = df["text"].fillna("").astype(str)
     did = df["_draft"].to_numpy()
+    warns = label_warnings(bundle, raw, did, drafts)
 
     def per_draft(values):
         return pd.Series(values).groupby(did).mean().to_numpy()
@@ -115,6 +141,8 @@ def score(bundle: dict, drafts: list[dict]) -> list[dict]:
             "x_author_median": math.exp(s),
             "scores_by_model": {n: float(v[i]) for n, v in scores.items()},
         }
+        if warns.get(i):
+            r["warnings"] = warns[i]
         if p_top is not None:
             r["p_top"] = float(p_top[i])
         if er is not None:
@@ -166,6 +194,9 @@ def render(bundle: dict, ranked: list[dict], author_median_views: float | None =
         if r.get("top_contributions"):
             L.append(f"{r['name']}: " + ", ".join(f"{c['feature']} {c['value']:+.3f}" for c in r["top_contributions"])
                      + f"  ({r['contributions_model']} contributions vs the average training post)")
+    for r in ranked:
+        for w in r.get("warnings", []):
+            L.append(f"WARNING {w}")
     if len(ranked) > 1:
         gap = ranked[0]["score"] - ranked[1]["score"]
         verdict = "a clear gap" if gap > margin else "within the pair margin: treat #1 and #2 as a tie"
@@ -208,6 +239,9 @@ def main(argv=None):
         ap.error("give --drafts FILE or one or more --text")
     bundle = load_bundle(a.model)
     ranked = score(bundle, drafts)
+    for r in ranked:
+        for w in r.get("warnings", []):
+            print(f"warning: {w}", file=sys.stderr)
     if a.json:
         print(json.dumps({"primary_model": bundle["primary"], "ranked": ranked}, indent=2, ensure_ascii=False))
     else:

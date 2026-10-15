@@ -106,6 +106,7 @@ DEFAULTS = {
         "text_alphas": [1, 3, 10, 30, 100],
         "bootstrap": 200,
         "bootstrap_enet": 100,
+        "effects_alpha": 1e-6,
     },
 }
 
@@ -230,6 +231,10 @@ def prepare(raw_df: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
             raise ValueError(f"required role '{req}' is not mapped to a column present in the data")
     if "text" not in d.columns:
         warn.append("no text column: text features come only from mapped feature_columns; no text model")
+    if "thread" in d.columns:
+        warn.append(f"'thread' is mapped (column '{cols.get('thread')}') and used as a predictor: it must be known "
+                    "when the post was published (posted as a thread), not read from the conversation at scrape "
+                    "time, where self-replies added after a post took off make it post-publication information")
 
     d["author"] = d["author"].astype("string").str.strip().str.lower()
     d = d[d["author"].notna() & (d["author"] != "")]
@@ -574,7 +579,17 @@ class LinearModel:
         df = pd.DataFrame(C, columns=self.spec.names)
         return df.T.groupby(self.spec.sources).sum().T
 
-    def bootstrap(self, raw, y, groups, B, rng):
+    def effect_estimates(self, raw, y, groups, alpha):
+        """Per-unit effects from the within-author regression with a near-zero penalty (alpha), so the
+        effects table is not shrunk by the predictive model's cross-validated alpha."""
+        Xs, yy = self._fit_space(self.design(raw), y, groups)
+        with pywarnings.catch_warnings():
+            pywarnings.simplefilter("ignore")
+            return Ridge(alpha=alpha).fit(Xs, yy).coef_ / self.scaler.scale_
+
+    def bootstrap(self, raw, y, groups, B, rng, alpha=None):
+        """Author-resampled bootstrap of the per-unit coefficients; alpha overrides the model's
+        penalty (ridge only)."""
         Xs, y = self._fit_space(self.design(raw), y, groups)
         uniq = np.unique(groups)
         pos = pd.Series(np.arange(len(y))).groupby(np.asarray(groups)).indices
@@ -584,7 +599,8 @@ class LinearModel:
             for b in range(B):
                 pick = rng.choice(uniq, len(uniq), replace=True)
                 rows = np.concatenate([pos[g] for g in pick])
-                draws[b] = self._estimator().fit(Xs[rows], y[rows]).coef_ / self.scaler.scale_
+                est = Ridge(alpha=alpha) if alpha is not None else self._estimator()
+                draws[b] = est.fit(Xs[rows], y[rows]).coef_ / self.scaler.scale_
         return draws
 
 
@@ -754,10 +770,10 @@ def _no_boot(cfg):
     return c
 
 
-def effects_table(model: LinearModel, draws, raw, groups):
+def effects_table(model: LinearModel, draws, raw, groups, point=None):
     names, sources = model.spec.names, model.spec.sources
     X = model.spec.transform(raw)
-    point = model.per_unit()
+    point = model.per_unit() if point is None else np.asarray(point, dtype=float)
     rows = []
     for k, nm in enumerate(names):
         col = X[:, k]
@@ -977,13 +993,18 @@ def run(cfg: dict, data: pd.DataFrame | None = None, out_dir: str | None = None,
     log("final fits on all data")
     final = {n: make_model(n, cfg).fit(raw, y, groups) for n in names}
     effects = {}
-    if "ridge" in final and m["bootstrap"]:
-        log(f"ridge bootstrap x{m['bootstrap']} (authors resampled)")
-        draws = final["ridge"].bootstrap(raw, y, groups, int(m["bootstrap"]), rng)
-        effects["ridge"] = {"alpha": final["ridge"].alpha, "bootstrap": int(m["bootstrap"]),
-                            "rows": effects_table(final["ridge"], draws, raw, groups)}
-    elif "ridge" in final:
-        effects["ridge"] = {"alpha": final["ridge"].alpha, "rows": effects_table(final["ridge"], None, raw, groups)}
+    ea = float(m.get("effects_alpha", 1e-6))
+    within = bool(m.get("within_author_demean", True))
+    if "ridge" in final:
+        B = int(m["bootstrap"] or 0)
+        log(f"effects: {'within-author ' if within else ''}least squares, bootstrap x{B} (authors resampled)")
+        point = final["ridge"].effect_estimates(raw, y, groups, ea)
+        draws = final["ridge"].bootstrap(raw, y, groups, B, rng, alpha=ea) if B else None
+        effects["ridge"] = {
+            "method": ("within-author (author-demeaned) " if within else "") + f"least squares, ridge alpha {ea:g}; "
+                      "not the predictive ridge, whose cross-validated penalty shrinks coefficients",
+            "alpha": ea, "predictive_ridge_alpha": final["ridge"].alpha, "bootstrap": B,
+            "rows": effects_table(final["ridge"], draws, raw, groups, point)}
     if "elastic_net" in final:
         B = int(m.get("bootstrap_enet") or 0)
         log(f"elastic-net bootstrap x{B}")
@@ -1013,12 +1034,12 @@ def run(cfg: dict, data: pd.DataFrame | None = None, out_dir: str | None = None,
         oof_er, _ = group_kfold(rer, yer, ger, er_names, cfg)
         er_final = LinearModel(cfg, "ridge").fit(rer, yer, ger)
         B = min(int(m["bootstrap"]), 100)
-        draws = er_final.bootstrap(rer, yer, ger, B, rng) if B else None
+        draws = er_final.bootstrap(rer, yer, ger, B, rng, alpha=ea) if B else None
         report["secondary_er"] = {
             "definition": "y_er = log(ER + eps) - log(author leave-one-out median ER + eps)",
             "er_source": info["er_source"],
             "group_kfold": {n: evaluate(yer, oof_er[n], ger, cfg, rng) for n in er_names},
-            "ridge_effects": effects_table(er_final, draws, rer, ger)[:20],
+            "ridge_effects": effects_table(er_final, draws, rer, ger, er_final.effect_estimates(rer, yer, ger, ea))[:20],
         }
     elif cfg["target"]["secondary_er"]:
         report["warnings"].append("secondary ER target skipped: no engagement rate or engagement counts")
@@ -1098,13 +1119,14 @@ def _ci(c, nd=3):
 
 
 def _metric_rows(models: dict) -> list[str]:
-    rows = ["| model | pairwise acc | 95% CI (authors resampled) | N pairs | N authors | Spearman | "
-            "within-author Spearman | lift@top10% | N posts | note |",
-            "|---|---|---|---|---|---|---|---|---|---|"]
+    rows = ["| model | pairwise acc | 95% CI (authors resampled) | N pairs | N authors | author-macro acc "
+            "(N authors >= 10 pairs) | Spearman | within-author Spearman | lift@top10% | N posts | note |",
+            "|---|---|---|---|---|---|---|---|---|---|---|"]
     for n, r in models.items():
         rows.append(
             f"| {n} | {_f(r.get('pairwise_accuracy'))} | {_ci(r.get('pairwise_accuracy_ci95'))} | "
-            f"{r.get('n_pairs', 0):,} | {r.get('n_authors_with_pairs', 0)} | {_f(r.get('spearman'))} | "
+            f"{r.get('n_pairs', 0):,} | {r.get('n_authors_with_pairs', 0)} | "
+            f"{_f(r.get('pairwise_accuracy_author_macro'))} ({r.get('n_authors_macro', 0)}) | {_f(r.get('spearman'))} | "
             f"{_f(r.get('spearman_within_author_mean'))} | {_f(r.get('lift_top_decile'), 2)} | "
             f"{r.get('n_posts', 0):,} | {'LOW N: not a finding' if r.get('low_n') else ''} |")
     return rows
@@ -1121,7 +1143,9 @@ def render_markdown(r: dict) -> str:
           f"{r['target']['author_median_source']}). Pair margin |dy| > {r['target']['pair_margin']}.", ""]
     line = (f"**Primary model: {prim}.** Within-author pairwise accuracy (GroupKFold by author) "
             f"{_f(pm.get('pairwise_accuracy'))} {_ci(pm.get('pairwise_accuracy_ci95'))}, "
-            f"N = {pm.get('n_pairs', 0):,} pairs from {pm.get('n_authors_with_pairs', 0)} authors; 0.5 = chance.")
+            f"N = {pm.get('n_pairs', 0):,} pairs from {pm.get('n_authors_with_pairs', 0)} authors; 0.5 = chance. "
+            f"Author-macro (each author weighted equally, authors with >= 10 pairs): "
+            f"{_f(pm.get('pairwise_accuracy_author_macro'))}, N = {pm.get('n_authors_macro', 0)} authors.")
     ctrl = r.get("shuffled_control", {}).get("repeats")
     if ctrl:
         line += (f" Shuffled-target control ({ctrl['model']}, {ctrl['n']} permutations): mean "
@@ -1184,8 +1208,9 @@ def render_markdown(r: dict) -> str:
     eff = r.get("effects", {})
     if eff.get("ridge"):
         e = eff["ridge"]
-        L += ["", "## Feature effects (ridge, within-author target)", "",
-              f"alpha {e['alpha']:g}; 95% CIs from {e.get('bootstrap', 0)} author-resampled bootstraps. "
+        L += ["", "## Feature effects (within-author least squares)", "",
+              f"{e.get('method', '')}. Approximate 95% CIs from {e.get('bootstrap', 0)} author-resampled bootstraps "
+              "(percentile; on synthetic data they cover the true value somewhat less than 95% of the time). "
               "`per unit` is in log views vs the author median; `x views` = exp(per unit), e.g. 1.30 = +30% "
               "views vs the author's median for a one-unit change (0 -> 1 for flags and categories, vs the "
               "reference level). Sorted by |per SD|.",

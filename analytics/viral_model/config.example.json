@@ -4,7 +4,7 @@
   "output_dir": "out",
   "seed": 0,
 
-  "_columns": "role -> your column name. Required: author, views, and either age_hours or created_at + snapshot_utc. text is strongly recommended (text features and the text model).",
+  "_columns": "role -> your column name. Required: author, views, and either age_hours or created_at + snapshot_utc. text is strongly recommended (text features and the text model). thread is null on purpose: map it only if it was set when the post was published (posted as a thread), never from the conversation as scraped later, where self-replies added after a post took off make it post-publication information.",
   "columns": {
     "id": "id",
     "url": "url",
@@ -26,7 +26,7 @@
     "found_via": "found_via",
     "media_type": "media_type",
     "poll": "poll",
-    "thread": "thread",
+    "thread": null,
     "is_quote": "quote",
     "hour_utc": null,
     "weekday": null
@@ -53,7 +53,7 @@
     "link_present": "link_present"
   },
 
-  "_extra": "Other content features to use as-is, e.g. visual features present for a subset (NaN elsewhere). Never list followers, engagement or baseline columns: train.py refuses them.",
+  "_extra": "Other content features to use as-is, e.g. visual features present for a subset (NaN elsewhere). Only columns known when the post is published. Never list followers, engagement, clicks, scores/ranks, snapshot or age columns: train.py refuses them (also in feature_columns).",
   "extra_numeric_features": [],
   "extra_categorical_features": [],
 
@@ -90,6 +90,7 @@
     "within_author_demean": true,
     "min_level_count": 30,
     "bootstrap": 200,
-    "bootstrap_enet": 100
+    "bootstrap_enet": 100,
+    "effects_alpha": 1e-6
   }
 }

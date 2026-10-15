@@ -170,27 +170,54 @@ FORBIDDEN_ROLES = [
     "author_median_views",
     "found_via",
 ]
+# Name hints for engagement / reach / post-publication columns. Substring hints are matched on the
+# lower-cased name with separators removed ("quote_count" and "quoteCount" both become "quotecount");
+# token hints only match a whole name token ("rt_count", "score_24h", "post_age"), so "image" or
+# "percentage" do not trip "age". "is_quote" (a format flag) is exempt by name.
 FORBIDDEN_NAME_HINTS = ["follower", "impression", "view", "like", "repost", "retweet", "reply", "replies",
-                        "bookmark", "engagement", "viral", "median"]
+                        "bookmark", "engagement", "viral", "median", "quotecount", "quotes", "click",
+                        "expand", "share", "snapshot"]
+FORBIDDEN_TOKEN_HINTS = ["rt", "score", "rank", "age"]
+NAME_HINT_EXEMPT = {"is_quote", "isquote"}
 
 STRUCT_BINARY = ["poll", "thread", "is_quote"]
 WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 HOUR_BIN_HOURS = 4
 
 
+def _name_tokens(name: str) -> list[str]:
+    spaced = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", str(name))
+    return [t for t in re.split(r"[^a-z0-9]+", spaced.lower()) if t]
+
+
+def suspicious_name(name: str) -> bool:
+    """True if a column name looks like an engagement, reach, follower or post-publication column."""
+    low = str(name).strip().lower()
+    if low in NAME_HINT_EXEMPT:
+        return False
+    flat = re.sub(r"[^a-z0-9]+", "", low)
+    if any(h in flat for h in FORBIDDEN_NAME_HINTS):
+        return True
+    return any(t in FORBIDDEN_TOKEN_HINTS for t in _name_tokens(name))
+
+
 def check_no_forbidden(cfg: dict) -> None:
-    """Raise if an extra feature column is one of the label / author / follower columns."""
+    """Raise if an extra feature column or a mapped feature_columns column is one of the label /
+    author / follower columns, or its name looks like an engagement / reach column."""
     cols = cfg.get("columns", {})
     forbidden = {cols.get(r) for r in FORBIDDEN_ROLES if cols.get(r)}
     extras = list(cfg.get("extra_numeric_features", [])) + list(cfg.get("extra_categorical_features", []))
-    bad = [c for c in extras if c in forbidden]
+    mapped = [c for c in (cfg.get("feature_columns") or {}).values() if c]
+    candidates = extras + mapped
+    bad = [c for c in candidates if c in forbidden]
     if bad:
-        raise ValueError(f"extra features {bad} are label/author/follower columns; they cannot be predictors")
-    hinted = [c for c in extras if any(h in c.lower() for h in FORBIDDEN_NAME_HINTS)]
+        raise ValueError(f"feature columns {bad} are label/author/follower columns; they cannot be predictors")
+    hinted = [c for c in candidates if suspicious_name(c)]
     if hinted and not cfg.get("allow_suspicious_feature_names", False):
         raise ValueError(
-            f"extra features {hinted} look like engagement/follower columns; rename them or set "
-            "allow_suspicious_feature_names=true if they really are content features"
+            f"feature columns {hinted} look like engagement/reach/follower or post-publication columns; rename "
+            "them or set allow_suspicious_feature_names=true if they really are content features known at "
+            "posting time"
         )
 
 
@@ -309,9 +336,10 @@ class FeatureSpec:
         self.numeric = list(roles["numeric"])
         self.binary = list(roles["binary"])
         self.categorical = list(roles["categorical"])
-        self.levels, self.reference = {}, {}
+        self.levels, self.reference, self.seen = {}, {}, {}
         for c in self.categorical:
             vc = raw[c].astype(object).value_counts()
+            self.seen[c] = {str(lvl): int(n) for lvl, n in vc.items()}
             keep = [lvl for lvl, n in vc.items() if n >= self.min_level_count]
             if len(keep) < len(vc):
                 keep.append("other")
@@ -332,6 +360,24 @@ class FeatureSpec:
         levels = set(self.levels[c])
         fallback = "other" if "other" in levels else self.reference[c]
         return s.astype(object).where(s.astype(object).isin(levels), fallback)
+
+    def level_warnings(self, raw: pd.DataFrame, columns=None) -> list[dict]:
+        """Categorical values that are not a trained level, so they are scored as another level:
+        never seen in training, or seen fewer than min_level_count times (collapsed to "other")."""
+        out = []
+        for c in self.categorical:
+            if (columns is not None and c not in columns) or c not in raw.columns:
+                continue
+            levels = set(self.levels[c])
+            fallback = "other" if "other" in levels else self.reference[c]
+            valid = [lvl for lvl in self.levels[c] if lvl != "other"]
+            for row, v in raw[c].astype(object).items():
+                if v in levels:
+                    continue
+                n_seen = getattr(self, "seen", {}).get(c, {}).get(str(v), 0)
+                out.append({"row": row, "column": c, "value": v, "scored_as": fallback,
+                            "seen_in_training": n_seen, "valid_levels": valid})
+        return out
 
     def _encode(self, raw: pd.DataFrame):
         cols, names, sources = [], [], []

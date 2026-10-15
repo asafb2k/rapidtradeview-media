@@ -53,6 +53,11 @@ Accepted data formats: `.csv`, `.tsv`, `.parquet` (needs pyarrow), `.jsonl`, `.j
   metrics), `media_type`, `poll`, `thread`, `is_quote`, `author_median_views` (only with
   `target.author_median_source = "column"`), `hour_utc` / `weekday` (only when `created_at` is missing)
 
+Every predictor must be known **when the post is published**. `thread` is unmapped (`null`) in
+`config.example.json` for that reason: map it only if it records that the author posted a thread. If it was read
+from the conversation at scrape time, self-replies added after a post took off make it post-publication
+information and its effect can run backwards. The report lists a warning whenever `thread` is mapped.
+
 If your table already holds views at 24 h in one column (no snapshots), map it to `views` and set
 `target.age_filter = false`. Timestamps may be ISO strings or epoch seconds/milliseconds; all times are UTC.
 
@@ -63,9 +68,12 @@ shows how well your columns match ours; switch to `"columns"` only if they agree
 
 `extra_numeric_features` / `extra_categorical_features` add your other content features as-is (for example
 visual features that exist for a subset of posts: missing values are imputed with a missing-indicator for the
-linear models and left as NaN for gradient boosting). `train.py` refuses any extra feature that is a mapped
-label/author/follower column or whose name looks like one (`follower`, `impression`, `view`, `like`, ...); set
-`allow_suspicious_feature_names = true` only if such a name really is a content feature.
+linear models and left as NaN for gradient boosting). `train.py` refuses any extra feature or `feature_columns`
+column that is a mapped label/author/follower column or whose name looks like an engagement, reach or
+post-publication column: `follower`, `impression`, `view`, `like`, `repost`, `retweet`, `reply`, `bookmark`,
+`engagement`, `viral`, `median`, `quote_count`, `quotes`, `click`, `expand`, `share`, `snapshot`, or a name token
+`rt`, `score`, `rank`, `age` (`is_quote` is allowed). Set `allow_suspicious_feature_names = true` only if such a
+name really is a content feature known at posting time.
 
 ## Design
 
@@ -111,11 +119,20 @@ raw regression understates the planted effects by about 10-35 % (3 seeds checked
 difference between two drafts of one author is the same either way.
 
 **Models.** Ridge and elastic net (standardized features; alpha and l1 ratio chosen by GroupKFold inside the
-training data; coefficients with 95 % CIs from an author-resampled bootstrap), HistGradientBoosting, and a text
+training data), HistGradientBoosting, and a text
 model (TF-IDF word 1-2-grams stacked with the structured features, one ridge) as the stand-in for embeddings.
 The binary label uses HistGradientBoosting with isotonic calibration fitted on 25 % of training authors held out
 from the classifier. The primary model (`models.primary_model = "auto"`) is the one with the best GroupKFold
 pairwise accuracy.
+
+**Effects table.** The per-feature effects come from the same within-author regression with a near-zero penalty
+(`models.effects_alpha`, 1e-6), not from the predictive ridge: its cross-validated alpha (100-300 on the synthetic
+data) shrank effects by 3-8 %. Over 30 synthetic seeds (120 authors each) the mean estimates are video +0.517,
+image +0.258, BREAKING +0.423, question -0.309, per cashtag +0.107, 12-15 UTC +0.193 against the planted +0.50,
++0.25, +0.40, -0.30, +0.10, +0.20. The 95 % CIs are percentile intervals from an author-resampled bootstrap and are
+approximate: over the same 30 seeds (200 bootstraps each) they covered the planted value 0.92 of the time on
+average, 0.83 for `cashtag_count` and `hour_bin=h12-15`, and 0.93 for the zero-effect features. Read them as
+a guide, not an exact 95 %.
 
 **Validation.**
 - **GroupKFold by author** (5 folds): no author is ever in both train and test (checked; the report prints the
@@ -125,7 +142,9 @@ pairwise accuracy.
 - **Metrics**, each with its N:
   - **within-author pairwise accuracy** (headline): over all same-author post pairs in the test set whose `y`
     differ by more than `pair_margin` (0.25, about 28 % more views), the share where the model ranks the better
-    post higher. 0.5 = chance. Pair-weighted, with a 95 % CI from resampling authors; an author-macro version too.
+    post higher. 0.5 = chance. Pair-weighted, with a 95 % CI from resampling authors; the author-macro version
+    (mean of per-author accuracies, authors with >= 10 pairs, each author weighted equally) is in every table and
+    in the headline.
   - **Spearman** of prediction vs `y` overall, and the mean within-author Spearman.
   - **lift@top decile:** share of the top 10 % predicted posts that are real top-20 % posts, divided by the base rate;
     plus the median "x author median" of that decile.
@@ -140,15 +159,19 @@ Every rate in the report carries its N. Rows with fewer than 200 pairs or 10 aut
 
 ## Reading the report (`out/report.md`)
 
-1. **Headline line.** Primary-model pairwise accuracy with CI vs the shuffled control. The model is useful only if
-   the CI's lower bound clears the control's maximum. On real X data expect modest numbers (0.55-0.65); 0.60 means
+1. **Headline line.** Primary-model pairwise accuracy with CI vs the shuffled control, and the author-macro accuracy.
+   The model is useful only if the CI's lower bound clears the control's maximum. If the pair-weighted and
+   author-macro numbers differ a lot, a few prolific authors drive the headline (see the tiny-account section). On real X data expect modest numbers (0.55-0.65); 0.60 means
    that of two posts by the same author whose views differ by 28 % or more, the model picks the better one 60 % of
    the time.
 2. **Corpus.** Check the funnel: how many posts survived the age window, how many authors were dropped, whether
    one `found_via` source dominates, and whether a few authors hold most posts.
 3. **GroupKFold and time split tables.** Similar numbers on both = it generalizes to new authors and to newer
-   posts. Per-fold spread shows stability. Small-author rows tell whether the effects hold for accounts like ours.
-4. **Feature effects (ridge).** `per unit` is the change in `y` (log views vs the author's median) for one unit of
+   posts. Per-fold spread shows stability. Small-author rows show how well the pooled model, trained mostly on
+   bigger authors' pairs, ranks posts of the small authors in the corpus (count their authors: often a few dozen).
+   They do not estimate the effects for small accounts, and they do not show that the effects hold for an account
+   with 5-50 views a post (see below).
+4. **Feature effects (within-author least squares).** `per unit` is the change in `y` (log views vs the author's median) for one unit of
    the feature; `x views` = exp(per unit), e.g. `media_type=video 1.60` = +60 % views vs the author's median compared
    with the reference level (`none`), holding the other features fixed. Trust an effect when its CI excludes 0,
    `N posts nonzero` and `N authors` are large, and it also appears in the elastic net (selected in most bootstraps)
@@ -164,6 +187,30 @@ Every rate in the report carries its N. Rows with fewer than 200 pairs or 10 aut
 These are observational estimates. Comparing within an author removes author size and style, not news flow: a
 BREAKING post often rides a bigger story. Use the effects to choose between drafts, then test them on real posts.
 
+## Transfer to a tiny account
+
+The kit ranks drafts of one post against each other. It does not predict what a tiny account's post will get,
+and nothing in the report proves the effects transfer to one. Specifically:
+
+- **Count noise.** At 5-50 views a post, the difference between two posts is mostly noise. At 20 views the pair
+  margin of 0.25 log units is about +/- 5 views, and one repost by a bigger account outweighs any format effect.
+  The target is `log(views + 1)`, so `exp(per unit)` multiplies views + 1, not views: at single- and double-digit
+  counts it is not a views multiplier, and an effect of +0.2 is smaller than the post-to-post noise.
+- **The headline is pair-weighted.** An author with n posts adds n(n-1)/2 pairs, so a 200-post author outweighs
+  ten 20-post authors about 10 to 1. `validation.max_pairs_per_author` defaults to 1,000,000, which in practice is
+  no cap. Compare the author-macro column, or set `max_pairs_per_author` (for example 500; pairs are then sampled)
+  and rerun.
+- **Small-author rows are not small-account effects.** They score the pooled model on the few small authors in the
+  corpus; the effects themselves are estimated mostly from larger authors' posts.
+- **Selection on the outcome.** Posts collected via search (`found_via = search`), especially popular or Top
+  results, were picked partly because they did well. That inflates whatever those posts have in common and biases
+  the effects. Check the per-`found_via` rows, and rerun on the panel rows alone (filter the input file) to see
+  whether an effect survives without them.
+
+So: use `score_drafts.py` to choose between drafts, and treat the account's own A/B posts as the real check:
+alternate the variants on comparable posts at the same hour, record views at the same fixed age, and decide only
+after enough posts per arm to see a difference larger than the noise (report N, not rates from a handful of posts).
+
 ## Scoring drafts
 
 `drafts.json` (see `drafts.example.json`) is a list of variants:
@@ -175,7 +222,9 @@ BREAKING post often rides a bigger story. Use the effects to choose between draf
 
 Optional per draft: `weekday` (0 = Mon or `"Mon"`; without it the score is averaged over the 7 weekdays),
 `post_time_utc` (ISO; sets hour and weekday), `poll`, `thread`, `is_quote`, `extra` (values for extra features).
-Media types must use the training labels (unknown labels fall back to `other` or the reference level).
+Media types (and extra categorical values) must use the training labels: a label the model never saw, or saw
+fewer than `min_level_count` times, is scored as `other` or the reference level, and `score_drafts.py` prints a
+warning naming the trained levels.
 
 Output: rank, `score` (predicted `y`), `x median` = exp(score), `P(top 20%)` from the calibrated classifier, the
 secondary ER score, and with `--author-median-views N` an estimated view count. Below the table: the largest
@@ -188,13 +237,13 @@ Synthetic run (planted: video +0.50, image +0.25, BREAKING +0.40, question -0.30
 
 ```
 Primary model: elastic_net. Within-author pairwise accuracy (GroupKFold by author) 0.628 [0.618, 0.638],
-N = 67,477 pairs from 112 authors; 0.5 = chance. Shuffled-target control (ridge, 5 permutations): mean 0.496,
-range 0.483-0.504.
+N = 67,477 pairs from 112 authors; 0.5 = chance. Author-macro: 0.626, N = 112 authors. Shuffled-target control
+(ridge, 5 permutations): mean 0.496, range 0.483-0.504.
 
 | feature          | per unit | 95% CI           | x views | CI excludes 0 | N posts nonzero |
-| media_type=video | +0.4724  | [0.4016, 0.5491] | 1.604   | yes           | 1,212           |
-| opener=breaking  | +0.3754  | [0.3079, 0.4509] | 1.456   | yes           | 953             |
-| has_question     | -0.2430  | [-0.3462, -0.1364] | 0.784 | yes           | 947             |
+| media_type=video | +0.4958  | [0.4204, 0.5763] | 1.642   | yes           | 1,212           |
+| opener=breaking  | +0.3907  | [0.3095, 0.4734] | 1.478   | yes           | 953             |
+| has_question     | -0.2548  | [-0.3753, -0.1297] | 0.775 | yes           | 947             |
 
 rank   score  x median    P(top 20%)  ER score  variant
 1     +0.768      2.16          0.24    +0.055  A breaking + video [video, 14h UTC]: BREAKING: $NVDA insider ...
@@ -223,6 +272,8 @@ rank   score  x median    P(top 20%)  ER score  variant
 | `models.within_author_demean` | true | fixed-effects estimation for linear models |
 | `models.min_level_count` | 30 | rarer categorical levels -> `other` |
 | `models.bootstrap` / `bootstrap_enet` | 200 / 100 | author-resampled bootstraps for CIs |
+| `models.effects_alpha` | 1e-6 | penalty of the effects-table regression (near zero = unshrunk) |
+| `validation.max_pairs_per_author` | 1,000,000 | pairs per author before sampling (effectively no cap) |
 
 Model hyper-parameters (`ridge_alphas`, `enet_alphas`, `enet_l1_ratios`, `hgb_params`, `tfidf`, `text_alphas`)
 can be overridden under `models` too. `model.pkl` is a pickle: load it only with the same kit and scikit-learn
