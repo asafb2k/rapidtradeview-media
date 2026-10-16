@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-16",
-  "generated_at": "2026-10-16T11:00:04Z",
-  "as_of": "2026-10-16T11:00:04Z",
+  "generated_at": "2026-10-16T11:30:04Z",
+  "as_of": "2026-10-16T11:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -53,9 +53,9 @@
     "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order"
   },
   "counts": {
-    "congress_trade": 5,
-    "form4_buy": 7,
-    "earnings_result": 23,
+    "congress_trade": 7,
+    "form4_buy": 4,
+    "earnings_result": 24,
     "earnings_upcoming": 14,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -64,7 +64,7 @@
     "ptr_summary": 0
   },
   "reasons": {
-    "ptr_summary": "4 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
+    "ptr_summary": "5 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
     "picks_ready": "the published list (2026-10-15) expires 2026-10-16T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
   },
   "left_out": {
@@ -81,14 +81,15 @@
       "no_official_source": 0
     },
     "ptr_summary": {
-      "members_filing_dates": 5,
-      "single_item": 1
+      "members_filing_dates": 7,
+      "single_item": 2
     },
     "ptr_summary_incomplete": {
       "window_start": "2026-10-12",
       "oldest_row_read": "2026-10-12",
-      "skipped": 4,
+      "skipped": 5,
       "reasons": [
+        "rick-w-allen filed 2026-10-14: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-12: rows of the filing may be cut off",
         "kevin-hern filed 2026-10-13: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-12: rows of the filing may be cut off; rows of the filing were left out (not_listed 1)",
         "gilbert-ray-cisneros-jr filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-12: rows of the filing may be cut off; rows of the filing were left out (other_side 1)",
         "rick-larsen filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-12: rows of the filing may be cut off",
@@ -97,33 +98,30 @@
     },
     "per_filer_cap": {
       "dropped": 35,
-      "filers": 5,
+      "filers": 7,
       "dropped_congress_trade": 35,
       "dropped_ptr_summary": 0
     },
     "form4_buy": {
       "rows_read": 20,
       "filings_passing_filters": 19,
-      "below_minimum": 12,
+      "below_minimum": 15,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1462,
+      "archive_reports": 1466,
       "recent_ready": 50,
       "outside_24h": 24,
       "unreadable": 0,
-      "not_compared": 4,
-      "not_compared_metrics": [
-        "FHN: revenue (basis_mismatch)",
-        "FMC: revenue (basis_mismatch)",
-        "NTRP: revenue (basis_mismatch)",
-        "SNES: revenue (basis_mismatch)"
-      ],
-      "consensus_mismatch_hold": 3,
+      "consensus_mismatch_hold": 2,
       "held": [
-        "FMC: revenue (basis_mismatch) and nothing else compared (report data to check)",
-        "NTRP: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "TFC: revenue reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
         "SNES: revenue (basis_mismatch) and nothing else compared (report data to check)"
+      ],
+      "not_compared": 2,
+      "not_compared_metrics": [
+        "FHN: revenue (unverified)",
+        "SNES: revenue (basis_mismatch)"
       ]
     },
     "earnings_upcoming": {
@@ -160,7 +158,7 @@
     "FITB": "item",
     "APLD": "item"
   },
-  "api_requests": 50,
+  "api_requests": 42,
   "items": [
     {
       "item_id": "2026-10-16-form4-buy-GME-cac4e5",
@@ -210,7 +208,7 @@
       "rank_why": "form4_buy 2; buy +2; top $20.98M +4; known name Ryan Cohen (fame) +2; large cap $14.14B +2; filed 2026-10-13 (age 3) +0.5"
     },
     {
-      "item_id": "2026-10-16-form4-buy-BORR-6ff8de",
+      "item_id": "2026-10-16-form4-buy-BORR-4e9439",
       "type": "form4_buy",
       "ticker": "BORR",
       "tickers": [
@@ -218,300 +216,148 @@
       ],
       "name": "Tor Olav Troim",
       "office": "Director at Borr Drilling Limited",
-      "amount_text": "$7.4M",
+      "amount_text": "$3.54M",
       "traded": [
-        "2026-10-13"
+        "2026-10-14"
       ],
-      "filed": "2026-10-14",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1715497/000162828026065849/0001628280-26-065849-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-BORR-6ff8de#trades",
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1715497/000162828026065947/0001628280-26-065947-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-BORR-4e9439#trades",
       "allowed_numbers": [
-        "$7.4M",
+        "$3.54M",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
         "2026-10-14",
         "Oct 14, 2026",
-        "Oct 14",
-        "2026-10-13",
-        "Oct 13, 2026",
-        "Oct 13"
+        "Oct 14"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $7.4M on a Form 4 filed 2026-10-14, traded 2026-10-13.",
-      "dedupe_key": "form4:0001628280-26-065849:BORR",
+      "facts_text": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $3.54M on a Form 4 filed 2026-10-15, traded 2026-10-14.",
+      "dedupe_key": "form4:0001628280-26-065947:BORR",
       "company": "Borr Drilling Limited",
       "side": "buy",
-      "accession": "0001628280-26-065849",
+      "accession": "0001628280-26-065947",
       "rows": 1,
-      "amount_top_usd": 7401600.0,
+      "amount_top_usd": 3542550.0,
       "market_cap_usd": 1443839488.0,
       "famous_person": null,
       "row_amounts": [
-        "$7.4M"
+        "$3.54M"
       ],
       "media": [
         {
           "url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630/opengraph-image",
           "kind": "image",
-          "alt": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $7.4M on a Form 4 filed 2026-10-14, traded 2026-10-13."
+          "alt": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $3.54M on a Form 4 filed 2026-10-15, traded 2026-10-14."
         }
       ],
-      "rank": 10.87,
-      "rank_why": "form4_buy 2; buy +2; top $7.4M +3.87; known name Director (title) +2; filed 2026-10-14 (age 2) +1"
+      "rank": 11.05,
+      "rank_why": "form4_buy 2; buy +2; top $3.54M +3.55; known name Director (title) +2; filed 2026-10-15 (age 1) +1.5"
     },
     {
-      "item_id": "2026-10-16-form4-buy-BPRE-3e55ba",
-      "type": "form4_buy",
-      "ticker": "BPRE",
-      "tickers": [
-        "BPRE"
-      ],
-      "name": "Ramin Kamfar",
-      "office": "Director at Bluerock Private Real Estate Fund",
-      "amount_text": "$2.06M",
-      "traded": [
-        "2026-10-12"
-      ],
-      "filed": "2026-10-14",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1551047/000139834426018199/0001398344-26-018199-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kamfar-ramin-1111908?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-BPRE-3e55ba#trades",
-      "allowed_numbers": [
-        "$2.06M",
-        "2026-10-14",
-        "Oct 14, 2026",
-        "Oct 14",
-        "2026-10-12",
-        "Oct 12, 2026",
-        "Oct 12"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Ramin Kamfar (Director at Bluerock Private Real Estate Fund) reported an open-market purchase of BPRE totaling $2.06M on a Form 4 filed 2026-10-14, traded 2026-10-12.",
-      "dedupe_key": "form4:0001398344-26-018199:BPRE",
-      "company": "Bluerock Private Real Estate Fund",
-      "side": "buy",
-      "accession": "0001398344-26-018199",
-      "rows": 1,
-      "amount_top_usd": 2060257.76,
-      "market_cap_usd": null,
-      "famous_person": null,
-      "row_amounts": [
-        "$2.06M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/kamfar-ramin-1111908/opengraph-image",
-          "kind": "image",
-          "alt": "Ramin Kamfar (Director at Bluerock Private Real Estate Fund) reported an open-market purchase of BPRE totaling $2.06M on a Form 4 filed 2026-10-14, traded 2026-10-12."
-        }
-      ],
-      "rank": 10.31,
-      "rank_why": "form4_buy 2; buy +2; top $2.06M +3.31; known name Director (title) +2; filed 2026-10-14 (age 2) +1"
-    },
-    {
-      "item_id": "2026-10-16-form4-buy-QVCG-4367ed",
-      "type": "form4_buy",
-      "ticker": "QVCG",
-      "tickers": [
-        "QVCG"
-      ],
-      "name": "Goldentree Asset Management Lp",
-      "office": "10% owner at QVC Group Inc.",
-      "amount_text": "$16.7M",
-      "traded": [
-        "2026-10-09"
-      ],
-      "filed": "2026-10-14",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1254699/000149315226047051/0001493152-26-047051-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/goldentree-asset-management-lp-1278951?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-QVCG-4367ed#trades",
-      "allowed_numbers": [
-        "$16.7M",
-        "2026-10-14",
-        "Oct 14, 2026",
-        "Oct 14",
-        "2026-10-09",
-        "Oct 9, 2026",
-        "Oct 9",
-        "10%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Goldentree Asset Management Lp (10% owner at QVC Group Inc.) reported an open-market purchase of QVCG totaling $16.7M on a Form 4 filed 2026-10-14, traded 2026-10-09.",
-      "dedupe_key": "form4:0001493152-26-047051:QVCG",
-      "company": "QVC Group Inc.",
-      "side": "buy",
-      "accession": "0001493152-26-047051",
-      "rows": 1,
-      "amount_top_usd": 16697200.0,
-      "market_cap_usd": 558998848.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$16.7M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/goldentree-asset-management-lp-1278951/opengraph-image",
-          "kind": "image",
-          "alt": "Goldentree Asset Management Lp (10% owner at QVC Group Inc.) reported an open-market purchase of QVCG totaling $16.7M on a Form 4 filed 2026-10-14, traded 2026-10-09."
-        }
-      ],
-      "rank": 9.0,
-      "rank_why": "form4_buy 2; buy +2; top $16.7M +4; filed 2026-10-14 (age 2) +1"
-    },
-    {
-      "item_id": "2026-10-16-form4-buy-NUAI-94dabf",
-      "type": "form4_buy",
-      "ticker": "NUAI",
-      "tickers": [
-        "NUAI"
-      ],
-      "name": "Kent C. Mccarthy",
-      "office": "10% owner at New Era Energy & Digital, Inc.",
-      "amount_text": "$1.19M",
-      "traded": [
-        "2026-10-09"
-      ],
-      "filed": "2026-10-14",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2028336/000122502826000006/0001225028-26-000006-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/mccarthy-kent-c-1225028?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-NUAI-94dabf#trades",
-      "allowed_numbers": [
-        "$1.19M",
-        "2026-10-14",
-        "Oct 14, 2026",
-        "Oct 14",
-        "2026-10-09",
-        "Oct 9, 2026",
-        "Oct 9",
-        "10%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Kent C. Mccarthy (10% owner at New Era Energy & Digital, Inc.) reported an open-market purchase of NUAI totaling $1.19M on a Form 4 filed 2026-10-14, traded 2026-10-09.",
-      "dedupe_key": "form4:0001225028-26-000006:NUAI",
-      "company": "New Era Energy & Digital, Inc.",
-      "side": "buy",
-      "accession": "0001225028-26-000006",
-      "rows": 1,
-      "amount_top_usd": 1192350.0,
-      "market_cap_usd": 576486016.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$1.19M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/mccarthy-kent-c-1225028/opengraph-image",
-          "kind": "image",
-          "alt": "Kent C. Mccarthy (10% owner at New Era Energy & Digital, Inc.) reported an open-market purchase of NUAI totaling $1.19M on a Form 4 filed 2026-10-14, traded 2026-10-09."
-        }
-      ],
-      "rank": 8.08,
-      "rank_why": "form4_buy 2; buy +2; top $1.19M +3.08; filed 2026-10-14 (age 2) +1"
-    },
-    {
-      "item_id": "2026-10-16-form4-buy-PED-a5be71",
-      "type": "form4_buy",
-      "ticker": "PED",
-      "tickers": [
-        "PED"
-      ],
-      "name": "Simon G. Kukes",
-      "office": "10% owner at PEDEVCO Corp.",
-      "amount_text": "$1.91M",
-      "traded": [
-        "2026-10-08"
-      ],
-      "filed": "2026-10-13",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1141197/000165495426008905/0001654954-26-008905-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kukes-simon-g-1222390?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-PED-a5be71#trades",
-      "allowed_numbers": [
-        "$1.91M",
-        "2026-10-13",
-        "Oct 13, 2026",
-        "Oct 13",
-        "2026-10-08",
-        "Oct 8, 2026",
-        "Oct 8",
-        "10%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Simon G. Kukes (10% owner at PEDEVCO Corp.) reported an open-market purchase of PED totaling $1.91M on a Form 4 filed 2026-10-13, traded 2026-10-08.",
-      "dedupe_key": "form4:0001654954-26-008905:PED",
-      "company": "PEDEVCO Corp.",
-      "side": "buy",
-      "accession": "0001654954-26-008905",
-      "rows": 1,
-      "amount_top_usd": 1911910.0,
-      "market_cap_usd": 175986256.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$1.91M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/kukes-simon-g-1222390/opengraph-image",
-          "kind": "image",
-          "alt": "Simon G. Kukes (10% owner at PEDEVCO Corp.) reported an open-market purchase of PED totaling $1.91M on a Form 4 filed 2026-10-13, traded 2026-10-08."
-        }
-      ],
-      "rank": 7.78,
-      "rank_why": "form4_buy 2; buy +2; top $1.91M +3.28; filed 2026-10-13 (age 3) +0.5"
-    },
-    {
-      "item_id": "2026-10-16-form4-buy-TRXB-78cb4d",
+      "item_id": "2026-10-16-form4-buy-TRXB-fa5a17",
       "type": "form4_buy",
       "ticker": "TRXB",
       "tickers": [
         "TRXB"
       ],
-      "name": "Svlsf Vi, Llc",
+      "name": "Alexandria Venture Investments, Llc",
       "office": "10% owner at TRex Bio, Inc.",
-      "amount_text": "$1.26M",
+      "amount_text": "$2.5M",
       "traded": [
-        "2026-10-08"
+        "2026-10-13"
       ],
-      "filed": "2026-10-13",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2139097/000182912626011084/0001829126-26-011084-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/svlsf-vi-llc-1717728?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-TRXB-78cb4d#trades",
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2139097/000172202426000004/0001722024-26-000004-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/alexandria-venture-investments-llc-1722024?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-TRXB-fa5a17#trades",
       "allowed_numbers": [
-        "$1.26M",
+        "$2.5M",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
         "2026-10-13",
         "Oct 13, 2026",
         "Oct 13",
-        "2026-10-08",
-        "Oct 8, 2026",
-        "Oct 8",
         "10%"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Svlsf Vi, Llc (10% owner at TRex Bio, Inc.) reported an open-market purchase of TRXB totaling $1.26M on a Form 4 filed 2026-10-13, traded 2026-10-08.",
-      "dedupe_key": "form4:0001829126-26-011084:TRXB",
+      "facts_text": "Alexandria Venture Investments, Llc (10% owner at TRex Bio, Inc.) reported an open-market purchase of TRXB totaling $2.5M on a Form 4 filed 2026-10-15, traded 2026-10-13.",
+      "dedupe_key": "form4:0001722024-26-000004:TRXB",
       "company": "TRex Bio, Inc.",
       "side": "buy",
-      "accession": "0001829126-26-011084",
+      "accession": "0001722024-26-000004",
       "rows": 1,
-      "amount_top_usd": 1256962.0,
+      "amount_top_usd": 2499994.0,
       "market_cap_usd": 370516704.0,
       "famous_person": null,
       "row_amounts": [
-        "$1.26M"
+        "$2.5M"
       ],
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/svlsf-vi-llc-1717728/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/alexandria-venture-investments-llc-1722024/opengraph-image",
           "kind": "image",
-          "alt": "Svlsf Vi, Llc (10% owner at TRex Bio, Inc.) reported an open-market purchase of TRXB totaling $1.26M on a Form 4 filed 2026-10-13, traded 2026-10-08."
+          "alt": "Alexandria Venture Investments, Llc (10% owner at TRex Bio, Inc.) reported an open-market purchase of TRXB totaling $2.5M on a Form 4 filed 2026-10-15, traded 2026-10-13."
         }
       ],
-      "rank": 7.6,
-      "rank_why": "form4_buy 2; buy +2; top $1.26M +3.1; filed 2026-10-13 (age 3) +0.5"
+      "rank": 8.9,
+      "rank_why": "form4_buy 2; buy +2; top $2.5M +3.4; filed 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-form4-buy-GOLD-e4248e",
+      "type": "form4_buy",
+      "ticker": "GOLD",
+      "tickers": [
+        "GOLD"
+      ],
+      "name": "Tether Global Investments Fund, S.i.c.a.f., S.a.",
+      "office": "10% owner at Gold.com, Inc.",
+      "amount_text": "$1.7M",
+      "traded": [
+        "2026-10-13"
+      ],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1591588/000110465926116094/0001104659-26-116094-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/tether-global-investments-fund-s-i-c-a-f-s-a-2025889?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-GOLD-e4248e#trades",
+      "allowed_numbers": [
+        "$1.7M",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tether Global Investments Fund, S.i.c.a.f., S.a. (10% owner at Gold.com, Inc.) reported an open-market purchase of GOLD totaling $1.7M on a Form 4 filed 2026-10-15, traded 2026-10-13.",
+      "dedupe_key": "form4:0001104659-26-116094:GOLD",
+      "company": "Gold.com, Inc.",
+      "side": "buy",
+      "accession": "0001104659-26-116094",
+      "rows": 1,
+      "amount_top_usd": 1703737.39,
+      "market_cap_usd": 1153092480.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.7M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/tether-global-investments-fund-s-i-c-a-f-s-a-2025889/opengraph-image",
+          "kind": "image",
+          "alt": "Tether Global Investments Fund, S.i.c.a.f., S.a. (10% owner at Gold.com, Inc.) reported an open-market purchase of GOLD totaling $1.7M on a Form 4 filed 2026-10-15, traded 2026-10-13."
+        }
+      ],
+      "rank": 8.73,
+      "rank_why": "form4_buy 2; buy +2; top $1.7M +3.23; filed 2026-10-15 (age 1) +1.5"
     },
     {
       "item_id": "2026-10-16-earnings-tomorrow-roundup-LIST-56a8c1",
@@ -619,6 +465,60 @@
       ],
       "rank": 6.5,
       "rank_why": "earnings_tomorrow_roundup 2.5; large cap $34.17B +2; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-congress-trade-BRK-B-c50e39",
+      "type": "congress_trade",
+      "ticker": "BRK.B",
+      "tickers": [
+        "BRK.B"
+      ],
+      "name": "Richard McCormick",
+      "office": "U.S. Representative (R-GA)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-18"
+      ],
+      "filed": "2026-10-14",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035651.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/richard-mccormick?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-congress-trade-BRK-B-c50e39#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2026-09-18",
+        "Sep 18, 2026",
+        "Sep 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Richard McCormick (R-GA) disclosed a purchase of BRK.B (Berkshire Hathaway Inc.), $1K–$15K, traded 2026-09-18; filed 2026-10-14.",
+      "dedupe_key": "ptr:20035651:BRK.B:buy",
+      "company": "Berkshire Hathaway Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "richard-mccormick",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/richard-mccormick/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Richard McCormick (R-GA) disclosed a purchase of BRK.B (Berkshire Hathaway Inc.), $1K–$15K, traded 2026-09-18; filed 2026-10-14."
+        }
+      ],
+      "rank": 6.18,
+      "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-14 (age 2) +1"
     },
     {
       "item_id": "2026-10-16-congress-trade-RIG-402823",
@@ -783,6 +683,70 @@
       "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 4) +0"
     },
     {
+      "item_id": "2026-10-16-earnings-result-TRV-4e88e1",
+      "type": "earnings_result",
+      "ticker": "TRV",
+      "tickers": [
+        "TRV"
+      ],
+      "name": "The Travelers Companies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/86312/000008631226000180/a991pressrelease93026.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TRV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-TRV-4e88e1#earnings-history",
+      "allowed_numbers": [
+        "$12.41B",
+        "$11.02B",
+        "$1.39B",
+        "$9.18",
+        "$7.43",
+        "$1.75",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Travelers Companies, Inc. (TRV) published Q3 2026 results on 2026-10-16: Beat estimates. Revenue $12.41B vs $11.02B consensus (Beat by $1.39B). Core income per diluted share $9.18 vs $7.43 consensus (Beat by $1.75).",
+      "dedupe_key": "report:trv-2026-q3",
+      "report_id": "trv-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-16",
+      "published_at": "2026-10-16T11:00:33.812874+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$12.41B",
+          "consensus": "$11.02B",
+          "label": "Beat by $1.39B",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Core income per diluted share",
+          "reported": "$9.18",
+          "consensus": "$7.43",
+          "label": "Beat by $1.75",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TRV/opengraph-image",
+          "kind": "image",
+          "alt": "The Travelers Companies, Inc. (TRV) published Q3 2026 results on 2026-10-16: Beat estimates. Revenue $12.41B vs $11.02B consensus (Beat by $1.39B). Core income per diluted share $9.18 vs $7.43 consensus (Beat by $1.75)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
+    },
+    {
       "item_id": "2026-10-16-earnings-result-CFG-b113b0",
       "type": "earnings_result",
       "ticker": "CFG",
@@ -836,70 +800,6 @@
           "url": "https://www.rapidtradeview.trade/dashboard/CFG/opengraph-image",
           "kind": "image",
           "alt": "Citizens Financial Group, Inc. (CFG) published Q3 2026 results on 2026-10-16: Revenue miss. Revenue $2.32B vs $2.34B consensus (Missed by $17.2M). GAAP EPS $1.41."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-TFC-575725",
-      "type": "earnings_result",
-      "ticker": "TFC",
-      "tickers": [
-        "TFC"
-      ],
-      "name": "Truist Financial Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000108/ex991-3q26.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/TFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-TFC-575725#earnings-history",
-      "allowed_numbers": [
-        "$3.75B",
-        "$5.36B",
-        "$1.61B",
-        "$1.16",
-        "$1.21",
-        "$0.05",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Truist Financial Corporation (TFC) published Q3 2026 results on 2026-10-16: Missed estimates. Revenue $3.75B vs $5.36B consensus (Missed by $1.61B). adjusted diluted EPS $1.16 vs $1.21 consensus (Missed by $0.05).",
-      "dedupe_key": "report:tfc-2026-q3",
-      "report_id": "tfc-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-16",
-      "published_at": "2026-10-16T10:36:42.994272+00:00",
-      "tile_label": "Missed estimates",
-      "tile_state": "miss",
-      "results": {
-        "revenue": {
-          "reported": "$3.75B",
-          "consensus": "$5.36B",
-          "label": "Missed by $1.61B",
-          "verdict": "miss"
-        },
-        "eps": {
-          "basis": "adjusted diluted EPS",
-          "reported": "$1.16",
-          "consensus": "$1.21",
-          "label": "Missed by $0.05",
-          "verdict": "miss"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/TFC/opengraph-image",
-          "kind": "image",
-          "alt": "Truist Financial Corporation (TFC) published Q3 2026 results on 2026-10-16: Missed estimates. Revenue $3.75B vs $5.36B consensus (Missed by $1.61B). adjusted diluted EPS $1.16 vs $1.21 consensus (Missed by $0.05)."
         }
       ],
       "rank": 5.0,
@@ -1252,6 +1152,60 @@
       "rank_why": "congress_trade 2; sale +0; top $200K +2.3; filed 2026-10-13 (age 3) +0.5"
     },
     {
+      "item_id": "2026-10-16-congress-trade-AZO-fc3dff",
+      "type": "congress_trade",
+      "ticker": "AZO",
+      "tickers": [
+        "AZO"
+      ],
+      "name": "Rick W. Allen",
+      "office": "U.S. Representative (R-GA)",
+      "amount_text": "$15K–$50K",
+      "traded": [
+        "2026-09-22"
+      ],
+      "filed": "2026-10-14",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035648.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/rick-w-allen?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-congress-trade-AZO-fc3dff#trades",
+      "allowed_numbers": [
+        "$15K–$50K",
+        "$15K",
+        "$50K",
+        "$15,001–$50,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2026-09-22",
+        "Sep 22, 2026",
+        "Sep 22"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Rick W. Allen (R-GA) disclosed a sale of AZO (AutoZone, Inc.), $15K–$50K, traded 2026-09-22; filed 2026-10-14 (owner: spouse).",
+      "dedupe_key": "ptr:20035648:AZO:sell",
+      "company": "AutoZone, Inc.",
+      "side": "sell",
+      "owner": [
+        "spouse"
+      ],
+      "figure_slug": "rick-w-allen",
+      "amount_exact_text": "$15,001–$50,000",
+      "rows": 1,
+      "amount_top_usd": 50000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/rick-w-allen/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Rick W. Allen (R-GA) disclosed a sale of AZO (AutoZone, Inc.), $15K–$50K, traded 2026-09-22; filed 2026-10-14 (owner: spouse)."
+        }
+      ],
+      "rank": 4.7,
+      "rank_why": "congress_trade 2; sale +0; top $50K +1.7; filed 2026-10-14 (age 2) +1"
+    },
+    {
       "item_id": "2026-10-16-earnings-result-WSE-ac1348",
       "type": "earnings_result",
       "ticker": "WSE",
@@ -1491,6 +1445,8 @@
         "$3.59B",
         "$82.3M",
         "$1.82",
+        "$1.81",
+        "$0.01",
         "Q3 2026",
         "Q3",
         "FY2026",
@@ -1501,13 +1457,13 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "J.B. Hunt Transport Services, Inc. (JBHT) published Q3 2026 results on 2026-10-15: Revenue beat. Revenue $3.68B vs $3.59B consensus (Beat by $82.3M). GAAP EPS $1.82.",
+      "facts_text": "J.B. Hunt Transport Services, Inc. (JBHT) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $3.68B vs $3.59B consensus (Beat by $82.3M). Diluted EPS (GAAP, street basis) $1.82 vs $1.81 consensus (Beat by $0.01).",
       "dedupe_key": "report:jbht-2026-q3",
       "report_id": "jbht-2026-q3",
       "fiscal_label": "Q3 2026",
       "release_date": "2026-10-15",
       "published_at": "2026-10-15T20:24:39.097353+00:00",
-      "tile_label": "Revenue beat",
+      "tile_label": "Beat estimates",
       "tile_state": "beat",
       "results": {
         "revenue": {
@@ -1517,15 +1473,18 @@
           "verdict": "beat"
         },
         "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$1.82"
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "$1.82",
+          "consensus": "$1.81",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
         }
       },
       "media": [
         {
           "url": "https://www.rapidtradeview.trade/dashboard/JBHT/opengraph-image",
           "kind": "image",
-          "alt": "J.B. Hunt Transport Services, Inc. (JBHT) published Q3 2026 results on 2026-10-15: Revenue beat. Revenue $3.68B vs $3.59B consensus (Beat by $82.3M). GAAP EPS $1.82."
+          "alt": "J.B. Hunt Transport Services, Inc. (JBHT) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $3.68B vs $3.59B consensus (Beat by $82.3M). Diluted EPS (GAAP, street basis) $1.82 vs $1.81 consensus (Beat by $0.01)."
         }
       ],
       "rank": 4.5,
@@ -1788,6 +1747,60 @@
       "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
     },
     {
+      "item_id": "2026-10-16-earnings-result-NTRP-a18d0e",
+      "type": "earnings_result",
+      "ticker": "NTRP",
+      "tickers": [
+        "NTRP"
+      ],
+      "name": "NextTrip, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/788611/000149315226047229/ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/NTRP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-NTRP-a18d0e#earnings-history",
+      "allowed_numbers": [
+        "$547K",
+        "$1.8M",
+        "$1.25M",
+        "Q2 2027",
+        "Q2",
+        "FY2027",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "NextTrip, Inc. (NTRP) published Q2 2027 results on 2026-10-15: Revenue miss. Revenue $547K vs $1.8M consensus (Missed by $1.25M).",
+      "dedupe_key": "report:ntrp-2027-q2",
+      "report_id": "ntrp-2027-q2",
+      "fiscal_label": "Q2 2027",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:08:37.239614+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$547K",
+          "consensus": "$1.8M",
+          "label": "Missed by $1.25M",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/NTRP/opengraph-image",
+          "kind": "image",
+          "alt": "NextTrip, Inc. (NTRP) published Q2 2027 results on 2026-10-15: Revenue miss. Revenue $547K vs $1.8M consensus (Missed by $1.25M)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
       "item_id": "2026-10-16-earnings-result-LCNB-b8caaa",
       "type": "earnings_result",
       "ticker": "LCNB",
@@ -1803,6 +1816,8 @@
       "page_url": "https://www.rapidtradeview.trade/dashboard/LCNB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-LCNB-b8caaa#earnings-history",
       "allowed_numbers": [
         "$0.51",
+        "$0.48",
+        "$0.03",
         "Q3 2026",
         "Q3",
         "FY2026",
@@ -1813,25 +1828,28 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "LCNB Corp. (LCNB) published Q3 2026 results on 2026-10-15: Published. GAAP EPS $0.51.",
+      "facts_text": "LCNB Corp. (LCNB) published Q3 2026 results on 2026-10-15: EPS beat. Diluted EPS (GAAP, street basis) $0.51 vs $0.48 consensus (Beat by $0.03).",
       "dedupe_key": "report:lcnb-2026-q3",
       "report_id": "lcnb-2026-q3",
       "fiscal_label": "Q3 2026",
       "release_date": "2026-10-15",
       "published_at": "2026-10-15T20:06:35.144231+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
+      "tile_label": "EPS beat",
+      "tile_state": "beat",
       "results": {
         "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$0.51"
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "$0.51",
+          "consensus": "$0.48",
+          "label": "Beat by $0.03",
+          "verdict": "beat"
         }
       },
       "media": [
         {
           "url": "https://www.rapidtradeview.trade/dashboard/LCNB/opengraph-image",
           "kind": "image",
-          "alt": "LCNB Corp. (LCNB) published Q3 2026 results on 2026-10-15: Published. GAAP EPS $0.51."
+          "alt": "LCNB Corp. (LCNB) published Q3 2026 results on 2026-10-15: EPS beat. Diluted EPS (GAAP, street basis) $0.51 vs $0.48 consensus (Beat by $0.03)."
         }
       ],
       "rank": 4.5,
@@ -2123,6 +2141,50 @@
       "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
     },
     {
+      "item_id": "2026-10-16-earnings-result-FMC-be5d28",
+      "type": "earnings_result",
+      "ticker": "FMC",
+      "tickers": [
+        "FMC"
+      ],
+      "name": "FMC Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/37785/000003778526000149/ex99110152026.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FMC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-FMC-be5d28#earnings-history",
+      "allowed_numbers": [
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "FMC Corporation (FMC) published Q3 2026 results on 2026-10-15: Published.",
+      "dedupe_key": "report:fmc-2026-q3",
+      "report_id": "fmc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T12:06:38.350605+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FMC/opengraph-image",
+          "kind": "image",
+          "alt": "FMC Corporation (FMC) published Q3 2026 results on 2026-10-15: Published."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
       "item_id": "2026-10-16-earnings-result-CMC-62bbb1",
       "type": "earnings_result",
       "ticker": "CMC",
@@ -2299,65 +2361,6 @@
           "url": "https://www.rapidtradeview.trade/dashboard/FHN/opengraph-image",
           "kind": "image",
           "alt": "First Horizon Corporation (FHN) published Q3 2026 results on 2026-10-15. Adjusted EPS $0.53 vs $0.52 consensus (Beat by $0.01)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-USB-0b2261",
-      "type": "earnings_result",
-      "ticker": "USB",
-      "tickers": [
-        "USB"
-      ],
-      "name": "U.S. Bancorp",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-15",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/36104/000003610426000054/a3q26earningsrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/USB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-USB-0b2261#earnings-history",
-      "allowed_numbers": [
-        "$7.97B",
-        "$8.01B",
-        "−$36.9M",
-        "$1.34",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "U.S. Bancorp (USB) published Q3 2026 results on 2026-10-15: Revenue in line. Revenue $7.97B vs $8.01B consensus (In line (−$36.9M)). GAAP EPS $1.34.",
-      "dedupe_key": "report:usb-2026-q3",
-      "report_id": "usb-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-15",
-      "published_at": "2026-10-15T11:02:51.974735+00:00",
-      "tile_label": "Revenue in line",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$7.97B",
-          "consensus": "$8.01B",
-          "label": "In line (−$36.9M)",
-          "verdict": "in_line"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$1.34"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/USB/opengraph-image",
-          "kind": "image",
-          "alt": "U.S. Bancorp (USB) published Q3 2026 results on 2026-10-15: Revenue in line. Revenue $7.97B vs $8.01B consensus (In line (−$36.9M)). GAAP EPS $1.34."
         }
       ],
       "rank": 4.5,
