@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-16",
-  "generated_at": "2026-10-16T17:30:04Z",
-  "as_of": "2026-10-16T17:30:04Z",
+  "generated_at": "2026-10-16T18:45:04Z",
+  "as_of": "2026-10-16T18:45:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 7,
     "form4_buy": 4,
-    "earnings_result": 17,
+    "earnings_result": 18,
     "earnings_upcoming": 14,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -112,13 +112,10 @@
       "recent_ready": 50,
       "outside_24h": 32,
       "unreadable": 0,
-      "not_compared": 1,
+      "not_compared": 2,
       "not_compared_metrics": [
-        "TFC: revenue (basis_mismatch)"
-      ],
-      "consensus_mismatch_hold": 1,
-      "held": [
-        "TRV: held by hand (HQ 2026-10-16: revenue $12.41B vs $11.02B likely total revenues vs a narrower consensus basis; under check)"
+        "TFC: revenue (basis_mismatch)",
+        "TRV: revenue (basis_mismatch)"
       ]
     },
     "earnings_upcoming": {
@@ -134,7 +131,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 38,
+      "tickers_in_items": 39,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -678,6 +675,61 @@
       ],
       "rank": 5.18,
       "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-TRV-4e88e1",
+      "type": "earnings_result",
+      "ticker": "TRV",
+      "tickers": [
+        "TRV"
+      ],
+      "name": "The Travelers Companies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/86312/000008631226000180/a991pressrelease93026.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TRV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-TRV-4e88e1#earnings-history",
+      "allowed_numbers": [
+        "$9.18",
+        "$7.43",
+        "$1.75",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Travelers Companies, Inc. (TRV) published Q3 2026 results on 2026-10-16. Core income per diluted share $9.18 vs $7.43 consensus (Beat by $1.75).",
+      "dedupe_key": "report:trv-2026-q3",
+      "report_id": "trv-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-16",
+      "published_at": "2026-10-16T11:00:33.812874+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "eps": {
+          "basis": "Core income per diluted share",
+          "reported": "$9.18",
+          "consensus": "$7.43",
+          "label": "Beat by $1.75",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TRV/opengraph-image",
+          "kind": "image",
+          "alt": "The Travelers Companies, Inc. (TRV) published Q3 2026 results on 2026-10-16. Core income per diluted share $9.18 vs $7.43 consensus (Beat by $1.75)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
     },
     {
       "item_id": "2026-10-16-earnings-result-CFG-b113b0",
