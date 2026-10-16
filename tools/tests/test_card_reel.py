@@ -340,3 +340,18 @@ def test_g_n1_reel_spec_carries_no_report_url(tmp_path, monkeypatch):
     for text in (spec, staged, json.dumps(state), json.dumps(fetched)):
         assert "/earnings/reports/" not in text
     assert "/dashboard/JPM" in spec and "#earnings-history" in spec
+
+
+def test_the_week_calendar_is_never_the_card_reel():
+    """earnings_week_calendar has its own image (tools/week_calendar.py) and no Open Graph card as media[0]: never chosen,
+    whatever its media."""
+    cal = fx.make_item(DATE, "earnings_week_calendar", None, "weekcal:2026-10-19", "/earnings", tickers=["META", "TSLA"],
+                       facts_text="Next week's earnings, Oct 19–23, 2026.", media=[])
+    with_png = dict(cal, media=[{"url": f"{mf.PAGES_BASE}/v/{DATE}/cards/{cal['item_id']}/calendar_4x5.png", "kind": "image",
+                                 "alt": "x"}])
+    with_og = dict(cal, media=[{"url": f"{SITE}/earnings/opengraph-image", "kind": "image", "alt": "x"}])
+    for it in (cal, with_png, with_og):
+        assert not cr.eligible(it)
+        assert cr.choose([it], {})[0] is None
+    assert cr.choose([with_og, UPCOMING, PAT], {})[0] is PAT
+    assert "earnings_week_calendar" not in cr.ORDER
