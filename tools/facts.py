@@ -123,11 +123,33 @@ SANITY_MAX_REL = 0.40
 SANITY_EPS_MIN_BASE = 0.25
 
 
+def not_comparable_reason(m) -> str | None:
+    """Why a results metric must not be published as the quarter's figure, or None. The report data marks it
+    `not_compared` (basis_mismatch, full_year_only, period_unconfirmed, sec_disagrees, sec_period_mismatch; HQ
+    2026-10-16), or its figure covers the full fiscal year (`period` full_year: a Q4 item's full-year GAAP EPS), or it
+    was not independently verified (`verification` unverified: the backend reports it but never compares it)."""
+    if not isinstance(m, dict):
+        return None
+    if m.get("not_compared"):
+        return str(m["not_compared"])
+    if m.get("period") == "full_year":
+        return "full_year"
+    if m.get("verification") == "unverified":
+        return "unverified"
+    return None
+
+
+def comparable(m) -> dict:
+    """A results metric, or {} when not_comparable_reason() says it must not be published."""
+    return {} if not isinstance(m, dict) or not_comparable_reason(m) else m
+
+
 def sanity_mismatch(res: dict) -> list[str]:
-    """The metrics of a report's results whose reported value is more than SANITY_MAX_REL away from consensus."""
+    """The comparable metrics of a report's results whose reported value is more than SANITY_MAX_REL away from
+    consensus (a metric the report data already marks not_compared is left out, not held)."""
     out = []
     for key, min_base in (("revenue", 0.0), ("eps_adjusted", SANITY_EPS_MIN_BASE), ("eps_gaap", SANITY_EPS_MIN_BASE)):
-        m = res.get(key) or {}
+        m = comparable(res.get(key))
         rep, con = m.get("reported"), m.get("consensus")
         if not (isinstance(rep, (int, float)) and isinstance(con, (int, float))) or con == 0 or abs(con) < min_base:
             continue
@@ -608,28 +630,46 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
             left.setdefault("held", []).append(f"{ticker}: {'/'.join(bad)} reported vs consensus differs by more than "
                                                f"{int(SANITY_MAX_REL * 100)}% (report data to check)")
             continue
+        dropped = [f"{k} ({not_comparable_reason(res[k])})" for k in ("revenue", "eps_adjusted", "eps_gaap")
+                   if isinstance(res.get(k), dict) and not_comparable_reason(res[k])]
         results: dict = {}
         nums: list[str | None] = []
-        rev = res.get("revenue") or {}
+        rev = comparable(res.get("revenue"))
         if any(rev.get(k) is not None for k in ("reported", "label", "verdict")):
             results["revenue"] = {k: v for k, v in {
                 "reported": money_compact(rev["reported"]) if isinstance(rev.get("reported"), (int, float)) else None,
                 "consensus": money_compact(rev["consensus"]) if isinstance(rev.get("consensus"), (int, float)) else None,
                 "label": rev.get("label"), "verdict": rev.get("verdict")}.items() if v is not None}
-        eps = res.get("eps_adjusted") or {}
-        basis = eps.get("basis_label") or "Adjusted EPS"
-        if not any(eps.get(k) is not None for k in ("reported", "label", "verdict")):
-            eps, basis = res.get("eps_gaap") or {}, "GAAP EPS"
+        # GAAP EPS stands in only when the release has no adjusted EPS at all: an adjusted figure the report data could
+        # not compare (period, basis, SEC check) leaves the GAAP figure of the same release just as doubtful.
+        adj = res.get("eps_adjusted")
+        if isinstance(adj, dict) and any(adj.get(k) is not None for k in ("reported", "label", "verdict")):
+            eps, basis = comparable(adj), adj.get("basis_label") or "Adjusted EPS"
+        else:
+            eps, basis = comparable(res.get("eps_gaap")), "GAAP EPS"
         if any(eps.get(k) is not None for k in ("reported", "label", "verdict")):
             results["eps"] = {k: v for k, v in {
                 "basis": basis,
                 "reported": eps_text(eps["reported"]) if isinstance(eps.get("reported"), (int, float)) else None,
                 "consensus": eps_text(eps["consensus"]) if isinstance(eps.get("consensus"), (int, float)) else None,
                 "label": eps.get("label"), "verdict": eps.get("verdict")}.items() if v is not None}
+        if dropped:
+            left["not_compared"] = left.get("not_compared", 0) + len(dropped)
+            left.setdefault("not_compared_metrics", []).append(f"{ticker}: {', '.join(dropped)}")
+            # A release that lost a figure and kept nothing the report data compared is suspect as a whole (PGR's
+            # monthly report, FMC): held. One that still has a compared figure (FHN's EPS beat) publishes that only.
+            if not any(m.get("verdict") for m in results.values()):
+                left["consensus_mismatch_hold"] = left.get("consensus_mismatch_hold", 0) + 1
+                left.setdefault("held", []).append(f"{ticker}: {', '.join(dropped)} and nothing else compared "
+                                                   "(report data to check)")
+                continue
+        # The tile's beat/miss headline may still count a dropped figure: only a release with nothing dropped says it.
+        tile = None if dropped else full.get("tile_label")
+        half_year = res.get("period_basis") == "half_year"
         for m in results.values():
             nums += [m.get("reported"), m.get("consensus"), *money_tokens(m.get("label"))]
         parts = [f"{full.get('company_name') or ticker} ({ticker}) published {full.get('fiscal_label')} results "
-                 f"on {full.get('release_date')}: {full.get('tile_label')}."]
+                 f"on {full.get('release_date')}" + (f": {tile}." if tile else ".")]
         for name, key in (("Revenue", "revenue"), ("EPS", "eps")):
             m = results.get(key)
             if not m:
@@ -645,11 +685,13 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
             date, "earnings_result", ticker, f"report:{full.get('id')}", f"/dashboard/{ticker}",
             name=full.get("company_name"), report_id=full.get("id"), fiscal_label=full.get("fiscal_label"),
             release_date=full.get("release_date"), published_at=full.get("published_at"),
-            tile_label=full.get("tile_label"), tile_state=full.get("tile_state"), results=results,
+            tile_label=tile, tile_state=full.get("tile_state") if tile else None, results=results,
             filed=(full.get("filing_date") or full.get("release_date")),
             source_url=src, facts_text=" ".join(parts),
-            allowed_numbers=[*nums, *money_tokens(full.get("tile_label")),
-                             *fiscal_tokens(full.get("fiscal_label"), full.get("fiscal_quarter"), full.get("fiscal_year")),
+            # a six-month report (H1) allows no quarter tokens: its figures are never "Q2"
+            allowed_numbers=[*nums, *money_tokens(tile),
+                             *fiscal_tokens(full.get("fiscal_label"), None if half_year else full.get("fiscal_quarter"),
+                                            full.get("fiscal_year")),
                              *date_forms(full.get("release_date")), *date_forms(full.get("filing_date")),
                              *digit_words(full.get("company_name"))]))
     items.sort(key=lambda x: (x["published_at"] or "", x["ticker"]), reverse=True)

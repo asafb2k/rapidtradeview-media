@@ -757,3 +757,63 @@ def test_earnings_sanity_hold():
     big_eps = {"eps_gaap": {"reported": 0.91, "consensus": 2.10, "label": "Missed by $1.19", "verdict": "miss"}}
     assert fx.sanity_mismatch(big_eps) == ["eps_gaap"]
     assert fx.sanity_mismatch({"revenue": {"reported": 1.0, "consensus": 0}}) == []
+
+
+def test_not_compared_metric_is_dropped_and_eps_carries_the_item():
+    """HQ 2026-10-16 contract (backend/src/earnings/model.rs): a not-comparable pair keeps its consensus but has no
+    verdict/label and a per-metric not_compared. FHN shape: revenue basis_mismatch + an adjusted EPS beat -> the item
+    publishes EPS only, no revenue numbers, and no tile headline (the tile may still count the dropped revenue)."""
+    at = dt.datetime(2026, 10, 15, 12, 0, tzinfo=dt.timezone.utc)
+    res = {"revenue": {"reported": 407e6, "consensus": 890e6, "label": None, "verdict": None,
+                       "not_compared": "basis_mismatch", "verification": "verified"},
+           "eps_adjusted": {"reported": 0.53, "consensus": 0.45, "label": "Beat by $0.08", "verdict": "beat",
+                            "basis_label": "Adjusted diluted EPS", "verification": "verified"},
+           "eps_gaap": {"reported": 0.50, "prior_year": 0.41}}
+    assert fx.sanity_mismatch(res) == []
+    items, left, errors = fx.result_items(_OneReportApi(res), dt.date(2026, 10, 15), at)
+    assert len(items) == 1 and errors == [] and "consensus_mismatch_hold" not in left
+    assert left["not_compared_metrics"] == ["FHN: revenue (basis_mismatch)"]
+    it = items[0]
+    assert "revenue" not in it["results"] and it["results"]["eps"]["basis"] == "Adjusted diluted EPS"
+    assert not {"$407M", "$890M", "$0.50"} & set(it["allowed_numbers"]) and "$0.53" in it["allowed_numbers"]
+    assert "Revenue" not in it["facts_text"] and "Missed" not in it["facts_text"] and it["tile_label"] is None
+
+
+def test_suspect_releases_are_held_not_published():
+    """Review 2026-10-16: shapes the backend really sends. Nothing a dropped release keeps may be published unchecked."""
+    at = dt.datetime(2026, 10, 15, 12, 0, tzinfo=dt.timezone.utc)
+    day = dt.date(2026, 10, 15)
+    # PGR: monthly report (revenue basis_mismatch, no adjusted EPS, GAAP EPS = September's) -> held
+    pgr = {"revenue": {"reported": 7.43e9, "consensus": 22.51e9, "verdict": None, "label": None,
+                       "not_compared": "basis_mismatch"}, "eps_gaap": {"reported": 1.08, "prior_year": 0.52}}
+    items, left, _ = fx.result_items(_OneReportApi(pgr), day, at)
+    assert items == [] and "nothing else compared" in left["held"][0]
+    # AENT: Q4 with full-year adjusted EPS (not compared) and full-year GAAP EPS -> no GAAP fallback; nothing compared -> held
+    aent = {"revenue": {"reported": 268e6, "consensus": None, "verdict": None},
+            "eps_adjusted": {"reported": 0.46, "consensus": 0.01, "verdict": None, "label": None, "period": "full_year",
+                             "not_compared": "full_year_only"},
+            "eps_gaap": {"reported": 0.26, "period": "full_year"}}
+    items, left, _ = fx.result_items(_OneReportApi(aent), day, at)
+    assert items == [] and left["consensus_mismatch_hold"] == 1
+    # GAAP-basis adjusted EPS the SEC check disputes; eps_gaap is the same number -> never republished as GAAP EPS
+    sec = {"revenue": {"reported": 2.4e9, "consensus": 2.3e9, "label": "Beat by $100M", "verdict": "beat"},
+           "eps_adjusted": {"reported": 3.17, "consensus": 3.0, "verdict": None, "label": None, "basis_label": "GAAP EPS",
+                            "not_compared": "sec_disagrees"},
+           "eps_gaap": {"reported": 3.17}}
+    it = fx.result_items(_OneReportApi(sec), day, at)[0][0]
+    assert "eps" not in it["results"] and "$3.17" not in it["allowed_numbers"] and "$2.4B" in it["allowed_numbers"]
+    # an unverified figure with a consensus next to it: never offered as a comparison
+    unv = {"revenue": {"reported": 11.536e9, "consensus": 11.25e9, "verdict": None, "label": None,
+                       "verification": "unverified"},
+           "eps_adjusted": {"reported": 1.2, "consensus": 1.1, "label": "Beat by $0.10", "verdict": "beat"}}
+    it = fx.result_items(_OneReportApi(unv), day, at)[0][0]
+    assert "revenue" not in it["results"] and "$11.25B" not in it["allowed_numbers"]
+    # a six-month report allows no quarter tokens
+    rep = _OneReportApi({"period_basis": "half_year", "revenue": {"reported": 26.1e6, "consensus": None}})
+    rep.rep.update(fiscal_label="H1 2026", fiscal_quarter=2, fiscal_year=2026)
+    it = fx.result_items(rep, day, at)[0][0]
+    assert "Q2" not in it["allowed_numbers"] and "Q2 2026" not in it["allowed_numbers"] and "H1 2026" in it["allowed_numbers"]
+    # no consensus anywhere and nothing dropped (BAC 10-14 shape): published as before, with its tile
+    bac = {"eps_gaap": {"reported": 0.91}}
+    it = fx.result_items(_OneReportApi(bac), day, at)[0][0]
+    assert it["results"]["eps"]["basis"] == "GAAP EPS" and it["tile_label"] == "Missed estimates"
