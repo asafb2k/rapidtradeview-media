@@ -817,3 +817,13 @@ def test_suspect_releases_are_held_not_published():
     bac = {"eps_gaap": {"reported": 0.91}}
     it = fx.result_items(_OneReportApi(bac), day, at)[0][0]
     assert it["results"]["eps"]["basis"] == "GAAP EPS" and it["tile_label"] == "Missed estimates"
+
+
+def test_sanity_hold_skips_a_verified_surprise():
+    """NRIX 10-13: revenue $673M vs $480M consensus is real (provider actual + SEC filing agree): published, not held;
+    the same gap on an unreferenced fresh release is still held."""
+    nrix = {"revenue": {"reported": 673064000.0, "consensus": 479521500.0, "verdict": "beat", "label": "Beat by $194M",
+                        "verification": "verified"}}
+    assert fx.sanity_mismatch(nrix) == []
+    fresh = {"revenue": dict(nrix["revenue"], verification="unreferenced")}
+    assert fx.sanity_mismatch(fresh) == ["revenue"]
