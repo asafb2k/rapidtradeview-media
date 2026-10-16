@@ -305,3 +305,15 @@ def test_a_crash_takes_the_item_out(env, monkeypatch):
     env.write(facts_doc())
     assert wc.main(["strip", "--date", FRI, "--facts", str(env.facts)]) == 0 and calendar_items(env.read()) == []
 
+
+
+def test_the_runner_hook():
+    ps = (TOOLS / "daily_common.ps1").read_text(encoding="utf-8")
+    body = ps[ps.index("function Publish-Facts"):ps.index("function Update-FactsIfDue")]
+    assert (body.index("Invoke-WeekCalendar $Date $Work $tmp $Push $NowIso")
+            < body.index("Invoke-CardReel $Date $Work $tmp $Push $NowIso") < body.index("'--compare-items', $dest, $tmp"))
+    fn = ps[ps.index("function Invoke-WeekCalendar"):ps.index("function Invoke-CardReel")]
+    assert "Fail " not in fn and "Push-Repo" not in fn                   # never ends the run
+    assert "'week-calendar-files.txt'" in fn and f'"Week calendar $Date"' in fn
+    assert fn.index("'push', '--quiet'") < fn.index("'live'")            # pushed before Pages is checked
+    assert fn.index("$code -ne 10") < fn.index("'strip'")                # a crash takes the item out

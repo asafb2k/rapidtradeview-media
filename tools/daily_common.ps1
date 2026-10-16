@@ -109,6 +109,45 @@ function Publish-Spec([string]$SpecFile, [int]$PagesTimeoutSec = 900) {
     Log "PUBLISHED: https://asafb2k.github.io/rapidtradeview-media/v/$date/manifest.json is live and valid."
 }
 
+# Weekly earnings calendar (Growth test 2026-10-16; tools/week_calendar.py): on a Friday the facts item earnings_week_calendar is
+# frozen at its first build, its 1080x1350 calendar image rendered and staged (exit 10) and the item kept OUT of $FactsFile until
+# Pages serves the image; `live` then puts the item back with the image as its media. No image, no item: a prepare crash takes the
+# item out (strip). Every failure is logged; nothing here throws or changes the exit code.
+function Invoke-WeekCalendar([string]$Date, [string]$Work, [string]$FactsFile, [bool]$Push, [string]$NowIso) {
+    try {
+        $tool = Join-Path $script:Tools 'week_calendar.py'
+        $argv = @($tool, 'prepare', '--date', $Date, '--facts', $FactsFile, '--work', $Work, '--repo', $script:Repo)
+        if ($NowIso) { $argv += @('--now', $NowIso) }
+        if (-not $Push) { $argv += '--no-push' }
+        $code = Invoke-Native $script:Python $argv
+        if ($code -eq 0) { return }
+        if ($code -ne 10) {
+            Log "WEEK CALENDAR: week_calendar.py prepare exit $code; taking the item out of the facts (no item without its image)"
+            [void](Invoke-Native $script:Python @($tool, 'strip', '--date', $Date, '--facts', $FactsFile))
+            return
+        }
+        $files = @(Get-Content -Encoding UTF8 (Join-Path $Work 'week-calendar-files.txt') | Where-Object { $_.Trim() })
+        if ((Invoke-Git (@('add', '--') + $files)) -ne 0) { Log 'WEEK CALENDAR: git add failed; next facts run retries'; return }
+        & git.exe -C $script:Repo diff --cached --quiet -- @files
+        if ($LASTEXITCODE -ne 0) {
+            if ((Invoke-Git (@('commit', '--quiet', '-m', "Week calendar $Date", '--') + $files)) -ne 0) { Log 'WEEK CALENDAR: git commit failed'; return }
+        }
+        if ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) {
+            Log 'week calendar push rejected; merging origin and retrying'
+            if ((Invoke-Git @('pull', '--no-rebase', '--no-edit', '--quiet', 'origin', 'main')) -ne 0) {
+                [void](Invoke-Git @('merge', '--abort'))
+                Log 'WEEK CALENDAR: git pull failed; the commit stays local and goes out with the next push'
+                return
+            }
+            if ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) { Log 'WEEK CALENDAR: git push failed; the commit stays local'; return }
+        }
+        $code = Invoke-Native $script:Python @($tool, 'live', '--date', $Date, '--facts', $FactsFile, '--work', $Work, '--repo', $script:Repo, '--timeout', '600')
+        if ($code -ne 0) { Log "WEEK CALENDAR: pushed, but Pages does not serve it yet (exit $code); the item stays out until a facts run sees it live" }
+    } catch {
+        Log "WEEK CALENDAR FAILED: $($_.Exception.Message); the facts go on"
+    }
+}
+
 # Card Reel (Growth 2026-10-12: a second Instagram Reel a day; tools/card_reel.py says when and which item). prepare renders and
 # stages it (exit 10) or attaches the live one / skips (exit 0); a staged reel is committed and pushed on its own, then `live` waits
 # for Pages and adds {"url", "kind": "reel", "alt"} to the item's media in $FactsFile. Every failure is logged; nothing here throws.
@@ -166,6 +205,8 @@ function Publish-Facts([string]$Date, [string]$Work, [bool]$Push, [int]$PagesTim
         if ($code -eq 4 -and (Test-Path $dest)) { Log "FACTS PARTIAL (a core source failed): kept the existing $rel; this run's file is $tmp"; return }
         if ($code -ne 0 -and $code -ne 4) { Log "FACTS FAILED (facts.py exit $code): $rel not updated; the videos go on"; return }
         if ($code -eq 4) { Log "FACTS PARTIAL (a core source failed): publishing it, there is no $rel yet" }
+        # Friday: the weekly earnings calendar image (tools/week_calendar.py); its item is in $tmp only once Pages serves the image.
+        Invoke-WeekCalendar $Date $Work $tmp $Push $NowIso
         # The day's card Reel (tools/card_reel.py): rendered, pushed and served by Pages first, then added to its item's media in
         # $tmp, so the compare below publishes it. It never blocks the facts or changes the exit code.
         Invoke-CardReel $Date $Work $tmp $Push $NowIso
