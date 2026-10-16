@@ -115,6 +115,25 @@ ROUNDUP_MAX_TICKERS = 4
 ROUNDUP_SESSIONS = ("bmo", "amc")  # a roundup groups one set session; "time not announced" rows are no session
 WINDOW_WEEKDAYS = 4  # weekday age 0..4 = the last 5 weekdays
 RESULT_HOURS = 24
+# Earnings sanity hold (Growth 2026-10-16): a reported figure more than 40% away from its consensus has so far always been
+# a basis mismatch in the report data (PGR revenue $7.43B vs $22.51B, FMC $125M vs $867M, FHN $407M vs $890M), never a
+# real miss. Such an item is not published (left_out.consensus_mismatch_hold) until the report data is checked.
+# EPS: only when |consensus| >= $0.25 (small EPS bases swing past 40% on real surprises).
+SANITY_MAX_REL = 0.40
+SANITY_EPS_MIN_BASE = 0.25
+
+
+def sanity_mismatch(res: dict) -> list[str]:
+    """The metrics of a report's results whose reported value is more than SANITY_MAX_REL away from consensus."""
+    out = []
+    for key, min_base in (("revenue", 0.0), ("eps_adjusted", SANITY_EPS_MIN_BASE), ("eps_gaap", SANITY_EPS_MIN_BASE)):
+        m = res.get(key) or {}
+        rep, con = m.get("reported"), m.get("consensus")
+        if not (isinstance(rep, (int, float)) and isinstance(con, (int, float))) or con == 0 or abs(con) < min_base:
+            continue
+        if abs(rep / con - 1) > SANITY_MAX_REL:
+            out.append(key)
+    return out
 PICKS_SLOT_ET = "15:00"  # the picks post time (GROK-SOCIAL.md §2)
 OFFICIAL_PTR_HOSTS = ("disclosures-clerk.house.gov", "efdsearch.senate.gov")
 HOURS = {"bmo": "before the open", "amc": "after the close", "dmh": "during market hours"}
@@ -583,6 +602,12 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
             left["no_ticker"] = left.get("no_ticker", 0) + 1
             continue
         res = full.get("results") or {}
+        bad = sanity_mismatch(res)
+        if bad:  # not a source failure (no partial_sources): the item is held, and left_out says which and why
+            left["consensus_mismatch_hold"] = left.get("consensus_mismatch_hold", 0) + 1
+            left.setdefault("held", []).append(f"{ticker}: {'/'.join(bad)} reported vs consensus differs by more than "
+                                               f"{int(SANITY_MAX_REL * 100)}% (report data to check)")
+            continue
         results: dict = {}
         nums: list[str | None] = []
         rev = res.get("revenue") or {}

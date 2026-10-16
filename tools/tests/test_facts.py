@@ -722,3 +722,38 @@ def test_earnings_tomorrow_roundup():
     assert "earnings_tomorrow_roundup" not in f["reasons"]
     empty = build()
     assert "earnings_tomorrow_roundup" in empty["reasons"] and "ptr_summary" in empty["reasons"]
+
+
+class _OneReportApi:
+    """facts.result_items' two reads for one report published 2026-10-15 11:00Z."""
+    def __init__(self, results):
+        self.rep = {"id": "fhn-2026-q3", "ticker": "FHN", "company_name": "First Horizon Corporation",
+                    "fiscal_label": "FY2026 (Q3)", "release_date": "2026-10-15", "filing_date": "2026-10-15",
+                    "tile_label": "Missed estimates", "summary_status": "ready", "published_at": "2026-10-15T11:00:00+00:00",
+                    "source_url": "https://www.sec.gov/Archives/edgar/data/36966/x/ex99.htm", "results": results}
+
+    def get(self, path):
+        if path == "/earnings/reports/archive":
+            return {"reports": [self.rep]}, None
+        if path == "/earnings/reports/fhn-2026-q3":
+            return self.rep, None
+        return None, f"{path}: HTTP 404"
+
+
+def test_earnings_sanity_hold():
+    """A reported figure > 40% away from consensus is a report-data mismatch (FHN $407M vs $890M): held, not a source
+    failure; a normal surprise and a small-EPS-base swing still publish."""
+    at = dt.datetime(2026, 10, 15, 12, 0, tzinfo=dt.timezone.utc)
+    held = {"revenue": {"reported": 407e6, "consensus": 890e6, "label": "Missed by $483M", "verdict": "miss"}}
+    items, left, errors = fx.result_items(_OneReportApi(held), dt.date(2026, 10, 15), at)
+    assert items == [] and errors == []
+    assert left["consensus_mismatch_hold"] == 1 and left["held"][0].startswith("FHN: revenue")
+    normal = {"revenue": {"reported": 5.68e9, "consensus": 5.56e9, "label": "Beat by $115M", "verdict": "beat"},
+              "eps_adjusted": {"reported": 2.37, "consensus": 2.26, "label": "Beat by $0.11", "verdict": "beat"}}
+    items, left, _ = fx.result_items(_OneReportApi(normal), dt.date(2026, 10, 15), at)
+    assert len(items) == 1 and "consensus_mismatch_hold" not in left
+    small = {"eps_adjusted": {"reported": 0.12, "consensus": 0.05, "label": "Beat by $0.07", "verdict": "beat"}}
+    assert len(fx.result_items(_OneReportApi(small), dt.date(2026, 10, 15), at)[0]) == 1
+    big_eps = {"eps_gaap": {"reported": 0.91, "consensus": 2.10, "label": "Missed by $1.19", "verdict": "miss"}}
+    assert fx.sanity_mismatch(big_eps) == ["eps_gaap"]
+    assert fx.sanity_mismatch({"revenue": {"reported": 1.0, "consensus": 0}}) == []
