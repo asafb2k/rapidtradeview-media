@@ -123,11 +123,19 @@ SANITY_MAX_REL = 0.40
 SANITY_EPS_MIN_BASE = 0.25
 
 
+def comparable(m) -> dict:
+    """A results metric, or {} when the report data marks it not comparable with its estimate (`not_compared`:
+    basis_mismatch, full_year_only, period_unconfirmed, sec_disagrees, sec_period_mismatch). Such a figure is not the
+    quarter's figure on the estimate's basis, so the facts carry neither it nor its estimate (HQ 2026-10-16)."""
+    return {} if not isinstance(m, dict) or m.get("not_compared") else m
+
+
 def sanity_mismatch(res: dict) -> list[str]:
-    """The metrics of a report's results whose reported value is more than SANITY_MAX_REL away from consensus."""
+    """The comparable metrics of a report's results whose reported value is more than SANITY_MAX_REL away from
+    consensus (a metric the report data already marks not_compared is left out, not held)."""
     out = []
     for key, min_base in (("revenue", 0.0), ("eps_adjusted", SANITY_EPS_MIN_BASE), ("eps_gaap", SANITY_EPS_MIN_BASE)):
-        m = res.get(key) or {}
+        m = comparable(res.get(key))
         rep, con = m.get("reported"), m.get("consensus")
         if not (isinstance(rep, (int, float)) and isinstance(con, (int, float))) or con == 0 or abs(con) < min_base:
             continue
@@ -608,18 +616,21 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
             left.setdefault("held", []).append(f"{ticker}: {'/'.join(bad)} reported vs consensus differs by more than "
                                                f"{int(SANITY_MAX_REL * 100)}% (report data to check)")
             continue
+        dropped = [k for k in ("revenue", "eps_adjusted", "eps_gaap") if res.get(k) and not comparable(res.get(k))]
+        if dropped:
+            left["not_compared"] = left.get("not_compared", 0) + len(dropped)
         results: dict = {}
         nums: list[str | None] = []
-        rev = res.get("revenue") or {}
+        rev = comparable(res.get("revenue"))
         if any(rev.get(k) is not None for k in ("reported", "label", "verdict")):
             results["revenue"] = {k: v for k, v in {
                 "reported": money_compact(rev["reported"]) if isinstance(rev.get("reported"), (int, float)) else None,
                 "consensus": money_compact(rev["consensus"]) if isinstance(rev.get("consensus"), (int, float)) else None,
                 "label": rev.get("label"), "verdict": rev.get("verdict")}.items() if v is not None}
-        eps = res.get("eps_adjusted") or {}
+        eps = comparable(res.get("eps_adjusted"))
         basis = eps.get("basis_label") or "Adjusted EPS"
         if not any(eps.get(k) is not None for k in ("reported", "label", "verdict")):
-            eps, basis = res.get("eps_gaap") or {}, "GAAP EPS"
+            eps, basis = comparable(res.get("eps_gaap")), "GAAP EPS"
         if any(eps.get(k) is not None for k in ("reported", "label", "verdict")):
             results["eps"] = {k: v for k, v in {
                 "basis": basis,

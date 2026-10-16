@@ -757,3 +757,26 @@ def test_earnings_sanity_hold():
     big_eps = {"eps_gaap": {"reported": 0.91, "consensus": 2.10, "label": "Missed by $1.19", "verdict": "miss"}}
     assert fx.sanity_mismatch(big_eps) == ["eps_gaap"]
     assert fx.sanity_mismatch({"revenue": {"reported": 1.0, "consensus": 0}}) == []
+
+
+def test_not_compared_metric_is_dropped_and_eps_carries_the_item():
+    """HQ 2026-10-16: a metric marked not_compared (basis_mismatch etc.) keeps its consensus number in the API but has no
+    verdict/label; facts drop the whole metric (no 'revenue' line, no numbers) and the item falls back to EPS; the 40%
+    hold ignores such a metric instead of holding the item."""
+    at = dt.datetime(2026, 10, 15, 12, 0, tzinfo=dt.timezone.utc)
+    res = {"revenue": {"reported": 407e6, "consensus": 890e6, "label": None, "verdict": None,
+                       "not_compared": "basis_mismatch"},
+           "eps_adjusted": {"reported": 0.45, "consensus": 0.43, "label": "Beat by $0.02", "verdict": "beat",
+                            "basis_label": "Adjusted diluted EPS"}}
+    assert fx.sanity_mismatch(res) == []
+    items, left, errors = fx.result_items(_OneReportApi(res), dt.date(2026, 10, 15), at)
+    assert len(items) == 1 and errors == [] and left["not_compared"] == 1 and "consensus_mismatch_hold" not in left
+    it = items[0]
+    assert "revenue" not in it["results"] and it["results"]["eps"]["basis"] == "Adjusted diluted EPS"
+    assert "$407M" not in it["allowed_numbers"] and "$890M" not in it["allowed_numbers"]
+    assert "Revenue" not in it["facts_text"] and "$0.45" in it["allowed_numbers"]
+    # adjusted EPS not comparable -> GAAP EPS carries it
+    res2 = {"eps_adjusted": {"reported": 9.9, "consensus": 2.0, "not_compared": "sec_disagrees"},
+            "eps_gaap": {"reported": 2.1, "consensus": 2.0, "label": "Beat by $0.10", "verdict": "beat"}}
+    it2 = fx.result_items(_OneReportApi(res2), dt.date(2026, 10, 15), at)[0][0]
+    assert it2["results"]["eps"]["basis"] == "GAAP EPS" and "$9.90" not in it2["allowed_numbers"]
