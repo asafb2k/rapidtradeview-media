@@ -28,6 +28,13 @@ post for a New York market date. Every item is read from RapidTradeView's public
   earnings_tomorrow_roundup  per set session (before the open / after the close) of the next weekday with 2+ confirmed
                      universe reporters: up to 4 of them (largest market cap first) as cashtags; landing /earnings/tomorrow
                      (no anchor), media the /earnings card; allowed_numbers the report date and the session only.
+  earnings_week_calendar  Fridays only (the New York facts date): next week's confirmed reporters in our universe (the same
+                     /earnings read as earnings_upcoming, no extra request), per day and session (before the open / after the
+                     close) the largest by market cap (6 slots a session: all when 6 or fewer, else the top 5 and "+M"), up to
+                     12 cashtags (the largest shown with a $2B+ cap); landing /earnings (no anchor), media [] here: the runner
+                     (tools/week_calendar.py) renders the calendar image and adds it, and the item is published only with it.
+                     Built only from a whole week (every day, the right week_start, not truncated) with 10+ reporters that
+                     have a set session; allowed_numbers the dates, the week range and the day / week totals.
   ptr_summary        per member and filing date with 2+ Congress items: the count of trades and up to 4 tickers (the
                      member's most newsworthy); landing the figure page #trades, media the figure card, source_urls every
                      filing's official URL (source_url only when there is one filing). Built before the per-filer cap
@@ -107,11 +114,20 @@ PLATFORM_PLACEHOLDER = "{platform}"
 PARTIAL = 4  # exit code: written, but a source failed (2 is argparse's usage error)
 HOLDOUT_LEAK = 5  # exit code: not written, the document carries a report page inside the G-N1 holdout
 TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready", "chart_pattern", "moves_like",
-         "earnings_tomorrow_roundup", "ptr_summary")
+         "earnings_tomorrow_roundup", "ptr_summary", "earnings_week_calendar")
 # Roundups (Growth B1 2026-10-12): the only kinds whose posts may carry several cashtags of their own (grok_review.py),
-# at most ROUNDUP_MAX_TICKERS. moves_like (its peers) and picks_ready (the public picks) keep their own ticker lists.
-ROUNDUP_TYPES = ("earnings_tomorrow_roundup", "ptr_summary")
+# at most cashtag_max(kind): ROUNDUP_MAX_TICKERS unless ROUNDUP_MAX_BY_TYPE says otherwise. moves_like (its peers) and
+# picks_ready (the public picks) keep their own ticker lists.
+ROUNDUP_TYPES = ("earnings_tomorrow_roundup", "ptr_summary", "earnings_week_calendar")
 ROUNDUP_MAX_TICKERS = 4
+ROUNDUP_MAX_BY_TYPE = {"earnings_week_calendar": 12}
+
+
+def cashtag_max(kind: str | None) -> int:
+    """The most cashtags a post of this roundup kind may carry (grok_review.py, rules.cashtags)."""
+    return ROUNDUP_MAX_BY_TYPE.get(kind or "", ROUNDUP_MAX_TICKERS)
+
+
 ROUNDUP_SESSIONS = ("bmo", "amc")  # a roundup groups one set session; "time not announced" rows are no session
 WINDOW_WEEKDAYS = 4  # weekday age 0..4 = the last 5 weekdays
 RESULT_HOURS = 24
@@ -744,11 +760,12 @@ def calendar_week(api, nxt: dt.date, now: dt.datetime) -> tuple[list[dict], list
     return ([data] if isinstance(data, dict) and isinstance(data.get("days"), list) else []), []
 
 
-def upcoming_items(api, target: dt.date, names: dict[str, str], now: dt.datetime | None = None
-                   ) -> tuple[list[dict], dict, list[str], str | None]:
-    """(items, counts, errors, empty reason) for the next weekday's confirmed universe reporters."""
+def upcoming_items(api, target: dt.date, names: dict[str, str], now: dt.datetime | None = None,
+                   week: tuple[list[dict], list[str]] | None = None) -> tuple[list[dict], dict, list[str], str | None]:
+    """(items, counts, errors, empty reason) for the next weekday's confirmed universe reporters. `week`: calendar_week's
+    answer for the next weekday when the caller already read it (build_facts shares it with week_calendar_items)."""
     nxt = next_weekday(target)
-    weeks, errors = calendar_week(api, nxt, now or dt.datetime.now(dt.timezone.utc))
+    weeks, errors = week if week is not None else calendar_week(api, nxt, now or dt.datetime.now(dt.timezone.utc))
     rows, counts, complete = ss.week_rows(weeks, [nxt])
     if not complete:
         return [], {}, errors, f"the earnings calendar for {nxt} did not load"
@@ -1155,12 +1172,145 @@ def earnings_roundup_items(target: dt.date, upcoming: list[dict]) -> tuple[list[
 
 
 # ---------------------------------------------------------------------------
+# Weekly earnings calendar (Growth test, owner 2026-10-16): on a Friday, next week's confirmed reporters per day and session,
+# largest by market cap; one X post with our calendar image (tools/week_calendar.py renders it; no image, no item).
+
+WEEK_CALENDAR = "earnings_week_calendar"
+WEEK_CALENDAR_FRIDAY = 4                # the New York facts date's weekday (Mon 0)
+WEEK_CALENDAR_SLOTS = 6                 # tiles a session cell shows: all when <= 6, else the top 5 and "+M"
+WEEK_CALENDAR_MIN_REPORTERS = 10        # reporters with a set session the week needs for the post
+WEEK_CALENDAR_CASHTAG_MIN_CAP = 2e9     # a cashtag is a shown name with a $2B+ market cap
+WEEK_CALENDAR_SLOT_UTC = "13:00:00Z"    # Friday 09:00 ET (08:00 ET after the DST change)
+WEEK_CALENDAR_BANNED = ["most anticipated", "anticipated"]   # it ranks by market cap, not by interest
+WEEKDAY_ABBR = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+
+def week_range_text(mon: dt.date, fri: dt.date, dash: str = EN_DASH, year: bool = True) -> str:
+    """"Oct 19–23, 2026"; across months "Nov 30–Dec 4, 2026"; across years "Dec 28, 2026–Jan 1, 2027"."""
+    a = f"{MONTHS[mon.month - 1]} {mon.day}"
+    b = str(fri.day) if mon.month == fri.month else f"{MONTHS[fri.month - 1]} {fri.day}"
+    if not year:
+        return f"{a}{dash}{b}"
+    if mon.year != fri.year:
+        return f"{a}, {mon.year}{dash}{b}, {fri.year}"
+    return f"{a}{dash}{b}, {fri.year}"
+
+
+def week_range_forms(mon: dt.date, fri: dt.date) -> list[str]:
+    """The week's range as a post may print it: "Oct 19–23", "Oct 19-23", "Oct 19–23, 2026", "Oct 19-23, 2026" and the
+    /earnings page's own "Oct 19 – Oct 23" (across months "Nov 30–Dec 4" ... "Nov 30 – Dec 4")."""
+    return uniq([week_range_text(mon, fri, EN_DASH, False), week_range_text(mon, fri, "-", False),
+                 week_range_text(mon, fri, EN_DASH), week_range_text(mon, fri, "-"),
+                 f"{MONTHS[mon.month - 1]} {mon.day} {EN_DASH} {MONTHS[fri.month - 1]} {fri.day}"])
+
+
+def _cap(r: dict) -> float:
+    c = r.get("market_cap")
+    return float(c) if isinstance(c, (int, float)) and not isinstance(c, bool) else 0.0
+
+
+def _by_cap(r: dict) -> tuple[float, str]:
+    """Market cap, largest first; ties (and no cap) by the symbol."""
+    return -_cap(r), str(r.get("symbol"))
+
+
+def week_calendar_items(target: dt.date, weeks: list[dict], errors: list[str], names: dict[str, str]
+                        ) -> tuple[list[dict], dict, str | None]:
+    """(items, left_out, empty reason) for next week's calendar, built on a Friday from the /earnings week that holds the
+    next weekday (calendar_week's answer, already read for earnings_upcoming: no request here). A failed read is already
+    in errors / partial_sources through earnings_upcoming, so it only becomes this type's reason."""
+    if target.weekday() != WEEK_CALENDAR_FRIDAY:
+        return [], {}, "Fridays only: the next week's calendar is built on Friday"
+    mon = next_weekday(target)
+    days = [mon + dt.timedelta(days=i) for i in range(5)]
+    fri = days[-1]
+    _, counts, complete = ss.week_rows(weeks, days)
+    data = weeks[0] if weeks else {}
+    why = None
+    if errors:
+        why = "; ".join(errors)
+    elif not complete:
+        why = "not every day of the week is in the answer"
+    elif data.get("week_start") != mon.isoformat():
+        why = f"the answer is for the week of {str(data.get('week_start'))[:10]}"
+    elif data.get("truncated") is not False:
+        why = "the answer is truncated" if data.get("truncated") else "the answer does not say it is whole"
+    if why:
+        return [], {}, f"the earnings calendar for the week of {mon} did not load ({why})"
+
+    by_day: dict[str, list[dict]] = {d.isoformat(): [] for d in days}
+    for w in weeks:
+        for day in w["days"]:
+            if day.get("date") in by_day:
+                by_day[day["date"]].extend(r for r in day.get("reports") or [] if isinstance(r, dict))
+    seen: set[str] = set()
+    calendar, shown_rows = [], []
+    for d in days:
+        picked = []
+        for r in by_day[d.isoformat()]:
+            sym = r.get("symbol")
+            if (r.get("in_universe") is True and r.get("date_confirmed") is True and isinstance(sym, str) and sym
+                    and sym not in seen):
+                seen.add(sym)
+                picked.append(r)
+        entry = {"date": d.isoformat(), "weekday": WEEKDAY_ABBR[d.weekday()], "total": len(picked),
+                 "no_session": sum(1 for r in picked if r.get("hour") not in ROUNDUP_SESSIONS)}
+        for session in ROUNDUP_SESSIONS:
+            rs = sorted((r for r in picked if r.get("hour") == session), key=_by_cap)
+            shown = rs if len(rs) <= WEEK_CALENDAR_SLOTS else rs[:WEEK_CALENDAR_SLOTS - 1]
+            shown_rows += shown
+            entry[session] = {"total": len(rs), "shown": [r["symbol"] for r in shown], "more": len(rs) - len(shown)}
+        calendar.append(entry)
+    total = len(seen)
+    no_session = sum(e["no_session"] for e in calendar)
+    in_session = total - no_session
+    left = {"week_start": mon.isoformat(), "listed": sum(counts.values()), "confirmed_in_universe": total,
+            "no_session": no_session, "shown": len(shown_rows)}
+    span = week_range_text(mon, fri)
+    if in_session < WEEK_CALENDAR_MIN_REPORTERS:
+        return [], left, (f"only {in_session} confirmed reporters in our coverage for {span} "
+                          f"(the calendar post needs {WEEK_CALENDAR_MIN_REPORTERS}+)")
+    tickers = [r["symbol"] for r in sorted(shown_rows, key=_by_cap)
+               if _cap(r) >= WEEK_CALENDAR_CASHTAG_MIN_CAP][:cashtag_max(WEEK_CALENDAR)]
+    if not tickers:
+        return [], left, (f"no company shown on the {span} calendar has a ${WEEK_CALENDAR_CASHTAG_MIN_CAP / 1e9:.0f}B+ "
+                          "market cap to cashtag")
+    company = {r["symbol"]: names.get(r["symbol"]) or names.get(r["symbol"].replace(".", "-")) for r in shown_rows}
+
+    def cell_text(c: dict) -> str:
+        if not c["total"]:
+            return "none confirmed"
+        return ", ".join(c["shown"]) + (f" and {c['more']} more" if c["more"] else "")
+
+    parts = []
+    for e in calendar:
+        part = (f"{e['weekday']} {date_forms(e['date'])[2]} before the open {cell_text(e['bmo'])}; "
+                f"after the close {cell_text(e['amc'])}")
+        if e["no_session"]:
+            part += f"; {e['no_session']} with the time not set"
+        parts.append(part)
+    facts_text = (f"Next week's earnings, {span}, confirmed dates, largest by market cap per session: "
+                  + ". ".join(parts) + f". {total} companies in our coverage have confirmed dates that week.")
+    item = make_item(
+        target.isoformat(), WEEK_CALENDAR, None, f"weekcal:{mon.isoformat()}", "/earnings",
+        tickers=tickers, names=company, week_start=mon.isoformat(), week_end=fri.isoformat(),
+        as_of_date=target.isoformat(), calendar=calendar, reporters_total=total,
+        market_cap_usd=max(_cap(r) for r in shown_rows) or None, source_url=f"{SITE}/earnings",
+        post_slot_utc=f"{target.isoformat()}T{WEEK_CALENDAR_SLOT_UTC}", facts_text=facts_text,
+        banned_words=[*PREDICTION_WORDS, *WEEK_CALENDAR_BANNED], media=[],
+        allowed_numbers=[*(f for d in days for f in date_forms(d.isoformat())), *date_forms(target.isoformat()),
+                         *week_range_forms(mon, fri), str(total), *(str(e["total"]) for e in calendar),
+                         *digit_words(*(n for n in company.values() if n))])
+    return [item], left, None
+
+
+# ---------------------------------------------------------------------------
 # Newsworthiness rank (Growth B1 2026-10-12): the file is sorted by it, highest first; Grok posts in that order.
 # Points: a base per type, then buys over sales, the top of the amount range (summed over the item's trades), a known
 # name (fame.json, or a CEO / CFO / director title), a mid / large company (a market cap the item already carries:
 # no extra GET), and freshness (the filed / release / scan date, weekday age 0-4). rank_why spells out every point.
 
-RANK_BASE = {"earnings_result": 3.0, "earnings_tomorrow_roundup": 2.5, "ptr_summary": 2.0, "congress_trade": 2.0,
+RANK_BASE = {"earnings_result": 3.0, "earnings_tomorrow_roundup": 2.5, "earnings_week_calendar": 2.5, "ptr_summary": 2.0, "congress_trade": 2.0,
              "form4_buy": 2.0, "picks_ready": 2.0, "earnings_upcoming": 1.0, "chart_pattern": 1.0, "moves_like": 0.5}
 RANK_BUY = 2.0
 RANK_KNOWN = 2.0
@@ -1277,6 +1427,17 @@ def ptr_summary_reason(skipped: int, capped: int) -> str:
     return "; ".join(why) or "no member has 2+ Congress items on one filing date in the last 5 weekdays"
 
 
+def cashtag_rule() -> str:
+    """rules.cashtags, from ROUNDUP_TYPES and cashtag_max: "... several only for earnings_tomorrow_roundup and ptr_summary
+    (at most 4) and earnings_week_calendar (at most 12), all from the item's tickers, ..."."""
+    groups: dict[int, list[str]] = {}
+    for kind in ROUNDUP_TYPES:
+        groups.setdefault(cashtag_max(kind), []).append(kind)
+    several = " and ".join(f"{' and '.join(kinds)} (at most {n})" for n, kinds in groups.items())
+    return (f"one cashtag per post (the item's ticker); several only for {several}, all from the item's tickers, "
+            "moves_like (its peers) and picks_ready (the public picks)")
+
+
 def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None, as_of: dt.datetime | None = None,
                 previous: dict | None = None) -> dict:
     now = now or dt.datetime.now(dt.timezone.utc)
@@ -1331,7 +1492,8 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                                       f"and {as_of:%Y-%m-%dT%H:%MZ}")
     items += r
 
-    u, left["earnings_upcoming"], uerr, ureason = upcoming_items(api, target, names, now)
+    nxt_week = calendar_week(api, next_weekday(target), now)   # one /earnings read, shared by the upcoming kinds
+    u, left["earnings_upcoming"], uerr, ureason = upcoming_items(api, target, names, now, nxt_week)
     errors += uerr
     if uerr:
         partial.append("earnings_upcoming")
@@ -1342,6 +1504,10 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
         reasons["earnings_tomorrow_roundup"] = (ureason or "no session (before the open / after the close) of the next "
                                                 "weekday has 2+ confirmed reporters in our universe")
     items += u + eu
+    wc, left["earnings_week_calendar"], wreason = week_calendar_items(target, nxt_week[0], uerr, names)
+    if wreason:
+        reasons["earnings_week_calendar"] = wreason
+    items += wc
 
     p, preason = picks_items(api, target)
     if preason:
@@ -1392,9 +1558,11 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
             "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
             "descriptive": ("chart_pattern and moves_like describe what happened only (no forecasts; their items' "
                             "banned_words apply too); moves_like may cashtag only the peers listed in its item"),
-            "cashtags": (f"one cashtag per post (the item's ticker); several only for {' and '.join(ROUNDUP_TYPES)} "
-                         f"(at most {ROUNDUP_MAX_TICKERS}, all from the item's tickers), moves_like (its peers) and "
-                         "picks_ready (the public picks)"),
+            "cashtags": cashtag_rule(),
+            "week_calendar": ("earnings_week_calendar (Fridays): one X post at post_slot_utc with media[0] (our calendar "
+                              "image, no other image), 8-12 of its tickers as cashtags on ONE line, the link in the "
+                              "self-reply; Instagram only when its media has a reel; it ranks by market cap, never 'most "
+                              "anticipated'; dates/counts only from allowed_numbers"),
             "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order",
         },
         "counts": counts,
