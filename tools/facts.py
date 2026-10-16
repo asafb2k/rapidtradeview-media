@@ -119,6 +119,18 @@ RESULT_HOURS = 24
 # a basis mismatch in the report data (PGR revenue $7.43B vs $22.51B, FMC $125M vs $867M, FHN $407M vs $890M), never a
 # real miss. Such an item is not published (left_out.consensus_mismatch_hold) until the report data is checked.
 # EPS: only when |consensus| >= $0.25 (small EPS bases swing past 40% on real surprises).
+HELD_REPORTS_FILE = Path(__file__).resolve().parent / "held_reports.json"
+
+
+def held_reports() -> dict:
+    """{report id: why} of reports held out by hand (tools/held_reports.json); {} when the file is absent."""
+    try:
+        data = json.loads(HELD_REPORTS_FILE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return {k: str(v) for k, v in data.items() if not k.startswith("_")} if isinstance(data, dict) else {}
+
+
 SANITY_MAX_REL = 0.40
 # Revenue is tighter: an unverified quarterly revenue more than 20% off its estimate has been a basis mismatch every
 # time we checked (TFC 10-16: $3.75B vs $5.36B, NII vs total revenue); real revenue surprises that large are rare and
@@ -610,6 +622,7 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
     errors: list[str] = []
     items = []
     date = target.isoformat()
+    held = held_reports()
     for tile in cands:
         upd = _ts(tile.get("updated_at"))
         if upd is not None and upd <= lo:  # published_at <= updated_at: published before the window, no need to read it
@@ -631,6 +644,11 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
             left["no_ticker"] = left.get("no_ticker", 0) + 1
             continue
         res = full.get("results") or {}
+        why = held.get(str(full.get("id") or tile.get("id")))
+        if why:  # held by hand until HQ / Growth clear the report data
+            left["consensus_mismatch_hold"] = left.get("consensus_mismatch_hold", 0) + 1
+            left.setdefault("held", []).append(f"{ticker}: held by hand ({why})")
+            continue
         bad = sanity_mismatch(res)
         if bad:  # not a source failure (no partial_sources): the item is held, and left_out says which and why
             left["consensus_mismatch_hold"] = left.get("consensus_mismatch_hold", 0) + 1

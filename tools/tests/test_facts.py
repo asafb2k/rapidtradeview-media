@@ -847,3 +847,18 @@ def test_eps_basis_loses_its_footnote_marker():
     it = fx.result_items(_OneReportApi(rf), dt.date(2026, 10, 15), at)[0][0]
     assert it["results"]["eps"]["basis"] == "Adj. diluted earnings per common share"
     assert "(1)" not in it["facts_text"]
+
+
+def test_a_report_held_by_hand_is_not_published(monkeypatch):
+    at = dt.datetime(2026, 10, 15, 12, 0, tzinfo=dt.timezone.utc)
+    ok = {"revenue": {"reported": 5.68e9, "consensus": 5.56e9, "label": "Beat by $115M", "verdict": "beat"}}
+    monkeypatch.setattr(fx, "held_reports", lambda: {"fhn-2026-q3": "HQ: under check"})
+    items, left, _ = fx.result_items(_OneReportApi(ok), dt.date(2026, 10, 15), at)
+    assert items == [] and left["held"] == ["FHN: held by hand (HQ: under check)"]
+    monkeypatch.setattr(fx, "held_reports", lambda: {})
+    assert len(fx.result_items(_OneReportApi(ok), dt.date(2026, 10, 15), at)[0]) == 1
+
+
+def test_held_reports_file_parses():
+    held = fx.held_reports()
+    assert isinstance(held, dict) and all(not k.startswith("_") for k in held)
