@@ -521,14 +521,18 @@ def test_ptr_summary_source_urls_must_be_official():
 
 
 # ---------------------------------------------------------------------------
-# earnings_week_calendar (Growth test 2026-10-16): up to 12 cashtags, only its own calendar image, X only in v1
+# earnings_week_calendar (Growth test 2026-10-16; compliance + correctness reviews): up to 6 cashtags on one line, its own
+# calendar image only, X only in v1, its facts date only, no weekday / per-day number / company next to a session, no
+# previews, one approved post per item and platform
 
 WEEK = json.loads((TOOLS / "tests" / "fixtures" / "earnings_week_2026-10-19.json").read_text(encoding="utf-8"))
-CAL_TAGS = "$META $TSLA $PG $LRCX $GE $PM $NFLX $TXN $RTX $TMO $IBM $AXP"
-CAL_T1 = (f"Biggest earnings next week, Oct 19–23 (confirmed dates):\n{CAL_TAGS}\n"
-          "Every day, before the open and after the close, is in the image.\nNot investment advice.")
-CAL_T2 = (f"205 companies in our coverage have confirmed earnings dates Oct 19–23. The largest:\n{CAL_TAGS}\n"
+CAL_NOW = dt.datetime(2026, 10, 16, 13, 0, tzinfo=dt.timezone.utc)   # the item's facts date (New York)
+CAL_TAGS = "$META $TSLA $PG $LRCX $GE $PM"
+CAL_T1 = (f"Largest companies reporting earnings next week, Oct 19–23 (confirmed dates):\n{CAL_TAGS}\n"
+          "Each day, before the open and after the close, is in the image.\nNot investment advice.")
+CAL_T2 = (f"205 companies in our coverage have confirmed earnings dates Oct 19–23. The largest by market cap:\n{CAL_TAGS}\n"
           "The image lays out each day, before the open and after the close.\nNot investment advice.")
+CAL_HEAD = f"Largest companies reporting earnings next week, Oct 19–23:\n{CAL_TAGS}\n"
 
 
 def week_facts(reel=False) -> dict:
@@ -539,68 +543,191 @@ def week_facts(reel=False) -> dict:
     if reel:
         media.append({"url": png.replace("calendar_4x5.png", "calendar_9x16.mp4"), "kind": "reel", "alt": "Earnings calendar"})
     it = dict(it, media=media)
-    thirteen = dict(it, item_id=f"{it['item_id'][:-6]}fff013", tickers=[*it["tickers"], "ABT"])  # malformed: the cap holds
-    return {"schema": fx.SCHEMA, "date": "2026-10-16", "rules": FACTS["rules"], "items": [it, thirteen]}
+    seven = dict(it, item_id=f"{it['item_id'][:-6]}fff007", tickers=[*it["tickers"], "NFLX"])  # malformed: the cap holds
+    return {"schema": fx.SCHEMA, "date": "2026-10-16", "rules": FACTS["rules"], "items": [it, seven]}
 
 
 def cal_post(item, text, platform="x", media=None, reply=None):
     lk = link(item, platform)
     return {"item_id": item["item_id"], "platform": platform, "text": text,
-            "reply_text": reply if reply is not None else
-            f"Next week's full table, Oct 19 – Oct 23, with every confirmed date: {lk}",
+            "reply_text": reply if reply is not None else item["reply_hint"].replace("{link}", lk),
             "link": lk, "media_url": media or item["media"][0]["url"]}
 
 
-def test_week_calendar_twelve_cashtags_and_its_image_approve():
+def cal_review(text, **kw):
+    wf = week_facts()
+    return gr.review(cal_post(wf["items"][0], text, **kw), wf, CAL_NOW)
+
+
+def test_week_calendar_six_cashtags_and_its_image_approve():
     wf = week_facts()
     it = wf["items"][0]
     assert it["tickers"] == CAL_TAGS.replace("$", "").split()
+    assert it["reply_hint"] == 'Every confirmed date, Oct 19 – Oct 23, is in the "Next week" table: {link}'
     for text in (CAL_T1, CAL_T2):
-        assert gr.review(cal_post(it, text), wf) == ("APPROVE", [])
+        assert gr.review(cal_post(it, text), wf, CAL_NOW) == ("APPROVE", [])
         assert gr.mf.x_weighted_length(text) <= 270
-    assert gr.review(cal_post(it, CAL_T1.replace("Oct 19–23", "Oct 19–23, 2026")), wf) == ("APPROVE", [])
-    assert gr.review(cal_post(it, CAL_T1.replace("Oct 19–23", "Oct 19-23")), wf) == ("APPROVE", [])
+    assert cal_review(CAL_T1.replace("Oct 19–23", "Oct 19–23, 2026")) == ("APPROVE", [])
+    assert cal_review(CAL_T1.replace("Oct 19–23", "Oct 19-23")) == ("APPROVE", [])
+    assert cal_review(CAL_T1.replace("Oct 19–23", "the week of Oct 19")) == ("APPROVE", [])
 
 
 def test_week_calendar_rejections():
     wf = week_facts()
-    it, thirteen = wf["items"]
-    v, why = gr.review(cal_post(thirteen, CAL_T1.replace("$AXP", "$AXP $ABT")), wf)
-    assert v == "REJECT" and any("earnings_week_calendar: at most 12 cashtags (got 13)" in r for r in why)
-    # ABT is on the image but not one of the item's tickers
-    v, why = gr.review(cal_post(it, CAL_T1.replace("$AXP", "$ABT")), wf)
-    assert v == "REJECT" and any("cashtag not in this item: $ABT" in r for r in why)
+    it, seven = wf["items"]
+    v, why = gr.review(cal_post(seven, CAL_T1.replace("$PM", "$PM $NFLX")), wf, CAL_NOW)
+    assert v == "REJECT" and any("earnings_week_calendar: at most 6 cashtags (got 7)" in r for r in why)
+    # NFLX is on the image but not one of the item's tickers
+    v, why = cal_review(CAL_T1.replace("$PM", "$NFLX"))
+    assert v == "REJECT" and any("cashtag not in this item: $NFLX" in r for r in why)
     # its own image only: no Grok-made image, no other Pages file, not the /earnings card
     other = f"{gr.mf.PAGES_BASE}/v/2026-10-16/cards/{it['item_id']}/other.png"
     for media in ("grok_generated", other, "https://www.rapidtradeview.trade/earnings/opengraph-image"):
         d = dict(cal_post(it, CAL_T1, media=media), media_note="an abstract calendar grid")
-        v, why = gr.review(d, wf)
+        v, why = gr.review(d, wf, CAL_NOW)
         assert v == "REJECT" and any("media_url must be the item's own image" in r for r in why), media
     # Instagram only with a Reel in the item's media (none in v1)
-    v, why = gr.review(cal_post(it, CAL_T1, platform="instagram"), wf)
+    v, why = gr.review(cal_post(it, CAL_T1, platform="instagram"), wf, CAL_NOW)
     assert v == "REJECT" and any("Instagram only with the item's own Reel" in r for r in why)
-    # dates only as allowed_numbers print them; never "most anticipated"
-    v, why = gr.review(cal_post(it, CAL_T1.replace("Oct 19–23", "Oct 19 to 23")), wf)
-    assert v == "REJECT" and any("numbers not in allowed_numbers: 23" in r for r in why)
-    v, why = gr.review(cal_post(it, CAL_T1.replace("Biggest", "Most anticipated")), wf)
-    assert v == "REJECT" and any("banned words: most anticipated, anticipated" in r for r in why)
-    v, why = gr.review(cal_post(it, CAL_T1.replace("Every day", "Every day will")), wf)
-    assert v == "REJECT" and any("banned words: will" in r for r in why)
+    # dates only as allowed_numbers print them
+    v, why = cal_review(CAL_T1.replace("Oct 19–23", "Oct 19 to 23"))
+    assert v == "REJECT" and "numbers not in allowed_numbers: 19, 23" in why
     # an item without its image (the runner keeps it out of the feed until Pages serves it) can never be posted
     bare = dict(it, media=[])
-    v, why = gr.review(cal_post(bare, CAL_T1, media=it["media"][0]["url"]), dict(wf, items=[bare]))
+    v, why = gr.review(cal_post(bare, CAL_T1, media=it["media"][0]["url"]), dict(wf, items=[bare]), CAL_NOW)
     assert v == "REJECT" and any("no media yet" in r for r in why)
+
+
+@pytest.mark.parametrize("line, why", [
+    ("Expect big beats from megacaps, likely a volatile week.", "banned words: expect, likely, beats, volatile"),
+    ("These could move the whole market. Brace for impact.", "banned words: could, brace"),
+    ("Beat or miss? Every day will tell.", "banned words: will, beat, miss"),
+    ("A surprise is poised.", "banned words: poised, surprise"),
+    ("The most anticipated week.", "banned words: most anticipated, anticipated"),
+    ("The most watched names.", "banned words: most watched, watched"),
+    ("The biggest names.", "banned words: biggest"),
+])
+def test_week_calendar_previews_and_interest_claims_are_rejected(line, why):
+    v, reasons = cal_review(CAL_HEAD + line + "\nNot investment advice.")
+    assert v == "REJECT" and why in reasons
+
+
+@pytest.mark.parametrize("line, why", [
+    ("$TSLA is up 6% this month.", "numbers not in allowed_numbers: 6%"),          # a day count never clears 6%
+    ("Near $205, 76% of them.", "numbers not in allowed_numbers: $205, 76%"),
+    ("205 reports.", "numbers not in allowed_numbers: 205"),                      # the total only as "205 companies"
+    ("76 on the busiest day.", "numbers not in allowed_numbers: 76"),             # no per-day count
+    ("TSLA reports Oct 22.", "numbers not in allowed_numbers: 22"),               # no per-day date (TSLA is Oct 21)
+    ("TSLA reports Oct 21.", "numbers not in allowed_numbers: 21"),               # ... right or wrong: the image has them
+])
+def test_week_calendar_numbers_are_the_week_and_its_total_only(line, why):
+    v, reasons = cal_review(CAL_HEAD + line + "\nNot investment advice.")
+    assert v == "REJECT" and why in reasons
+
+
+@pytest.mark.parametrize("line, why", [
+    ("TSLA reports Thursday.", "no weekday names (Thursday)"),
+    ("Wednesday is the busiest day.", "no weekday names (Wednesday)"),
+    ("Thu and Fri are quiet.", "no weekday names (Fri, Thu)"),
+    ("PG reports after the close.", "no company next to a session (PG with 'after the close')"),
+    ("Procter & Gamble reports before the open.", "no company next to a session (Procter with 'before the open')"),
+    ("Tesla is pre-market.", "no company next to a session (Tesla with 'pre-market')"),
+])
+def test_week_calendar_no_weekday_and_no_company_next_to_a_session(line, why):
+    v, reasons = cal_review(CAL_HEAD + line + "\nNot investment advice.")
+    assert v == "REJECT" and any(why in r for r in reasons), reasons
+
+
+def test_week_calendar_cashtags_one_line_none_in_the_reply_no_hashtags():
+    v, why = cal_review("Largest companies reporting earnings next week, Oct 19–23:\n$META $TSLA $PG\n$LRCX $GE $PM\n"
+                        "Not investment advice.")
+    assert v == "REJECT" and "earnings_week_calendar: the cashtags go on ONE line (got 2)" in why
+    wf = week_facts()
+    it = wf["items"][0]
+    lk = link(it, "x")
+    v, why = gr.review(cal_post(it, CAL_T1, reply=f"{CAL_TAGS} {lk}"), wf, CAL_NOW)
+    assert v == "REJECT" and "earnings_week_calendar: no cashtags in the self-reply" in why
+    v, why = cal_review(CAL_T1.replace("Not investment", "#earnings #stocks\nNot investment"))
+    assert v == "REJECT" and "earnings_week_calendar: no hashtags (#earnings, #stocks)" in why
+
+
+def test_week_calendar_only_on_its_facts_date():
+    wf = week_facts()
+    d = cal_post(wf["items"][0], CAL_T1)
+    assert gr.review(d, wf, dt.datetime(2026, 10, 17, 3, 59, tzinfo=dt.timezone.utc)) == ("APPROVE", [])   # 23:59 ET Fri
+    for late in (dt.datetime(2026, 10, 17, 4, 0, tzinfo=dt.timezone.utc), dt.datetime(2026, 10, 19, 14, 0, tzinfo=dt.timezone.utc),
+                 dt.datetime(2026, 10, 23, 14, 0, tzinfo=dt.timezone.utc)):
+        v, why = gr.review(d, wf, late)
+        assert v == "REJECT" and any("post it on its facts date 2026-10-16 (New York) only" in r for r in why), late
+
+
+def test_week_calendar_no_pick_hint():
+    v, why = cal_review(CAL_HEAD + "Our top pick reports next week.\nNot investment advice.")
+    assert v == "REJECT" and any("picks: no #1 / top-pick hint" in r for r in why)
+
+
+def test_week_calendar_one_approved_post_per_item_and_platform(tmp_path):
+    wf = week_facts()
+    it = wf["items"][0]
+    state = gr.CommentState(tmp_path / "state.json")
+    assert gr.review(cal_post(it, CAL_T1), wf, CAL_NOW, state) == ("APPROVE", [])
+    state.add_post(cal_post(it, CAL_T1), 7, CAL_NOW)
+    state.save(CAL_NOW)
+    again = gr.CommentState(tmp_path / "state.json")
+    assert again.posts and again.approved == []
+    v, why = gr.review(cal_post(it, CAL_T2), wf, CAL_NOW, again)
+    assert v == "REJECT" and any("one post per item and platform" in r for r in why)
+    # other kinds are not limited by it; the comment state's own list is untouched
+    assert gr.review(good_x(), FACTS, None, again) == ("APPROVE", [])
+
+
+def test_week_calendar_inbox_records_the_approved_post(tmp_path):
+    wf = week_facts()
+    it = wf["items"][0]
+    d = tmp_path / "v" / "2026-10-16"
+    d.mkdir(parents=True)
+    (d / "facts.json").write_text(json.dumps(wf), encoding="utf-8")
+    rows = [{"id": 21, "kind": "report", "platform": "x", "item_id": it["item_id"], "body": "DRAFT " + json.dumps(cal_post(it, CAL_T1))},
+            {"id": 22, "kind": "report", "platform": "x", "item_id": it["item_id"], "body": "DRAFT " + json.dumps(cal_post(it, CAL_T2))}]
+    rest, sent = FakeRest(rows), []
+    state_file = tmp_path / "state.json"
+    gr.run_inbox(rest, INSTINCT, "prod", str(tmp_path / "v"), False, lambda p, b: sent.append(b) or True,
+                 comment_state=state_file, now=CAL_NOW)
+    assert sent[0].startswith(f"APPROVE 21 {it['item_id']}")
+    assert sent[1].startswith(f"REJECT 22 {it['item_id']}: ") and "one post per item and platform" in sent[1]
+    saved = json.loads(state_file.read_text(encoding="utf-8"))
+    assert [(p["item_id"], p["platform"], p["msg_id"]) for p in saved["posts"]] == [(it["item_id"], "x", 21)]
+
+
+def test_week_calendar_comment_carries_one_cashtag():
+    wf = week_facts()
+    it = wf["items"][0]
+    c = {"kind": "comment", "platform": "x", "target_url": "https://x.com/somebody/status/1234567890",
+         "item_id": it["item_id"], "text": "$META is on next week's list, Oct 19–23."}
+    assert gr.review_comment(c, wf, None, CAL_NOW) == ("APPROVE", [])
+    v, why = gr.review_comment(dict(c, text=f"Next week, Oct 19–23: {CAL_TAGS}."), wf, None, CAL_NOW)
+    assert v == "REJECT" and "a comment citing earnings_week_calendar carries at most 1 cashtag (got 6)" in why
+    v, why = gr.review_comment(dict(c, text="$META reports Wednesday."), wf, None, CAL_NOW)
+    assert v == "REJECT" and any("no weekday names" in r for r in why)
 
 
 def test_week_calendar_instagram_needs_the_items_reel():
     wf = week_facts(reel=True)
     it = wf["items"][0]
-    caption = (f"Next week's earnings calendar (Oct 19–23): the largest companies reporting each day. {CAL_TAGS}\n"
-               "Confirmed dates on the RapidTradeView earnings page. Link in bio.\nNot investment advice.")
+    caption = (f"Largest companies reporting earnings next week, Oct 19–23 (confirmed dates): {CAL_TAGS}\n"
+               "Every confirmed date is in the \"Next week\" table on our earnings page.\nNot investment advice.")
     reel = it["media"][1]["url"]
-    assert gr.review(cal_post(it, caption, platform="instagram", media=reel), wf) == ("APPROVE", [])
-    v, why = gr.review(cal_post(it, caption, platform="instagram"), wf)   # the still image is not the Reel
+    assert gr.review(cal_post(it, caption, platform="instagram", media=reel), wf, CAL_NOW) == ("APPROVE", [])
+    v, why = gr.review(cal_post(it, caption, platform="instagram"), wf, CAL_NOW)   # the still image is not the Reel
     assert v == "REJECT" and any("on Instagram media_url must be the item's Reel" in r for r in why)
+
+
+def test_bare_counts_never_clear_money_or_percent():
+    """grok_review.strip_allowed: an allowed bare integer is a count, on every item kind."""
+    assert gr.unexplained_numbers("6 trades, up 6%, $6, 6M, 6 billion, 6x", ["6"], []) == ["6%", "$6", "6M", "6", "6x"]
+    assert gr.unexplained_numbers("3 trades, 3 filings", ["3"], []) == []
+    assert gr.unexplained_numbers("Sync 84, Sync 84%", ["84"], []) == ["84%"]
+    assert gr.unexplained_numbers("$15K-$50K", ["$15K", "$50K"], []) == []
 
 
 def test_roundup_cap_stays_four():

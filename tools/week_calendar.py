@@ -6,18 +6,23 @@
     week_calendar.py strip   --date D --facts FILE
 
 render (pure; the mockup and the tests): FILE is the item (or a facts file that holds one); writes DIR/calendar_4x5.png and
-  DIR/calendar-qa.json. A 1080 x 1350 PNG (<= 400 KB) in the Market terminal look (growth-video boards.tsx TERM): rows are the
-  five days, columns the sessions (before the open / after the close), each cell up to 6 ticker tiles (the item's own
-  "shown" list; "+M" in the sixth slot), the company's short name under its ticker only when it fits the tile (never cut, no
-  ellipsis). No logos, favicons or yellow marker; the fonts are vendored in tools/fonts (Archivo, Geist, Geist Mono; OFL).
-  Data: the item's calendar and names only, no request. Self-QA (any failure = no image): every box inside the 40 px safe
-  area, no two texts overlap, every tile inside its cell, type floors (ticker 34, "+M" 30, all text 20), shown + more ==
-  total in every cell and drawn as such, every digit drawn comes from the item, PNG size. Exit 0 rendered, 1 QA failed.
+  DIR/calendar-qa.json. A 1080 x 1350 PNG (<= 400 KB) in the Market terminal look (growth-video boards.tsx TERM), sized for
+  X's phone feed (~310 px wide, reviews 2026-10-16): a title, then per day a header line (weekday, date, "N confirmed" and any
+  note: early close, during market hours, time not set; a market holiday shows its name) over two full-width cells, before
+  the open / after the close, each with up to 6 ticker tiles (the item's own "shown" list; "+M more" in the sixth slot).
+  Tickers only (40 px, condensed only when wider than the tile): no company names, logos, favicons or yellow marker; the
+  fonts are vendored in tools/fonts (Archivo, Geist, Geist Mono; OFL). Data: the item's calendar only, no request.
+  Self-QA (any failure = no image): every box inside the 40 px safe area, no two texts overlap, every tile inside its cell
+  and its slot (a 16 px gutter to the next), type floors (ticker 40, "+M" 34, column headers 30, all text 24), shown + more
+  == total in every cell and drawn as such, a closed market day draws no tile, every digit drawn comes from the item, no
+  text ends in a conjunction, PNG size. Exit 0 rendered, 1 QA failed.
 
 prepare (daily_common.ps1 Invoke-WeekCalendar, on every facts build, before the card Reel and the compare). Fridays only (the
   facts date); other days and builds without the item leave the facts file untouched. State: <work>/week-calendar.json.
-  - the first build that carries the item freezes it (later builds of the day reuse it: the image and the item never drift,
-    the item_id stays), renders v/<date>/cards/<item_id>/calendar_4x5.png into the repo, lists it in
+  - builds before 07:00 ET (FREEZE_FROM_ET) take the item out and freeze nothing: the API's Yahoo date check has a short
+    deadline, and the 05:00 ET morning pass may catch it half done (a large company served as unconfirmed);
+  - the first build at or after 07:00 ET that carries the item freezes it (later builds of the day reuse it: the image and
+    the item never drift, the item_id stays), renders v/<date>/cards/<item_id>/calendar_4x5.png into the repo, lists it in
     <work>/week-calendar-files.txt, takes the item OUT of the facts file until Pages serves the image (counts and reasons
     updated) and exits 10: commit + push the file, then run `live`.
   - once live, every build gets the frozen item back with media [{url: <Pages PNG>, kind: image, alt}] (replaced or
@@ -55,6 +60,7 @@ FILES = "week-calendar-files.txt"
 EXIT_STAGED = 10
 MAX_ATTEMPTS = 2
 ALT_MAX = 1000
+FREEZE_FROM_ET = 7        # the first build at or after 07:00 New York time freezes the item
 
 # ---------------------------------------------------------------------------------------------------------------- the look
 W, H = 1080, 1350
@@ -66,58 +72,39 @@ TERM = {"base": (7, 10, 17), "head": (14, 20, 34), "cyan": (34, 211, 238), "mint
         "purple": (124, 58, 237), "blue": (59, 130, 246)}
 FONT_FILES = {"archivo": "Archivo.ttf", "bold": "Geist-Bold.woff2", "medium": "Geist-Medium.woff2",
               "mono": "GeistMono-Medium.woff2"}
-FLOOR = {"ticker": 34, "more": 30, "name": 20}
-TEXT_FLOOR = 20
-TICKER_PX = 34
-CONDENSED = (100, 96, 92, 88, 84, 80)   # Archivo width steps for a ticker wider than its tile (weight stays 800)
+# Type floors at 1080 px (growth-video boards.tsx: 22.5 px any text, 34 px counts; X shows the image ~310 px wide on a
+# phone, so 24 px reads as ~7 px and a 40 px ticker as ~11.5 px).
+TICKER_PX = 40
+MORE_PX = 34
+TEXT_FLOOR = 24
+FLOOR = {"ticker": TICKER_PX, "more": MORE_PX, "column": 30, "weekday": 34, "title": 56, "range": 40}
+CONDENSED = (100, 96, 92, 88, 84, 80, 76, 72, 68, 64)   # Archivo width steps for a ticker wider than its tile (weight 800)
+CONJUNCTION_END = re.compile(r"(?:\s|^)(?:and|&|of|the|,)$", re.IGNORECASE)
 
 MX = 44                   # side margin
-LABEL_W = 144             # day label column ("288 confirmed", "12 time not set" at 20 px; wider counts wrap)
-LABEL_AIR = 4             # a day label keeps this much air to the cells (the gap adds GAP)
-LABEL_ROLES = ("weekday", "day_date", "day_total", "day_no_session")
-GAP = 10
-CELL_X = MX + LABEL_W + GAP
-CELL_W = (W - MX - CELL_X - GAP) / 2
-CELL_PAD = 10
+GAP = 12                  # between the two cells of a day
+CELL_W = (W - 2 * MX - GAP) / 2
+CELL_PAD = 14
 SLOT_W = (CELL_W - 2 * CELL_PAD) / 3
-TILE_GUTTER = 10          # a ticker keeps this much air to the next tile (a wider one is drawn condensed)
-NAME_AIR = 4              # a name keeps this much air to the next tile when that tile shows no name
-NAME_GUTTER = 16          # ... and this much when it does (two names never read as one)
-ROWS_TOP = 300
-ROW_PITCH = 184
-CELL_H = 174
+TILE_GUTTER = 16          # a ticker keeps this much air to the next tile (a wider one is drawn condensed)
+STRIP_TOP, STRIP_BOTTOM = 214, 262
+ROWS_TOP = 276
+ROW_PITCH = 186
+DAY_HEAD = 42             # the day's header line above its cells
+CELL_H = 130
+LINE1, LINE2 = 52, 108    # ticker baselines inside a cell
+FOOT_RULE = 1214
 SESSIONS = (("bmo", "BEFORE THE OPEN", "mint", (52, 211, 153, 28)), ("amc", "AFTER THE CLOSE", "violet", (167, 139, 250, 33)))
 RULE = (34, 211, 238, 77)       # rgba(34,211,238,.30)
 RULE_HI = (34, 211, 238, 184)   # rgba(34,211,238,.72)
 GRID = (34, 211, 238, 13)       # rgba(34,211,238,.05)
-
-# Short names: legal forms off the end, "The" off the front; a few long names by hand. Never cut otherwise.
-LEGAL = (", National Association", ", Incorporated", " Incorporated", ", Inc.", " Inc.", ", Inc", " Inc", " Corporation",
-         " Corp.", " Corp", ", Ltd.", " Ltd.", " Ltd", " Limited", " Company", " Co.", " plc", " PLC", " N.V.", " S.A.",
-         " L.P.", " LP", " SE", " AG")
-SHORT_NAMES = {"Meta Platforms": "Meta", "Philip Morris International": "Philip Morris",
-               "Thermo Fisher Scientific": "Thermo Fisher", "International Business Machines": "IBM"}
+CLOSED_TINT = (129, 147, 160, 20)
+TITLE = "Largest companies reporting"
+SUBLINE = "By market cap in each session · confirmed dates in our coverage"
 
 
 class QAError(Exception):
     """The image failed its self-QA: it is not published."""
-
-
-def short_name(name: str | None) -> str | None:
-    """"Zions Bancorporation, National Association" -> "Zions Bancorporation"; "Wells Fargo & Company" -> "Wells Fargo";
-    "The Bank of New York Mellon Corporation" -> "Bank of New York Mellon". None when there is no name."""
-    s = " ".join(str(name or "").split())
-    if not s:
-        return None
-    while True:
-        cut = next((x for x in LEGAL if s.endswith(x) and len(s) > len(x)), None)
-        if cut is None:
-            break
-        s = s[: -len(cut)].rstrip()
-    if s.startswith("The ") and len(s) > 4:
-        s = s[4:]
-    s = s.rstrip(" &,").strip()
-    return SHORT_NAMES.get(s, s) or None
 
 
 # ---------------------------------------------------------------------------------------------------------------- drawing
@@ -220,27 +207,23 @@ def background(cv: Canvas) -> None:
     cv.draw.rectangle([0, 0, w, px(4) - 1], fill=TERM["mint"])
 
 
-def cap(s: str) -> str:
-    return s.upper()
+def day_note(day: dict) -> str:
+    """The right side of a day's header: "76 confirmed", "+ early close", "2 during market hours", "3 time not set"; a
+    market holiday: its name."""
+    if day.get("market") == "closed":
+        return f"Market closed · {day.get('holiday') or 'NYSE holiday'}"
+    bits = [f"{day['total']} confirmed"]
+    if day.get("market") == "early_close":
+        bits.append("early close")
+    if day.get("during_market"):
+        bits.append(f"{day['during_market']} during market hours")
+    if day.get("no_session"):
+        bits.append(f"{day['no_session']} time not set")
+    return " · ".join(bits)
 
 
-def label_lines(cv: Canvas, one: str, two: tuple[str, str]) -> list[str]:
-    """A day label count on one line when it fits the label column, else on the two given lines."""
-    return [one] if cv.width(one, "medium", 20) <= LABEL_W - LABEL_AIR else list(two)
-
-
-def fitted_names(cv: Canvas, shown: list[str], names: dict) -> list[str | None]:
-    """The short name under each tile, or None: only when it fits its tile whole, and with NAME_GUTTER of air before a
-    tile on its right that shows a name too (right to left, so "Union Pacific" never runs into "Blackstone")."""
-    out: list[str | None] = [None] * len(shown)
-    for j in reversed(range(len(shown))):
-        nm = short_name(names.get(shown[j]))
-        if not nm or nm.upper() == shown[j].upper():
-            continue
-        neighbour = j % 3 < 2 and j + 1 < len(shown) and out[j + 1] is not None
-        if cv.width(nm, "medium", 20) <= SLOT_W - (NAME_GUTTER if neighbour else NAME_AIR):
-            out[j] = nm
-    return out
+def range_line(mon: dt.date, fri: dt.date) -> str:
+    return f"earnings next week · {fx.week_range_text(mon, fri, ' – ')}"
 
 
 def render_calendar(item: dict) -> tuple[bytes, dict]:
@@ -253,91 +236,87 @@ def render_calendar(item: dict) -> tuple[bytes, dict]:
         raise QAError("the item has no 5-day calendar")
     mon, fri = ss.d(item["week_start"]), ss.d(item["week_end"])
     asof = ss.d(item["as_of_date"])
-    names = item.get("names") or {}
     cv = Canvas()
     background(cv)
 
-    # header
-    cv.text(MX, 70, "EARNINGS CALENDAR · NEXT WEEK", "mono", 24, TERM["cyan"], "chip", tracking=0.1)
-    cv.text(MX, 142, "Biggest earnings next week", "archivo", 64, TERM["primary"], "title")
+    # header: the title, the week (gradient), the subline
+    cv.text(MX, 100, TITLE, "archivo", 62, TERM["primary"], "title")
+    rng = range_line(mon, fri)
+    size = next((s for s in (48, 46, 44, 42, 40) if cv.width(rng, "archivo", s) <= W - 2 * MX), 40)
     mask = Image.new("L", cv.img.size, 0)
-    cv.text(MX, 196, fx.week_range_text(mon, fri, " – "), "archivo", 44, None, "range", mask=mask)
+    cv.text(MX, 158, rng, "archivo", size, None, "range", mask=mask)
     cv.gradient_fill(mask, TERM["mint"], TERM["cyan"])
-    cv.text(MX, 234, "Largest companies by market cap in each session · confirmed dates", "medium", 22,
-            TERM["secondary"], "subline")
+    cv.text(MX, 198, SUBLINE, "medium", 24, TERM["secondary"], "subline")
 
     # column strip
-    cv.draw.rectangle([0, px(250), W * SS, px(290)], fill=TERM["head"] + (217,))
-    cv.draw.rectangle([0, px(290) - 1, W * SS, px(291.5)], fill=RULE_HI)
+    cv.draw.rectangle([0, px(STRIP_TOP), W * SS, px(STRIP_BOTTOM)], fill=TERM["head"] + (217,))
+    cv.draw.rectangle([0, px(STRIP_BOTTOM) - 1, W * SS, px(STRIP_BOTTOM + 1.5)], fill=RULE_HI)
     for i, (_, label, color, _) in enumerate(SESSIONS):
-        cv.text(CELL_X + i * (CELL_W + GAP) + CELL_PAD, 278, label, "mono", 22, TERM[color], "column", tracking=0.06)
+        cv.text(MX + i * (CELL_W + GAP) + CELL_PAD, STRIP_BOTTOM - 14, label, "bold", 30, TERM[color], "column",
+                tracking=0.08)
 
-    # day rows
+    # day rows: a header line, then the two cells
     for r, day in enumerate(cal):
         top = ROWS_TOP + r * ROW_PITCH
         d = ss.d(day["date"])
-        cv.text(MX, top + 46, cap(day["weekday"]), "archivo", 40, TERM["primary"], "weekday")
-        cv.text(MX, top + 78, cap(fx.date_forms(day["date"])[2]), "mono", 22, TERM["muted"], "day_date")
-        lines = label_lines(cv, f"{day['total']} confirmed", (str(day["total"]), "confirmed"))
-        roles = ["day_total"] * len(lines)
-        if day.get("no_session"):
-            more = label_lines(cv, f"{day['no_session']} time not set", (f"{day['no_session']} time", "not set"))
-            lines, roles = lines + more, roles + ["day_no_session"] * len(more)
-        if len(lines) > 3:
-            raise QAError(f"{day['date']}: the day label needs {len(lines)} lines (3 fit)")
-        for k, (line, role) in enumerate(zip(lines, roles)):
-            cv.text(MX, top + 108 + 26 * k, line, "medium", 20, TERM["dim"], role)
+        closed = day.get("market") == "closed"
+        wd = cv.text(MX, top + 32, day["weekday"].upper(), "archivo", 34, TERM["primary"], "weekday")
+        cv.text(wd["box"][2] + 14, top + 31, fx.date_forms(day["date"])[2].upper(), "mono", 26, TERM["muted"], "day_date")
+        note = day_note(day)
+        cv.text(W - MX - cv.width(note, "medium", 24), top + 31, note, "medium", 24,
+                TERM["muted"] if closed else TERM["dim"], "day_note")
+        ctop = top + DAY_HEAD
         for c, (session, _, _, tint) in enumerate(SESSIONS):
-            x0 = CELL_X + c * (CELL_W + GAP)
-            box = (x0, top, x0 + CELL_W, top + CELL_H)
+            x0 = MX + c * (CELL_W + GAP)
+            box = (x0, ctop, x0 + CELL_W, ctop + CELL_H)
             data = day.get(session) or {}
             cell = {"id": f"{d.isoformat()}:{session}", "box": [round(v, 2) for v in box], "total": data.get("total"),
-                    "shown": list(data.get("shown") or []), "more": data.get("more"), "tiles": 0, "more_drawn": None}
+                    "shown": list(data.get("shown") or []), "more": data.get("more"), "tiles": 0, "more_drawn": None,
+                    "closed": closed}
             cv.cells.append(cell)
-            cv.rect(box, 8, fill=tint, outline=RULE, width=1.5)
+            cv.rect(box, 8, fill=CLOSED_TINT if closed else tint, outline=RULE, width=1.5)
+            if closed:
+                cv.text(x0 + CELL_PAD, ctop + 76, "Market closed", "mono", 24, TERM["dim"], "empty", cell=cell)
+                continue
             if not data.get("total"):
-                cv.text(x0 + 14, top + 52, "None confirmed", "mono", 20, TERM["dim"], "empty", cell=cell)
+                cv.text(x0 + CELL_PAD, ctop + 76, "None confirmed", "mono", 24, TERM["dim"], "empty", cell=cell)
                 continue
             shown = cell["shown"]
             if len(shown) > fx.WEEK_CALENDAR_SLOTS or (data.get("more") and len(shown) >= fx.WEEK_CALENDAR_SLOTS):
                 raise QAError(f"{cell['id']}: {len(shown)} tiles and +{data.get('more')} do not fit 6 slots")
-            tile_names = fitted_names(cv, shown, names)
             for j, t in enumerate(shown):
                 sx = x0 + CELL_PAD + (j % 3) * SLOT_W
-                base = top + (52 if j < 3 else 132)
-                slot = (sx, sx + SLOT_W)
+                base = ctop + (LINE1 if j < 3 else LINE2)
                 room = SLOT_W - TILE_GUTTER
                 wdth = next((v for v in CONDENSED if cv.width(t, "archivo", TICKER_PX, wdth=v) <= room), CONDENSED[-1])
-                cv.text(sx, base, t, "archivo", TICKER_PX, TERM["primary"], "ticker", wdth=wdth, cell=cell, slot=slot)
+                cv.text(sx, base, t, "archivo", TICKER_PX, TERM["primary"], "ticker", wdth=wdth, cell=cell,
+                        slot=(sx, sx + room))
                 cell["tiles"] += 1
-                if tile_names[j]:
-                    cv.text(sx, base + 26, tile_names[j], "medium", 20, TERM["muted"], "name", cell=cell, slot=slot)
             if data.get("more"):
                 sx = x0 + CELL_PAD + 2 * SLOT_W
-                rec = cv.text(sx, top + 132, f"+{data['more']}", "mono", 30, TERM["cyan"], "more", cell=cell,
-                              slot=(sx, sx + SLOT_W))
+                slot = (sx, sx + SLOT_W)
+                rec = cv.text(sx, ctop + LINE2, f"+{data['more']}", "mono", MORE_PX, TERM["secondary"], "more", cell=cell,
+                              slot=slot)
+                cv.text(rec["box"][2] + 8, ctop + LINE2, "more", "medium", 24, TERM["muted"], "more_label", cell=cell,
+                        slot=slot)
                 cell["more_drawn"] = rec["text"]
 
     # footer
-    cv.draw.rectangle([0, px(1222), W * SS, px(1223.5)], fill=RULE)
+    cv.draw.rectangle([0, px(FOOT_RULE), W * SS, px(FOOT_RULE + 1.5)], fill=RULE)
     pill_text = "RapidTradeView"
-    pw = cv.width(pill_text, "bold", 22) + 36
-    pill = (MX, 1238, MX + pw, 1280)
+    pw = cv.width(pill_text, "bold", 24) + 36
+    pill = (MX, 1236, MX + pw, 1282)
     pmask = Image.new("L", cv.img.size, 0)
-    cv.ImageDraw.Draw(pmask).rounded_rectangle([px(v) for v in pill], radius=px(21), fill=255)
+    cv.ImageDraw.Draw(pmask).rounded_rectangle([px(v) for v in pill], radius=px(23), fill=255)
     cv.gradient_fill(pmask, TERM["purple"], TERM["blue"], tuple(px(v) for v in pill))
-    cv.draw.rounded_rectangle([px(v) for v in pill], radius=px(21), outline=(206, 192, 255, 115), width=SS)
-    cv.text(MX + 18, 1267, pill_text, "bold", 22, TERM["primary"], "brand")
-    url = cv.text(pill[2] + 14, 1266, "rapidtradeview.trade/earnings", "medium", 20, TERM["secondary"], "url")
+    cv.draw.rounded_rectangle([px(v) for v in pill], radius=px(23), outline=(206, 192, 255, 115), width=SS)
+    cv.text(MX + 18, 1267, pill_text, "bold", 24, TERM["primary"], "brand")
+    cv.text(pill[2] + 16, 1267, "rapidtradeview.trade/earnings", "medium", 24, TERM["secondary"], "url")
     asof_text = f"Confirmed dates as of {fx.date_forms(asof.isoformat())[2]}"
-    one = f"{asof_text} · {fx.DISCLAIMER}"
     right = W - MX
-    if url["box"][2] + 24 + cv.width(one, "medium", 20) <= right:
-        cv.text(right - cv.width(one, "medium", 20), 1266, one, "medium", 20, TERM["muted"], "asof")
-    else:
-        cv.text(right - cv.width(asof_text, "medium", 20), 1256, asof_text, "medium", 20, TERM["muted"], "asof")
-        cv.text(right - cv.width(fx.DISCLAIMER, "medium", 20), 1284, fx.DISCLAIMER, "medium", 20, TERM["muted"],
-                "disclaimer")
+    cv.text(right - cv.width(asof_text, "medium", 24), 1254, asof_text, "medium", 24, TERM["muted"], "asof")
+    cv.text(right - cv.width(fx.DISCLAIMER, "medium", 24), 1286, fx.DISCLAIMER, "medium", 24, TERM["muted"],
+            "disclaimer")
 
     out = cv.img.reduce(SS)   # 2x2 box average: the supersample, no ringing (half the PNG size of LANCZOS)
     buf = io.BytesIO()
@@ -350,17 +329,15 @@ def render_calendar(item: dict) -> tuple[bytes, dict]:
 
 
 def allowed_digits(item: dict) -> set[str]:
-    """Digit runs the image may draw: the days of the month, the years, the as-of day, the day / cell counts and digits in the
-    names (e.g. 3M)."""
+    """Digit runs the image may draw: the days of the month, the years, the as-of day, the day / cell counts."""
     out = {str(ss.d(item[k]).day) for k in ("week_start", "week_end", "as_of_date")}
     out |= {str(ss.d(item[k]).year) for k in ("week_start", "week_end", "as_of_date")}
     for day in item.get("calendar") or []:
-        out |= {str(ss.d(day["date"]).day), str(day.get("total")), str(day.get("no_session"))}
+        out |= {str(ss.d(day["date"]).day), str(day.get("total")), str(day.get("no_session")),
+                str(day.get("during_market"))}
         for s in ("bmo", "amc"):
             c = day.get(s) or {}
             out |= {str(c.get("total")), str(c.get("more"))}
-    for n in (item.get("names") or {}).values():
-        out |= set(re.findall(r"\d+", n or ""))
     return out
 
 
@@ -379,14 +356,18 @@ def qa(item: dict, cv: Canvas, size: int) -> dict:
             fails.append(f"{t['role']} {t['text']!r} at {t['size']} px is below the {floor} px floor")
         if t["slot"] and (x0 < t["slot"][0] - 0.5 or x1 > t["slot"][1] + 0.5):
             fails.append(f"{t['role']} {t['text']!r} leaves its tile ({t['box']} vs slot {t['slot']})")
-        if t["role"] in LABEL_ROLES and x1 > CELL_X - LABEL_AIR:
-            fails.append(f"{t['role']} {t['text']!r} runs into the cells")
         if "…" in t["text"] or t["text"].endswith("..."):
             fails.append(f"{t['role']} {t['text']!r} is cut")
+        if CONJUNCTION_END.search(t["text"].strip()):
+            fails.append(f"{t['role']} {t['text']!r} ends in a conjunction (a cut name)")
     for c in cv.cells:
         x0, y0, x1, y1 = c["box"]
         if x0 < SAFE or y0 < SAFE or x1 > W - SAFE or y1 > H - SAFE:
             fails.append(f"cell {c['id']} leaves the safe area")
+        if c["closed"]:
+            if c["tiles"] or c["more_drawn"] or c["total"]:
+                fails.append(f"cell {c['id']}: a market holiday shows reporters")
+            continue
         if c["total"] != len(c["shown"]) + (c["more"] or 0):
             fails.append(f"cell {c['id']}: {len(c['shown'])} shown + {c['more']} more != {c['total']} total")
         if c["tiles"] != len(c["shown"]):
@@ -402,9 +383,6 @@ def qa(item: dict, cv: Canvas, size: int) -> dict:
         for b in cv.texts[i + 1:]:
             if _overlap(a["box"], b["box"]):
                 fails.append(f"{a['role']} {a['text']!r} overlaps {b['role']} {b['text']!r}")
-            elif (a["role"] == b["role"] == "name" and a["box"][1] < b["box"][3] and b["box"][1] < a["box"][3]
-                  and max(a["box"][0], b["box"][0]) - min(a["box"][2], b["box"][2]) < NAME_GUTTER - NAME_AIR):
-                fails.append(f"names {a['text']!r} and {b['text']!r} run together")
     ok_digits = allowed_digits(item)
     for t in cv.texts:
         bad = [r for r in re.findall(r"\d+", t["text"]) if r not in ok_digits]
@@ -414,21 +392,27 @@ def qa(item: dict, cv: Canvas, size: int) -> dict:
         fails.append(f"the PNG is {size} bytes (max {MAX_BYTES})")
     return {"pass": not fails, "failures": fails, "bytes": size, "size": [W, H], "texts": cv.texts,
             "tiles": sum(c["tiles"] for c in cv.cells), "cells": cv.cells,
-            "condensed": [t["text"] for t in cv.texts if t["role"] == "ticker" and t["wdth"] != 100],
-            "names_shown": [t["text"] for t in cv.texts if t["role"] == "name"]}
+            "condensed": [t["text"] for t in cv.texts if t["role"] == "ticker" and t["wdth"] != 100]}
 
 
 def alt_text(item: dict) -> str:
     """Per day and session, the shown tickers (whole entries only, at most ALT_MAX characters)."""
     mon, fri = ss.d(item["week_start"]), ss.d(item["week_end"])
-    out = (f"Earnings calendar for next week, {fx.week_range_text(mon, fri)}: the largest companies by market cap in each "
-           "session, confirmed dates.")
+    out = (f"Largest companies reporting earnings next week, {fx.week_range_text(mon, fri)}, by market cap in each "
+           "session; confirmed dates in our coverage.")
     for day in item.get("calendar") or []:
-        for s, label in (("bmo", "before the open"), ("amc", "after the close")):
-            c = day.get(s) or {}
-            what = (", ".join(c.get("shown") or []) + (f" and {c['more']} more" if c.get("more") else "")
-                    if c.get("total") else "none confirmed")
-            entry = f" {day['weekday']} {fx.date_forms(day['date'])[2]}, {label}: {what}."
+        head = f"{day['weekday']} {fx.date_forms(day['date'])[2]}"
+        if day.get("market") == "closed":
+            entries = [f" {head}: market closed ({day.get('holiday') or 'NYSE holiday'})."]
+        else:
+            entries = []
+            for s, label in (("bmo", "before the open"), ("amc", "after the close")):
+                c = day.get(s) or {}
+                what = (", ".join(c.get("shown") or []) + (f" and {c['more']} more" if c.get("more") else "")
+                        if c.get("total") else "none confirmed")
+                entries.append(f" {head}{' (early close)' if day.get('market') == 'early_close' and s == 'bmo' else ''}, "
+                               f"{label}: {what}.")
+        for entry in entries:
             if len(out) + len(entry) > ALT_MAX:
                 return out
             out += entry
@@ -572,6 +556,12 @@ def cmd_prepare(a: argparse.Namespace) -> int:
         if item is None:
             print(f"week calendar: no {KIND} item in this build ({(facts.get('reasons') or {}).get(KIND, 'no reason')})")
             return 0
+        ny = now.astimezone(ss.NY)
+        if ny.date().isoformat() == a.date and ny.hour < FREEZE_FROM_ET:
+            strip(facts_file, f"the calendar freezes at the first build at or after {FREEZE_FROM_ET:02d}:00 ET (the API's "
+                              f"date check may be half done before; this build ran {ny:%H:%M} ET)")
+            print(f"week calendar: {ny:%H:%M} ET is before {FREEZE_FROM_ET:02d}:00 ET: nothing frozen, the item stays out")
+            return 0
         if ss.g_n1_holdout(dt.date.fromisoformat(a.date)) and ss.report_page_in(item):
             strip(facts_file, f"calendar image failed: the item carries a report page URL ({ss.G_N1_REASON})")
             return 0
@@ -650,7 +640,7 @@ def cmd_render(a: argparse.Namespace) -> int:
         print(f"week calendar: QA FAILED: {e}")
         return 1
     mf.write_json(Path(a.out) / QA_FILE, report)
-    print(f"week calendar: {path} ({report['bytes']} bytes, {report['tiles']} tiles, names {len(report['names_shown'])}, "
+    print(f"week calendar: {path} ({report['bytes']} bytes, {report['tiles']} tiles, "
           f"condensed {report['condensed'] or 'none'}; QA passed)")
     return 0
 

@@ -11,10 +11,11 @@ default (what Grok reads) or a local v/ directory. Checks:
   - the item exists in that day's facts;
   - ticker: the item's $cashtag is in the text and no other cashtag is (picks: only the list's public tickers;
     moves_like: the subject and the peers listed in the item); several cashtags only for the roundup kinds
-    (facts.ROUNDUP_TYPES): earnings_tomorrow_roundup and ptr_summary at most 4, earnings_week_calendar at most 12
+    (facts.ROUNDUP_TYPES): earnings_tomorrow_roundup and ptr_summary at most 4, earnings_week_calendar at most 6
     (facts.cashtag_max), each one of the item's tickers, at least one;
   - every number-like token in text and reply is one of the item's allowed_numbers (or the cashtag); the filing names
-    Form 4, Form 144, Form 13F, 8-K, 10-Q, 10-K and 13F are words, not numbers (posts and comments);
+    Form 4, Form 144, Form 13F, 8-K, 10-Q, 10-K and 13F are words, not numbers (posts and comments); an allowed bare
+    integer ("6") never clears "$6", "6%", "6M" or "6 billion";
   - banned words (case-insensitive): the rules' list plus the item's own banned_words (chart_pattern / moves_like:
     no predictions such as "will"); "Not investment advice." in the text;
   - link == the item's page_url with {platform} filled in; every URL in text / reply is that link, the item's
@@ -22,8 +23,12 @@ default (what Grok reads) or a local v/ directory. Checks:
     Form 4 / ptr_summary) at least one source link go in the self-reply (reply_text); Instagram: a Congress / Form 4 /
     ptr_summary caption carries one;
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
-  - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
-    Moves Like post never touches picks);
+  - picks_ready, chart_pattern, moves_like, earnings_week_calendar: no "#1" / top-pick hint (the #1 ticker is hidden
+    from us, so a pattern, Moves Like or calendar post never touches picks);
+  - earnings_week_calendar (reviews 2026-10-16): only on its facts date (New York; the text and image say "next week"),
+    its cashtags on ONE line of the text and none in the self-reply, no hashtags, no weekday names, no company (cashtag,
+    ticker or name) in a sentence with a session ("before the open", "after hours", ...): the per-day detail is the
+    image's; and one approved post per item and platform (the inbox records it in the comment state's "posts");
   - G-N1 holdout: until 2026-11-21 (New York date of the review, as facts.py and select_stories date things) no
     string anywhere in the draft (every field, nested ones and keys included) carries "/earnings/reports/" (an
     earnings report page of either arm); comments likewise;
@@ -42,8 +47,10 @@ self-promotion phrases; numbers and $cashtags need item_id, then must be that it
 disclaimer needed. Repeats: a local state file (--comment-state, $GROK_COMMENT_STATE, default
 D:/rtv-ops/tracks/growth/research/grok-comments-state.json) keeps the last 7 UTC days of approved comments: REJECT the
 same normalized text within 7 days, >= 80% shared word 3-grams with one approved today, a target_url already
-commented, or a 16th comment on a platform in one UTC day. --inbox writes an approved comment to the state only after
-its APPROVE answer was sent; --draft reads the state and never writes it.
+commented, or a 16th comment on a platform in one UTC day. A comment that cites an earnings_week_calendar item
+carries at most 1 cashtag and keeps the calendar's wording rules (no weekday names, no company next to a session).
+--inbox writes an approved comment (and an approved post of ONE_POST_TYPES) to the state only after its APPROVE answer
+was sent; --draft reads the state and never writes it.
 
 --inbox reads unacked from_instinct rows of social_kit_messages whose body starts with "DRAFT" (through
 D:/rtv-ops/tracks/growth/bin/instinct.py's gateway client), reviews each and answers with
@@ -86,15 +93,29 @@ PYTHON = sys.executable
 UA = "RapidTradeView grok-review (contact@rapidtradeview.trade)"
 SOURCE_TYPES = ("congress_trade", "form4_buy", "ptr_summary")
 # Several cashtags in one post: only the roundup kinds (facts.ROUNDUP_TYPES, at most facts.cashtag_max(kind): 4, the
-# weekly calendar 12; all from the item's tickers). moves_like (subject + listed peers) and picks_ready (the public picks)
+# weekly calendar 6; all from the item's tickers). moves_like (subject + listed peers) and picks_ready (the public picks)
 # keep their item's own list.
 MULTI_CASHTAG_TYPES = fx.ROUNDUP_TYPES
 MULTI_CASHTAG_MAX = fx.ROUNDUP_MAX_TICKERS
 # Kinds whose post carries only the item's own media (our rendered image; no Grok-made image, no other Pages file), and on
 # Instagram only an item media entry of kind "reel".
-OWN_MEDIA_ONLY_TYPES = ("earnings_week_calendar",)
+OWN_MEDIA_ONLY_TYPES = (fx.WEEK_CALENDAR,)
 LIST_TYPES = ("moves_like", "picks_ready")
-NO_PICK_HINT_TYPES = ("picks_ready", "chart_pattern", "moves_like")
+NO_PICK_HINT_TYPES = ("picks_ready", "chart_pattern", "moves_like", fx.WEEK_CALENDAR)
+# One approved post per item and platform (compliance review 2026-10-16): the inbox records approved posts of these kinds.
+ONE_POST_TYPES = (fx.WEEK_CALENDAR,)
+# Comments that cite an item of these kinds carry at most this many cashtags.
+COMMENT_CASHTAG_MAX_BY_TYPE = {fx.WEEK_CALENDAR: 1}
+# The weekly calendar's wording (reviews 2026-10-16): the per-day detail is the image's, so a post names no weekday and
+# puts no company in a sentence with a session (a wrong day / session can not be told from a right one by the numbers).
+WEEKDAY = re.compile(r"\b(?:mondays?|tuesdays?|wednesdays?|thursdays?|fridays?|mon|tues?|weds?|thu|thurs?|fri)\b",
+                     re.IGNORECASE)
+SESSION = re.compile(r"\b(?:before\s+the\s+(?:open(?:ing)?|bell|opening\s+bell)|after\s+the\s+(?:close|bell|closing\s+bell)"
+                     r"|pre-?market|post-?market|after[\s-]?hours|during\s+(?:market|trading)\s+hours|intraday|at\s+the\s+open"
+                     r"|at\s+the\s+close)\b", re.IGNORECASE)
+CLAUSE = re.compile(r"\n|(?<=[.!?;:])\s+")
+NAME_GENERIC = {"the", "and", "first", "general", "united", "american", "international", "national", "capital", "global",
+                "western", "eastern", "southern", "northern", "new", "royal", "public", "pacific"}
 URL = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
 CASHTAG = re.compile(r"(?<![\w$])\$([A-Za-z]{1,5}(?:[.-][A-Za-z]{1,2})?)(?![\w])")
 DIGIT_TOKEN = re.compile(r"\S*\d\S*")
@@ -189,9 +210,17 @@ def _norm(s: str) -> str:
     return s.replace("\u00a0", " ").replace("\u202f", " ").replace("\u2212", "-")
 
 
+# An allowed bare integer ("6", "205") is a count: it never clears "$6", "6%", "6M", "6 billion" (compliance review
+# 2026-10-16: "$TSLA is up 6% this month" passed on the calendar's day count).
+BARE_INT = re.compile(r"\d+")
+NOT_A_COUNT_AFTER = (r"(?!\s*(?:%|percent\b|per\s+cent\b|pct\b|bps\b|x\b|bn\b|mn\b|billion\b|million\b|thousand\b"
+                     r"|trillion\b))")
+
+
 def strip_allowed(text: str, allowed: list[str]) -> str:
     """The text with every allowed number phrase (longest first, whole tokens only) blanked out. A sign the facts do
-    not carry ("-$1.72" when the allowed number is "$1.72") keeps the number in; a range dash ("$15K-$50K") does not."""
+    not carry ("-$1.72" when the allowed number is "$1.72") keeps the number in; a range dash ("$15K-$50K") does not.
+    An allowed bare integer is matched only as a count: not after a currency sign, not before %, a unit or a scale."""
     s = _norm(text)
 
     def repl(m: re.Match) -> str:
@@ -203,7 +232,11 @@ def strip_allowed(text: str, allowed: list[str]) -> str:
         return MARK
 
     for a in sorted({_norm(a) for a in allowed if a}, key=len, reverse=True):
-        s = re.sub(rf"(?<![\w.,]){re.escape(a)}(?![\w]|[.,]\d)", repl, s, flags=re.IGNORECASE)
+        if BARE_INT.fullmatch(a):
+            pat = rf"(?<![\w.,$\u20ac\u00a3]){re.escape(a)}(?![\w%]|[.,]\d){NOT_A_COUNT_AFTER}"
+        else:
+            pat = rf"(?<![\w.,]){re.escape(a)}(?![\w]|[.,]\d)"
+        s = re.sub(pat, repl, s, flags=re.IGNORECASE)
     return s.replace(MARK, " ")
 
 
@@ -247,8 +280,9 @@ def holdout_reasons(draft: dict, now: dt.datetime | None = None) -> list[str]:
             "link /dashboard/<T>#earnings-history"] if bad else []
 
 
-def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> tuple[str, list[str]]:
-    """("APPROVE", []) or ("REJECT", reasons)."""
+def review(draft: dict, facts: dict | None, now: dt.datetime | None = None,
+           state: "CommentState | None" = None) -> tuple[str, list[str]]:
+    """("APPROVE", []) or ("REJECT", reasons). `state`: the inbox's record of approved posts (ONE_POST_TYPES)."""
     reasons: list[str] = holdout_reasons(draft, now)
     iid = draft.get("item_id")
     platform = draft.get("platform")
@@ -346,7 +380,72 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
         if hint:
             reasons.append(f"picks: no #1 / top-pick hint ({short(hint.group(0))!r})")
 
+    # The weekly calendar
+    if kind == fx.WEEK_CALENDAR:
+        reasons += calendar_post_reasons(item, text, reply, now)
+    if kind in ONE_POST_TYPES and state is not None and state.post_seen(str(platform), iid, now):
+        reasons.append(f"{kind}: one post per item and platform: {short(iid, 80)} already has an approved "
+                       f"{short(platform)} post")
+
     return ("REJECT", reasons) if reasons else ("APPROVE", [])
+
+
+def company_words(item: dict) -> list[str]:
+    """Words that name a company of the calendar: its tickers (bare, upper case) and the first word of each name ("Tesla",
+    "Procter", "Lam"), case-sensitive; generic first words ("General", "United") are left out."""
+    out = [t for t in [*(item.get("tickers") or []), *((item.get("names") or {}).keys())] if isinstance(t, str) and len(t) >= 2]
+    for n in (item.get("names") or {}).values():
+        words = re.findall(r"[A-Za-z][A-Za-z&'-]*", n or "")
+        if words and words[0] == "The":
+            words = words[1:]
+        if words and len(words[0]) >= 3 and words[0].lower() not in NAME_GENERIC | NAME_FILLER:
+            out.append(words[0])
+    return list(dict.fromkeys(out))
+
+
+def calendar_wording_reasons(item: dict, body: str) -> list[str]:
+    """No weekday names; no company (cashtag, bare ticker, name) in a sentence that names a session."""
+    out = []
+    body = URL.sub(" ", body)
+    days = sorted({m.group(0) for m in WEEKDAY.finditer(CASHTAG.sub(" ", body))})
+    if days:
+        out.append(f"{fx.WEEK_CALENDAR}: no weekday names ({', '.join(short(d, 12) for d in days)}): the days are in the "
+                   "image; say 'next week' or the week range")
+    words = company_words(item)
+    for clause in CLAUSE.split(body):
+        ses = SESSION.search(clause)
+        if not ses:
+            continue
+        who = [m.group(0) for m in CASHTAG.finditer(clause)]
+        bare = CASHTAG.sub(" ", clause)
+        who += [w for w in words if re.search(rf"(?<![\w$]){re.escape(w)}(?![\w])", bare)]
+        if who:
+            out.append(f"{fx.WEEK_CALENDAR}: no company next to a session ({short(who[0], 20)} with "
+                       f"{short(ses.group(0), 20)!r}): each company's day and session are in the image")
+            break
+    return out
+
+
+def calendar_post_reasons(item: dict, text: str, reply: str, now: dt.datetime | None) -> list[str]:
+    """earnings_week_calendar: its facts date only, cashtags on one line of the text and none in the reply, no hashtags,
+    and calendar_wording_reasons."""
+    out = []
+    now = now or dt.datetime.now(dt.timezone.utc)
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=dt.timezone.utc)
+    day = now.astimezone(ss.NY).date().isoformat()
+    if item.get("as_of_date") != day:
+        out.append(f"{fx.WEEK_CALENDAR}: post it on its facts date {short(item.get('as_of_date'), 10)} (New York) only; "
+                   f"today is {day} and the text and image say 'next week'")
+    lines = [ln for ln in text.splitlines() if CASHTAG.search(ln)]
+    if len(lines) > 1:
+        out.append(f"{fx.WEEK_CALENDAR}: the cashtags go on ONE line (got {len(lines)})")
+    if CASHTAG.search(reply):
+        out.append(f"{fx.WEEK_CALENDAR}: no cashtags in the self-reply")
+    tags = HASHTAG.findall(URL.sub(" ", f"{text}\n{reply}"))
+    if tags:
+        out.append(f"{fx.WEEK_CALENDAR}: no hashtags ({', '.join(short(t, 24) for t in tags[:4])})")
+    return out + calendar_wording_reasons(item, f"{text}\n{reply}")
 
 
 def item_sources(item: dict) -> list[str]:
@@ -447,27 +546,40 @@ def parse_target(platform: str, url) -> tuple[str | None, str | None, str | None
 
 class CommentState:
     """Approved comments of the last COMMENT_DAYS UTC days: {"approved": [{date, platform, target, target_url, text,
-    norm, msg_id, at}]}. Written only when an APPROVE answer was sent."""
+    norm, msg_id, at}], "posts": [{date, platform, item_id, msg_id, at}]} ("posts": approved posts of ONE_POST_TYPES).
+    Written only when an APPROVE answer was sent."""
 
     def __init__(self, path: Path):
         self.path = Path(path)
         self.approved: list[dict] = []
+        self.posts: list[dict] = []
         if self.path.exists():
             try:
                 data = json.loads(self.path.read_text(encoding="utf-8-sig"))
             except (OSError, ValueError) as e:
                 raise StateUnreadable(f"{self.path}: {type(e).__name__}") from None
-            if not isinstance(data, dict) or not isinstance(data.get("approved"), list):
-                raise StateUnreadable(f"{self.path}: expected {{\"approved\": [...]}}")
+            if (not isinstance(data, dict) or not isinstance(data.get("approved"), list)
+                    or not isinstance(data.get("posts", []), list)):
+                raise StateUnreadable(f"{self.path}: expected {{\"approved\": [...], \"posts\"?: [...]}}")
             self.approved = [a for a in data["approved"] if isinstance(a, dict)]
+            self.posts = [a for a in data.get("posts", []) if isinstance(a, dict)]
 
     @staticmethod
     def day(now: dt.datetime) -> str:
         return now.astimezone(dt.timezone.utc).date().isoformat()
 
-    def recent(self, now: dt.datetime) -> list[dict]:
+    def recent(self, now: dt.datetime, rows: list[dict] | None = None) -> list[dict]:
         since = (now.astimezone(dt.timezone.utc).date() - dt.timedelta(days=COMMENT_DAYS - 1)).isoformat()
-        return [a for a in self.approved if str(a.get("date") or "") >= since]
+        return [a for a in (self.approved if rows is None else rows) if str(a.get("date") or "") >= since]
+
+    def post_seen(self, platform: str, item_id: str, now: dt.datetime | None = None) -> bool:
+        """An approved post of this item on this platform in the last COMMENT_DAYS days."""
+        now = now or dt.datetime.now(dt.timezone.utc)
+        return any(p.get("platform") == platform and p.get("item_id") == item_id for p in self.recent(now, self.posts))
+
+    def add_post(self, draft: dict, msg_id, now: dt.datetime) -> None:
+        self.posts.append({"date": self.day(now), "platform": draft.get("platform"), "item_id": draft.get("item_id"),
+                           "msg_id": msg_id, "at": now.astimezone(dt.timezone.utc).isoformat()})
 
     def reasons(self, platform: str, target: str | None, text: str, now: dt.datetime) -> list[str]:
         today, out = self.day(now), []
@@ -500,9 +612,11 @@ class CommentState:
 
     def save(self, now: dt.datetime) -> None:
         self.approved = self.recent(now)
+        self.posts = self.recent(now, self.posts)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         tmp = self.path.with_name(self.path.name + ".tmp")
-        tmp.write_text(json.dumps({"approved": self.approved}, ensure_ascii=False, indent=1), encoding="utf-8")
+        data = {"approved": self.approved, **({"posts": self.posts} if self.posts else {})}
+        tmp.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
         tmp.replace(self.path)
 
 
@@ -567,6 +681,12 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
         bad = unexplained_numbers(scan, [str(a) for a in item.get("allowed_numbers") or []], tickers)
         if bad:
             reasons.append("numbers not in allowed_numbers: " + ", ".join(sorted({short(b, 24) for b in bad})))
+        most = COMMENT_CASHTAG_MAX_BY_TYPE.get(item.get("type"))
+        if most is not None and len(set(cashtags)) > most:
+            reasons.append(f"a comment citing {item.get('type')} carries at most {most} cashtag "
+                           f"(got {len(set(cashtags))})")
+        if item.get("type") == fx.WEEK_CALENDAR:
+            reasons += calendar_wording_reasons(item, scan)
         if item.get("type") in NO_PICK_HINT_TYPES:
             hint = PICK_HINT.search(text)
             if hint:
@@ -654,6 +774,12 @@ def comment_state_path(flag: str | None = None) -> Path:
     return Path(flag or os.environ.get(COMMENT_STATE_ENV) or DEFAULT_COMMENT_STATE)
 
 
+def item_type(facts: dict | None, iid) -> str | None:
+    """The type of item `iid` in `facts` (None when either is missing)."""
+    return next((i.get("type") for i in (facts or {}).get("items") or [] if isinstance(i, dict) and i.get("item_id") == iid),
+                None)
+
+
 def draft_kind(draft: dict) -> tuple[str | None, str | None]:
     """("post" | "comment", None) or (None, error). A draft without "kind" is a post."""
     kind = draft.get("kind")
@@ -680,6 +806,7 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
     for row in drafts:
         draft, err = parse_draft(row)
         kind = None
+        one_post = False
         if not err:
             kind, err = draft_kind(draft)
         verdict, reasons = ("REJECT", [err]) if err else ("", [])
@@ -702,7 +829,15 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                             continue
                     facts = cache[date]
                 if kind == "post":
-                    verdict, reasons = review(draft, facts, clock)
+                    one_post = item_type(facts, iid) in ONE_POST_TYPES
+                    if one_post and state is None:
+                        try:
+                            state = CommentState(comment_state or comment_state_path())
+                        except StateUnreadable as e:
+                            print(f"  #{row['id']}: comment state unreadable ({e}); left unacked for the next run")
+                            stats["deferred"] += 1
+                            continue
+                    verdict, reasons = review(draft, facts, clock, state if one_post else None)
                     notes = playbook_notes(draft, facts, clock)
                 else:
                     if state is None:
@@ -718,9 +853,12 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
         platform = (draft or {}).get("platform") or row.get("platform")
         print(f"  #{row['id']} -> {body}")
         approved_comment = verdict == "APPROVE" and kind == "comment"
+        approved_one_post = verdict == "APPROVE" and kind == "post" and one_post
         if dry_run:
             if approved_comment:
                 state.add(draft, int(row["id"]), clock)
+            if approved_one_post:
+                state.add_post(draft, int(row["id"]), clock)
             continue
         if not send(platform if platform in PLATFORMS else None, body):
             print(f"  #{row['id']}: the answer was not sent; left unacked")
@@ -728,6 +866,9 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
         stats["answered"] += 1
         if approved_comment:
             state.add(draft, int(row["id"]), clock)
+            state.save(clock)
+        if approved_one_post:
+            state.add_post(draft, int(row["id"]), clock)
             state.save(clock)
         stamp = dt.datetime.now(dt.timezone.utc).isoformat()
         out = rest.call("PATCH", instinct.q(f"id=eq.{int(row['id'])}", f"env=eq.{env}", "direction=eq.from_instinct",
@@ -772,7 +913,14 @@ def main(argv: list[str] | None = None) -> int:
                 return 2
         notes: list[str] = []
         if kind == "post":
-            verdict, reasons = review(draft, facts)
+            state = None
+            if item_type(facts, draft.get("item_id")) in ONE_POST_TYPES:
+                try:
+                    state = CommentState(comment_state_path(a.comment_state))   # read only, as for comments
+                except StateUnreadable as e:
+                    print(f"comment state unreadable: {e}")
+                    return 2
+            verdict, reasons = review(draft, facts, None, state)
             notes = playbook_notes(draft, facts)
         else:
             try:

@@ -1,6 +1,6 @@
-"""Weekly earnings calendar image (tools/week_calendar.py): the render and its self-QA, short names, and the prepare / live state
-that keeps the earnings_week_calendar item out of the facts until its image is live (no image, no item). Offline: Pages is
-stubbed. Run: python -m pytest tools/tests -q"""
+"""Weekly earnings calendar image (tools/week_calendar.py): the render and its self-QA (feed-size type floors, tickers only,
+market holidays), and the prepare / live state that keeps the earnings_week_calendar item out of the facts until its image is
+live (no image, no item; nothing frozen before 07:00 ET). Offline: Pages is stubbed. Run: python -m pytest tools/tests -q"""
 import copy
 import datetime as dt
 import io
@@ -52,8 +52,14 @@ def test_render_is_a_small_deterministic_4x5_png(rendered):
     sizes = {}
     for t in report["texts"]:
         sizes.setdefault(t["role"], set()).add(t["size"])
-    assert sizes["ticker"] == {34} and sizes["more"] == {30} and sizes["name"] == {20}
-    assert min(min(v) for v in sizes.values()) >= 20
+    # X shows the image ~310 px wide on a phone: tickers 40, "+N" 34 (with "more" at 24), column headers 30, text 24+
+    assert sizes["ticker"] == {40} and sizes["more"] == {34} and sizes["more_label"] == {24} and sizes["column"] == {30}
+    assert min(min(v) for v in sizes.values()) >= 24
+    texts = [t["text"] for t in report["texts"]]
+    assert texts[:3] == ["Largest companies reporting", "earnings next week · Oct 19 – 23, 2026",
+                         "By market cap in each session · confirmed dates in our coverage"]
+    assert "EARNINGS CALENDAR · NEXT WEEK" not in texts and not any("Biggest" in t for t in texts)
+    assert "14 confirmed" in texts and "6 confirmed" in texts and texts.count("more") == 7
 
 
 def test_self_qa_records_every_text_inside_the_safe_area(rendered):
@@ -73,6 +79,7 @@ def test_self_qa_records_every_text_inside_the_safe_area(rendered):
     (lambda it: it["calendar"][1]["bmo"].update(more=99), "!= 17 total"),
     (lambda it: it["calendar"][4]["bmo"]["shown"].__setitem__(2, "WWWWW.WW"), "leaves its tile"),
     (lambda it: it["calendar"][4]["bmo"]["shown"].__setitem__(0, "AB7"), "draws 7, not from the item"),
+    (lambda it: it["calendar"][3].update(market="closed", holiday="Test Day"), "a market holiday shows reporters"),
 ])
 def test_self_qa_fails_the_render(break_it, why):
     bad = copy.deepcopy(ITEM)
@@ -95,54 +102,71 @@ def test_render_cli(tmp_path, capsys):
 
 
 def test_busy_weeks_still_fit():
-    """Peak-season counts, untimed reporters, wide tickers and a range across months: wrapped labels, condensed tickers."""
+    """Peak-season counts, untimed and during-market reporters, wide tickers and a range across years: one header line per
+    day, condensed tickers with a 16 px gutter, a 3-digit "+M more"."""
     busy = copy.deepcopy(ITEM)
-    busy.update(week_start="2026-11-30", week_end="2026-12-04", as_of_date="2026-11-27")
+    busy.update(week_start="2026-12-28", week_end="2027-01-01", as_of_date="2026-12-24")
     for k, e in enumerate(busy["calendar"]):
-        e["date"] = (dt.date(2026, 11, 30) + dt.timedelta(days=k)).isoformat()
-    busy["calendar"][0].update(total=288, no_session=12)
-    busy["calendar"][1].update(total=1166, no_session=3)
-    busy["calendar"][2]["no_session"] = 123
-    busy["calendar"][3]["bmo"]["shown"] = ["CMCSA", "GOOGL", "BRK.B", "WWWW", "MMMM"]
-    busy["names"].update({"CMCSA": "Comcast Corporation", "GOOGL": "Alphabet Inc."})
+        e["date"] = (dt.date(2026, 12, 28) + dt.timedelta(days=k)).isoformat()
+    busy["calendar"][0].update(total=1288, no_session=123, during_market=12)
+    busy["calendar"][0]["bmo"] = {"total": 600, "shown": ["CMCSA", "GOOGL", "BRK.B", "WWWW", "MMMM"], "more": 595}
+    busy["calendar"][0]["amc"] = {"total": 553, "shown": ["FCNCA", "LBRDK", "GOOGL", "CMCSA", "BRK.B"], "more": 548}
     png, report = wc.render_calendar(busy)
     texts = {t["text"] for t in report["texts"]}
-    assert {"288 confirmed", "12 time not set", "1166", "confirmed", "123 time", "not set", "Nov 30 – Dec 4, 2026"} <= texts
-    assert {"CMCSA", "FCNCA"} <= set(report["condensed"]) and "Comcast" in report["names_shown"]
-    busy["calendar"][1]["no_session"] = 1234                     # 1166 / confirmed / 1234 time / not set: 4 lines
-    with pytest.raises(wc.QAError, match="needs 4 lines"):
-        wc.render_calendar(busy)
+    assert {"1288 confirmed · 12 during market hours · 123 time not set", "+595", "+548",
+            "earnings next week · Dec 28, 2026 – Jan 1, 2027"} <= texts
+    assert {"CMCSA", "GOOGL", "FCNCA", "LBRDK", "WWWW", "MMMM"} <= set(report["condensed"])
+    for cid in ("2026-12-28:bmo", "2026-12-28:amc"):
+        tiles = [t for t in report["texts"] if t["cell"] == cid and t["role"] in ("ticker", "more")]
+        for a in tiles:
+            for b in tiles:
+                same_line = abs(a["box"][3] - b["box"][3]) < 8
+                if a is not b and same_line and b["box"][0] > a["box"][0]:
+                    assert b["box"][0] - a["box"][2] >= wc.TILE_GUTTER - 0.5, (a["text"], b["text"])
 
 
-@pytest.mark.parametrize("name, short", [
-    ("Zions Bancorporation, National Association", "Zions Bancorporation"),
-    ("Wells Fargo & Company", "Wells Fargo"),
-    ("The Bank of New York Mellon Corporation", "Bank of New York Mellon"),
-    ("W. R. Berkley Corporation", "W. R. Berkley"),
-    ("Meta Platforms, Inc.", "Meta"),
-    ("AT&T Inc.", "AT&T"),
-    ("3M Company", "3M"),
-    ("SLB N.V.", "SLB"),
-    ("Chubb Limited", "Chubb"),
-    ("Texas Instruments Incorporated", "Texas Instruments"),
-    (None, None),
-])
-def test_short_names_never_cut(name, short):
-    assert wc.short_name(name) == short
-    assert short is None or ("…" not in short and not short.endswith((",", "&")))
+def test_wide_tickers_fit_a_tile():
+    cv = wc.Canvas()
+    room = wc.SLOT_W - wc.TILE_GUTTER
+    for t in ("GOOGL", "CMCSA", "BRK.B", "FCNCA", "LBRDK", "WWWW", "MMMMM", "BF.B"):
+        assert any(cv.width(t, "archivo", wc.TICKER_PX, wdth=v) <= room for v in wc.CONDENSED), t
 
 
-def test_names_show_only_whole_and_with_air(rendered):
+def test_market_holidays_draw_no_tiles():
+    hol = copy.deepcopy(ITEM)
+    hol.update(week_start="2026-11-23", week_end="2026-11-27", as_of_date="2026-11-20")
+    for k, e in enumerate(hol["calendar"]):
+        e["date"] = (dt.date(2026, 11, 23) + dt.timedelta(days=k)).isoformat()
+    empty = {"total": 0, "shown": [], "more": 0}
+    hol["calendar"][3].update(market="closed", holiday="Thanksgiving Day", total=0, bmo=empty, amc=dict(empty))
+    hol["calendar"][4].update(market="early_close", early_close="the day after Thanksgiving")
+    png, report = wc.render_calendar(hol)
+    texts = [t["text"] for t in report["texts"]]
+    assert "Market closed · Thanksgiving Day" in texts and texts.count("Market closed") == 2
+    assert "6 confirmed · early close" in texts
+    thu = [c for c in report["cells"] if c["id"].startswith("2026-11-26")]
+    assert len(thu) == 2 and all(c["closed"] and c["tiles"] == 0 for c in thu)
+    alt = wc.alt_text(hol)
+    assert "Thu Nov 26: market closed (Thanksgiving Day)." in alt and "Fri Nov 27 (early close), before the open:" in alt
+
+
+def test_no_company_names_and_no_cut_words(rendered):
+    """Tickers only (reviews 2026-10-16: names were ~6 px in the feed and "Eli Lilly and Company" lost its tail): no name of
+    the item is drawn, and the QA rejects any text that ends in a conjunction."""
     _, report = rendered
-    shown = report["names_shown"]
-    assert "Tesla" in shown and "Netflix" in shown
-    assert set(shown) <= {wc.short_name(n) for n in ITEM["names"].values()}
-    assert not any("…" in n or n.endswith("...") for n in shown)
+    texts = {t["text"] for t in report["texts"]}
+    names = {n for n in ITEM["names"].values() if n}
+    assert not texts & names and not any(t in texts for t in ("Tesla", "Netflix", "Meta", "W. R. Berkley"))
+    for cut in ("Eli Lilly and", "Becton, Dickinson and", "Johnson &", "Bank of"):
+        assert wc.CONJUNCTION_END.search(cut), cut
+    for whole in ("Eli Lilly", "None confirmed", "Market closed · Thanksgiving Day", "rapidtradeview.trade/earnings"):
+        assert not wc.CONJUNCTION_END.search(whole), whole
 
 
 def test_alt_text_whole_entries_only():
     alt = wc.alt_text(ITEM)
-    assert alt.startswith("Earnings calendar for next week, Oct 19–23, 2026:") and len(alt) <= wc.ALT_MAX
+    assert alt.startswith("Largest companies reporting earnings next week, Oct 19–23, 2026, by market cap in each session; "
+                          "confirmed dates in our coverage.") and len(alt) <= wc.ALT_MAX
     assert "Wed Oct 21, after the close: META, TSLA, LRCX, TXN, IBM and 47 more." in alt
     assert alt.endswith(".")
     long = copy.deepcopy(ITEM)
@@ -183,9 +207,10 @@ def env(tmp_path, monkeypatch):
     return e
 
 
-def prepare(env, date=FRI, push=True):
+def prepare(env, date=FRI, push=True, at="11:05:00Z"):
+    """11:05Z = 07:05 ET (EDT): the first build that may freeze the item."""
     argv = ["prepare", "--date", date, "--facts", str(env.facts), "--work", str(env.work), "--repo", str(env.repo),
-            "--now", f"{date}T09:05:00Z"]
+            "--now", f"{date}T{at}"]
     return wc.main(argv + ([] if push else ["--no-push"]))
 
 
@@ -216,13 +241,13 @@ def test_first_build_freezes_stages_and_keeps_the_item_out_until_live(env):
     assert it["media"] == [{"url": f"{mf.PAGES_BASE}/{rel}", "kind": "image", "alt": wc.alt_text(ITEM)}]
     assert doc["counts"]["earnings_week_calendar"] == 1 and "earnings_week_calendar" not in doc["reasons"]
     assert doc["items"][0]["item_id"] == ITEM["item_id"]               # rank order kept (6.5 before 3.0)
-    # the validator accepts a post with that image
-    text = ("Biggest earnings next week, Oct 19–23 (confirmed dates):\n$META $TSLA $PG $LRCX $GE $PM $NFLX $TXN $RTX $TMO "
-            "$IBM $AXP\nEvery day, before the open and after the close, is in the image.\nNot investment advice.")
+    # the validator accepts a post with that image, on the facts date
+    text = ("Largest companies reporting earnings next week, Oct 19–23 (confirmed dates):\n$META $TSLA $PG $LRCX $GE $PM\n"
+            "Each day, before the open and after the close, is in the image.\nNot investment advice.")
     lk = it["page_url"].replace("{platform}", "x")
     draft = {"item_id": it["item_id"], "platform": "x", "text": text, "link": lk, "media_url": it["media"][0]["url"],
-             "reply_text": f"Next week's full table, Oct 19 – Oct 23, with every confirmed date: {lk}"}
-    assert gr.review(draft, doc) == ("APPROVE", [])
+             "reply_text": it["reply_hint"].replace("{link}", lk)}
+    assert gr.review(draft, doc, dt.datetime(2026, 10, 16, 13, 0, tzinfo=dt.timezone.utc)) == ("APPROVE", [])
     assert fx.item_set(doc) != fx.item_set(facts_doc())                 # the compare publishes the attached image
 
 
@@ -282,6 +307,23 @@ def test_no_push_attaches_at_once(env):
     (it,) = calendar_items(env.read())
     assert it["media"][0]["url"] == wc.png_url(FRI, ITEM["item_id"]) and not (env.work / wc.FILES).exists()
     assert prepare(env, push=False) == 0 and len(calendar_items(env.read())) == 1
+
+
+def test_nothing_freezes_before_seven_et(env):
+    """The 05:00 ET morning pass may read a half-done Yahoo check: it takes the item out and freezes nothing; the first build
+    at or after 07:00 ET freezes and stages it."""
+    env.write(facts_doc())
+    assert prepare(env, at="09:05:00Z") == 0                            # 05:05 ET
+    doc = env.read()
+    assert calendar_items(doc) == [] and "freezes at the first build at or after 07:00 ET" in doc["reasons"][wc.KIND]
+    assert "05:05 ET" in doc["reasons"][wc.KIND] and not (env.work / wc.STATE).exists()
+    assert not list(env.repo.rglob("*.png"))
+    env.write(facts_doc())
+    assert prepare(env, at="10:59:00Z") == 0 and calendar_items(env.read()) == []   # 06:59 ET
+    env.write(facts_doc())
+    assert prepare(env, at="11:00:00Z") == wc.EXIT_STAGED               # 07:00 ET
+    state = json.loads((env.work / wc.STATE).read_text(encoding="utf-8"))
+    assert state["frozen_at"] == f"{FRI}T11:00:00Z" and state["status"] == "staged"
 
 
 def test_other_days_and_builds_without_the_item_leave_the_file_alone(env):

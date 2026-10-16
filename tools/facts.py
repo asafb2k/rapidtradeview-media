@@ -31,10 +31,13 @@ post for a New York market date. Every item is read from RapidTradeView's public
   earnings_week_calendar  Fridays only (the New York facts date): next week's confirmed reporters in our universe (the same
                      /earnings read as earnings_upcoming, no extra request), per day and session (before the open / after the
                      close) the largest by market cap (6 slots a session: all when 6 or fewer, else the top 5 and "+M"), up to
-                     12 cashtags (the largest shown with a $2B+ cap); landing /earnings (no anchor), media [] here: the runner
-                     (tools/week_calendar.py) renders the calendar image and adds it, and the item is published only with it.
-                     Built only from a whole week (every day, the right week_start, not truncated) with 10+ reporters that
-                     have a set session; allowed_numbers the dates, the week range and the day / week totals.
+                     6 cashtags (the largest shown with a $10B+ cap: dates the API checked with Yahoo); landing /earnings (no
+                     anchor; reply_hint names its "Next week" table), media [] here: the runner (tools/week_calendar.py)
+                     renders the calendar image and adds it, and the item is published only with it. Built only from a whole
+                     answer for the right week (not truncated; a weekday the API leaves out has no reports) with 10+ reporters
+                     that have a set session and 60%+ of its $10B+ companies confirmed (else the Yahoo check looks
+                     incomplete); NYSE holidays (a fixed table, 2026-2027) show "Market closed" and drop their rows.
+                     allowed_numbers the week's range forms and "<total> companies" only: no per-day date or count.
   ptr_summary        per member and filing date with 2+ Congress items: the count of trades and up to 4 tickers (the
                      member's most newsworthy); landing the figure page #trades, media the figure card, source_urls every
                      filing's official URL (source_url only when there is one filing). Built before the per-filer cap
@@ -120,7 +123,10 @@ TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", 
 # picks_ready (the public picks) keep their own ticker lists.
 ROUNDUP_TYPES = ("earnings_tomorrow_roundup", "ptr_summary", "earnings_week_calendar")
 ROUNDUP_MAX_TICKERS = 4
-ROUNDUP_MAX_BY_TYPE = {"earnings_week_calendar": 12}
+# The weekly calendar: 6 at most (compliance review 2026-10-16: a tiny account with many popular cashtags reads as
+# a spam bot; the playbook supports 2-5). Raise only after a logged-out X "Latest" search for one of its cashtags shows
+# the post and its impressions are not below the account's median.
+ROUNDUP_MAX_BY_TYPE = {"earnings_week_calendar": 6}
 
 
 def cashtag_max(kind: str | None) -> int:
@@ -1174,15 +1180,39 @@ def earnings_roundup_items(target: dt.date, upcoming: list[dict]) -> tuple[list[
 # ---------------------------------------------------------------------------
 # Weekly earnings calendar (Growth test, owner 2026-10-16): on a Friday, next week's confirmed reporters per day and session,
 # largest by market cap; one X post with our calendar image (tools/week_calendar.py renders it; no image, no item).
+# Reviews 2026-10-16: at most 6 cashtags ($10B+ names, whose dates the API checks with Yahoo), no per-day date or count in a
+# post (the image carries them), market-closed weekdays from a fixed NYSE table, and no item when the API's Yahoo date check
+# looks incomplete.
 
 WEEK_CALENDAR = "earnings_week_calendar"
 WEEK_CALENDAR_FRIDAY = 4                # the New York facts date's weekday (Mon 0)
 WEEK_CALENDAR_SLOTS = 6                 # tiles a session cell shows: all when <= 6, else the top 5 and "+M"
 WEEK_CALENDAR_MIN_REPORTERS = 10        # reporters with a set session the week needs for the post
-WEEK_CALENDAR_CASHTAG_MIN_CAP = 2e9     # a cashtag is a shown name with a $2B+ market cap
+WEEK_CALENDAR_CASHTAG_MIN_CAP = 10e9    # a cashtag is a shown name with a $10B+ cap (the API checks those dates with Yahoo)
+WEEK_CALENDAR_LARGE_CAP = 10e9          # the API's Yahoo date check covers universe companies from here (earnings_dates.rs)
+WEEK_CALENDAR_MIN_LARGE_CONFIRMED = 0.6  # below this share of $10B+ companies confirmed, the Yahoo check looks incomplete
 WEEK_CALENDAR_SLOT_UTC = "13:00:00Z"    # Friday 09:00 ET (08:00 ET after the DST change)
-WEEK_CALENDAR_BANNED = ["most anticipated", "anticipated"]   # it ranks by market cap, not by interest
+# It ranks by market cap, not by interest, and previews nothing: no interest claims, no outcome or move words.
+WEEK_CALENDAR_BANNED = ["most anticipated", "anticipated", "anticipate", "most watched", "most-watched", "watched",
+                        "biggest", "hottest", "expect", "expects", "expected", "expecting", "expectations", "likely",
+                        "unlikely", "could", "might", "should", "poised", "beat", "beats", "miss", "misses",
+                        "surprise", "surprises", "brace", "volatile", "volatility", "market-moving", "move the market"]
 WEEKDAY_ABBR = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+# NYSE full-day closures and 1 p.m. early closes, 2026-2027 (https://www.nyse.com/markets/hours-calendars, read
+# 2026-10-16). A week outside this table is not built (No Fallbacks: a holiday is never guessed).
+NYSE_TABLE_YEARS = (2026, 2027)
+NYSE_CLOSED = {
+    "2026-01-01": "New Year's Day", "2026-01-19": "Martin Luther King Jr. Day", "2026-02-16": "Washington's Birthday",
+    "2026-04-03": "Good Friday", "2026-05-25": "Memorial Day", "2026-06-19": "Juneteenth",
+    "2026-07-03": "Independence Day (observed)", "2026-09-07": "Labor Day", "2026-11-26": "Thanksgiving Day",
+    "2026-12-25": "Christmas Day",
+    "2027-01-01": "New Year's Day", "2027-01-18": "Martin Luther King Jr. Day", "2027-02-15": "Washington's Birthday",
+    "2027-03-26": "Good Friday", "2027-05-31": "Memorial Day", "2027-06-18": "Juneteenth (observed)",
+    "2027-07-05": "Independence Day (observed)", "2027-09-06": "Labor Day", "2027-11-25": "Thanksgiving Day",
+    "2027-12-24": "Christmas Day (observed)",
+}
+NYSE_EARLY_CLOSE = {"2026-11-27": "the day after Thanksgiving", "2026-12-24": "Christmas Eve",
+                    "2027-11-26": "the day after Thanksgiving"}
 
 
 def week_range_text(mon: dt.date, fri: dt.date, dash: str = EN_DASH, year: bool = True) -> str:
@@ -1196,12 +1226,24 @@ def week_range_text(mon: dt.date, fri: dt.date, dash: str = EN_DASH, year: bool 
     return f"{a}{dash}{b}, {fri.year}"
 
 
+def week_page_range(mon: dt.date, fri: dt.date) -> str:
+    """The /earnings page's own heading form: "Oct 19 – Oct 23"."""
+    return f"{MONTHS[mon.month - 1]} {mon.day} {EN_DASH} {MONTHS[fri.month - 1]} {fri.day}"
+
+
 def week_range_forms(mon: dt.date, fri: dt.date) -> list[str]:
     """The week's range as a post may print it: "Oct 19–23", "Oct 19-23", "Oct 19–23, 2026", "Oct 19-23, 2026" and the
     /earnings page's own "Oct 19 – Oct 23" (across months "Nov 30–Dec 4" ... "Nov 30 – Dec 4")."""
     return uniq([week_range_text(mon, fri, EN_DASH, False), week_range_text(mon, fri, "-", False),
-                 week_range_text(mon, fri, EN_DASH), week_range_text(mon, fri, "-"),
-                 f"{MONTHS[mon.month - 1]} {mon.day} {EN_DASH} {MONTHS[fri.month - 1]} {fri.day}"])
+                 week_range_text(mon, fri, EN_DASH), week_range_text(mon, fri, "-"), week_page_range(mon, fri)])
+
+
+def market_day(day: dt.date) -> str | None:
+    """"closed" / "early_close" / "open" from the NYSE table; None for a year the table does not cover."""
+    if day.year not in NYSE_TABLE_YEARS:
+        return None
+    iso = day.isoformat()
+    return "closed" if iso in NYSE_CLOSED else "early_close" if iso in NYSE_EARLY_CLOSE else "open"
 
 
 def _cap(r: dict) -> float:
@@ -1218,43 +1260,74 @@ def week_calendar_items(target: dt.date, weeks: list[dict], errors: list[str], n
                         ) -> tuple[list[dict], dict, str | None]:
     """(items, left_out, empty reason) for next week's calendar, built on a Friday from the /earnings week that holds the
     next weekday (calendar_week's answer, already read for earnings_upcoming: no request here). A failed read is already
-    in errors / partial_sources through earnings_upcoming, so it only becomes this type's reason."""
+    in errors / partial_sources through earnings_upcoming, so it only becomes this type's reason. The API lists only days
+    with rows: in a whole answer for the right week a missing weekday is a day with no reports (a holiday)."""
     if target.weekday() != WEEK_CALENDAR_FRIDAY:
         return [], {}, "Fridays only: the next week's calendar is built on Friday"
     mon = next_weekday(target)
     days = [mon + dt.timedelta(days=i) for i in range(5)]
     fri = days[-1]
-    _, counts, complete = ss.week_rows(weeks, days)
     data = weeks[0] if weeks else {}
     why = None
     if errors:
         why = "; ".join(errors)
-    elif not complete:
-        why = "not every day of the week is in the answer"
+    elif not isinstance(data.get("days"), list):
+        why = "the answer has no days"
     elif data.get("week_start") != mon.isoformat():
         why = f"the answer is for the week of {str(data.get('week_start'))[:10]}"
     elif data.get("truncated") is not False:
         why = "the answer is truncated" if data.get("truncated") else "the answer does not say it is whole"
     if why:
         return [], {}, f"the earnings calendar for the week of {mon} did not load ({why})"
+    market = {d.isoformat(): market_day(d) for d in days}
+    if None in market.values():
+        missing = sorted({d.year for d in days if market[d.isoformat()] is None})
+        return [], {}, f"no NYSE holiday table for {', '.join(map(str, missing))} (the calendar never guesses a holiday)"
 
     by_day: dict[str, list[dict]] = {d.isoformat(): [] for d in days}
+    listed = 0
     for w in weeks:
         for day in w["days"]:
-            if day.get("date") in by_day:
+            if isinstance(day, dict) and day.get("date") in by_day:
+                listed += int(day.get("count") or 0)
                 by_day[day["date"]].extend(r for r in day.get("reports") or [] if isinstance(r, dict))
+    # The API's Yahoo check (earnings_dates.rs): a $10B+ universe company is confirmed only when Yahoo answered within the
+    # fill's deadline. Few of them confirmed = the check did not run through (an outage, a slow Yahoo): no item.
+    large: dict[str, bool] = {}
+    for rs in by_day.values():
+        for r in rs:
+            if r.get("in_universe") is True and _cap(r) >= WEEK_CALENDAR_LARGE_CAP and isinstance(r.get("symbol"), str):
+                large[r["symbol"]] = large.get(r["symbol"], False) or r.get("date_confirmed") is True
+    large_ok = sum(large.values())
+    left = {"week_start": mon.isoformat(), "listed": listed, "large_confirmed": large_ok, "large": len(large)}
+    span = week_range_text(mon, fri)
+    if large and large_ok < WEEK_CALENDAR_MIN_LARGE_CONFIRMED * len(large):
+        return [], left, (f"only {large_ok} of {len(large)} $10B+ companies in our coverage have a confirmed date for {span} "
+                          f"(needs {WEEK_CALENDAR_MIN_LARGE_CONFIRMED:.0%}): the date check looks incomplete")
+
     seen: set[str] = set()
     calendar, shown_rows = [], []
+    on_closed = 0
     for d in days:
+        iso = d.isoformat()
         picked = []
-        for r in by_day[d.isoformat()]:
+        for r in by_day[iso]:
             sym = r.get("symbol")
             if (r.get("in_universe") is True and r.get("date_confirmed") is True and isinstance(sym, str) and sym
                     and sym not in seen):
                 seen.add(sym)
                 picked.append(r)
-        entry = {"date": d.isoformat(), "weekday": WEEKDAY_ABBR[d.weekday()], "total": len(picked),
-                 "no_session": sum(1 for r in picked if r.get("hour") not in ROUNDUP_SESSIONS)}
+        entry = {"date": iso, "weekday": WEEKDAY_ABBR[d.weekday()], "market": market[iso]}
+        if market[iso] == "closed":
+            # A row on a market holiday is the calendar's guess (NAT "before the open" on Thanksgiving): never shown.
+            on_closed += len(picked)
+            seen.difference_update(r["symbol"] for r in picked)
+            picked = []
+            entry["holiday"] = NYSE_CLOSED[iso]
+        elif market[iso] == "early_close":
+            entry["early_close"] = NYSE_EARLY_CLOSE[iso]
+        entry.update(total=len(picked), during_market=sum(1 for r in picked if r.get("hour") == "dmh"),
+                     no_session=sum(1 for r in picked if r.get("hour") not in (*ROUNDUP_SESSIONS, "dmh")))
         for session in ROUNDUP_SESSIONS:
             rs = sorted((r for r in picked if r.get("hour") == session), key=_by_cap)
             shown = rs if len(rs) <= WEEK_CALENDAR_SLOTS else rs[:WEEK_CALENDAR_SLOTS - 1]
@@ -1262,11 +1335,10 @@ def week_calendar_items(target: dt.date, weeks: list[dict], errors: list[str], n
             entry[session] = {"total": len(rs), "shown": [r["symbol"] for r in shown], "more": len(rs) - len(shown)}
         calendar.append(entry)
     total = len(seen)
-    no_session = sum(e["no_session"] for e in calendar)
-    in_session = total - no_session
-    left = {"week_start": mon.isoformat(), "listed": sum(counts.values()), "confirmed_in_universe": total,
-            "no_session": no_session, "shown": len(shown_rows)}
-    span = week_range_text(mon, fri)
+    in_session = sum(e["bmo"]["total"] + e["amc"]["total"] for e in calendar)
+    left.update(confirmed_in_universe=total, no_session=sum(e["no_session"] for e in calendar),
+                during_market=sum(e["during_market"] for e in calendar), on_market_holiday=on_closed,
+                shown=len(shown_rows))
     if in_session < WEEK_CALENDAR_MIN_REPORTERS:
         return [], left, (f"only {in_session} confirmed reporters in our coverage for {span} "
                           f"(the calendar post needs {WEEK_CALENDAR_MIN_REPORTERS}+)")
@@ -1284,23 +1356,34 @@ def week_calendar_items(target: dt.date, weeks: list[dict], errors: list[str], n
 
     parts = []
     for e in calendar:
-        part = (f"{e['weekday']} {date_forms(e['date'])[2]} before the open {cell_text(e['bmo'])}; "
-                f"after the close {cell_text(e['amc'])}")
+        head = f"{e['weekday']} {date_forms(e['date'])[2]}"
+        if e["market"] == "closed":
+            parts.append(f"{head} market closed ({e['holiday']})")
+            continue
+        part = (f"{head}{' (early close, 1 p.m. ET)' if e['market'] == 'early_close' else ''} before the open "
+                f"{cell_text(e['bmo'])}; after the close {cell_text(e['amc'])}")
+        if e["during_market"]:
+            part += f"; {e['during_market']} during market hours"
         if e["no_session"]:
             part += f"; {e['no_session']} with the time not set"
         parts.append(part)
-    facts_text = (f"Next week's earnings, {span}, confirmed dates, largest by market cap per session: "
-                  + ". ".join(parts) + f". {total} companies in our coverage have confirmed dates that week.")
+    facts_text = (f"Next week's earnings, {span}, confirmed dates in our coverage, largest by market cap per session: "
+                  + ". ".join(parts) + f". {total} companies in our coverage have confirmed dates that week. "
+                  "The per-day detail is for the image only: a post names no weekday or day date, pairs no company with a "
+                  "session and prints no per-day count.")
     item = make_item(
         target.isoformat(), WEEK_CALENDAR, None, f"weekcal:{mon.isoformat()}", "/earnings",
         tickers=tickers, names=company, week_start=mon.isoformat(), week_end=fri.isoformat(),
         as_of_date=target.isoformat(), calendar=calendar, reporters_total=total,
         market_cap_usd=max(_cap(r) for r in shown_rows) or None, source_url=f"{SITE}/earnings",
         post_slot_utc=f"{target.isoformat()}T{WEEK_CALENDAR_SLOT_UTC}", facts_text=facts_text,
+        # /earnings shows this week's table first on a Friday: the reply names the "Next week" table it lands on.
+        reply_hint=f'Every confirmed date, {week_page_range(mon, fri)}, is in the "Next week" table: {{link}}',
         banned_words=[*PREDICTION_WORDS, *WEEK_CALENDAR_BANNED], media=[],
-        allowed_numbers=[*(f for d in days for f in date_forms(d.isoformat())), *date_forms(target.isoformat()),
-                         *week_range_forms(mon, fri), str(total), *(str(e["total"]) for e in calendar),
-                         *digit_words(*(n for n in company.values() if n))])
+        # The week (its range forms, "week of Oct 19") and the week's total as a phrase only. No per-day date or count (a
+        # post could pair one with the wrong company; the image carries them) and no bare total (it would clear "$205").
+        allowed_numbers=[*week_range_forms(mon, fri), f"week of {date_forms(mon.isoformat())[2]}",
+                         f"{total} companies", *digit_words(*(company.get(t) for t in tickers))])
     return [item], left, None
 
 
@@ -1559,10 +1642,14 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
             "descriptive": ("chart_pattern and moves_like describe what happened only (no forecasts; their items' "
                             "banned_words apply too); moves_like may cashtag only the peers listed in its item"),
             "cashtags": cashtag_rule(),
-            "week_calendar": ("earnings_week_calendar (Fridays): one X post at post_slot_utc with media[0] (our calendar "
-                              "image, no other image), 8-12 of its tickers as cashtags on ONE line, the link in the "
-                              "self-reply; Instagram only when its media has a reel; it ranks by market cap, never 'most "
-                              "anticipated'; dates/counts only from allowed_numbers"),
+            "week_calendar": ("earnings_week_calendar (Fridays): one X post at post_slot_utc on its facts date only, with "
+                              "media[0] (our calendar image, no other image); up to 6 of its tickers as cashtags (all "
+                              "of them when it has fewer) on ONE line, none in the self-reply, no hashtags; the link in "
+                              "the self-reply, worded as reply_hint (the 'Next week' table); Instagram only when its "
+                              "media has a reel; it ranks by market cap: 'largest companies reporting', never "
+                              "'biggest' / 'most anticipated' / 'most watched'; no weekday names, day dates or "
+                              "per-day counts (the image has them), no company next to a session, no previews "
+                              "(expect, likely, could, beat, miss); numbers only from allowed_numbers"),
             "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order",
         },
         "counts": counts,

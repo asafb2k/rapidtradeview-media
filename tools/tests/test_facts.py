@@ -865,7 +865,8 @@ def test_held_reports_file_parses():
 
 
 # ---------------------------------------------------------------------------
-# earnings_week_calendar (Growth test, owner 2026-10-16): Fridays, next week's calendar, largest by market cap
+# earnings_week_calendar (Growth test, owner 2026-10-16; compliance + correctness reviews): Fridays, next week's calendar,
+# largest by market cap, at most 6 $10B+ cashtags, the week's numbers only, NYSE holidays, the Yahoo-check guard
 
 def wrow(sym, day, hour, cap, confirmed=True, uni=True):
     return {"symbol": sym, "date": day, "hour": hour, "date_confirmed": confirmed, "in_universe": uni, "market_cap": cap}
@@ -873,8 +874,8 @@ def wrow(sym, day, hour, cap, confirmed=True, uni=True):
 
 def calendar_week_fixture(**over):
     """Week of Mon 2026-10-12 (FRI = 2026-10-09 builds it). Mon before the open has 8 reporters (top 5 + 3 more, a cap tie
-    BMON / CMON listed out of order), two large ones hidden by the cut (FMON, GMON); JMON / CWED have no session; AMON
-    reports again on Tue (first day wins); KMON is unconfirmed, LMON outside the universe."""
+    BMON / CMON listed out of order), two large ones hidden by the cut (FMON, GMON); JMON reports during market hours,
+    CWED has no session; AMON reports again on Tue (first day wins); KMON is unconfirmed, LMON outside the universe."""
     days = {
         "2026-10-12": [wrow("AMON", "2026-10-12", "bmo", 900e9), wrow("CMON", "2026-10-12", "bmo", 700e9),
                        wrow("BMON", "2026-10-12", "bmo", 700e9), wrow("DMON", "2026-10-12", "bmo", 600e9),
@@ -915,40 +916,47 @@ def test_week_calendar_item_on_a_friday():
     # cells: day x session, (-cap, symbol); all when <= 6, else the top 5 and the real remaining count
     mon, tue, wed, thu, fri = it["calendar"]
     assert [e["weekday"] for e in it["calendar"]] == ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    assert [e["market"] for e in it["calendar"]] == ["open"] * 5
     assert mon["bmo"] == {"total": 8, "shown": ["AMON", "BMON", "CMON", "DMON", "EMON"], "more": 3}
     assert mon["amc"] == {"total": 2, "shown": ["HMON", "IMON"], "more": 0}
-    assert mon["total"] == 11 and mon["no_session"] == 1          # JMON (dmh) counts, gets no tile; KMON / LMON never count
+    # JMON (during market hours) counts and gets no tile, apart from "time not set"; KMON / LMON never count
+    assert mon["total"] == 11 and mon["during_market"] == 1 and mon["no_session"] == 0
     assert tue["bmo"]["shown"] == ["ATUE", "BTUE", "CTUE", "DTUE"] and tue["amc"]["total"] == 0 and tue["total"] == 4
-    assert wed["total"] == 5 and wed["no_session"] == 1 and wed["amc"]["shown"] == ["BWED", "EWED"]
+    assert wed["total"] == 5 and wed["no_session"] == 1 and wed["during_market"] == 0 and wed["amc"]["shown"] == ["BWED", "EWED"]
     assert thu["amc"]["shown"] == ["ATHU", "BTHU"]
     assert fri["amc"] == {"total": 0, "shown": [], "more": 0}
     for e in it["calendar"]:
-        assert e["total"] == e["bmo"]["total"] + e["amc"]["total"] + e["no_session"]
+        assert e["total"] == e["bmo"]["total"] + e["amc"]["total"] + e["no_session"] + e["during_market"]
     assert it["reporters_total"] == 23 == sum(e["total"] for e in it["calendar"])
-    # cashtags: the 12 largest SHOWN names with a $2B+ cap (FMON / GMON are hidden by the cut, JMON has no tile)
-    assert it["tickers"] == ["AMON", "BMON", "CMON", "DMON", "EMON", "ATUE", "AWED", "ATHU", "HMON", "IMON", "BTUE", "CTUE"]
+    # cashtags: the 6 largest SHOWN names with a $10B+ cap (FMON / GMON are hidden by the cut, JMON has no tile)
+    assert it["tickers"] == ["AMON", "BMON", "CMON", "DMON", "EMON", "ATUE"]
     assert it["market_cap_usd"] == 900e9
     shown = [t for e in it["calendar"] for s in ("bmo", "amc") for t in e[s]["shown"]]
     assert list(it["names"]) == shown and it["names"]["AMON"] == "Amon Industries, Inc." and it["names"]["ATUE"] is None
-    assert f["left_out"]["earnings_week_calendar"] == {"week_start": "2026-10-12", "listed": 26, "confirmed_in_universe": 23,
-                                                        "no_session": 2, "shown": 18}
-    # numbers: the dates, the range forms and the totals only (no per-cell counts, no "+M")
-    an = it["allowed_numbers"]
-    for want in ("2026-10-12", "Oct 12", "Oct 16, 2026", "Oct 9", "Oct 12–16", "Oct 12-16", "Oct 12–16, 2026",
-                 "Oct 12-16, 2026", "Oct 12 – Oct 16", "23", "11", "4", "5", "2", "1", "3M"):
-        assert want in an, want
-    assert "3" not in an and "8" not in an and "+3" not in an
-    assert it["banned_words"] == ["will", "going to", "most anticipated", "anticipated"]
+    # 13 universe companies of $10B+ in the answer, KMON not confirmed
+    assert f["left_out"]["earnings_week_calendar"] == {
+        "week_start": "2026-10-12", "listed": 26, "large_confirmed": 12, "large": 13, "confirmed_in_universe": 23,
+        "no_session": 1, "during_market": 1, "on_market_holiday": 0, "shown": 18}
+    # numbers: the week's range forms and its total as a phrase; no per-day date or count, no bare total
+    assert it["allowed_numbers"] == ["Oct 12–16", "Oct 12-16", "Oct 12–16, 2026", "Oct 12-16, 2026", "Oct 12 – Oct 16",
+                                     "week of Oct 12", "23 companies", "3M"]
+    assert it["banned_words"][:2] == ["will", "going to"]
+    for w in ("most anticipated", "most watched", "biggest", "expect", "likely", "could", "beat", "miss", "surprise",
+              "brace", "poised"):
+        assert w in it["banned_words"], w
+    assert it["reply_hint"] == 'Every confirmed date, Oct 12 – Oct 16, is in the "Next week" table: {link}'
     # landing /earnings with the UTM, no anchor; no image from facts.py (the runner adds ours); no report page anywhere
     assert it["page_url"] == (f"https://www.rapidtradeview.trade/earnings?utm_source={{platform}}&utm_medium=social"
                               f"&utm_campaign=grok&utm_content={it['item_id']}")
     assert it["source_url"] == "https://www.rapidtradeview.trade/earnings" and it["media"] == []
     assert not fx.ss.report_page_in(it) and "/earnings/reports/" not in json.dumps(f)
     assert it["facts_text"].startswith(
-        "Next week's earnings, Oct 12–16, 2026, confirmed dates, largest by market cap per session: Mon Oct 12 before the "
-        "open AMON, BMON, CMON, DMON, EMON and 3 more; after the close HMON, IMON; 1 with the time not set. Tue Oct 13")
+        "Next week's earnings, Oct 12–16, 2026, confirmed dates in our coverage, largest by market cap per session: Mon "
+        "Oct 12 before the open AMON, BMON, CMON, DMON, EMON and 3 more; after the close HMON, IMON; 1 during market hours. "
+        "Tue Oct 13")
+    assert "Wed Oct 14 before the open AWED, DWED; after the close BWED, EWED; 1 with the time not set." in it["facts_text"]
     assert "Fri Oct 16 before the open AFRI; after the close none confirmed." in it["facts_text"]
-    assert it["facts_text"].endswith("23 companies in our coverage have confirmed dates that week.")
+    assert "23 companies in our coverage have confirmed dates that week." in it["facts_text"]
     assert it["rank"] == 6.5 and "earnings_week_calendar 2.5" in it["rank_why"]
 
 
@@ -971,16 +979,27 @@ def test_week_calendar_fridays_only():
 
 
 @pytest.mark.parametrize("week, why", [
-    (dict(calendar_week_fixture(), days=calendar_week_fixture()["days"][:4]), "not every day of the week is in the answer"),
     (calendar_week_fixture(week_start="2026-10-05"), "the answer is for the week of 2026-10-05"),
     (calendar_week_fixture(truncated=True), "the answer is truncated"),
     ({k: v for k, v in calendar_week_fixture().items() if k != "truncated"}, "the answer does not say it is whole"),
+    ({k: v for k, v in calendar_week_fixture().items() if k != "days"}, "the answer has no days"),
 ])
 def test_week_calendar_needs_the_whole_week(week, why):
     f = build(**{"/earnings?weeks_ahead=": week})
     assert not week_calendar(f)
     assert f["reasons"]["earnings_week_calendar"] == f"the earnings calendar for the week of 2026-10-12 did not load ({why})"
-    assert f["errors"] == [] and f["partial_sources"] == []          # not a source failure of its own
+
+
+def test_week_calendar_a_weekday_the_api_leaves_out_has_no_reports():
+    """The API builds a day only from its rows (earnings.rs build_week_all): in a whole answer for the right week a missing
+    weekday is a day with no reports, not a failed read."""
+    week = calendar_week_fixture()
+    week["days"] = [d for d in week["days"] if d["date"] != "2026-10-16"]
+    f = build(**{"/earnings?weeks_ahead=": week})
+    (it,) = week_calendar(f)
+    fri = it["calendar"][4]
+    assert fri["date"] == "2026-10-16" and fri["total"] == 0 and fri["bmo"]["total"] == fri["amc"]["total"] == 0
+    assert it["reporters_total"] == 22
 
 
 def test_week_calendar_failed_read_is_not_counted_twice():
@@ -1005,6 +1024,74 @@ def test_week_calendar_needs_ten_reporters_with_a_session():
     assert f["left_out"]["earnings_week_calendar"]["confirmed_in_universe"] == 11   # JMON, CWED have no session
 
 
+def test_week_calendar_cashtags_are_10b_names_only():
+    week = calendar_week_fixture()
+    for d in week["days"]:
+        for r in d["reports"]:
+            if r["symbol"] not in ("AMON", "ATUE"):
+                r["market_cap"] = min(r["market_cap"], 9.9e9)
+    f = build(**{"/earnings?weeks_ahead=": week})
+    (it,) = week_calendar(f)
+    assert it["tickers"] == ["AMON", "ATUE"]
+    for d in week["days"]:
+        for r in d["reports"]:
+            r["market_cap"] = min(r["market_cap"], 9.9e9)
+    f = build(**{"/earnings?weeks_ahead=": week})
+    assert not week_calendar(f)
+    assert f["reasons"]["earnings_week_calendar"] == ("no company shown on the Oct 12–16, 2026 calendar has a $10B+ market "
+                                                      "cap to cashtag")
+
+
+def test_week_calendar_skips_a_week_whose_yahoo_check_looks_incomplete():
+    """Under 60% of the $10B+ universe companies confirmed: the API's Yahoo check did not run through (an outage, its
+    deadline); a calendar of small caps would be wrong, so no item."""
+    week = calendar_week_fixture()
+    for d in week["days"]:
+        for r in d["reports"]:
+            if r["symbol"] in ("AMON", "BMON", "CMON", "DMON", "EMON", "FMON"):
+                r["date_confirmed"] = False
+    f = build(**{"/earnings?weeks_ahead=": week})
+    assert not week_calendar(f)
+    # 13 large, KMON + 6 unconfirmed: 6 of 13 (46%)
+    assert f["reasons"]["earnings_week_calendar"] == (
+        "only 6 of 13 $10B+ companies in our coverage have a confirmed date for Oct 12–16, 2026 (needs 60%): the date "
+        "check looks incomplete")
+    assert f["left_out"]["earnings_week_calendar"]["large_confirmed"] == 6
+
+
+def test_week_calendar_market_holidays():
+    """Thanksgiving week (built Fri 2026-11-20): Thu 11-26 closed (its rows are dropped, NAT 'before the open' on the
+    holiday), Fri 11-27 an early close the API leaves out (no rows)."""
+    def r(sym, day, hour, cap):
+        return wrow(sym, day, hour, cap)
+    big = [r(f"T{chr(65 + i)}", "2026-11-24", "amc", (200 - i) * 1e9) for i in range(12)]
+    week = {"scope": "all", "week_start": "2026-11-23", "week_end": "2026-11-27", "truncated": False, "days": [
+        {"date": "2026-11-23", "count": 1, "reports": [r("AMON", "2026-11-23", "bmo", 300e9)]},
+        {"date": "2026-11-24", "count": len(big), "reports": big},
+        {"date": "2026-11-26", "count": 1, "reports": [r("NAT", "2026-11-26", "bmo", 0.5e9)]}]}
+    items, left, why = fx.week_calendar_items(dt.date(2026, 11, 20), [week], [], {})
+    assert why is None
+    (it,) = items
+    assert [e["market"] for e in it["calendar"]] == ["open", "open", "open", "closed", "early_close"]
+    thu, fri = it["calendar"][3], it["calendar"][4]
+    assert thu["holiday"] == "Thanksgiving Day" and thu["total"] == 0 and thu["bmo"] == {"total": 0, "shown": [], "more": 0}
+    assert fri["early_close"] == "the day after Thanksgiving" and fri["total"] == 0
+    assert left["on_market_holiday"] == 1 and it["reporters_total"] == 13 and "NAT" not in it["names"]
+    assert "Thu Nov 26 market closed (Thanksgiving Day)" in it["facts_text"]
+    assert "Fri Nov 27 (early close, 1 p.m. ET) before the open none confirmed" in it["facts_text"]
+
+
+def test_week_calendar_needs_the_holiday_table_for_its_year():
+    week = calendar_week_fixture(week_start="2028-01-03")
+    for d, day in zip(["2028-01-03", "2028-01-04", "2028-01-05", "2028-01-06", "2028-01-07"], week["days"]):
+        day["date"] = d
+    items, left, why = fx.week_calendar_items(dt.date(2027, 12, 31), [week], [], NAMES)
+    assert items == [] and why == "no NYSE holiday table for 2028 (the calendar never guesses a holiday)"
+    assert fx.market_day(dt.date(2026, 12, 25)) == "closed" and fx.market_day(dt.date(2026, 12, 24)) == "early_close"
+    assert fx.market_day(dt.date(2027, 6, 18)) == "closed" and fx.market_day(dt.date(2026, 10, 19)) == "open"
+    assert all(dt.date.fromisoformat(d).weekday() < 5 for d in [*fx.NYSE_CLOSED, *fx.NYSE_EARLY_CLOSE])
+
+
 def test_week_calendar_range_forms_across_months_and_years():
     assert fx.week_range_forms(dt.date(2026, 11, 30), dt.date(2026, 12, 4)) == [
         "Nov 30–Dec 4", "Nov 30-Dec 4", "Nov 30–Dec 4, 2026", "Nov 30-Dec 4, 2026", "Nov 30 – Dec 4"]
@@ -1012,11 +1099,14 @@ def test_week_calendar_range_forms_across_months_and_years():
 
 
 def test_cashtag_max_and_rules_text():
-    assert fx.cashtag_max("earnings_week_calendar") == 12
+    assert fx.cashtag_max("earnings_week_calendar") == 6
     assert fx.cashtag_max("earnings_tomorrow_roundup") == fx.cashtag_max("ptr_summary") == fx.ROUNDUP_MAX_TICKERS == 4
     assert "earnings_week_calendar" in fx.ROUNDUP_TYPES and "earnings_week_calendar" in fx.TYPES
     rules = build()["rules"]
-    assert ("several only for earnings_tomorrow_roundup and ptr_summary (at most 4) and earnings_week_calendar (at most 12)"
+    assert ("several only for earnings_tomorrow_roundup and ptr_summary (at most 4) and earnings_week_calendar (at most 6)"
             in rules["cashtags"])
-    assert rules["week_calendar"].startswith("earnings_week_calendar (Fridays): one X post at post_slot_utc with media[0]")
-    assert "never 'most anticipated'" in rules["week_calendar"]
+    rule = rules["week_calendar"]
+    assert rule.startswith("earnings_week_calendar (Fridays): one X post at post_slot_utc on its facts date only")
+    for want in ("up to 6 of its tickers", "ONE line", "none in the self-reply", "no hashtags", "reply_hint",
+                 "'biggest' / 'most anticipated' / 'most watched'", "no weekday names"):
+        assert want in rule, want

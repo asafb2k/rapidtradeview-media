@@ -110,9 +110,10 @@ function Publish-Spec([string]$SpecFile, [int]$PagesTimeoutSec = 900) {
 }
 
 # Weekly earnings calendar (Growth test 2026-10-16; tools/week_calendar.py): on a Friday the facts item earnings_week_calendar is
-# frozen at its first build, its 1080x1350 calendar image rendered and staged (exit 10) and the item kept OUT of $FactsFile until
-# Pages serves the image; `live` then puts the item back with the image as its media. No image, no item: a prepare crash takes the
-# item out (strip). Every failure is logged; nothing here throws or changes the exit code.
+# frozen at its first build at or after 07:00 ET (earlier builds keep it out), its 1080x1350 calendar image rendered and staged
+# (exit 10) and the item kept OUT of $FactsFile until Pages serves the image; `live` then puts the item back with the image as
+# its media. No image, no item: a prepare crash takes the item out (strip). Every failure is logged; nothing here throws or
+# changes the exit code.
 function Invoke-WeekCalendar([string]$Date, [string]$Work, [string]$FactsFile, [bool]$Push, [string]$NowIso) {
     try {
         $tool = Join-Path $script:Tools 'week_calendar.py'
