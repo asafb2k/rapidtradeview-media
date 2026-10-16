@@ -1,0 +1,3080 @@
+{
+  "schema": "rtv-facts/1",
+  "date": "2026-10-16",
+  "generated_at": "2026-10-16T09:00:02Z",
+  "as_of": "2026-10-16T09:00:02Z",
+  "rules": {
+    "banned_words": [
+      "insider trading",
+      "guaranteed",
+      "moon",
+      "buy now",
+      "will rise",
+      "price target",
+      "to the moon",
+      "breakout coming",
+      "about to",
+      "set to",
+      "should buy",
+      "should sell",
+      "load up",
+      "buy the dip",
+      "time to buy",
+      "time to sell",
+      "don't miss",
+      "dont miss",
+      "easy money",
+      "can't lose",
+      "cant lose",
+      "free money",
+      "sell now",
+      "get in now",
+      "bitcoin",
+      "btc",
+      "crypto",
+      "cryptocurrency",
+      "ethereum",
+      "blockchain"
+    ],
+    "disclaimer": "Not investment advice.",
+    "max_len": {
+      "x": 270
+    },
+    "platforms": [
+      "x",
+      "instagram"
+    ],
+    "platform_placeholder": "{platform}",
+    "numbers": "every number, date or amount in a post must be one of the item's allowed_numbers, as written there",
+    "picks": "never name or hint at the #1 pick; it is locked and not in this file",
+    "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
+    "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
+    "cashtags": "one cashtag per post (the item's ticker); several only for earnings_tomorrow_roundup and ptr_summary (at most 4, all from the item's tickers), moves_like (its peers) and picks_ready (the public picks)",
+    "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order"
+  },
+  "counts": {
+    "congress_trade": 5,
+    "form4_buy": 7,
+    "earnings_result": 21,
+    "earnings_upcoming": 14,
+    "picks_ready": 0,
+    "chart_pattern": 1,
+    "moves_like": 3,
+    "earnings_tomorrow_roundup": 2,
+    "ptr_summary": 0
+  },
+  "reasons": {
+    "ptr_summary": "4 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
+    "picks_ready": "the published list (2026-10-15) expires 2026-10-16T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET"
+  },
+  "left_out": {
+    "congress_trade": {
+      "rows_read": 50,
+      "out_of_window": 0,
+      "not_congress": 0,
+      "other_side": 1,
+      "late_filing_over_90d": 0,
+      "refiles_older_report": 0,
+      "bad_date": 0,
+      "not_listed": 1,
+      "no_amount": 0,
+      "no_official_source": 0
+    },
+    "ptr_summary": {
+      "members_filing_dates": 5,
+      "single_item": 1
+    },
+    "ptr_summary_incomplete": {
+      "window_start": "2026-10-12",
+      "oldest_row_read": "2026-10-12",
+      "skipped": 4,
+      "reasons": [
+        "kevin-hern filed 2026-10-13: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-12: rows of the filing may be cut off; rows of the filing were left out (not_listed 1)",
+        "gilbert-ray-cisneros-jr filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-12: rows of the filing may be cut off; rows of the filing were left out (other_side 1)",
+        "rick-larsen filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-12: rows of the filing may be cut off",
+        "lisa-c-mcclain filed 2026-10-12: the feed read (newest rows only) reaches back to 2026-10-12, not before the window start 2026-10-12: rows of the filing may be cut off"
+      ]
+    },
+    "per_filer_cap": {
+      "dropped": 35,
+      "filers": 5,
+      "dropped_congress_trade": 35,
+      "dropped_ptr_summary": 0
+    },
+    "form4_buy": {
+      "rows_read": 20,
+      "filings_passing_filters": 19,
+      "below_minimum": 12,
+      "no_sec_index": 0
+    },
+    "earnings_result": {
+      "archive_reports": 1458,
+      "recent_ready": 46,
+      "outside_24h": 22,
+      "unreadable": 0,
+      "not_compared": 4,
+      "not_compared_metrics": [
+        "FHN: revenue (basis_mismatch)",
+        "FMC: revenue (basis_mismatch)",
+        "NTRP: revenue (basis_mismatch)",
+        "SNES: revenue (basis_mismatch)"
+      ],
+      "consensus_mismatch_hold": 3,
+      "held": [
+        "FMC: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "NTRP: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "SNES: revenue (basis_mismatch) and nothing else compared (report data to check)"
+      ]
+    },
+    "earnings_upcoming": {
+      "listed": 44,
+      "confirmed_in_universe": 14
+    },
+    "earnings_tomorrow_roundup": {
+      "bmo": 3,
+      "amc": 11,
+      "no_set_session": 0
+    },
+    "chart_pattern": {
+      "tiles": 1
+    },
+    "moves_like": {
+      "tickers_in_items": 47,
+      "carried_over": 0,
+      "requested": 5,
+      "not_covered": 0,
+      "disabled": 0,
+      "no_peer": 1,
+      "below_floor": 1,
+      "stale": 0,
+      "unavailable": 0,
+      "unreadable": 0
+    }
+  },
+  "errors": [],
+  "partial_sources": [],
+  "moves_like_checked": {
+    "RIG": "item",
+    "GME": "no_peer",
+    "WSE": "below_floor",
+    "FITB": "item",
+    "APLD": "item"
+  },
+  "api_requests": 53,
+  "items": [
+    {
+      "item_id": "2026-10-16-form4-buy-GME-cac4e5",
+      "type": "form4_buy",
+      "ticker": "GME",
+      "tickers": [
+        "GME"
+      ],
+      "name": "Ryan Cohen",
+      "office": "President, CEO and Chairman at GameStop Corp.",
+      "amount_text": "$20.98M",
+      "traded": [
+        "2026-10-13"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000092189526002784/0000921895-26-002784-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/cohen-ryan-1767470?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-GME-cac4e5#trades",
+      "allowed_numbers": [
+        "$20.98M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Ryan Cohen (President, CEO and Chairman at GameStop Corp.) reported an open-market purchase of GME totaling $20.98M on a Form 4 filed 2026-10-13, traded 2026-10-13.",
+      "dedupe_key": "form4:0000921895-26-002784:GME",
+      "company": "GameStop Corp.",
+      "side": "buy",
+      "accession": "0000921895-26-002784",
+      "rows": 1,
+      "amount_top_usd": 20979000.0,
+      "market_cap_usd": 14136118272.0,
+      "famous_person": "Ryan Cohen",
+      "row_amounts": [
+        "$20.98M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/cohen-ryan-1767470/opengraph-image",
+          "kind": "image",
+          "alt": "Ryan Cohen (President, CEO and Chairman at GameStop Corp.) reported an open-market purchase of GME totaling $20.98M on a Form 4 filed 2026-10-13, traded 2026-10-13."
+        }
+      ],
+      "rank": 12.5,
+      "rank_why": "form4_buy 2; buy +2; top $20.98M +4; known name Ryan Cohen (fame) +2; large cap $14.14B +2; filed 2026-10-13 (age 3) +0.5"
+    },
+    {
+      "item_id": "2026-10-16-form4-buy-BORR-6ff8de",
+      "type": "form4_buy",
+      "ticker": "BORR",
+      "tickers": [
+        "BORR"
+      ],
+      "name": "Tor Olav Troim",
+      "office": "Director at Borr Drilling Limited",
+      "amount_text": "$7.4M",
+      "traded": [
+        "2026-10-13"
+      ],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1715497/000162828026065849/0001628280-26-065849-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-BORR-6ff8de#trades",
+      "allowed_numbers": [
+        "$7.4M",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $7.4M on a Form 4 filed 2026-10-14, traded 2026-10-13.",
+      "dedupe_key": "form4:0001628280-26-065849:BORR",
+      "company": "Borr Drilling Limited",
+      "side": "buy",
+      "accession": "0001628280-26-065849",
+      "rows": 1,
+      "amount_top_usd": 7401600.0,
+      "market_cap_usd": 1443839488.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$7.4M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630/opengraph-image",
+          "kind": "image",
+          "alt": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $7.4M on a Form 4 filed 2026-10-14, traded 2026-10-13."
+        }
+      ],
+      "rank": 10.87,
+      "rank_why": "form4_buy 2; buy +2; top $7.4M +3.87; known name Director (title) +2; filed 2026-10-14 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-16-form4-buy-BPRE-3e55ba",
+      "type": "form4_buy",
+      "ticker": "BPRE",
+      "tickers": [
+        "BPRE"
+      ],
+      "name": "Ramin Kamfar",
+      "office": "Director at Bluerock Private Real Estate Fund",
+      "amount_text": "$2.06M",
+      "traded": [
+        "2026-10-12"
+      ],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551047/000139834426018199/0001398344-26-018199-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kamfar-ramin-1111908?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-BPRE-3e55ba#trades",
+      "allowed_numbers": [
+        "$2.06M",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Ramin Kamfar (Director at Bluerock Private Real Estate Fund) reported an open-market purchase of BPRE totaling $2.06M on a Form 4 filed 2026-10-14, traded 2026-10-12.",
+      "dedupe_key": "form4:0001398344-26-018199:BPRE",
+      "company": "Bluerock Private Real Estate Fund",
+      "side": "buy",
+      "accession": "0001398344-26-018199",
+      "rows": 1,
+      "amount_top_usd": 2060257.76,
+      "market_cap_usd": null,
+      "famous_person": null,
+      "row_amounts": [
+        "$2.06M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/kamfar-ramin-1111908/opengraph-image",
+          "kind": "image",
+          "alt": "Ramin Kamfar (Director at Bluerock Private Real Estate Fund) reported an open-market purchase of BPRE totaling $2.06M on a Form 4 filed 2026-10-14, traded 2026-10-12."
+        }
+      ],
+      "rank": 10.31,
+      "rank_why": "form4_buy 2; buy +2; top $2.06M +3.31; known name Director (title) +2; filed 2026-10-14 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-16-form4-buy-QVCG-4367ed",
+      "type": "form4_buy",
+      "ticker": "QVCG",
+      "tickers": [
+        "QVCG"
+      ],
+      "name": "Goldentree Asset Management Lp",
+      "office": "10% owner at QVC Group Inc.",
+      "amount_text": "$16.7M",
+      "traded": [
+        "2026-10-09"
+      ],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1254699/000149315226047051/0001493152-26-047051-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/goldentree-asset-management-lp-1278951?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-QVCG-4367ed#trades",
+      "allowed_numbers": [
+        "$16.7M",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Goldentree Asset Management Lp (10% owner at QVC Group Inc.) reported an open-market purchase of QVCG totaling $16.7M on a Form 4 filed 2026-10-14, traded 2026-10-09.",
+      "dedupe_key": "form4:0001493152-26-047051:QVCG",
+      "company": "QVC Group Inc.",
+      "side": "buy",
+      "accession": "0001493152-26-047051",
+      "rows": 1,
+      "amount_top_usd": 16697200.0,
+      "market_cap_usd": 558998848.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$16.7M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/goldentree-asset-management-lp-1278951/opengraph-image",
+          "kind": "image",
+          "alt": "Goldentree Asset Management Lp (10% owner at QVC Group Inc.) reported an open-market purchase of QVCG totaling $16.7M on a Form 4 filed 2026-10-14, traded 2026-10-09."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "form4_buy 2; buy +2; top $16.7M +4; filed 2026-10-14 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-16-form4-buy-NUAI-94dabf",
+      "type": "form4_buy",
+      "ticker": "NUAI",
+      "tickers": [
+        "NUAI"
+      ],
+      "name": "Kent C. Mccarthy",
+      "office": "10% owner at New Era Energy & Digital, Inc.",
+      "amount_text": "$1.19M",
+      "traded": [
+        "2026-10-09"
+      ],
+      "filed": "2026-10-14",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2028336/000122502826000006/0001225028-26-000006-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/mccarthy-kent-c-1225028?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-NUAI-94dabf#trades",
+      "allowed_numbers": [
+        "$1.19M",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Kent C. Mccarthy (10% owner at New Era Energy & Digital, Inc.) reported an open-market purchase of NUAI totaling $1.19M on a Form 4 filed 2026-10-14, traded 2026-10-09.",
+      "dedupe_key": "form4:0001225028-26-000006:NUAI",
+      "company": "New Era Energy & Digital, Inc.",
+      "side": "buy",
+      "accession": "0001225028-26-000006",
+      "rows": 1,
+      "amount_top_usd": 1192350.0,
+      "market_cap_usd": 576486016.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.19M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/mccarthy-kent-c-1225028/opengraph-image",
+          "kind": "image",
+          "alt": "Kent C. Mccarthy (10% owner at New Era Energy & Digital, Inc.) reported an open-market purchase of NUAI totaling $1.19M on a Form 4 filed 2026-10-14, traded 2026-10-09."
+        }
+      ],
+      "rank": 8.08,
+      "rank_why": "form4_buy 2; buy +2; top $1.19M +3.08; filed 2026-10-14 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-16-form4-buy-PED-a5be71",
+      "type": "form4_buy",
+      "ticker": "PED",
+      "tickers": [
+        "PED"
+      ],
+      "name": "Simon G. Kukes",
+      "office": "10% owner at PEDEVCO Corp.",
+      "amount_text": "$1.91M",
+      "traded": [
+        "2026-10-08"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1141197/000165495426008905/0001654954-26-008905-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kukes-simon-g-1222390?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-PED-a5be71#trades",
+      "allowed_numbers": [
+        "$1.91M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Simon G. Kukes (10% owner at PEDEVCO Corp.) reported an open-market purchase of PED totaling $1.91M on a Form 4 filed 2026-10-13, traded 2026-10-08.",
+      "dedupe_key": "form4:0001654954-26-008905:PED",
+      "company": "PEDEVCO Corp.",
+      "side": "buy",
+      "accession": "0001654954-26-008905",
+      "rows": 1,
+      "amount_top_usd": 1911910.0,
+      "market_cap_usd": 175986256.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.91M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/kukes-simon-g-1222390/opengraph-image",
+          "kind": "image",
+          "alt": "Simon G. Kukes (10% owner at PEDEVCO Corp.) reported an open-market purchase of PED totaling $1.91M on a Form 4 filed 2026-10-13, traded 2026-10-08."
+        }
+      ],
+      "rank": 7.78,
+      "rank_why": "form4_buy 2; buy +2; top $1.91M +3.28; filed 2026-10-13 (age 3) +0.5"
+    },
+    {
+      "item_id": "2026-10-16-form4-buy-TRXB-78cb4d",
+      "type": "form4_buy",
+      "ticker": "TRXB",
+      "tickers": [
+        "TRXB"
+      ],
+      "name": "Svlsf Vi, Llc",
+      "office": "10% owner at TRex Bio, Inc.",
+      "amount_text": "$1.26M",
+      "traded": [
+        "2026-10-08"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2139097/000182912626011084/0001829126-26-011084-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/svlsf-vi-llc-1717728?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-form4-buy-TRXB-78cb4d#trades",
+      "allowed_numbers": [
+        "$1.26M",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Svlsf Vi, Llc (10% owner at TRex Bio, Inc.) reported an open-market purchase of TRXB totaling $1.26M on a Form 4 filed 2026-10-13, traded 2026-10-08.",
+      "dedupe_key": "form4:0001829126-26-011084:TRXB",
+      "company": "TRex Bio, Inc.",
+      "side": "buy",
+      "accession": "0001829126-26-011084",
+      "rows": 1,
+      "amount_top_usd": 1256962.0,
+      "market_cap_usd": 370516704.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.26M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/svlsf-vi-llc-1717728/opengraph-image",
+          "kind": "image",
+          "alt": "Svlsf Vi, Llc (10% owner at TRex Bio, Inc.) reported an open-market purchase of TRXB totaling $1.26M on a Form 4 filed 2026-10-13, traded 2026-10-08."
+        }
+      ],
+      "rank": 7.6,
+      "rank_why": "form4_buy 2; buy +2; top $1.26M +3.1; filed 2026-10-13 (age 3) +0.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-tomorrow-roundup-LIST-56a8c1",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "FITB",
+        "CLF",
+        "DX"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-tomorrow-roundup-LIST-56a8c1",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "before the open"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-10-19, before the open (confirmed dates): $FITB (Fifth Third Bancorp), $CLF (Cleveland-Cliffs Inc.), $DX (Dynex Capital, Inc.).",
+      "dedupe_key": "roundup:2026-10-19:bmo",
+      "names": {
+        "FITB": "Fifth Third Bancorp",
+        "CLF": "Cleveland-Cliffs Inc.",
+        "DX": "Dynex Capital, Inc."
+      },
+      "report_date": "2026-10-19",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "reporters_in_session": 3,
+      "market_cap_usd": 45437435904.0,
+      "item_ids": [
+        "2026-10-16-earnings-upcoming-FITB-44c0c0",
+        "2026-10-16-earnings-upcoming-CLF-b7041d",
+        "2026-10-16-earnings-upcoming-DX-ed12fc"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-10-19, before the open (confirmed dates): $FITB (Fifth Third Bancorp), $CLF (Cleveland-Cliffs Inc.), $DX (Dynex Capital, Inc.)."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_tomorrow_roundup 2.5; large cap $45.44B +2; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-tomorrow-roundup-LIST-867833",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "STLD",
+        "WRB",
+        "CCK",
+        "WTFC"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-tomorrow-roundup-LIST-867833",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "after the close"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-10-19, after the close (confirmed dates): $STLD (Steel Dynamics, Inc.), $WRB (W. R. Berkley Corporation), $CCK (Crown Holdings, Inc.), $WTFC (Wintrust Financial Corporation) and more.",
+      "dedupe_key": "roundup:2026-10-19:amc",
+      "names": {
+        "STLD": "Steel Dynamics, Inc.",
+        "WRB": "W. R. Berkley Corporation",
+        "CCK": "Crown Holdings, Inc.",
+        "WTFC": "Wintrust Financial Corporation"
+      },
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "reporters_in_session": 11,
+      "market_cap_usd": 34166552576.0,
+      "item_ids": [
+        "2026-10-16-earnings-upcoming-STLD-f76b5c",
+        "2026-10-16-earnings-upcoming-WRB-5e08f1",
+        "2026-10-16-earnings-upcoming-CCK-0a0069",
+        "2026-10-16-earnings-upcoming-WTFC-3682ae"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-10-19, after the close (confirmed dates): $STLD (Steel Dynamics, Inc.), $WRB (W. R. Berkley Corporation), $CCK (Crown Holdings, Inc.), $WTFC (Wintrust Financial Corporation) and more."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_tomorrow_roundup 2.5; large cap $34.17B +2; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-congress-trade-RIG-402823",
+      "type": "congress_trade",
+      "ticker": "RIG",
+      "tickers": [
+        "RIG"
+      ],
+      "name": "Lisa C. McClain",
+      "office": "U.S. Representative (R-MI)",
+      "amount_text": "$15K–$50K",
+      "traded": [
+        "2026-09-14"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035585.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/lisa-c-mcclain?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-congress-trade-RIG-402823#trades",
+      "allowed_numbers": [
+        "$15K–$50K",
+        "$15K",
+        "$50K",
+        "$15,001–$50,000",
+        "$15,001",
+        "$50,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-09-14",
+        "Sep 14, 2026",
+        "Sep 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Lisa C. McClain (R-MI) disclosed a purchase of RIG (Transocean Ltd.), $15K–$50K, traded 2026-09-14; filed 2026-10-12 (owner: spouse).",
+      "dedupe_key": "ptr:20035585:RIG:buy",
+      "company": "Transocean Ltd.",
+      "side": "buy",
+      "owner": [
+        "spouse"
+      ],
+      "figure_slug": "lisa-c-mcclain",
+      "amount_exact_text": "$15,001–$50,000",
+      "rows": 1,
+      "amount_top_usd": 50000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/lisa-c-mcclain/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Lisa C. McClain (R-MI) disclosed a purchase of RIG (Transocean Ltd.), $15K–$50K, traded 2026-09-14; filed 2026-10-12 (owner: spouse)."
+        }
+      ],
+      "rank": 5.7,
+      "rank_why": "congress_trade 2; buy +2; top $50K +1.7; filed 2026-10-12 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-16-congress-trade-ZTS-61ab67",
+      "type": "congress_trade",
+      "ticker": "ZTS",
+      "tickers": [
+        "ZTS"
+      ],
+      "name": "Gilbert Ray Cisneros, Jr.",
+      "office": "U.S. Representative (D-CA)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-09-18"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035622.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/gilbert-ray-cisneros-jr?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-congress-trade-ZTS-61ab67#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-09-18",
+        "Sep 18, 2026",
+        "Sep 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Gilbert Ray Cisneros, Jr. (D-CA) disclosed a purchase of ZTS (Zoetis Inc.), $1K–$15K, traded 2026-09-18; filed 2026-10-12.",
+      "dedupe_key": "ptr:20035622:ZTS:buy",
+      "company": "Zoetis Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "gilbert-ray-cisneros-jr",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/gilbert-ray-cisneros-jr/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Gilbert Ray Cisneros, Jr. (D-CA) disclosed a purchase of ZTS (Zoetis Inc.), $1K–$15K, traded 2026-09-18; filed 2026-10-12."
+        }
+      ],
+      "rank": 5.18,
+      "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-16-congress-trade-WSM-c46d2a",
+      "type": "congress_trade",
+      "ticker": "WSM",
+      "tickers": [
+        "WSM"
+      ],
+      "name": "Rick Larsen",
+      "office": "U.S. Representative (D-WA)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-10-08"
+      ],
+      "filed": "2026-10-12",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035635.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/rick-larsen?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-congress-trade-WSM-c46d2a#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "Oct 8"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Rick Larsen (D-WA) disclosed a purchase of WSM (Williams-Sonoma, Inc.), $1K–$15K, traded 2026-10-08; filed 2026-10-12.",
+      "dedupe_key": "ptr:20035635:WSM:buy",
+      "company": "Williams-Sonoma, Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "rick-larsen",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/rick-larsen/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Rick Larsen (D-WA) disclosed a purchase of WSM (Williams-Sonoma, Inc.), $1K–$15K, traded 2026-10-08; filed 2026-10-12."
+        }
+      ],
+      "rank": 5.18,
+      "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-FITB-44c0c0",
+      "type": "earnings_upcoming",
+      "ticker": "FITB",
+      "tickers": [
+        "FITB"
+      ],
+      "name": "Fifth Third Bancorp",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FITB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-FITB-44c0c0#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Fifth Third Bancorp (FITB) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:FITB:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 45437435904.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FITB/opengraph-image",
+          "kind": "image",
+          "alt": "Fifth Third Bancorp (FITB) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $45.44B +2; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-STLD-f76b5c",
+      "type": "earnings_upcoming",
+      "ticker": "STLD",
+      "tickers": [
+        "STLD"
+      ],
+      "name": "Steel Dynamics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/STLD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-STLD-f76b5c#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Steel Dynamics, Inc. (STLD) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:STLD:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 34166552576.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/STLD/opengraph-image",
+          "kind": "image",
+          "alt": "Steel Dynamics, Inc. (STLD) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $34.17B +2; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-WRB-5e08f1",
+      "type": "earnings_upcoming",
+      "ticker": "WRB",
+      "tickers": [
+        "WRB"
+      ],
+      "name": "W. R. Berkley Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WRB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-WRB-5e08f1#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "W. R. Berkley Corporation (WRB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WRB:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 26694971392.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WRB/opengraph-image",
+          "kind": "image",
+          "alt": "W. R. Berkley Corporation (WRB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $26.69B +2; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-CCK-0a0069",
+      "type": "earnings_upcoming",
+      "ticker": "CCK",
+      "tickers": [
+        "CCK"
+      ],
+      "name": "Crown Holdings, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CCK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-CCK-0a0069#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Crown Holdings, Inc. (CCK) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:CCK:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 11752660992.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CCK/opengraph-image",
+          "kind": "image",
+          "alt": "Crown Holdings, Inc. (CCK) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_upcoming 1; large cap $11.75B +2; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-congress-trade-MRSH-1b3356",
+      "type": "congress_trade",
+      "ticker": "MRSH",
+      "tickers": [
+        "MRSH"
+      ],
+      "name": "Kevin Hern",
+      "office": "U.S. Representative (R-OK)",
+      "amount_text": "$50K–$100K; $50K–$100K",
+      "traded": [
+        "2026-09-17",
+        "2026-09-23"
+      ],
+      "filed": "2026-10-13",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035588.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kevin-hern?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-congress-trade-MRSH-1b3356#trades",
+      "allowed_numbers": [
+        "$50K–$100K",
+        "$50K",
+        "$100K",
+        "$50,001–$100,000",
+        "$50,001",
+        "$100,000",
+        "2026-10-13",
+        "Oct 13, 2026",
+        "Oct 13",
+        "2026-09-17",
+        "Sep 17, 2026",
+        "Sep 17",
+        "2026-09-23",
+        "Sep 23, 2026",
+        "Sep 23",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Kevin Hern (R-OK) disclosed 2 sales of MRSH (Marsh & McLennan Companies, Inc.), $50K–$100K; $50K–$100K, traded 2026-09-17, 2026-09-23; filed 2026-10-13 (owner: joint).",
+      "dedupe_key": "ptr:20035588:MRSH:sell",
+      "company": "Marsh & McLennan Companies, Inc.",
+      "side": "sell",
+      "owner": [
+        "joint"
+      ],
+      "figure_slug": "kevin-hern",
+      "amount_exact_text": "$50,001–$100,000; $50,001–$100,000",
+      "rows": 2,
+      "amount_top_usd": 200000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/kevin-hern/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Kevin Hern (R-OK) disclosed 2 sales of MRSH (Marsh & McLennan Companies, Inc.), $50K–$100K; $50K–$100K, traded 2026-09-17, 2026-09-23; filed 2026-10-13 (owner: joint)."
+        }
+      ],
+      "rank": 4.8,
+      "rank_why": "congress_trade 2; sale +0; top $200K +2.3; filed 2026-10-13 (age 3) +0.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-WSE-ac1348",
+      "type": "earnings_result",
+      "ticker": "WSE",
+      "tickers": [
+        "WSE"
+      ],
+      "name": "Wise Group plc",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2099039/000117184326006666/exh_991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WSE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-WSE-ac1348#earnings-history",
+      "allowed_numbers": [
+        "$739M",
+        "Q2 2027",
+        "Q2",
+        "FY2027",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Wise Group plc (WSE) published Q2 2027 results on 2026-10-15: Published. Revenue $739M.",
+      "dedupe_key": "report:wse-2027-q2",
+      "report_id": "wse-2027-q2",
+      "fiscal_label": "Q2 2027",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T23:02:09.092261+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$739M"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WSE/opengraph-image",
+          "kind": "image",
+          "alt": "Wise Group plc (WSE) published Q2 2027 results on 2026-10-15: Published. Revenue $739M."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-LOOP-bd9bcc",
+      "type": "earnings_result",
+      "ticker": "LOOP",
+      "tickers": [
+        "LOOP"
+      ],
+      "name": "Loop Industries, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1504678/000143774926032729/ex_991809.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/LOOP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-LOOP-bd9bcc#earnings-history",
+      "allowed_numbers": [
+        "Q2 2027",
+        "Q2",
+        "FY2027",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Loop Industries, Inc. (LOOP) published Q2 2027 results on 2026-10-15: Published.",
+      "dedupe_key": "report:loop-2027-q2",
+      "report_id": "loop-2027-q2",
+      "fiscal_label": "Q2 2027",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:48:34.654749+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/LOOP/opengraph-image",
+          "kind": "image",
+          "alt": "Loop Industries, Inc. (LOOP) published Q2 2027 results on 2026-10-15: Published."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-SFNC-bb5b59",
+      "type": "earnings_result",
+      "ticker": "SFNC",
+      "tickers": [
+        "SFNC"
+      ],
+      "name": "Simmons First National Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/90498/000119312526422936/d439916dex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SFNC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-SFNC-bb5b59#earnings-history",
+      "allowed_numbers": [
+        "$251M",
+        "$253M",
+        "$2.26M",
+        "$0.54",
+        "$0.53",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Simmons First National Corporation (SFNC) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $251M vs $253M consensus (Missed by $2.26M). Adjusted diluted earnings per share $0.54 vs $0.53 consensus (Beat by $0.01).",
+      "dedupe_key": "report:sfnc-2026-q3",
+      "report_id": "sfnc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:32:39.629064+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$251M",
+          "consensus": "$253M",
+          "label": "Missed by $2.26M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adjusted diluted earnings per share",
+          "reported": "$0.54",
+          "consensus": "$0.53",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SFNC/opengraph-image",
+          "kind": "image",
+          "alt": "Simmons First National Corporation (SFNC) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $251M vs $253M consensus (Missed by $2.26M). Adjusted diluted earnings per share $0.54 vs $0.53 consensus (Beat by $0.01)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-CNS-9e851f",
+      "type": "earnings_result",
+      "ticker": "CNS",
+      "tickers": [
+        "CNS"
+      ],
+      "name": "Cohen & Steers, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1284812/000128481226000195/cns-earningsreleasex93026e.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CNS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-CNS-9e851f#earnings-history",
+      "allowed_numbers": [
+        "$157M",
+        "$156M",
+        "$1.86M",
+        "$0.89",
+        "$0.91",
+        "$0.02",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Cohen & Steers, Inc. (CNS) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $157M vs $156M consensus (Beat by $1.86M). adjusted $0.89 vs $0.91 consensus (Missed by $0.02).",
+      "dedupe_key": "report:cns-2026-q3",
+      "report_id": "cns-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:26:36.301863+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$157M",
+          "consensus": "$156M",
+          "label": "Beat by $1.86M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "adjusted",
+          "reported": "$0.89",
+          "consensus": "$0.91",
+          "label": "Missed by $0.02",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CNS/opengraph-image",
+          "kind": "image",
+          "alt": "Cohen & Steers, Inc. (CNS) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $157M vs $156M consensus (Beat by $1.86M). adjusted $0.89 vs $0.91 consensus (Missed by $0.02)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-JBHT-719f9f",
+      "type": "earnings_result",
+      "ticker": "JBHT",
+      "tickers": [
+        "JBHT"
+      ],
+      "name": "J.B. Hunt Transport Services, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/728535/000143774926032715/ex_1025956.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/JBHT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-JBHT-719f9f#earnings-history",
+      "allowed_numbers": [
+        "$3.68B",
+        "$3.59B",
+        "$82.3M",
+        "$1.82",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "J.B. Hunt Transport Services, Inc. (JBHT) published Q3 2026 results on 2026-10-15: Revenue beat. Revenue $3.68B vs $3.59B consensus (Beat by $82.3M). GAAP EPS $1.82.",
+      "dedupe_key": "report:jbht-2026-q3",
+      "report_id": "jbht-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:24:39.097353+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$3.68B",
+          "consensus": "$3.59B",
+          "label": "Beat by $82.3M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$1.82"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/JBHT/opengraph-image",
+          "kind": "image",
+          "alt": "J.B. Hunt Transport Services, Inc. (JBHT) published Q3 2026 results on 2026-10-15: Revenue beat. Revenue $3.68B vs $3.59B consensus (Beat by $82.3M). GAAP EPS $1.82."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-SCHW-39e7f8",
+      "type": "earnings_result",
+      "ticker": "SCHW",
+      "tickers": [
+        "SCHW"
+      ],
+      "name": "The Charles Schwab Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/316709/000031670926000035/a3q26exhibit991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SCHW?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-SCHW-39e7f8#earnings-history",
+      "allowed_numbers": [
+        "$7.17B",
+        "$7.19B",
+        "−$16.4M",
+        "$1.69",
+        "$1.66",
+        "$0.03",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Charles Schwab Corporation (SCHW) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $7.17B vs $7.19B consensus (In line (−$16.4M)). Adjusted $1.69 vs $1.66 consensus (Beat by $0.03).",
+      "dedupe_key": "report:schw-2026-q3",
+      "report_id": "schw-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:22:35.005625+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$7.17B",
+          "consensus": "$7.19B",
+          "label": "In line (−$16.4M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "Adjusted",
+          "reported": "$1.69",
+          "consensus": "$1.66",
+          "label": "Beat by $0.03",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SCHW/opengraph-image",
+          "kind": "image",
+          "alt": "The Charles Schwab Corporation (SCHW) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $7.17B vs $7.19B consensus (In line (−$16.4M)). Adjusted $1.69 vs $1.66 consensus (Beat by $0.03)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-NBBK-b0fa3b",
+      "type": "earnings_result",
+      "ticker": "NBBK",
+      "tickers": [
+        "NBBK"
+      ],
+      "name": "NB Bancorp, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1979330/000110465926116250/nbbk-ex99d1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/NBBK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-NBBK-b0fa3b#earnings-history",
+      "allowed_numbers": [
+        "$76.5M",
+        "$77.3M",
+        "$758K",
+        "$0.60",
+        "$0.58",
+        "$0.02",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "NB Bancorp, Inc. (NBBK) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $76.5M vs $77.3M consensus (Missed by $758K). Operating earnings per share, diluted (non-GAAP) $0.60 vs $0.58 consensus (Beat by $0.02).",
+      "dedupe_key": "report:nbbk-2026-q3",
+      "report_id": "nbbk-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:18:36.486542+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$76.5M",
+          "consensus": "$77.3M",
+          "label": "Missed by $758K",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Operating earnings per share, diluted (non-GAAP)",
+          "reported": "$0.60",
+          "consensus": "$0.58",
+          "label": "Beat by $0.02",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/NBBK/opengraph-image",
+          "kind": "image",
+          "alt": "NB Bancorp, Inc. (NBBK) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $76.5M vs $77.3M consensus (Missed by $758K). Operating earnings per share, diluted (non-GAAP) $0.60 vs $0.58 consensus (Beat by $0.02)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-INDB-ee9d78",
+      "type": "earnings_result",
+      "ticker": "INDB",
+      "tickers": [
+        "INDB"
+      ],
+      "name": "Independent Bank Corp.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/776901/000077690126000152/exhibit991-indb09x30x2026e.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/INDB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-INDB-ee9d78#earnings-history",
+      "allowed_numbers": [
+        "$262M",
+        "$261M",
+        "$701K",
+        "$1.90",
+        "$1.85",
+        "$0.05",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Independent Bank Corp. (INDB) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $262M vs $261M consensus (In line (+$701K)). Diluted earnings per share, on an operating basis (Non-GAAP) $1.90 vs $1.85 consensus (Beat by $0.05).",
+      "dedupe_key": "report:indb-2026-q3",
+      "report_id": "indb-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:16:36.550490+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$262M",
+          "consensus": "$261M",
+          "label": "In line (+$701K)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "Diluted earnings per share, on an operating basis (Non-GAAP)",
+          "reported": "$1.90",
+          "consensus": "$1.85",
+          "label": "Beat by $0.05",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/INDB/opengraph-image",
+          "kind": "image",
+          "alt": "Independent Bank Corp. (INDB) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $262M vs $261M consensus (In line (+$701K)). Diluted earnings per share, on an operating basis (Non-GAAP) $1.90 vs $1.85 consensus (Beat by $0.05)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-AA-32e97e",
+      "type": "earnings_result",
+      "ticker": "AA",
+      "tickers": [
+        "AA"
+      ],
+      "name": "Alcoa Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1675149/000119312526422891/aa-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-AA-32e97e#earnings-history",
+      "allowed_numbers": [
+        "$3.7B",
+        "$3.76B",
+        "$51.9M",
+        "$1.82",
+        "$1.51",
+        "$0.31",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Alcoa Corporation (AA) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $3.7B vs $3.76B consensus (Missed by $51.9M). Adjusted earnings (loss) per common share $1.82 vs $1.51 consensus (Beat by $0.31).",
+      "dedupe_key": "report:aa-2026-q3",
+      "report_id": "aa-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:14:35.341655+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$3.7B",
+          "consensus": "$3.76B",
+          "label": "Missed by $51.9M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adjusted earnings (loss) per common share",
+          "reported": "$1.82",
+          "consensus": "$1.51",
+          "label": "Beat by $0.31",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AA/opengraph-image",
+          "kind": "image",
+          "alt": "Alcoa Corporation (AA) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $3.7B vs $3.76B consensus (Missed by $51.9M). Adjusted earnings (loss) per common share $1.82 vs $1.51 consensus (Beat by $0.31)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-LCNB-b8caaa",
+      "type": "earnings_result",
+      "ticker": "LCNB",
+      "tickers": [
+        "LCNB"
+      ],
+      "name": "LCNB Corp.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1074902/000143774926032709/ex_1016711.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/LCNB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-LCNB-b8caaa#earnings-history",
+      "allowed_numbers": [
+        "$0.51",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "LCNB Corp. (LCNB) published Q3 2026 results on 2026-10-15: Published. GAAP EPS $0.51.",
+      "dedupe_key": "report:lcnb-2026-q3",
+      "report_id": "lcnb-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:06:35.144231+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.51"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/LCNB/opengraph-image",
+          "kind": "image",
+          "alt": "LCNB Corp. (LCNB) published Q3 2026 results on 2026-10-15: Published. GAAP EPS $0.51."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-IBKR-816272",
+      "type": "earnings_result",
+      "ticker": "IBKR",
+      "tickers": [
+        "IBKR"
+      ],
+      "name": "Interactive Brokers Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1381197/000138119726000154/ibkr-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IBKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-IBKR-816272#earnings-history",
+      "allowed_numbers": [
+        "$1.91B",
+        "$1.86B",
+        "$58.1M",
+        "$0.67",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Interactive Brokers Group, Inc. (IBKR) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $1.91B vs $1.86B consensus (Beat by $58.1M). Adjusted EPS $0.67 vs $0.67 consensus (In line).",
+      "dedupe_key": "report:ibkr-2026-q3",
+      "report_id": "ibkr-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T20:02:35.474774+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$1.91B",
+          "consensus": "$1.86B",
+          "label": "Beat by $58.1M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted EPS",
+          "reported": "$0.67",
+          "consensus": "$0.67",
+          "label": "In line",
+          "verdict": "in_line"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IBKR/opengraph-image",
+          "kind": "image",
+          "alt": "Interactive Brokers Group, Inc. (IBKR) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $1.91B vs $1.86B consensus (Beat by $58.1M). Adjusted EPS $0.67 vs $0.67 consensus (In line)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-WABC-5bea14",
+      "type": "earnings_result",
+      "ticker": "WABC",
+      "tickers": [
+        "WABC"
+      ],
+      "name": "Westamerica Bancorporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/311094/000117184326006660/exh_991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WABC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-WABC-5bea14#earnings-history",
+      "allowed_numbers": [
+        "$64.2M",
+        "$63.1M",
+        "$1.13M",
+        "$1.22",
+        "$1.17",
+        "$0.05",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Westamerica Bancorporation (WABC) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $64.2M vs $63.1M consensus (Beat by $1.13M). Diluted EPS (GAAP, street basis) $1.22 vs $1.17 consensus (Beat by $0.05).",
+      "dedupe_key": "report:wabc-2026-q3",
+      "report_id": "wabc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T19:03:20.492299+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$64.2M",
+          "consensus": "$63.1M",
+          "label": "Beat by $1.13M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "$1.22",
+          "consensus": "$1.17",
+          "label": "Beat by $0.05",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WABC/opengraph-image",
+          "kind": "image",
+          "alt": "Westamerica Bancorporation (WABC) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $64.2M vs $63.1M consensus (Beat by $1.13M). Diluted EPS (GAAP, street basis) $1.22 vs $1.17 consensus (Beat by $0.05)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-PLD-7d0b9c",
+      "type": "earnings_result",
+      "ticker": "PLD",
+      "tickers": [
+        "PLD"
+      ],
+      "name": "Prologis, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045609/000119312526422375/pld-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PLD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-PLD-7d0b9c#earnings-history",
+      "allowed_numbers": [
+        "$0.86",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Prologis, Inc. (PLD) published Q3 2026 results on 2026-10-15: Published. GAAP EPS $0.86.",
+      "dedupe_key": "report:pld-2026-q3",
+      "report_id": "pld-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T13:22:35.579001+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.86"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PLD/opengraph-image",
+          "kind": "image",
+          "alt": "Prologis, Inc. (PLD) published Q3 2026 results on 2026-10-15: Published. GAAP EPS $0.86."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-VELO-70f988",
+      "type": "earnings_result",
+      "ticker": "VELO",
+      "tickers": [
+        "VELO"
+      ],
+      "name": "Velo3D, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1825079/000182507926000012/velo-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/VELO?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-VELO-70f988#earnings-history",
+      "allowed_numbers": [
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Velo3D"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Velo3D, Inc. (VELO) published Q3 2026 results on 2026-10-15: Published.",
+      "dedupe_key": "report:velo-2026-q3",
+      "report_id": "velo-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T13:18:37.920027+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/VELO/opengraph-image",
+          "kind": "image",
+          "alt": "Velo3D, Inc. (VELO) published Q3 2026 results on 2026-10-15: Published."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-MRSH-6d706f",
+      "type": "earnings_result",
+      "ticker": "MRSH",
+      "tickers": [
+        "MRSH"
+      ],
+      "name": "Marsh & McLennan Companies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/62709/000006270926000256/mmc3q2026ex991newsrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MRSH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-MRSH-6d706f#earnings-history",
+      "allowed_numbers": [
+        "$6.9B",
+        "$6.64B",
+        "$258M",
+        "$2.03",
+        "$1.97",
+        "$0.06",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Marsh & McLennan Companies, Inc. (MRSH) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $6.9B vs $6.64B consensus (Beat by $258M). Adjusted EPS $2.03 vs $1.97 consensus (Beat by $0.06).",
+      "dedupe_key": "report:mrsh-2026-q3",
+      "report_id": "mrsh-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T12:06:39.585431+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$6.9B",
+          "consensus": "$6.64B",
+          "label": "Beat by $258M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted EPS",
+          "reported": "$2.03",
+          "consensus": "$1.97",
+          "label": "Beat by $0.06",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MRSH/opengraph-image",
+          "kind": "image",
+          "alt": "Marsh & McLennan Companies, Inc. (MRSH) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $6.9B vs $6.64B consensus (Beat by $258M). Adjusted EPS $2.03 vs $1.97 consensus (Beat by $0.06)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-CMC-62bbb1",
+      "type": "earnings_result",
+      "ticker": "CMC",
+      "tickers": [
+        "CMC"
+      ],
+      "name": "Commercial Metals Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/22444/000002244426000053/cmc-8312026xearningsreleas.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CMC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-CMC-62bbb1#earnings-history",
+      "allowed_numbers": [
+        "$2.66B",
+        "$2.56B",
+        "$94.1M",
+        "$2.09",
+        "$1.96",
+        "$0.13",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Commercial Metals Company (CMC) published FY2026 (Q4) results on 2026-10-15: Beat estimates. Revenue $2.66B vs $2.56B consensus (Beat by $94.1M). Adjusted earnings per diluted share $2.09 vs $1.96 consensus (Beat by $0.13).",
+      "dedupe_key": "report:cmc-2026-q4",
+      "report_id": "cmc-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T12:04:36.207373+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$2.66B",
+          "consensus": "$2.56B",
+          "label": "Beat by $94.1M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted earnings per diluted share",
+          "reported": "$2.09",
+          "consensus": "$1.96",
+          "label": "Beat by $0.13",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CMC/opengraph-image",
+          "kind": "image",
+          "alt": "Commercial Metals Company (CMC) published FY2026 (Q4) results on 2026-10-15: Beat estimates. Revenue $2.66B vs $2.56B consensus (Beat by $94.1M). Adjusted earnings per diluted share $2.09 vs $1.96 consensus (Beat by $0.13)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-MAN-bdebe0",
+      "type": "earnings_result",
+      "ticker": "MAN",
+      "tickers": [
+        "MAN"
+      ],
+      "name": "ManpowerGroup Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/871763/000119312526422291/man-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MAN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-MAN-bdebe0#earnings-history",
+      "allowed_numbers": [
+        "$4.84B",
+        "$4.85B",
+        "−$13.9M",
+        "$1.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "ManpowerGroup Inc. (MAN) published Q3 2026 results on 2026-10-15: In line. Revenue $4.84B vs $4.85B consensus (In line (−$13.9M)). earnings per share $1.01 vs $1.01 consensus (In line).",
+      "dedupe_key": "report:man-2026-q3",
+      "report_id": "man-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T11:44:34.614488+00:00",
+      "tile_label": "In line",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$4.84B",
+          "consensus": "$4.85B",
+          "label": "In line (−$13.9M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "earnings per share",
+          "reported": "$1.01",
+          "consensus": "$1.01",
+          "label": "In line",
+          "verdict": "in_line"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MAN/opengraph-image",
+          "kind": "image",
+          "alt": "ManpowerGroup Inc. (MAN) published Q3 2026 results on 2026-10-15: In line. Revenue $4.84B vs $4.85B consensus (In line (−$13.9M)). earnings per share $1.01 vs $1.01 consensus (In line)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-FHN-6b3023",
+      "type": "earnings_result",
+      "ticker": "FHN",
+      "tickers": [
+        "FHN"
+      ],
+      "name": "First Horizon Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000178/a3q26earningsslides-fina.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FHN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-FHN-6b3023#earnings-history",
+      "allowed_numbers": [
+        "$0.53",
+        "$0.52",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "First Horizon Corporation (FHN) published Q3 2026 results on 2026-10-15. Adjusted EPS $0.53 vs $0.52 consensus (Beat by $0.01).",
+      "dedupe_key": "report:fhn-2026-q3",
+      "report_id": "fhn-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T11:34:37.947358+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "eps": {
+          "basis": "Adjusted EPS",
+          "reported": "$0.53",
+          "consensus": "$0.52",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FHN/opengraph-image",
+          "kind": "image",
+          "alt": "First Horizon Corporation (FHN) published Q3 2026 results on 2026-10-15. Adjusted EPS $0.53 vs $0.52 consensus (Beat by $0.01)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-USB-0b2261",
+      "type": "earnings_result",
+      "ticker": "USB",
+      "tickers": [
+        "USB"
+      ],
+      "name": "U.S. Bancorp",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/36104/000003610426000054/a3q26earningsrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/USB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-USB-0b2261#earnings-history",
+      "allowed_numbers": [
+        "$7.97B",
+        "$8.01B",
+        "−$36.9M",
+        "$1.34",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Bancorp (USB) published Q3 2026 results on 2026-10-15: Revenue in line. Revenue $7.97B vs $8.01B consensus (In line (−$36.9M)). GAAP EPS $1.34.",
+      "dedupe_key": "report:usb-2026-q3",
+      "report_id": "usb-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T11:02:51.974735+00:00",
+      "tile_label": "Revenue in line",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$7.97B",
+          "consensus": "$8.01B",
+          "label": "In line (−$36.9M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$1.34"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/USB/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Bancorp (USB) published Q3 2026 results on 2026-10-15: Revenue in line. Revenue $7.97B vs $8.01B consensus (In line (−$36.9M)). GAAP EPS $1.34."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-PNC-6c44f2",
+      "type": "earnings_result",
+      "ticker": "PNC",
+      "tickers": [
+        "PNC"
+      ],
+      "name": "The PNC Financial Services Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/713676/000162828026065936/q32026financialhighlightsa.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PNC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-PNC-6c44f2#earnings-history",
+      "allowed_numbers": [
+        "$6.56B",
+        "$6.59B",
+        "−$29.5M",
+        "$5.09",
+        "$4.89",
+        "$0.20",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The PNC Financial Services Group, Inc. (PNC) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $6.56B vs $6.59B consensus (In line (−$29.5M)). Diluted EPS - as adjusted (non-GAAP) $5.09 vs $4.89 consensus (Beat by $0.20).",
+      "dedupe_key": "report:pnc-2026-q3",
+      "report_id": "pnc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T10:48:41.464729+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$6.56B",
+          "consensus": "$6.59B",
+          "label": "In line (−$29.5M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "Diluted EPS - as adjusted (non-GAAP)",
+          "reported": "$5.09",
+          "consensus": "$4.89",
+          "label": "Beat by $0.20",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PNC/opengraph-image",
+          "kind": "image",
+          "alt": "The PNC Financial Services Group, Inc. (PNC) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $6.56B vs $6.59B consensus (In line (−$29.5M)). Diluted EPS - as adjusted (non-GAAP) $5.09 vs $4.89 consensus (Beat by $0.20)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-BNY-b982b0",
+      "type": "earnings_result",
+      "ticker": "BNY",
+      "tickers": [
+        "BNY"
+      ],
+      "name": "The Bank of New York Mellon Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-15",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1390777/000139077726000104/ex991_earningsreleasex3q26.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BNY?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-BNY-b982b0#earnings-history",
+      "allowed_numbers": [
+        "$5.68B",
+        "$5.56B",
+        "$115M",
+        "$2.37",
+        "$2.26",
+        "$0.11",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The Bank of New York Mellon Corporation (BNY) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $5.68B vs $5.56B consensus (Beat by $115M). Adjusted diluted earnings per common share $2.37 vs $2.26 consensus (Beat by $0.11).",
+      "dedupe_key": "report:bny-2026-q3",
+      "report_id": "bny-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-15",
+      "published_at": "2026-10-15T10:32:35.879510+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$5.68B",
+          "consensus": "$5.56B",
+          "label": "Beat by $115M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted diluted earnings per common share",
+          "reported": "$2.37",
+          "consensus": "$2.26",
+          "label": "Beat by $0.11",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BNY/opengraph-image",
+          "kind": "image",
+          "alt": "The Bank of New York Mellon Corporation (BNY) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $5.68B vs $5.56B consensus (Beat by $115M). Adjusted diluted earnings per common share $2.37 vs $2.26 consensus (Beat by $0.11)."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-congress-trade-NVDA-52b766",
+      "type": "congress_trade",
+      "ticker": "NVDA",
+      "tickers": [
+        "NVDA"
+      ],
+      "name": "Daniel Meuser",
+      "office": "U.S. Representative (R-PA)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-08-31"
+      ],
+      "filed": "2026-10-14",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035487.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/daniel-meuser?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-congress-trade-NVDA-52b766#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14",
+        "2026-08-31",
+        "Aug 31, 2026",
+        "Aug 31"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Daniel Meuser (R-PA) disclosed a sale of NVDA (NVIDIA Corporation), $1K–$15K, traded 2026-08-31; filed 2026-10-14 (owner: spouse).",
+      "dedupe_key": "ptr:20035487:NVDA:sell",
+      "company": "NVIDIA Corporation",
+      "side": "sell",
+      "owner": [
+        "spouse"
+      ],
+      "figure_slug": "daniel-meuser",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/daniel-meuser/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Daniel Meuser (R-PA) disclosed a sale of NVDA (NVIDIA Corporation), $1K–$15K, traded 2026-08-31; filed 2026-10-14 (owner: spouse)."
+        }
+      ],
+      "rank": 4.18,
+      "rank_why": "congress_trade 2; sale +0; top $15K +1.18; filed 2026-10-14 (age 2) +1"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-WTFC-3682ae",
+      "type": "earnings_upcoming",
+      "ticker": "WTFC",
+      "tickers": [
+        "WTFC"
+      ],
+      "name": "Wintrust Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WTFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-WTFC-3682ae#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Wintrust Financial Corporation (WTFC) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WTFC:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 9664499712.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WTFC/opengraph-image",
+          "kind": "image",
+          "alt": "Wintrust Financial Corporation (WTFC) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $9.66B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-ZION-f5bd41",
+      "type": "earnings_upcoming",
+      "ticker": "ZION",
+      "tickers": [
+        "ZION"
+      ],
+      "name": "Zions Bancorporation, National Association",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ZION?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-ZION-f5bd41#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Zions Bancorporation, National Association (ZION) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:ZION:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 9120625664.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ZION/opengraph-image",
+          "kind": "image",
+          "alt": "Zions Bancorporation, National Association (ZION) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $9.12B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-WAL-6779ef",
+      "type": "earnings_upcoming",
+      "ticker": "WAL",
+      "tickers": [
+        "WAL"
+      ],
+      "name": "Western Alliance Bancorporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WAL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-WAL-6779ef#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Western Alliance Bancorporation (WAL) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WAL:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 8102920704.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WAL/opengraph-image",
+          "kind": "image",
+          "alt": "Western Alliance Bancorporation (WAL) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $8.1B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-BOKF-895eff",
+      "type": "earnings_upcoming",
+      "ticker": "BOKF",
+      "tickers": [
+        "BOKF"
+      ],
+      "name": "BOK Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BOKF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-BOKF-895eff#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "BOK Financial Corporation (BOKF) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:BOKF:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 7814949888.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BOKF/opengraph-image",
+          "kind": "image",
+          "alt": "BOK Financial Corporation (BOKF) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $7.81B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-CLF-b7041d",
+      "type": "earnings_upcoming",
+      "ticker": "CLF",
+      "tickers": [
+        "CLF"
+      ],
+      "name": "Cleveland-Cliffs Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CLF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-CLF-b7041d#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Cleveland-Cliffs Inc. (CLF) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:CLF:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 7177393664.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CLF/opengraph-image",
+          "kind": "image",
+          "alt": "Cleveland-Cliffs Inc. (CLF) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $7.18B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-FNB-bf76f8",
+      "type": "earnings_upcoming",
+      "ticker": "FNB",
+      "tickers": [
+        "FNB"
+      ],
+      "name": "F.N.B. Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FNB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-FNB-bf76f8#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "F.N.B. Corporation (FNB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:FNB:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 5976306176.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FNB/opengraph-image",
+          "kind": "image",
+          "alt": "F.N.B. Corporation (FNB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $5.98B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-RLI-5b95bb",
+      "type": "earnings_upcoming",
+      "ticker": "RLI",
+      "tickers": [
+        "RLI"
+      ],
+      "name": "RLI Corp.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RLI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-RLI-5b95bb#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "RLI Corp. (RLI) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:RLI:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 5112673792.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/RLI/opengraph-image",
+          "kind": "image",
+          "alt": "RLI Corp. (RLI) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $5.11B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-SFBS-fd3914",
+      "type": "earnings_upcoming",
+      "ticker": "SFBS",
+      "tickers": [
+        "SFBS"
+      ],
+      "name": "ServisFirst Bancshares, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SFBS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-SFBS-fd3914#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "ServisFirst Bancshares, Inc. (SFBS) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:SFBS:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 4477678592.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SFBS/opengraph-image",
+          "kind": "image",
+          "alt": "ServisFirst Bancshares, Inc. (SFBS) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $4.48B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-DX-ed12fc",
+      "type": "earnings_upcoming",
+      "ticker": "DX",
+      "tickers": [
+        "DX"
+      ],
+      "name": "Dynex Capital, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-DX-ed12fc#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Dynex Capital, Inc. (DX) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:DX:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 2805851136.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/DX/opengraph-image",
+          "kind": "image",
+          "alt": "Dynex Capital, Inc. (DX) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $2.81B +1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-upcoming-WASH-1a5c4f",
+      "type": "earnings_upcoming",
+      "ticker": "WASH",
+      "tickers": [
+        "WASH"
+      ],
+      "name": "Washington Trust Bancorp, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WASH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-upcoming-WASH-1a5c4f#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Washington Trust Bancorp, Inc. (WASH) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WASH:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 707085056.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WASH/opengraph-image",
+          "kind": "image",
+          "alt": "Washington Trust Bancorp, Inc. (WASH) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 3.0,
+      "rank_why": "earnings_upcoming 1; today 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-chart-pattern-APLD-13ebb0",
+      "type": "chart_pattern",
+      "ticker": "APLD",
+      "tickers": [
+        "APLD"
+      ],
+      "name": "Applied Digital Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/APLD",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/APLD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-chart-pattern-APLD-13ebb0#pattern",
+      "allowed_numbers": [
+        "$23.68",
+        "$23.99",
+        "$33.04",
+        "$29.15",
+        "$29.10",
+        "$22.93",
+        "$23.83",
+        "$23.39",
+        "$20.32",
+        "Oct 9",
+        "Aug 12",
+        "Sep 8",
+        "Sep 22",
+        "Jul 29",
+        "Sep 2",
+        "Sep 15",
+        "Oct 14",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "2026-07-29",
+        "Jul 29, 2026",
+        "2026-09-22",
+        "Sep 22, 2026",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "2026-08-12",
+        "Aug 12, 2026",
+        "2026-09-02",
+        "Sep 2, 2026",
+        "2026-09-08",
+        "Sep 8, 2026",
+        "2026-09-15",
+        "Sep 15, 2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Automatic technical analysis flagged a descending triangle on $APLD (Applied Digital Corporation) (scan 2026-10-15): pattern 2026-07-29 to 2026-09-22. Confirmed Oct 9: closed $23.68, clearly below the lower line at $23.99.",
+      "dedupe_key": "pattern:APLD:descending_triangle:confirmed:2026-10-09",
+      "scan_date": "2026-10-15",
+      "pattern": {
+        "type": "descending_triangle",
+        "name": "Descending triangle",
+        "status": "confirmed",
+        "direction": "down",
+        "start": "2026-07-29",
+        "end": "2026-09-22",
+        "start_text": "Jul 29, 2026",
+        "end_text": "Sep 22, 2026",
+        "confirmed_on": "2026-10-09",
+        "as_of": "2026-10-14"
+      },
+      "levels": {
+        "key_level_name": "lower line",
+        "key_level": "$23.99",
+        "breakout_close": "$23.68"
+      },
+      "page_text": {
+        "pill": "Descending triangle · Confirmed Oct 9",
+        "chip": "Confirmed Oct 9",
+        "detail": "confirmed by the Oct 9 close of $23.68, clearly below the lower line",
+        "what": "Falling highs pressing down on a flat floor.",
+        "key": [
+          "Confirmed Oct 9: closed $23.68, clearly below the lower line at $23.99.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $23.99, where the lower line was on Oct 9."
+        ],
+        "points": [
+          "Highs $33.04 (Aug 12) → $29.15 (Sep 8) → $29.10 (Sep 22)",
+          "Lows $22.93 (Jul 29) → $23.83 (Sep 2) → $23.39 (Sep 15)",
+          "Oct 9 closed $23.68: confirmed · last close $20.32 (Oct 14)"
+        ]
+      },
+      "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/APLD/opengraph-image",
+          "kind": "image",
+          "alt": "Automatic technical analysis flagged a descending triangle on $APLD (Applied Digital Corporation) (scan 2026-10-15): pattern 2026-07-29 to 2026-09-22. Confirmed Oct 9: closed $23.68, clearly below the lower line at $23.99."
+        }
+      ],
+      "rank": 2.5,
+      "rank_why": "chart_pattern 1; scan_date 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-moves-like-RIG-98feb4",
+      "type": "moves_like",
+      "ticker": "RIG",
+      "tickers": [
+        "RIG",
+        "NE",
+        "BORR",
+        "PDS"
+      ],
+      "name": "Transocean Ltd.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/RIG",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RIG?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-moves-like-RIG-98feb4#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "84",
+        "73",
+        "68",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "−1.3%",
+        "1.3%",
+        "0.0%",
+        "−2.8%",
+        "2.8%",
+        "−1.8%",
+        "1.8%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 15, 2026, $RIG (Transocean Ltd.) moved most like $NE (Sync 84, Tight), $BORR (Sync 73, Close), $PDS (Sync 68, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:RIG:2026-10-15",
+      "session": "2026-10-15",
+      "valid_through": "2026-10-16",
+      "window_sessions": 60,
+      "subject_day_move": "−1.3%",
+      "peers": [
+        {
+          "ticker": "NE",
+          "name": "Noble Corporation plc",
+          "sync": 84,
+          "band": "Tight",
+          "sync_text": "Sync 84 · Tight",
+          "day_move": "0.0%"
+        },
+        {
+          "ticker": "BORR",
+          "name": "Borr Drilling Limited",
+          "sync": 73,
+          "band": "Close",
+          "sync_text": "Sync 73 · Close",
+          "day_move": "−2.8%"
+        },
+        {
+          "ticker": "PDS",
+          "name": "Precision Drilling Corporation",
+          "sync": 68,
+          "band": "Close",
+          "sync_text": "Sync 68 · Close",
+          "day_move": "−1.8%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/RIG/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 15, 2026, $RIG (Transocean Ltd.) moved most like $NE (Sync 84, Tight), $BORR (Sync 73, Close), $PDS (Sync 68, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-moves-like-FITB-cd89b8",
+      "type": "moves_like",
+      "ticker": "FITB",
+      "tickers": [
+        "FITB",
+        "CFG",
+        "USB",
+        "RF"
+      ],
+      "name": "Fifth Third Bancorp",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/FITB",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FITB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-moves-like-FITB-cd89b8#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "92",
+        "89",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "+1.4%",
+        "1.4%",
+        "+2.0%",
+        "2.0%",
+        "+1.6%",
+        "1.6%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 15, 2026, $FITB (Fifth Third Bancorp) moved most like $CFG (Sync 92, Tight), $USB (Sync 92, Tight), $RF (Sync 89, Tight). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:FITB:2026-10-15",
+      "session": "2026-10-15",
+      "valid_through": "2026-10-16",
+      "window_sessions": 60,
+      "subject_day_move": "+1.4%",
+      "peers": [
+        {
+          "ticker": "CFG",
+          "name": "Citizens Financial Group, Inc.",
+          "sync": 92,
+          "band": "Tight",
+          "sync_text": "Sync 92 · Tight",
+          "day_move": "+1.4%"
+        },
+        {
+          "ticker": "USB",
+          "name": "U.S. Bancorp",
+          "sync": 92,
+          "band": "Tight",
+          "sync_text": "Sync 92 · Tight",
+          "day_move": "+2.0%"
+        },
+        {
+          "ticker": "RF",
+          "name": "Regions Financial Corporation",
+          "sync": 89,
+          "band": "Tight",
+          "sync_text": "Sync 89 · Tight",
+          "day_move": "+1.6%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FITB/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 15, 2026, $FITB (Fifth Third Bancorp) moved most like $CFG (Sync 92, Tight), $USB (Sync 92, Tight), $RF (Sync 89, Tight). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-15 (age 1) +1.5"
+    },
+    {
+      "item_id": "2026-10-16-moves-like-APLD-94f48b",
+      "type": "moves_like",
+      "ticker": "APLD",
+      "tickers": [
+        "APLD",
+        "WULF",
+        "CORZ",
+        "IREN"
+      ],
+      "name": "Applied Digital Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/APLD",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/APLD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-moves-like-APLD-94f48b#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "89",
+        "86",
+        "85",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "+0.3%",
+        "0.3%",
+        "+9.4%",
+        "9.4%",
+        "+7.0%",
+        "7.0%",
+        "−0.6%",
+        "0.6%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 15, 2026, $APLD (Applied Digital Corporation) moved most like $WULF (Sync 89, Tight), $CORZ (Sync 86, Tight), $IREN (Sync 85, Tight). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:APLD:2026-10-15",
+      "session": "2026-10-15",
+      "valid_through": "2026-10-16",
+      "window_sessions": 60,
+      "subject_day_move": "+0.3%",
+      "peers": [
+        {
+          "ticker": "WULF",
+          "name": "TeraWulf Inc.",
+          "sync": 89,
+          "band": "Tight",
+          "sync_text": "Sync 89 · Tight",
+          "day_move": "+9.4%"
+        },
+        {
+          "ticker": "CORZ",
+          "name": "Core Scientific, Inc.",
+          "sync": 86,
+          "band": "Tight",
+          "sync_text": "Sync 86 · Tight",
+          "day_move": "+7.0%"
+        },
+        {
+          "ticker": "IREN",
+          "name": "IREN Limited",
+          "sync": 85,
+          "band": "Tight",
+          "sync_text": "Sync 85 · Tight",
+          "day_move": "−0.6%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/APLD/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 15, 2026, $APLD (Applied Digital Corporation) moved most like $WULF (Sync 89, Tight), $CORZ (Sync 86, Tight), $IREN (Sync 85, Tight). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 2.0,
+      "rank_why": "moves_like 0.5; session 2026-10-15 (age 1) +1.5"
+    }
+  ]
+}
