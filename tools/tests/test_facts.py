@@ -838,3 +838,12 @@ def test_unverified_revenue_hold_is_tighter_than_eps():
     assert fx.sanity_mismatch({"revenue": dict(tfc["revenue"], reported=4.5e9)}) == []        # -16%: published
     assert fx.sanity_mismatch({"eps_adjusted": {"reported": 1.4, "consensus": 2.0}}) == []      # EPS -30%: published
 
+
+
+def test_eps_basis_loses_its_footnote_marker():
+    at = dt.datetime(2026, 10, 15, 12, 0, tzinfo=dt.timezone.utc)
+    rf = {"eps_adjusted": {"reported": 0.73, "consensus": 0.66, "label": "Beat by $0.07", "verdict": "beat",
+                           "basis_label": "Adj. diluted earnings per common share(1)"}}
+    it = fx.result_items(_OneReportApi(rf), dt.date(2026, 10, 15), at)[0][0]
+    assert it["results"]["eps"]["basis"] == "Adj. diluted earnings per common share"
+    assert "(1)" not in it["facts_text"]
