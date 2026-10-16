@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-16",
-  "generated_at": "2026-10-16T12:00:04Z",
-  "as_of": "2026-10-16T12:00:04Z",
+  "generated_at": "2026-10-16T12:30:04Z",
+  "as_of": "2026-10-16T12:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 7,
     "form4_buy": 4,
-    "earnings_result": 21,
+    "earnings_result": 19,
     "earnings_upcoming": 14,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -111,21 +111,21 @@
     "earnings_result": {
       "archive_reports": 1466,
       "recent_ready": 50,
-      "outside_24h": 26,
+      "outside_24h": 29,
       "unreadable": 0,
-      "consensus_mismatch_hold": 3,
+      "not_compared": 2,
+      "not_compared_metrics": [
+        "TFC: revenue (basis_mismatch)",
+        "SNES: revenue (basis_mismatch)"
+      ],
+      "consensus_mismatch_hold": 2,
       "held": [
-        "TFC: held by hand (HQ 2026-10-16: GAAP total revenue after a $1.45B securities loss vs the adjusted consensus (false miss); 15% guard deploying)",
         "TRV: held by hand (HQ 2026-10-16: revenue $12.41B vs $11.02B likely total revenues vs a narrower consensus basis; under check)",
         "SNES: revenue (basis_mismatch) and nothing else compared (report data to check)"
-      ],
-      "not_compared": 1,
-      "not_compared_metrics": [
-        "SNES: revenue (basis_mismatch)"
       ]
     },
     "earnings_upcoming": {
-      "listed": 44,
+      "listed": 43,
       "confirmed_in_universe": 14
     },
     "earnings_tomorrow_roundup": {
@@ -137,7 +137,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 41,
+      "tickers_in_items": 40,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -158,7 +158,7 @@
     "FITB": "item",
     "APLD": "item"
   },
-  "api_requests": 41,
+  "api_requests": 40,
   "items": [
     {
       "item_id": "2026-10-16-form4-buy-GME-cac4e5",
@@ -736,6 +736,61 @@
           "url": "https://www.rapidtradeview.trade/dashboard/CFG/opengraph-image",
           "kind": "image",
           "alt": "Citizens Financial Group, Inc. (CFG) published Q3 2026 results on 2026-10-16: Revenue miss. Revenue $2.32B vs $2.34B consensus (Missed by $17.2M). GAAP EPS $1.41."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-TFC-575725",
+      "type": "earnings_result",
+      "ticker": "TFC",
+      "tickers": [
+        "TFC"
+      ],
+      "name": "Truist Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000108/ex991-3q26.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-TFC-575725#earnings-history",
+      "allowed_numbers": [
+        "$1.16",
+        "$1.21",
+        "$0.05",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Truist Financial Corporation (TFC) published Q3 2026 results on 2026-10-16. adjusted diluted EPS $1.16 vs $1.21 consensus (Missed by $0.05).",
+      "dedupe_key": "report:tfc-2026-q3",
+      "report_id": "tfc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-16",
+      "published_at": "2026-10-16T10:36:42.994272+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "eps": {
+          "basis": "adjusted diluted EPS",
+          "reported": "$1.16",
+          "consensus": "$1.21",
+          "label": "Missed by $0.05",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TFC/opengraph-image",
+          "kind": "image",
+          "alt": "Truist Financial Corporation (TFC) published Q3 2026 results on 2026-10-16. adjusted diluted EPS $1.16 vs $1.21 consensus (Missed by $0.05)."
         }
       ],
       "rank": 5.0,
@@ -2007,179 +2062,6 @@
           "url": "https://www.rapidtradeview.trade/dashboard/VELO/opengraph-image",
           "kind": "image",
           "alt": "Velo3D, Inc. (VELO) published Q3 2026 results on 2026-10-15: Published."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-MRSH-6d706f",
-      "type": "earnings_result",
-      "ticker": "MRSH",
-      "tickers": [
-        "MRSH"
-      ],
-      "name": "Marsh & McLennan Companies, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-15",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/62709/000006270926000256/mmc3q2026ex991newsrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/MRSH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-MRSH-6d706f#earnings-history",
-      "allowed_numbers": [
-        "$6.9B",
-        "$6.64B",
-        "$258M",
-        "$2.03",
-        "$1.97",
-        "$0.06",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Marsh & McLennan Companies, Inc. (MRSH) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $6.9B vs $6.64B consensus (Beat by $258M). Adjusted EPS $2.03 vs $1.97 consensus (Beat by $0.06).",
-      "dedupe_key": "report:mrsh-2026-q3",
-      "report_id": "mrsh-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-15",
-      "published_at": "2026-10-15T12:06:39.585431+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$6.9B",
-          "consensus": "$6.64B",
-          "label": "Beat by $258M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Adjusted EPS",
-          "reported": "$2.03",
-          "consensus": "$1.97",
-          "label": "Beat by $0.06",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/MRSH/opengraph-image",
-          "kind": "image",
-          "alt": "Marsh & McLennan Companies, Inc. (MRSH) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $6.9B vs $6.64B consensus (Beat by $258M). Adjusted EPS $2.03 vs $1.97 consensus (Beat by $0.06)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-FMC-be5d28",
-      "type": "earnings_result",
-      "ticker": "FMC",
-      "tickers": [
-        "FMC"
-      ],
-      "name": "FMC Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-15",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/37785/000003778526000149/ex99110152026.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/FMC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-FMC-be5d28#earnings-history",
-      "allowed_numbers": [
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "FMC Corporation (FMC) published Q3 2026 results on 2026-10-15: Published.",
-      "dedupe_key": "report:fmc-2026-q3",
-      "report_id": "fmc-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-15",
-      "published_at": "2026-10-15T12:06:38.350605+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {},
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/FMC/opengraph-image",
-          "kind": "image",
-          "alt": "FMC Corporation (FMC) published Q3 2026 results on 2026-10-15: Published."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-CMC-62bbb1",
-      "type": "earnings_result",
-      "ticker": "CMC",
-      "tickers": [
-        "CMC"
-      ],
-      "name": "Commercial Metals Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-15",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/22444/000002244426000053/cmc-8312026xearningsreleas.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CMC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-CMC-62bbb1#earnings-history",
-      "allowed_numbers": [
-        "$2.66B",
-        "$2.56B",
-        "$94.1M",
-        "$2.09",
-        "$1.96",
-        "$0.13",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Commercial Metals Company (CMC) published FY2026 (Q4) results on 2026-10-15: Beat estimates. Revenue $2.66B vs $2.56B consensus (Beat by $94.1M). Adjusted earnings per diluted share $2.09 vs $1.96 consensus (Beat by $0.13).",
-      "dedupe_key": "report:cmc-2026-q4",
-      "report_id": "cmc-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-10-15",
-      "published_at": "2026-10-15T12:04:36.207373+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$2.66B",
-          "consensus": "$2.56B",
-          "label": "Beat by $94.1M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Adjusted earnings per diluted share",
-          "reported": "$2.09",
-          "consensus": "$1.96",
-          "label": "Beat by $0.13",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CMC/opengraph-image",
-          "kind": "image",
-          "alt": "Commercial Metals Company (CMC) published FY2026 (Q4) results on 2026-10-15: Beat estimates. Revenue $2.66B vs $2.56B consensus (Beat by $94.1M). Adjusted earnings per diluted share $2.09 vs $1.96 consensus (Beat by $0.13)."
         }
       ],
       "rank": 4.5,
