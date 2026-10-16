@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-16",
-  "generated_at": "2026-10-16T11:30:04Z",
-  "as_of": "2026-10-16T11:30:04Z",
+  "generated_at": "2026-10-16T12:00:04Z",
+  "as_of": "2026-10-16T12:00:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 7,
     "form4_buy": 4,
-    "earnings_result": 24,
+    "earnings_result": 21,
     "earnings_upcoming": 14,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -111,16 +111,16 @@
     "earnings_result": {
       "archive_reports": 1466,
       "recent_ready": 50,
-      "outside_24h": 24,
+      "outside_24h": 26,
       "unreadable": 0,
-      "consensus_mismatch_hold": 2,
+      "consensus_mismatch_hold": 3,
       "held": [
-        "TFC: revenue reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
+        "TFC: held by hand (HQ 2026-10-16: GAAP total revenue after a $1.45B securities loss vs the adjusted consensus (false miss); 15% guard deploying)",
+        "TRV: held by hand (HQ 2026-10-16: revenue $12.41B vs $11.02B likely total revenues vs a narrower consensus basis; under check)",
         "SNES: revenue (basis_mismatch) and nothing else compared (report data to check)"
       ],
-      "not_compared": 2,
+      "not_compared": 1,
       "not_compared_metrics": [
-        "FHN: revenue (unverified)",
         "SNES: revenue (basis_mismatch)"
       ]
     },
@@ -137,7 +137,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 44,
+      "tickers_in_items": 41,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -158,7 +158,7 @@
     "FITB": "item",
     "APLD": "item"
   },
-  "api_requests": 42,
+  "api_requests": 41,
   "items": [
     {
       "item_id": "2026-10-16-form4-buy-GME-cac4e5",
@@ -683,70 +683,6 @@
       "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 4) +0"
     },
     {
-      "item_id": "2026-10-16-earnings-result-TRV-4e88e1",
-      "type": "earnings_result",
-      "ticker": "TRV",
-      "tickers": [
-        "TRV"
-      ],
-      "name": "The Travelers Companies, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/86312/000008631226000180/a991pressrelease93026.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/TRV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-TRV-4e88e1#earnings-history",
-      "allowed_numbers": [
-        "$12.41B",
-        "$11.02B",
-        "$1.39B",
-        "$9.18",
-        "$7.43",
-        "$1.75",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The Travelers Companies, Inc. (TRV) published Q3 2026 results on 2026-10-16: Beat estimates. Revenue $12.41B vs $11.02B consensus (Beat by $1.39B). Core income per diluted share $9.18 vs $7.43 consensus (Beat by $1.75).",
-      "dedupe_key": "report:trv-2026-q3",
-      "report_id": "trv-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-16",
-      "published_at": "2026-10-16T11:00:33.812874+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$12.41B",
-          "consensus": "$11.02B",
-          "label": "Beat by $1.39B",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Core income per diluted share",
-          "reported": "$9.18",
-          "consensus": "$7.43",
-          "label": "Beat by $1.75",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/TRV/opengraph-image",
-          "kind": "image",
-          "alt": "The Travelers Companies, Inc. (TRV) published Q3 2026 results on 2026-10-16: Beat estimates. Revenue $12.41B vs $11.02B consensus (Beat by $1.39B). Core income per diluted share $9.18 vs $7.43 consensus (Beat by $1.75)."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
-    },
-    {
       "item_id": "2026-10-16-earnings-result-CFG-b113b0",
       "type": "earnings_result",
       "ticker": "CFG",
@@ -836,7 +772,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Regions Financial Corporation (RF) published Q3 2026 results on 2026-10-16: Mixed vs estimates. Revenue $1.97B vs $2.0B consensus (Missed by $24.1M). Adj. diluted earnings per common share(1) $0.73 vs $0.66 consensus (Beat by $0.07).",
+      "facts_text": "Regions Financial Corporation (RF) published Q3 2026 results on 2026-10-16: Mixed vs estimates. Revenue $1.97B vs $2.0B consensus (Missed by $24.1M). Adj. diluted earnings per common share $0.73 vs $0.66 consensus (Beat by $0.07).",
       "dedupe_key": "report:rf-2026-q3",
       "report_id": "rf-2026-q3",
       "fiscal_label": "Q3 2026",
@@ -852,7 +788,7 @@
           "verdict": "miss"
         },
         "eps": {
-          "basis": "Adj. diluted earnings per common share(1)",
+          "basis": "Adj. diluted earnings per common share",
           "reported": "$0.73",
           "consensus": "$0.66",
           "label": "Beat by $0.07",
@@ -863,7 +799,7 @@
         {
           "url": "https://www.rapidtradeview.trade/dashboard/RF/opengraph-image",
           "kind": "image",
-          "alt": "Regions Financial Corporation (RF) published Q3 2026 results on 2026-10-16: Mixed vs estimates. Revenue $1.97B vs $2.0B consensus (Missed by $24.1M). Adj. diluted earnings per common share(1) $0.73 vs $0.66 consensus (Beat by $0.07)."
+          "alt": "Regions Financial Corporation (RF) published Q3 2026 results on 2026-10-16: Mixed vs estimates. Revenue $1.97B vs $2.0B consensus (Missed by $24.1M). Adj. diluted earnings per common share $0.73 vs $0.66 consensus (Beat by $0.07)."
         }
       ],
       "rank": 5.0,
@@ -2244,123 +2180,6 @@
           "url": "https://www.rapidtradeview.trade/dashboard/CMC/opengraph-image",
           "kind": "image",
           "alt": "Commercial Metals Company (CMC) published FY2026 (Q4) results on 2026-10-15: Beat estimates. Revenue $2.66B vs $2.56B consensus (Beat by $94.1M). Adjusted earnings per diluted share $2.09 vs $1.96 consensus (Beat by $0.13)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-MAN-bdebe0",
-      "type": "earnings_result",
-      "ticker": "MAN",
-      "tickers": [
-        "MAN"
-      ],
-      "name": "ManpowerGroup Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-15",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/871763/000119312526422291/man-ex99_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/MAN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-MAN-bdebe0#earnings-history",
-      "allowed_numbers": [
-        "$4.84B",
-        "$4.85B",
-        "−$13.9M",
-        "$1.01",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "ManpowerGroup Inc. (MAN) published Q3 2026 results on 2026-10-15: In line. Revenue $4.84B vs $4.85B consensus (In line (−$13.9M)). earnings per share $1.01 vs $1.01 consensus (In line).",
-      "dedupe_key": "report:man-2026-q3",
-      "report_id": "man-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-15",
-      "published_at": "2026-10-15T11:44:34.614488+00:00",
-      "tile_label": "In line",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$4.84B",
-          "consensus": "$4.85B",
-          "label": "In line (−$13.9M)",
-          "verdict": "in_line"
-        },
-        "eps": {
-          "basis": "earnings per share",
-          "reported": "$1.01",
-          "consensus": "$1.01",
-          "label": "In line",
-          "verdict": "in_line"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/MAN/opengraph-image",
-          "kind": "image",
-          "alt": "ManpowerGroup Inc. (MAN) published Q3 2026 results on 2026-10-15: In line. Revenue $4.84B vs $4.85B consensus (In line (−$13.9M)). earnings per share $1.01 vs $1.01 consensus (In line)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-FHN-6b3023",
-      "type": "earnings_result",
-      "ticker": "FHN",
-      "tickers": [
-        "FHN"
-      ],
-      "name": "First Horizon Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-15",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000178/a3q26earningsslides-fina.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/FHN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-FHN-6b3023#earnings-history",
-      "allowed_numbers": [
-        "$0.53",
-        "$0.52",
-        "$0.01",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "First Horizon Corporation (FHN) published Q3 2026 results on 2026-10-15. Adjusted EPS $0.53 vs $0.52 consensus (Beat by $0.01).",
-      "dedupe_key": "report:fhn-2026-q3",
-      "report_id": "fhn-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-15",
-      "published_at": "2026-10-15T11:34:37.947358+00:00",
-      "tile_label": null,
-      "tile_state": null,
-      "results": {
-        "eps": {
-          "basis": "Adjusted EPS",
-          "reported": "$0.53",
-          "consensus": "$0.52",
-          "label": "Beat by $0.01",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/FHN/opengraph-image",
-          "kind": "image",
-          "alt": "First Horizon Corporation (FHN) published Q3 2026 results on 2026-10-15. Adjusted EPS $0.53 vs $0.52 consensus (Beat by $0.01)."
         }
       ],
       "rank": 4.5,
