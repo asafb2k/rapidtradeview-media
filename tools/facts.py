@@ -652,7 +652,8 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
         # not compare (period, basis, SEC check) leaves the GAAP figure of the same release just as doubtful.
         adj = res.get("eps_adjusted")
         if isinstance(adj, dict) and any(adj.get(k) is not None for k in ("reported", "label", "verdict")):
-            eps, basis = comparable(adj), adj.get("basis_label") or "Adjusted EPS"
+            # the release's own wording minus a trailing footnote marker ("...per common share(1)")
+            eps, basis = comparable(adj), re.sub(r"\s*\(\d{1,2}\)\s*$", "", adj.get("basis_label") or "") or "Adjusted EPS"
         else:
             eps, basis = comparable(res.get("eps_gaap")), "GAAP EPS"
         if any(eps.get(k) is not None for k in ("reported", "label", "verdict")):
