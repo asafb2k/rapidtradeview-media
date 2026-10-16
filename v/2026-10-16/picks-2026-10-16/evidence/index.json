@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-16",
+ "media_date": "2026-10-16",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-16/picks-2026-10-16/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-16",
+   "fetched_at_utc": "2026-10-16T17:45:37.560853+00:00",
+   "status": 200,
+   "sha256": "07af9cc93645aa3c7bfaab6f6b64ae9fc34408e8c4a1da521f591fbe1f677eb0",
+   "bytes": 5986
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-16/picks-2026-10-16/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-16T17:45:37.967337+00:00",
+   "status": 200,
+   "sha256": "de1eb44ab64936e72c5ab6726f9bd2f148404365ebd339efd0c1fb8d80969186",
+   "bytes": 9983
+  },
+  {
+   "name": "search-DRS.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-16/picks-2026-10-16/evidence/search-DRS.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=DRS",
+   "fetched_at_utc": "2026-10-16T17:45:38.569312+00:00",
+   "status": 200,
+   "sha256": "39f41d7996a0a25b292aa42066e283c42467c6541154c3ff683d81ca8056f6f1",
+   "bytes": 526
+  },
+  {
+   "name": "search-DAR.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-16/picks-2026-10-16/evidence/search-DAR.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=DAR",
+   "fetched_at_utc": "2026-10-16T17:45:39.005579+00:00",
+   "status": 200,
+   "sha256": "a2b298086db04422a74791df34005becb11d344654366a1da1db37d1b526008a",
+   "bytes": 480
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
