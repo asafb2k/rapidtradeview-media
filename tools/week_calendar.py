@@ -96,8 +96,7 @@ LEGAL = (", National Association", ", Incorporated", " Incorporated", ", Inc.", 
          " Corp.", " Corp", ", Ltd.", " Ltd.", " Ltd", " Limited", " Company", " Co.", " plc", " PLC", " N.V.", " S.A.",
          " L.P.", " LP", " SE", " AG")
 SHORT_NAMES = {"Meta Platforms": "Meta", "Philip Morris International": "Philip Morris",
-               "Thermo Fisher Scientific": "Thermo Fisher", "International Business Machines": "IBM",
-               "W. R. Berkley": "W. R. Berkley"}
+               "Thermo Fisher Scientific": "Thermo Fisher", "International Business Machines": "IBM"}
 
 
 class QAError(Exception):
@@ -212,7 +211,7 @@ def background(cv: Canvas) -> None:
         t = np.sqrt(((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2)
         a = (alpha * np.clip(1.0 - t / 0.65, 0.0, 1.0))[..., None]
         rgb = rgb * (1 - a) + np.array(color, dtype=np.float32) * a
-    cv.img = Image.fromarray(np.round(rgb).astype(np.uint8), "RGB")
+    cv.img = Image.fromarray(np.round(rgb).astype(np.uint8))   # H x W x 3 uint8: RGB
     cv.draw = cv.ImageDraw.Draw(cv.img, "RGBA")
     for x in range(0, W, 40):
         cv.draw.rectangle([px(x), 0, px(x) + SS - 1, h], fill=GRID)
@@ -510,11 +509,12 @@ def attach(facts_file: Path, state: dict) -> str:
     return f"{state['item_id']} is in the facts with {state['url']}"
 
 
-def strip(facts_file: Path, why: str) -> bool:
-    """Take the item out of the facts file (True when there was one)."""
+def strip(facts_file: Path, why: str, only_if_present: bool = False) -> bool:
+    """Take the item out of the facts file with `why` as its reason (True when there was one). only_if_present: a file
+    without the item is left untouched (the crash guard)."""
     facts = load(facts_file)
     had = any(isinstance(i, dict) and i.get("type") == KIND for i in facts.get("items") or [])
-    if had or (facts.get("reasons") or {}).get(KIND) != why:
+    if had or (not only_if_present and (facts.get("reasons") or {}).get(KIND) != why):
         set_item(facts, None, why)
         write_facts(facts_file, facts)
     return had
@@ -680,7 +680,7 @@ def main(argv: list[str] | None = None) -> int:
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", a.date):
         ap.error("--date must be YYYY-MM-DD")
     if a.cmd == "strip":
-        had = strip(Path(a.facts), "calendar image failed: the renderer did not finish (no item without its image)")
+        had = strip(Path(a.facts), "calendar image failed: the renderer did not finish (no item without its image)", True)
         print(f"week calendar: {'took the item out of' if had else 'no item in'} {a.facts}")
         return 0
     if a.cmd == "live":
@@ -690,7 +690,7 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as e:  # noqa: BLE001 - whatever broke, the item never goes out without its image
         print(f"week calendar: prepare crashed ({type(e).__name__}: {str(e)[:200]}); taking the item out")
         try:
-            strip(Path(a.facts), f"calendar image failed: the runner crashed ({type(e).__name__})")
+            strip(Path(a.facts), f"calendar image failed: the runner crashed ({type(e).__name__})", True)
         except Exception as e2:  # noqa: BLE001
             print(f"week calendar: could not take the item out ({type(e2).__name__})")
             return 1

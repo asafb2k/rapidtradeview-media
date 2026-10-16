@@ -304,6 +304,9 @@ def test_a_crash_takes_the_item_out(env, monkeypatch):
     assert calendar_items(doc) == [] and doc["reasons"]["earnings_week_calendar"].startswith("calendar image failed")
     env.write(facts_doc())
     assert wc.main(["strip", "--date", FRI, "--facts", str(env.facts)]) == 0 and calendar_items(env.read()) == []
+    env.write(facts_doc(None))                                          # nothing to take out: the file is left alone
+    before = env.facts.read_bytes()
+    assert wc.main(["strip", "--date", FRI, "--facts", str(env.facts)]) == 0 and env.facts.read_bytes() == before
 
 
 
