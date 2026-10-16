@@ -146,10 +146,13 @@ def comparable(m) -> dict:
 
 def sanity_mismatch(res: dict) -> list[str]:
     """The comparable metrics of a report's results whose reported value is more than SANITY_MAX_REL away from
-    consensus (a metric the report data already marks not_compared is left out, not held)."""
+    consensus (a metric the report data already marks not_compared is left out, not held; a `verified` figure, backed
+    by the provider's own actual, is a real surprise and never held)."""
     out = []
     for key, min_base in (("revenue", 0.0), ("eps_adjusted", SANITY_EPS_MIN_BASE), ("eps_gaap", SANITY_EPS_MIN_BASE)):
         m = comparable(res.get(key))
+        if m.get("verification") == "verified":  # the provider's own actual backs the figure (NRIX $673M, HQ 10-16)
+            continue
         rep, con = m.get("reported"), m.get("consensus")
         if not (isinstance(rep, (int, float)) and isinstance(con, (int, float))) or con == 0 or abs(con) < min_base:
             continue
