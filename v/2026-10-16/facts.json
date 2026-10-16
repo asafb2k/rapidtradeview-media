@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-16",
-  "generated_at": "2026-10-16T09:00:02Z",
-  "as_of": "2026-10-16T09:00:02Z",
+  "generated_at": "2026-10-16T11:00:04Z",
+  "as_of": "2026-10-16T11:00:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -55,7 +55,7 @@
   "counts": {
     "congress_trade": 5,
     "form4_buy": 7,
-    "earnings_result": 21,
+    "earnings_result": 23,
     "earnings_upcoming": 14,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -108,9 +108,9 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1458,
-      "recent_ready": 46,
-      "outside_24h": 22,
+      "archive_reports": 1462,
+      "recent_ready": 50,
+      "outside_24h": 24,
       "unreadable": 0,
       "not_compared": 4,
       "not_compared_metrics": [
@@ -139,13 +139,13 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 47,
-      "carried_over": 0,
-      "requested": 5,
+      "tickers_in_items": 44,
+      "carried_over": 5,
+      "requested": 0,
       "not_covered": 0,
       "disabled": 0,
-      "no_peer": 1,
-      "below_floor": 1,
+      "no_peer": 0,
+      "below_floor": 0,
       "stale": 0,
       "unavailable": 0,
       "unreadable": 0
@@ -160,7 +160,7 @@
     "FITB": "item",
     "APLD": "item"
   },
-  "api_requests": 53,
+  "api_requests": 50,
   "items": [
     {
       "item_id": "2026-10-16-form4-buy-GME-cac4e5",
@@ -781,6 +781,248 @@
       ],
       "rank": 5.18,
       "rank_why": "congress_trade 2; buy +2; top $15K +1.18; filed 2026-10-12 (age 4) +0"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-CFG-b113b0",
+      "type": "earnings_result",
+      "ticker": "CFG",
+      "tickers": [
+        "CFG"
+      ],
+      "name": "Citizens Financial Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/759944/000075994426000206/a3q26earningsrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CFG?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-CFG-b113b0#earnings-history",
+      "allowed_numbers": [
+        "$2.32B",
+        "$2.34B",
+        "$17.2M",
+        "$1.41",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Citizens Financial Group, Inc. (CFG) published Q3 2026 results on 2026-10-16: Revenue miss. Revenue $2.32B vs $2.34B consensus (Missed by $17.2M). GAAP EPS $1.41.",
+      "dedupe_key": "report:cfg-2026-q3",
+      "report_id": "cfg-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-16",
+      "published_at": "2026-10-16T10:38:21.846349+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$2.32B",
+          "consensus": "$2.34B",
+          "label": "Missed by $17.2M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$1.41"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CFG/opengraph-image",
+          "kind": "image",
+          "alt": "Citizens Financial Group, Inc. (CFG) published Q3 2026 results on 2026-10-16: Revenue miss. Revenue $2.32B vs $2.34B consensus (Missed by $17.2M). GAAP EPS $1.41."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-TFC-575725",
+      "type": "earnings_result",
+      "ticker": "TFC",
+      "tickers": [
+        "TFC"
+      ],
+      "name": "Truist Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000108/ex991-3q26.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-TFC-575725#earnings-history",
+      "allowed_numbers": [
+        "$3.75B",
+        "$5.36B",
+        "$1.61B",
+        "$1.16",
+        "$1.21",
+        "$0.05",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Truist Financial Corporation (TFC) published Q3 2026 results on 2026-10-16: Missed estimates. Revenue $3.75B vs $5.36B consensus (Missed by $1.61B). adjusted diluted EPS $1.16 vs $1.21 consensus (Missed by $0.05).",
+      "dedupe_key": "report:tfc-2026-q3",
+      "report_id": "tfc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-16",
+      "published_at": "2026-10-16T10:36:42.994272+00:00",
+      "tile_label": "Missed estimates",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$3.75B",
+          "consensus": "$5.36B",
+          "label": "Missed by $1.61B",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "adjusted diluted EPS",
+          "reported": "$1.16",
+          "consensus": "$1.21",
+          "label": "Missed by $0.05",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TFC/opengraph-image",
+          "kind": "image",
+          "alt": "Truist Financial Corporation (TFC) published Q3 2026 results on 2026-10-16: Missed estimates. Revenue $3.75B vs $5.36B consensus (Missed by $1.61B). adjusted diluted EPS $1.16 vs $1.21 consensus (Missed by $0.05)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-RF-02207c",
+      "type": "earnings_result",
+      "ticker": "RF",
+      "tickers": [
+        "RF"
+      ],
+      "name": "Regions Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000063/rf-2026930xexhibit991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-RF-02207c#earnings-history",
+      "allowed_numbers": [
+        "$1.97B",
+        "$2.0B",
+        "$24.1M",
+        "$0.73",
+        "$0.66",
+        "$0.07",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Regions Financial Corporation (RF) published Q3 2026 results on 2026-10-16: Mixed vs estimates. Revenue $1.97B vs $2.0B consensus (Missed by $24.1M). Adj. diluted earnings per common share(1) $0.73 vs $0.66 consensus (Beat by $0.07).",
+      "dedupe_key": "report:rf-2026-q3",
+      "report_id": "rf-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-16",
+      "published_at": "2026-10-16T10:06:22.076866+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$1.97B",
+          "consensus": "$2.0B",
+          "label": "Missed by $24.1M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adj. diluted earnings per common share(1)",
+          "reported": "$0.73",
+          "consensus": "$0.66",
+          "label": "Beat by $0.07",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/RF/opengraph-image",
+          "kind": "image",
+          "alt": "Regions Financial Corporation (RF) published Q3 2026 results on 2026-10-16: Mixed vs estimates. Revenue $1.97B vs $2.0B consensus (Missed by $24.1M). Adj. diluted earnings per common share(1) $0.73 vs $0.66 consensus (Beat by $0.07)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
+    },
+    {
+      "item_id": "2026-10-16-earnings-result-MTB-28dc5d",
+      "type": "earnings_result",
+      "ticker": "MTB",
+      "tickers": [
+        "MTB"
+      ],
+      "name": "M&T Bank Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000057/ex991release3q26.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MTB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-MTB-28dc5d#earnings-history",
+      "allowed_numbers": [
+        "$5.08",
+        "$4.93",
+        "$0.15",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "M&T Bank Corporation (MTB) published Q3 2026 results on 2026-10-16: EPS beat. Diluted net operating earnings per common share $5.08 vs $4.93 consensus (Beat by $0.15).",
+      "dedupe_key": "report:mtb-2026-q3",
+      "report_id": "mtb-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-16",
+      "published_at": "2026-10-16T10:06:20.881759+00:00",
+      "tile_label": "EPS beat",
+      "tile_state": "beat",
+      "results": {
+        "eps": {
+          "basis": "Diluted net operating earnings per common share",
+          "reported": "$5.08",
+          "consensus": "$4.93",
+          "label": "Beat by $0.15",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MTB/opengraph-image",
+          "kind": "image",
+          "alt": "M&T Bank Corporation (MTB) published Q3 2026 results on 2026-10-16: EPS beat. Diluted net operating earnings per common share $5.08 vs $4.93 consensus (Beat by $0.15)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; release_date 2026-10-16 (age 0) +2"
     },
     {
       "item_id": "2026-10-16-earnings-upcoming-FITB-44c0c0",
@@ -2116,134 +2358,6 @@
           "url": "https://www.rapidtradeview.trade/dashboard/USB/opengraph-image",
           "kind": "image",
           "alt": "U.S. Bancorp (USB) published Q3 2026 results on 2026-10-15: Revenue in line. Revenue $7.97B vs $8.01B consensus (In line (−$36.9M)). GAAP EPS $1.34."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-PNC-6c44f2",
-      "type": "earnings_result",
-      "ticker": "PNC",
-      "tickers": [
-        "PNC"
-      ],
-      "name": "The PNC Financial Services Group, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-15",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/713676/000162828026065936/q32026financialhighlightsa.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/PNC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-PNC-6c44f2#earnings-history",
-      "allowed_numbers": [
-        "$6.56B",
-        "$6.59B",
-        "−$29.5M",
-        "$5.09",
-        "$4.89",
-        "$0.20",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The PNC Financial Services Group, Inc. (PNC) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $6.56B vs $6.59B consensus (In line (−$29.5M)). Diluted EPS - as adjusted (non-GAAP) $5.09 vs $4.89 consensus (Beat by $0.20).",
-      "dedupe_key": "report:pnc-2026-q3",
-      "report_id": "pnc-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-15",
-      "published_at": "2026-10-15T10:48:41.464729+00:00",
-      "tile_label": "Mixed vs estimates",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$6.56B",
-          "consensus": "$6.59B",
-          "label": "In line (−$29.5M)",
-          "verdict": "in_line"
-        },
-        "eps": {
-          "basis": "Diluted EPS - as adjusted (non-GAAP)",
-          "reported": "$5.09",
-          "consensus": "$4.89",
-          "label": "Beat by $0.20",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/PNC/opengraph-image",
-          "kind": "image",
-          "alt": "The PNC Financial Services Group, Inc. (PNC) published Q3 2026 results on 2026-10-15: Mixed vs estimates. Revenue $6.56B vs $6.59B consensus (In line (−$29.5M)). Diluted EPS - as adjusted (non-GAAP) $5.09 vs $4.89 consensus (Beat by $0.20)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; release_date 2026-10-15 (age 1) +1.5"
-    },
-    {
-      "item_id": "2026-10-16-earnings-result-BNY-b982b0",
-      "type": "earnings_result",
-      "ticker": "BNY",
-      "tickers": [
-        "BNY"
-      ],
-      "name": "The Bank of New York Mellon Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-15",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1390777/000139077726000104/ex991_earningsreleasex3q26.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/BNY?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-16-earnings-result-BNY-b982b0#earnings-history",
-      "allowed_numbers": [
-        "$5.68B",
-        "$5.56B",
-        "$115M",
-        "$2.37",
-        "$2.26",
-        "$0.11",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The Bank of New York Mellon Corporation (BNY) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $5.68B vs $5.56B consensus (Beat by $115M). Adjusted diluted earnings per common share $2.37 vs $2.26 consensus (Beat by $0.11).",
-      "dedupe_key": "report:bny-2026-q3",
-      "report_id": "bny-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-15",
-      "published_at": "2026-10-15T10:32:35.879510+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$5.68B",
-          "consensus": "$5.56B",
-          "label": "Beat by $115M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Adjusted diluted earnings per common share",
-          "reported": "$2.37",
-          "consensus": "$2.26",
-          "label": "Beat by $0.11",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/BNY/opengraph-image",
-          "kind": "image",
-          "alt": "The Bank of New York Mellon Corporation (BNY) published Q3 2026 results on 2026-10-15: Beat estimates. Revenue $5.68B vs $5.56B consensus (Beat by $115M). Adjusted diluted earnings per common share $2.37 vs $2.26 consensus (Beat by $0.11)."
         }
       ],
       "rank": 4.5,
