@@ -10,8 +10,9 @@ facts.json (tools/facts.py): the date is the item_id's first 10 characters; --fa
 default (what Grok reads) or a local v/ directory. Checks:
   - the item exists in that day's facts;
   - ticker: the item's $cashtag is in the text and no other cashtag is (picks: only the list's public tickers;
-    moves_like: the subject and the peers listed in the item); several cashtags only for earnings_tomorrow_roundup and
-    ptr_summary: at most 4, each one of the item's tickers, at least one;
+    moves_like: the subject and the peers listed in the item); several cashtags only for the roundup kinds
+    (facts.ROUNDUP_TYPES): earnings_tomorrow_roundup and ptr_summary at most 4, earnings_week_calendar at most 12
+    (facts.cashtag_max), each one of the item's tickers, at least one;
   - every number-like token in text and reply is one of the item's allowed_numbers (or the cashtag); the filing names
     Form 4, Form 144, Form 13F, 8-K, 10-Q, 10-K and 13F are words, not numbers (posts and comments);
   - banned words (case-insensitive): the rules' list plus the item's own banned_words (chart_pattern / moves_like:
@@ -28,7 +29,9 @@ default (what Grok reads) or a local v/ directory. Checks:
     earnings report page of either arm); comments likewise;
   - media_url (every own post carries native media, owner 2026-10-12): one of the item's media[].url, a file under
     <Pages>/v/<YYYY-MM-DD>/ (our rendered stills / Reels), or "grok_generated" with a media_note that names no
-    digit, $, %, logo, face or real name (the item's person / company / peers).
+    digit, $, %, logo, face or real name (the item's person / company / peers). earnings_week_calendar: only one of
+    the item's own media urls (our calendar image; no Grok-made image, no other Pages file); on Instagram only an
+    item media entry of kind "reel" (none in v1, so the calendar is an X post).
 
 A comment / reply on another account's post is {"kind": "comment", "platform", "target_url", "text", "item_id"?}
 (a draft without "kind", or kind "post", is a post). Checks: target_url is an https x.com / twitter.com (x) or
@@ -82,10 +85,14 @@ DEFAULT_INSTINCT = Path("D:/rtv-ops/tracks/growth/bin/instinct.py")
 PYTHON = sys.executable
 UA = "RapidTradeView grok-review (contact@rapidtradeview.trade)"
 SOURCE_TYPES = ("congress_trade", "form4_buy", "ptr_summary")
-# Several cashtags in one post: only the roundup kinds (facts.ROUNDUP_TYPES, at most facts.ROUNDUP_MAX_TICKERS, all from
-# the item's tickers). moves_like (subject + listed peers) and picks_ready (the public picks) keep their item's own list.
+# Several cashtags in one post: only the roundup kinds (facts.ROUNDUP_TYPES, at most facts.cashtag_max(kind): 4, the
+# weekly calendar 12; all from the item's tickers). moves_like (subject + listed peers) and picks_ready (the public picks)
+# keep their item's own list.
 MULTI_CASHTAG_TYPES = fx.ROUNDUP_TYPES
 MULTI_CASHTAG_MAX = fx.ROUNDUP_MAX_TICKERS
+# Kinds whose post carries only the item's own media (our rendered image; no Grok-made image, no other Pages file), and on
+# Instagram only an item media entry of kind "reel".
+OWN_MEDIA_ONLY_TYPES = ("earnings_week_calendar",)
 LIST_TYPES = ("moves_like", "picks_ready")
 NO_PICK_HINT_TYPES = ("picks_ready", "chart_pattern", "moves_like")
 URL = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
@@ -274,8 +281,9 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     distinct = set(tags)
     kind = item.get("type")
     if kind in MULTI_CASHTAG_TYPES:
-        if len(distinct) > MULTI_CASHTAG_MAX:
-            reasons.append(f"{kind}: at most {MULTI_CASHTAG_MAX} cashtags (got {len(distinct)})")
+        most = fx.cashtag_max(kind)
+        if len(distinct) > most:
+            reasons.append(f"{kind}: at most {most} cashtags (got {len(distinct)})")
         if not distinct & set(tickers):
             reasons.append(f"{kind}: the text must name at least one of the item's tickers")
     elif kind not in LIST_TYPES and len(distinct) > 1:
@@ -366,6 +374,22 @@ def media_reasons(draft: dict, item: dict) -> list[str]:
     whose media_note shows no number, logo or real person."""
     media = draft.get("media_url")
     ours = [m.get("url") for m in item.get("media") or [] if isinstance(m, dict) and m.get("url")]
+    kind = item.get("type")
+    if kind in OWN_MEDIA_ONLY_TYPES:
+        if draft.get("platform") == "instagram":
+            reels = [m.get("url") for m in item.get("media") or []
+                     if isinstance(m, dict) and m.get("url") and m.get("kind") == "reel"]
+            if not reels:
+                return [f"{kind}: Instagram only with the item's own Reel, and its media has none (post it on X)"]
+            if media not in reels:
+                return [f"{kind}: on Instagram media_url must be the item's Reel ({short(reels[0], 100)})"]
+            return []
+        if not ours:
+            return [f"{kind}: the item has no media yet (its calendar image is not live): nothing to post"]
+        if media not in ours:
+            return [f"{kind}: media_url must be the item's own image ({short(ours[0], 100)}); no Grok-made image or "
+                    "other file"]
+        return []
     if not isinstance(media, str) or not media.strip():
         return ["media_url missing: every post carries an image or video (one of the item's media urls, our file "
                 f"under {mf.PAGES_BASE}/v/<date>/, or \"{GROK_GENERATED}\" with a media_note)"]

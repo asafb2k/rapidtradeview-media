@@ -20,8 +20,9 @@ this lint never approves or rejects. No network except reading the facts URL; pr
 fragments.
 
 Rules (playbook v2 section in brackets):
-  cashtags   [real]   2-5 distinct cashtags; not only mega-caps / index-ETFs; each supported by the facts (the item's
-                      tickers, any other item's tickers in the same facts, moves_like peers)            [TIER 1.1]
+  cashtags   [real]   2-5 distinct cashtags (earnings_week_calendar 8-12: CASHTAG_RANGE_BY_TYPE); not only mega-caps /
+                      index-ETFs; each supported by the facts (the item's tickers, any other item's tickers in the same
+                      facts, moves_like peers)                                                          [TIER 1.1]
   numbers    [real]   >= 2 concrete figures in the text, one in the first line                            [TIER 1.2]
   macro      [real]   macro words (Fed, FOMC, CPI, PPI, yields, Treasury, oil, jobs report, GDP, inflation)
                       with no stock cashtag; predictive framing (will, expect, likely, set to, poised)
@@ -65,12 +66,14 @@ INDEX_ETF = {"SPY", "QQQ", "IWM", "DIA", "VOO", "VTI", "SPX", "NDX", "VIX", "RUT
 
 # Item types (tools/facts.py). Niche = the playbook's "niche posts" (congress, Form 4, earnings).
 NICHE_TYPES = ("congress_trade", "ptr_summary", "form4_buy", "earnings_result", "earnings_upcoming",
-               "earnings_tomorrow_roundup")
+               "earnings_tomorrow_roundup", "earnings_week_calendar")
 # Types whose compliance check (grok_review.py, facts rules.cashtags) lets a post carry more than the item's own
 # cashtag. Every other type is held to ONE cashtag by compliance today, so the 2-5 rule is a NOTE there, not a WARN.
-MULTI_CASHTAG_TYPES = ("earnings_tomorrow_roundup", "ptr_summary", "moves_like", "picks_ready")
+MULTI_CASHTAG_TYPES = ("earnings_tomorrow_roundup", "ptr_summary", "moves_like", "picks_ready", "earnings_week_calendar")
 
 CASHTAG_MIN, CASHTAG_MAX = 2, 5
+# The weekly calendar post (Growth test 2026-10-16) names 8-12 of its tickers on one line: its own range.
+CASHTAG_RANGE_BY_TYPE = {"earnings_week_calendar": (8, 12)}
 NUMBERS_MIN = 2
 WORDS_MIN, WORDS_MAX = 25, 60
 SPACING = dt.timedelta(hours=2)
@@ -293,9 +296,10 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
     # A fix that needs more cashtags than compliance allows for this item type is a NOTE, not a WARN.
     capped = item is not None and kind not in MULTI_CASHTAG_TYPES
     cap_why = f"; compliance allows only the item's own cashtag for {kind} today, so keep 1 until that rule changes"
-    if n < CASHTAG_MIN or n > CASHTAG_MAX:
-        msg = f"{n} cashtag{'s' if n != 1 else ''}; playbook: {CASHTAG_MIN}-{CASHTAG_MAX} relevant ones (>=1 vs 0 +28%, >=3 vs 1-2 +11%)"
-        if n < CASHTAG_MIN and capped:
+    lo, hi = CASHTAG_RANGE_BY_TYPE.get(kind or "", (CASHTAG_MIN, CASHTAG_MAX))
+    if n < lo or n > hi:
+        msg = f"{n} cashtag{'s' if n != 1 else ''}; playbook: {lo}-{hi} relevant ones (>=1 vs 0 +28%, >=3 vs 1-2 +11%)"
+        if n < lo and capped:
             add("cashtags", "real", "note", msg + cap_why)
         else:
             add("cashtags", "real", "warn", msg)

@@ -368,3 +368,36 @@ def test_grok_review_lint_crash_is_shown_not_hidden(monkeypatch):
         raise RuntimeError("x")
     monkeypatch.setattr(gr.dl, "lint", boom)
     assert gr.playbook_notes(draft(), FACTS, NOW) == ["NOTES (playbook v2): lint failed (RuntimeError)"]
+
+
+# earnings_week_calendar (Growth test 2026-10-16): 8-12 cashtags on one line -------------------------------------------
+
+CAL_TICKERS = ["META", "TSLA", "PG", "LRCX", "GE", "PM", "NFLX", "TXN", "RTX", "TMO", "IBM", "AXP"]
+CALENDAR = {"item_id": f"{DATE}-earnings-week-calendar-LIST-1", "type": "earnings_week_calendar", "ticker": None,
+            "tickers": CAL_TICKERS,
+            "media": [{"url": f"https://asafb2k.github.io/rapidtradeview-media/v/{DATE}/cards/c/calendar_4x5.png",
+                       "kind": "image"}]}
+CAL_FACTS = {"date": DATE, "items": [CALENDAR]}
+
+
+def calendar_draft(tags):
+    text = ("Biggest earnings next week, Oct 19–23 (confirmed dates):\n" + " ".join("$" + t for t in tags) +
+            "\nEvery day, before the open and after the close, is in the image.\nNot investment advice.")
+    return draft(text, CALENDAR, media_url=CALENDAR["media"][0]["url"])
+
+
+def test_week_calendar_twelve_cashtags_on_one_line_is_clean():
+    res = run(calendar_draft(CAL_TICKERS), facts=CAL_FACTS)
+    assert "cashtags" not in rules(res, "warn") and "list" not in rules(res, "warn")
+    assert res["item_type"] == "earnings_week_calendar"
+    assert "cashtags" not in rules(run(calendar_draft(CAL_TICKERS[:8]), facts=CAL_FACTS), "warn")
+
+
+def test_week_calendar_cashtag_range_is_eight_to_twelve():
+    res = run(calendar_draft(CAL_TICKERS[:5]), facts=CAL_FACTS)
+    f = next(f for f in res["findings"] if f["rule"] == "cashtags")
+    assert f["kind"] == "warn" and "5 cashtags; playbook: 8-12" in f["message"]
+    # cashtags on separate lines read as a list on this niche item
+    listed = draft("Biggest earnings next week, Oct 19–23:\n" + "\n".join("$" + t for t in CAL_TICKERS[:8]) +
+                   "\nNot investment advice.", CALENDAR)
+    assert "list" in rules(run(listed, facts=CAL_FACTS), "warn")
