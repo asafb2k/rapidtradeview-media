@@ -827,3 +827,14 @@ def test_sanity_hold_skips_a_verified_surprise():
     assert fx.sanity_mismatch(nrix) == []
     fresh = {"revenue": dict(nrix["revenue"], verification="unreferenced")}
     assert fx.sanity_mismatch(fresh) == ["revenue"]
+
+
+def test_unverified_revenue_hold_is_tighter_than_eps():
+    """TFC 10-16: revenue $3.75B vs $5.36B (-30%, unreferenced) is a basis mismatch the backend did not mark: held at the
+    20% revenue line; a 30% EPS gap on an unverified figure is still under the 40% EPS line."""
+    tfc = {"revenue": {"reported": 3.75e9, "consensus": 5.36e9, "verdict": "miss", "label": "Missed by $1.61B",
+                       "verification": "unreferenced"}}
+    assert fx.sanity_mismatch(tfc) == ["revenue"]
+    assert fx.sanity_mismatch({"revenue": dict(tfc["revenue"], reported=4.5e9)}) == []        # -16%: published
+    assert fx.sanity_mismatch({"eps_adjusted": {"reported": 1.4, "consensus": 2.0}}) == []      # EPS -30%: published
+

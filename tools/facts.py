@@ -120,6 +120,10 @@ RESULT_HOURS = 24
 # real miss. Such an item is not published (left_out.consensus_mismatch_hold) until the report data is checked.
 # EPS: only when |consensus| >= $0.25 (small EPS bases swing past 40% on real surprises).
 SANITY_MAX_REL = 0.40
+# Revenue is tighter: an unverified quarterly revenue more than 20% off its estimate has been a basis mismatch every
+# time we checked (TFC 10-16: $3.75B vs $5.36B, NII vs total revenue); real revenue surprises that large are rare and
+# get verified (NRIX). Holding one costs a post, publishing one is a public false miss.
+SANITY_REVENUE_MAX_REL = 0.20
 SANITY_EPS_MIN_BASE = 0.25
 
 
@@ -156,7 +160,7 @@ def sanity_mismatch(res: dict) -> list[str]:
         rep, con = m.get("reported"), m.get("consensus")
         if not (isinstance(rep, (int, float)) and isinstance(con, (int, float))) or con == 0 or abs(con) < min_base:
             continue
-        if abs(rep / con - 1) > SANITY_MAX_REL:
+        if abs(rep / con - 1) > (SANITY_REVENUE_MAX_REL if key == "revenue" else SANITY_MAX_REL):
             out.append(key)
     return out
 PICKS_SLOT_ET = "15:00"  # the picks post time (GROK-SOCIAL.md §2)
@@ -631,7 +635,8 @@ def result_items(api, target: dt.date, as_of: dt.datetime) -> tuple[list[dict], 
         if bad:  # not a source failure (no partial_sources): the item is held, and left_out says which and why
             left["consensus_mismatch_hold"] = left.get("consensus_mismatch_hold", 0) + 1
             left.setdefault("held", []).append(f"{ticker}: {'/'.join(bad)} reported vs consensus differs by more than "
-                                               f"{int(SANITY_MAX_REL * 100)}% (report data to check)")
+                                               f"{int(SANITY_REVENUE_MAX_REL * 100)}% (revenue) / "
+                                               f"{int(SANITY_MAX_REL * 100)}% (EPS) (report data to check)")
             continue
         dropped = [f"{k} ({not_comparable_reason(res[k])})" for k in ("revenue", "eps_adjusted", "eps_gaap")
                    if isinstance(res.get(k), dict) and not_comparable_reason(res[k])]
