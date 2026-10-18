@@ -516,3 +516,19 @@ def test_round3_claims_carry_metric_and_universe():
     assert all(c.get("universe") == "10" for c in k["claims"])
     peak = next(c for c in b["claims"] if c["bare"])
     assert peak["date"] == "2026-10-15" and peak["direction"] == "up"
+
+
+# Round 4 (HQ review 2026-10-18 r4): the cases are in the fixture above (source "review 10-18 r4 ..." and "r4 ...");
+# here the facts side: a claim with subjects is never bare, the basket count is its own subject-less claim, and every
+# item carries the signs of its numbers and the moves of its subjects (claims.item_moves, stored by facts.self_check).
+def test_round4_claims_and_moves():
+    g, k, d = item("mega_mover", "GOOGL"), item("basket_week"), day_rot()
+    assert all(not c["bare"] for it in DOC["items"] for c in it.get("claims") or [] if c["subjects"])
+    assert any(c["words"] == ["only"] and not c["subjects"] and c["bare"] for c in k["claims"])
+    mv = gr.cl.item_moves(d)
+    assert mv["subjects"]["Energy"] == "up" and mv["subjects"]["Technology"] == "down"
+    assert mv["numbers"]["2.6%"] == "+" and mv["numbers"]["2.8%"] == "-" and "2.5%" not in mv["numbers"]   # both signs
+    assert gr.cl.item_moves(g)["subjects"]["GOOGL"] == "down"
+    assert any("direction" in r for r in rejected(d, "Energy fell 2.6% on Friday. $XOM +2.46%."))
+    assert any("rank" in r for r in rejected(g, "$MSFT was #3 by dollar drop on Friday. $GOOGL −2.47%."))
+    assert any("window" in r for r in rejected(d, "Energy was the best sector on Thursday. $XOM +2.46%."))

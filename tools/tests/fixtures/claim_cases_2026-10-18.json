@@ -2002,5 +2002,887 @@
   "text": "$GOOGL -$105.5B was Friday's top dollar loser, ahead of $MSFT -$77.2B.",
   "expect": "approve",
   "source": "HQ probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy led the rout on Friday, +2.6%. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (polarity default)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy led the downturn on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (polarity default)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy led the weakness on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (polarity default)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the top casualty on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (polarity default)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the top disappointment on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (polarity default)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Did you know Tech was the top sector on Friday? $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (question hook)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the best sector on Friday, did you see? $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (question hook)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT lost $77.2B on Friday. It was the biggest dollar drop of the 500. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare #1 after another ticker)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT lost $77.2B on Friday! The biggest dollar drop of the 500. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare #1 after another ticker)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT lost $77.2B... the biggest dollar drop of the 500 on Friday. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare #1 after another ticker)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT lost $77.2B on Friday.\nThe biggest dollar drop of the 500. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare #1 after another ticker)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL −2.47%. Microsoft lost $77.2B, the biggest dollar drop of the 500 on Friday.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare #1 after another ticker)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL −2.47% on Friday. Nvidia had the biggest dollar drop of the 500.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare #1 after another ticker)"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "$NBIS 7.5× usual. Nvidia had the most Reddit mentions this weekend.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare #1 after another ticker)"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "$SNDK ran 3.3× its usual mentions. It had the most mentions on Reddit this weekend. $NBIS 45.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare #1 after another ticker)"
+ },
+ {
+  "item": "basket_week",
+  "text": "The 10 largest US-listed companies fell 5.04% in the week to Oct 16. Only Microsoft rose. $SPCX −10.17%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (bare only)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$NVDA was one of the two biggest dollar drops on Friday. $GOOGL −$105.5B.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (one of the N)"
+ },
+ {
+  "item": "market_move",
+  "text": "$AVGO was among the three biggest dollar drops of the 500 largest on Friday.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (one of the N)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT was #3 by dollar drop on Friday. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (rank numbers)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL was #3 by dollar drop on Friday, −$105.5B.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (rank numbers)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT, #3 by market cap, lost $77.2B on Friday. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (rank numbers)"
+ },
+ {
+  "item": "mega_mover:PANW",
+  "text": "$PANW lost $23.1B on Friday, #42 by dollar drop among the 500 largest.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (rank numbers)"
+ },
+ {
+  "item": "mega_mover:PANW",
+  "text": "$PANW, #15 by market cap, fell 7.63% on Friday.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (rank numbers)"
+ },
+ {
+  "item": "market_move",
+  "text": "$AVGO did better than $NVDA on Friday, −4.52% vs −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (metric of comparisons)"
+ },
+ {
+  "item": "market_move",
+  "text": "$AVGO outperformed $NVDA on Friday.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (metric of comparisons)"
+ },
+ {
+  "item": "market_move",
+  "text": "$NVDA fell more than $AVGO on Friday (−1.43% vs −4.52%).",
+  "expect": "reject",
+  "source": "review 10-18 r4 (metric of comparisons)"
+ },
+ {
+  "item": "mega_mover:PANW",
+  "text": "$PANW lost $23.1B on Friday, more than $MSFT.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (metric of comparisons)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the best sector on Friday and $EQNR +4.59% was the top stock.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (scope leak)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech fell 2.8% on Friday and $CRWV was the worst stock, −11.91%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (scope leak)"
+ },
+ {
+  "item": "sector_rotation:week",
+  "text": "Tech was the worst sector in the week to Oct 16 and $CIEN −26.02% the worst stock.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (scope leak)"
+ },
+ {
+  "item": "market_move",
+  "text": "Tech lost $886B on Friday and $MSFT had the biggest dollar drop of all.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (scope leak)"
+ },
+ {
+  "item": "market_move",
+  "text": "Tech lost $886B on Friday and $MSFT had the biggest dollar drop on the day.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (scope leak)"
+ },
+ {
+  "item": "market_move",
+  "text": "$MSFT −$77.2B was the biggest dollar drop in Technology and on Wall Street on Friday.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (scope leak)"
+ },
+ {
+  "item": "market_move",
+  "text": "$AVGO −$74.4B: biggest dollar drop of any Tech stock on Friday.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (sector vs stock)"
+ },
+ {
+  "item": "market_move",
+  "text": "$AVGO −$74.4B. Biggest dollar drop in Technology on Friday.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (sector vs stock)"
+ },
+ {
+  "item": "market_move",
+  "text": "$AVGO −4.52%: the biggest drop of any Tech name on Friday.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (sector vs stock)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the hottest sector on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was Friday's standout sector. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the number-one sector on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech outpaced every other sector on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "No sector beat Tech on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "No sector did better than Tech on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the poorest sector on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "No sector did worse than Energy on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Every sector beat Energy on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (unlisted superlatives)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the best sector on Friday, and so was Tech. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (elliptical follow-up)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the best sector on Friday. Tech too. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (elliptical follow-up)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B on Friday, the biggest dollar drop of the 500. $MSFT and $NVDA too.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (elliptical follow-up)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the worst sector on Thursday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (stale window)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the best sector on Thursday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (stale window)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the best sector this morning. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (stale window)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy fell 2.6% on Friday. $XOM 2.46%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (plain direction)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech rose 2.8% on Friday. $NVDA 1.43%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (plain direction)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL gained $105.5B of market value on Friday, 2.47%.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (plain direction)"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "$NBIS jumped 12.18% on Friday and Reddit noticed: 7.5× usual.",
+  "expect": "reject",
+  "source": "review 10-18 r4 (plain direction)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy led on Friday, +2.6%. $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the top sector on Friday. $EQNR +4.59% led it.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the worst sector on Friday, −2.8%. $CRWV −11.91% was its worst stock.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Did you know Energy was the best sector on Friday? $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was Friday's standout sector, +2.6%. $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "No sector beat Energy on Friday. $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Every sector beat Tech on Friday. $NVDA −1.43%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy rose 2.6% on Friday. $XOM gained 2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech fell 2.8% on Friday, the worst sector. $NVDA −1.43%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "$NVDA −1.43%. Tech was the worst sector on Friday.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "In Tech, $CRWV was the worst stock on Friday, −11.91%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy and Consumer Defensive were the two best sectors on Friday. $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the top-performing sector on Friday. $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the weakest sector on Friday. $NVDA −1.43%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech led the decline on Friday. $NVDA −1.43%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy led the gains on Friday. $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech led the market lower on Friday. $NVDA −1.43%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy led the way on Friday, +2.6%. $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech −2.8%. The worst sector on Friday. $NVDA −1.43%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the hottest sector on Friday, +2.6%. $XOM +2.46%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the coldest sector on Friday. $NVDA −1.43%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:week",
+  "text": "Consumer Defensive led in the week to Oct 16, +5.5%. $DEO +9.66% led it.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:week",
+  "text": "Tech was the worst sector in the week to Oct 16. $CIEN −26.02% was its worst stock.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B on Friday. It was the biggest dollar drop of the 500.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B on Friday, −2.47%. That was the biggest dollar drop among the 500 largest US-listed companies.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "The biggest dollar drop on Friday? $GOOGL, −$105.5B.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "Alphabet lost $105.5B on Friday, the biggest dollar drop of the 500. $GOOGL −2.47%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B on Friday. $MSFT −$77.2B and $NVDA −$74.9B were next.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL, #3 by market cap, lost $105.5B on Friday.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL was #1 by dollar drop on Friday, −$105.5B.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL, $MSFT and $NVDA were the three biggest dollar drops on Friday. $GOOGL −$105.5B.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT was among the three biggest dollar drops on Friday. $GOOGL −$105.5B.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT was the second-biggest dollar drop on Friday. $GOOGL −$105.5B.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B on Friday, more than $MSFT.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL fell 2.47% on Friday, a $105.5B drop.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B on Friday.\nThe biggest dollar drop of the 500.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:PANW",
+  "text": "$PANW lost $23.1B on Friday, −7.63%: #15 by dollar drop among the 500 largest.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:PANW",
+  "text": "$PANW, #42 by market cap, fell 7.63% on Friday.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "mega_mover:PANW",
+  "text": "$GOOGL had the biggest dollar drop on Friday, −$105.5B. $PANW −7.63%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "market_move",
+  "text": "$GOOGL had the biggest dollar drop on Friday, −$105.5B. $MSFT was next.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "market_move",
+  "text": "$MSFT had the biggest dollar drop in Tech on Friday.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "market_move",
+  "text": "$GOOGL lost more market value than $MSFT on Friday.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "market_move",
+  "text": "$GOOGL −2.47%. Technology led the move, −$886B. Energy went the other way, +2.64%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "$NBIS had the most Reddit mentions this weekend: 45 vs a usual 6.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "$NBIS is the most unusual name on Reddit this weekend.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "All 10 of the most-mentioned stocks fell on Friday. $NBIS −12.18%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "basket_week",
+  "text": "Only one of the 10 largest US-listed companies rose in the week to Oct 16: $AAPL +2.03%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "basket_week",
+  "text": "Only $AAPL rose among the 10 largest in the week to Oct 16.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "basket_week",
+  "text": "$SPCX was the worst of the 10 largest in the week to Oct 16, −10.17%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "basket_week",
+  "text": "$AAPL was the best of the 10 largest in the week to Oct 16, +2.03%.",
+  "expect": "approve",
+  "source": "r4 honest (must stay approved)"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the top story on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy topped the losers list on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Guess which sector was the best on Friday? Tech. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "$EQNR +4.59% was the top stock on Friday as Energy led.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the worst sector on Oct 15. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was down 2.6% on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was up on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy stocks fell on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech: the best sector on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "$NVDA −1.43%. The best sector on Friday: Tech.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the best sector on Friday. Tech as well. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the best sector on Friday, and Tech too. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Communication Services was the worst sector on Friday. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "$NBIS −12.18% was the worst stock of the 500 on Friday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech was the number one sector on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy had the worst day of any sector on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Energy was the laggard on Friday. $XOM +2.46%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Tech led on Friday. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "sector_rotation:day",
+  "text": "Did Tech lead on Friday? Yes. $NVDA −1.43%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "Microsoft's $77.2B drop was the biggest of the 500 on Friday. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$NVDA was one of the top 2 dollar drops on Friday. $GOOGL −$105.5B.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT −$77.2B. That was the biggest dollar drop on Friday. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL −2.47%, $MSFT −1.93%. The biggest dollar drop of the 500 on Friday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$MSFT lost more market value than $GOOGL on Friday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL rose 2.47% on Friday, a $105.5B move.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL was up 2.47% on Friday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "Alphabet gained $105.5B on Friday. $GOOGL",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B this morning.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B on Thursday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL lost $105.5B on Friday, the biggest dollar drop of the 500. Microsoft too.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "mega_mover:GOOGL",
+  "text": "$GOOGL was #2 by market cap on Friday, −2.47%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "market_move",
+  "text": "$NVDA lost more than $MSFT on Friday, −$74.9B vs −$77.2B.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "market_move",
+  "text": "$AVGO was one of the three biggest dollar drops on Friday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "market_move",
+  "text": "Tech was the best sector on Friday. $GOOGL −2.47%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "market_move",
+  "text": "$AVGO −4.52%. It had the biggest dollar drop in Tech on Friday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "market_move",
+  "text": "$GOOGL had the biggest dollar drop in Technology on Friday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "$SNDK had the most Reddit mentions this weekend. $NBIS 45.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "Sandisk had the most Reddit mentions this weekend. $NBIS 45.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "reddit_buzz",
+  "text": "$NBIS −12.18%. The most-mentioned stock on Reddit rose on Friday.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "basket_week",
+  "text": "Only Apple fell in the week to Oct 16. $SPCX −10.17%.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "basket_week",
+  "text": "$TSM was the worst of the 10 largest in the week to Oct 16.",
+  "expect": "reject",
+  "source": "r4 extra probe"
+ },
+ {
+  "item": "basket_week",
+  "text": "Only $MSFT rose among the 10 largest in the week to Oct 16.",
+  "expect": "reject",
+  "source": "r4 extra probe"
  }
 ]
