@@ -62,7 +62,7 @@ def draft(it, text, platform="x", **over):
 
 # HQ 2026-10-19 allowlist: every comparison in a post is one of the item's claim_phrases, verbatim
 P1 = ("The 500 largest US-listed stocks lost about $1.0T on Friday, −1.21%. $GOOGL had the biggest dollar drop among the "
-      "500 largest US-listed companies on Friday (−$105.5B). Energy went the other way, +2.64%. "
+      "500 largest US-listed companies on Friday (−$105.5B). Energy went the other way on Friday (+2.64%). "
       "Every company on one map below. Not investment advice.")
 
 
@@ -77,11 +77,11 @@ def test_plan_examples_are_approved():
     assert gr.review(draft(g, t, platform="threads"), DOC, NOW) == ("APPROVE", [])
     b = item("reddit_buzz")
     t = ("Reddit is talking about $NBIS 7.5× more than usual: 45 mentions vs 6.0. The stock fell 12.18% on Friday. "
-         "$SNDK ran hot too, at 3.3× usual. 10 of the 10 most-mentioned stocks with a close for Oct 16 fell that day. "
+         "$SNDK: 3.3× usual. 10 of the 10 most-mentioned stocks with a close for Oct 16 fell that day. "
          "Not investment advice.")
     assert gr.review(draft(b, t, platform="threads"), DOC, NOW) == ("APPROVE", [])
     w = next(i for i in DOC["items"] if i["type"] == "sector_rotation" and i["window"] == "week")
-    t = ("In the week to Oct 16 the 500 largest US-listed stocks fell 2.7%, but not evenly. Tech −7.3%, Industrials −3.9%. "
+    t = ("In the week to Oct 16 the 500 largest US-listed stocks fell 2.7%. Tech −7.3%, Industrials −3.9%. "
          "Consumer Defensive +5.5% and Energy +5.0% rose. $DEO led Consumer Defensive among the 500 largest US-listed "
          "companies in the week to Oct 16 (+9.66%). Not investment advice.")
     assert gr.review(draft(w, t, platform="threads"), DOC, NOW) == ("APPROVE", [])
@@ -99,7 +99,7 @@ def test_single_ticker_item_may_use_its_context():
          "Not investment advice.")
     d = draft(pep, t, reply_text=f"Filing: {pep['source_url']}\n{pep['page_url'].replace('{platform}', 'x')}")
     assert gr.review(d, DOC, NOW) == ("APPROVE", [])
-    d2 = dict(d, text=t.replace("Across our feed", "$KO too. Across our feed"))
+    d2 = dict(d, text=t.replace("Across our feed", "See also $KO. Across our feed"))
     assert gr.review(d2, DOC, NOW) == ("APPROVE", [])
     v, why = gr.review(dict(d, text=t.replace("Across our feed", "$MSFT too. Across our feed")), DOC, NOW)
     assert v == "REJECT" and any("$MSFT" in r for r in why)
@@ -169,7 +169,7 @@ def test_variety_first_line_twin_and_duplicate_number():
     fresh = ("About $1.0T gone from the 500 largest US-listed stocks on Friday. Tech alone: −$886B. $GOOGL −2.47%, "
              "$MSFT −1.93%. Energy +2.64% led the gainers. Not investment advice.")
     assert "rule9_cross_platform" not in [r for r, _ in gr.variety_breaches(draft(mm, fresh), mm, twin, NOW)]
-    dup = P1.replace("Energy went the other way, +2.64%.", "Energy +2.64%, so +2.64% for energy.")
+    dup = P1.replace("Energy went the other way on Friday (+2.64%).", "Energy +2.64%, so +2.64% for energy.")
     assert "rule10_duplicate_number" in [r for r, _ in gr.variety_breaches(draft(mm, dup), mm, [], NOW)]
 
 
@@ -285,7 +285,7 @@ def test_sector_attribution():
     mm = item("market_move")
     # r4 review: a sector sentence no longer lends its sector to the cashtags of the NEXT sentence ("Tech was the worst
     # sector on Friday. $NVDA −1.43%, $XOM +2.46%." is honest); inside one sentence it still does
-    assert gr.review(draft(mm, "The 500 largest US-listed stocks lost about $1.0T on Friday. Technology alone: −$886B. "
+    assert gr.review(draft(mm, "The 500 largest US-listed stocks lost about $1.0T on Friday. Technology: −$886B. "
                                "$GOOGL −2.47%, $MSFT −1.93%. Not investment advice."), DOC, NOW) == ("APPROVE", [])
     for t in ("The 500 largest US-listed stocks lost about $1.0T on Friday. Tech was −$886B of it: $GOOGL −2.47%, $MSFT "
               "−1.93%. Not investment advice.",
@@ -547,7 +547,8 @@ def test_round3_claim_cases():
         why = gr.wording_reasons(case_item(c["item"]), c["text"] + " Not investment advice.")
         if c["expect"] == "reject" and not why:
             wrong.append(f"reject [{c['item']}] {c['text']} -> APPROVED")
-        if c["expect"] == "approve" and not all(r.startswith("unsupported comparison:") for r in why):
+        # round 2 (HQ 2026-10-19): the vocabulary check ("wording:") is part of the allowlist
+        if c["expect"] == "approve" and not all(r.startswith(("unsupported comparison:", "wording:")) for r in why):
             wrong.append(f"approve [{c['item']}] {c['text']} -> {why[:1]}")
     assert not wrong, "\n".join(wrong)
 
@@ -566,6 +567,54 @@ def test_allowlist_cases():
         if (c["expect"] == "approve") != (not why):
             wrong.append(f"{c['expect']} [{c['item']}] {c['text']} -> {why[:1]}")
     assert not wrong, "\n".join(wrong)
+
+
+# Round 2 (HQ 2026-10-19): a closed vocabulary (post_vocab.VOCAB) for every sentence that is not a claim phrase, numbers and
+# direction words tied to their subjects, no idiom blanking that hides a claim, no widened windows
+# (fixtures/vocab_cases_2026-10-19.json: every draft of the round-2 review, plus honest plain drafts).
+VOCAB_CASES = json.loads((TOOLS / "tests" / "fixtures" / "vocab_cases_2026-10-19.json").read_text(encoding="utf-8"))
+
+
+def test_round2_vocabulary_cases():
+    assert len(VOCAB_CASES) >= 90
+    wrong = []
+    for c in VOCAB_CASES:
+        why = gr.wording_reasons(case_item(c["item"]), c["text"] + " Not investment advice.")
+        if (c["expect"] == "approve") != (not why):
+            wrong.append(f"{c['expect']} [{c['item']}] {c['text']} -> {why[:1]}")
+    assert not wrong, "\n".join(wrong)
+
+
+def test_vocabulary_holds_no_ranking_or_number_word():
+    import post_vocab as pv
+    words = pv.VOCAB | frozenset().union(*pv.BY_TYPE.values())
+    # "then" is in: rank_words reads it as an order word only before a name, sector or number ("then $MSFT")
+    assert not [w for w in words if gr.cl.RANK_LANGUAGE.search(w) and w != "then"]
+    assert not words & pv.NUMBER_WORDS
+    for w in ("alone", "just", "rest", "other", "another", "same", "matched", "equaled", "kept", "continued", "extended",
+              "exception", "gold", "star", "table", "order", "higher", "lower", "green", "red", "increased", "tanked",
+              "surged", "plunged", "october", "weeks", "morning", "weekend", "every", "all", "none", "included", "each"):
+        assert w not in pv.VOCAB, w
+
+
+def test_round2_picks_and_chart_relations():
+    picks = fx.make_item("2026-10-18", "picks_ready", None, "picks:2026-10-16", "/picks/2026-10-16", tickers=["DRS", "DAR"],
+                         facts_text="The RapidTradeView daily picks list for 2026-10-16 is published; the public picks are "
+                                    "DRS, DAR.", allowed_numbers=["2026-10-16", "Oct 16"])
+    picks["claim_phrases"] = []
+    for t in ("Every pick rose on Friday: $DRS and $DAR.", "$DRS rose on Friday.", "Both picks rose on Friday."):
+        assert gr.wording_reasons(picks, t + " Not investment advice."), t
+    assert gr.wording_reasons(picks, "$DRS and $DAR are on the RapidTradeView picks list for Oct 16. "
+                                     "Not investment advice.") == []
+    pat = fx.make_item("2026-10-18", "chart_pattern", "IREN", "pattern:IREN", "/dashboard/IREN", name="IREN Limited",
+                       facts_text="Automatic technical analysis flagged a double top on $IREN (IREN Limited) (scan "
+                                  "2026-10-16). Confirmed Oct 14: closed $30.56, clearly below the $34.81 neckline.",
+                       levels={"key_level": "$34.81", "breakout_close": "$30.56"}, allowed_numbers=["$30.56", "$34.81"])
+    pat["claim_phrases"] = []
+    assert gr.wording_reasons(pat, "$IREN closed $30.56 on Oct 14, below the $34.81 neckline.") == []
+    assert gr.wording_reasons(pat, "$IREN closed below the neckline on Oct 14.") == []
+    for t in ("$IREN closed $30.56 on Oct 14, above the $34.81 neckline.", "$IREN closed above the neckline on Oct 14."):
+        assert any(r.startswith("chart:") for r in gr.wording_reasons(pat, t)), t
 
 
 def test_every_claim_phrase_is_approved_as_a_post():
