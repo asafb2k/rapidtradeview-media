@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T21:38:45Z",
-  "as_of": "2026-10-18T21:38:45Z",
+  "generated_at": "2026-10-18T21:56:33Z",
+  "as_of": "2026-10-18T21:56:33Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -53,7 +53,8 @@
     "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
     "cashtags": "at most 4 distinct cashtags, all from the item's tickers + context_tickers; a single-ticker item names its own $TICKER; moves_like may add its peers, picks_ready the public picks",
     "order": "items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has them; items below carry top8_out (why). Pick across pillars per variety",
-    "claims": "comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, #1, record, 'outperformed every other') only as the item's claims state them: name only that claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst = top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the top N in order) and a metric (usd_change, pct_change, market_cap, ...): say the side with the noun ('top loser', 'led the drop', 'biggest gainer'; 'top' / 'led' / '#1' alone read as best, whatever number stands beside them), say the metric as the claim does (dollars vs percent vs market cap), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in order, 'among the biggest' for other members, 'the two biggest' only for exactly the top 2; 'of the 500' / 'overall' only with a claim that has no within, 'of the 10' for the basket; a sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector or 'its sector' named; never widen the window ('ever', 'in months', 'of the quarter', 'since September', a week on a one-session item) or call the session 'today' / 'yesterday' unless the item's when does; no negated comparisons; never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
+    "claims": "comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, #1, record, 'outperformed every other') only as the item's claims state them: name only that claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst = top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the top N in order) and a metric (usd_change, pct_change, market_cap, ...): say the side with the noun ('top loser', 'led the drop', 'biggest gainer'; 'top' / 'led' / '#1' alone or with an entity noun ('top sector', 'led its sector') read as best, whatever number stands beside them; with any other noun ('led the rout', 'top casualty') say best / worst instead), say the metric as the claim does (dollars vs percent vs market cap), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in order, 'among the biggest' for other members, 'the two biggest' / 'one of the two biggest' only for the top 2; '#N by <metric>' only as the item's rank_by_usd / rank_by_cap / claims state it; 'of the 500' / 'overall' / 'of all' / 'on the day' only with a claim that has no within, 'of the 10' for the basket; a sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector next to the word ('in Tech', 'Tech's', 'its sector'); a company named in words (Microsoft) counts as its cashtag; a sentence that names no company ('It was the biggest...', 'The biggest dollar drop of the 500.') is about the one named before it; 'too' / 'so was X' after a superlative adds X to it; a question is checked like a statement (only one about the reader, naming nothing, is exempt); 'did better than' / 'outperformed' / 'fell more than' compare percent unless dollars are named, and need a claim of that metric; never widen the window ('ever', 'in months', 'of the quarter', 'since September', a week on a one-session item) or call the session 'today' / 'yesterday' / 'this morning' / 'pre-market' / another weekday unless the item's when does; no negated comparisons; never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
+    "moves": "each item's moves: numbers = the sign of every number it allows with one sign, subjects = the direction of every company / sector it describes; never put a gain word (rose, gained, up) beside a loss or a loss word beside a gain ('Energy fell 2.6%' when Energy rose)",
     "pillars": {
       "P0": "picks + scoreboard (max 1 a day per platform)",
       "P1": "market day (market_move)",
@@ -100,7 +101,7 @@
   },
   "reasons": {
     "ptr_summary": "6 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "earnings_result": "no earnings report published between 2026-10-17T21:38Z and 2026-10-18T21:38Z",
+    "earnings_result": "no earnings report published between 2026-10-17T21:56Z and 2026-10-18T21:56Z",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
     "insider_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)"
   },
@@ -180,7 +181,7 @@
     "market": {
       "market_session": "2026-10-16",
       "priced_cap_share": 0.9663367467709199,
-      "flows_as_of": "2026-10-18T21:38:53.539221+00:00"
+      "flows_as_of": "2026-10-18T21:56:41.431609+00:00"
     },
     "gates": {
       "weekend_replay": 10,
@@ -362,7 +363,7 @@
           "metric": "usd_change",
           "universe": null,
           "date": null,
-          "bare": true,
+          "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
           "says": "$GOOGL: the biggest dollar drop among the 500 largest US-listed companies on Friday"
@@ -449,6 +450,27 @@
         "GOOGL": "Alphabet Inc.",
         "MSFT": "Microsoft Corporation",
         "NVDA": "NVIDIA Corporation"
+      },
+      "moves": {
+        "numbers": {
+          "2.47%": "-",
+          "2.5%": "-",
+          "$105.5B": "-",
+          "$106B": "-",
+          "1.93%": "-",
+          "1.9%": "-",
+          "$77.2B": "-",
+          "$77B": "-",
+          "1.43%": "-",
+          "1.4%": "-",
+          "$74.9B": "-",
+          "$75B": "-"
+        },
+        "subjects": {
+          "GOOGL": "down",
+          "MSFT": "down",
+          "NVDA": "down"
+        }
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -989,6 +1011,50 @@
         "CIEN": "Ciena Corporation",
         "RKLB": "Rocket Lab Corporation"
       },
+      "moves": {
+        "numbers": {
+          "2.73%": "-",
+          "2.7%": "-",
+          "5.55%": "+",
+          "5.5%": "+",
+          "4.99%": "+",
+          "5.0%": "+",
+          "7.30%": "-",
+          "7.3%": "-",
+          "3.87%": "-",
+          "3.9%": "-",
+          "6.70%": "+",
+          "6.7%": "+",
+          "5.94%": "+",
+          "5.9%": "+",
+          "6.61%": "-",
+          "6.6%": "-",
+          "10.17%": "-",
+          "10.2%": "-",
+          "9.66%": "+",
+          "9.7%": "+",
+          "9.25%": "+",
+          "9.3%": "+",
+          "26.02%": "-",
+          "26.0%": "-",
+          "25.47%": "-",
+          "25.5%": "-"
+        },
+        "subjects": {
+          "Consumer Defensive": "up",
+          "Energy": "up",
+          "Technology": "down",
+          "Industrials": "down",
+          "DEO": "up",
+          "COP": "up",
+          "CIEN": "down",
+          "RKLB": "down",
+          "WMT": "up",
+          "XOM": "up",
+          "NVDA": "down",
+          "SPCX": "down"
+        }
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1196,6 +1262,15 @@
         "SNDK": "Sandisk Corporation",
         "NVDA": "NVIDIA Corporation"
       },
+      "moves": {
+        "numbers": {
+          "12.18%": "-",
+          "12.2%": "-"
+        },
+        "subjects": {
+          "NBIS": "down"
+        }
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1371,6 +1446,10 @@
         "LRCX": "Lam Research Corporation",
         "GE": "GE Aerospace"
       },
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1454,6 +1533,10 @@
         "FITB": "Fifth Third Bancorp"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1568,6 +1651,10 @@
         "Pampa Energía S.A. director Marcos Marcelo Mindlin bought $35.14M of $PAM.",
         "Officers and directors sold $4.4B on the open market over 30 days in our feed. This director bought $PAM."
       ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1734,7 +1821,16 @@
         "VZ": "Verizon Communications Inc.",
         "TMUS": "T-Mobile US, Inc."
       },
-      "top8": true
+      "top8": true,
+      "moves": {
+        "numbers": {
+          "0.3%": "-",
+          "0.9%": "+",
+          "1.3%": "+",
+          "0.7%": "+"
+        },
+        "subjects": {}
+      }
     },
     {
       "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
@@ -1812,6 +1908,13 @@
       },
       "ticker_names": {
         "IBKR": "Interactive Brokers Group, Inc."
+      },
+      "moves": {
+        "numbers": {
+          "3.88%": "-",
+          "3.9%": "-"
+        },
+        "subjects": {}
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -2069,10 +2172,28 @@
           "metric": null,
           "universe": "10",
           "date": null,
-          "bare": true,
+          "bare": false,
           "direction": "up",
           "needs": null,
           "says": "only $AAPL of the 10 rose"
+        },
+        {
+          "words": [
+            "only"
+          ],
+          "subjects": [],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": null,
+          "universe": "10",
+          "date": null,
+          "bare": true,
+          "direction": "up",
+          "needs": null,
+          "says": "only one of the 10 rose"
         }
       ],
       "headline": {
@@ -2138,6 +2259,44 @@
         "AAPL": "Apple Inc.",
         "MSFT": "Microsoft Corporation",
         "META": "Meta Platforms, Inc."
+      },
+      "moves": {
+        "numbers": {
+          "5.04%": "-",
+          "5.0%": "-",
+          "10.17%": "-",
+          "10.2%": "-",
+          "9.07%": "-",
+          "9.1%": "-",
+          "8.98%": "-",
+          "9.0%": "-",
+          "7.31%": "-",
+          "7.3%": "-",
+          "6.61%": "-",
+          "6.6%": "-",
+          "4.74%": "-",
+          "4.7%": "-",
+          "3.15%": "-",
+          "3.1%": "-",
+          "1.30%": "-",
+          "1.3%": "-",
+          "1.13%": "-",
+          "1.1%": "-",
+          "2.03%": "+",
+          "2.0%": "+"
+        },
+        "subjects": {
+          "SPCX": "down",
+          "AVGO": "down",
+          "TSM": "down",
+          "TSLA": "down",
+          "NVDA": "down",
+          "AMZN": "down",
+          "GOOGL": "down",
+          "META": "down",
+          "MSFT": "down",
+          "AAPL": "up"
+        }
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -2331,6 +2490,27 @@
         "PANW": "Palo Alto Networks, Inc.",
         "GOOGL": "Alphabet Inc.",
         "MSFT": "Microsoft Corporation"
+      },
+      "moves": {
+        "numbers": {
+          "7.63%": "-",
+          "7.6%": "-",
+          "$23.1B": "-",
+          "$23B": "-",
+          "2.47%": "-",
+          "2.5%": "-",
+          "$105.5B": "-",
+          "$106B": "-",
+          "1.93%": "-",
+          "1.9%": "-",
+          "$77.2B": "-",
+          "$77B": "-"
+        },
+        "subjects": {
+          "PANW": "down",
+          "GOOGL": "down",
+          "MSFT": "down"
+        }
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -2864,6 +3044,45 @@
         "CRWV": "CoreWeave, Inc.",
         "NBIS": "Nebius Group N.V."
       },
+      "moves": {
+        "numbers": {
+          "1.21%": "-",
+          "1.2%": "-",
+          "2.64%": "+",
+          "2.6%": "+",
+          "1.44%": "+",
+          "2.77%": "-",
+          "2.8%": "-",
+          "2.51%": "-",
+          "2.46%": "+",
+          "0.80%": "+",
+          "0.8%": "+",
+          "1.43%": "-",
+          "2.47%": "-",
+          "4.59%": "+",
+          "4.6%": "+",
+          "3.45%": "+",
+          "3.4%": "+",
+          "11.91%": "-",
+          "11.9%": "-",
+          "12.18%": "-",
+          "12.2%": "-"
+        },
+        "subjects": {
+          "Energy": "up",
+          "Consumer Defensive": "up",
+          "Technology": "down",
+          "Communication Services": "down",
+          "EQNR": "up",
+          "BTI": "up",
+          "CRWV": "down",
+          "NBIS": "down",
+          "XOM": "up",
+          "WMT": "up",
+          "NVDA": "down",
+          "GOOGL": "down"
+        }
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -3265,6 +3484,41 @@
         "NVDA": "NVIDIA Corporation",
         "AVGO": "Broadcom Inc."
       },
+      "moves": {
+        "numbers": {
+          "$1.01T": "-",
+          "$1.0T": "-",
+          "1.21%": "-",
+          "1.2%": "-",
+          "2.47%": "-",
+          "2.5%": "-",
+          "$105.5B": "-",
+          "$106B": "-",
+          "1.93%": "-",
+          "1.9%": "-",
+          "$77.2B": "-",
+          "$77B": "-",
+          "1.43%": "-",
+          "1.4%": "-",
+          "$74.9B": "-",
+          "$75B": "-",
+          "4.52%": "-",
+          "4.5%": "-",
+          "$74.4B": "-",
+          "$74B": "-",
+          "$886B": "-",
+          "$0.9T": "-",
+          "$885.6B": "-",
+          "2.77%": "-",
+          "2.8%": "-",
+          "2.64%": "+",
+          "2.6%": "+"
+        },
+        "subjects": {
+          "Technology": "down",
+          "Energy": "up"
+        }
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -3498,6 +3752,21 @@
         "MSFT": "Microsoft Corporation",
         "NVDA": "NVIDIA Corporation"
       },
+      "moves": {
+        "numbers": {
+          "1.21%": "-",
+          "1.2%": "-",
+          "2.47%": "-",
+          "2.5%": "-",
+          "1.93%": "-",
+          "1.9%": "-",
+          "1.43%": "-",
+          "1.4%": "-",
+          "1,212": "+",
+          "1212": "+"
+        },
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -3587,6 +3856,10 @@
         }
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -3752,7 +4025,15 @@
         "CFG": "Citizens Financial Group, Inc."
       },
       "top8": false,
-      "top8_out": "repeat: leads with $FITB like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
+      "top8_out": "repeat: leads with $FITB like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1",
+      "moves": {
+        "numbers": {
+          "2.3%": "+",
+          "0.1%": "-",
+          "0.5%": "+"
+        },
+        "subjects": {}
+      }
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-WTFC-3682ae",
@@ -3817,6 +4098,10 @@
         "market_cap": "$9.7B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -3888,6 +4173,10 @@
         "market_cap": "$9.1B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -3959,6 +4248,10 @@
         "market_cap": "$8.1B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4030,6 +4323,10 @@
         "market_cap": "$7.8B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4101,6 +4398,10 @@
         "market_cap": "$7.2B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4172,6 +4473,10 @@
         "market_cap": "$6.0B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4243,6 +4548,10 @@
         "market_cap": "$5.1B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4314,6 +4623,10 @@
         "market_cap": "$4.5B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4385,6 +4698,10 @@
         "market_cap": "$2.8B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4472,6 +4789,10 @@
         "WRB": "W. R. Berkley Corporation"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [
           "instagram"
@@ -4591,6 +4912,10 @@
       "ticker_sectors": {},
       "ticker_names": {},
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4662,6 +4987,10 @@
         "market_cap": "$707M"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4804,7 +5133,16 @@
       "ticker_sectors": {},
       "ticker_names": {},
       "top8": false,
-      "top8_out": "ranked below the top 8"
+      "top8_out": "ranked below the top 8",
+      "moves": {
+        "numbers": {
+          "11.2%": "-",
+          "10.1%": "-",
+          "11.5%": "-",
+          "6.7%": "-"
+        },
+        "subjects": {}
+      }
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-STLD-f76b5c",
@@ -4886,6 +5224,10 @@
         }
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {
@@ -4976,6 +5318,10 @@
         }
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {
@@ -5049,6 +5395,10 @@
         "market_cap": "$11.8B"
       },
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {
@@ -5124,6 +5474,10 @@
       "ticker_sectors": {},
       "ticker_names": {},
       "angles": [],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
       "cooldown": {
         "same_item_posted_on": [
           "instagram",
@@ -5298,7 +5652,16 @@
         "MDLZ": "Mondelez International, Inc."
       },
       "top8": false,
-      "top8_out": "ranked below the top 8"
+      "top8_out": "ranked below the top 8",
+      "moves": {
+        "numbers": {
+          "2.4%": "+",
+          "1.0%": "+",
+          "2.1%": "+",
+          "1.4%": "+"
+        },
+        "subjects": {}
+      }
     }
   ]
 }
