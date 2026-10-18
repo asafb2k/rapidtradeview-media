@@ -321,3 +321,10 @@ def test_monday_flow_items_pass_their_own_checks():
                                         "open-market sells over 30 days in our feed")
     basket = next(i for i in items if i["type"] == "basket_week")
     assert basket["when"] == "last week"
+
+
+def test_track_record_is_a_page_not_a_record_claim():
+    picks = fx.make_item("2026-10-18", "picks_ready", None, "picks:2026-10-16", "/picks/2026-10-16", tickers=["DRS"],
+                         facts_text="The daily picks list is published.", allowed_numbers=["Oct 16"])
+    assert gr.wording_reasons(picks, "Our picks for Oct 16: $DRS. The full list and the track record are on our page.") == []
+    assert gr.wording_reasons(picks, "Our picks for Oct 16: $DRS, a record list.") != []
