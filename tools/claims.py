@@ -104,6 +104,7 @@ EXEMPT = re.compile(
     r"|\bat\s+(?:least|most)\b"
     r"|\bfirst[-\s](?:quarter|half)\b"
     r"|\bon\s+top\s+of\b"
+    r"|\btrack[-\s]+records?\b|\brecord\s+dates?\b"     # our picks' track record (a page), a dividend's record date
     r"|\b(?:double|triple|rounding)[-\s]+(?:tops?|bottoms?)\b|\bhead[-\s]+and[-\s]+shoulders(?:\s+top)?\b",
     re.IGNORECASE)
 UP = re.compile(r"\b(?:rose|rise[sn]?|rising|gain(?:s|ed|ers?)?|up|higher|rall(?:y|ied|ies)|added|adds|jump(?:s|ed)?"
