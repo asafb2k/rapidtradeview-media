@@ -8,7 +8,10 @@ through grok_review.wording_reasons, the Growth post audit. Pure functions, no I
    "SPY stocks"; invisible characters stripped first). The one exception is the track record's benchmark comparison on a
    picks item, written as "vs the S&P 500 (SPY)" / "vs SPY (S&P 500)" ("vs SPY" alone needs no exception).
 2b (HQ 2026-10-19, the gate now). Comparisons are an ALLOWLIST: a sentence with any ranking / comparison language passes
-   only as one of the item's `claim_phrases` verbatim (see section 2b below). Section 2 (the `claims` reading of rounds
+   only as one of the item's `claim_phrases` verbatim (see section 2b below).
+2c (HQ 2026-10-19 round 2). And so does any sentence with a word outside the closed plain vocabulary (post_vocab.VOCAB):
+   the ranking word list is no longer the gate. Plain sentences tie every number and every rose / fell / up / down to its
+   subject (binding_reasons: `subject_numbers`, `moves`); a chart post's above / below must match its prices. Section 2 (the `claims` reading of rounds
    1-4) applies only to items from facts files built before the allowlist (no `claim_phrases` key).
 2. Comparative / superlative claims (led, biggest, largest, worst, best, most, least, only, first, top, record, #1 and
    their synonyms and comparatives: "outperformed every other", "no other sector beat", "more than any") are allowed only
@@ -60,9 +63,11 @@ through grok_review.wording_reasons, the Growth post audit. Pure functions, no I
 from __future__ import annotations
 
 import datetime as dt
+import html
 import re
 
 import market_facts as mk
+import post_vocab as pv
 
 # ---------------------------------------------------------------------------
 # 1. Universe wording
@@ -131,6 +136,7 @@ def window_reasons(item: dict, text: str) -> list[str]:
     # a post goes out after the facts were built (Grok's Monday pre-market slot reads Sunday's facts): "today",
     # "yesterday" and "tonight" are wrong for a session the item calls "on Friday" (or a week)
     bad += [m.group(0) for m in STALE_DAY.finditer(text) if m.group(1).lower() not in w]
+    bad += _wide_window_words(item, text)
     if "week" not in w:
         bad += _session_day_words(item, text)
     elif item.get("window") == "week" or item.get("type") == "basket_week":
@@ -138,6 +144,29 @@ def window_reasons(item: dict, text: str) -> list[str]:
         bad += [m.group(0) for m in DAY_WORDS.finditer(text)]
     return [f"window: the item's window is \"{when}\", not {bad[0]!r}"] if bad else []
 
+
+
+# round 2 review: a month ("in October"), month to date, or "over N weeks / days / sessions" the item does not state widens
+# its window ("Tech fell 7.3% in October", "over two weeks"); a month before a day number is a date ("Oct 16")
+_MONTH_WORD = re.compile(r"\b(?:january|february|march|april|may|june|july|august|september|october|november|december"
+                         r"|jan|feb|mar|apr|jun|jul|aug|sept?|oct|nov|dec)\b\.?(?!\s*\d)", re.IGNORECASE)
+_MTD = re.compile(r"\bmonth[\s-]+to[\s-]+date\b|\bmtd\b|\bthis\s+month\b|\bthe\s+month\b", re.IGNORECASE)
+_SPAN = re.compile(r"\b(?:over|in|across|during|for|within|past|last)\s+(?:the\s+)?(?:last\s+|past\s+)?"
+                   r"(?P<n>\d+|two|three|four|five|six|seven|eight|nine|ten|several|many)\s+"
+                   r"(?P<u>days|weeks|months|years|sessions|trading\s+days|closes)\b", re.IGNORECASE)
+
+
+def _wide_window_words(item: dict, text: str) -> list[str]:
+    own = _norm(" ".join([str(item.get("facts_text") or ""), *(str(p) for p in item.get("claim_phrases") or [])])).lower()
+    t = _norm(text)
+    # "may" is a verb before it is a month
+    bad = [m.group(0) for m in _MONTH_WORD.finditer(t) if m.group(0).lower().rstrip(".") != "may"]
+    bad += [m.group(0) for m in _MTD.finditer(t)]
+    for m in _SPAN.finditer(t):
+        span = m.group("n").lower() + " " + re.sub(r"\s+", " ", m.group("u").lower())
+        if span not in own:
+            bad.append(m.group(0))
+    return bad
 
 
 # ---------------------------------------------------------------------------
@@ -383,6 +412,8 @@ def item_names(item: dict) -> list[str]:
     """Company / person names the item carries (so "Constellation Energy" is not the Energy sector)."""
     out = [item.get("name"), item.get("company")]
     out += list((item.get("ticker_names") or {}).values())
+    out += list((item.get("names") or {}).values()) if isinstance(item.get("names"), dict) else []   # roundups
+    out += [(r or {}).get("name") for r in item.get("reporters") or [] if isinstance(r, dict)]       # the week preview
     out += [(p or {}).get("name") for p in item.get("peers") or [] if isinstance(p, dict)]
     return [n for n in out if isinstance(n, str)]
 
@@ -1391,7 +1422,7 @@ RANK_IDIOMS = re.compile(
     # our universe and basket by name ("The 500 largest US-listed stocks fell", "Owning the 10 largest", "60 of the 500
     # largest ... report"), never membership ("one of / among / in / joined the 10 largest" stays a ranking claim)
     r"|(?<!\bone of )(?<!\bamong )(?<!\bin )(?<!\binto )(?<!\bof )(?<!\bjoined )(?<!\bentered )(?<!\binside )"
-    r"(?<!\bwithin )\bthe\s+(?:500|10|ten)\s+largest\b(?:\s+us-listed\b)?"
+    r"(?<!\bwithin )(?<!\bto )\bthe\s+(?:500|10|ten)\s+largest\b(?:\s+us-listed\b)?"
     r"|\b\d[\d,]*\s+of\s+the\s+(?:500|10|ten)\s+largest\b(?:\s+us-listed\b)?", re.IGNORECASE)
 _RANK_PARTS = (
     r"(?P<est>\b[a-z]{2,}est\b)",
@@ -1430,10 +1461,15 @@ _RANK_PARTS = (
     r"\bas\s+(?:much|many|big|large|hard|far|bad|good|strong|weak|high|low|fast|steep|sharp|badly)\s+as\b",
 )
 RANK_LANGUAGE = re.compile("|".join(_RANK_PARTS), re.IGNORECASE)
+# round 2 review: no weekday, "morning" or "weekend" here ("Friday, Oct 15 was the strongest up day ...", "... on Friday and
+# Thursday morning" widened a phrase); a "Monday recap:" label opening the sentence is dropped first (LEAD_LABEL)
 NEUTRAL = {"and", "but", "also", "so", "plus", "meanwhile", "while", "yet", "note", "notably", "fact", "fun", "recap",
            "data", "why", "it", "matters", "the", "on", "map", "chart", "card", "here", "is", "this", "quick", "look",
-           "check", "in", "short", "numbers", "monday", "tuesday", "wednesday", "thursday", "friday", "morning", "update",
-           "briefing", "reminder", "weekend", "read"}
+           "check", "in", "short", "numbers", "update", "briefing", "reminder", "read"}
+# a label opening a sentence ("Monday recap:", "Friday morning briefing -", "Happy Monday!"): dropped before the phrase and
+# vocabulary checks (the window rule still reads its weekday)
+LEAD_LABEL = re.compile(r"^\s*(?:(?:happy|good)\s+)?(?:(?:" + _DAYS_W + r")(?:['’]s)?\s+)?(?:morning\s+)?"
+                        r"(?:recap|update|briefing|brief|rundown|read|notes?|reminder|morning)?\s*[:!–—-]\s+", re.IGNORECASE)
 _TOKEN = re.compile(r"[+-]?\$?\d[\d,]*(?:\.\d+)?(?:%|x|[kmbt](?![a-z]))?|[a-z0-9]+(?:'[a-z]+)?")
 
 
@@ -1546,41 +1582,497 @@ ELLIPSIS = re.compile(r"\b(?:too|as\s+well|also|likewise|ditto|same\s+(?:for|wit
 
 
 def allowlist_reasons(item: dict, text: str) -> list[str]:
-    """REJECT reasons for sentences with ranking / comparison language that are not the item's claim_phrases."""
+    """REJECT reasons for sentences that are not the item's claim_phrases and either carry ranking / comparison language
+    (RANK_LANGUAGE) or any word outside the plain vocabulary (section 2c: post_vocab.VOCAB; round 2 review: the ranking
+    word list alone let "Energy alone rose", "the rest fell", "took gold", "kept falling", "matched" through)."""
     names = item_names(item)
     nmap = name_map(item)
     phrases = [phrase_tokens(p) for p in item_phrases(item)]
     extra = _extra_words(item)
     out, prev_rank, prev_quiz = [], False, False
-    # sentences, each also split at ";" (a phrase never holds one)
-    for sent in [x for s0 in SENTENCE.split(_norm(text or "")) for x in s0.split(";")]:
-        if not sent.strip():
-            continue
-        words = rank_words(sent, names, nmap)
+    for sent in post_sentences(text):
+        body = LEAD_LABEL.sub("", sent, count=1)
+        words = rank_words(body, names, nmap)
+        unknown = vocab_unknown(item, body, names, nmap)
         after, quiz = prev_rank, prev_quiz
         prev_rank, prev_quiz = bool(words), False
-        if not words:
-            add = ELLIPSIS.search(sent) if after else None
+        if not words and not unknown:
+            add = ELLIPSIS.search(body) if after else None
             if add:   # "Energy was the best sector on Friday (+2.6%). Tech too." adds Tech to the ranking (r4 review)
                 out.append(f"unsupported comparison: {short_text(sent.strip())!r} adds to the comparison before it "
                            f"({add.group(0).strip()!r}) - a claim phrase states its subjects; write the next fact on its own")
-            elif quiz and entities(sent, nmap, names):
+            elif quiz and entities(body, nmap, names):
                 # "Do you know which stock fell most? $MSFT.": the answer makes the question a claim
                 out.append(f"unsupported comparison: {short_text(sent.strip())!r} answers the ranking question before it "
                            "- for any comparison copy one of the item's claim_phrases verbatim")
             continue
-        if _phrase_match(phrase_tokens(sent), phrases, extra):
+        if _phrase_match(phrase_tokens(body), phrases, extra):
             continue
-        st = sent.strip()
+        st = body.strip()
         if (st.endswith("?") and re.search(r"\byou(?:r|rs|['’]re)?\b", st, re.IGNORECASE) and not re.search(r"\d", st)
                 and not entities(st, nmap, names)):
             prev_quiz = True
             continue   # a question to the reader that names nothing asserts nothing (until a sentence answers it)
-        hint = (" - this item has no claim_phrases: say it without comparing or ranking" if not phrases else
-                " - for any comparison, ranking, order, 'only' / 'all', record, streak or ratio copy one of the item's "
-                "claim_phrases verbatim (its own sentence)")
-        out.append(f"unsupported comparison: {short_text(st)!r} uses {', '.join(repr(w) for w in words[:4])}{hint}")
+        if words:
+            hint = (" - this item has no claim_phrases: say it without comparing or ranking" if not phrases else
+                    " - for any comparison, ranking, order, 'only' / 'all', record, streak or ratio copy one of the item's "
+                    "claim_phrases verbatim (its own sentence)")
+            out.append(f"unsupported comparison: {short_text(sent.strip())!r} uses {', '.join(repr(w) for w in words[:4])}"
+                       f"{hint}")
+        else:
+            out.append(f"wording: {short_text(sent.strip())!r} uses {', '.join(repr(w) for w in unknown[:5])}, outside the "
+                       "plain post vocabulary - a sentence that is not one of the item's claim_phrases may use only plain "
+                       "words (the item's names, numbers and window, rose / fell / up / down, reported, filed, bought, "
+                       "sold, ...): say it plainly or copy a claim phrase verbatim")
     return out
+
+
+# ---------------------------------------------------------------------------
+# 2c. The plain vocabulary and number / direction binding (HQ round 2 review 2026-10-19)
+#
+# A sentence that is not a claim phrase passes only when nothing is left after removing the item's entities (cashtags,
+# company / person names, sectors, "the 500 largest US-listed stocks", "the 10 largest", "US stocks RapidTradeView
+# tracks"), its numbers and dates, its idioms and a closed list of plain words (post_vocab.VOCAB). Any other word, a
+# number word, or one of > < = sends it to the claim-phrase check.
+# Plain sentences are then bound to the data (binding_reasons):
+#   - every signed / percent / dollar / ratio number, "Sync N" and "N mentions" belongs to the nearest entity before it
+#     in its sentence (or the one it is "for" / "of", or the one after it in the clause, or - after "it" / "the stock" -
+#     the entity named last before), and must be one of that entity's numbers in the item (`subject_numbers`, read from
+#     the item's own facts_text and claim phrases): "$MSFT +2.03%" when +2.03% is $AAPL's is rejected;
+#   - every direction word (post_vocab.DIRECTION_UP / DOWN) belongs to the entities named since the previous one (or,
+#     at the head of a sentence / before ":", to those after it; after "it" / "the stock", to the entity named last) and
+#     must match each one's move in the item (`moves.subjects`), or - for a subject with no known move - the sign of a
+#     number beside it; a direction word with no subject the data backs is rejected, and so is any negated move.
+
+# sentences for the vocabulary and binding reading: no split after a middle initial ("Robert C. Pohlad") or a title /
+# company abbreviation ("Rep. Salazar", "PepsiCo, Inc. director")
+POST_SENTENCE = re.compile(r"(?<=[.!?])(?<![Nn]o\.)(?<!\s[A-Z]\.)(?<!\bRep\.)(?<!\bSen\.)(?<!\bInc\.)(?<!\bCorp\.)"
+                           r"(?<!\bCo\.)(?<!\bLtd\.)(?<!\bJr\.)(?<!\bSr\.)(?<!\bDr\.)(?<!\bMr\.)(?<!\bMs\.)(?<!\bMrs\.)"
+                           r"(?<!\bSt\.)(?<!\bvs\.)(?<!\bU\.S\.)(?<!\bN\.V\.)(?<!\bS\.A\.)\s+|\n+")
+
+
+def post_sentences(text: str) -> list[str]:
+    """The text's sentences (POST_SENTENCE), each also split at ";" (a phrase never holds one)."""
+    return [x for s0 in POST_SENTENCE.split(_norm(html.unescape(text or ""))) for x in s0.split(";") if x.strip()]
+
+
+_PSEUDO = (
+    ("#U500", re.compile(r"\b(?:the\s+)?500\s+largest(?:\s+us-listed)?(?:\s+(?:stocks|companies|names))?(?![\w-])",
+                         re.IGNORECASE)),
+    ("#B10", re.compile(r"\b(?:the\s+)?10\s+largest(?:\s+us-listed)?(?:\s+(?:stocks|companies|names))?(?![\w-])",
+                        re.IGNORECASE)),
+    ("#TRACKED", re.compile(r"\b(?:(?:the\s+)?us\s+)?(?:stocks|names|tickers)\s+(?:that\s+)?"
+                            r"(?:rapidtradeview|we)\s+tracks?\b|\b(?:the\s+)?us\s+stocks\b", re.IGNORECASE)),
+)
+_SCOPE_BEFORE = re.compile(r"\b(?:of|among|in|within|inside|into|across|from)\s*$", re.IGNORECASE)
+_TICK_SCOPE = re.compile(r"(?<!\bshares )(?<!\bstock )(?<!\bpurchase )(?<!\bsale )(?<!\bbuy )\b(?:of|among|within)\s*$",
+                         re.IGNORECASE)
+_SECTOR_MOD = re.compile(r"\s+(?:dollar\s+)?(?:stocks?|names?|compan(?:y|ies)|tickers?|shares?|losers?|gainers?|drops?"
+                         r"|declines?|movers?|members?|peers?|sector)\b", re.IGNORECASE)
+_DATE_RX = re.compile(r"\b(?:" + _MONTHS + r")\.?\s+\d{1,2}(?:st|nd|rd|th)?(?:,?\s+\d{4})?\b|\b\d{4}-\d{2}-\d{2}\b"
+                      r"|\b\d{1,2}:\d{2}\s*(?:am|pm)?\b", re.IGNORECASE)
+_URL_RX = re.compile(r"https?://\S+|\b(?:www\.)?(?:rapidtradeview\.trade|rapidtradeview\.com|sec\.gov)(?:/\S*)?", re.IGNORECASE)
+# arrows, medals, trophies, rockets, coloured dots / squares, check marks: a direction or a ranking without words
+_SIGN_SYMBOLS = re.compile("[\u2190-\u21ff\u2b05-\u2b07\u2b95\u25b2-\u25bc\u2705\u2714\u2716\u274c\u274e"
+                           "\U0001f4c8\U0001f4c9\U0001f53a\U0001f53b\U0001f3c6\U0001f947-\U0001f949\U0001f451\U0001f680"
+                           "\U0001f7e0-\U0001f7eb\U0001f534-\U0001f539\U0001f44d\U0001f44e\U0001f4aa\U0001f4a5\U0001f525]")
+_VOCAB_IDIOMS = re.compile("|".join(pv.IDIOMS) + r"|\bin\s+equal\s+amounts\b|\bequal[\s-]+weight(?:ed)?\b"
+                           r"|\bequally[\s-]+weighted\b", re.IGNORECASE)
+_WORD_RX = re.compile(r"[a-z0-9]+(?:'[a-z]+)*")
+_DAYS_VOCAB = frozenset("monday tuesday wednesday thursday friday saturday sunday mon tue tues wed thu thurs fri sat sun "
+                        "recap briefing rundown".split())
+
+
+def _person_names(item: dict) -> list[str]:
+    out = [item.get("name"), item.get("company"), item.get("office")]
+    for k in ("filer", "insider", "member"):
+        v = item.get(k)
+        if isinstance(v, str):
+            out.append(v)
+    return [x for x in out if isinstance(x, str) and len(x) >= 2]
+
+
+def vocab_unknown(item: dict, sent: str, names: list[str] | None = None, nmap: dict | None = None) -> list[str]:
+    """Words of `sent` outside the plain vocabulary (after the item's entities, numbers, dates and idioms are removed),
+    plus number words and > < = signs."""
+    names = names if names is not None else item_names(item)
+    nmap = nmap if nmap is not None else name_map(item)
+    s = _norm(html.unescape(sent)).replace("’", "'")
+    out = []
+    s = _URL_RX.sub(" ", spy_blank(item.get("type"), s))   # a picks post's "vs the S&P 500 (SPY)" (section 1)
+    sym = re.search(r"[<>=≥≤≠≫≪]", s) or _SIGN_SYMBOLS.search(s)
+    if sym:
+        out.append(sym.group(0))
+    for must in [*(item.get("must_include") or []), "Not investment advice."]:
+        if isinstance(must, str) and must.strip():
+            s = re.sub(re.escape(must.strip().rstrip(".")), " ", s, flags=re.IGNORECASE)
+    tags = {mk.norm_ticker(t).lower() for t in [*(item.get("tickers") or []), *(item.get("context_tickers") or []),
+                                                 item.get("ticker")] if t}
+    joined = {re.sub(r"[^a-z0-9]", "", n.lower()) for n in [*names, *nmap.keys()] if n}
+    joined |= {re.sub(r"[^a-z0-9]", "", _NAME_SUFFIX.sub("", n).lower()) for n in names if n}
+    for m in re.finditer(r"#(\w+)", s):
+        h = m.group(1).lower()
+        if not (re.search(r"\d", h) or h in pv.HASHTAGS or h in tags or h in joined):
+            out.append("#" + m.group(1))
+    s = re.sub(r"#\w+", " ", s)
+    s = CASHTAG.sub(" ", s)
+    s = _blank_names(s, [*names, *_person_names(item)])
+    rx = _name_rx(nmap)
+    if rx:
+        s = rx.sub(" ", s)
+    s = SECTOR_WORD.sub(" ", s)
+    s = _VOCAB_IDIOMS.sub(" ", s)
+    for _, prx in _PSEUDO:
+        s = prx.sub(" ", s)
+    s = _DATE_RX.sub(" ", s)
+    s = re.sub(r"\b(?:last|this|past)\s+week\b", " week ", s, flags=re.IGNORECASE)   # the window rule reads these
+    allowed = pv.VOCAB | _DAYS_VOCAB | pv.BY_TYPE.get(str(item.get("type")), frozenset())
+    # names may be shortened ("Rep. Salazar", "R-FL", "JPMorgan Chase", "Travelers") and tickers written bare ("the public
+    # picks are RTX, EROC"): the words of the item's own names and its tickers are names too (never a ranking / number
+    # word: "Fifth Third", "Best Buy" keep their ranking word out)
+    allowed = allowed | tags | {w for n in [*names, *_person_names(item)] for w in _WORD_RX.findall(n.lower())
+                                if not RANK_LANGUAGE.search(w) and w not in pv.NUMBER_WORDS}
+    for w in _WORD_RX.findall(s.lower()):
+        if re.search(r"\d", w):
+            continue   # numbers: allowed_numbers and binding_reasons
+        base = w[:-2] if w.endswith("'s") else w
+        if w in allowed or base in allowed:
+            continue
+        out.append(w)
+    return list(dict.fromkeys(out))
+
+
+# --- binding ---------------------------------------------------------------------------------------------------------
+
+_NUM_RX = re.compile(
+    r"(?P<usd>(?<![\w.])[+-]?\$\d[\d,]*(?:\.\d+)?(?:\s?[KMBT](?![a-zA-Z]))?)"
+    r"|(?P<pct>(?<![\w.$])[+-]?\d[\d,]*(?:\.\d+)?\s?%)"
+    r"|(?P<x>(?<![\w.$])\d[\d,]*(?:\.\d+)?\s?(?:×|x(?![a-zA-Z])))"
+    r"|(?P<signed>(?<![\w.$])[+-]\d[\d,]*(?:\.\d+)?(?![\d%.,]|\s?[KMBT×x]\b))"
+    r"|(?:\bsync\s+)(?P<sync>\d{1,3})\b"
+    r"|(?<=\()\s*(?P<paren>\d{1,3})(?=\s*[),])"
+    r"|(?P<ment>(?<![\w.$])\d[\d,]*)(?=\s+(?:reddit\s+)?mentions\b)"
+    # a plain count ("840 of 2,497"): gives a direction word its sign, never bound to a subject
+    r"|(?P<cnt>(?<![\w.$+-])\d[\d,]*(?:\.\d+)?(?![\d.,%]|\s?(?:[KMBT×x]\b|%)))", re.IGNORECASE)
+_SCALE = {"": 1.0, "K": 1e3, "M": 1e6, "B": 1e9, "T": 1e12}
+_REF_RX = re.compile(r"\b(?:it|its|it's|they|their|the\s+(?:stock|company|shares|sector|name|ticker)|shares)\b",
+                     re.IGNORECASE)
+_DIR_RX = re.compile(r"\b(?:" + "|".join(sorted(pv.DIRECTION_UP | pv.DIRECTION_DOWN, key=len, reverse=True)) + r")\b",
+                     re.IGNORECASE)
+# "up" / "down" that state no move: "up day", "stocks up minus down", "each up sector", "sign up", "set up"
+_DIR_IDLE_AFTER = re.compile(r"^\s*(?:minus|days?|sectors?|and\s+down|or\s+down|next|front|to\s+date)\b", re.IGNORECASE)
+_DIR_IDLE_BEFORE = re.compile(r"\b(?:sign|set|follow|line|pick|look|catch|wrap|round|sum|show|turn|back|stack|break"
+                              r"|each|strongest|weakest|an?)\s*$", re.IGNORECASE)
+_NEG_RX = re.compile(r"\bnot\b|n't\b|\bnever\b|\bno\b|\bneither\b|\bnor\b", re.IGNORECASE)
+_MODAL_RX = re.compile(r"\b(?:will|would|could|may|might|should|can|must|shall)\b", re.IGNORECASE)
+
+
+def _num(m: re.Match) -> tuple | None:
+    """(unit, |value| in its scale, decimals, scale, sign) of a _NUM_RX match; sign 0 when unsigned."""
+    kind = m.lastgroup
+    raw = m.group(kind).strip()
+    sign = -1 if raw.startswith("-") else 1 if raw.startswith("+") else 0
+    raw = raw.lstrip("+-").replace("$", "").replace(",", "").replace("%", "").replace("×", "").strip()
+    scale = 1.0
+    unit = {"usd": "$", "pct": "%", "x": "x", "signed": "n", "sync": "n", "paren": "n", "ment": "n", "cnt": "c"}[kind]
+    if unit == "$" and raw[-1:].isalpha() and raw[-1:].upper() in _SCALE:
+        scale, raw = _SCALE[raw[-1:].upper()], raw[:-1].strip()
+    if unit == "x":
+        raw = raw.rstrip("xX").strip()
+    try:
+        v = float(raw)
+    except ValueError:
+        return None
+    dec = len(raw.split(".")[1]) if "." in raw else 0
+    return unit, v, dec, scale, sign
+
+
+def _same_value(a: tuple, b: tuple) -> bool:
+    """Draft number a is item number b (one may be the other rounded; signs agree when both carry one)."""
+    if a[0] != b[0] or (a[4] and b[4] and a[4] != b[4]):
+        return False
+    av, bv = a[1] * a[3], b[1] * b[3]
+    for x, y in ((a, bv), (b, av)):
+        if abs(round(y / x[3], x[2]) - x[1]) < 1e-9:
+            return True
+    return False
+
+
+def _sent_events(item: dict, sent: str, names: list[str], nmap: dict) -> list[tuple]:
+    """("ent", start, end, key, scope) / ("num", start, end, value) / ("dir", start, end, "up"|"down") in text order."""
+    s = sent
+    ev = []
+    for st, en, e, k in entities(s, nmap, names):
+        lead = s[:st]
+        scope = bool(_SCOPE_BEFORE.search(lead)) if k == "sector" else bool(_TICK_SCOPE.search(lead))
+        if k == "sector" and _SECTOR_MOD.match(s[en:]):
+            scope = True   # "the biggest Energy name", "Tech stocks": a scope, not the subject
+        ev.append(("ent", st, en, e, scope))
+    taken = [(st, en) for _, st, en, _, _ in ev]
+    for key, prx in _PSEUDO:
+        for m in prx.finditer(s):
+            if any(st < m.end() and m.start() < en for st, en in taken):
+                continue
+            ev.append(("ent", m.start(), m.end(), key, bool(_SCOPE_BEFORE.search(s[:m.start()]))))
+            taken.append((m.start(), m.end()))
+    blank = _DATE_RX.sub(lambda m: " " * len(m.group(0)), s)
+    blank = _VOCAB_IDIOMS.sub(lambda m: " " * len(m.group(0)), blank)   # "rising wedge", "the next session"
+    for _, prx in _PSEUDO:
+        blank = prx.sub(lambda m: " " * len(m.group(0)), blank)
+    for m in _NUM_RX.finditer(blank):
+        v = _num(m)
+        if v:
+            ev.append(("num", m.start(), m.end(), v))
+    for m in _DIR_RX.finditer(blank):
+        w = m.group(0).lower()
+        if w in ("up", "down") and (_DIR_IDLE_AFTER.match(blank[m.end():]) or _DIR_IDLE_BEFORE.search(blank[:m.start()])):
+            continue
+        ev.append(("dir", m.start(), m.end(), "up" if w in pv.DIRECTION_UP else "down"))
+    return sorted(ev, key=lambda x: (x[1], x[0] != "ent"))
+
+
+def _num_subject(ev: list[tuple], i: int, sent: str, carried: str | None) -> str | None:
+    """The entity a number belongs to: a parenthesis right after a name is that name's ("Energy (+2.6%)"); "N% for / of X"
+    is X's; else the nearest entity before it that is not a scope ("among the 500 largest", "in Technology", "the
+    biggest Energy name", "peer of $T"), the next one in its clause, or - after "it" / "the stock" - the entity named
+    last."""
+    st, en = ev[i][1], ev[i][2]
+    after = sent[en:]
+    subj_ents = [e for e in ev if e[0] == "ent" and not e[4]]
+    op = sent.rfind("(", 0, st)
+    if op >= 0 and ")" not in sent[op:st]:
+        before = [e for e in subj_ents if e[2] <= op]
+        if before and not sent[before[-1][2]:op].strip():
+            return before[-1][3]
+    m = re.match(r"\s*(?:\)|,)?\s*(?:for|of)\s+", after)
+    if m:
+        nxt = [e for e in ev[i + 1:] if e[0] == "ent" and e[1] == en + m.end()]
+        if nxt:
+            return nxt[0][3]
+    prev = [e for e in ev[:i] if e[0] == "ent" and not e[4]]
+    if prev:
+        return prev[-1][3]
+    seg = re.split(r"[;,.!?]", after, maxsplit=1)[0]
+    nxt = [e for e in ev[i + 1:] if e[0] == "ent" and e[1] <= en + len(seg) + 1]
+    if nxt:
+        return nxt[0][3]
+    if carried and _REF_RX.search(sent[:st]):
+        return carried
+    return None
+
+
+def item_subject_numbers(item: dict) -> dict[str, list[list]]:
+    """{subject: [[unit, value, decimals, scale, sign], ...]}: each number of the item's own facts_text and claim phrases
+    bound to its entity the way binding_reasons reads a post (facts.py stores it as `subject_numbers`)."""
+    names, nmap = item_names(item), name_map(item)
+    out: dict[str, list] = {}
+    main = mk.norm_ticker(item["ticker"]) if item.get("ticker") else None
+    for text in [item.get("facts_text") or "", *(item.get("claim_phrases") or [])]:
+        last = main
+        for sent in post_sentences(text):
+            ev = _sent_events(item, sent, names, nmap)
+            for i, e in enumerate(ev):
+                if e[0] == "num" and e[3][0] != "c":
+                    subj = _num_subject(ev, i, sent, last)
+                    if subj and list(e[3]) not in out.setdefault(subj, []):
+                        out[subj].append(list(e[3]))
+            ents = [e for e in ev if e[0] == "ent" and not e[4]]
+            if ents:
+                last = ents[-1][3]
+
+    def put(subj, raw):
+        if not subj or not isinstance(raw, (str, int, float)):
+            return
+        for m in _NUM_RX.finditer(_norm(str(raw))):
+            v = _num(m)
+            if v and v[0] != "c" and list(v) not in out.setdefault(subj, []):
+                out[subj].append(list(v))
+
+    ctx = item.get("context") or {}
+    put(main, (ctx.get("last_session_move") or {}).get("pct"))
+    put(main, ctx.get("market_cap"))
+    put(main, item.get("subject_day_move"))
+    for p0 in item.get("peers") or []:
+        if isinstance(p0, dict) and p0.get("ticker"):
+            put(mk.norm_ticker(p0["ticker"]), p0.get("day_move"))
+            if isinstance(p0.get("sync"), int):
+                put(mk.norm_ticker(p0["ticker"]), f"Sync {p0['sync']}")
+    return out
+
+
+def _pseudo_dirs(item: dict) -> dict[str, str]:
+    out = {}
+    for k in ("all_500", "cap_weighted_pct"):
+        if isinstance(item.get(k), (int, float)) and item[k]:
+            out["#U500"] = "up" if item[k] > 0 else "down"
+    t = (item.get("totals") or {}).get("pct_change")
+    if isinstance(t, (int, float)) and t:
+        out["#U500"] = "up" if t > 0 else "down"
+    if isinstance(item.get("mean_5d"), (int, float)) and item["mean_5d"]:
+        out["#B10"] = "up" if item["mean_5d"] > 0 else "down"
+    b = item.get("breadth") or {}
+    if isinstance(b.get("advancers"), int) and isinstance(b.get("decliners"), int) and b["advancers"] != b["decliners"]:
+        out["#TRACKED"] = "up" if b["advancers"] > b["decliners"] else "down"
+    return out
+
+
+_REL_RX = re.compile(r"\b(?P<w>above|below|under|over)\b(?!\s+(?:the\s+)?(?:last\s+|past\s+)?\d+\s+(?:sessions|trading\s+days"
+                     r"|days|closes)\b)", re.IGNORECASE)
+
+
+def chart_reasons(item: dict, text: str) -> list[str]:
+    """A chart-pattern post's "above" / "below": the two prices in its clause compare that way ("closed $30.56, below the
+    $34.81 neckline"), or - with fewer prices - the pattern's breakout close and key level do."""
+    if item.get("type") != "chart_pattern":
+        return []
+    lv = item.get("levels") or {}
+
+    def price(x):
+        try:
+            return float(str(x).replace("$", "").replace(",", ""))
+        except (TypeError, ValueError):
+            return None
+
+    close, key = price(lv.get("breakout_close")), price(lv.get("key_level"))
+    out = []
+    for cl in clauses(text):
+        for m in _REL_RX.finditer(cl):
+            up = m.group("w").lower() in ("above", "over")
+            ps = [float(x.replace(",", "")) for x in re.findall(r"\$(\d[\d,]*(?:\.\d+)?)", cl)]
+            if len(ps) >= 2:
+                a, b = ps[0], ps[-1]
+            elif close is not None and key is not None:
+                a, b = close, key
+            else:
+                out.append(f"chart: {short_text(cl)!r} - {m.group('w')!r} needs the two prices it compares")
+                continue
+            if (a > b) != up or a == b:
+                out.append(f"chart: {short_text(cl)!r} - ${a:g} is not {m.group('w')} ${b:g}")
+    return list(dict.fromkeys(out))
+
+
+def _show(e: str) -> str:
+    return {"#U500": "the 500 largest US-listed stocks", "#B10": "the 10 largest US-listed companies",
+            "#TRACKED": "the US stocks RapidTradeView tracks"}.get(e) or (e if canon_sector(e) else f"${e}")
+
+
+def binding_reasons(item: dict, text: str) -> list[str]:
+    """Numbers and direction words of the sentences that are not claim phrases, tied to their subjects (section 2c)."""
+    names, nmap = item_names(item), name_map(item)
+    phrases = [phrase_tokens(p) for p in item_phrases(item)]
+    extra = _extra_words(item)
+    bound = item.get("subject_numbers") or item_subject_numbers(item)
+    bound = {k: [tuple(v) for v in vs] for k, vs in bound.items()}
+    mv = item.get("moves") or item_moves(item)
+    sdir = {**(mv.get("subjects") or {}), **_pseudo_dirs(item)}
+    for k, vs in bound.items():   # a subject whose numbers in the facts all carry one sign moved that way
+        sg = {v[4] for v in vs if v[4] and v[0] in ("%", "$")}
+        if k not in sdir and len(sg) == 1:
+            sdir[k] = "up" if sg.pop() > 0 else "down"
+    nsign = mv.get("numbers") or {}
+    main = mk.norm_ticker(item["ticker"]) if item.get("ticker") else None
+    out = []
+    carried, prev_dir = main, False
+    for sent in post_sentences(text):
+        body = LEAD_LABEL.sub("", sent, count=1)
+        ev = _sent_events(item, body, names, nmap)
+        ents = [e for e in ev if e[0] == "ent" and not e[4]]
+        if (_phrase_match(phrase_tokens(body), phrases, extra) or rank_words(body, names, nmap)
+                or vocab_unknown(item, body, names, nmap)):
+            # a claim phrase is verified as built; any other sentence with ranking or non-plain words is rejected by
+            # allowlist_reasons already
+            carried = ents[-1][3] if ents else carried
+            continue
+        st = short_text(sent.strip())
+        # numbers
+        for i, e in enumerate(ev):
+            if e[0] != "num" or e[3][0] == "c":
+                continue
+            owners = {k for k, vs in bound.items() if any(_same_value(e[3], v) for v in vs)}
+            if not owners:
+                continue
+            subj = _num_subject(ev, i, body, carried)
+            if subj and subj not in owners:
+                raw = body[e[1]:e[2]].strip()
+                out.append(f"binding: {st!r} puts {raw} on {_show(subj)} - in the item's facts it is "
+                           f"{', '.join(sorted(_show(o) for o in owners))}'s number")
+        # direction words
+        dirs = [i for i, e in enumerate(ev) if e[0] == "dir"]
+        if dirs and _NEG_RX.search(body):
+            out.append(f"direction: {st!r} negates a move - state the move as the data has it")
+        if dirs and _MODAL_RX.search(body):
+            out.append(f"direction: {st!r} - a move with will / would / could / may / might / should / can is a forecast; "
+                       "state the session's move")
+        if not dirs and prev_dir and ELLIPSIS.search(body) and ents and not any(x[0] == "num" for x in ev):
+            # "Energy rose on Friday. Tech did also." / "... and so did Tech": the follow-up claims the same move
+            out.append(f"direction: {st!r} carries the move of the sentence before to {_show(ents[0][3])} - state its own "
+                       "move with its number")
+        prev_dir = bool(dirs)
+        prev_end = -1
+        for j, i in enumerate(dirs):
+            e = ev[i]
+            stop = dirs[j + 1] if j + 1 < len(dirs) else len(ev)
+            subs = [x[3] for x in ev[prev_end + 1:i] if x[0] == "ent" and not x[4]]
+            if not subs:   # "Up: Energy", "Biggest dollar drops on Friday: $GOOGL", "drops ... included $AVGO"
+                subs = [x[3] for x in ev[i + 1:stop] if x[0] == "ent" and not x[4]]
+            if not subs and carried and _REF_RX.search(body[:e[1]]):
+                subs = [carried]
+            # the number the word governs: the first one after it (before the next name / direction word), else the
+            # last one before it in its own group ("1,631 of 2,497 ... fell", "Energy rose 2.6% ... and Tech fell 2.8%")
+            nxt = next((k for k in range(i + 1, len(ev)) if ev[k][0] in ("ent", "dir")), len(ev))
+            grp0 = max([prev_end] + [k for k in range(prev_end + 1, i) if ev[k][0] == "ent"])
+
+            def signed(xs):
+                for x in xs:
+                    raw = body[x[1]:x[2]].strip()
+                    sg = "+" if x[3][4] > 0 else "-" if x[3][4] < 0 else nsign.get(raw.lstrip("+-"))
+                    if sg:
+                        return sg
+                return None
+
+            grp_ents = [x for x in ev[prev_end + 1:i] if x[0] == "ent" and not x[4]]
+            sign = (signed([x for x in ev[i + 1:nxt] if x[0] == "num"][:1])
+                    or signed([x for x in ev[grp0 + 1:i] if x[0] == "num"])
+                    or (signed([x for x in ev[prev_end + 1:i] if x[0] == "num"])   # "840 of 2,497 US stocks ... rose"
+                        if all(x[3].startswith("#") for x in grp_ents) else None))
+            want = e[3]
+            word = body[e[1]:e[2]]
+            if sign and (sign == "+") != (want == "up"):
+                out.append(f"direction: {st!r} - {word!r} beside a number that is a "
+                           f"{'gain' if sign == '+' else 'loss'} in the item's facts")
+            if not subs and not sign:
+                d = sdir.get(main) if main else None
+                if d is None:
+                    out.append(f"direction: {st!r} - {word!r} says something moved, but the sentence names no "
+                               "company or sector whose move the item gives (name it, with its number)")
+                elif d != want:
+                    out.append(f"direction: {st!r} - ${main} {'rose' if d == 'up' else 'fell'} in the item's facts")
+            for s0 in subs:
+                d = sdir.get(s0)
+                if s0.startswith("#") and sign:
+                    continue   # a count's own sign ("840 of 2,497 ... rose") decides for the group
+                if d is None:
+                    if not sign:
+                        out.append(f"direction: {st!r} - the item gives no move for {_show(s0)}; {word!r} is not backed")
+                elif d != want:
+                    out.append(f"direction: {st!r} - {_show(s0)} {'rose' if d == 'up' else 'fell'} in the item's facts")
+            prev_end = i
+        if dirs:
+            # names after the last direction word with no number of their own share it ("Energy rose, and so did Tech")
+            last_d = ev[dirs[-1]]
+            tail = ev[dirs[-1] + 1:]
+            for k, x in enumerate(tail):
+                if x[0] != "ent" or x[4]:
+                    continue
+                nxt_e = next((j for j in range(k + 1, len(tail)) if tail[j][0] == "ent"), len(tail))
+                if any(y[0] == "num" for y in tail[k + 1:nxt_e]):
+                    continue
+                d = sdir.get(x[3])
+                if d is not None and d != last_d[3]:
+                    out.append(f"direction: {st!r} - {_show(x[3])} {'rose' if d == 'up' else 'fell'} in the item's facts")
+        if ents:
+            carried = ents[-1][3]
+    return list(dict.fromkeys(out))
 
 
 # ---------------------------------------------------------------------------
@@ -1651,11 +2143,17 @@ def card_reasons(item: dict, text: str) -> list[str]:
 # words of the posting moment ("this morning", "pre-market", "so far") misdate it: Grok posts Friday's facts on Monday.
 PRESENT_W = re.compile(r"\b(?:this\s+(?:morning|afternoon|evening)|overnight|right\s+now|pre-?market|premarket|so\s+far"
                        r"|intraday|as\s+we\s+speak|at\s+the\s+moment|currently)\b", re.IGNORECASE)
-_DAY_EXEMPT = re.compile(r"\b(?:ahead\s+of|before|into|for|this|next|happy)\s+(?:" + "|".join(
+# round 2 review: "Thursday morning", "Monday morning", "this Monday", "for Monday", "..., Thursday morning update" widened a
+# one-session phrase; a weekday is exempt only before the open / bell ahead of it, or as a label opening a sentence
+# ("Monday recap:", "Monday morning briefing -")
+_DAY_EXEMPT = re.compile(r"\b(?:ahead\s+of|before|happy)\s+(?:" + "|".join(
     ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")) + r")\b"
     r"|\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)(?:['’]s)?\s+(?:open|opening\s+bell|bell|watchlist"
-    r"|setup|preview|outlook|session\s+ahead|motivation|recap|morning|briefing|brief|update|rundown|read|catch-?up|notes?)\b"
-    r"|\beyes\s+on\s+(?:monday|tuesday|wednesday|thursday|friday)\b", re.IGNORECASE)
+    r"|setup|preview|outlook|session\s+ahead)\b"
+    r"|(?:^|(?<=[.!?\n])\s*)\s*(?:(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)(?:['’]s)?\s+(?:morning\s+)?"
+    r"(?:recap|briefing|brief|update|rundown|read|catch-?up|notes?|motivation)\b|(?:monday|tuesday|wednesday|thursday"
+    r"|friday|saturday|sunday)\s+morning\s*[:\-–—])"
+    r"|\beyes\s+on\s+(?:monday|tuesday|wednesday|thursday|friday)\b", re.IGNORECASE | re.MULTILINE)
 _ANY_DAY = re.compile(r"\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b", re.IGNORECASE)
 _MDAY = re.compile(r"\b(" + _MONTHS + r")\.?\s+(\d{1,2})\b(?!\s*,?\s*\d{3})", re.IGNORECASE)
 _ISO = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -1725,7 +2223,7 @@ def item_moves(item: dict) -> dict:
     the item allows with a single sign, subjects from its movers, sector lists, basket and single-subject claims (a
     subject seen both ways is left out)."""
     signs: dict[str, set] = {}
-    for n in item.get("allowed_numbers") or []:
+    for n in [*(item.get("allowed_numbers") or []), *(item.get("context_numbers") or [])]:
         n = _norm(str(n))
         if n[:1] in "+-" and len(n) > 1 and re.search(r"\d", n):
             signs.setdefault(n[1:], set()).add(n[0])
@@ -1751,6 +2249,10 @@ def item_moves(item: dict) -> dict:
 
     for r in [item.get("mover") or {}, *(item.get("next_movers") or [])]:
         put(mk.norm_ticker(r.get("ticker")), r.get("pct"))
+    for p0 in item.get("peers") or []:   # a Moves Like peer's move on the session
+        dm = _norm(str((p0 or {}).get("day_move") or "")) if isinstance(p0, dict) else ""
+        if re.fullmatch(r"[+-]\d+(?:\.\d+)?%", dm):
+            put(mk.norm_ticker(p0.get("ticker")), float(dm.rstrip("%")))
     for r in [*(item.get("best") or []), *(item.get("worst") or [])]:
         if isinstance(r, dict):
             put(canon_sector(r.get("sector")), r.get("pct"))
@@ -1764,6 +2266,13 @@ def item_moves(item: dict) -> dict:
     lead = item.get("lead") or {}
     if isinstance(lead, dict):
         put(mk.norm_ticker(lead.get("ticker")), lead.get("move"))
+    # the item's own ticker: its last session (context), its earnings-reaction move
+    t0 = mk.norm_ticker(item["ticker"]) if item.get("ticker") else None
+    last = ((item.get("context") or {}).get("last_session_move") or {}).get("pct")
+    if t0 and isinstance(last, str) and re.fullmatch(r"[+-]\d+(?:\.\d+)?%", _norm(last)):
+        put(t0, float(_norm(last).rstrip("%")))
+    if t0 and item.get("type") == "earnings_reaction":
+        put(t0, item.get("move"))
     for c in item.get("claims") or []:
         if isinstance(c, dict) and c.get("direction") in ("up", "down") and len(c.get("subjects") or []) == 1:
             s0 = c["subjects"][0]
@@ -1818,9 +2327,11 @@ def content_reasons(item: dict, text: str, strip_allowed=None, allowlist: bool =
     # an item from a facts.json built before the allowlist (no `claim_phrases` key: posts audited against old facts) keeps
     # the reading it was published under (claim_reasons, rounds 1-4); every item facts.py builds now carries the key
     compare = [] if not allowlist else allowlist_reasons(item, text) if "claim_phrases" in item else claim_reasons(item, text)
+    # numbers and direction words tied to their subjects (section 2c; the facts_text is where the ties come from)
+    bind = binding_reasons(item, text) + chart_reasons(item, text) if allowlist and "claim_phrases" in item else []
     out = (index_reasons(item.get("type"), text, item_names(item)) + compare
            + sector_reasons(item, text) + card_reasons(item, text) + window_reasons(item, text)
-           + direction_reasons(item, text))
+           + direction_reasons(item, text) + bind)
     if strip_allowed is not None:
         out += scope_reasons(item, text, strip_allowed)
     return out

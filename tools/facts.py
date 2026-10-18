@@ -57,7 +57,9 @@ fill the menu), no headline ticker or headline number of one top-8 item repeated
 4 distinct pillars when the day has them. Every item carries top8 (bool) and, below the top 8, top8_out (why).
 Content (tools/claims.py): every item carries claim_phrases (HQ 2026-10-19 allowlist: the complete sentences, built from
 the data with exact numbers, window and scope, that state every comparison / ranking the item backs; a post sentence with
-any ranking language must be one of them verbatim), claims (the older structured reading, kept for direction / dates),
+any ranking language, or any word outside the plain vocabulary of post_vocab.py, must be one of them verbatim),
+subject_numbers (each number of its facts_text / claim phrases tied to its company / sector: claims.binding_reasons),
+claims (the older structured reading, kept for direction / dates),
 ticker_sectors / ticker_names (from the market map) and, where needed, scoped_numbers and card_message; each item's
 claim_phrases and angles pass every post check (one that fails is dropped) and its facts_text every check but the
 allowlist (an item whose facts_text fails is not published: errors "self-check: ..."). Caps are map-first: an item's market_cap_usd is
@@ -1530,6 +1532,8 @@ def earnings_phrases(item: dict) -> list[str]:
                 if v == "in_line":
                     out.append(f"${t} {lab} {name} was in line with the consensus: {rep_} vs {cons}.")
                     continue
+                # "Adjusted diluted EPS came in below the $1.21 consensus." (our 10-17 posts' second line)
+                out.append(f"{name} came in {'above' if v == 'beat' else 'below'} the {cons} consensus.")
                 out += [f"${t} {verb} the {lab} {name} consensus: {rep_} vs {cons}.",
                         f"${t} {lab} {name}: {rep_} vs {cons} consensus ({verb} by {by.group(1)})." if by else None,
                         f"${t} {lab} {name} {rep_}, {verb} by {by.group(1)}." if by else None,
@@ -1768,6 +1772,9 @@ def self_check(items: list[dict]) -> tuple[list[dict], list[str], int]:
         # the sign of every number the item allows with one sign, and the direction of every company / sector it
         # describes (claims.direction_reasons: "Energy fell 2.6%" on a day Energy rose; HQ review r4)
         it["moves"] = cl.item_moves(it)
+        # every number of its facts_text and claim phrases tied to its company / sector (claims.binding_reasons: "$MSFT
+        # +2.03%" when +2.03% is $AAPL's; HQ round 2 review)
+        it["subject_numbers"] = cl.item_subject_numbers(it)
         bad = cl.content_reasons(it, it.get("facts_text") or "", allowlist=False)
         if bad:
             errors.append(f"self-check: {it.get('type')} {it.get('ticker') or it.get('item_id')} not built: {bad[0][:200]}")
@@ -1974,6 +1981,22 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                               "say = say it without comparing (plain numbers from allowed_numbers). The facts_text "
                               "describes the data; it is not a phrase list. A question to the reader that names no "
                               "company, sector or number is exempt ('Which move surprised you most?')"),
+            "plain_words": ("ROUND 2 (HQ 2026-10-19): every sentence that is not a claim phrase uses only plain words: the "
+                            "item's cashtags, company / person names and sectors, its allowed numbers and dates, its window "
+                            "('on Friday', 'in the week to Oct 16', 'last week' for a week item), 'the 500 largest US-listed "
+                            "stocks', and a closed list of plain words (reported, filed, bought, sold, moved, rose, fell, "
+                            "gained, lost, dropped, declined, up, down, closed, market value, earnings, revenue, EPS, "
+                            "consensus, open-market, Form 4, picks, link in bio, ...). Any other word - a synonym of best / "
+                            "only ('alone', 'just', 'the one', 'the rest', 'other', 'exception', 'took gold', 'star'), an "
+                            "order or table word, a streak word ('kept', 'continued', 'extended', 'another', 'deepened'), "
+                            "an equality word ('same', 'matched', 'equaled'), an intensity verb ('surged', 'tanked', "
+                            "'sold off', 'in the green', 'higher', 'lower'), a number word ('three'), a month ('in "
+                            "October'), 'every' / 'all' / 'each', an arrow / medal emoji, or > < = - makes the sentence "
+                            "need to be a claim phrase verbatim. Numbers and moves are tied to their subject: each number "
+                            "goes right after the company / sector it belongs to ('$MSFT −1.13%', never '$MSFT +2.03%' "
+                            "when +2.03% is $AAPL's), and rose / fell / up / down must match the move of every company / "
+                            "sector it is said of (never a move the item does not give, never negated, never with will / "
+                            "could / may)."),
             "claims": ("superseded by claim_phrases (kept for the direction / date reading): comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, "
                        "#1, record, 'outperformed every other') only as the item's claims state them: name only that "
                        "claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst "

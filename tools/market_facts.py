@@ -606,12 +606,15 @@ def market_move(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                                        f"{lead[0]}'s biggest dollar {word}s {when}", (2, 3))
     if other:
         phrases.append(f"{other[0]} was the {'best' if down else 'worst'} sector {when} ({signed_pct(other[1])}).")
+        # the facts_text's "went the other way": the one sector that moved against the 500 (od)
+        phrases.append(f"{other[0]} went the other way {when} ({signed_pct(other[1])}).")
     top = movers[0] if movers else None
-    angles = [f"About {about_usd(total)} {'gone from' if down else 'added to'} the 500 largest US-listed stocks {when}.",
-              (f"${top['ticker']} alone {'lost' if down else 'added'} {usd_text(top['usd'])} of market value {when}."
+    # angles in plain words (round 2 review: "alone", "gone", "one day, two directions" are not plain post words)
+    angles = [f"The 500 largest US-listed stocks {'lost' if down else 'gained'} about {about_usd(total)} {when}.",
+              (f"${top['ticker']} {'lost' if down else 'gained'} {usd_text(top['usd'])} of market value {when}."
                if top else ""),
-              (f"{lead[0]} {(MINUS if lead[2] < 0 else '+') + usd_text(lead[2])}, {other[0]} {signed_pct(other[1])}: "
-               f"one day, two directions." if lead and other else "")]
+              (f"{lead[0]} {(MINUS if lead[2] < 0 else '+') + usd_text(lead[2])}, {other[0]} {signed_pct(other[1])} {when}."
+               if lead and other else "")]
     return [_spec("market_move", f"market_move:{m.session}", session_date=m.session, when=when,
                   tickers=tickers[:4], context_tickers=tickers[4:],
                   totals={"usd_change_sum": total, "usd_text": about_usd(total), "pct_change": pct,
@@ -675,7 +678,7 @@ def mega_movers(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
         if pos:
             allowed += [str(pos), f"#{pos}"]
         if pos == 1:
-            angles = [f"{usd_text(mv['usd'])} of ${mv['ticker']} market value {'gone' if down else 'added'} in one session.",
+            angles = [f"${mv['ticker']} {'lost' if down else 'gained'} {usd_text(mv['usd'])} of market value {when}.",
                       f"${mv['ticker']} {mv['pct_text']} {when}: the biggest dollar move of the 500 largest US-listed companies.",
                       f"Which company moved the most dollars {when}? ${mv['ticker']}, by {usd_text(mv['usd'])}."]
         else:
@@ -853,7 +856,7 @@ def sector_rotation(m: Market, target: dt.date) -> tuple[list[dict], str | None]
         tick = list(dict.fromkeys(v["ticker"] for v in movers.values()))[:4]
         ctx = [t for t in dict.fromkeys(v["ticker"] for v in leaders.values()) if t not in tick][:4]
         angles = [f"{fmt(worst[0])}, {fmt(best[0])} {when}.",
-                  f"The 500 largest moved {signed_pct(all500, 1)} {when}, but not evenly.",
+                  f"The 500 largest US-listed stocks moved {signed_pct(all500, 1)} {when}.",
                   f"{short(best[0][0])} up, {short(worst[0][0])} down: a {js_fixed(spread, 1)}-point gap {when}."]
         out.append(_spec("sector_rotation", f"sector_rotation:{m.session}:{win}", session_date=m.session, window=win,
                          when=when, tickers=tick, context_tickers=ctx, all_500=all500,
@@ -1244,6 +1247,7 @@ def reddit_buzz(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
     avg_txt = [js_fixed(lead["mentions_avg"], 0), js_fixed(lead["mentions_avg"], 1)]
     allowed = [*count_forms(lead["mentions"]), *avg_txt, *ratio_forms(lr), *(x for s in others for x in ratio_forms(ratio(s))),
                str(len(rows)), str(len(moved)), str(fell), str(len(moved) - fell), *date_words(session or target.isoformat()),
+               f"{BUZZ_MIN_MENTIONS}+", f"{BUZZ_MIN_AVG}+",
                *date_words(bz.get("trade_date") or target.isoformat())]
     if isinstance(lead_move, (int, float)):
         allowed += pct_forms(lead_move)
@@ -1264,8 +1268,8 @@ def reddit_buzz(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                     says=f"the {len(rows)} most-mentioned stocks on Reddit (the buzz card's rows)")]
     talk = (f"Reddit is talking about ${lt} {ratio_text(lr)}{TIMES} more than usual: {lead['mentions']} mentions vs "
             f"{avg_txt[1 if lead['mentions_avg'] < 9.95 else 0]}.")
-    phrases = [talk, f"${lt} had the highest mentions-vs-usual ratio of the top {len(rows)} stocks on Reddit "
-                     f"({ratio_text(lr)}{TIMES} usual)."]
+    phrases = [talk, f"${lt} had the highest mentions-vs-usual ratio of the top {len(rows)} stocks on Reddit with "
+                     f"{BUZZ_MIN_MENTIONS}+ mentions and a usual count of {BUZZ_MIN_AVG}+ ({ratio_text(lr)}{TIMES} usual)."]
     phrases.append(f"${first} had the most Reddit mentions of the stocks on the buzz card"
                    + (f" ({lead['mentions']})." if first == lt else "."))
     if moved:
