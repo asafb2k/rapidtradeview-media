@@ -245,14 +245,30 @@ def panel_fingerprint(m: "Market", panel: str) -> str:
 
 
 def claim(words, subjects=(), says: str = "", bare: bool = False, direction: str | None = None,
-          needs: str | None = None) -> dict:
+          needs: str | None = None, *, kind: str = "stock", polarity: str | None = "auto", rank=None, within=(),
+          scope: str | None = None) -> dict:
     """One comparative / superlative statement the item backs (tools/claims.py checks posts against them): the words
-    (claims.CATEGORIES: led, biggest, worst, best, most, least, only, first, top, record), the tickers / map sector names
-    it is about, bare (the word may stand without naming them), direction ("up" / "down": the clause's direction words
-    must agree), needs (a pattern the clause must carry, e.g. "dollar" for a $ ranking) and says (the true sentence)."""
-    subj = [norm_ticker(s) if s and s.upper() == s and " " not in s else s for s in subjects if s]
-    return {"words": list(dict.fromkeys(words)), "subjects": list(dict.fromkeys(subj)), "bare": bool(bare),
-            "direction": direction, "needs": needs, "says": says}
+    (claims.CATEGORIES: led, biggest, worst, best, most, least, only, first, top, record), the subjects in rank order
+    (tickers, or map sector names when kind="sector"), polarity ("best" / "worst": which end of the ranking; None: a
+    ranking with no good / bad end, e.g. market value, mentions; "auto": best / worst from the words), rank (1: the
+    single subject is #1; "group": the subjects are the top N in order; default from the count), within (the sectors /
+    tickers the ranking is inside: the sentence must name one, or match scope), bare (the word may stand without naming
+    a subject), direction ("up" / "down": the subjects' move; the sentence's direction words and signs must agree),
+    needs (a pattern the sentence must carry, e.g. "dollar" for a $ ranking) and says (the true sentence)."""
+    if kind == "sector":
+        subj = [s for s in subjects if s]
+    else:
+        subj = [norm_ticker(s) for s in subjects if s]
+    subj = list(dict.fromkeys(subj))
+    if polarity == "auto":
+        polarity = "best" if "best" in words else "worst" if "worst" in words else None
+    wi = [s if (s and s.upper() != s) else norm_ticker(s) for s in within if s]
+    return {"words": list(dict.fromkeys(words)), "subjects": subj, "kind": kind, "polarity": polarity,
+            "rank": rank or (1 if len(subj) <= 1 else "group"), "within": list(dict.fromkeys(wi)), "scope": scope,
+            "bare": bool(bare), "direction": direction, "needs": needs, "says": says}
+
+
+SECTOR_SCOPE = r"\b(?:its|their|each)\s+(?:[a-z]+\s+)?sectors?\b"  # claims.SECTOR_SCOPE: "led its sector"
 
 
 def headline(tickers=(), numbers=()) -> dict:
@@ -520,27 +536,30 @@ def market_move(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
     text = (f"The 500 largest US-listed stocks {verb} about {about_usd(total)} {when} ({signed_pct(pct)}; {cov}). "
             f"Biggest dollar {drops}: "
             + ", ".join(f"${mv['ticker']} {mv['usd_text']} ({mv['pct_text']}, {mv['sector']})" for mv in movers) + ".")
+    pol = "worst" if down else "best"  # the end of the day's ranking these movers / the lead sector top
     claims = [claim(["biggest", "top", "most", "led"], [mv["ticker"] for mv in movers], needs=DOLLAR, direction=d,
-                    says=f"biggest dollar {drops} {when}: " + ", ".join("$" + mv["ticker"] for mv in movers))]
+                    polarity=pol, says=f"biggest dollar {drops} {when}, in order: "
+                    + ", ".join("$" + mv["ticker"] for mv in movers))]
     if lead:
         text += f" {lead[0]} {(MINUS if lead[2] < 0 else '+') + usd_text(lead[2])} ({signed_pct(lead[1])}) led the move."
-        claims.append(claim(["led"], [lead[0]], direction=d, says=f"{lead[0]} led the move (largest sector dollar move)"))
-        claims.append(claim(["biggest", "most", "top"], [lead[0]], needs=DOLLAR, direction=d,
-                            says=f"{lead[0]} had the biggest sector dollar move"))
+        claims.append(claim(["led"], [lead[0]], direction=d, kind="sector", polarity=pol,
+                            says=f"{lead[0]} led the {'drop' if down else 'gain'} (largest sector dollar move)"))
+        claims.append(claim(["biggest", "most", "top"], [lead[0]], needs=DOLLAR, direction=d, kind="sector", polarity=pol,
+                            says=f"{lead[0]} had the biggest sector dollar {'drop' if down else 'gain'}"))
         extreme = rows1d and ((down and rows1d[-1][0] == lead[0]) or (not down and rows1d[0][0] == lead[0]))
         if extreme:
-            claims.append(claim(["worst" if down else "best", "biggest", "top"], [lead[0]], direction=d,
+            claims.append(claim(["worst" if down else "best", "biggest", "top"], [lead[0]], direction=d, kind="sector",
                                 says=f"{lead[0]} was the {'worst' if down else 'best'} sector by % {when}"))
         if lead_movers:
             text += (f" {lead[0]}'s biggest dollar {drops}: "
                      + ", ".join(f"${mv['ticker']} {mv['pct_text']}" for mv in lead_movers) + ".")
-            claims.append(claim(["biggest", "top", "most", "led"], [lead[0], *(mv["ticker"] for mv in lead_movers)],
-                                needs=DOLLAR, direction=d, says=f"{lead[0]}'s biggest dollar {drops}: "
+            claims.append(claim(["biggest", "top", "most", "led"], [mv["ticker"] for mv in lead_movers], within=[lead[0]],
+                                needs=DOLLAR, direction=d, polarity=pol, says=f"{lead[0]}'s biggest dollar {drops}, in order: "
                                 + ", ".join("$" + mv["ticker"] for mv in lead_movers)))
     if other:
         text += f" {other[0]} {signed_pct(other[1])} went the other way."
         od = "up" if down else "down"
-        claims.append(claim(["best" if down else "worst", "led", "top", "biggest"], [other[0]], direction=od,
+        claims.append(claim(["best" if down else "worst", "led", "top", "biggest"], [other[0]], direction=od, kind="sector",
                             says=f"{other[0]} {signed_pct(other[1])} was the {'best' if down else 'worst'} sector {when}"))
     allowed = [*usd_forms(total), *pct_forms(pct), "500", *count_forms(t.get("priced_count") or 0),
                *count_forms(t.get("ticker_count") or 0), f"{js_fixed(share * 100, 1)}%", *date_words(m.session),
@@ -626,14 +645,19 @@ def mega_movers(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                       f"${mv['ticker']} is #{rank} by market cap. {when.capitalize() if when == 'today' else when[3:] if when.startswith('on ') else when} it {'fell' if down else 'rose'} {js_fixed(abs(mv['pct']), 2)}%."]
         d = "down" if down else "up"
         word = "drop" if down else "gain"
+        pol = "worst" if down else "best"
         if pos == 1:
+            # by_usd[0] is the largest dollar move either way too ("the biggest dollar move"): no polarity needed then
             claims = [claim(["biggest", "most", "top", "led"], [mv["ticker"]], bare=True, needs=DOLLAR, direction=d,
+                            polarity=None if r is by_usd[0] else pol,
                             says=f"${mv['ticker']}: the biggest dollar {word} among the 500 largest US-listed companies {when}"),
                       claim(["biggest", "most", "top"], [mv["ticker"], *(n["ticker"] for n in nxt)], needs=DOLLAR, direction=d,
-                            says="the biggest dollar " + word + "s: " + ", ".join("$" + x for x in [mv["ticker"], *(n["ticker"] for n in nxt)]))]
+                            polarity=pol, says="the biggest dollar " + word + "s, in order: "
+                            + ", ".join("$" + x for x in [mv["ticker"], *(n["ticker"] for n in nxt)]))]
         else:
-            claims = [claim(["biggest", "most", "top"], [n["ticker"] for n in nxt], needs=DOLLAR, direction=d,
-                            says="the biggest dollar " + word + "s: " + ", ".join("$" + n["ticker"] for n in nxt))]
+            claims = [claim(["biggest", "most", "top"], [n["ticker"] for n in nxt], needs=DOLLAR, direction=d, polarity=pol,
+                            says=f"the biggest dollar {word}s other than ${mv['ticker']}, in order: "
+                            + ", ".join("$" + n["ticker"] for n in nxt))]
             allowed += ["100", str(MEGA_TOP)]
         mag = max(abs(mv["usd"]) / MEGA_USD * 1.5, abs(mv["pct"]) / MEGA_PCT * 1.5)
         out.append(_spec("mega_mover", f"mega_mover:{m.session}:{mv['ticker']}", ticker=mv["ticker"],
@@ -712,27 +736,28 @@ def sector_rotation(m: Market, target: dt.date) -> tuple[list[dict], str | None]
                 f"Best minus worst: {js_fixed(spread, 1)} points.")
         claims = []
         b0, w0 = best[0], worst[0]
-        claims.append(claim(["best", "top", "led"] + (["biggest"] if b0[1] > 0 else []), [b0[0]],
+        claims.append(claim(["best", "top", "led"] + (["biggest"] if b0[1] > 0 else []), [b0[0]], kind="sector",
                             direction="up" if b0[1] > 0 else None, says=f"{short(b0[0])} was the best sector {when}"))
-        claims.append(claim(["worst", "top"] + (["biggest"] if w0[1] < 0 else []), [w0[0]],
+        claims.append(claim(["worst", "top"] + (["biggest"] if w0[1] < 0 else []), [w0[0]], kind="sector",
                             direction="down" if w0[1] < 0 else None, says=f"{short(w0[0])} was the worst sector {when}"))
         ups = [(k, v) for k, v in leaders.items() if v["pct"] > 0]
         downs = [(k, v) for k, v in leaders.items() if v["pct"] < 0]
+        # one claim per sector: the stock is #1 inside that sector only (the sentence names the sector or "its sector")
         if ups:
             text += " Best stock in each up sector: " + ", ".join(f"${v['ticker']} {v['pct_text']} ({short(k)})" for k, v in ups) + "."
-            claims.append(claim(["best", "led", "top", "biggest"], [x for k, v in ups for x in (v["ticker"], k)], direction="up",
-                                says="best stock by % in its sector: " + ", ".join(f"${v['ticker']} ({short(k)})" for k, v in ups)))
+            claims += [claim(["best", "led", "top", "biggest"], [v["ticker"]], within=[k], scope=SECTOR_SCOPE, direction="up",
+                             says=f"${v['ticker']} was the best stock by % in {short(k)}") for k, v in ups]
         if downs:
             text += " Worst stock in each down sector: " + ", ".join(f"${v['ticker']} {v['pct_text']} ({short(k)})" for k, v in downs) + "."
-            claims.append(claim(["worst", "led", "top", "biggest"], [x for k, v in downs for x in (v["ticker"], k)], direction="down",
-                                says="worst stock by % in its sector: " + ", ".join(f"${v['ticker']} ({short(k)})" for k, v in downs)))
+            claims += [claim(["worst", "led", "top", "biggest"], [v["ticker"]], within=[k], scope=SECTOR_SCOPE, direction="down",
+                             says=f"${v['ticker']} was the worst stock by % in {short(k)}") for k, v in downs]
         if movers:
             text += " By market value, the biggest names moving with their sector: " + ", ".join(
                 f"${v['ticker']} {v['pct_text']} ({short(k)})" for k, v in movers.items()) + "."
-            claims.append(claim(["biggest", "top"], [x for k, v in movers.items() for x in (v["ticker"], k)],
-                                needs=r"market (?:value|cap)",
-                                says="by market value, the biggest name moving with its sector: "
-                                + ", ".join(f"${v['ticker']} ({short(k)})" for k, v in movers.items())))
+            claims += [claim(["biggest", "top"], [v["ticker"]], within=[k], scope=SECTOR_SCOPE, polarity=None,
+                             needs=r"market (?:value|cap)", direction="up" if v["pct"] > 0 else "down",
+                             says=f"by market value, ${v['ticker']} was the biggest {short(k)} name moving with its sector "
+                                  f"({v['pct_text']})") for k, v in movers.items()]
         allowed = [*pct_forms(all500), "500", *date_words(m.session), js_fixed(spread, 1), *(x for r in named for x in pct_forms(r[1])),
                    *(x for v in [*movers.values(), *leaders.values()] for x in pct_forms(v["pct"]))]
         if win == "week":
@@ -808,8 +833,9 @@ def breadth_day(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
     if drags:
         text += f" Biggest dollar {'drags' if down else 'lifts'}: " + ", ".join(f"${d['ticker']} {d['pct_text']}" for d in drags) + "."
         claims.append(claim(["biggest", "top", "most", "led"], [d["ticker"] for d in drags], needs=DOLLAR,
-                            direction="down" if down else "up",
-                            says="biggest dollar " + ("drags: " if down else "lifts: ") + ", ".join("$" + d["ticker"] for d in drags)))
+                            direction="down" if down else "up", polarity="worst" if down else "best",
+                            says="biggest dollar " + ("drags" if down else "lifts") + ", in order: "
+                            + ", ".join("$" + d["ticker"] for d in drags)))
     allowed = [*count_forms(adv), *count_forms(dec), *count_forms(unch), *count_forms(total), f"{share}%", str(share),
                *pct_forms(pct), "500", *date_words(m.session), *(x for d in drags for x in pct_forms(d["pct"]))]
     if narrative == "narrow":
@@ -869,10 +895,11 @@ def basket_week(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
             f"Worst: {', '.join(fmt(r) for r in worst)}.")
     if bk["excluded"]:
         text += f" Left out (no 5-session move): {', '.join(bk['excluded'])}."
-    claims = [claim(["best", "top"], [tk(r) for r in best], says="best 3 of the 10 by 5-session move: " + ", ".join("$" + tk(r) for r in best)),
+    claims = [claim(["best", "top"], [tk(r) for r in best],
+                    says="best 3 of the 10 by 5-session move, in order: " + ", ".join("$" + tk(r) for r in best)),
               claim(["worst", "top"] + (["biggest"] if worst[-1]["pct_change_5d"] < 0 else []), [tk(r) for r in worst],
                     direction="down" if worst[-1]["pct_change_5d"] < 0 else None,
-                    says="worst 3 of the 10 by 5-session move: " + ", ".join("$" + tk(r) for r in worst)),
+                    says="worst 3 of the 10 by 5-session move, in order: " + ", ".join("$" + tk(r) for r in worst)),
               claim(["best", "led", "top"], [tk(best[0])], direction="up" if best[0]["pct_change_5d"] > 0 else None,
                     says=f"${tk(best[0])} was the best of the 10"),
               claim(["worst", "biggest"], [tk(worst[0])], direction="down" if worst[0]["pct_change_5d"] < 0 else None,
@@ -1005,11 +1032,11 @@ def insider_flow(m: Market, target: dt.date, before: dict | None) -> tuple[list[
     claims = []
     if lead_s:
         claims.append(claim(["biggest", "top", "most", "led"], [norm_ticker(x["ticker"]) for x in lead_s], needs=r"sell|sold",
-                            says="largest open-market sellers among the 500 largest: "
+                            says="largest open-market sellers among the 500 largest, in order: "
                             + ", ".join("$" + norm_ticker(x["ticker"]) for x in lead_s)))
     if lead_b:
         claims.append(claim(["biggest", "top", "most", "led"], [norm_ticker(x["ticker"]) for x in lead_b], needs=r"buy|bought",
-                            says="largest open-market buyers among the 500 largest: "
+                            says="largest open-market buyers among the 500 largest, in order: "
                             + ", ".join("$" + norm_ticker(x["ticker"]) for x in lead_b)))
     scoped = [{"numbers": [*usd_forms(bought), *usd_forms(sold)],
                "require": [r"officers?\s+and\s+directors?", r"open[-\s]market"],
@@ -1146,7 +1173,7 @@ def earnings_week_preview(m: Market, target: dt.date, week: dict | None, monday:
               f"${show[0]['ticker']}, ${show[1]['ticker']} and ${show[2]['ticker']} all report {when}.",
               f"Which report are you watching {when}: ${show[0]['ticker']} or ${show[1]['ticker']}?"]
     claims = [claim(["biggest", "top", "led"], [r["ticker"] for r in show],
-                    says="largest by market value among the confirmed $10B+ reporters: " + ", ".join("$" + r["ticker"] for r in show))]
+                    says="largest by market value among the confirmed $10B+ reporters, in order: " + ", ".join("$" + r["ticker"] for r in show))]
     return [_spec("earnings_week_preview", f"earnings_week_preview:{monday.isoformat()}", tickers=[r["ticker"] for r in show[:4]],
                   context_tickers=[r["ticker"] for r in show[4:]], when=when, claims=claims,
                   headline=headline([r["ticker"] for r in show[:3]]),

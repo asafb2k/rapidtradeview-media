@@ -1480,7 +1480,9 @@ def moves_like_claims(ticker: str, peers: list[str | None]) -> list[dict]:
     peers = [mk.norm_ticker(p) for p in peers if p]
     if not peers:
         return []
-    return [mk.claim(["most", "top", "best", "led"], [ticker, *peers], needs=r"\blike\b|sync|mov",
+    # the peers are ranked (closest first) within the item's own ticker, which the sentence may leave implicit
+    return [mk.claim(["most", "top", "best", "led"], peers, within=[ticker], scope=r"\blike\b|sync", polarity=None,
+                     needs=r"\blike\b|sync|mov",
                      says=f"${ticker} moved most like " + ", then ".join("$" + p for p in peers) + " (by Sync)")]
 
 
@@ -1887,9 +1889,16 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                       "small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has "
                       "them; items below carry top8_out (why). Pick across pillars per variety"),
             "claims": ("comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, "
-                       "record) only as the item's claims state them: name only that claim's companies / sectors in that "
-                       "sentence; never say a stock led its sector unless sector_leaders / claims say so; never put a "
-                       "company in a sector its ticker_sectors entry does not show"),
+                       "#1, record, 'outperformed every other') only as the item's claims state them: name only that "
+                       "claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst "
+                       "= top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the "
+                       "top N in order): say which side (a gain / loss word or a signed number: 'top' / 'led' alone read "
+                       "as best), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in "
+                       "order, 'among the biggest' for other members; a sector only as a sector claim (kind sector) "
+                       "says, a stock 'within' a sector only with that sector or 'its sector' named; never widen the "
+                       "window ('ever', 'in history', 'of the year'); never say a stock led its sector unless "
+                       "sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does "
+                       "not show"),
             "pillars": {"P0": "picks + scoreboard (max 1 a day per platform)", "P1": "market day (market_move)",
                         "P2": "big-name movers (mega_mover)",
                         "P3": "smart money in names you know (congress_flow, insider_flow, form4_buy, congress_trade, ptr_summary)",
