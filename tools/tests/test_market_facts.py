@@ -94,19 +94,35 @@ def test_p6_sector_rotation_day_and_week():
     assert day["window"] == "day" and day["spread_pp"] == pytest.approx(5.41, abs=0.01)
     assert [b["sector"] for b in week["best"]] == ["Consumer Defensive", "Energy"]
     assert [w["sector"] for w in week["worst"]] == ["Technology", "Industrials"]
-    assert "This week: the 500 largest US-listed stocks moved −2.7%" in week["facts_text"]
-    assert mk.sector_rotation(M, MON)[0][1]["when"] == "last week"
+    # Sunday after the week: "in the week to Oct 16", never "this week" (review 10-18); Monday: "last week"
+    assert "In the week to Oct 16: the 500 largest US-listed stocks moved −2.7%" in week["facts_text"]
+    assert week["when"] == "in the week to Oct 16" and mk.sector_rotation(M, MON)[0][1]["when"] == "last week"
+    # who led each sector is computed (best / worst % move in the sector), not the largest company (WMT, XOM)
+    assert {k: v["ticker"] for k, v in week["sector_leaders"].items()} == {
+        "Consumer Defensive": "DEO", "Energy": "COP", "Technology": "CIEN", "Industrials": "RKLB"}
+    assert "Best stock in each up sector: $DEO +9.66% (Consumer Defensive), $COP +9.25% (Energy)." in week["facts_text"]
+    led = [c for c in week["claims"] if "led" in c["words"]]
+    assert all("WMT" not in c["subjects"] and "XOM" not in c["subjects"] for c in led)
 
 
 def test_p7_breadth_divergence_and_basket():
     b = one(mk.breadth_day(M, SUN)[0])
     assert b["signal"] == "divergence" and b["risers_500"] == 221 and b["priced_500"] == 445
     assert "1,631 of 2,497 US stocks" in b["facts_text"] and "+1,212 on Oct 15" in b["facts_text"]
-    for n in ("1,631", "2,497", "65%", "−0.03%", "221", "445", "+1,212"):
+    for n in ("1,631", "2,497", "65%", "+1,212"):
         assert n in b["allowed_numbers"], n
+    # the card headlines 65% of all tracked stocks down (broad): the median / risers of the 500 ("the typical stock was
+    # flat", narrow) would contradict it, so they are not offered and the narrow words are barred
+    assert b["narrative"] == "broad" and "median" not in b["facts_text"]
+    for n in ("−0.03%", "221", "445"):
+        assert n not in b["allowed_numbers"], n
+    assert "typical" in b["card_message"]["never"]
     k = one(mk.basket_week(M, SUN)[0])
     assert k["mean_5d"] == pytest.approx(-5.0425, abs=1e-3) and k["risers"] == 1
     assert "−5.04%" in k["allowed_numbers"] and "$AAPL +2.03%" in k["facts_text"]
+    assert all("largest US-listed" in a or "mega-cap" in a for a in k["angles"])
+    assert not any("this week" in a for a in k["angles"])                      # Sunday: "in the week to Oct 16"
+    assert any(c["words"] == ["only"] and c["subjects"] == ["AAPL"] for c in k["claims"])
 
 
 def test_p4_reddit_buzz():
@@ -221,10 +237,66 @@ def test_cooldowns_from_our_own_posts():
     assert fx.cooldown(er, SUN, other)[1] is None           # earnings results are exempt from the ticker cooldown
 
 
-def test_limit_small_keeps_one_small_cap_in_the_top_8():
-    items = [{"item_id": str(n), "cap_tier": "small" if n in (1, 3) else "large"} for n in range(12)]
-    out, moved = fx.limit_small(items)
-    assert moved == 1 and [i["item_id"] for i in out[:8]].count("3") == 0 and out[8]["item_id"] == "3"
+def test_top_8_keeps_one_small_cap():
+    items = [{"item_id": str(n), "cap_tier": "small" if n in (1, 3) else "large", "pillar": "P3", "ticker": f"T{n}"}
+             for n in range(12)]
+    out, counts = fx.diversify_top(items)
+    assert counts["small_cap"] == 1 and [i["item_id"] for i in out[:8]].count("3") == 0 and out[8]["item_id"] == "3"
+    assert out[8]["top8"] is False and out[8]["top8_out"].startswith("small_cap")
+
+
+def test_top_8_variety_on_the_16th():
+    """Review 10-18: one Friday selloff filled 7 of the top 8 and 4 of 10 samples repeated GOOGL / MSFT / NVDA. Now: at
+    most 2 session-map items, no lead ticker or headline number twice, 4+ pillars when the day has them."""
+    items, *_, m = fx.market_items(FixtureApi(), SUN, NOW_SUN, None)
+    filings = [fx.make_item("2026-10-18", "form4_buy", t, f"form4:{t}:x", f"/smart-money/figures/{t.lower()}",
+                            name=f"{t} Person", office="CEO at X", side="buy", amount_top_usd=5e6, filed="2026-10-16",
+                            facts_text=f"{t} buy", allowed_numbers=[]) for t in ("PEP", "KO", "JPM")]
+    allit = items + filings
+    fx.enrich(allit, m)
+    out, counts = fx.diversify_top(fx.rank_items(allit, SUN, FAME))
+    top = [i for i in out if i["top8"]]
+    assert len(top) == 8 and out[:8] == top
+    assert sum(1 for i in top if i["type"] in fx.TOP_MAP_TYPES) <= 2
+    assert len({i["pillar"] for i in top}) >= 4
+    lead = [t for i in top for t in mk.headline_tickers(i)]
+    assert len(lead) == len(set(lead)), lead
+    nums = [n for i in top for n in fx.headline_numbers(i)]
+    assert len(nums) == len(set(nums)), nums
+    assert [mk.headline_tickers(i) for i in top].count(["GOOGL", "MSFT", "NVDA"]) <= 1
+    assert all(i.get("top8_out") for i in out[8:])
+
+
+def test_cooldown_across_pillars():
+    """A mega_mover post on $GOOGL cools down a market item that leads with $GOOGL (another pillar)."""
+    items, *_, m = fx.market_items(FixtureApi(), SUN, NOW_SUN, None)
+    fx.enrich(items, m)
+    mm = next(i for i in items if i["type"] == "market_move")
+    assert mk.headline_tickers(mm) == ["GOOGL", "MSFT", "NVDA"]
+    posted = [{"platform": "x", "ny_date": "2026-10-17", "ticker": "GOOGL", "headline_tickers": ["GOOGL"],
+               "dedupe_key": "mega_mover:2026-10-16:GOOGL", "filer": None, "pillar": "P2"}]
+    pen, why = fx.novelty(mm, SUN, posted)
+    assert pen >= fx.NOVELTY_TICKER and "$GOOGL" in why[0]
+    all3 = [dict(posted[0], platform=p) for p in ("x", "instagram", "threads")]
+    assert fx.cooldown(mm, SUN, all3)[1].startswith("$GOOGL posted on every platform")
+
+
+def test_map_first_cap():
+    items, *_, m = fx.market_items(FixtureApi(), SUN, NOW_SUN, None)
+    pep = fx.make_item("2026-10-18", "form4_buy", "PEP", "form4:a:PEP", "/smart-money/figures/p", name="P", office="Director",
+                       side="buy", amount_top_usd=10.84e6, filed="2026-10-16", market_cap_usd=179.19e9, facts_text="x",
+                       allowed_numbers=[])
+    fx.enrich([pep], m)
+    assert pep["market_cap_usd"] == m.cap("PEP") and pep["market_cap_source"] == "market_map"
+    assert pep["market_cap_feed_usd"] == 179.19e9 and pep["context"]["market_cap"] == mk.usd_text(m.cap("PEP"))
+
+
+def test_week_words():
+    assert mk.week_when("2026-10-16", FRI) == "this week"
+    assert mk.week_when("2026-10-16", SAT) == "in the week to Oct 16"
+    assert mk.week_when("2026-10-16", SUN) == "in the week to Oct 16"
+    assert mk.week_when("2026-10-16", MON) == "last week"
+    assert mk.week_when("2026-10-16", dt.date(2026, 10, 26)) == "in the week to Oct 16"
 
 
 # ---------------------------------------------------------------------------

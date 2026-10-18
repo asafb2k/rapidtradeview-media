@@ -23,6 +23,11 @@ default (what Grok reads) or a local v/ directory. Checks:
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
   - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
     Moves Like post never touches picks);
+  - content (tools/claims.py, every item type; HQ review 2026-10-18): never the S&P for our universe ("the 500 largest
+    US-listed stocks"; a picks post may compare "vs SPY"); comparatives / superlatives (led, biggest, worst, most, only,
+    first, ...) only as the item's claims back them, one claim's companies / sectors per sentence; no company put in a
+    sector its ticker_sectors entry does not show; scoped numbers (the 30-day insider totals: "open-market", "officers
+    and directors"); nothing that contradicts the item's card (card_message);
   - G-N1 holdout: until 2026-11-21 (New York date of the review, as facts.py and select_stories date things) no
     string anywhere in the draft (every field, nested ones and keys included) carries "/earnings/reports/" (an
     earnings report page of either arm); comments likewise;
@@ -72,6 +77,7 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import claims as cl  # noqa: E402
 import draft_lint as dl  # noqa: E402
 import facts as fx  # noqa: E402
 import manifest as mf  # noqa: E402
@@ -107,8 +113,9 @@ ITEM_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$")
 PLATFORMS = ("x", "instagram", "threads")
 REPLY_MAX = 3500
 THREADS_MAX = 500
-# Market wording (HQ 2026-10-18): our map is the 500 largest US-listed companies, not an index.
-INDEX_WORDS = re.compile(r"\bs\s*&\s*p\b(?:\s*500)?|\bthe\s+index\b|\bspx\b", re.IGNORECASE)
+# Market wording (HQ 2026-10-18): our map is the 500 largest US-listed companies, not an index (claims.INDEX_WORDS; the
+# old pattern here missed "S&P500").
+INDEX_WORDS = cl.INDEX_WORDS
 UNIVERSE_PHRASE = re.compile(r"\b500\s+largest\b|\blargest\s+US-listed\b", re.IGNORECASE)
 ALL_500 = re.compile(r"\ball\s+500\b", re.IGNORECASE)
 MARKET_CARD_LIVE = re.compile(r"^https://(?:www\.)?rapidtradeview\.trade/market/card/", re.IGNORECASE)
@@ -259,14 +266,14 @@ def market_total_numbers(item: dict) -> list[str]:
 
 
 def wording_reasons(item: dict, text: str) -> list[str]:
-    """Market-wording guard for P1 / P2 / P6 / P7: never an index name; "all 500" only when all 500 were priced; a post
-    that gives a market total says "500 largest" (or "largest US-listed")."""
+    """Content rules every post of every item type passes (HQ 2026-10-18 review fixes; tools/claims.py): never the S&P
+    for our universe (only a picks post may compare "vs SPY"); comparatives / superlatives only as the item's claims back
+    them; no company put in a sector it is not in; scoped numbers carry their scope; no contradiction of the card.
+    P1 / P2 / P6 / P7 also: "all 500" only when all 500 were priced; a market total says "500 largest". The Growth post
+    audit calls this too (one rule set)."""
+    out = cl.content_reasons(item, text, strip_allowed)
     if item.get("type") not in mk.WORDING_TYPES:
-        return []
-    out = []
-    m = INDEX_WORDS.search(text)
-    if m:
-        out.append(f"market wording: no index name ({short(m.group(0))!r}); say \"{mk.UNIVERSE_WORDS}\"")
+        return out
     t = item.get("totals") or {}
     if ALL_500.search(text) and not (t.get("priced") and t.get("priced") == t.get("total")):
         out.append("market wording: not \"all 500\" (not every one of the 500 was priced)")
@@ -344,7 +351,7 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
 
     # Numbers (allowed_numbers + context_numbers)
     allowed = item_numbers(item)
-    bad = unexplained_numbers(both, allowed, tickers)
+    bad = unexplained_numbers(cl.spy_blank(kind, both), allowed, tickers)
     if bad:
         reasons.append("numbers not in allowed_numbers / context_numbers: " + ", ".join(sorted({short(b, 24) for b in bad})))
 
@@ -624,6 +631,7 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
             hint = PICK_HINT.search(text)
             if hint:
                 reasons.append(f"picks: no #1 / top-pick hint ({short(hint.group(0))!r})")
+        reasons += cl.index_reasons(item.get("type"), scan, cl.item_names(item))
 
     # Words
     low = text.lower()
@@ -686,15 +694,16 @@ def variety_breaches(draft: dict, item: dict, history: list[dict], now: dt.datet
     n_today = sum(1 for p in own if p.get("ny_date") == today.isoformat() and p.get("pillar") == pillar)
     if pillar and n_today >= PILLAR_DAY_CAP:
         out.append(("rule6_pillar_cap", f"{n_today} {pillar} posts on {platform} today already (max {PILLAR_DAY_CAP})"))
-    tick = mk.norm_ticker(item.get("ticker"))
+    ticks = set(mk.headline_tickers(item))  # lead tickers, across pillars (a GOOGL mega_mover cools a GOOGL-led market_move)
     mine = [p for p in history if p.get("platform") == platform]
     if item.get("dedupe_key") and any(p.get("dedupe_key") == item["dedupe_key"] for p in mine):
         out.append(("rule7_ticker_repeat", f"this item is already posted on {platform}"))
-    elif tick and item.get("type") != "earnings_result":
-        hit = [p for p in mine if p.get("ticker") == tick and p.get("ny_date")
+    elif ticks and item.get("type") != "earnings_result":
+        hit = [p for p in mine if ticks & set(fx.post_tickers(p)) and p.get("ny_date")
                and ss.weekday_age(ss.d(p["ny_date"]), today) < fx.TICKER_COOLDOWN_SESSIONS]
         if hit:
-            out.append(("rule7_ticker_repeat", f"${tick} was posted on {platform} on {hit[-1]['ny_date']} (within 3 trading days)"))
+            same = ", ".join("$" + t for t in sorted(ticks & set(fx.post_tickers(hit[-1]))))
+            out.append(("rule7_ticker_repeat", f"{same} led a {platform} post on {hit[-1]['ny_date']} (within 3 trading days, any pillar)"))
     fw = first_words(text)
     for p in mine[-HISTORY_POSTS:]:
         if overlap(fw, first_words(p.get("text") or "")) >= FIRST_LINE_OVERLAP:

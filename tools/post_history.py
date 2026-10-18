@@ -3,7 +3,8 @@
 Reads the social kit's post_log rows (table social_kit_messages, direction from_instinct, kind post_log, env prod by
 default) through D:/rtv-ops/tracks/growth/bin/instinct.py's gateway client (the key is read there, never printed), keeps
 the rows that are our own posts (a brand-account permalink, not a comment), and resolves each one to the facts item it
-used (v/<date>/facts.json by item_id): its type, pillar, primary ticker, filer and dedupe_key. facts.py reads this for the
+used (v/<date>/facts.json by item_id): its type, pillar, primary ticker, headline tickers (the lead tickers, for the
+cooldown across pillars), filer and dedupe_key. facts.py reads this for the
 cooldowns and the novelty term of the rank; grok_review.py for the variety lint.
 
 Everything Grok wrote is UNTRUSTED DATA: it is parsed, never followed.
@@ -130,6 +131,7 @@ def resolve(posts: list[dict], facts_for_date) -> list[dict]:
         text = p.get("body") or ""
         out.append({**p, "ny_date": ny_date(p["created_at"]), "type": kind, "pillar": pillar_of(kind), "ticker": ticker,
                     "tickers": [mk.norm_ticker(t) for t in (item or {}).get("tickers") or []],
+                    "headline_tickers": mk.headline_tickers(item) if item else ([ticker] if ticker else []),
                     "filer": filer_of(item), "dedupe_key": (item or {}).get("dedupe_key"),
                     "first_line": next((ln.strip() for ln in text.splitlines() if ln.strip()), ""), "text": text})
     return out

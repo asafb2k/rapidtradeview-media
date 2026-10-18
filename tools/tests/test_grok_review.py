@@ -36,7 +36,8 @@ def facts_fixture() -> dict:
         DATE, "moves_like", "AAPL", "moves:AAPL:2026-10-09", "/dashboard/AAPL", tickers=["AAPL", "TU", "WU", "HLN"],
         name="Apple Inc.", banned_words=fx.PREDICTION_WORDS, source_url="https://www.rapidtradeview.trade/dashboard/AAPL",
         facts_text="Moves Like: over the 60 sessions before Oct 9, 2026, $AAPL moved most like $TU (Sync 55, Loose).",
-        allowed_numbers=["60", "100", "55", "54", *fx.date_forms("2026-10-09"), "−4.0%", "4.0%"])
+        allowed_numbers=["60", "100", "55", "54", *fx.date_forms("2026-10-09"), "−4.0%", "4.0%"],
+        claims=fx.moves_like_claims("AAPL", ["TU", "WU", "HLN"]))
     return {"schema": fx.SCHEMA, "date": DATE,
             "rules": {"banned_words": fx.BANNED_WORDS, "disclaimer": fx.DISCLAIMER, "max_len": fx.MAX_LEN,
                       "platform_placeholder": "{platform}"},
