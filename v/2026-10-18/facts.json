@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T22:50:59Z",
-  "as_of": "2026-10-18T22:50:59Z",
+  "generated_at": "2026-10-18T23:44:33Z",
+  "as_of": "2026-10-18T23:44:33Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -54,6 +54,7 @@
     "cashtags": "at most 4 distinct cashtags, all from the item's tickers + context_tickers; a single-ticker item names its own $TICKER; moves_like may add its peers, picks_ready the public picks",
     "order": "items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has them; items below carry top8_out (why). Pick across pillars per variety",
     "claim_phrases": "ALLOWLIST (HQ 2026-10-19): any sentence of a post that compares, ranks or orders anything - best / worst / biggest / largest / most / least / top / led / #N / first / second / next / then / followed by / only / all / every / none / record / ever / since / streak / in a row / again / double / twice / half / N times / more than / less than / any '-er than' / beat / missed / outperformed / lagged / winner / loser / last / bottom, and every other word like them - must be one of the item's claim_phrases, copied verbatim as its own sentence (only 'and' / 'also' / 'so' / 'plus' may stand around it). No claim phrase for what you want to say = say it without comparing (plain numbers from allowed_numbers). The facts_text describes the data; it is not a phrase list. A question to the reader that names no company, sector or number is exempt ('Which move surprised you most?')",
+    "plain_words": "ROUND 2 (HQ 2026-10-19): every sentence that is not a claim phrase uses only plain words: the item's cashtags, company / person names and sectors, its allowed numbers and dates, its window ('on Friday', 'in the week to Oct 16', 'last week' for a week item), 'the 500 largest US-listed stocks', and a closed list of plain words (reported, filed, bought, sold, moved, rose, fell, gained, lost, dropped, declined, up, down, closed, market value, earnings, revenue, EPS, consensus, open-market, Form 4, picks, link in bio, ...). Any other word - a synonym of best / only ('alone', 'just', 'the one', 'the rest', 'other', 'exception', 'took gold', 'star'), an order or table word, a streak word ('kept', 'continued', 'extended', 'another', 'deepened'), an equality word ('same', 'matched', 'equaled'), an intensity verb ('surged', 'tanked', 'sold off', 'in the green', 'higher', 'lower'), a number word ('three'), a month ('in October'), 'every' / 'all' / 'each', an arrow / medal emoji, or > < = - makes the sentence need to be a claim phrase verbatim. Numbers and moves are tied to their subject: each number goes right after the company / sector it belongs to ('$MSFT −1.13%', never '$MSFT +2.03%' when +2.03% is $AAPL's), and rose / fell / up / down must match the move of every company / sector it is said of (never a move the item does not give, never negated, never with will / could / may).",
     "claims": "superseded by claim_phrases (kept for the direction / date reading): comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, #1, record, 'outperformed every other') only as the item's claims state them: name only that claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst = top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the top N in order) and a metric (usd_change, pct_change, market_cap, ...): say the side with the noun ('top loser', 'led the drop', 'biggest gainer'; 'top' / 'led' / '#1' alone or with an entity noun ('top sector', 'led its sector') read as best, whatever number stands beside them; with any other noun ('led the rout', 'top casualty') say best / worst instead), say the metric as the claim does (dollars vs percent vs market cap), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in order, 'among the biggest' for other members, 'the two biggest' / 'one of the two biggest' only for the top 2; '#N by <metric>' only as the item's rank_by_usd / rank_by_cap / claims state it; 'of the 500' / 'overall' / 'of all' / 'on the day' only with a claim that has no within, 'of the 10' for the basket; a sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector next to the word ('in Tech', 'Tech's', 'its sector'); a company named in words (Microsoft) counts as its cashtag; a sentence that names no company ('It was the biggest...', 'The biggest dollar drop of the 500.') is about the one named before it; 'too' / 'so was X' after a superlative adds X to it; a question is checked like a statement (only one about the reader, naming nothing, is exempt); 'did better than' / 'outperformed' / 'fell more than' compare percent unless dollars are named, and need a claim of that metric; never widen the window ('ever', 'in months', 'of the quarter', 'since September', a week on a one-session item) or call the session 'today' / 'yesterday' / 'this morning' / 'pre-market' / another weekday unless the item's when does; no negated comparisons; never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
     "moves": "each item's moves: numbers = the sign of every number it allows with one sign, subjects = the direction of every company / sector it describes; never put a gain word (rose, gained, up) beside a loss or a loss word beside a gain ('Energy fell 2.6%' when Energy rose)",
     "pillars": {
@@ -102,7 +103,7 @@
   },
   "reasons": {
     "ptr_summary": "6 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "earnings_result": "no earnings report published between 2026-10-17T22:50Z and 2026-10-18T22:50Z",
+    "earnings_result": "no earnings report published between 2026-10-17T23:44Z and 2026-10-18T23:44Z",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
     "insider_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)"
   },
@@ -150,7 +151,7 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1547,
+      "archive_reports": 1556,
       "recent_ready": 51,
       "outside_24h": 51,
       "unreadable": 0
@@ -182,7 +183,7 @@
     "market": {
       "market_session": "2026-10-16",
       "priced_cap_share": 0.9663367467709199,
-      "flows_as_of": "2026-10-18T22:51:07.881079+00:00"
+      "flows_as_of": "2026-10-18T23:44:40.659738+00:00"
     },
     "gates": {
       "weekend_replay": 10,
@@ -203,7 +204,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 0
+        "angles_dropped": 4
       },
       "top8": {
         "small_cap": 0,
@@ -350,7 +351,7 @@
         }
       ],
       "angles": [
-        "$105.5B of $GOOGL market value gone in one session.",
+        "$GOOGL lost $105.5B of market value on Friday.",
         "$GOOGL had the biggest dollar move among the 500 largest US-listed companies on Friday (−$105.5B).",
         "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B)."
       ],
@@ -483,6 +484,63 @@
           "MSFT": "down",
           "NVDA": "down"
         }
+      },
+      "subject_numbers": {
+        "GOOGL": [
+          [
+            "$",
+            105.5,
+            1,
+            1000000000.0,
+            0
+          ],
+          [
+            "%",
+            2.47,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            105.5,
+            1,
+            1000000000.0,
+            -1
+          ]
+        ],
+        "MSFT": [
+          [
+            "$",
+            77.2,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            1.93,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "NVDA": [
+          [
+            "$",
+            74.9,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            1.43,
+            2,
+            1.0,
+            -1
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -678,8 +736,7 @@
       },
       "angles": [
         "Tech −7.3%, Consumer Defensive +5.5% in the week to Oct 16.",
-        "The 500 largest moved −2.7% in the week to Oct 16, but not evenly.",
-        "Consumer Defensive up, Tech down: a 12.8-point gap in the week to Oct 16."
+        "The 500 largest US-listed stocks moved −2.7% in the week to Oct 16."
       ],
       "claims": [
         {
@@ -1085,6 +1142,139 @@
           "SPCX": "down"
         }
       },
+      "subject_numbers": {
+        "#U500": [
+          [
+            "%",
+            2.7,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "Consumer Defensive": [
+          [
+            "%",
+            5.5,
+            1,
+            1.0,
+            1
+          ],
+          [
+            "%",
+            9.66,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "Energy": [
+          [
+            "%",
+            5.0,
+            1,
+            1.0,
+            1
+          ],
+          [
+            "%",
+            9.25,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "Technology": [
+          [
+            "%",
+            7.3,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "Industrials": [
+          [
+            "%",
+            3.9,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "DEO": [
+          [
+            "%",
+            9.66,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "COP": [
+          [
+            "%",
+            9.25,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "CIEN": [
+          [
+            "%",
+            26.02,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "RKLB": [
+          [
+            "%",
+            25.47,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "WMT": [
+          [
+            "%",
+            6.7,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "XOM": [
+          [
+            "%",
+            5.94,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "NVDA": [
+          [
+            "%",
+            6.61,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "SPCX": [
+          [
+            "%",
+            10.17,
+            2,
+            1.0,
+            -1
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1128,6 +1318,8 @@
         "2026-10-16",
         "Oct 16, 2026",
         "Oct 16",
+        "20+",
+        "5+",
         "2026-10-18",
         "Oct 18, 2026",
         "Oct 18",
@@ -1143,7 +1335,7 @@
       "dedupe_key": "reddit_buzz:2026-10-18:NBIS",
       "claim_phrases": [
         "Reddit is talking about $NBIS 7.5× more than usual: 45 mentions vs 6.0.",
-        "$NBIS had the highest mentions-vs-usual ratio of the top 10 stocks on Reddit (7.5× usual).",
+        "$NBIS had the highest mentions-vs-usual ratio of the top 10 stocks on Reddit with 20+ mentions and a usual count of 5+ (7.5× usual).",
         "$NBIS had the most Reddit mentions of the stocks on the buzz card (45).",
         "10 of the 10 most-mentioned stocks with a close for Oct 16 fell that day."
       ],
@@ -1186,7 +1378,7 @@
       "with_close": 10,
       "angles": [
         "Reddit is talking about $NBIS 7.5× more than usual: 45 mentions vs 6.0.",
-        "$NBIS had the highest mentions-vs-usual ratio of the top 10 stocks on Reddit (7.5× usual).",
+        "$NBIS had the highest mentions-vs-usual ratio of the top 10 stocks on Reddit with 20+ mentions and a usual count of 5+ (7.5× usual).",
         "$NBIS moved −12.18%, and Reddit noticed: 7.5× its usual mentions."
       ],
       "market_cap_usd": 47836957108.7796,
@@ -1307,6 +1499,49 @@
         "subjects": {
           "NBIS": "down"
         }
+      },
+      "subject_numbers": {
+        "NBIS": [
+          [
+            "%",
+            12.18,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "x",
+            7.5,
+            1,
+            1.0,
+            0
+          ],
+          [
+            "n",
+            45.0,
+            0,
+            1.0,
+            0
+          ]
+        ],
+        "SNDK": [
+          [
+            "x",
+            3.3,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "NVDA": [
+          [
+            "x",
+            2.0,
+            1,
+            1.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -1496,6 +1731,7 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {},
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1584,6 +1820,7 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {},
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1700,8 +1937,24 @@
         "Officers and directors sold $4.4B on the open market over 30 days in our feed. This director bought $PAM."
       ],
       "moves": {
-        "numbers": {},
+        "numbers": {
+          "$486M": "+",
+          "$485.5M": "+",
+          "$4.4B": "+",
+          "$4B": "+"
+        },
         "subjects": {}
+      },
+      "subject_numbers": {
+        "PAM": [
+          [
+            "$",
+            4.4,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -1875,9 +2128,15 @@
           "0.3%": "-",
           "0.9%": "+",
           "1.3%": "+",
-          "0.7%": "+"
+          "0.7%": "+",
+          "0.26%": "-"
         },
-        "subjects": {}
+        "subjects": {
+          "VZ": "up",
+          "TMUS": "up",
+          "BCE": "up",
+          "T": "down"
+        }
       },
       "claim_phrases": [
         "Over the 60 sessions before Oct 16, 2026, $T moved most like $VZ (Sync 93).",
@@ -1885,7 +2144,80 @@
         "Over the 60 sessions before Oct 16, 2026, $TMUS was the second-closest peer of $T by Sync (76).",
         "Over the 60 sessions before Oct 16, 2026, $BCE was the third-closest peer of $T by Sync (65).",
         "Over the 60 sessions before Oct 16, 2026, $T's closest peers by Sync, in order: $VZ (93), $TMUS (76), $BCE (65)."
-      ]
+      ],
+      "subject_numbers": {
+        "VZ": [
+          [
+            "n",
+            93.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            0.9,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "TMUS": [
+          [
+            "n",
+            76.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            1.3,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "BCE": [
+          [
+            "n",
+            65.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            0.7,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "T": [
+          [
+            "%",
+            0.26,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            161.0,
+            1,
+            1000000000.0,
+            0
+          ],
+          [
+            "%",
+            0.3,
+            1,
+            1.0,
+            -1
+          ]
+        ]
+      }
     },
     {
       "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
@@ -1929,7 +2261,6 @@
       "move": -3.8823666162966397,
       "angles": [
         "$IBKR −3.88% the session after its Q3 2026 report.",
-        "How the market took $IBKR's Q3 2026 numbers: −3.88%.",
         "$IBKR reported after the close on Oct 15. The next session: −3.88%."
       ],
       "market_cap_usd": 146579243008.0,
@@ -1970,7 +2301,20 @@
           "3.88%": "-",
           "3.9%": "-"
         },
-        "subjects": {}
+        "subjects": {
+          "IBKR": "down"
+        }
+      },
+      "subject_numbers": {
+        "IBKR": [
+          [
+            "%",
+            3.88,
+            2,
+            1.0,
+            -1
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -2129,8 +2473,7 @@
       "risers": 1,
       "angles": [
         "Owning the 10 largest US-listed companies equally cost 5.04% in the week to Oct 16.",
-        "Only $AAPL of the 10 largest US-listed companies rose in the week to Oct 16 (+2.03%).",
-        "What did a mega-cap portfolio do in the week to Oct 16? −5.04%, equal-weighted."
+        "Only $AAPL of the 10 largest US-listed companies rose in the week to Oct 16 (+2.03%)."
       ],
       "claims": [
         {
@@ -2368,6 +2711,71 @@
           "AAPL": "up"
         }
       },
+      "subject_numbers": {
+        "#B10": [
+          [
+            "%",
+            5.04,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "AAPL": [
+          [
+            "%",
+            2.03,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "MSFT": [
+          [
+            "%",
+            1.13,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "META": [
+          [
+            "%",
+            1.3,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "SPCX": [
+          [
+            "%",
+            10.17,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "AVGO": [
+          [
+            "%",
+            9.07,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "TSM": [
+          [
+            "%",
+            8.98,
+            2,
+            1.0,
+            -1
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -2590,6 +2998,63 @@
           "MSFT": "down"
         }
       },
+      "subject_numbers": {
+        "PANW": [
+          [
+            "$",
+            23.1,
+            1,
+            1000000000.0,
+            0
+          ],
+          [
+            "%",
+            7.63,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            23.1,
+            1,
+            1000000000.0,
+            -1
+          ]
+        ],
+        "GOOGL": [
+          [
+            "$",
+            105.5,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            2.47,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "MSFT": [
+          [
+            "$",
+            77.2,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            1.93,
+            2,
+            1.0,
+            -1
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -2777,8 +3242,7 @@
       },
       "angles": [
         "Tech −2.8%, Energy +2.6% on Friday.",
-        "The 500 largest moved −1.2% on Friday, but not evenly.",
-        "Energy up, Tech down: a 5.4-point gap on Friday."
+        "The 500 largest US-listed stocks moved −1.2% on Friday."
       ],
       "claims": [
         {
@@ -3179,6 +3643,139 @@
           "GOOGL": "down"
         }
       },
+      "subject_numbers": {
+        "#U500": [
+          [
+            "%",
+            1.2,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "Energy": [
+          [
+            "%",
+            2.6,
+            1,
+            1.0,
+            1
+          ],
+          [
+            "%",
+            4.59,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "Consumer Defensive": [
+          [
+            "%",
+            1.4,
+            1,
+            1.0,
+            1
+          ],
+          [
+            "%",
+            3.45,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "Technology": [
+          [
+            "%",
+            2.8,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "Communication Services": [
+          [
+            "%",
+            2.5,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "EQNR": [
+          [
+            "%",
+            4.59,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "BTI": [
+          [
+            "%",
+            3.45,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "CRWV": [
+          [
+            "%",
+            11.91,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "NBIS": [
+          [
+            "%",
+            12.18,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "XOM": [
+          [
+            "%",
+            2.46,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "WMT": [
+          [
+            "%",
+            0.8,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "NVDA": [
+          [
+            "%",
+            1.43,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "GOOGL": [
+          [
+            "%",
+            2.47,
+            2,
+            1.0,
+            -1
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -3287,7 +3884,8 @@
         "$AVGO had the third-biggest dollar drop in Technology on Friday (−$74.4B).",
         "Technology's biggest dollar drops on Friday, in order: $MSFT (−$77.2B), $NVDA (−$74.9B).",
         "Technology's biggest dollar drops on Friday, in order: $MSFT (−$77.2B), $NVDA (−$74.9B), $AVGO (−$74.4B).",
-        "Energy was the best sector on Friday (+2.64%)."
+        "Energy was the best sector on Friday (+2.64%).",
+        "Energy went the other way on Friday (+2.64%)."
       ],
       "pillar": "P1",
       "session_date": "2026-10-16",
@@ -3386,9 +3984,9 @@
         "pct": 2.6439084174568217
       },
       "angles": [
-        "About $1.0T gone from the 500 largest US-listed stocks on Friday.",
-        "$GOOGL alone lost $105.5B of market value on Friday.",
-        "Technology −$886B, Energy +2.64%: one day, two directions."
+        "The 500 largest US-listed stocks lost about $1.0T on Friday.",
+        "$GOOGL lost $105.5B of market value on Friday.",
+        "Technology −$886B, Energy +2.64% on Friday."
       ],
       "claims": [
         {
@@ -3630,6 +4228,113 @@
           "Technology": "down",
           "Energy": "up"
         }
+      },
+      "subject_numbers": {
+        "#U500": [
+          [
+            "$",
+            1.0,
+            1,
+            1000000000000.0,
+            0
+          ],
+          [
+            "%",
+            1.21,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "GOOGL": [
+          [
+            "$",
+            105.5,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            2.47,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "MSFT": [
+          [
+            "$",
+            77.2,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            1.93,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "NVDA": [
+          [
+            "$",
+            74.9,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            1.43,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "AVGO": [
+          [
+            "$",
+            74.4,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            4.52,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "Technology": [
+          [
+            "$",
+            886.0,
+            0,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            2.77,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "Energy": [
+          [
+            "%",
+            2.64,
+            2,
+            1.0,
+            1
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -3912,6 +4617,81 @@
         },
         "subjects": {}
       },
+      "subject_numbers": {
+        "#TRACKED": [
+          [
+            "%",
+            65.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "n",
+            1212.0,
+            0,
+            1.0,
+            1
+          ]
+        ],
+        "#U500": [
+          [
+            "%",
+            1.21,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "GOOGL": [
+          [
+            "%",
+            2.47,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            105.5,
+            1,
+            1000000000.0,
+            -1
+          ]
+        ],
+        "MSFT": [
+          [
+            "%",
+            1.93,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            77.2,
+            1,
+            1000000000.0,
+            -1
+          ]
+        ],
+        "NVDA": [
+          [
+            "%",
+            1.43,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            74.9,
+            1,
+            1000000000.0,
+            -1
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4003,8 +4783,30 @@
       },
       "angles": [],
       "moves": {
-        "numbers": {},
-        "subjects": {}
+        "numbers": {
+          "0.04%": "+"
+        },
+        "subjects": {
+          "FITB": "up"
+        }
+      },
+      "subject_numbers": {
+        "FITB": [
+          [
+            "%",
+            0.04,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            45.6,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -4176,9 +4978,15 @@
         "numbers": {
           "2.3%": "+",
           "0.1%": "-",
-          "0.5%": "+"
+          "0.5%": "+",
+          "0.04%": "+"
         },
-        "subjects": {}
+        "subjects": {
+          "USB": "up",
+          "CFG": "down",
+          "RF": "up",
+          "FITB": "up"
+        }
       },
       "claim_phrases": [
         "Over the 60 sessions before Oct 16, 2026, $FITB moved most like $USB (Sync 92).",
@@ -4186,7 +4994,80 @@
         "Over the 60 sessions before Oct 16, 2026, $CFG was the second-closest peer of $FITB by Sync (92).",
         "Over the 60 sessions before Oct 16, 2026, $RF was the third-closest peer of $FITB by Sync (90).",
         "Over the 60 sessions before Oct 16, 2026, $FITB's closest peers by Sync, in order: $USB (92), $CFG (92), $RF (90)."
-      ]
+      ],
+      "subject_numbers": {
+        "USB": [
+          [
+            "n",
+            92.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            2.3,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "CFG": [
+          [
+            "n",
+            92.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            0.1,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "RF": [
+          [
+            "n",
+            90.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            0.5,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "FITB": [
+          [
+            "%",
+            0.04,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            45.6,
+            1,
+            1000000000.0,
+            0
+          ],
+          [
+            "%",
+            0.0,
+            1,
+            1.0,
+            0
+          ]
+        ]
+      }
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-WTFC-3682ae",
@@ -4255,6 +5136,17 @@
       "moves": {
         "numbers": {},
         "subjects": {}
+      },
+      "subject_numbers": {
+        "WTFC": [
+          [
+            "$",
+            9.7,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -4332,6 +5224,17 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {
+        "ZION": [
+          [
+            "$",
+            9.1,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4407,6 +5310,17 @@
       "moves": {
         "numbers": {},
         "subjects": {}
+      },
+      "subject_numbers": {
+        "WAL": [
+          [
+            "$",
+            8.1,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -4484,6 +5398,17 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {
+        "BOKF": [
+          [
+            "$",
+            7.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4559,6 +5484,17 @@
       "moves": {
         "numbers": {},
         "subjects": {}
+      },
+      "subject_numbers": {
+        "CLF": [
+          [
+            "$",
+            7.2,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -4636,6 +5572,17 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {
+        "FNB": [
+          [
+            "$",
+            6.0,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4711,6 +5658,17 @@
       "moves": {
         "numbers": {},
         "subjects": {}
+      },
+      "subject_numbers": {
+        "RLI": [
+          [
+            "$",
+            5.1,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -4788,6 +5746,17 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {
+        "SFBS": [
+          [
+            "$",
+            4.5,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -4863,6 +5832,17 @@
       "moves": {
         "numbers": {},
         "subjects": {}
+      },
+      "subject_numbers": {
+        "DX": [
+          [
+            "$",
+            2.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -4956,6 +5936,7 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {},
       "cooldown": {
         "same_item_posted_on": [
           "instagram"
@@ -5080,6 +6061,7 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {},
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -5155,6 +6137,17 @@
       "moves": {
         "numbers": {},
         "subjects": {}
+      },
+      "subject_numbers": {
+        "WASH": [
+          [
+            "$",
+            707.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -5306,7 +6299,11 @@
           "11.5%": "-",
           "6.7%": "-"
         },
-        "subjects": {}
+        "subjects": {
+          "KEEL": "down",
+          "APLD": "down",
+          "CORZ": "down"
+        }
       },
       "claim_phrases": [
         "Over the 60 sessions before Oct 16, 2026, $IREN moved most like $KEEL (Sync 86).",
@@ -5314,7 +6311,66 @@
         "Over the 60 sessions before Oct 16, 2026, $APLD was the second-closest peer of $IREN by Sync (85).",
         "Over the 60 sessions before Oct 16, 2026, $CORZ was the third-closest peer of $IREN by Sync (84).",
         "Over the 60 sessions before Oct 16, 2026, $IREN's closest peers by Sync, in order: $KEEL (86), $APLD (85), $CORZ (84)."
-      ]
+      ],
+      "subject_numbers": {
+        "KEEL": [
+          [
+            "n",
+            86.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            10.1,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "APLD": [
+          [
+            "n",
+            85.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            11.5,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "CORZ": [
+          [
+            "n",
+            84.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            6.7,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "IREN": [
+          [
+            "%",
+            11.2,
+            1,
+            1.0,
+            -1
+          ]
+        ]
+      }
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-STLD-f76b5c",
@@ -5398,8 +6454,31 @@
       },
       "angles": [],
       "moves": {
-        "numbers": {},
-        "subjects": {}
+        "numbers": {
+          "0.09%": "-",
+          "0.1%": "-"
+        },
+        "subjects": {
+          "STLD": "down"
+        }
+      },
+      "subject_numbers": {
+        "STLD": [
+          [
+            "%",
+            0.09,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            34.5,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -5493,8 +6572,31 @@
       },
       "angles": [],
       "moves": {
-        "numbers": {},
-        "subjects": {}
+        "numbers": {
+          "1.96%": "+",
+          "2.0%": "+"
+        },
+        "subjects": {
+          "WRB": "up"
+        }
+      },
+      "subject_numbers": {
+        "WRB": [
+          [
+            "%",
+            1.96,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            27.5,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -5573,6 +6675,17 @@
       "moves": {
         "numbers": {},
         "subjects": {}
+      },
+      "subject_numbers": {
+        "CCK": [
+          [
+            "$",
+            11.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
       },
       "cooldown": {
         "same_item_posted_on": [],
@@ -5654,6 +6767,7 @@
         "numbers": {},
         "subjects": {}
       },
+      "subject_numbers": {},
       "cooldown": {
         "same_item_posted_on": [
           "instagram",
@@ -5834,9 +6948,15 @@
           "2.4%": "+",
           "1.0%": "+",
           "2.1%": "+",
-          "1.4%": "+"
+          "1.4%": "+",
+          "2.42%": "+"
         },
-        "subjects": {}
+        "subjects": {
+          "BF.B": "up",
+          "KO": "up",
+          "MDLZ": "up",
+          "PEP": "up"
+        }
       },
       "claim_phrases": [
         "Over the 60 sessions before Oct 16, 2026, $PEP moved most like $BF.B (Sync 69).",
@@ -5844,7 +6964,80 @@
         "Over the 60 sessions before Oct 16, 2026, $KO was the second-closest peer of $PEP by Sync (68).",
         "Over the 60 sessions before Oct 16, 2026, $MDLZ was the third-closest peer of $PEP by Sync (67).",
         "Over the 60 sessions before Oct 16, 2026, $PEP's closest peers by Sync, in order: $BF.B (69), $KO (68), $MDLZ (67)."
-      ]
+      ],
+      "subject_numbers": {
+        "BF.B": [
+          [
+            "n",
+            69.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            1.0,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "KO": [
+          [
+            "n",
+            68.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            2.1,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "MDLZ": [
+          [
+            "n",
+            67.0,
+            0,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            1.4,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "PEP": [
+          [
+            "%",
+            2.42,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            174.9,
+            1,
+            1000000000.0,
+            0
+          ],
+          [
+            "%",
+            2.4,
+            1,
+            1.0,
+            1
+          ]
+        ]
+      }
     }
   ]
 }
