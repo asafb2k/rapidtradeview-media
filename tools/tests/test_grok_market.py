@@ -376,7 +376,8 @@ def test_neutral_superlatives_take_the_sentence_polarity():
     rejected(w, "Energy was the top sector in the week to Oct 16.")       # #2: Consumer Defensive was the best
     rejected(w, "No other sector beat Energy in the week to Oct 16.")
     rejected(w, "Energy was the worst sector, +5.0%.")
-    rejected(mm, "Technology led the move.")                              # which way? led reads as the best end
+    approved(mm, "Technology led the move.")              # the facts_text's own words: "led the move" has no side (r3)
+    rejected(mm, "Energy +2.64% led the move on Friday.")                 # Energy went the other way
     rejected(w, "Tech was No. 1 in the week to Oct 16.")
     approved(w, "Consumer Defensive was No. 1 in the week to Oct 16, +5.5%.")
     approved(w, "Consumer Defensive was the top sector in the week to Oct 16.")
@@ -464,3 +465,54 @@ def test_moves_like_ranks_its_peers():
     approved(it, "Over 60 sessions, $PEP moved most like $KO.")
     approved(it, "PepsiCo moved most like $KO, then $MDLZ.")
     rejected(it, "Over 60 sessions, $PEP moved most like $MDLZ.")                       # #2
+
+
+# Round 3 (HQ review 2026-10-18 r3 + HQ probes): every draft a reviewer found approved or rejected wrongly, and the
+# honest drafts that must stay approved, on the same 2026-10-16 session (fixtures/claim_cases_2026-10-18.json):
+# polarity of neutral words beside signs ("Tech was the top sector (-2.8%)"), "the two biggest" = exactly the top 2,
+# metric (market cap / percent vs dollars), per-word scope ("led Tech lower, the biggest drop of the 500"), basket
+# universe, window words (months, quarters, "today" on Monday about Friday), bare claims' date / direction, closest /
+# "more closely than any" / "did better than $AAPL", and the pronoun carry ("$EQNR led it").
+CASES = json.loads((TOOLS / "tests" / "fixtures" / "claim_cases_2026-10-18.json").read_text(encoding="utf-8"))
+
+
+def case_item(key: str) -> dict:
+    kind, _, arg = key.partition(":")
+    if kind == "sector_rotation":
+        return next(i for i in DOC["items"] if i["type"] == kind and i["window"] == arg)
+    if kind == "moves_like":
+        return {"type": kind, "ticker": arg, "name": "AT&T Inc.", "when": None,
+                "claims": fx.moves_like_claims(arg, ["VZ", "TMUS", "BCE"])}
+    return item(kind, arg or None)
+
+
+def test_round3_claim_cases():
+    assert len(CASES) > 300
+    wrong = []
+    for c in CASES:
+        why = gr.wording_reasons(case_item(c["item"]), c["text"] + " Not investment advice.")
+        if (c["expect"] == "approve") != (not why):
+            wrong.append(f"{c['expect']} [{c['item']}] {c['text']} -> {why[:1]}")
+    assert not wrong, "\n".join(wrong)
+
+
+def test_round3_blockers_and_window():
+    d, w, mm, g = day_rot(), week_rot(), item("market_move"), item("mega_mover", "GOOGL")
+    # the blocker: a sign or a loss word beside "top sector" does not make it the worst side
+    for t in ("Tech was the top sector on Friday (−2.8%). $NVDA −1.43%.", "Tech, down 2.8%, was the top sector on Friday."):
+        rejected(d, t)
+    rejected(w, "Tech was the top sector in the week to Oct 16, down 7.3%. $NVDA −6.61%.")
+    approved(d, "Tech led the drop on Friday.")
+    approved(d, "Energy was the top sector on Friday, +2.6%. $EQNR +4.59% led it.")
+    # Grok's first slot is Monday pre-market on Sunday's facts: Friday is not "today" or "yesterday"
+    assert any("window" in r for r in rejected(mm, "Tech −2.77% was the worst sector today. $MSFT −$77.2B."))
+    assert any("window" in r for r in rejected(g, "$GOOGL lost $105.5B yesterday."))
+    assert any("scope" in r for r in rejected(mm, "Tech −$886B was the worst sector on Friday, the worst in weeks."))
+
+
+def test_round3_claims_carry_metric_and_universe():
+    mm, k, b = item("market_move"), item("basket_week"), item("breadth_day")
+    assert {c.get("metric") for c in mm["claims"]} >= {"usd_change", "pct_change"}
+    assert all(c.get("universe") == "10" for c in k["claims"])
+    peak = next(c for c in b["claims"] if c["bare"])
+    assert peak["date"] == "2026-10-15" and peak["direction"] == "up"
