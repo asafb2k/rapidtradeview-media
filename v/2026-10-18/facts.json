@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T21:56:33Z",
-  "as_of": "2026-10-18T21:56:33Z",
+  "generated_at": "2026-10-18T22:50:59Z",
+  "as_of": "2026-10-18T22:50:59Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -53,7 +53,8 @@
     "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
     "cashtags": "at most 4 distinct cashtags, all from the item's tickers + context_tickers; a single-ticker item names its own $TICKER; moves_like may add its peers, picks_ready the public picks",
     "order": "items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has them; items below carry top8_out (why). Pick across pillars per variety",
-    "claims": "comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, #1, record, 'outperformed every other') only as the item's claims state them: name only that claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst = top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the top N in order) and a metric (usd_change, pct_change, market_cap, ...): say the side with the noun ('top loser', 'led the drop', 'biggest gainer'; 'top' / 'led' / '#1' alone or with an entity noun ('top sector', 'led its sector') read as best, whatever number stands beside them; with any other noun ('led the rout', 'top casualty') say best / worst instead), say the metric as the claim does (dollars vs percent vs market cap), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in order, 'among the biggest' for other members, 'the two biggest' / 'one of the two biggest' only for the top 2; '#N by <metric>' only as the item's rank_by_usd / rank_by_cap / claims state it; 'of the 500' / 'overall' / 'of all' / 'on the day' only with a claim that has no within, 'of the 10' for the basket; a sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector next to the word ('in Tech', 'Tech's', 'its sector'); a company named in words (Microsoft) counts as its cashtag; a sentence that names no company ('It was the biggest...', 'The biggest dollar drop of the 500.') is about the one named before it; 'too' / 'so was X' after a superlative adds X to it; a question is checked like a statement (only one about the reader, naming nothing, is exempt); 'did better than' / 'outperformed' / 'fell more than' compare percent unless dollars are named, and need a claim of that metric; never widen the window ('ever', 'in months', 'of the quarter', 'since September', a week on a one-session item) or call the session 'today' / 'yesterday' / 'this morning' / 'pre-market' / another weekday unless the item's when does; no negated comparisons; never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
+    "claim_phrases": "ALLOWLIST (HQ 2026-10-19): any sentence of a post that compares, ranks or orders anything - best / worst / biggest / largest / most / least / top / led / #N / first / second / next / then / followed by / only / all / every / none / record / ever / since / streak / in a row / again / double / twice / half / N times / more than / less than / any '-er than' / beat / missed / outperformed / lagged / winner / loser / last / bottom, and every other word like them - must be one of the item's claim_phrases, copied verbatim as its own sentence (only 'and' / 'also' / 'so' / 'plus' may stand around it). No claim phrase for what you want to say = say it without comparing (plain numbers from allowed_numbers). The facts_text describes the data; it is not a phrase list. A question to the reader that names no company, sector or number is exempt ('Which move surprised you most?')",
+    "claims": "superseded by claim_phrases (kept for the direction / date reading): comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, #1, record, 'outperformed every other') only as the item's claims state them: name only that claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst = top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the top N in order) and a metric (usd_change, pct_change, market_cap, ...): say the side with the noun ('top loser', 'led the drop', 'biggest gainer'; 'top' / 'led' / '#1' alone or with an entity noun ('top sector', 'led its sector') read as best, whatever number stands beside them; with any other noun ('led the rout', 'top casualty') say best / worst instead), say the metric as the claim does (dollars vs percent vs market cap), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in order, 'among the biggest' for other members, 'the two biggest' / 'one of the two biggest' only for the top 2; '#N by <metric>' only as the item's rank_by_usd / rank_by_cap / claims state it; 'of the 500' / 'overall' / 'of all' / 'on the day' only with a claim that has no within, 'of the 10' for the basket; a sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector next to the word ('in Tech', 'Tech's', 'its sector'); a company named in words (Microsoft) counts as its cashtag; a sentence that names no company ('It was the biggest...', 'The biggest dollar drop of the 500.') is about the one named before it; 'too' / 'so was X' after a superlative adds X to it; a question is checked like a statement (only one about the reader, naming nothing, is exempt); 'did better than' / 'outperformed' / 'fell more than' compare percent unless dollars are named, and need a claim of that metric; never widen the window ('ever', 'in months', 'of the quarter', 'since September', a week on a one-session item) or call the session 'today' / 'yesterday' / 'this morning' / 'pre-market' / another weekday unless the item's when does; no negated comparisons; never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
     "moves": "each item's moves: numbers = the sign of every number it allows with one sign, subjects = the direction of every company / sector it describes; never put a gain word (rose, gained, up) beside a loss or a loss word beside a gain ('Energy fell 2.6%' when Energy rose)",
     "pillars": {
       "P0": "picks + scoreboard (max 1 a day per platform)",
@@ -101,7 +102,7 @@
   },
   "reasons": {
     "ptr_summary": "6 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "earnings_result": "no earnings report published between 2026-10-17T21:56Z and 2026-10-18T21:56Z",
+    "earnings_result": "no earnings report published between 2026-10-17T22:50Z and 2026-10-18T22:50Z",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
     "insider_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)"
   },
@@ -181,7 +182,7 @@
     "market": {
       "market_session": "2026-10-16",
       "priced_cap_share": 0.9663367467709199,
-      "flows_as_of": "2026-10-18T21:56:41.431609+00:00"
+      "flows_as_of": "2026-10-18T22:51:07.881079+00:00"
     },
     "gates": {
       "weekend_replay": 10,
@@ -293,13 +294,24 @@
         "$75B",
         "−$75B",
         "1",
-        "#1"
+        "#1",
+        "100"
       ],
       "must_include": [
         "Not investment advice."
       ],
       "facts_text": "$GOOGL (Alphabet Inc.) lost $105.5B of market value on Friday, −2.47%: the biggest dollar drop among the 500 largest US-listed companies (#3 by market cap). Next: $MSFT −$77.2B (−1.93%), $NVDA −$74.9B (−1.43%).",
       "dedupe_key": "mega_mover:2026-10-16:GOOGL",
+      "claim_phrases": [
+        "$GOOGL had the biggest dollar drop among the 500 largest US-listed companies on Friday (−$105.5B).",
+        "$MSFT had the second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$77.2B).",
+        "$NVDA had the third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$74.9B).",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B).",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B), $NVDA (−$74.9B).",
+        "$GOOGL had the biggest dollar move among the 500 largest US-listed companies on Friday (−$105.5B).",
+        "$GOOGL was #3 by market cap among the 500 largest US-listed companies on Friday.",
+        "$GOOGL is one of the 100 largest US-listed companies by market cap (#3)."
+      ],
       "pillar": "P2",
       "session_date": "2026-10-16",
       "when": "on Friday",
@@ -339,8 +351,8 @@
       ],
       "angles": [
         "$105.5B of $GOOGL market value gone in one session.",
-        "$GOOGL −2.47% on Friday: the biggest dollar move of the 500 largest US-listed companies.",
-        "Which company moved the most dollars on Friday? $GOOGL, by $105.5B."
+        "$GOOGL had the biggest dollar move among the 500 largest US-listed companies on Friday (−$105.5B).",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B)."
       ],
       "magnitude": 3.0,
       "trigger": "|$ move| $105.5B >= $50.0B",
@@ -566,6 +578,24 @@
       ],
       "facts_text": "In the week to Oct 16: the 500 largest US-listed stocks moved −2.7% (5 sessions to Oct 16). Up: Consumer Defensive +5.5%, Energy +5.0%. Down: Tech −7.3%, Industrials −3.9%. Best minus worst: 12.8 points. Best stock in each up sector: $DEO +9.66% (Consumer Defensive), $COP +9.25% (Energy). Worst stock in each down sector: $CIEN −26.02% (Tech), $RKLB −25.47% (Industrials). By market value, the biggest names moving with their sector: $WMT +6.70% (Consumer Defensive), $XOM +5.94% (Energy), $NVDA −6.61% (Tech), $SPCX −10.17% (Industrials).",
       "dedupe_key": "sector_rotation:2026-10-16:week",
+      "claim_phrases": [
+        "Consumer Defensive was the best sector in the week to Oct 16 (+5.5%).",
+        "Tech was the worst sector in the week to Oct 16 (−7.3%).",
+        "Energy was the second-best sector in the week to Oct 16 (+5.0%).",
+        "Industrials was the second-worst sector in the week to Oct 16 (−3.9%).",
+        "The best sectors in the week to Oct 16, in order: Consumer Defensive (+5.5%), Energy (+5.0%).",
+        "The worst sectors in the week to Oct 16, in order: Tech (−7.3%), Industrials (−3.9%).",
+        "$DEO was the best Consumer Defensive stock among the 500 largest US-listed companies in the week to Oct 16 (+9.66%).",
+        "$DEO led Consumer Defensive among the 500 largest US-listed companies in the week to Oct 16 (+9.66%).",
+        "$COP was the best Energy stock among the 500 largest US-listed companies in the week to Oct 16 (+9.25%).",
+        "$COP led Energy among the 500 largest US-listed companies in the week to Oct 16 (+9.25%).",
+        "$CIEN was the worst Tech stock among the 500 largest US-listed companies in the week to Oct 16 (−26.02%).",
+        "$RKLB was the worst Industrials stock among the 500 largest US-listed companies in the week to Oct 16 (−25.47%).",
+        "By market value, $WMT was the biggest Consumer Defensive name moving with its sector in the week to Oct 16 (+6.70%).",
+        "By market value, $XOM was the biggest Energy name moving with its sector in the week to Oct 16 (+5.94%).",
+        "By market value, $NVDA was the biggest Tech name moving with its sector in the week to Oct 16 (−6.61%).",
+        "By market value, $SPCX was the biggest Industrials name moving with its sector in the week to Oct 16 (−10.17%)."
+      ],
       "pillar": "P6",
       "session_date": "2026-10-16",
       "window": "week",
@@ -1111,6 +1141,12 @@
       ],
       "facts_text": "Reddit mentions of $NBIS (Nebius Group N.V.): 45 vs a usual weekend average of 6.0 (7.5× usual; capture Oct 18). The stock moved −12.18% on Friday, Oct 16. Also running hot: $SNDK 3.3×, $NVDA 2.0×. 10 of the 10 most-mentioned stocks with a close for Oct 16 fell that day.",
       "dedupe_key": "reddit_buzz:2026-10-18:NBIS",
+      "claim_phrases": [
+        "Reddit is talking about $NBIS 7.5× more than usual: 45 mentions vs 6.0.",
+        "$NBIS had the highest mentions-vs-usual ratio of the top 10 stocks on Reddit (7.5× usual).",
+        "$NBIS had the most Reddit mentions of the stocks on the buzz card (45).",
+        "10 of the 10 most-mentioned stocks with a close for Oct 16 fell that day."
+      ],
       "pillar": "P4",
       "capture_date": "2026-10-18",
       "price_session": "2026-10-16",
@@ -1150,7 +1186,7 @@
       "with_close": 10,
       "angles": [
         "Reddit is talking about $NBIS 7.5× more than usual: 45 mentions vs 6.0.",
-        "$NBIS is the most unusual name on Reddit this weekend.",
+        "$NBIS had the highest mentions-vs-usual ratio of the top 10 stocks on Reddit (7.5× usual).",
         "$NBIS moved −12.18%, and Reddit noticed: 7.5× its usual mentions."
       ],
       "market_cap_usd": 47836957108.7796,
@@ -1265,7 +1301,8 @@
       "moves": {
         "numbers": {
           "12.18%": "-",
-          "12.2%": "-"
+          "12.2%": "-",
+          "10": "-"
         },
         "subjects": {
           "NBIS": "down"
@@ -1320,6 +1357,15 @@
       ],
       "facts_text": "60 of the 500 largest US-listed companies (each worth $10B+) report earnings in the week of Oct 19 (confirmed dates). Largest: $SPCX Tue Oct 20, after the close, $META Wed Oct 21, after the close, $TSLA Wed Oct 21, after the close, $PG Thu Oct 22, before the open, $LRCX Wed Oct 21, after the close, $GE Tue Oct 20, before the open.",
       "dedupe_key": "earnings_week_preview:2026-10-19",
+      "claim_phrases": [
+        "$SPCX is the largest company reporting earnings in the week of Oct 19 (by market value, confirmed dates).",
+        "$META is the second-largest company reporting earnings in the week of Oct 19 (by market value, confirmed dates).",
+        "$TSLA is the third-largest company reporting earnings in the week of Oct 19 (by market value, confirmed dates).",
+        "$PG is the fourth-largest company reporting earnings in the week of Oct 19 (by market value, confirmed dates).",
+        "$LRCX is the fifth-largest company reporting earnings in the week of Oct 19 (by market value, confirmed dates).",
+        "The largest companies reporting earnings in the week of Oct 19 (by market value, confirmed dates), in order: $SPCX, $META, $TSLA.",
+        "The largest companies reporting earnings in the week of Oct 19 (by market value, confirmed dates), in order: $SPCX, $META, $TSLA, $PG."
+      ],
       "pillar": "P5",
       "context_tickers": [
         "LRCX",
@@ -1412,8 +1458,8 @@
       "reporters_total": 60,
       "market_cap_usd": 1957947708992.1536,
       "angles": [
-        "60 big names report in the week of Oct 19. The biggest: $SPCX on Tuesday.",
-        "$SPCX, $META and $TSLA all report in the week of Oct 19.",
+        "$SPCX is the largest company reporting earnings in the week of Oct 19 (by market value, confirmed dates).",
+        "$SPCX, $META and $TSLA report in the week of Oct 19.",
         "Which report are you watching in the week of Oct 19: $SPCX or $META?"
       ],
       "magnitude": 3.0,
@@ -1486,6 +1532,7 @@
       ],
       "facts_text": "Reporting earnings on 2026-10-19, before the open (confirmed dates): $FITB (Fifth Third Bancorp), $CLF (Cleveland-Cliffs Inc.), $DX (Dynex Capital, Inc.).",
       "dedupe_key": "roundup:2026-10-19:bmo",
+      "claim_phrases": [],
       "names": {
         "FITB": "Fifth Third Bancorp",
         "CLF": "Cleveland-Cliffs Inc.",
@@ -1574,6 +1621,7 @@
       ],
       "facts_text": "Marcos Marcelo Mindlin (Director at Pampa Energía S.A.) reported an open-market purchase of PAM totaling $35.14M on a Form 4 filed 2026-10-16, traded 2026-10-15.",
       "dedupe_key": "form4:0002022936-26-000017:PAM",
+      "claim_phrases": [],
       "company": "Pampa Energía S.A.",
       "side": "buy",
       "accession": "0002022936-26-000017",
@@ -1601,8 +1649,8 @@
         "$4.4B",
         "$486M",
         "+$486M",
-        "$486.3M",
-        "+$486.3M",
+        "$485.5M",
+        "+$485.5M",
         "+$4.4B",
         "$4B",
         "+$4B",
@@ -1625,8 +1673,8 @@
           "numbers": [
             "$486M",
             "+$486M",
-            "$486.3M",
-            "+$486.3M",
+            "$485.5M",
+            "+$485.5M",
             "$4.4B",
             "+$4.4B",
             "$4B",
@@ -1830,7 +1878,14 @@
           "0.7%": "+"
         },
         "subjects": {}
-      }
+      },
+      "claim_phrases": [
+        "Over the 60 sessions before Oct 16, 2026, $T moved most like $VZ (Sync 93).",
+        "Over 60 sessions, $T moved most like $VZ (Sync 93).",
+        "Over the 60 sessions before Oct 16, 2026, $TMUS was the second-closest peer of $T by Sync (76).",
+        "Over the 60 sessions before Oct 16, 2026, $BCE was the third-closest peer of $T by Sync (65).",
+        "Over the 60 sessions before Oct 16, 2026, $T's closest peers by Sync, in order: $VZ (93), $TMUS (76), $BCE (65)."
+      ]
     },
     {
       "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
@@ -1865,6 +1920,7 @@
       ],
       "facts_text": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close).",
       "dedupe_key": "earnings_reaction:IBKR:2026-10-15",
+      "claim_phrases": [],
       "pillar": "P5",
       "session_date": "2026-10-16",
       "report_date": "2026-10-15",
@@ -2005,6 +2061,20 @@
       ],
       "facts_text": "The 10 largest US-listed companies by market value, held in equal amounts, moved −5.04% over the 5 sessions to Oct 16. 1 of 10 rose. Best: $AAPL +2.03%, $MSFT −1.13%, $META −1.30%. Worst: $SPCX −10.17%, $AVGO −9.07%, $TSM −8.98%.",
       "dedupe_key": "basket_week:2026-10-16",
+      "claim_phrases": [
+        "$AAPL was the best of the 10 largest US-listed companies in the week to Oct 16 (+2.03%).",
+        "$MSFT was the second-best of the 10 largest US-listed companies in the week to Oct 16 (−1.13%).",
+        "$META was the third-best of the 10 largest US-listed companies in the week to Oct 16 (−1.30%).",
+        "The best of the 10 largest US-listed companies in the week to Oct 16, in order: $AAPL (+2.03%), $MSFT (−1.13%).",
+        "The best of the 10 largest US-listed companies in the week to Oct 16, in order: $AAPL (+2.03%), $MSFT (−1.13%), $META (−1.30%).",
+        "$SPCX was the worst of the 10 largest US-listed companies in the week to Oct 16 (−10.17%).",
+        "$AVGO was the second-worst of the 10 largest US-listed companies in the week to Oct 16 (−9.07%).",
+        "$TSM was the third-worst of the 10 largest US-listed companies in the week to Oct 16 (−8.98%).",
+        "The worst of the 10 largest US-listed companies in the week to Oct 16, in order: $SPCX (−10.17%), $AVGO (−9.07%).",
+        "The worst of the 10 largest US-listed companies in the week to Oct 16, in order: $SPCX (−10.17%), $AVGO (−9.07%), $TSM (−8.98%).",
+        "Only $AAPL of the 10 largest US-listed companies rose in the week to Oct 16 (+2.03%).",
+        "Only 1 of the 10 largest US-listed companies rose in the week to Oct 16."
+      ],
       "pillar": "P7",
       "session_date": "2026-10-16",
       "when": "in the week to Oct 16",
@@ -2059,7 +2129,7 @@
       "risers": 1,
       "angles": [
         "Owning the 10 largest US-listed companies equally cost 5.04% in the week to Oct 16.",
-        "Only 1 of the 10 largest US-listed companies rose in the week to Oct 16: $AAPL.",
+        "Only $AAPL of the 10 largest US-listed companies rose in the week to Oct 16 (+2.03%).",
         "What did a mega-cap portfolio do in the week to Oct 16? −5.04%, equal-weighted."
       ],
       "claims": [
@@ -2364,6 +2434,14 @@
       ],
       "facts_text": "$PANW (Palo Alto Networks, Inc.) lost $23.1B of market value on Friday, −7.63%: #15 by dollar drop among the 500 largest US-listed companies (#42 by market cap). Biggest dollar drops: $GOOGL −$105.5B (−2.47%), $MSFT −$77.2B (−1.93%).",
       "dedupe_key": "mega_mover:2026-10-16:PANW",
+      "claim_phrases": [
+        "$GOOGL had the biggest dollar drop among the 500 largest US-listed companies on Friday (−$105.5B).",
+        "$MSFT had the second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$77.2B).",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B).",
+        "$PANW was #15 by dollar drop among the 500 largest US-listed companies on Friday (−$23.1B).",
+        "$PANW was #42 by market cap among the 500 largest US-listed companies on Friday.",
+        "$PANW is one of the 100 largest US-listed companies by market cap (#42)."
+      ],
       "pillar": "P2",
       "session_date": "2026-10-16",
       "when": "on Friday",
@@ -2403,8 +2481,8 @@
       ],
       "angles": [
         "$PANW −7.63% on Friday, a $23.1B move in market value.",
-        "One of the 100 largest US-listed companies moved 7.63% on Friday: $PANW.",
-        "$PANW is #42 by market cap. Friday it fell 7.63%."
+        "$PANW was #42 by market cap among the 500 largest US-listed companies on Friday.",
+        "$PANW was #15 by dollar drop among the 500 largest US-listed companies on Friday (−$23.1B)."
       ],
       "magnitude": 2.863113403732409,
       "trigger": "top-100 name (#42 by cap) |1d| 7.63% >= 4.0%",
@@ -2599,6 +2677,24 @@
       ],
       "facts_text": "On Friday: the 500 largest US-listed stocks moved −1.2% (close of Oct 16). Up: Energy +2.6%, Consumer Defensive +1.4%. Down: Tech −2.8%, Communication Services −2.5%. Best minus worst: 5.4 points. Best stock in each up sector: $EQNR +4.59% (Energy), $BTI +3.45% (Consumer Defensive). Worst stock in each down sector: $CRWV −11.91% (Tech), $NBIS −12.18% (Communication Services). By market value, the biggest names moving with their sector: $XOM +2.46% (Energy), $WMT +0.80% (Consumer Defensive), $NVDA −1.43% (Tech), $GOOGL −2.47% (Communication Services).",
       "dedupe_key": "sector_rotation:2026-10-16:day",
+      "claim_phrases": [
+        "Energy was the best sector on Friday (+2.6%).",
+        "Tech was the worst sector on Friday (−2.8%).",
+        "Consumer Defensive was the second-best sector on Friday (+1.4%).",
+        "Communication Services was the second-worst sector on Friday (−2.5%).",
+        "The best sectors on Friday, in order: Energy (+2.6%), Consumer Defensive (+1.4%).",
+        "The worst sectors on Friday, in order: Tech (−2.8%), Communication Services (−2.5%).",
+        "$EQNR was the best Energy stock among the 500 largest US-listed companies on Friday (+4.59%).",
+        "$EQNR led Energy among the 500 largest US-listed companies on Friday (+4.59%).",
+        "$BTI was the best Consumer Defensive stock among the 500 largest US-listed companies on Friday (+3.45%).",
+        "$BTI led Consumer Defensive among the 500 largest US-listed companies on Friday (+3.45%).",
+        "$CRWV was the worst Tech stock among the 500 largest US-listed companies on Friday (−11.91%).",
+        "$NBIS was the worst Communication Services stock among the 500 largest US-listed companies on Friday (−12.18%).",
+        "By market value, $XOM was the biggest Energy name moving with its sector on Friday (+2.46%).",
+        "By market value, $WMT was the biggest Consumer Defensive name moving with its sector on Friday (+0.80%).",
+        "By market value, $NVDA was the biggest Tech name moving with its sector on Friday (−1.43%).",
+        "By market value, $GOOGL was the biggest Communication Services name moving with its sector on Friday (−2.47%)."
+      ],
       "pillar": "P6",
       "session_date": "2026-10-16",
       "window": "day",
@@ -3177,6 +3273,22 @@
       ],
       "facts_text": "The 500 largest US-listed stocks lost about $1.0T on Friday (−1.21%; 445 of 500 priced, 96.6% of market value). Biggest dollar drops: $GOOGL −$105.5B (−2.47%, Communication Services), $MSFT −$77.2B (−1.93%, Technology), $NVDA −$74.9B (−1.43%, Technology), $AVGO −$74.4B (−4.52%, Technology). Technology −$886B (−2.77%) led the move. Technology's biggest dollar drops: $MSFT −1.93%, $NVDA −1.43%, $AVGO −4.52%. Energy +2.64% went the other way.",
       "dedupe_key": "market_move:2026-10-16",
+      "claim_phrases": [
+        "$GOOGL had the biggest dollar drop among the 500 largest US-listed companies on Friday (−$105.5B).",
+        "$MSFT had the second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$77.2B).",
+        "$NVDA had the third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$74.9B).",
+        "$AVGO had the fourth-biggest dollar drop among the 500 largest US-listed companies on Friday (−$74.4B).",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B), $NVDA (−$74.9B).",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B), $NVDA (−$74.9B), $AVGO (−$74.4B).",
+        "Technology had the biggest dollar drop of any sector on Friday (−$886B).",
+        "Technology was the worst sector on Friday (−2.77%).",
+        "$MSFT had the biggest dollar drop in Technology on Friday (−$77.2B).",
+        "$NVDA had the second-biggest dollar drop in Technology on Friday (−$74.9B).",
+        "$AVGO had the third-biggest dollar drop in Technology on Friday (−$74.4B).",
+        "Technology's biggest dollar drops on Friday, in order: $MSFT (−$77.2B), $NVDA (−$74.9B).",
+        "Technology's biggest dollar drops on Friday, in order: $MSFT (−$77.2B), $NVDA (−$74.9B), $AVGO (−$74.4B).",
+        "Energy was the best sector on Friday (+2.64%)."
+      ],
       "pillar": "P1",
       "session_date": "2026-10-16",
       "when": "on Friday",
@@ -3566,14 +3678,26 @@
         "2.47%",
         "−2.5%",
         "2.5%",
+        "$105.5B",
+        "−$105.5B",
+        "$106B",
+        "−$106B",
         "−1.93%",
         "1.93%",
         "−1.9%",
         "1.9%",
+        "$77.2B",
+        "−$77.2B",
+        "$77B",
+        "−$77B",
         "−1.43%",
         "1.43%",
         "−1.4%",
         "1.4%",
+        "$74.9B",
+        "−$74.9B",
+        "$75B",
+        "−$75B",
         "1212",
         "1,212",
         "+1,212",
@@ -3588,6 +3712,17 @@
       ],
       "facts_text": "1,631 of 2,497 US stocks RapidTradeView tracks fell on Friday (65%); 840 rose and 26 were flat. It came a day after the strongest up day of the last 20 closes (+1,212 on Oct 15). The 500 largest US-listed stocks moved −1.21% weighted by market value. Biggest dollar drags: $GOOGL −2.47%, $MSFT −1.93%, $NVDA −1.43%.",
       "dedupe_key": "breadth_day:2026-10-16",
+      "claim_phrases": [
+        "$GOOGL was the biggest dollar drag among the 500 largest US-listed companies on Friday (−$105.5B).",
+        "$MSFT was the second-biggest dollar drag among the 500 largest US-listed companies on Friday (−$77.2B).",
+        "$NVDA was the third-biggest dollar drag among the 500 largest US-listed companies on Friday (−$74.9B).",
+        "The biggest dollar drags among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B).",
+        "The biggest dollar drags among the 500 largest US-listed companies on Friday, in order: $GOOGL (−$105.5B), $MSFT (−$77.2B), $NVDA (−$74.9B).",
+        "Most US stocks RapidTradeView tracks fell on Friday: 1,631 of 2,497 (65%).",
+        "Oct 15 was the strongest up day of the last 20 closes (+1,212 stocks up minus down).",
+        "Friday came a day after the strongest up day of the last 20 closes.",
+        "Friday came a day after the strongest up day of the last 20 closes (+1,212 on Oct 15)."
+      ],
       "pillar": "P7",
       "session_date": "2026-10-16",
       "when": "on Friday",
@@ -3638,7 +3773,7 @@
       "narrative": "broad",
       "card_message": {
         "says": "1,631 of 2,497 US stocks fell (65%): a broad move",
-        "never": "\\b(?:narrow\\w*|concentrat\\w*|typical|median|handful|under the surface)\\b|\\bfew\\s+(?:giants|names|stocks|companies|big)\\b|\\bonly\\s+(?:a\\s+few|the\\s+giants|the\\s+biggest)\\b"
+        "never": "\\b(?:narrow\\w*|concentrat\\w*|typical|median|handful|under the surface)\\b|\\bfew\\s+(?:giants|names|stocks|companies|big)\\b|\\bonly\\s+(?:a\\s+few|the\\s+giants|the\\s+biggest)\\b|\\bgiants?\\b|\\bmega[\\s-]?caps?\\b|\\bbig\\s+tech\\b|\\bnot\\s+(?:a\\s+|that\\s+|so\\s+)?broad|\\ball\\s+the\\s+damage\\b|\\baverage\\s+(?:stock|company|name)\\b|\\bheld\\s+up\\b"
       },
       "angles": [
         "1,631 of 2,497 US stocks fell on Friday.",
@@ -3758,12 +3893,22 @@
           "1.2%": "-",
           "2.47%": "-",
           "2.5%": "-",
+          "$105.5B": "-",
+          "$106B": "-",
           "1.93%": "-",
           "1.9%": "-",
+          "$77.2B": "-",
+          "$77B": "-",
           "1.43%": "-",
           "1.4%": "-",
+          "$74.9B": "-",
+          "$75B": "-",
           "1,212": "+",
-          "1212": "+"
+          "1212": "+",
+          "1631": "-",
+          "1,631": "-",
+          "840": "+",
+          "65%": "-"
         },
         "subjects": {}
       },
@@ -3804,6 +3949,7 @@
       ],
       "facts_text": "Fifth Third Bancorp (FITB) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:FITB:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "bmo",
       "hour_text": "before the open",
@@ -4033,7 +4179,14 @@
           "0.5%": "+"
         },
         "subjects": {}
-      }
+      },
+      "claim_phrases": [
+        "Over the 60 sessions before Oct 16, 2026, $FITB moved most like $USB (Sync 92).",
+        "Over 60 sessions, $FITB moved most like $USB (Sync 92).",
+        "Over the 60 sessions before Oct 16, 2026, $CFG was the second-closest peer of $FITB by Sync (92).",
+        "Over the 60 sessions before Oct 16, 2026, $RF was the third-closest peer of $FITB by Sync (90).",
+        "Over the 60 sessions before Oct 16, 2026, $FITB's closest peers by Sync, in order: $USB (92), $CFG (92), $RF (90)."
+      ]
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-WTFC-3682ae",
@@ -4062,6 +4215,7 @@
       ],
       "facts_text": "Wintrust Financial Corporation (WTFC) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:WTFC:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -4137,6 +4291,7 @@
       ],
       "facts_text": "Zions Bancorporation, National Association (ZION) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:ZION:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -4212,6 +4367,7 @@
       ],
       "facts_text": "Western Alliance Bancorporation (WAL) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:WAL:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -4287,6 +4443,7 @@
       ],
       "facts_text": "BOK Financial Corporation (BOKF) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:BOKF:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -4362,6 +4519,7 @@
       ],
       "facts_text": "Cleveland-Cliffs Inc. (CLF) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:CLF:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "bmo",
       "hour_text": "before the open",
@@ -4437,6 +4595,7 @@
       ],
       "facts_text": "F.N.B. Corporation (FNB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:FNB:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -4512,6 +4671,7 @@
       ],
       "facts_text": "RLI Corp. (RLI) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:RLI:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -4587,6 +4747,7 @@
       ],
       "facts_text": "ServisFirst Bancshares, Inc. (SFBS) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:SFBS:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -4662,6 +4823,7 @@
       ],
       "facts_text": "Dynex Capital, Inc. (DX) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:DX:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "bmo",
       "hour_text": "before the open",
@@ -4738,6 +4900,7 @@
       ],
       "facts_text": "Reporting earnings on 2026-10-19, after the close (confirmed dates): $STLD (Steel Dynamics, Inc.), $WRB (W. R. Berkley Corporation), $CCK (Crown Holdings, Inc.), $WTFC (Wintrust Financial Corporation) and more.",
       "dedupe_key": "roundup:2026-10-19:amc",
+      "claim_phrases": [],
       "names": {
         "STLD": "Steel Dynamics, Inc.",
         "WRB": "W. R. Berkley Corporation",
@@ -4847,6 +5010,7 @@
       ],
       "facts_text": "Automatic technical analysis flagged a double top on $IREN (IREN Limited) (scan 2026-10-16): pattern 2026-08-13 to 2026-09-23. Confirmed Oct 14: closed $30.56, clearly below the $34.81 neckline.",
       "dedupe_key": "pattern:IREN:double_top:confirmed:2026-10-14",
+      "claim_phrases": [],
       "scan_date": "2026-10-16",
       "pattern": {
         "type": "double_top",
@@ -4951,6 +5115,7 @@
       ],
       "facts_text": "Washington Trust Bancorp, Inc. (WASH) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:WASH:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -5142,7 +5307,14 @@
           "6.7%": "-"
         },
         "subjects": {}
-      }
+      },
+      "claim_phrases": [
+        "Over the 60 sessions before Oct 16, 2026, $IREN moved most like $KEEL (Sync 86).",
+        "Over 60 sessions, $IREN moved most like $KEEL (Sync 86).",
+        "Over the 60 sessions before Oct 16, 2026, $APLD was the second-closest peer of $IREN by Sync (85).",
+        "Over the 60 sessions before Oct 16, 2026, $CORZ was the third-closest peer of $IREN by Sync (84).",
+        "Over the 60 sessions before Oct 16, 2026, $IREN's closest peers by Sync, in order: $KEEL (86), $APLD (85), $CORZ (84)."
+      ]
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-STLD-f76b5c",
@@ -5171,6 +5343,7 @@
       ],
       "facts_text": "Steel Dynamics, Inc. (STLD) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:STLD:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -5265,6 +5438,7 @@
       ],
       "facts_text": "W. R. Berkley Corporation (WRB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:WRB:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -5359,6 +5533,7 @@
       ],
       "facts_text": "Crown Holdings, Inc. (CCK) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
       "dedupe_key": "upcoming:CCK:2026-10-19",
+      "claim_phrases": [],
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
@@ -5435,6 +5610,7 @@
       ],
       "facts_text": "The RapidTradeView daily picks list for 2026-10-16 is published; the public picks are DRS, DAR. (The 15:00 ET slot comes before today's list (1:30 PM ET); this is the 2026-10-16 list, valid until 2026-10-19T17:30:00+00:00.)",
       "dedupe_key": "picks:2026-10-16",
+      "claim_phrases": [],
       "trade_date": "2026-10-16",
       "valid_until": "2026-10-19T17:30:00+00:00",
       "picks": [
@@ -5661,7 +5837,14 @@
           "1.4%": "+"
         },
         "subjects": {}
-      }
+      },
+      "claim_phrases": [
+        "Over the 60 sessions before Oct 16, 2026, $PEP moved most like $BF.B (Sync 69).",
+        "Over 60 sessions, $PEP moved most like $BF.B (Sync 69).",
+        "Over the 60 sessions before Oct 16, 2026, $KO was the second-closest peer of $PEP by Sync (68).",
+        "Over the 60 sessions before Oct 16, 2026, $MDLZ was the third-closest peer of $PEP by Sync (67).",
+        "Over the 60 sessions before Oct 16, 2026, $PEP's closest peers by Sync, in order: $BF.B (69), $KO (68), $MDLZ (67)."
+      ]
     }
   ]
 }
