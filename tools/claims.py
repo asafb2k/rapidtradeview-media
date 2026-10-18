@@ -16,8 +16,8 @@ through grok_review.wording_reasons, the Growth post audit. Pure functions, no I
      - every ticker / sector named in it is a subject of a claim backing one of its superlatives;
      - the claim's direction (when set) agrees with the clause's direction words, and its `needs` pattern (when set)
        occurs in the clause.
-   Definitions are not claims: "the 500 largest", "the 10 largest", "largest US-listed", "first session after",
-   "best minus worst", "at least" / "at most", "first quarter".
+   Definitions are not claims: "the 500 largest", "the 10 largest", "largest US-listed", "first session after", "track record",
+   "best minus worst", "at least" / "at most", "first quarter"; nor is a question to the reader ("...surprised you most?").
 3. Sector attribution: a clause naming one sector and listing cashtags (or followed by a clause that starts with a
    cashtag and names no sector) implies those companies are in that sector; a cashtag labelled with a sector in
    parentheses likewise. Each must match the item's ticker_sectors ($GOOGL is Communication Services, not Technology).
@@ -203,6 +203,11 @@ def directions(s: str) -> set[str]:
     return out
 
 
+# A question to the reader asserts nothing ("Which bank print surprised you most this week?"): exempt. Other questions
+# ("Was $WMT the biggest gainer?") are checked like statements.
+READER_QUESTION = re.compile(r"^(?=.*\byou(?:r|rs)?\b).*\?$", re.IGNORECASE | re.DOTALL)
+
+
 def claim_reasons(item: dict, text: str) -> list[str]:
     """REJECT reasons for comparative / superlative wording the item's claims do not back."""
     claims = [c for c in item.get("claims") or [] if isinstance(c, dict)]
@@ -210,7 +215,7 @@ def claim_reasons(item: dict, text: str) -> list[str]:
     out = []
     for cl in clauses(text):
         words = superlatives(cl)
-        if not words:
+        if not words or READER_QUESTION.search(cl.strip()):
             continue
         subj = set(tags_in(cl)) | set(sectors_in(cl, names))
         dirs = directions(cl)

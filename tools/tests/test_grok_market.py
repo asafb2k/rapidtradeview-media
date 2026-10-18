@@ -328,3 +328,9 @@ def test_track_record_is_a_page_not_a_record_claim():
                          facts_text="The daily picks list is published.", allowed_numbers=["Oct 16"])
     assert gr.wording_reasons(picks, "Our picks for Oct 16: $DRS. The full list and the track record are on our page.") == []
     assert gr.wording_reasons(picks, "Our picks for Oct 16: $DRS, a record list.") != []
+
+
+def test_a_question_to_the_reader_is_not_a_claim():
+    g = item("mega_mover", "GOOGL")
+    assert gr.wording_reasons(g, "Which mega cap move surprised you most on Friday?") == []
+    assert gr.wording_reasons(g, "Was Energy the biggest dollar loser on Friday?") != []
