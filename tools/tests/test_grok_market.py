@@ -42,6 +42,10 @@ def build_doc() -> dict:
 
 
 DOC = build_doc()
+# what the runner publishes: every item through facts.self_check (claim phrases and angles a post may copy pass the post
+# checks; `moves` filled in)
+DOC_RAW_ITEMS = [dict(i) for i in DOC["items"]]
+DOC["items"], DOC_SELF_ERRORS, DOC_SELF_DROPPED = fx.self_check([dict(i) for i in DOC["items"]])
 
 
 def item(kind, ticker=None):
@@ -56,8 +60,9 @@ def draft(it, text, platform="x", **over):
     return d
 
 
-P1 = ("The 500 largest US-listed stocks lost about $1.0T on Friday, −1.21%. Biggest dollar drops: $GOOGL −2.47%, "
-      "$MSFT −1.93%, $NVDA −1.43%. Technology led the move, −$886B. Energy went the other way, +2.64%. "
+# HQ 2026-10-19 allowlist: every comparison in a post is one of the item's claim_phrases, verbatim
+P1 = ("The 500 largest US-listed stocks lost about $1.0T on Friday, −1.21%. $GOOGL had the biggest dollar drop among the "
+      "500 largest US-listed companies on Friday (−$105.5B). Energy went the other way, +2.64%. "
       "Every company on one map below. Not investment advice.")
 
 
@@ -66,21 +71,23 @@ def test_plan_examples_are_approved():
     assert gr.review(draft(mm, P1), DOC, NOW) == ("APPROVE", [])
     assert gr.review(draft(mm, P1, platform="threads"), DOC, NOW) == ("APPROVE", [])
     g = item("mega_mover", "GOOGL")
-    t = ("$GOOGL lost $105.5B of market value on Friday, −2.47%: the biggest dollar drop among the 500 largest "
-         "US-listed companies. $MSFT (−$77.2B) and $NVDA (−$74.9B) were next. Not investment advice.")
-    assert gr.review(draft(g, t), DOC, NOW) == ("APPROVE", [])
+    t = ("$GOOGL lost $105.5B of market value on Friday, −2.47%. $GOOGL had the biggest dollar drop among the 500 largest "
+         "US-listed companies on Friday (−$105.5B). $MSFT had the second-biggest dollar drop among the 500 largest "
+         "US-listed companies on Friday (−$77.2B). Not investment advice.")
+    assert gr.review(draft(g, t, platform="threads"), DOC, NOW) == ("APPROVE", [])
     b = item("reddit_buzz")
-    t = ("Reddit is talking about $NBIS 7.5× more than on a usual weekend: 45 mentions vs an average of 6. The stock "
-         "fell 12.18% on Friday. $SNDK (3.3×) ran hot too, and 10 of the 10 most-talked stocks fell. Not investment advice.")
-    assert gr.review(draft(b, t), DOC, NOW) == ("APPROVE", [])
+    t = ("Reddit is talking about $NBIS 7.5× more than usual: 45 mentions vs 6.0. The stock fell 12.18% on Friday. "
+         "$SNDK ran hot too, at 3.3× usual. 10 of the 10 most-mentioned stocks with a close for Oct 16 fell that day. "
+         "Not investment advice.")
+    assert gr.review(draft(b, t, platform="threads"), DOC, NOW) == ("APPROVE", [])
     w = next(i for i in DOC["items"] if i["type"] == "sector_rotation" and i["window"] == "week")
     t = ("In the week to Oct 16 the 500 largest US-listed stocks fell 2.7%, but not evenly. Tech −7.3%, Industrials −3.9%. "
-         "Consumer Defensive +5.5% and Energy +5.0% rose. $DEO +9.66% led Consumer Defensive and $COP +9.25% led Energy. "
-         "Not investment advice.")
+         "Consumer Defensive +5.5% and Energy +5.0% rose. $DEO led Consumer Defensive among the 500 largest US-listed "
+         "companies in the week to Oct 16 (+9.66%). Not investment advice.")
     assert gr.review(draft(w, t, platform="threads"), DOC, NOW) == ("APPROVE", [])
     k = item("basket_week")
-    t = ("Owning the 10 largest US-listed companies equally cost 5.04% in the week to Oct 16. Only $AAPL rose (+2.03%). $AVGO −9.07%, "
-         "$TSM −8.98%. Not investment advice.")
+    t = ("Owning the 10 largest US-listed companies equally cost 5.04% in the week to Oct 16. Only $AAPL of the 10 largest "
+         "US-listed companies rose in the week to Oct 16 (+2.03%). $AVGO −9.07%. Not investment advice.")
     assert gr.review(draft(k, t), DOC, NOW) == ("APPROVE", [])
 
 
@@ -105,7 +112,8 @@ def test_market_wording_guard():
     for bad in ("The S&P 500 lost about $1.0T on Friday", "The index lost about $1.0T on Friday"):
         v, why = gr.review(draft(mm, P1.replace("The 500 largest US-listed stocks lost about $1.0T on Friday", bad)), DOC, NOW)
         assert v == "REJECT" and any("universe wording" in r for r in why), bad
-    v, why = gr.review(draft(mm, P1.replace("The 500 largest US-listed stocks lost", "Stocks lost")), DOC, NOW)
+    bare = "Stocks lost about $1.0T on Friday, −1.21%. Energy went the other way, +2.64%. Not investment advice."
+    v, why = gr.review(draft(mm, bare), DOC, NOW)
     assert v == "REJECT" and any('needs "500 largest"' in r for r in why)
     v, why = gr.review(draft(mm, P1.replace("Every company", "All 500 companies")), DOC, NOW)
     assert v == "REJECT" and any("all 500" in r for r in why)
@@ -190,11 +198,22 @@ def threads(it, text):
 
 
 def test_every_item_text_and_angle_passes_the_content_checks():
+    assert DOC_SELF_ERRORS == []
+    raw = {i["item_id"]: i for i in DOC_RAW_ITEMS}
     for it in DOC["items"]:
-        for text in [it["facts_text"], *it.get("angles", [])]:
-            assert gr.wording_reasons(it, text) == [], (it["type"], text)
+        # the data sheet is not a post: every check but the allowlist (it states rankings in its own words)
+        assert gr.cl.content_reasons(it, it["facts_text"], gr.strip_allowed, allowlist=False) == [], it["type"]
+        # every claim phrase survives the self-check (a post may copy each one verbatim)
+        assert it.get("claim_phrases") == list(dict.fromkeys(raw[it["item_id"]].get("claim_phrases") or [])), it["type"]
+        for text in [it["facts_text"], *it.get("angles", []), *it.get("claim_phrases", [])]:
             assert gr.unexplained_numbers(text, gr.item_numbers(it), gr.item_cashtags(it)) == [], (it["type"], text)
             assert "S&P" not in text and not re.search(r"\bthis week\b", text), (it["type"], text)
+        for text in [*it.get("angles", []), *it.get("claim_phrases", [])]:
+            assert gr.wording_reasons(it, text) == [], (it["type"], text)
+    # the market items keep at least 2 angles each (they were rewritten as claim phrases where they ranked)
+    for it in DOC["items"]:
+        if it["type"] in gr.mk.MARKET_TYPES:
+            assert len(it["angles"]) >= 2, (it["type"], it["angles"])
 
 
 def test_sp500_is_rejected_on_every_item_type():
@@ -214,7 +233,8 @@ def test_sp500_is_rejected_on_every_item_type():
         assert v == "REJECT" and any("universe wording" in r for r in why), text
     # the right words pass
     ok = ("60 of the 500 largest US-listed companies (each worth $10B+) report earnings in the week of Oct 19. The "
-          "biggest: $SPCX, $META, $TSLA. Not investment advice.")
+          "largest companies reporting earnings in the week of Oct 19 (by market value, confirmed dates), in order: "
+          "$SPCX, $META, $TSLA. Not investment advice.")
     assert gr.review(threads(pv, ok), DOC, NOW) == ("APPROVE", [])
     v, why = gr.review(threads(pv, ok.replace("in the week of Oct 19", "this week")), DOC, NOW)
     assert v == "REJECT" and any("window" in r for r in why)          # built Sunday: the week of Oct 19, not "this week"
@@ -244,15 +264,17 @@ def test_unbacked_superlatives_are_rejected():
     for t in bad:
         v, why = gr.review(threads(w, base + t + " Not investment advice."), DOC, NOW)
         assert v == "REJECT" and any("unsupported comparison" in r for r in why), t
-    good = ["$DEO +9.66% led Consumer Defensive.", "Tech −7.3% was the worst sector.",
-            "By market value, the biggest Consumer Defensive name moving with it was $WMT, +6.70%."]
+    good = ["$DEO led Consumer Defensive among the 500 largest US-listed companies in the week to Oct 16 (+9.66%).",
+            "Tech was the worst sector in the week to Oct 16 (−7.3%).",
+            "By market value, $WMT was the biggest Consumer Defensive name moving with its sector in the week to Oct 16 "
+            "(+6.70%)."]
     for t in good:
         assert gr.review(threads(w, base + t + " Not investment advice."), DOC, NOW) == ("APPROVE", []), t
     mm = item("market_move")
-    v, why = gr.review(draft(mm, P1.replace("Biggest dollar drops", "The only drops")), DOC, NOW)
+    v, why = gr.review(draft(mm, P1.replace("$GOOGL had the biggest dollar drop", "$GOOGL had the only drop")), DOC, NOW)
     assert v == "REJECT" and any("unsupported comparison" in r for r in why)
-    v, why = gr.review(draft(mm, P1.replace("Biggest dollar drops", "Biggest drops by %")), DOC, NOW)
-    assert v == "REJECT"                                                # GOOGL's move was a $ record, not a % one
+    v, why = gr.review(draft(mm, P1.replace("biggest dollar drop", "biggest % drop")), DOC, NOW)
+    assert v == "REJECT" and any("unsupported comparison" in r for r in why)   # a $ ranking, not a % one
     g = item("mega_mover", "GOOGL")
     t = "$GOOGL lost $105.5B on Friday, −2.47%, the first time it fell that much. Not investment advice."
     v, why = gr.review(draft(g, t), DOC, NOW)
@@ -261,9 +283,11 @@ def test_unbacked_superlatives_are_rejected():
 
 def test_sector_attribution():
     mm = item("market_move")
-    for t in ("The 500 largest US-listed stocks lost about $1.0T on Friday. Technology alone: −$886B. $GOOGL −2.47%, "
-              "$MSFT −1.93%. Not investment advice.",
-              "The 500 largest US-listed stocks lost about $1.0T on Friday. Tech was −$886B of it: $GOOGL −2.47%, $MSFT "
+    # r4 review: a sector sentence no longer lends its sector to the cashtags of the NEXT sentence ("Tech was the worst
+    # sector on Friday. $NVDA −1.43%, $XOM +2.46%." is honest); inside one sentence it still does
+    assert gr.review(draft(mm, "The 500 largest US-listed stocks lost about $1.0T on Friday. Technology alone: −$886B. "
+                               "$GOOGL −2.47%, $MSFT −1.93%. Not investment advice."), DOC, NOW) == ("APPROVE", [])
+    for t in ("The 500 largest US-listed stocks lost about $1.0T on Friday. Tech was −$886B of it: $GOOGL −2.47%, $MSFT "
               "−1.93%. Not investment advice.",
               "The 500 largest US-listed stocks lost about $1.0T on Friday. $GOOGL −2.47% (Tech) and $MSFT −1.93%. "
               "Not investment advice."):
@@ -282,8 +306,8 @@ def test_breadth_text_does_not_contradict_its_card():
     v, why = gr.review(draft(b, "The 500 largest US-listed stocks moved −1.21% on Friday, yet the median company moved "
                                 "−0.03%. Not investment advice."), DOC, NOW)
     assert v == "REJECT"
-    ok = ("1,631 of 2,497 US stocks fell on Friday (65%). Biggest dollar drags: $GOOGL −2.47%, $MSFT −1.93%. "
-          "Not investment advice.")
+    ok = ("1,631 of 2,497 US stocks fell on Friday (65%). $GOOGL was the biggest dollar drag among the 500 largest "
+          "US-listed companies on Friday (−$105.5B). Not investment advice.")
     assert gr.review(draft(b, ok), DOC, NOW) == ("APPROVE", [])
 
 
@@ -310,11 +334,17 @@ def test_monday_flow_items_pass_their_own_checks():
     mon = dt.datetime(2026, 10, 19, 13, 0, tzinfo=dt.timezone.utc)
     items, *_, m = fx.market_items(FixtureApi(), MON, mon, None)
     fx.enrich(items, m)
+    raw = {i["item_id"]: list(dict.fromkeys(i.get("claim_phrases") or [])) for i in items}
+    items, errs, _ = fx.self_check(items)
+    assert errs == []
     kinds = {i["type"] for i in items}
     assert {"congress_flow", "insider_flow"} <= kinds
     for it in items:
-        for text in [it["facts_text"], *it["angles"]]:
+        assert it["claim_phrases"] == raw[it["item_id"]], it["type"]
+        assert gr.cl.content_reasons(it, it["facts_text"], gr.strip_allowed, allowlist=False) == [], it["type"]
+        for text in [*it["angles"], *it["claim_phrases"]]:
             assert gr.wording_reasons(it, text) == [], (it["type"], text)
+        for text in [it["facts_text"], *it["angles"], *it["claim_phrases"]]:
             assert gr.unexplained_numbers(text, gr.item_numbers(it), gr.item_cashtags(it)) == [], (it["type"], text)
     ins = next(i for i in items if i["type"] == "insider_flow")
     assert ins["facts_text"].startswith("Officers and directors reported $650M of open-market buys and $4.4B of "
@@ -338,9 +368,11 @@ def test_a_question_to_the_reader_is_not_a_claim():
 
 def test_idioms_that_are_not_claims():
     g = item("mega_mover", "GOOGL")
-    for t in ("Link in the first comment.", "The report has EPS only: $1.16 vs $1.21.", "Link in bio only."):
+    for t in ("Link in the first comment.", "Every company on one map below.", "The next session: −2.47%."):
         assert gr.wording_reasons(g, t) == [], t
-    assert gr.wording_reasons(g, "Only Energy rose on Friday.") != []
+    # the allowlist reads "only" broadly (HQ 2026-10-19): an idiom with it is rewritten, never a claim
+    for t in ("Only Energy rose on Friday.", "The report has EPS only: $1.16 vs $1.21.", "Link in bio only."):
+        assert gr.wording_reasons(g, t) != [], t
 
 
 # Claim polarity and rank (HQ review 2026-10-18 round 2): a claim carries kind (stock / sector), polarity (best / worst /
@@ -364,6 +396,13 @@ def approved(it, text):
     assert gr.wording_reasons(it, text) == [], text
 
 
+def approved_or_not_a_phrase(it, text):
+    """Rounds 1-4 approved these true sentences. Under the allowlist (HQ 2026-10-19) one that is not a claim phrase is
+    rejected by the allowlist alone, and no other check (direction, window, sector, universe) fires on it."""
+    why = gr.wording_reasons(it, text)
+    assert all(r.startswith("unsupported comparison:") for r in why), (text, why)
+
+
 def test_neutral_superlatives_take_the_sentence_polarity():
     w, d, mm = week_rot(), day_rot(), item("market_move")
     # the MAJOR: no up / down word, so the direction was never checked; Tech was the WORST sector both windows
@@ -376,16 +415,16 @@ def test_neutral_superlatives_take_the_sentence_polarity():
     rejected(w, "Energy was the top sector in the week to Oct 16.")       # #2: Consumer Defensive was the best
     rejected(w, "No other sector beat Energy in the week to Oct 16.")
     rejected(w, "Energy was the worst sector, +5.0%.")
-    approved(mm, "Technology led the move.")              # the facts_text's own words: "led the move" has no side (r3)
+    approved_or_not_a_phrase(mm, "Technology led the move.")              # the facts_text's own words: "led the move" has no side (r3)
     rejected(mm, "Energy +2.64% led the move on Friday.")                 # Energy went the other way
     rejected(w, "Tech was No. 1 in the week to Oct 16.")
-    approved(w, "Consumer Defensive was No. 1 in the week to Oct 16, +5.5%.")
-    approved(w, "Consumer Defensive was the top sector in the week to Oct 16.")
-    approved(w, "Tech was the worst sector in the week to Oct 16, −7.3%.")
-    approved(d, "Energy was the top sector on Friday, +2.6%.")
-    approved(mm, "Technology led the move, −$886B.")
-    approved(mm, "Technology led the drop.")
-    approved(mm, "Energy was the best sector on Friday.")
+    approved_or_not_a_phrase(w, "Consumer Defensive was No. 1 in the week to Oct 16, +5.5%.")
+    approved_or_not_a_phrase(w, "Consumer Defensive was the top sector in the week to Oct 16.")
+    approved_or_not_a_phrase(w, "Tech was the worst sector in the week to Oct 16, −7.3%.")
+    approved_or_not_a_phrase(d, "Energy was the top sector on Friday, +2.6%.")
+    approved_or_not_a_phrase(mm, "Technology led the move, −$886B.")
+    approved_or_not_a_phrase(mm, "Technology led the drop.")
+    approved_or_not_a_phrase(mm, "Energy was the best sector on Friday.")
 
 
 def test_stock_claims_inside_a_sector():
@@ -395,9 +434,9 @@ def test_stock_claims_inside_a_sector():
     rejected(w, "$COP +9.25% led Consumer Defensive in the week to Oct 16.")              # COP led Energy
     rejected(w, "$DEO +9.66% led Energy and $COP +9.25% led Consumer Defensive.")         # swapped pairs
     rejected(w, "$WMT +6.70% outperformed every other stock in Consumer Defensive in the week to Oct 16.")
-    approved(w, "$CIEN −26.02% was the worst stock in Tech in the week to Oct 16.")
-    approved(w, "$DEO +9.66% led its sector in the week to Oct 16.")
-    approved(d, "$GOOGL −2.47% and $NVDA −1.43% were the biggest names by market value moving with their sector.")
+    approved_or_not_a_phrase(w, "$CIEN −26.02% was the worst stock in Tech in the week to Oct 16.")
+    approved_or_not_a_phrase(w, "$DEO +9.66% led its sector in the week to Oct 16.")
+    approved_or_not_a_phrase(d, "$GOOGL −2.47% and $NVDA −1.43% were the biggest names by market value moving with their sector.")
 
 
 def test_group_claims_allow_only_group_wording_for_members_below_1():
@@ -413,17 +452,17 @@ def test_group_claims_allow_only_group_wording_for_members_below_1():
     rejected(pv, "$TSLA is the biggest company reporting in the week of Oct 19.")          # $SPCX is
     rejected(pv, "$PG is the biggest company reporting in the week of Oct 19.")
     rejected(k, "$TSM was the worst of the 10 largest US-listed companies in the week to Oct 16: −8.98%.")  # $SPCX
-    approved(mm, "$GOOGL, $MSFT and $NVDA were the biggest dollar drops on Friday.")
-    approved(mm, "$MSFT was among the biggest dollar drops on Friday.")
-    approved(mm, "$MSFT was one of the biggest dollar drops on Friday.")
-    approved(mm, "$MSFT was the second-biggest dollar drop on Friday.")
-    approved(mm, "Technology's biggest dollar drops: $MSFT −1.93%, $NVDA −1.43%.")
-    approved(g, "$GOOGL had the biggest dollar drop on Friday.")
-    approved(g, "$GOOGL: the biggest dollar move of the day, $105.5B.")
-    approved(g, "Was $GOOGL the biggest dollar loser on Friday?")
-    approved(pv, "$SPCX is the biggest company reporting in the week of Oct 19.")
-    approved(pv, "$TSLA is among the biggest companies reporting in the week of Oct 19.")
-    approved(k, "$SPCX was the worst of the 10 largest US-listed companies in the week to Oct 16: −10.17%.")
+    approved_or_not_a_phrase(mm, "$GOOGL, $MSFT and $NVDA were the biggest dollar drops on Friday.")
+    approved_or_not_a_phrase(mm, "$MSFT was among the biggest dollar drops on Friday.")
+    approved_or_not_a_phrase(mm, "$MSFT was one of the biggest dollar drops on Friday.")
+    approved_or_not_a_phrase(mm, "$MSFT was the second-biggest dollar drop on Friday.")
+    approved_or_not_a_phrase(mm, "Technology's biggest dollar drops: $MSFT −1.93%, $NVDA −1.43%.")
+    approved_or_not_a_phrase(g, "$GOOGL had the biggest dollar drop on Friday.")
+    approved_or_not_a_phrase(g, "$GOOGL: the biggest dollar move of the day, $105.5B.")
+    approved_or_not_a_phrase(g, "Was $GOOGL the biggest dollar loser on Friday?")
+    approved_or_not_a_phrase(pv, "$SPCX is the biggest company reporting in the week of Oct 19.")
+    approved_or_not_a_phrase(pv, "$TSLA is among the biggest companies reporting in the week of Oct 19.")
+    approved_or_not_a_phrase(k, "$SPCX was the worst of the 10 largest US-listed companies in the week to Oct 16: −10.17%.")
 
 
 def test_a_comparison_stays_inside_the_item_window():
@@ -449,22 +488,34 @@ def test_universe_and_window_wording_found_by_reviewers():
     assert any("window" in r for r in rejected(g, "$GOOGL lost $105.5B of market value this week (−2.47%)."))
 
 
-def test_old_claims_without_semantics_are_read_safely():
-    """facts.json files built before round 2 (no kind / polarity / rank / within) get the same reading."""
-    w = dict(week_rot())
-    w["claims"] = [{k: v for k, v in c.items() if k in ("words", "subjects", "bare", "direction", "needs", "says")}
-                   | ({"subjects": [*c["subjects"], *c["within"]]} if c.get("within") else {}) for c in w["claims"]]
+def test_old_facts_keep_the_reading_they_were_published_under():
+    """An item from a facts.json built before the allowlist (no claim_phrases key: Growth's audit of older posts) keeps
+    the rounds 1-4 reading of its `claims`; an item with the key (every item facts.py builds now) is read by the
+    allowlist only, even with an empty list."""
+    w = {k: v for k, v in week_rot().items() if k != "claim_phrases"}
     rejected(w, "Tech was the top sector in the week to Oct 16.")
-    rejected(w, "Industrials led in the week to Oct 16.")
     approved(w, "Tech was the worst sector in the week to Oct 16.")
     approved(w, "$DEO +9.66% led Consumer Defensive.")
+    w2 = dict(week_rot(), claim_phrases=[])
+    rejected(w2, "Tech was the worst sector in the week to Oct 16.")
+    approved(w2, "Tech −7.3%, Consumer Defensive +5.5% in the week to Oct 16.")
+    assert all("claim_phrases" in i for i in DOC["items"])
+
+
+def moves_like_item(ticker="PEP", peers=(("KO", 81), ("MDLZ", 70))):
+    it = {"type": "moves_like", "ticker": ticker, "name": "PepsiCo, Inc.", "window_sessions": 60, "session": "2026-10-16",
+          "peers": [{"ticker": t, "sync": n} for t, n in peers], "claims": fx.moves_like_claims(ticker, [t for t, _ in peers])}
+    it["claim_phrases"] = fx.moves_like_phrases(it)
+    return it
 
 
 def test_moves_like_ranks_its_peers():
-    it = {"type": "moves_like", "ticker": "PEP", "name": "PepsiCo, Inc.", "claims": fx.moves_like_claims("PEP", ["KO", "MDLZ"])}
-    approved(it, "Over 60 sessions, $PEP moved most like $KO.")
-    approved(it, "PepsiCo moved most like $KO, then $MDLZ.")
+    it = moves_like_item()
+    approved(it, "Over 60 sessions, $PEP moved most like $KO (Sync 81).")
+    rejected(it, "Over 60 sessions, $PEP moved most like $KO.")    # "(Sync 81)" words the metric: it stays
+    approved(it, "Over the 60 sessions before Oct 16, 2026, $PEP's closest peers by Sync, in order: $KO (81), $MDLZ (70).")
     rejected(it, "Over 60 sessions, $PEP moved most like $MDLZ.")                       # #2
+    rejected(it, "PepsiCo moved most like $KO, then $MDLZ.")                             # not a phrase
 
 
 # Round 3 (HQ review 2026-10-18 r3 + HQ probes): every draft a reviewer found approved or rejected wrongly, and the
@@ -481,19 +532,66 @@ def case_item(key: str) -> dict:
     if kind == "sector_rotation":
         return next(i for i in DOC["items"] if i["type"] == kind and i["window"] == arg)
     if kind == "moves_like":
-        return {"type": kind, "ticker": arg, "name": "AT&T Inc.", "when": None,
-                "claims": fx.moves_like_claims(arg, ["VZ", "TMUS", "BCE"])}
+        it = dict(moves_like_item(arg, (("VZ", 93), ("TMUS", 76), ("BCE", 65))), name="AT&T Inc.", when=None)
+        it["claim_phrases"] = fx.moves_like_phrases(it)
+        return it
     return item(kind, arg or None)
 
 
 def test_round3_claim_cases():
+    """Rounds 1-4 (481 cases): every draft a reviewer or HQ found wrongly approved stays rejected; the true drafts are
+    approved or rejected by the allowlist alone (they are not claim phrases), never by another check."""
     assert len(CASES) > 300
     wrong = []
     for c in CASES:
         why = gr.wording_reasons(case_item(c["item"]), c["text"] + " Not investment advice.")
+        if c["expect"] == "reject" and not why:
+            wrong.append(f"reject [{c['item']}] {c['text']} -> APPROVED")
+        if c["expect"] == "approve" and not all(r.startswith("unsupported comparison:") for r in why):
+            wrong.append(f"approve [{c['item']}] {c['text']} -> {why[:1]}")
+    assert not wrong, "\n".join(wrong)
+
+
+# Allowlist (HQ 2026-10-19): the round-4 review's cases (pairs, ordered lists, order words, synonyms, comparisons, ratios,
+# scope, window, streaks, breadth direction, card words, direction verbs / nouns), allowlist probes, and honest drafts
+# built from claim phrases (fixtures/allowlist_cases_2026-10-19.json).
+ALLOW_CASES = json.loads((TOOLS / "tests" / "fixtures" / "allowlist_cases_2026-10-19.json").read_text(encoding="utf-8"))
+
+
+def test_allowlist_cases():
+    assert len(ALLOW_CASES) >= 100
+    wrong = []
+    for c in ALLOW_CASES:
+        why = gr.wording_reasons(case_item(c["item"]), c["text"] + " Not investment advice.")
         if (c["expect"] == "approve") != (not why):
             wrong.append(f"{c['expect']} [{c['item']}] {c['text']} -> {why[:1]}")
     assert not wrong, "\n".join(wrong)
+
+
+def test_every_claim_phrase_is_approved_as_a_post():
+    """Each claim phrase of each item, posted alone (with the disclaimer), passes the whole validator: numbers, window,
+    cashtags, wording."""
+    for it in DOC["items"]:
+        for ph in it.get("claim_phrases") or []:
+            lead = it.get("ticker") or (it.get("tickers") or [None])[0]
+            extra = f" ${lead}." if lead and f"${lead}" not in ph else ""   # the post names its (or one) ticker
+            v, why = gr.review(threads(it, f"{ph}{extra} Not investment advice."), DOC, NOW)
+            assert (v, why) == ("APPROVE", []), (it["type"], ph, why)
+
+
+def test_rank_language_is_read_broadly():
+    g = item("mega_mover", "GOOGL")
+    for t in ("$GOOGL topped the list.", "$GOOGL was the standout.", "$GOOGL ran hotter than $MSFT.",
+              "$GOOGL lost twice what $MSFT did.", "$GOOGL lost 1.4x more than $MSFT.", "$GOOGL, then $MSFT.",
+              "$GOOGL came in ahead of $MSFT.", "$GOOGL edged out $MSFT.", "$GOOGL had the steepest fall.",
+              "Every big name fell.", "None of the giants rose.", "$GOOGL fell again.", "$GOOGL fell for a third day in a row.",
+              "$GOOGL is #3.", "$GOOGL ranks 3rd.", "$GOOGL was No. 1.", "$GOOGL was number one.", "$GOOGL lagged.",
+              "$GOOGL underperformed.", "$GOOGL was the laggard.", "$GOOGL was the day's loser.", "$GOOGL was last.",
+              "$GOOGL sat at the bottom.", "$GOOGL beat $MSFT.", "$GOOGL lost more than $MSFT.", "$GOOGL had it worse.",
+              "$GOOGL hit a new low.", "$GOOGL had its worst day in 3 weeks.", "$GOOGL is down since September.",
+              "$GOOGL had a record drop.", "$GOOGL had a historic drop.", "$GOOGL lost half as much as $MSFT.",
+              "$GOOGL lost as much as $MSFT and $NVDA combined.", "$GOOGL was one of the 10 largest losers."):
+        assert any(r.startswith("unsupported comparison:") for r in gr.wording_reasons(g, t)), t
 
 
 def test_round3_blockers_and_window():
@@ -502,12 +600,13 @@ def test_round3_blockers_and_window():
     for t in ("Tech was the top sector on Friday (−2.8%). $NVDA −1.43%.", "Tech, down 2.8%, was the top sector on Friday."):
         rejected(d, t)
     rejected(w, "Tech was the top sector in the week to Oct 16, down 7.3%. $NVDA −6.61%.")
-    approved(d, "Tech led the drop on Friday.")
-    approved(d, "Energy was the top sector on Friday, +2.6%. $EQNR +4.59% led it.")
+    approved_or_not_a_phrase(d, "Tech led the drop on Friday.")
+    approved_or_not_a_phrase(d, "Energy was the top sector on Friday, +2.6%. $EQNR +4.59% led it.")
     # Grok's first slot is Monday pre-market on Sunday's facts: Friday is not "today" or "yesterday"
     assert any("window" in r for r in rejected(mm, "Tech −2.77% was the worst sector today. $MSFT −$77.2B."))
     assert any("window" in r for r in rejected(g, "$GOOGL lost $105.5B yesterday."))
-    assert any("scope" in r for r in rejected(mm, "Tech −$886B was the worst sector on Friday, the worst in weeks."))
+    assert any("unsupported comparison" in r
+               for r in rejected(mm, "Tech −$886B was the worst sector on Friday, the worst in weeks."))
 
 
 def test_round3_claims_carry_metric_and_universe():

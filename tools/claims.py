@@ -7,6 +7,9 @@ through grok_review.wording_reasons, the Growth post audit. Pure functions, no I
    type names the S&P (S&P 500, S&P500, SP500, SPX, "the index", "Standard & Poor's", "benchmark index", "index members",
    "SPY stocks"; invisible characters stripped first). The one exception is the track record's benchmark comparison on a
    picks item, written as "vs the S&P 500 (SPY)" / "vs SPY (S&P 500)" ("vs SPY" alone needs no exception).
+2b (HQ 2026-10-19, the gate now). Comparisons are an ALLOWLIST: a sentence with any ranking / comparison language passes
+   only as one of the item's `claim_phrases` verbatim (see section 2b below). Section 2 (the `claims` reading of rounds
+   1-4) applies only to items from facts files built before the allowlist (no `claim_phrases` key).
 2. Comparative / superlative claims (led, biggest, largest, worst, best, most, least, only, first, top, record, #1 and
    their synonyms and comparatives: "outperformed every other", "no other sector beat", "more than any") are allowed only
    when the item backs them in its `claims` field, computed by facts.py / market_facts.py:
@@ -65,8 +68,11 @@ import market_facts as mk
 # 1. Universe wording
 
 INDEX_WORDS = re.compile(
-    r"\bs\s*(?:&|&amp;|＆|and)\s*p(?:\s*-?\s*500)?(?![a-z])|\bsp\s*-?\s*500\b|\bspx\b|\bthe\s+index\b"
+    r"\bs\.?\s*(?:&|&amp;|＆|and)\s*p\.?(?:\s*-?\s*500)?(?![a-z])|\bsp\s*-?\s*500\b|\bspx\b|\bthe\s+index\b"
     r"|\bstandard\s*(?:&|&amp;|and)\s*poor'?s\b|\bbenchmark\s+index\b"
+    # reviewer probes 10-18 ("60 S.&P. 500 companies", "Large-cap benchmark", "The US 500", "The Spiders", "the Dow")
+    r"|\b(?:the\s+|large[\s-]?cap\s+)?benchmark\b|\bu\.?s\.?\s+500\b|\bspiders\b|\bthe\s+dow\b|\bdow\s+(?:jones|30)\b"
+    r"|\bnasdaq[\s-]?100\b|\brussell\s+[123]000\b"
     r"|\bindex\s+(?:members?|heavyweights?|constituents?|components?|names|stocks|companies)\b", re.IGNORECASE)
 # "any SPY stock", "SPY names": the ETF named as our universe ("vs SPY", the benchmark comparison, stays allowed)
 SPY_WORD = re.compile(r"(?<![\w$])SPY\s+(?:stocks?|names?|compan(?:y|ies)|members?|constituents?|components?)\b",
@@ -119,12 +125,17 @@ def window_reasons(item: dict, text: str) -> list[str]:
     else:
         ahead = w.startswith("in the week of") or item.get("type") == "earnings_week_preview"
         ok = {w} | ({"past week"} if w != "this week" and not ahead else set())
+        if w.startswith("in the week to"):
+            ok.add("last week")   # built on the weekend after the week, posted on Monday (HQ review r4)
     bad = [m.group(0) for m in WEEK_WORDS.finditer(text) if m.group(0).lower() not in ok]
     # a post goes out after the facts were built (Grok's Monday pre-market slot reads Sunday's facts): "today",
     # "yesterday" and "tonight" are wrong for a session the item calls "on Friday" (or a week)
     bad += [m.group(0) for m in STALE_DAY.finditer(text) if m.group(1).lower() not in w]
     if "week" not in w:
         bad += _session_day_words(item, text)
+    elif item.get("window") == "week" or item.get("type") == "basket_week":
+        # a 5-session item's numbers are never one day's (r1 open issue: "On Friday, Tech fell 7.3%" on the week item)
+        bad += [m.group(0) for m in DAY_WORDS.finditer(text)]
     return [f"window: the item's window is \"{when}\", not {bad[0]!r}"] if bad else []
 
 
@@ -1329,6 +1340,250 @@ def claim_reasons(item: dict, text: str) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
+# 2b. Comparisons: an ALLOWLIST (HQ decision 2026-10-18 after four review rounds: a denylist of ranking wordings cannot
+# converge - synonyms, order words, polarity guesses, scope / window stretching, pairs, lists, ratios, streaks).
+#
+# facts.py / market_facts.py give each item `claim_phrases`: short complete sentences, generated from the data, that state
+# every comparison / ranking / direction relation the item backs, with exact numbers, window and scope
+# ("Technology was the worst sector in the week to Oct 16 (−7.3%).", "$MSFT had the second-biggest dollar drop among the
+# 500 largest US-listed companies on Friday (−$77.2B).").
+# A post sentence that carries ANY ranking / comparison / superlative / order / quantifier / streak / record / ratio /
+# window-stretch language (RANK_LANGUAGE, read broadly) passes only when it IS one of those phrases (after normalising
+# case, whitespace, punctuation, "$" on cashtags, minus signs, "×" and sector aliases: "Tech" = "Technology"), or
+# contains phrases verbatim with nothing around them but neutral connective words (NEUTRAL: "and", "also", "so", ...).
+# Everything else in such a sentence - an extra number, a name, a scope word - rejects it. A question to the reader that
+# names no company, sector or number ("Which move surprised you most?") asserts nothing and is exempt. Plain sentences
+# with no such language keep the other checks (numbers, direction, window, sector, card, universe).
+
+_EST_OK = {
+    "interest", "invest", "honest", "request", "suggest", "digest", "harvest", "forest", "contest", "protest",
+    "manifest", "modest", "earnest", "arrest", "guest", "chest", "nest", "pest", "vest", "quest", "rest", "test", "west",
+    "zest", "jest", "lest", "crest", "behest", "conquest", "inquest", "bequest", "unrest", "midwest", "priest", "attest",
+    "detest", "infest", "divest", "wrest", "everest", "pretest", "backtest", "retest", "latest", "southwest",
+    "northwest", "tempest", "congest", "ingest", "reinvest", "disinterest", "celest", "fest", "pinterest",
+}
+_DAYS_W = r"monday|tuesday|wednesday|thursday|friday|saturday|sunday"
+_NUMW_ALL = r"\d[\d,]*|two|three|four|five|six|seven|eight|nine|ten|twenty|thirty|sixty|ninety"
+# definitions and idioms that are not comparisons: blanked before RANK_LANGUAGE is read
+RANK_IDIOMS = re.compile(
+    r"\btrack\s+record\b|\bbest\s+minus\s+worst\b|\bat\s+(?:least|most)\b"
+    r"|\b(?:first|second|third|fourth|1st|2nd|3rd|4th)[\s-]+(?:quarter|half|comment|reply|post|look)s?\b"
+    r"|\bfirst\s+(?:session|trading\s+day)\s+after\b"
+    r"|\bnext\s+(?:session|trading\s+day|week|month|quarter|earnings|reports?|" + _DAYS_W + r")\b"
+    r"|\b(?:double|triple)[\s-]+(?:tops?|bottoms?)\b|\btop\s+line\b|\bbottom\s+line\b|\bon\s+top\s+of\s+that\b"
+    r"|\blead\s+(?:independent\s+)?directors?\b"
+    r"|\b(?:every|all)\s+(?:company|companies|stock|stocks)\s+on\s+(?:one|a\s+single|the|our)\s+(?:map|page)\b"
+    r"|\bahead\s+of\s+(?:its\s+|their\s+|the\s+|this\s+|next\s+)?(?:earnings|results|reports?|prints?|calls?|open|opening"
+    r"\s+bell|bell|week|session|" + _DAYS_W + r")\b"
+    r"|\b(?:the\s+)?(?:week|days|session|month)\s+ahead\b|\bwhat['’]?s\s+ahead\b"
+    r"|\blast\s+(?:week|weekend|session|sessions|close|closes|trading\s+days?|night|" + _DAYS_W + "|" + _NUMW_ALL + r")\b"
+    r"|\b(?:learn|read|see|find\s+out)\s+more\b|\band\s+more\b|\bmore\s+(?:on|at|in|here|below|details|info)\b"
+    r"|\brather\s+than\b|\bas\s+well\s+as\b"
+    # product / calendar idioms found in our own honest posts (backtest 2026-10-18, N=162 texts)
+    r"|\bthird[\s-]party\b|\bearnings[\s-]history\b|\bnext\s+up\b|\bnext\s+on\s+(?:the|our)\s+calendar\b"
+    r"|\b(?:pull|cover|post|watch|track|check|look\s+at)\s+next\b|\+\s?\d[\d,]*\s+more\b|\bplus\s+more\b"
+    r"|\b(?:bought|buys|buying|added|adds|adding)\s+more(?:\s+shares|\s+stock)?\b(?!\s+than)"
+    r"|\bevery\s+(?:pick|filing|report|post|chart|card|page)s?\b"
+    r"|(?:^|[,:;(]\s*)every\s+(?:us\s+)?(?:trading\s+)?(?:day|weekday)\b"
+    r"|\ball\s+(?:report|reported|reporting|have\s+earnings|are\s+reporting|report\s+earnings)\b"
+    r"|\ball\s+(?:of\s+)?(?:his|her|their|its|our|the)\s+(?:trades|filings|disclosures|picks|reports|details|numbers|data"
+    r"|charts?|holdings|transactions|sources|sessions|companies|stocks)\s*(?::|on\b|in\b|at\b|here\b|below\b)"
+    # our universe and basket by name ("The 500 largest US-listed stocks fell", "Owning the 10 largest", "60 of the 500
+    # largest ... report"), never membership ("one of / among / in / joined the 10 largest" stays a ranking claim)
+    r"|(?<!\bone of )(?<!\bamong )(?<!\bin )(?<!\binto )(?<!\bof )(?<!\bjoined )(?<!\bentered )(?<!\binside )"
+    r"(?<!\bwithin )\bthe\s+(?:500|10|ten)\s+largest\b(?:\s+us-listed\b)?"
+    r"|\b\d[\d,]*\s+of\s+the\s+(?:500|10|ten)\s+largest\b(?:\s+us-listed\b)?", re.IGNORECASE)
+_RANK_PARTS = (
+    r"(?P<est>\b[a-z]{2,}est\b)",
+    r"\b(?:best|worst|most|least|utmost|foremost|topmost)\b",
+    r"\b[a-z]+er\s+than\b|\b(?:more|less|fewer)\b",
+    r"\b(?:worse|better|bigger|smaller|larger|greater|stronger|weaker|hotter|colder|harder|rougher|tougher|steeper"
+    r"|sharper|deeper|heavier|faster|slower|wider|outsized|further|farther)\b",
+    r"\btop(?:s|ped|ping)?\b|\b(?:lead|leads|leading|leader|leaders|leadership|led)\b",
+    r"\bbeat(?:s|ing|en)?\b|\bout(?:perform|pac|did|do|does|doing|shin|shone|run|ran|strip|gain|class|number|sold)\w*"
+    r"|\bunderperform\w*|\btrail(?:s|ed|ing)?\b|\blag(?:s|ged|ging|gard|gards)?\b|\bbested\b|\beclips\w*|\bsurpass\w*"
+    r"|\bexceed\w*|\bovert(?:ake|akes|ook|aken|aking)\b|\bedged\s+out\b",
+    r"\brank\w*|#\s?\d+\b|\bno\.\s?\d+\b|\bnumber[\s-]+(?:one|two|three|1|2|3)\b|\b\d+(?:st|nd|rd|th)\b",
+    r"\b(?:first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)\b|\brunner[\s-]?up\b|\bnext\b"
+    r"|\bfollowed\s+by\b|(?P<then>\bthen\b)|\bbehind\b|\bahead\b|\bin\s+that\s+order\b|\brespectively\b",
+    r"\b(?:only|sole|solely|lone)\b|\b(?:every|everyone|everything|everybody|all|none|nobody|nothing|anyone|anybody"
+    r"|anything)\b|\bno\s+(?:other|one|sector|sectors|stock|stocks|company|companies|name|names|ticker|single)\b"
+    r"|\bnot\s+(?:one|a\s+single)\b|\bany\s+other\b|\bof\s+any\b",
+    r"\brecords?\b|\bever\b|\bstreaks?\b|\bin\s+a\s+row\b|\bsince\b|\bstraight\b|\bconsecutive\w*"
+    r"|\b(?:days?|sessions?|weeks?|times?|years?|months?)\s+running\b|\bagain\b|\blately\b|\brecently\b"
+    r"|\bin\s+a\s+while\b|\bin\s+(?:weeks|months|years|decades)\b"
+    r"|\bthis\s+(?:fall|autumn|spring|summer|season|year|month|quarter|decade)\b"
+    r"|\ball[\s-]time\b|\b52[\s-]week\b|\byear[\s-]to[\s-]date\b|\bytd\b|\bmulti[\s-]year\b|\bdecades?\b"
+    r"|\bhistor(?:y|ic|ical)\b|\bunprecedented\b|\b(?:new|fresh)\s+(?:highs?|lows?)\b"
+    r"|\bof\s+the\s+(?:year|month|quarter|decade|century)\b|\bin\s+(?:\d+|two|three|four|five|six|several|many)\s+"
+    r"(?:days|sessions|weeks|months|years)\b|\bfor\s+(?:\d+|two|three|four|five|six|seven|eight|nine|ten)\s+(?:days"
+    r"|sessions|weeks|months)\b",
+    r"\b(?:doubl\w*|tripl\w*|quadrupl\w*|twice|thrice|half|halved|halves|combined)\b"
+    r"|(?:\d[\d.,]*\s*(?:x|×)|\b\d[\d.,]*\s+times|\b(?:two|three|four|five|six|seven|eight|nine|ten)\s+times)\s+(?:more"
+    r"|less|bigger|larger|smaller|higher|lower|as|than|what|the|that|its\s+peers?)\b",
+    r"\b(?:winners?|losers?|gainers?|won|wins?|winning|champion\w*|crown\w*|mvp|podium|medal\w*|bronze|dominat\w*|ruled"
+    r"|reign\w*|sweep|swept|outnumber\w*|stand[\s-]?outs?|stood\s+out|stands\s+out|twins?|doppelg\w+)\b|\bking\s+of\b"
+    r"|\bqueen\s+of\b",
+    r"\b(?:last|bottom|rear|tail[\s-]end)\b",
+    r"\bmiss(?:ed|es|ing)?\b|\b(?:fell|came\s+in)\s+short\b|\bshort\s+of\b|\bin[\s-]line\b"
+    r"|\b(?:above|below)\s+(?:the\s+)?(?:estimates?|consensus|expectations?|forecasts?|guidance|views?|street)\b",
+    r"\bas\s+(?:much|many|big|large|hard|far|bad|good|strong|weak|high|low|fast|steep|sharp|badly)\s+as\b",
+)
+RANK_LANGUAGE = re.compile("|".join(_RANK_PARTS), re.IGNORECASE)
+NEUTRAL = {"and", "but", "also", "so", "plus", "meanwhile", "while", "yet", "note", "notably", "fact", "fun", "recap",
+           "data", "why", "it", "matters", "the", "on", "map", "chart", "card", "here", "is", "this", "quick", "look",
+           "check", "in", "short", "numbers", "monday", "tuesday", "wednesday", "thursday", "friday", "morning", "update",
+           "briefing", "reminder", "weekend", "read"}
+_TOKEN = re.compile(r"[+-]?\$?\d[\d,]*(?:\.\d+)?(?:%|x|[kmbt](?![a-z]))?|[a-z0-9]+(?:'[a-z]+)?")
+
+
+_THEN_RANK = re.compile(r"[\s,:]*(?:\$[A-Za-z]|#|[+-]?\$?\d|(?:" + _SECTOR_ALT + r")(?![\w])|came\b|comes\b|was\b"
+                        r"|were\b|is\b|are\b|ranked\b|followed\b|in\s+(?:second|third|fourth)\b|the\b)", re.IGNORECASE)
+
+
+def _starts_entity(rest: str, nmap: dict | None, names: list[str] | None) -> bool:
+    """`rest` opens (after spaces / commas) with a company named in words."""
+    if not nmap:
+        return False
+    head = re.match(r"[\s,:]*", rest).end()
+    return any(st == head for st, _, _, _ in entities(rest[:head + 40], nmap, names or []))
+
+
+def rank_words(text: str, names: list[str] | None = None, nmap: dict | None = None) -> list[str]:
+    """The ranking / comparison words of `text` (company names and idioms blanked first)."""
+    base = re.sub(r"https?://\S+", lambda m: " " * len(m.group(0)), _norm(text))   # positions kept
+    s = _blank_names(base, names or [])
+    s = RANK_IDIOMS.sub(lambda m: " " * len(m.group(0)), s)
+    out = []
+    for m in RANK_LANGUAGE.finditer(s):
+        w = m.group(0)
+        if m.group("est") and w.lower() in _EST_OK:
+            continue
+        if m.group("then") and not _THEN_RANK.match(base[m.end():]) and not _starts_entity(base[m.end():], nmap, names):
+            continue   # "then graded", "then fell": a sequence of events; "then $MSFT", "then Tech", "then -$77.2B" rank
+        out.append(re.sub(r"\s+", " ", w.strip()))
+    return list(dict.fromkeys(out))
+
+
+def phrase_tokens(s: str) -> list[str]:
+    """A sentence as comparison tokens: lower case, sector aliases as their canonical name, "$" off cashtags, minus signs
+    as "-", "×" as "x", punctuation dropped (a sign or "$" glued to a number stays part of it)."""
+    s = _norm(s).replace("’", "'").replace("×", "x")
+    s = re.sub(r"[–—](?=\$?\d)", "-", s)   # an en / em dash before a number is a minus sign
+    s = SECTOR_WORD.sub(lambda m: ALIAS_OF[m.group(1).lower()], s)
+    s = re.sub(r"\$(?=[A-Za-z])", "", s).lower()
+    s = re.sub(r"(?<=[a-z])-(?=[a-z])", " ", s)
+    return _TOKEN.findall(s)
+
+
+def _phrase_match(sent: list[str], phrases: list[list[str]], extra: frozenset = frozenset()) -> bool:
+    """The sentence is one phrase, or phrases with only NEUTRAL (or the item's `extra`) words around them."""
+    if not sent:
+        return False
+    if any(sent == p for p in phrases):
+        return True
+    rest, found = list(sent), False
+    for p in sorted(phrases, key=len, reverse=True):
+        n = len(p)
+        if not n:
+            continue
+        i = 0
+        while i + n <= len(rest):
+            if rest[i:i + n] == p:
+                rest[i:i + n] = ["\x00"]
+                found = True
+            i += 1
+    return found and all(t == "\x00" or t in NEUTRAL or t in extra for t in rest)
+
+
+# An earnings result is about one company: its own name, ticker and fiscal label may stand around a phrase too
+# ("$UNH Q3 results are out: revenue $112.7B vs $111.49B consensus (beat by $1.21B)."). Never on a multi-company item
+# ("... and Microsoft" would add a subject).
+_EARNINGS_LEAD = {"results", "are", "out", "earnings", "report", "reports", "posted", "published"}
+
+
+def _extra_words(item: dict) -> frozenset:
+    if item.get("type") != "earnings_result":
+        return frozenset()
+    words = set(_EARNINGS_LEAD)
+    for v in (item.get("ticker"), item.get("name"), item.get("fiscal_label")):
+        if isinstance(v, str):
+            words |= {w for w in phrase_tokens(v)
+                      if (len(w) >= 2 and not re.search(r"\d", w)) or re.fullmatch(r"q[1-4]|fy\d{4}|\d{4}", w)}
+    return frozenset(w for w in words if not RANK_LANGUAGE.search(w))
+
+
+_NUM_PAREN_END = re.compile(r"\s*\(\s*[+\-−]?\$?\d[\d.,]*(?:%|[KMBT]|×|x)?\s*\)(?=\.?\s*$)")
+
+
+def item_phrases(item: dict) -> list[str]:
+    """The item's claim phrases, each also without a closing parenthesised number ("Tech was the worst sector on Friday."
+    for "... on Friday (−2.8%)."): the number backs the relation, leaving it out changes nothing. A parenthesis that
+    words a scope or metric ("(by market value, confirmed dates)", "(+1,212 stocks up minus down)") always stays."""
+    out = []
+    when = str(item.get("when") or "")
+    for p in item.get("claim_phrases") or []:
+        if isinstance(p, str) and p.strip():
+            forms = [p.strip()]
+            if when.startswith("in the week to ") and when in p:
+                forms.append(p.strip().replace(when, "last week"))   # posted the Monday after (window rule allows it)
+            for f in forms:
+                out.append(f)
+                bare = _NUM_PAREN_END.sub("", f)
+                if bare != f:
+                    out.append(bare if bare.endswith(".") else bare + ".")
+    return list(dict.fromkeys(out))
+
+
+def short_text(s: str, n: int = 90) -> str:
+    s = re.sub(r"\s+", " ", s).strip()
+    return s if len(s) <= n else s[:n - 1] + "…"
+
+
+# an elliptical add-on right after a sentence with ranking language ("Tech too.", "And $MSFT.", "So was Energy.")
+ELLIPSIS = re.compile(r"\b(?:too|as\s+well|also|likewise|ditto|same\s+(?:for|with|goes|here|story)|so\s+(?:was|were|did|had"
+                      r"|is|are|does)|neither|nor|either)\b|^\W*(?:and|plus|or|nor)\b", re.IGNORECASE)
+
+
+def allowlist_reasons(item: dict, text: str) -> list[str]:
+    """REJECT reasons for sentences with ranking / comparison language that are not the item's claim_phrases."""
+    names = item_names(item)
+    nmap = name_map(item)
+    phrases = [phrase_tokens(p) for p in item_phrases(item)]
+    extra = _extra_words(item)
+    out, prev_rank, prev_quiz = [], False, False
+    # sentences, each also split at ";" (a phrase never holds one)
+    for sent in [x for s0 in SENTENCE.split(_norm(text or "")) for x in s0.split(";")]:
+        if not sent.strip():
+            continue
+        words = rank_words(sent, names, nmap)
+        after, quiz = prev_rank, prev_quiz
+        prev_rank, prev_quiz = bool(words), False
+        if not words:
+            add = ELLIPSIS.search(sent) if after else None
+            if add:   # "Energy was the best sector on Friday (+2.6%). Tech too." adds Tech to the ranking (r4 review)
+                out.append(f"unsupported comparison: {short_text(sent.strip())!r} adds to the comparison before it "
+                           f"({add.group(0).strip()!r}) - a claim phrase states its subjects; write the next fact on its own")
+            elif quiz and entities(sent, nmap, names):
+                # "Do you know which stock fell most? $MSFT.": the answer makes the question a claim
+                out.append(f"unsupported comparison: {short_text(sent.strip())!r} answers the ranking question before it "
+                           "- for any comparison copy one of the item's claim_phrases verbatim")
+            continue
+        if _phrase_match(phrase_tokens(sent), phrases, extra):
+            continue
+        st = sent.strip()
+        if (st.endswith("?") and re.search(r"\byou(?:r|rs|['’]re)?\b", st, re.IGNORECASE) and not re.search(r"\d", st)
+                and not entities(st, nmap, names)):
+            prev_quiz = True
+            continue   # a question to the reader that names nothing asserts nothing (until a sentence answers it)
+        hint = (" - this item has no claim_phrases: say it without comparing or ranking" if not phrases else
+                " - for any comparison, ranking, order, 'only' / 'all', record, streak or ratio copy one of the item's "
+                "claim_phrases verbatim (its own sentence)")
+        out.append(f"unsupported comparison: {short_text(st)!r} uses {', '.join(repr(w) for w in words[:4])}{hint}")
+    return out
+
+
+# ---------------------------------------------------------------------------
 # 3. Sector attribution
 
 def sector_reasons(item: dict, text: str) -> list[str]:
@@ -1337,7 +1592,13 @@ def sector_reasons(item: dict, text: str) -> list[str]:
         return []
     names = item_names(item)
     out = []
-    cls = clauses(text)
+    # the next clause's cashtags are borrowed only inside one sentence (HQ review r4: "Tech was the worst sector on
+    # Friday. $NVDA −1.43%, $XOM +2.46%." does not put $XOM in Tech)
+    cls, last = [], []
+    for sent in SENTENCE.split(_norm(text or "")):
+        cs = [c for c in CLAUSE.split(sent) if c and c.strip()]
+        cls += cs
+        last += [False] * (len(cs) - 1) + [True] if cs else []
     for i, cl in enumerate(cls):
         # a cashtag labelled with one sector in parentheses: "$GOOGL −2.47% (Tech)"
         for m in re.finditer(r"\$([A-Za-z]{1,5}(?:[.-][A-Za-z]{1,2})?)(?![\w])[^$()]*\(([^()]*)\)", cl):
@@ -1348,7 +1609,7 @@ def sector_reasons(item: dict, text: str) -> list[str]:
         if len(secs) != 1:
             continue
         tags = tags_in(PAREN.sub(" ", cl))
-        if not tags and i + 1 < len(cls) and cls[i + 1].lstrip().startswith("$") and not sectors_in(cls[i + 1], names):
+        if not tags and i + 1 < len(cls) and not last[i] and cls[i + 1].lstrip().startswith("$") and not sectors_in(cls[i + 1], names):
             tags = tags_in(cls[i + 1])
         for t in tags:
             if secmap.get(t) and secmap[t] != secs[0]:
@@ -1393,7 +1654,8 @@ PRESENT_W = re.compile(r"\b(?:this\s+(?:morning|afternoon|evening)|overnight|rig
 _DAY_EXEMPT = re.compile(r"\b(?:ahead\s+of|before|into|for|this|next|happy)\s+(?:" + "|".join(
     ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")) + r")\b"
     r"|\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)(?:['’]s)?\s+(?:open|opening\s+bell|bell|watchlist"
-    r"|setup|preview|outlook|session\s+ahead|motivation)\b", re.IGNORECASE)
+    r"|setup|preview|outlook|session\s+ahead|motivation|recap|morning|briefing|brief|update|rundown|read|catch-?up|notes?)\b"
+    r"|\beyes\s+on\s+(?:monday|tuesday|wednesday|thursday|friday)\b", re.IGNORECASE)
 _ANY_DAY = re.compile(r"\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b", re.IGNORECASE)
 _MDAY = re.compile(r"\b(" + _MONTHS + r")\.?\s+(\d{1,2})\b(?!\s*,?\s*\d{3})", re.IGNORECASE)
 _ISO = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -1427,17 +1689,33 @@ def _session_day_words(item: dict, text: str) -> list[str]:
 # 2.6%" on a day Energy rose 2.6%; "$GOOGL gained $105.5B"). facts.py stores each item's `moves` (item_moves): the sign
 # of every number it allows with one sign only, and the direction of every company / sector it describes.
 
-_V_UP = (r"rose|gained|jumped|climbed|rallied|added|surged|soared|advanced|rebounded|popped|spiked|ticked\s+up|moved\s+up"
-         r"|up|higher")
-_V_DOWN = (r"fell|lost|dropped|declined|slid|sank|shed|tumbled|slumped|plunged|retreated|gave\s+back|erased|ticked\s+down"
-           r"|moved\s+down|down|lower")
+_V_UP = (r"rose|gained|jumped|climbed|rallied|added|surged|soared|advanced|rebounded|bounced|popped|spiked|grew|firmed"
+         r"|recovered|ticked\s+up|moved\s+up|edged\s+(?:up|higher)|inched\s+(?:up|higher)|went\s+up"
+         r"|(?:closed|ended|finished)\s+green|up|higher")
+_V_DOWN = (r"fell|lost|dropped|declined|slid|slipped|dipped|sagged|eased|sank|shed|tumbled|slumped|plunged|retreated"
+           r"|gave\s+(?:back|up)|erased|ticked\s+down|moved\s+down|edged\s+(?:down|lower)|inched\s+(?:down|lower)"
+           r"|went\s+down|(?:closed|ended|finished)\s+red|down|lower")
 _FILL = r"(?:\s+(?:by|about|nearly|roughly|almost|around|over|some|a|an|another|just|more\s+than|less\s+than|as\s+much\s+as))*"
 NUM_AFTER_VERB = re.compile(r"\b(?P<v>" + _V_UP + "|" + _V_DOWN + r")\b" + _FILL
-                            + r"\s+(?P<n>[+-]?\$?\d[\d.,]*(?:%|[×x](?![a-z])|[KMBT]\b)?)", re.IGNORECASE)
+                            + r",?\s+(?P<n>[+-]?\$?\d[\d.,]*(?:%|[×x](?![a-z])|[KMBT]\b)?)", re.IGNORECASE)
 VERB_AFTER_ENT = re.compile(r"^\s*(?:\([^()]*\)\s*)?(?:['’]s\s+)?(?:shares\s+|stocks?\s+|names\s+|sector\s+)?"
                             r"(?:was\s+|were\s+|is\s+|are\s+|ended\s+|closed\s+|finished\s+|traded\s+)?"
                             r"(?P<v>" + _V_UP + "|" + _V_DOWN + r")\b", re.IGNORECASE)
 _UP_V = re.compile(r"^(?:" + _V_UP + r")$", re.IGNORECASE)
+# r4 review: noun forms ("a $105.5B rally", "$GOOGL's 2.47% gain") and counts before their verb ("1,631 of 2,497 stocks
+# rose", "65% of US stocks rose") carry a direction too
+_N_UP = r"gains?|rall(?:y|ies)|jumps?|surges?|pops?|rises?|advances?|rebounds?|bounces?|climbs?|upticks?"
+_N_DOWN = (r"drops?|loss(?:es)?|slides?|declines?|plunges?|falls?|sell-?offs?|slumps?|tumbles?|dips?|downturns?"
+           r"|wipeouts?")
+NUM_NOUN = re.compile(r"(?<![\w.,])(?P<n>[+-]?\$?\d[\d.,]*(?:%|[KMBT]\b)?)(?:\s+(?!(?:and|but|or|while|vs)\b)[A-Za-z-]+){0,2}?"
+                      r"\s+(?P<w>" + _N_UP + "|" + _N_DOWN + r")\b", re.IGNORECASE)
+_N_UP_RX = re.compile(r"^(?:" + _N_UP + r")$", re.IGNORECASE)
+NUM_THEN_VERB = re.compile(
+    r"(?<![\w.,$+-])(?P<n>\d[\d,]*(?:\.\d+)?%?)(?:\s+of\s+(?:the\s+)?[\d,]+)?"
+    r"(?:\s+(?:of|the|us|u\.s\.|us-listed|listed|largest|stocks?|compan(?:y|ies)|names?|tickers?|shares?|rapidtradeview"
+    r"|tracks|tracked|we|track|in|our|universe|feed|most-mentioned|mentioned|reddit|them|those|these|with|a|close|for"
+    r"|oct|\d{1,2}))*"
+    r"\s+(?:have\s+|had\s+|were\s+|was\s+)?(?P<v>" + _V_UP + "|" + _V_DOWN + r")\b", re.IGNORECASE)
 MOVE_VERB = re.compile(r"\b(?:rose|gained|jumped|climbed|rallied|surged|soared|advanced|rebounded|fell|lost|dropped|declined"
                        r"|slid|sank|tumbled|slumped|plunged|retreated)\b", re.IGNORECASE)
 
@@ -1451,6 +1729,19 @@ def item_moves(item: dict) -> dict:
         n = _norm(str(n))
         if n[:1] in "+-" and len(n) > 1 and re.search(r"\d", n):
             signs.setdefault(n[1:], set()).add(n[0])
+    # counts with a direction (r4 review: "1,631 of 2,497 stocks rose" passed): breadth fell / rose counts and the share
+    # that moved with the day, the Reddit card's fell / rose counts
+    b = item.get("breadth") or {}
+    if isinstance(b.get("advancers"), int) and isinstance(b.get("decliners"), int):
+        for n, sg in ((b["decliners"], "-"), (b["advancers"], "+")):
+            for f in mk.count_forms(n):
+                signs.setdefault(f, set()).add(sg)
+        if isinstance(b.get("share_pct"), int):
+            signs.setdefault(f"{b['share_pct']}%", set()).add("-" if b["decliners"] >= b["advancers"] else "+")
+    if item.get("type") == "reddit_buzz" and isinstance(item.get("fell"), int) and isinstance(item.get("with_close"), int):
+        for n, sg in ((item["fell"], "-"), (item["with_close"] - item["fell"], "+")):
+            if n:
+                signs.setdefault(str(n), set()).add(sg)
     nums = {k: next(iter(v)) for k, v in signs.items() if len(v) == 1}
     subj: dict[str, set] = {}
 
@@ -1496,6 +1787,20 @@ def direction_reasons(item: dict, text: str) -> list[str]:
             if sign and (sign == "+") != up:
                 out.append(f"direction: {m.group(0).strip()!r} - that number is a {'gain' if sign == '+' else 'loss'} "
                            "in the item's facts")
+        for m in NUM_NOUN.finditer(cl):
+            n = m.group("n").rstrip(".,")
+            sign = n[0] if n[0] in "+-" else nums.get(n)
+            up = bool(_N_UP_RX.match(m.group("w")))
+            if sign and (sign == "+") != up:
+                out.append(f"direction: {m.group(0).strip()!r} - that number is a {'gain' if sign == '+' else 'loss'} "
+                           "in the item's facts")
+        for m in NUM_THEN_VERB.finditer(cl):
+            n = m.group("n")
+            sign = nums.get(n)
+            up = bool(_UP_V.match(re.sub(r"\s+", " ", m.group("v"))))
+            if sign and (sign == "+") != up:
+                out.append(f"direction: {m.group(0).strip()!r} - that count {'rose' if sign == '+' else 'fell'} in the "
+                           "item's facts")
         for st, en, e, k in entities(cl, nmap, names):
             d = subj.get(e)
             m = VERB_AFTER_ENT.match(cl[en:]) if d else None
@@ -1505,10 +1810,17 @@ def direction_reasons(item: dict, text: str) -> list[str]:
     return list(dict.fromkeys(out))
 
 
-def content_reasons(item: dict, text: str, strip_allowed=None) -> list[str]:
-    """Every content check of this module for one text (facts self-check and the validator)."""
-    out = (index_reasons(item.get("type"), text, item_names(item)) + claim_reasons(item, text) + sector_reasons(item, text)
-           + card_reasons(item, text) + window_reasons(item, text) + direction_reasons(item, text))
+def content_reasons(item: dict, text: str, strip_allowed=None, allowlist: bool = True) -> list[str]:
+    """Every content check of this module for one text (the validator; the facts self-check passes allowlist=False for
+    the item's own facts_text: the data sheet states its rankings in its own words, a post copies a claim phrase)."""
+    # comparisons: the allowlist (section 2b); claim_reasons (the round 1-4 denylist reading of `claims`) is no longer a
+    # gate - `claims` stay in the facts for the direction / date reading (item_moves, _item_dates)
+    # an item from a facts.json built before the allowlist (no `claim_phrases` key: posts audited against old facts) keeps
+    # the reading it was published under (claim_reasons, rounds 1-4); every item facts.py builds now carries the key
+    compare = [] if not allowlist else allowlist_reasons(item, text) if "claim_phrases" in item else claim_reasons(item, text)
+    out = (index_reasons(item.get("type"), text, item_names(item)) + compare
+           + sector_reasons(item, text) + card_reasons(item, text) + window_reasons(item, text)
+           + direction_reasons(item, text))
     if strip_allowed is not None:
         out += scope_reasons(item, text, strip_allowed)
     return out
