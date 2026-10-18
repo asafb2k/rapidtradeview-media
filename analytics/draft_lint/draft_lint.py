@@ -68,7 +68,10 @@ NICHE_TYPES = ("congress_trade", "ptr_summary", "form4_buy", "earnings_result", 
                "earnings_tomorrow_roundup")
 # Types whose compliance check (grok_review.py, facts rules.cashtags) lets a post carry more than the item's own
 # cashtag. Every other type is held to ONE cashtag by compliance today, so the 2-5 rule is a NOTE there, not a WARN.
-MULTI_CASHTAG_TYPES = ("earnings_tomorrow_roundup", "ptr_summary", "moves_like", "picks_ready")
+# + the market pillars (HQ 2026-10-18): up to 4 cashtags from tickers + context_tickers (grok_review.py)
+MULTI_CASHTAG_TYPES = ("earnings_tomorrow_roundup", "ptr_summary", "moves_like", "picks_ready", "market_move", "mega_mover",
+                       "sector_rotation", "breadth_day", "basket_week", "congress_flow", "insider_flow", "reddit_buzz",
+                       "earnings_week_preview")
 
 CASHTAG_MIN, CASHTAG_MAX = 2, 5
 NUMBERS_MIN = 2

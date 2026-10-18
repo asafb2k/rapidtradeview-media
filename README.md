@@ -74,3 +74,17 @@ the day's distinct landing pages (no UTM, no anchor, never an `/earnings/reports
 100 a day, paused 24 h after a 429 / 403 and 6 h after any other 4xx; each send's count and status go to
 `D:\rtv-ops\tracks\growth\research\indexnow-facts.log`. The key is the site's own `<key>.txt` in the app repo's
 `frontend/public` (never copied here). `-NoPush` / `-SelectOnly` make it a dry run.
+
+Market pillars (HQ 2026-10-18, owner: "I keep seeing the same boring niche posts"; plan
+`D:/rtv-ops/tracks/hq/social-content-2026-10-18/PLAN.md`). `tools/facts.py` also builds items about the whole market and
+the names everyone knows from two GETs a pass on our API (`/market/pictures`, `/market/flows`; stored data, no Yahoo):
+market_move, mega_mover, congress_flow, insider_flow, reddit_buzz, earnings_week_preview, earnings_reaction,
+sector_rotation, breadth_day and basket_week (`tools/market_facts.py`; each only when its trigger fires). Items are ranked
+by an audience rank (recognisability, magnitude, freshness, novelty from our own posts read through `tools/post_history.py`),
+gated (weekend replay, small caps, cooldowns) and carry `pillar`, `context_numbers`, `context_tickers`, `angles` and
+`cooldown`. A market item's image is its share card pinned to Pages by `tools/pin_cards.py` (`Invoke-PinCards` in
+`Publish-Facts`): `v/<date>/cards/market-<panel>-<data date>-<fingerprint>.png`, downloaded once per panel and data with the
+QA header; an item whose card is not served is left out. The preflight pass refreshes facts until 17:45 ET on weekdays
+(the map publishes the session about 16:50 ET). `tools/grok_review.py` checks the new rules (cashtags and numbers from
+tickers / allowed_numbers plus the context lists, the market-wording guard, the pinned card) and the variety lint (warn
+first, reject a repeat the same day; state `D:/rtv-ops/tracks/growth/research/grok-variety-state.json`).
