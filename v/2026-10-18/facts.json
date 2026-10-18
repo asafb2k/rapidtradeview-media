@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T20:23:57Z",
-  "as_of": "2026-10-18T20:23:57Z",
+  "generated_at": "2026-10-18T21:10:22Z",
+  "as_of": "2026-10-18T21:10:22Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -53,7 +53,7 @@
     "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
     "cashtags": "at most 4 distinct cashtags, all from the item's tickers + context_tickers; a single-ticker item names its own $TICKER; moves_like may add its peers, picks_ready the public picks",
     "order": "items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has them; items below carry top8_out (why). Pick across pillars per variety",
-    "claims": "comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, #1, record, 'outperformed every other') only as the item's claims state them: name only that claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst = top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the top N in order): say which side (a gain / loss word or a signed number: 'top' / 'led' alone read as best), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in order, 'among the biggest' for other members; a sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector or 'its sector' named; never widen the window ('ever', 'in history', 'of the year'); never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
+    "claims": "comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, #1, record, 'outperformed every other') only as the item's claims state them: name only that claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst = top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the top N in order) and a metric (usd_change, pct_change, market_cap, ...): say the side with the noun ('top loser', 'led the drop', 'biggest gainer'; 'top' / 'led' / '#1' alone read as best, whatever number stands beside them), say the metric as the claim does (dollars vs percent vs market cap), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in order, 'among the biggest' for other members, 'the two biggest' only for exactly the top 2; 'of the 500' / 'overall' only with a claim that has no within, 'of the 10' for the basket; a sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector or 'its sector' named; never widen the window ('ever', 'in months', 'of the quarter', 'since September', a week on a one-session item) or call the session 'today' / 'yesterday' unless the item's when does; no negated comparisons; never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
     "pillars": {
       "P0": "picks + scoreboard (max 1 a day per platform)",
       "P1": "market day (market_move)",
@@ -100,7 +100,7 @@
   },
   "reasons": {
     "ptr_summary": "6 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "earnings_result": "no earnings report published between 2026-10-17T20:23Z and 2026-10-18T20:23Z",
+    "earnings_result": "no earnings report published between 2026-10-17T21:10Z and 2026-10-18T21:10Z",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
     "insider_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)"
   },
@@ -179,7 +179,7 @@
     "market": {
       "market_session": "2026-10-16",
       "priced_cap_share": 0.9663367467709199,
-      "flows_as_of": "2026-10-18T20:24:05.507918+00:00"
+      "flows_as_of": "2026-10-18T21:10:31.365542+00:00"
     },
     "gates": {
       "weekend_replay": 11,
@@ -359,6 +359,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
           "bare": true,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
@@ -380,6 +383,9 @@
           "rank": "group",
           "within": [],
           "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
@@ -629,6 +635,7 @@
             "best",
             "top",
             "led",
+            "most",
             "biggest"
           ],
           "subjects": [
@@ -639,6 +646,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -648,6 +658,8 @@
           "words": [
             "worst",
             "top",
+            "led",
+            "most",
             "biggest"
           ],
           "subjects": [
@@ -658,10 +670,63 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
           "says": "Tech was the worst sector in the week to Oct 16"
+        },
+        {
+          "words": [
+            "best",
+            "top",
+            "led",
+            "most",
+            "biggest"
+          ],
+          "subjects": [
+            "Consumer Defensive",
+            "Energy"
+          ],
+          "kind": "sector",
+          "polarity": "best",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "best 2 sectors in the week to Oct 16, in order: Consumer Defensive, Energy"
+        },
+        {
+          "words": [
+            "worst",
+            "top",
+            "led",
+            "most",
+            "biggest"
+          ],
+          "subjects": [
+            "Technology",
+            "Industrials"
+          ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "worst 2 sectors in the week to Oct 16, in order: Tech, Industrials"
         },
         {
           "words": [
@@ -680,6 +745,9 @@
             "Consumer Defensive"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -702,6 +770,9 @@
             "Energy"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -724,6 +795,9 @@
             "Technology"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -746,6 +820,9 @@
             "Industrials"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -766,6 +843,9 @@
             "Consumer Defensive"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": "market (?:value|cap)",
@@ -786,6 +866,9 @@
             "Energy"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": "market (?:value|cap)",
@@ -806,6 +889,9 @@
             "Technology"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "market (?:value|cap)",
@@ -826,6 +912,9 @@
             "Industrials"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "market (?:value|cap)",
@@ -1016,6 +1105,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "mention_ratio",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": null,
           "needs": "unusual|usual|normal|average|more than|\\d\\s*[x\\u00d7]",
@@ -1035,6 +1127,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "mentions",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": null,
           "needs": "mention|talked|discussed",
@@ -1051,8 +1146,11 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "mentions",
+          "universe": null,
+          "date": null,
           "bare": true,
-          "direction": null,
+          "direction": "down",
           "needs": "mention|talked|discussed",
           "says": "the 10 most-mentioned stocks on Reddit (the buzz card's rows)"
         }
@@ -1158,7 +1256,8 @@
           "words": [
             "biggest",
             "top",
-            "led"
+            "led",
+            "most"
           ],
           "subjects": [
             "SPCX",
@@ -1173,6 +1272,9 @@
           "rank": "group",
           "within": [],
           "scope": null,
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": null,
           "needs": null,
@@ -1609,6 +1711,9 @@
             "T"
           ],
           "scope": "\\blike\\b|sync",
+          "metric": "sync",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": null,
           "needs": "\\blike\\b|sync|mov",
@@ -1906,7 +2011,8 @@
         {
           "words": [
             "best",
-            "top"
+            "top",
+            "most"
           ],
           "subjects": [
             "AAPL",
@@ -1918,6 +2024,9 @@
           "rank": "group",
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": "10",
+          "date": null,
           "bare": false,
           "direction": null,
           "needs": null,
@@ -1927,6 +2036,7 @@
           "words": [
             "worst",
             "top",
+            "most",
             "biggest"
           ],
           "subjects": [
@@ -1939,6 +2049,9 @@
           "rank": "group",
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": "10",
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -1948,7 +2061,8 @@
           "words": [
             "best",
             "led",
-            "top"
+            "top",
+            "most"
           ],
           "subjects": [
             "AAPL"
@@ -1958,6 +2072,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": "10",
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -1966,7 +2083,8 @@
         {
           "words": [
             "worst",
-            "biggest"
+            "biggest",
+            "most"
           ],
           "subjects": [
             "SPCX"
@@ -1976,6 +2094,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": "10",
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -1993,6 +2114,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": null,
+          "universe": "10",
+          "date": null,
           "bare": true,
           "direction": "up",
           "needs": null,
@@ -2189,6 +2313,9 @@
           "rank": "group",
           "within": [],
           "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
@@ -2431,6 +2558,7 @@
             "best",
             "top",
             "led",
+            "most",
             "biggest"
           ],
           "subjects": [
@@ -2441,6 +2569,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -2450,6 +2581,8 @@
           "words": [
             "worst",
             "top",
+            "led",
+            "most",
             "biggest"
           ],
           "subjects": [
@@ -2460,10 +2593,63 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
           "says": "Tech was the worst sector on Friday"
+        },
+        {
+          "words": [
+            "best",
+            "top",
+            "led",
+            "most",
+            "biggest"
+          ],
+          "subjects": [
+            "Energy",
+            "Consumer Defensive"
+          ],
+          "kind": "sector",
+          "polarity": "best",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "best 2 sectors on Friday, in order: Energy, Consumer Defensive"
+        },
+        {
+          "words": [
+            "worst",
+            "top",
+            "led",
+            "most",
+            "biggest"
+          ],
+          "subjects": [
+            "Technology",
+            "Communication Services"
+          ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "worst 2 sectors on Friday, in order: Tech, Communication Services"
         },
         {
           "words": [
@@ -2482,6 +2668,9 @@
             "Energy"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -2504,6 +2693,9 @@
             "Consumer Defensive"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -2526,6 +2718,9 @@
             "Technology"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -2548,6 +2743,9 @@
             "Communication Services"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -2568,6 +2766,9 @@
             "Energy"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": "market (?:value|cap)",
@@ -2588,6 +2789,9 @@
             "Consumer Defensive"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": "market (?:value|cap)",
@@ -2608,6 +2812,9 @@
             "Technology"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "market (?:value|cap)",
@@ -2628,6 +2835,9 @@
             "Communication Services"
           ],
           "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "market (?:value|cap)",
@@ -2916,6 +3126,9 @@
           "rank": "group",
           "within": [],
           "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
@@ -2929,14 +3142,17 @@
             "Technology"
           ],
           "kind": "sector",
-          "polarity": "worst",
+          "polarity": null,
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": null,
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
-          "says": "Technology led the drop (largest sector dollar move)"
+          "says": "Technology led the move / the drop (largest sector dollar move)"
         },
         {
           "words": [
@@ -2952,6 +3168,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
@@ -2961,7 +3180,9 @@
           "words": [
             "worst",
             "biggest",
-            "top"
+            "top",
+            "led",
+            "most"
           ],
           "subjects": [
             "Technology"
@@ -2971,6 +3192,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -2995,6 +3219,9 @@
             "Technology"
           ],
           "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
@@ -3005,7 +3232,8 @@
             "best",
             "led",
             "top",
-            "biggest"
+            "biggest",
+            "most"
           ],
           "subjects": [
             "Energy"
@@ -3015,6 +3243,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -3219,6 +3450,9 @@
           "rank": 1,
           "within": [],
           "scope": null,
+          "metric": "breadth",
+          "universe": null,
+          "date": "2026-10-15",
           "bare": true,
           "direction": "up",
           "needs": "\\bday\\b|close|session",
@@ -3241,6 +3475,9 @@
           "rank": "group",
           "within": [],
           "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
@@ -3537,6 +3774,9 @@
             "FITB"
           ],
           "scope": "\\blike\\b|sync",
+          "metric": "sync",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": null,
           "needs": "\\blike\\b|sync|mov",
@@ -4684,6 +4924,9 @@
             "IREN"
           ],
           "scope": "\\blike\\b|sync",
+          "metric": "sync",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": null,
           "needs": "\\blike\\b|sync|mov",
@@ -5167,6 +5410,9 @@
             "PEP"
           ],
           "scope": "\\blike\\b|sync",
+          "metric": "sync",
+          "universe": null,
+          "date": null,
           "bare": false,
           "direction": null,
           "needs": "\\blike\\b|sync|mov",
