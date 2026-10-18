@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T19:47:17Z",
-  "as_of": "2026-10-18T19:47:17Z",
+  "generated_at": "2026-10-18T20:23:57Z",
+  "as_of": "2026-10-18T20:23:57Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -53,7 +53,7 @@
     "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
     "cashtags": "at most 4 distinct cashtags, all from the item's tickers + context_tickers; a single-ticker item names its own $TICKER; moves_like may add its peers, picks_ready the public picks",
     "order": "items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has them; items below carry top8_out (why). Pick across pillars per variety",
-    "claims": "comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, record) only as the item's claims state them: name only that claim's companies / sectors in that sentence; never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
+    "claims": "comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, #1, record, 'outperformed every other') only as the item's claims state them: name only that claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst = top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the top N in order): say which side (a gain / loss word or a signed number: 'top' / 'led' alone read as best), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 in order, 'among the biggest' for other members; a sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector or 'its sector' named; never widen the window ('ever', 'in history', 'of the year'); never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
     "pillars": {
       "P0": "picks + scoreboard (max 1 a day per platform)",
       "P1": "market day (market_move)",
@@ -100,7 +100,7 @@
   },
   "reasons": {
     "ptr_summary": "6 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "earnings_result": "no earnings report published between 2026-10-17T19:47Z and 2026-10-18T19:47Z",
+    "earnings_result": "no earnings report published between 2026-10-17T20:23Z and 2026-10-18T20:23Z",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
     "insider_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)"
   },
@@ -179,7 +179,7 @@
     "market": {
       "market_session": "2026-10-16",
       "priced_cap_share": 0.9663367467709199,
-      "flows_as_of": "2026-10-18T19:47:26.570601+00:00"
+      "flows_as_of": "2026-10-18T20:24:05.507918+00:00"
     },
     "gates": {
       "weekend_replay": 11,
@@ -240,7 +240,7 @@
   },
   "post_history": {
     "read": true,
-    "own_posts": 45
+    "own_posts": 47
   },
   "api_requests": 17,
   "items": [
@@ -354,6 +354,11 @@
           "subjects": [
             "GOOGL"
           ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": true,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
@@ -370,10 +375,15 @@
             "MSFT",
             "NVDA"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
-          "says": "the biggest dollar drops: $GOOGL, $MSFT, $NVDA"
+          "says": "the biggest dollar drops, in order: $GOOGL, $MSFT, $NVDA"
         }
       ],
       "headline": {
@@ -624,6 +634,11 @@
           "subjects": [
             "Consumer Defensive"
           ],
+          "kind": "sector",
+          "polarity": "best",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -638,6 +653,11 @@
           "subjects": [
             "Technology"
           ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -651,15 +671,41 @@
             "biggest"
           ],
           "subjects": [
-            "DEO",
-            "Consumer Defensive",
-            "COP",
-            "Energy"
+            "DEO"
           ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": 1,
+          "within": [
+            "Consumer Defensive"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
           "bare": false,
           "direction": "up",
           "needs": null,
-          "says": "best stock by % in its sector: $DEO (Consumer Defensive), $COP (Energy)"
+          "says": "$DEO was the best stock by % in Consumer Defensive"
+        },
+        {
+          "words": [
+            "best",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "COP"
+          ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": 1,
+          "within": [
+            "Energy"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "$COP was the best stock by % in Energy"
         },
         {
           "words": [
@@ -669,15 +715,41 @@
             "biggest"
           ],
           "subjects": [
-            "CIEN",
-            "Technology",
-            "RKLB",
-            "Industrials"
+            "CIEN"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [
+            "Technology"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
           "bare": false,
           "direction": "down",
           "needs": null,
-          "says": "worst stock by % in its sector: $CIEN (Tech), $RKLB (Industrials)"
+          "says": "$CIEN was the worst stock by % in Tech"
+        },
+        {
+          "words": [
+            "worst",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "RKLB"
+          ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [
+            "Industrials"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "$RKLB was the worst stock by % in Industrials"
         },
         {
           "words": [
@@ -685,19 +757,79 @@
             "top"
           ],
           "subjects": [
-            "WMT",
-            "Consumer Defensive",
-            "XOM",
-            "Energy",
-            "NVDA",
-            "Technology",
-            "SPCX",
+            "WMT"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Consumer Defensive"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "up",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $WMT was the biggest Consumer Defensive name moving with its sector (+6.70%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "XOM"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Energy"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "up",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $XOM was the biggest Energy name moving with its sector (+5.94%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "NVDA"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Technology"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "down",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $NVDA was the biggest Tech name moving with its sector (−6.61%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "SPCX"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
             "Industrials"
           ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
           "bare": false,
-          "direction": null,
+          "direction": "down",
           "needs": "market (?:value|cap)",
-          "says": "by market value, the biggest name moving with its sector: $WMT (Consumer Defensive), $XOM (Energy), $NVDA (Tech), $SPCX (Industrials)"
+          "says": "by market value, $SPCX was the biggest Industrials name moving with its sector (−10.17%)"
         }
       ],
       "headline": {
@@ -879,6 +1011,11 @@
           "subjects": [
             "NBIS"
           ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": null,
           "needs": "unusual|usual|normal|average|more than|\\d\\s*[x\\u00d7]",
@@ -893,6 +1030,11 @@
           "subjects": [
             "NBIS"
           ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": null,
           "needs": "mention|talked|discussed",
@@ -904,6 +1046,11 @@
             "top"
           ],
           "subjects": [],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": true,
           "direction": null,
           "needs": "mention|talked|discussed",
@@ -1021,10 +1168,15 @@
             "LRCX",
             "GE"
           ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": null,
           "needs": null,
-          "says": "largest by market value among the confirmed $10B+ reporters: $SPCX, $META, $TSLA, $PG, $LRCX, $GE"
+          "says": "largest by market value among the confirmed $10B+ reporters, in order: $SPCX, $META, $TSLA, $PG, $LRCX, $GE"
         }
       ],
       "headline": {
@@ -1122,135 +1274,84 @@
         "ticker_last_posted": {},
         "filer_last_posted": null
       },
-      "rank": 10.0,
-      "rank_why": "earnings_week_preview 2; mega cap $1957.95B +4; magnitude (market) +3; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
+      "rank": 11.0,
+      "rank_why": "earnings_week_preview 2; mega cap $1957.95B +4; magnitude (market) +3; today 2026-10-18 (age 0) +2",
       "top8": true
     },
     {
-      "item_id": "2026-10-18-form4-buy-PEP-08d02c",
-      "type": "form4_buy",
-      "ticker": "PEP",
+      "item_id": "2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
       "tickers": [
-        "PEP"
+        "FITB",
+        "CLF",
+        "DX"
       ],
-      "name": "Robert C. Pohlad",
-      "office": "Director at PepsiCo, Inc.",
-      "amount_text": "$10.84M",
-      "traded": [
-        "2026-10-14"
-      ],
-      "filed": "2026-10-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/77476/000106127226000004/0001061272-26-000004-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/pohlad-robert-c-1061272?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-form4-buy-PEP-08d02c#trades",
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1",
       "allowed_numbers": [
-        "$10.84M",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "2026-10-14",
-        "Oct 14, 2026",
-        "Oct 14"
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "before the open"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Robert C. Pohlad (Director at PepsiCo, Inc.) reported an open-market purchase of PEP totaling $10.84M on a Form 4 filed 2026-10-16, traded 2026-10-14.",
-      "dedupe_key": "form4:0001061272-26-000004:PEP",
-      "company": "PepsiCo, Inc.",
-      "side": "buy",
-      "accession": "0001061272-26-000004",
-      "rows": 1,
-      "figure_slug": "pohlad-robert-c-1061272",
-      "amount_top_usd": 10840557.96,
-      "market_cap_usd": 174948718438.8945,
-      "famous_person": null,
-      "row_amounts": [
-        "$10.84M"
+      "facts_text": "Reporting earnings on 2026-10-19, before the open (confirmed dates): $FITB (Fifth Third Bancorp), $CLF (Cleveland-Cliffs Inc.), $DX (Dynex Capital, Inc.).",
+      "dedupe_key": "roundup:2026-10-19:bmo",
+      "names": {
+        "FITB": "Fifth Third Bancorp",
+        "CLF": "Cleveland-Cliffs Inc.",
+        "DX": "Dynex Capital, Inc."
+      },
+      "report_date": "2026-10-19",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "reporters_in_session": 3,
+      "market_cap_usd": 45437435904.0,
+      "item_ids": [
+        "2026-10-18-earnings-upcoming-FITB-44c0c0",
+        "2026-10-18-earnings-upcoming-CLF-b7041d",
+        "2026-10-18-earnings-upcoming-DX-ed12fc"
       ],
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/pohlad-robert-c-1061272/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
           "kind": "image",
-          "alt": "Robert C. Pohlad (Director at PepsiCo, Inc.) reported an open-market purchase of PEP totaling $10.84M on a Form 4 filed 2026-10-16, traded 2026-10-14."
+          "alt": "Reporting earnings on 2026-10-19, before the open (confirmed dates): $FITB (Fifth Third Bancorp), $CLF (Cleveland-Cliffs Inc.), $DX (Dynex Capital, Inc.)."
         }
       ],
-      "rank": 9.5,
-      "rank_why": "form4_buy 2; large cap $174.95B +2.5; magnitude (top $10.84M) +3; filed 2026-10-16 (age 0) +2",
-      "pillar": "P3",
-      "market_cap_feed_usd": 179186843648.0,
-      "market_cap_source": "market_map",
+      "rank": 7.5,
+      "rank_why": "earnings_tomorrow_roundup 2; large cap $45.44B +2.5; magnitude (roundup) +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
       "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "$174.9B",
-        "+2.42%",
-        "2.42%",
-        "+2.4%",
-        "2.4%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "$650M",
-        "+$650M",
-        "$650.0M",
-        "+$650.0M",
-        "$4.4B",
-        "+$4.4B",
-        "$4B",
-        "+$4B",
-        "30"
-      ],
+      "in_500": null,
+      "context_numbers": [],
       "context_tickers": [],
       "trigger": null,
       "card": null,
       "claims": [],
       "headline": {
         "tickers": [
-          "PEP"
+          "FITB",
+          "CLF",
+          "DX"
         ],
         "numbers": []
       },
       "ticker_sectors": {
-        "PEP": "Consumer Defensive"
+        "FITB": "Financial Services"
       },
       "ticker_names": {
-        "PEP": "PepsiCo, Inc."
+        "FITB": "Fifth Third Bancorp"
       },
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$650M",
-            "+$650M",
-            "$650.0M",
-            "+$650.0M",
-            "$4.4B",
-            "+$4.4B",
-            "$4B",
-            "+$4B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$174.9B",
-        "last_session_move": {
-          "pct": "+2.42%",
-          "session": "2026-10-16"
-        },
-        "insiders_30d": {
-          "bought": "$650M",
-          "sold": "$4.4B"
-        }
-      },
-      "angles": [
-        "$10.84M open-market buy of $PEP by its director.",
-        "PepsiCo, Inc. director Robert C. Pohlad bought $10.84M of $PEP.",
-        "Officers and directors sold $4.4B on the open market over 30 days in our feed. This director bought $PEP."
-      ],
+      "angles": [],
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1306,8 +1407,8 @@
           "alt": "Marcos Marcelo Mindlin (Director at Pampa Energía S.A.) reported an open-market purchase of PAM totaling $35.14M on a Form 4 filed 2026-10-16, traded 2026-10-15."
         }
       ],
-      "rank": 8.0,
-      "rank_why": "form4_buy 2; mid cap $4.36B +1; magnitude (top $35.14M) +3; filed 2026-10-16 (age 0) +2",
+      "rank": 7.0,
+      "rank_why": "form4_buy 2; mid cap $4.36B +1; magnitude (top $35.14M) +3; filed 2026-10-16 (age 0) +2; same pillar as the newest own post (P3) -1",
       "pillar": "P3",
       "cap_tier": "mid",
       "in_500": false,
@@ -1367,87 +1468,6 @@
         "Pampa Energía S.A. director Marcos Marcelo Mindlin bought $35.14M of $PAM.",
         "Officers and directors sold $4.4B on the open market over 30 days in our feed. This director bought $PAM."
       ],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": true
-    },
-    {
-      "item_id": "2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1",
-      "type": "earnings_tomorrow_roundup",
-      "ticker": null,
-      "tickers": [
-        "FITB",
-        "CLF",
-        "DX"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "before the open"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Reporting earnings on 2026-10-19, before the open (confirmed dates): $FITB (Fifth Third Bancorp), $CLF (Cleveland-Cliffs Inc.), $DX (Dynex Capital, Inc.).",
-      "dedupe_key": "roundup:2026-10-19:bmo",
-      "names": {
-        "FITB": "Fifth Third Bancorp",
-        "CLF": "Cleveland-Cliffs Inc.",
-        "DX": "Dynex Capital, Inc."
-      },
-      "report_date": "2026-10-19",
-      "hour": "bmo",
-      "hour_text": "before the open",
-      "reporters_in_session": 3,
-      "market_cap_usd": 45437435904.0,
-      "item_ids": [
-        "2026-10-18-earnings-upcoming-FITB-44c0c0",
-        "2026-10-18-earnings-upcoming-CLF-b7041d",
-        "2026-10-18-earnings-upcoming-DX-ed12fc"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
-          "kind": "image",
-          "alt": "Reporting earnings on 2026-10-19, before the open (confirmed dates): $FITB (Fifth Third Bancorp), $CLF (Cleveland-Cliffs Inc.), $DX (Dynex Capital, Inc.)."
-        }
-      ],
-      "rank": 6.5,
-      "rank_why": "earnings_tomorrow_roundup 2; large cap $45.44B +2.5; magnitude (roundup) +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "large",
-      "in_500": null,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "FITB",
-          "CLF",
-          "DX"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "FITB": "Financial Services"
-      },
-      "ticker_names": {
-        "FITB": "Fifth Third Bancorp"
-      },
-      "angles": [],
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
@@ -1578,11 +1598,17 @@
             "led"
           ],
           "subjects": [
-            "T",
             "VZ",
             "TMUS",
             "BCE"
           ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [
+            "T"
+          ],
+          "scope": "\\blike\\b|sync",
           "bare": false,
           "direction": null,
           "needs": "\\blike\\b|sync|mov",
@@ -1604,6 +1630,141 @@
         "T": "AT&T Inc.",
         "VZ": "Verizon Communications Inc.",
         "TMUS": "T-Mobile US, Inc."
+      },
+      "top8": true
+    },
+    {
+      "item_id": "2026-10-18-form4-buy-PEP-08d02c",
+      "type": "form4_buy",
+      "ticker": "PEP",
+      "tickers": [
+        "PEP"
+      ],
+      "name": "Robert C. Pohlad",
+      "office": "Director at PepsiCo, Inc.",
+      "amount_text": "$10.84M",
+      "traded": [
+        "2026-10-14"
+      ],
+      "filed": "2026-10-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/77476/000106127226000004/0001061272-26-000004-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/pohlad-robert-c-1061272?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-form4-buy-PEP-08d02c#trades",
+      "allowed_numbers": [
+        "$10.84M",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "2026-10-14",
+        "Oct 14, 2026",
+        "Oct 14"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Robert C. Pohlad (Director at PepsiCo, Inc.) reported an open-market purchase of PEP totaling $10.84M on a Form 4 filed 2026-10-16, traded 2026-10-14.",
+      "dedupe_key": "form4:0001061272-26-000004:PEP",
+      "company": "PepsiCo, Inc.",
+      "side": "buy",
+      "accession": "0001061272-26-000004",
+      "rows": 1,
+      "figure_slug": "pohlad-robert-c-1061272",
+      "amount_top_usd": 10840557.96,
+      "market_cap_usd": 174948718438.8945,
+      "famous_person": null,
+      "row_amounts": [
+        "$10.84M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/pohlad-robert-c-1061272/opengraph-image",
+          "kind": "image",
+          "alt": "Robert C. Pohlad (Director at PepsiCo, Inc.) reported an open-market purchase of PEP totaling $10.84M on a Form 4 filed 2026-10-16, traded 2026-10-14."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "form4_buy 2; large cap $174.95B +2.5; magnitude (top $10.84M) +3; filed 2026-10-16 (age 0) +2; posted $PEP on 2026-10-18 -4; same pillar as the newest own post (P3) -1",
+      "pillar": "P3",
+      "market_cap_feed_usd": 179186843648.0,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "$174.9B",
+        "+2.42%",
+        "2.42%",
+        "+2.4%",
+        "2.4%",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "$650M",
+        "+$650M",
+        "$650.0M",
+        "+$650.0M",
+        "$4.4B",
+        "+$4.4B",
+        "$4B",
+        "+$4B",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "PEP"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "PEP": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "PEP": "PepsiCo, Inc."
+      },
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$650M",
+            "+$650M",
+            "$650.0M",
+            "+$650.0M",
+            "$4.4B",
+            "+$4.4B",
+            "$4B",
+            "+$4B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "context": {
+        "market_cap": "$174.9B",
+        "last_session_move": {
+          "pct": "+2.42%",
+          "session": "2026-10-16"
+        },
+        "insiders_30d": {
+          "bought": "$650M",
+          "sold": "$4.4B"
+        }
+      },
+      "angles": [
+        "$10.84M open-market buy of $PEP by its director.",
+        "PepsiCo, Inc. director Robert C. Pohlad bought $10.84M of $PEP.",
+        "Officers and directors sold $4.4B on the open market over 30 days in our feed. This director bought $PEP."
+      ],
+      "cooldown": {
+        "same_item_posted_on": [
+          "threads",
+          "x"
+        ],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
       },
       "top8": true
     },
@@ -1752,10 +1913,15 @@
             "MSFT",
             "META"
           ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": "group",
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": null,
           "needs": null,
-          "says": "best 3 of the 10 by 5-session move: $AAPL, $MSFT, $META"
+          "says": "best 3 of the 10 by 5-session move, in order: $AAPL, $MSFT, $META"
         },
         {
           "words": [
@@ -1768,10 +1934,15 @@
             "AVGO",
             "TSM"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": null,
-          "says": "worst 3 of the 10 by 5-session move: $SPCX, $AVGO, $TSM"
+          "says": "worst 3 of the 10 by 5-session move, in order: $SPCX, $AVGO, $TSM"
         },
         {
           "words": [
@@ -1782,6 +1953,11 @@
           "subjects": [
             "AAPL"
           ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -1795,6 +1971,11 @@
           "subjects": [
             "SPCX"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -1807,6 +1988,11 @@
           "subjects": [
             "AAPL"
           ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": true,
           "direction": "up",
           "needs": null,
@@ -1998,10 +2184,15 @@
             "GOOGL",
             "MSFT"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
-          "says": "the biggest dollar drops: $GOOGL, $MSFT"
+          "says": "the biggest dollar drops other than $PANW, in order: $GOOGL, $MSFT"
         }
       ],
       "headline": {
@@ -2245,6 +2436,11 @@
           "subjects": [
             "Energy"
           ],
+          "kind": "sector",
+          "polarity": "best",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -2259,6 +2455,11 @@
           "subjects": [
             "Technology"
           ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -2272,15 +2473,41 @@
             "biggest"
           ],
           "subjects": [
-            "EQNR",
-            "Energy",
-            "BTI",
-            "Consumer Defensive"
+            "EQNR"
           ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": 1,
+          "within": [
+            "Energy"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
           "bare": false,
           "direction": "up",
           "needs": null,
-          "says": "best stock by % in its sector: $EQNR (Energy), $BTI (Consumer Defensive)"
+          "says": "$EQNR was the best stock by % in Energy"
+        },
+        {
+          "words": [
+            "best",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "BTI"
+          ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": 1,
+          "within": [
+            "Consumer Defensive"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "$BTI was the best stock by % in Consumer Defensive"
         },
         {
           "words": [
@@ -2290,15 +2517,41 @@
             "biggest"
           ],
           "subjects": [
-            "CRWV",
-            "Technology",
-            "NBIS",
-            "Communication Services"
+            "CRWV"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [
+            "Technology"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
           "bare": false,
           "direction": "down",
           "needs": null,
-          "says": "worst stock by % in its sector: $CRWV (Tech), $NBIS (Communication Services)"
+          "says": "$CRWV was the worst stock by % in Tech"
+        },
+        {
+          "words": [
+            "worst",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "NBIS"
+          ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [
+            "Communication Services"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "$NBIS was the worst stock by % in Communication Services"
         },
         {
           "words": [
@@ -2306,19 +2559,79 @@
             "top"
           ],
           "subjects": [
-            "XOM",
-            "Energy",
-            "WMT",
-            "Consumer Defensive",
-            "NVDA",
-            "Technology",
-            "GOOGL",
+            "XOM"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Energy"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "up",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $XOM was the biggest Energy name moving with its sector (+2.46%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "WMT"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Consumer Defensive"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "up",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $WMT was the biggest Consumer Defensive name moving with its sector (+0.80%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "NVDA"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Technology"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "bare": false,
+          "direction": "down",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $NVDA was the biggest Tech name moving with its sector (−1.43%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "GOOGL"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
             "Communication Services"
           ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
           "bare": false,
-          "direction": null,
+          "direction": "down",
           "needs": "market (?:value|cap)",
-          "says": "by market value, the biggest name moving with its sector: $XOM (Energy), $WMT (Consumer Defensive), $NVDA (Tech), $GOOGL (Communication Services)"
+          "says": "by market value, $GOOGL was the biggest Communication Services name moving with its sector (−2.47%)"
         }
       ],
       "headline": {
@@ -2598,10 +2911,15 @@
             "NVDA",
             "AVGO"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
-          "says": "biggest dollar drops on Friday: $GOOGL, $MSFT, $NVDA, $AVGO"
+          "says": "biggest dollar drops on Friday, in order: $GOOGL, $MSFT, $NVDA, $AVGO"
         },
         {
           "words": [
@@ -2610,10 +2928,15 @@
           "subjects": [
             "Technology"
           ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": null,
-          "says": "Technology led the move (largest sector dollar move)"
+          "says": "Technology led the drop (largest sector dollar move)"
         },
         {
           "words": [
@@ -2624,10 +2947,15 @@
           "subjects": [
             "Technology"
           ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
-          "says": "Technology had the biggest sector dollar move"
+          "says": "Technology had the biggest sector dollar drop"
         },
         {
           "words": [
@@ -2638,6 +2966,11 @@
           "subjects": [
             "Technology"
           ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": null,
@@ -2651,15 +2984,21 @@
             "led"
           ],
           "subjects": [
-            "Technology",
             "MSFT",
             "NVDA",
             "AVGO"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [
+            "Technology"
+          ],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
-          "says": "Technology's biggest dollar drops: $MSFT, $NVDA, $AVGO"
+          "says": "Technology's biggest dollar drops, in order: $MSFT, $NVDA, $AVGO"
         },
         {
           "words": [
@@ -2671,6 +3010,11 @@
           "subjects": [
             "Energy"
           ],
+          "kind": "sector",
+          "polarity": "best",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "up",
           "needs": null,
@@ -2870,6 +3214,11 @@
             "best"
           ],
           "subjects": [],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": 1,
+          "within": [],
+          "scope": null,
           "bare": true,
           "direction": "up",
           "needs": "\\bday\\b|close|session",
@@ -2887,10 +3236,15 @@
             "MSFT",
             "NVDA"
           ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
           "bare": false,
           "direction": "down",
           "needs": "dollars?|market value|market cap|\\$\\d",
-          "says": "biggest dollar drags: $GOOGL, $MSFT, $NVDA"
+          "says": "biggest dollar drags, in order: $GOOGL, $MSFT, $NVDA"
         }
       ],
       "magnitude": 2.4167771387374577,
@@ -2966,99 +3320,56 @@
       "top8_out": "session_map: already 2 session-map items (one market day does not fill the menu)"
     },
     {
-      "item_id": "2026-10-18-moves-like-PEP-2636ca",
-      "type": "moves_like",
-      "ticker": "PEP",
+      "item_id": "2026-10-18-earnings-upcoming-FITB-44c0c0",
+      "type": "earnings_upcoming",
+      "ticker": "FITB",
       "tickers": [
-        "PEP",
-        "BF-B",
-        "KO",
-        "MDLZ"
+        "FITB"
       ],
-      "name": "PepsiCo, Inc.",
+      "name": "Fifth Third Bancorp",
       "office": null,
       "amount_text": null,
       "traded": [],
       "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/dashboard/PEP",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/PEP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-moves-like-PEP-2636ca#moves-like",
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FITB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-FITB-44c0c0#earnings-history",
       "allowed_numbers": [
-        "60",
-        "100",
-        "69",
-        "68",
-        "67",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "+2.4%",
-        "2.4%",
-        "+1.0%",
-        "1.0%",
-        "+2.1%",
-        "2.1%",
-        "+1.4%",
-        "1.4%"
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Moves Like: over the 60 sessions before Oct 16, 2026, $PEP (PepsiCo, Inc.) moved most like $BF-B (Sync 69, Close), $KO (Sync 68, Close), $MDLZ (Sync 67, Close). Sync is 0 to 100; past moves, not a prediction.",
-      "dedupe_key": "moves:PEP:2026-10-16",
-      "session": "2026-10-16",
-      "valid_through": "2026-10-19",
-      "window_sessions": 60,
-      "subject_day_move": "+2.4%",
-      "peers": [
-        {
-          "ticker": "BF-B",
-          "name": "Brown-Forman Corporation",
-          "sync": 69,
-          "band": "Close",
-          "sync_text": "Sync 69 · Close",
-          "day_move": "+1.0%"
-        },
-        {
-          "ticker": "KO",
-          "name": "The Coca-Cola Company",
-          "sync": 68,
-          "band": "Close",
-          "sync_text": "Sync 68 · Close",
-          "day_move": "+2.1%"
-        },
-        {
-          "ticker": "MDLZ",
-          "name": "Mondelez International, Inc.",
-          "sync": 67,
-          "band": "Close",
-          "sync_text": "Sync 67 · Close",
-          "day_move": "+1.4%"
-        }
-      ],
-      "banned_words": [
-        "will",
-        "going to"
-      ],
+      "facts_text": "Fifth Third Bancorp (FITB) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:FITB:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 45645947680.89386,
+      "date_confirmed_source": "calendar",
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/dashboard/PEP/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/FITB/opengraph-image",
           "kind": "image",
-          "alt": "Moves Like: over the 60 sessions before Oct 16, 2026, $PEP (PepsiCo, Inc.) moved most like $BF-B (Sync 69, Close), $KO (Sync 68, Close), $MDLZ (Sync 67, Close). Sync is 0 to 100; past moves, not a prediction."
+          "alt": "Fifth Third Bancorp (FITB) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
         }
       ],
-      "rank": 5.0,
-      "rank_why": "moves_like 0.5; large cap $174.95B +2.5; session 2026-10-16 (age 0) +2",
-      "pillar": "PX",
-      "market_cap_usd": 174948718438.8945,
+      "rank": 5.5,
+      "rank_why": "earnings_upcoming 1; large cap $45.65B +2.5; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_feed_usd": 45437435904.0,
       "market_cap_source": "market_map",
       "cap_tier": "large",
       "in_500": true,
       "context_numbers": [
-        "$174.9B",
-        "+2.42%",
-        "2.42%",
-        "+2.4%",
-        "2.4%",
+        "$45.6B",
+        "+0.04%",
+        "0.04%",
+        "0.0%",
         "2026-10-16",
         "Oct 16, 2026",
         "Oct 16"
@@ -3066,10 +3377,23 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "FITB"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "FITB": "Financial Services"
+      },
+      "ticker_names": {
+        "FITB": "Fifth Third Bancorp"
+      },
       "context": {
-        "market_cap": "$174.9B",
+        "market_cap": "$45.6B",
         "last_session_move": {
-          "pct": "+2.42%",
+          "pct": "+0.04%",
           "session": "2026-10-16"
         }
       },
@@ -3079,44 +3403,8 @@
         "ticker_last_posted": {},
         "filer_last_posted": null
       },
-      "claims": [
-        {
-          "words": [
-            "most",
-            "top",
-            "best",
-            "led"
-          ],
-          "subjects": [
-            "PEP",
-            "BF.B",
-            "KO",
-            "MDLZ"
-          ],
-          "bare": false,
-          "direction": null,
-          "needs": "\\blike\\b|sync|mov",
-          "says": "$PEP moved most like $BF.B, then $KO, then $MDLZ (by Sync)"
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "PEP"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "PEP": "Consumer Defensive",
-        "KO": "Consumer Defensive",
-        "MDLZ": "Consumer Defensive"
-      },
-      "ticker_names": {
-        "PEP": "PepsiCo, Inc.",
-        "KO": "The Coca-Cola Company",
-        "MDLZ": "Mondelez International, Inc."
-      },
       "top8": false,
-      "top8_out": "repeat: leads with $PEP like 2026-10-18-form4-buy-PEP-08d02c"
+      "top8_out": "repeat: leads with $FITB like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
     },
     {
       "item_id": "2026-10-18-moves-like-FITB-bbbeb1",
@@ -3238,11 +3526,17 @@
             "led"
           ],
           "subjects": [
-            "FITB",
             "USB",
             "CFG",
             "RF"
           ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [
+            "FITB"
+          ],
+          "scope": "\\blike\\b|sync",
           "bare": false,
           "direction": null,
           "needs": "\\blike\\b|sync|mov",
@@ -3269,19 +3563,109 @@
       "top8_out": "repeat: leads with $FITB like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
     },
     {
-      "item_id": "2026-10-18-earnings-upcoming-FITB-44c0c0",
-      "type": "earnings_upcoming",
-      "ticker": "FITB",
+      "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
+      "type": "earnings_reaction",
+      "ticker": "IBKR",
       "tickers": [
-        "FITB"
+        "IBKR"
       ],
-      "name": "Fifth Third Bancorp",
+      "name": "Interactive Brokers Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IBKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-reaction-IBKR-6246d9",
+      "allowed_numbers": [
+        "−3.88%",
+        "3.88%",
+        "−3.9%",
+        "3.9%",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3 2026",
+        "Q3"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close).",
+      "dedupe_key": "earnings_reaction:IBKR:2026-10-15",
+      "pillar": "P5",
+      "session_date": "2026-10-16",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "fiscal_label": "Q3 2026",
+      "move": -3.8823666162966397,
+      "angles": [
+        "$IBKR −3.88% the session after its Q3 2026 report.",
+        "How the market took $IBKR's Q3 2026 numbers: −3.88%.",
+        "$IBKR reported after the close on Oct 15. The next session: −3.88%."
+      ],
+      "market_cap_usd": 146579243008.0,
+      "headline": {
+        "tickers": [
+          "IBKR"
+        ],
+        "numbers": [
+          "3.88%",
+          "3.9%"
+        ]
+      },
+      "magnitude": 1.9411833081483199,
+      "trigger": "|next-session move| 3.88% >= 3.0%",
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IBKR/opengraph-image",
+          "kind": "image",
+          "alt": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "card": null,
+      "claims": [],
+      "ticker_sectors": {
+        "IBKR": "Financial Services"
+      },
+      "ticker_names": {
+        "IBKR": "Interactive Brokers Group, Inc."
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {
+          "x": "2026-10-14",
+          "instagram": "2026-10-14"
+        },
+        "filer_last_posted": null
+      },
+      "rank": 4.44,
+      "rank_why": "earnings_reaction 2; large cap $146.58B +2.5; magnitude (market) +1.94; session_date 2026-10-16 (age 0) +2; posted $IBKR on 2026-10-14 -4",
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-WTFC-3682ae",
+      "type": "earnings_upcoming",
+      "ticker": "WTFC",
+      "tickers": [
+        "WTFC"
+      ],
+      "name": "Wintrust Financial Corporation",
       "office": null,
       "amount_text": null,
       "traded": [],
       "filed": null,
       "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/FITB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-FITB-44c0c0#earnings-history",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WTFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-WTFC-3682ae#earnings-history",
       "allowed_numbers": [
         "2026-10-19",
         "Oct 19, 2026",
@@ -3293,35 +3677,27 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Fifth Third Bancorp (FITB) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:FITB:2026-10-19",
+      "facts_text": "Wintrust Financial Corporation (WTFC) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WTFC:2026-10-19",
       "report_date": "2026-10-19",
-      "hour": "bmo",
-      "hour_text": "before the open",
-      "market_cap_usd": 45645947680.89386,
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 9664499712.0,
       "date_confirmed_source": "calendar",
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/dashboard/FITB/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/WTFC/opengraph-image",
           "kind": "image",
-          "alt": "Fifth Third Bancorp (FITB) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
+          "alt": "Wintrust Financial Corporation (WTFC) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
         }
       ],
-      "rank": 4.5,
-      "rank_why": "earnings_upcoming 1; large cap $45.65B +2.5; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $9.66B +1; today 2026-10-18 (age 0) +2",
       "pillar": "P5",
-      "market_cap_feed_usd": 45437435904.0,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
+      "cap_tier": "mid",
+      "in_500": false,
       "context_numbers": [
-        "$45.6B",
-        "+0.04%",
-        "0.04%",
-        "0.0%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16"
+        "$9.7B"
       ],
       "context_tickers": [],
       "trigger": null,
@@ -3329,22 +3705,14 @@
       "claims": [],
       "headline": {
         "tickers": [
-          "FITB"
+          "WTFC"
         ],
         "numbers": []
       },
-      "ticker_sectors": {
-        "FITB": "Financial Services"
-      },
-      "ticker_names": {
-        "FITB": "Fifth Third Bancorp"
-      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
-        "market_cap": "$45.6B",
-        "last_session_move": {
-          "pct": "+0.04%",
-          "session": "2026-10-16"
-        }
+        "market_cap": "$9.7B"
       },
       "angles": [],
       "cooldown": {
@@ -3353,7 +3721,664 @@
         "filer_last_posted": null
       },
       "top8": false,
-      "top8_out": "repeat: leads with $FITB like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-ZION-f5bd41",
+      "type": "earnings_upcoming",
+      "ticker": "ZION",
+      "tickers": [
+        "ZION"
+      ],
+      "name": "Zions Bancorporation, National Association",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ZION?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-ZION-f5bd41#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Zions Bancorporation, National Association (ZION) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:ZION:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 9120625664.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ZION/opengraph-image",
+          "kind": "image",
+          "alt": "Zions Bancorporation, National Association (ZION) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $9.12B +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$9.1B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ZION"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$9.1B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-WAL-6779ef",
+      "type": "earnings_upcoming",
+      "ticker": "WAL",
+      "tickers": [
+        "WAL"
+      ],
+      "name": "Western Alliance Bancorporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WAL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-WAL-6779ef#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Western Alliance Bancorporation (WAL) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WAL:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 8102920704.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WAL/opengraph-image",
+          "kind": "image",
+          "alt": "Western Alliance Bancorporation (WAL) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $8.1B +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$8.1B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "WAL"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$8.1B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-BOKF-895eff",
+      "type": "earnings_upcoming",
+      "ticker": "BOKF",
+      "tickers": [
+        "BOKF"
+      ],
+      "name": "BOK Financial Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BOKF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-BOKF-895eff#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "BOK Financial Corporation (BOKF) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:BOKF:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 7814949888.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BOKF/opengraph-image",
+          "kind": "image",
+          "alt": "BOK Financial Corporation (BOKF) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $7.81B +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$7.8B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "BOKF"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$7.8B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-CLF-b7041d",
+      "type": "earnings_upcoming",
+      "ticker": "CLF",
+      "tickers": [
+        "CLF"
+      ],
+      "name": "Cleveland-Cliffs Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CLF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-CLF-b7041d#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Cleveland-Cliffs Inc. (CLF) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:CLF:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 7177393664.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CLF/opengraph-image",
+          "kind": "image",
+          "alt": "Cleveland-Cliffs Inc. (CLF) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $7.18B +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$7.2B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CLF"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$7.2B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "repeat: leads with $CLF like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-FNB-bf76f8",
+      "type": "earnings_upcoming",
+      "ticker": "FNB",
+      "tickers": [
+        "FNB"
+      ],
+      "name": "F.N.B. Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FNB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-FNB-bf76f8#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "F.N.B. Corporation (FNB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:FNB:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 5976306176.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FNB/opengraph-image",
+          "kind": "image",
+          "alt": "F.N.B. Corporation (FNB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $5.98B +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$6.0B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "FNB"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$6.0B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-RLI-5b95bb",
+      "type": "earnings_upcoming",
+      "ticker": "RLI",
+      "tickers": [
+        "RLI"
+      ],
+      "name": "RLI Corp.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RLI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-RLI-5b95bb#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "RLI Corp. (RLI) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:RLI:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 5112673792.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/RLI/opengraph-image",
+          "kind": "image",
+          "alt": "RLI Corp. (RLI) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $5.11B +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$5.1B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "RLI"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$5.1B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-SFBS-fd3914",
+      "type": "earnings_upcoming",
+      "ticker": "SFBS",
+      "tickers": [
+        "SFBS"
+      ],
+      "name": "ServisFirst Bancshares, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SFBS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-SFBS-fd3914#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "ServisFirst Bancshares, Inc. (SFBS) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:SFBS:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 4477678592.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SFBS/opengraph-image",
+          "kind": "image",
+          "alt": "ServisFirst Bancshares, Inc. (SFBS) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $4.48B +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$4.5B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SFBS"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$4.5B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-DX-ed12fc",
+      "type": "earnings_upcoming",
+      "ticker": "DX",
+      "tickers": [
+        "DX"
+      ],
+      "name": "Dynex Capital, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-DX-ed12fc#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Dynex Capital, Inc. (DX) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:DX:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 2805851136.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/DX/opengraph-image",
+          "kind": "image",
+          "alt": "Dynex Capital, Inc. (DX) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 4.0,
+      "rank_why": "earnings_upcoming 1; mid cap $2.81B +1; today 2026-10-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$2.8B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$2.8B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "repeat: leads with $DX like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
+    },
+    {
+      "item_id": "2026-10-18-earnings-tomorrow-roundup-LIST-867833",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "STLD",
+        "WRB",
+        "CCK",
+        "WTFC"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-tomorrow-roundup-LIST-867833",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "after the close"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-10-19, after the close (confirmed dates): $STLD (Steel Dynamics, Inc.), $WRB (W. R. Berkley Corporation), $CCK (Crown Holdings, Inc.), $WTFC (Wintrust Financial Corporation) and more.",
+      "dedupe_key": "roundup:2026-10-19:amc",
+      "names": {
+        "STLD": "Steel Dynamics, Inc.",
+        "WRB": "W. R. Berkley Corporation",
+        "CCK": "Crown Holdings, Inc.",
+        "WTFC": "Wintrust Financial Corporation"
+      },
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "reporters_in_session": 11,
+      "market_cap_usd": 34166552576.0,
+      "item_ids": [
+        "2026-10-18-earnings-upcoming-STLD-f76b5c",
+        "2026-10-18-earnings-upcoming-WRB-5e08f1",
+        "2026-10-18-earnings-upcoming-CCK-0a0069",
+        "2026-10-18-earnings-upcoming-WTFC-3682ae"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-10-19, after the close (confirmed dates): $STLD (Steel Dynamics, Inc.), $WRB (W. R. Berkley Corporation), $CCK (Crown Holdings, Inc.), $WTFC (Wintrust Financial Corporation) and more."
+        }
+      ],
+      "rank": 3.5,
+      "rank_why": "earnings_tomorrow_roundup 2; large cap $34.17B +2.5; magnitude (roundup) +1; today 2026-10-18 (age 0) +2; posted $CCK, $STLD, $WRB on 2026-10-18 -4",
+      "pillar": "P5",
+      "cap_tier": "large",
+      "in_500": null,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "STLD",
+          "WRB",
+          "CCK"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "STLD": "Basic Materials",
+        "WRB": "Financial Services"
+      },
+      "ticker_names": {
+        "STLD": "Steel Dynamics, Inc.",
+        "WRB": "W. R. Berkley Corporation"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [
+          "instagram"
+        ],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-chart-pattern-IREN-a1292e",
@@ -3473,109 +4498,19 @@
       "top8_out": "ranked below the top 8"
     },
     {
-      "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
-      "type": "earnings_reaction",
-      "ticker": "IBKR",
-      "tickers": [
-        "IBKR"
-      ],
-      "name": "Interactive Brokers Group, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/IBKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-reaction-IBKR-6246d9",
-      "allowed_numbers": [
-        "−3.88%",
-        "3.88%",
-        "−3.9%",
-        "3.9%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15",
-        "Q3 2026",
-        "Q3"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close).",
-      "dedupe_key": "earnings_reaction:IBKR:2026-10-15",
-      "pillar": "P5",
-      "session_date": "2026-10-16",
-      "report_date": "2026-10-15",
-      "hour": "amc",
-      "fiscal_label": "Q3 2026",
-      "move": -3.8823666162966397,
-      "angles": [
-        "$IBKR −3.88% the session after its Q3 2026 report.",
-        "How the market took $IBKR's Q3 2026 numbers: −3.88%.",
-        "$IBKR reported after the close on Oct 15. The next session: −3.88%."
-      ],
-      "market_cap_usd": 146579243008.0,
-      "headline": {
-        "tickers": [
-          "IBKR"
-        ],
-        "numbers": [
-          "3.88%",
-          "3.9%"
-        ]
-      },
-      "magnitude": 1.9411833081483199,
-      "trigger": "|next-session move| 3.88% >= 3.0%",
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/IBKR/opengraph-image",
-          "kind": "image",
-          "alt": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "card": null,
-      "claims": [],
-      "ticker_sectors": {
-        "IBKR": "Financial Services"
-      },
-      "ticker_names": {
-        "IBKR": "Interactive Brokers Group, Inc."
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {
-          "x": "2026-10-14",
-          "instagram": "2026-10-14"
-        },
-        "filer_last_posted": null
-      },
-      "rank": 3.44,
-      "rank_why": "earnings_reaction 2; large cap $146.58B +2.5; magnitude (market) +1.94; session_date 2026-10-16 (age 0) +2; posted $IBKR on 2026-10-14 -4; same pillar as the newest own post (P5) -1",
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-WTFC-3682ae",
+      "item_id": "2026-10-18-earnings-upcoming-WASH-1a5c4f",
       "type": "earnings_upcoming",
-      "ticker": "WTFC",
+      "ticker": "WASH",
       "tickers": [
-        "WTFC"
+        "WASH"
       ],
-      "name": "Wintrust Financial Corporation",
+      "name": "Washington Trust Bancorp, Inc.",
       "office": null,
       "amount_text": null,
       "traded": [],
       "filed": null,
       "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/WTFC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-WTFC-3682ae#earnings-history",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WASH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-WASH-1a5c4f#earnings-history",
       "allowed_numbers": [
         "2026-10-19",
         "Oct 19, 2026",
@@ -3587,27 +4522,27 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Wintrust Financial Corporation (WTFC) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:WTFC:2026-10-19",
+      "facts_text": "Washington Trust Bancorp, Inc. (WASH) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WASH:2026-10-19",
       "report_date": "2026-10-19",
       "hour": "amc",
       "hour_text": "after the close",
-      "market_cap_usd": 9664499712.0,
+      "market_cap_usd": 707085056.0,
       "date_confirmed_source": "calendar",
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/dashboard/WTFC/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/WASH/opengraph-image",
           "kind": "image",
-          "alt": "Wintrust Financial Corporation (WTFC) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+          "alt": "Washington Trust Bancorp, Inc. (WASH) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
         }
       ],
       "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $9.66B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
+      "rank_why": "earnings_upcoming 1; small cap $707.09M +0; today 2026-10-18 (age 0) +2",
       "pillar": "P5",
-      "cap_tier": "mid",
+      "cap_tier": "small",
       "in_500": false,
       "context_numbers": [
-        "$9.7B"
+        "$707M"
       ],
       "context_tickers": [],
       "trigger": null,
@@ -3615,675 +4550,18 @@
       "claims": [],
       "headline": {
         "tickers": [
-          "WTFC"
+          "WASH"
         ],
         "numbers": []
       },
       "ticker_sectors": {},
       "ticker_names": {},
       "context": {
-        "market_cap": "$9.7B"
+        "market_cap": "$707M"
       },
       "angles": [],
       "cooldown": {
         "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-ZION-f5bd41",
-      "type": "earnings_upcoming",
-      "ticker": "ZION",
-      "tickers": [
-        "ZION"
-      ],
-      "name": "Zions Bancorporation, National Association",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ZION?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-ZION-f5bd41#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Zions Bancorporation, National Association (ZION) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:ZION:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 9120625664.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/ZION/opengraph-image",
-          "kind": "image",
-          "alt": "Zions Bancorporation, National Association (ZION) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $9.12B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$9.1B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ZION"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$9.1B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-WAL-6779ef",
-      "type": "earnings_upcoming",
-      "ticker": "WAL",
-      "tickers": [
-        "WAL"
-      ],
-      "name": "Western Alliance Bancorporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/WAL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-WAL-6779ef#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Western Alliance Bancorporation (WAL) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:WAL:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 8102920704.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/WAL/opengraph-image",
-          "kind": "image",
-          "alt": "Western Alliance Bancorporation (WAL) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $8.1B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$8.1B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "WAL"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$8.1B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-BOKF-895eff",
-      "type": "earnings_upcoming",
-      "ticker": "BOKF",
-      "tickers": [
-        "BOKF"
-      ],
-      "name": "BOK Financial Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/BOKF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-BOKF-895eff#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "BOK Financial Corporation (BOKF) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:BOKF:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 7814949888.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/BOKF/opengraph-image",
-          "kind": "image",
-          "alt": "BOK Financial Corporation (BOKF) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $7.81B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$7.8B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "BOKF"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$7.8B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-CLF-b7041d",
-      "type": "earnings_upcoming",
-      "ticker": "CLF",
-      "tickers": [
-        "CLF"
-      ],
-      "name": "Cleveland-Cliffs Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CLF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-CLF-b7041d#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Cleveland-Cliffs Inc. (CLF) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:CLF:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "bmo",
-      "hour_text": "before the open",
-      "market_cap_usd": 7177393664.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CLF/opengraph-image",
-          "kind": "image",
-          "alt": "Cleveland-Cliffs Inc. (CLF) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $7.18B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$7.2B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CLF"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$7.2B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "repeat: leads with $CLF like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-FNB-bf76f8",
-      "type": "earnings_upcoming",
-      "ticker": "FNB",
-      "tickers": [
-        "FNB"
-      ],
-      "name": "F.N.B. Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/FNB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-FNB-bf76f8#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "F.N.B. Corporation (FNB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:FNB:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 5976306176.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/FNB/opengraph-image",
-          "kind": "image",
-          "alt": "F.N.B. Corporation (FNB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $5.98B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$6.0B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "FNB"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$6.0B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-RLI-5b95bb",
-      "type": "earnings_upcoming",
-      "ticker": "RLI",
-      "tickers": [
-        "RLI"
-      ],
-      "name": "RLI Corp.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RLI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-RLI-5b95bb#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "RLI Corp. (RLI) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:RLI:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 5112673792.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/RLI/opengraph-image",
-          "kind": "image",
-          "alt": "RLI Corp. (RLI) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $5.11B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$5.1B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "RLI"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$5.1B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-SFBS-fd3914",
-      "type": "earnings_upcoming",
-      "ticker": "SFBS",
-      "tickers": [
-        "SFBS"
-      ],
-      "name": "ServisFirst Bancshares, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/SFBS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-SFBS-fd3914#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "ServisFirst Bancshares, Inc. (SFBS) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:SFBS:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 4477678592.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/SFBS/opengraph-image",
-          "kind": "image",
-          "alt": "ServisFirst Bancshares, Inc. (SFBS) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $4.48B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$4.5B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "SFBS"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$4.5B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-DX-ed12fc",
-      "type": "earnings_upcoming",
-      "ticker": "DX",
-      "tickers": [
-        "DX"
-      ],
-      "name": "Dynex Capital, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/DX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-DX-ed12fc#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Dynex Capital, Inc. (DX) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:DX:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "bmo",
-      "hour_text": "before the open",
-      "market_cap_usd": 2805851136.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/DX/opengraph-image",
-          "kind": "image",
-          "alt": "Dynex Capital, Inc. (DX) reports earnings on 2026-10-19, before the open (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; mid cap $2.81B +1; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$2.8B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "DX"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$2.8B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "repeat: leads with $DX like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
-    },
-    {
-      "item_id": "2026-10-18-earnings-tomorrow-roundup-LIST-867833",
-      "type": "earnings_tomorrow_roundup",
-      "ticker": null,
-      "tickers": [
-        "STLD",
-        "WRB",
-        "CCK",
-        "WTFC"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-tomorrow-roundup-LIST-867833",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "after the close"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Reporting earnings on 2026-10-19, after the close (confirmed dates): $STLD (Steel Dynamics, Inc.), $WRB (W. R. Berkley Corporation), $CCK (Crown Holdings, Inc.), $WTFC (Wintrust Financial Corporation) and more.",
-      "dedupe_key": "roundup:2026-10-19:amc",
-      "names": {
-        "STLD": "Steel Dynamics, Inc.",
-        "WRB": "W. R. Berkley Corporation",
-        "CCK": "Crown Holdings, Inc.",
-        "WTFC": "Wintrust Financial Corporation"
-      },
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "reporters_in_session": 11,
-      "market_cap_usd": 34166552576.0,
-      "item_ids": [
-        "2026-10-18-earnings-upcoming-STLD-f76b5c",
-        "2026-10-18-earnings-upcoming-WRB-5e08f1",
-        "2026-10-18-earnings-upcoming-CCK-0a0069",
-        "2026-10-18-earnings-upcoming-WTFC-3682ae"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/earnings/opengraph-image",
-          "kind": "image",
-          "alt": "Reporting earnings on 2026-10-19, after the close (confirmed dates): $STLD (Steel Dynamics, Inc.), $WRB (W. R. Berkley Corporation), $CCK (Crown Holdings, Inc.), $WTFC (Wintrust Financial Corporation) and more."
-        }
-      ],
-      "rank": 2.5,
-      "rank_why": "earnings_tomorrow_roundup 2; large cap $34.17B +2.5; magnitude (roundup) +1; today 2026-10-18 (age 0) +2; posted $CCK, $STLD, $WRB on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "large",
-      "in_500": null,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "STLD",
-          "WRB",
-          "CCK"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "STLD": "Basic Materials",
-        "WRB": "Financial Services"
-      },
-      "ticker_names": {
-        "STLD": "Steel Dynamics, Inc.",
-        "WRB": "W. R. Berkley Corporation"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [
-          "instagram"
-        ],
         "ticker_last_posted": {},
         "filer_last_posted": null
       },
@@ -4395,11 +4673,17 @@
             "led"
           ],
           "subjects": [
-            "IREN",
             "KEEL",
             "APLD",
             "CORZ"
           ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [
+            "IREN"
+          ],
+          "scope": "\\blike\\b|sync",
           "bare": false,
           "direction": null,
           "needs": "\\blike\\b|sync|mov",
@@ -4414,153 +4698,6 @@
       },
       "ticker_sectors": {},
       "ticker_names": {},
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-WASH-1a5c4f",
-      "type": "earnings_upcoming",
-      "ticker": "WASH",
-      "tickers": [
-        "WASH"
-      ],
-      "name": "Washington Trust Bancorp, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/WASH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-WASH-1a5c4f#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Washington Trust Bancorp, Inc. (WASH) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:WASH:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 707085056.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/WASH/opengraph-image",
-          "kind": "image",
-          "alt": "Washington Trust Bancorp, Inc. (WASH) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 2.0,
-      "rank_why": "earnings_upcoming 1; small cap $707.09M +0; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "small",
-      "in_500": false,
-      "context_numbers": [
-        "$707M"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "WASH"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$707M"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
-      "item_id": "2026-10-18-picks-ready-LIST-39a08c",
-      "type": "picks_ready",
-      "ticker": null,
-      "tickers": [
-        "DRS",
-        "DAR"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/picks/2026-10-16",
-      "page_url": "https://www.rapidtradeview.trade/picks/2026-10-16?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-picks-ready-LIST-39a08c",
-      "allowed_numbers": [
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "2"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The RapidTradeView daily picks list for 2026-10-16 is published; the public picks are DRS, DAR. (The 15:00 ET slot comes before today's list (1:30 PM ET); this is the 2026-10-16 list, valid until 2026-10-19T17:30:00+00:00.)",
-      "dedupe_key": "picks:2026-10-16",
-      "trade_date": "2026-10-16",
-      "valid_until": "2026-10-19T17:30:00+00:00",
-      "picks": [
-        {
-          "ticker": "DRS",
-          "direction": "bullish"
-        },
-        {
-          "ticker": "DAR",
-          "direction": "bullish"
-        }
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/picks/2026-10-16/opengraph-image",
-          "kind": "image",
-          "alt": "The RapidTradeView daily picks list for 2026-10-16 is published; the public picks are DRS, DAR. (The 15:00 ET slot comes before today's list (1:30 PM ET); this is the 2026-10-16 list, valid until 2026-10-19T17:30:00+00:00.)"
-        }
-      ],
-      "rank": 1.0,
-      "rank_why": "picks_ready 2; magnitude (picks) +1; today 2026-10-18 (age 0) +2; posted $DAR, $DRS on 2026-10-16 -4",
-      "pillar": "P0",
-      "cap_tier": "unknown",
-      "in_500": null,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "DRS",
-          "DAR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [
-          "instagram",
-          "x"
-        ],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
       "top8": false,
       "top8_out": "ranked below the top 8"
     },
@@ -4603,8 +4740,8 @@
           "alt": "Steel Dynamics, Inc. (STLD) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
         }
       ],
-      "rank": 0.5,
-      "rank_why": "earnings_upcoming 1; large cap $34.51B +2.5; today 2026-10-18 (age 0) +2; posted $STLD on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
+      "rank": 1.5,
+      "rank_why": "earnings_upcoming 1; large cap $34.51B +2.5; today 2026-10-18 (age 0) +2; posted $STLD on 2026-10-18 -4",
       "pillar": "P5",
       "market_cap_feed_usd": 34166552576.0,
       "market_cap_source": "market_map",
@@ -4693,8 +4830,8 @@
           "alt": "W. R. Berkley Corporation (WRB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
         }
       ],
-      "rank": 0.5,
-      "rank_why": "earnings_upcoming 1; large cap $27.46B +2.5; today 2026-10-18 (age 0) +2; posted $WRB on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
+      "rank": 1.5,
+      "rank_why": "earnings_upcoming 1; large cap $27.46B +2.5; today 2026-10-18 (age 0) +2; posted $WRB on 2026-10-18 -4",
       "pillar": "P5",
       "market_cap_feed_usd": 26694971392.0,
       "market_cap_source": "market_map",
@@ -4783,8 +4920,8 @@
           "alt": "Crown Holdings, Inc. (CCK) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
         }
       ],
-      "rank": 0.5,
-      "rank_why": "earnings_upcoming 1; large cap $11.75B +2.5; today 2026-10-18 (age 0) +2; posted $CCK on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
+      "rank": 1.5,
+      "rank_why": "earnings_upcoming 1; large cap $11.75B +2.5; today 2026-10-18 (age 0) +2; posted $CCK on 2026-10-18 -4",
       "pillar": "P5",
       "cap_tier": "large",
       "in_500": false,
@@ -4816,6 +4953,244 @@
       },
       "top8": false,
       "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-picks-ready-LIST-39a08c",
+      "type": "picks_ready",
+      "ticker": null,
+      "tickers": [
+        "DRS",
+        "DAR"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/picks/2026-10-16",
+      "page_url": "https://www.rapidtradeview.trade/picks/2026-10-16?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-picks-ready-LIST-39a08c",
+      "allowed_numbers": [
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The RapidTradeView daily picks list for 2026-10-16 is published; the public picks are DRS, DAR. (The 15:00 ET slot comes before today's list (1:30 PM ET); this is the 2026-10-16 list, valid until 2026-10-19T17:30:00+00:00.)",
+      "dedupe_key": "picks:2026-10-16",
+      "trade_date": "2026-10-16",
+      "valid_until": "2026-10-19T17:30:00+00:00",
+      "picks": [
+        {
+          "ticker": "DRS",
+          "direction": "bullish"
+        },
+        {
+          "ticker": "DAR",
+          "direction": "bullish"
+        }
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/picks/2026-10-16/opengraph-image",
+          "kind": "image",
+          "alt": "The RapidTradeView daily picks list for 2026-10-16 is published; the public picks are DRS, DAR. (The 15:00 ET slot comes before today's list (1:30 PM ET); this is the 2026-10-16 list, valid until 2026-10-19T17:30:00+00:00.)"
+        }
+      ],
+      "rank": 1.0,
+      "rank_why": "picks_ready 2; magnitude (picks) +1; today 2026-10-18 (age 0) +2; posted $DAR, $DRS on 2026-10-16 -4",
+      "pillar": "P0",
+      "cap_tier": "unknown",
+      "in_500": null,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DRS",
+          "DAR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [
+          "instagram",
+          "x"
+        ],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-moves-like-PEP-2636ca",
+      "type": "moves_like",
+      "ticker": "PEP",
+      "tickers": [
+        "PEP",
+        "BF-B",
+        "KO",
+        "MDLZ"
+      ],
+      "name": "PepsiCo, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/PEP",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PEP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-moves-like-PEP-2636ca#moves-like",
+      "allowed_numbers": [
+        "60",
+        "100",
+        "69",
+        "68",
+        "67",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "+2.4%",
+        "2.4%",
+        "+1.0%",
+        "1.0%",
+        "+2.1%",
+        "2.1%",
+        "+1.4%",
+        "1.4%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moves Like: over the 60 sessions before Oct 16, 2026, $PEP (PepsiCo, Inc.) moved most like $BF-B (Sync 69, Close), $KO (Sync 68, Close), $MDLZ (Sync 67, Close). Sync is 0 to 100; past moves, not a prediction.",
+      "dedupe_key": "moves:PEP:2026-10-16",
+      "session": "2026-10-16",
+      "valid_through": "2026-10-19",
+      "window_sessions": 60,
+      "subject_day_move": "+2.4%",
+      "peers": [
+        {
+          "ticker": "BF-B",
+          "name": "Brown-Forman Corporation",
+          "sync": 69,
+          "band": "Close",
+          "sync_text": "Sync 69 · Close",
+          "day_move": "+1.0%"
+        },
+        {
+          "ticker": "KO",
+          "name": "The Coca-Cola Company",
+          "sync": 68,
+          "band": "Close",
+          "sync_text": "Sync 68 · Close",
+          "day_move": "+2.1%"
+        },
+        {
+          "ticker": "MDLZ",
+          "name": "Mondelez International, Inc.",
+          "sync": 67,
+          "band": "Close",
+          "sync_text": "Sync 67 · Close",
+          "day_move": "+1.4%"
+        }
+      ],
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PEP/opengraph-image",
+          "kind": "image",
+          "alt": "Moves Like: over the 60 sessions before Oct 16, 2026, $PEP (PepsiCo, Inc.) moved most like $BF-B (Sync 69, Close), $KO (Sync 68, Close), $MDLZ (Sync 67, Close). Sync is 0 to 100; past moves, not a prediction."
+        }
+      ],
+      "rank": 1.0,
+      "rank_why": "moves_like 0.5; large cap $174.95B +2.5; session 2026-10-16 (age 0) +2; posted $PEP on 2026-10-18 -4",
+      "pillar": "PX",
+      "market_cap_usd": 174948718438.8945,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "$174.9B",
+        "+2.42%",
+        "2.42%",
+        "+2.4%",
+        "2.4%",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "context": {
+        "market_cap": "$174.9B",
+        "last_session_move": {
+          "pct": "+2.42%",
+          "session": "2026-10-16"
+        }
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {
+          "x": "2026-10-18",
+          "threads": "2026-10-18"
+        },
+        "filer_last_posted": null
+      },
+      "claims": [
+        {
+          "words": [
+            "most",
+            "top",
+            "best",
+            "led"
+          ],
+          "subjects": [
+            "BF.B",
+            "KO",
+            "MDLZ"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [
+            "PEP"
+          ],
+          "scope": "\\blike\\b|sync",
+          "bare": false,
+          "direction": null,
+          "needs": "\\blike\\b|sync|mov",
+          "says": "$PEP moved most like $BF.B, then $KO, then $MDLZ (by Sync)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "PEP"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "PEP": "Consumer Defensive",
+        "KO": "Consumer Defensive",
+        "MDLZ": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "PEP": "PepsiCo, Inc.",
+        "KO": "The Coca-Cola Company",
+        "MDLZ": "Mondelez International, Inc."
+      },
+      "top8": false,
+      "top8_out": "repeat: leads with $PEP like 2026-10-18-form4-buy-PEP-08d02c"
     }
   ]
 }
