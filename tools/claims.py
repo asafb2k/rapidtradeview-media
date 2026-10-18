@@ -17,24 +17,34 @@ through grok_review.wording_reasons, the Growth post audit. Pure functions, no I
    A clause (sentence, or a part split at ";", ", while", ", but", ", and", or after a colon lead-in) that carries a
    superlative passes only when every superlative word in it is backed by a claim (section 2 below has the detail):
      - the side it means matches the claim's polarity: best / worst words, else the noun it governs ("top loser", "led
-       the drop" = worst) or the verb before it ("fell the most"); "top" / "led" / "#1" alone = best, whatever signs
-       stand beside them;
+       the drop" = worst) or the verb before it ("fell the most"); "top" / "led" / "#1" alone or with an entity noun
+       ("top sector", "led its sector") = best, whatever signs stand beside them; with any other noun ("led the rout",
+       "the top story") the side is unclear and nothing backs it (r4);
      - the metric it names matches the claim's (percent / market cap / dollars);
-     - its scope words match the claim's ("of the 500", "overall" = no within; "in Tech", "its sector" = that within;
-       "of the 10" = the basket);
-     - every ticker / sector the clause names is ranked by such a claim (a sector only by a sector claim, or as a
-       stock claim's within): singular wording / a list only from #1 in order, "among the" / "one of the" for any
-       group member, "the N biggest" / "top N" for exactly the top N, "second-biggest" only for #2;
-     - the claim's direction (when set) agrees with its direction words / signs, its `needs` occurs in it, a bare claim
-       (a clause naming nothing) is not tied to another date, and nothing widens the window ("ever", "in months", "of
-       the quarter", "since September"); a negated comparison is rejected; two named tickers / sectors compared ("did
-       better than $AAPL") need a claim that ranks them so.
+     - every scope phrase attached to it matches the claim's ("of the 500", "overall", "of all", "on the day" = no
+       within; "in Tech", "Tech's", "its sector", a fronted "In Tech," = that within, never a sector named elsewhere in
+       the clause; "of the 10" = the basket);
+     - every ticker / sector / company name the clause names is ranked by such a claim (a sector only by a sector
+       claim, or as a stock claim's within; "any Tech stock" ranks stocks): singular wording / a list only from #1 in
+       order, "among the" / "one of the" for any group member ("one of the two biggest" only for the top 2), "the N
+       biggest" / "top N" for exactly the top N, "second-biggest" only for #2;
+     - a clause that names nothing and refers back ("It was the biggest", "The biggest dollar drop of the 500.") is
+       about the company / sector named last before it (a question naming nothing: the answer named next); only a claim
+       with no subjects may stand bare;
+     - the claim's direction (or its subjects' move from the item) agrees with its direction words / signs, its `needs`
+       occurs in it, a bare claim is not tied to another date, and nothing widens the window ("ever", "in months", "of
+       the quarter", "since September"); a negated comparison is rejected; an elliptical follow-up ("and so was Tech",
+       "$MSFT too") joins the superlative before it.
+   Two named tickers / sectors compared ("did better than $AAPL", "lost $23.1B, more than $MSFT") need a claim of that
+   metric (percent unless dollars are named) that ranks them so. "#N by <metric>" / "the Nth-biggest dollar drop" must be
+   the item's rank of that company (rank_by_usd / rank_by_cap / its place in a claim).
    Definitions are not claims: "the 500 largest", "the 10 largest", "largest US-listed", "first session after", "track record",
-   "best minus worst", "at least" / "at most", "first quarter", "top line", "#1 pick"; nor is a question to the reader
-   ("...surprised you most?").
+   "best minus worst", "at least" / "at most", "first quarter", "top line", "#1 pick"; nor is a question about the reader
+   that names no company or sector ("...surprised you most?").
    A one-session item (its `when` is "on Friday" / "today") is never "this / last / past week" (and its comparisons never
    a week or 5 sessions); a week item's comparisons are never one day; the earnings preview (a week ahead) is never "past
-   week"; no item says "today" / "yesterday" / "tonight" unless its `when` does (a Monday post about Friday).
+   week"; no item says "today" / "yesterday" / "tonight" unless its `when` does (a Monday post about Friday); a
+   one-session item names no other weekday or date than its session's and no "this morning" / "pre-market" / "so far".
 3. Sector attribution: a clause naming one sector and listing cashtags (or followed by a clause that starts with a
    cashtag and names no sector) implies those companies are in that sector; a cashtag labelled with a sector in
    parentheses likewise. Each must match the item's ticker_sectors ($GOOGL is Communication Services, not Technology).
@@ -42,6 +52,7 @@ through grok_review.wording_reasons, the Growth post audit. Pure functions, no I
    "open-market" buys / sells "by officers and directors").
 5. Card message (`card_message`): words a post may not use because its attached card says the opposite (breadth: a card
    headlining a broad decline never goes with "narrow", "concentrated", "the typical stock was flat").
+6. Direction (`moves`): a gain / loss verb never sits beside a number or a company / sector that moved the other way.
 """
 from __future__ import annotations
 
@@ -112,7 +123,10 @@ def window_reasons(item: dict, text: str) -> list[str]:
     # a post goes out after the facts were built (Grok's Monday pre-market slot reads Sunday's facts): "today",
     # "yesterday" and "tonight" are wrong for a session the item calls "on Friday" (or a week)
     bad += [m.group(0) for m in STALE_DAY.finditer(text) if m.group(1).lower() not in w]
+    if "week" not in w:
+        bad += _session_day_words(item, text)
     return [f"window: the item's window is \"{when}\", not {bad[0]!r}"] if bad else []
+
 
 
 # ---------------------------------------------------------------------------
@@ -136,9 +150,10 @@ def window_reasons(item: dict, text: str) -> list[str]:
 #   side   best / worst words fix it. top / led / #1 / biggest / most take the side of the noun they govern ("top loser",
 #          "led the drop", "biggest decline", "led Tech lower" = worst; "top gainer" = best) or of the verb before them
 #          ("fell the most", "lost the most market value"); "led the move" / "biggest move" = no side. Otherwise top /
-#          led / #1 mean the best end whatever signs stand beside them ("Tech, down 2.8%, was the top sector" = Tech was
-#          the best); biggest / largest + a company / sector noun is size ("the biggest company" = market cap); most /
-#          biggest alone take the clause's gain / loss words, then its signs.
+#          led / #1 alone or with an entity noun mean the best end whatever signs stand beside them ("Tech, down 2.8%,
+#          was the top sector" = Tech was the best); with any other noun they are "unclear" and never backed (r4);
+#          biggest / largest + a company / sector noun is size ("the biggest company" = market cap); most / biggest
+#          alone take the clause's gain / loss words, then its signs.
 #   metric "percent" / "percentage" = pct_change; "by market cap / value", "most valuable", size = market_cap; "dollar",
 #          "market value" lost / gained = usd_change; a $ amount alone counts as dollars only for a dollar claim. A
 #          dollar claim needs dollar wording; a market-cap claim needs size wording.
@@ -152,17 +167,42 @@ def window_reasons(item: dict, text: str) -> list[str]:
 # comparison ("was not the best") is not checked: rejected. Two named tickers compared ("did better than $AAPL", "was
 # worse") need a claim that ranks them that way.
 
+SECTOR_ALIASES = {
+    "Technology": ["technology", "tech"],
+    "Communication Services": ["communication services", "comm services", "communications"],
+    "Consumer Defensive": ["consumer defensive", "consumer staples", "staples"],
+    "Consumer Cyclical": ["consumer cyclical", "consumer discretionary", "discretionary"],
+    "Financial Services": ["financial services", "financials"],
+    "Healthcare": ["healthcare", "health care"],
+    "Industrials": ["industrials"],
+    "Energy": ["energy"],
+    "Basic Materials": ["basic materials", "materials"],
+    "Real Estate": ["real estate"],
+    "Utilities": ["utilities"],
+}
+_ALIAS = sorted(((a, s) for s, al in SECTOR_ALIASES.items() for a in al), key=lambda x: -len(x[0]))
+_SECTOR_ALT = "|".join(re.escape(a) for a, _ in _ALIAS)
+# an entity right after a quantified comparison ("No sector beat Tech", "Every sector beat $XOM")
+_ENT_NEXT = r"(?=\s+(?:than\s+)?(?:the\s+)?(?:\$[a-z]|(?:" + _SECTOR_ALT + r")(?![\w])))"
 CATEGORIES = (
     ("led", r"led|leads?|leading|leaders?"),
     ("biggest", r"biggest|largest|heaviest|greatest|sharpest|steepest|hardest|deepest"),
-    ("worst", r"worst|weakest|lowest"
+    ("worst", r"worst|weakest|lowest|coldest|poorest|laggards?"
               r"|underperform(?:s|ed|ing)?\s+(?:every|all|any)(?:\s+other)?"
               r"|(?:worse\s+than|trail(?:s|ed)?|lagg(?:ed)?\s+behind)\s+(?:every|all|any)(?:\s+other)?"
-              r"|no\s+other\s+(?:[a-z]+\s+){0,2}(?:fell|lost|dropped|declined|did)\s+(?:more|worse)"),
-    ("best", r"best|strongest|highest"
+              r"|no\s+other\s+(?:[a-z]+\s+){0,2}(?:fell|lost|dropped|declined|did)\s+(?:more|worse)"
+              r"|no\s+(?:[a-z]+\s+){0,2}?(?:did\s+worse|underperformed|trailed|lagged)" + _ENT_NEXT +
+              # "Every sector beat Energy" = Energy was the worst (r4)
+              r"|(?:every|all)\s+(?:other\s+)?(?:[a-z]+\s+){0,2}?(?:beat|outpaced|outperformed|topped|did\s+better\s+than"
+              r"|rose\s+more\s+than|gained\s+more\s+than)" + _ENT_NEXT),
+    ("best", r"best|strongest|highest|hottest|stand-?out"
              r"|outperform(?:s|ed|ing)?\s+(?:every|all|any)(?:\s+other)?"
+             r"|outpac(?:es|ed|ing)?\s+(?:every|all|any)(?:\s+other)?"
              r"|(?:beat|beats|topped|tops|better\s+than|ahead\s+of)\s+(?:every|all|any)(?:\s+other)?"
-             r"|no\s+other\s+(?:[a-z]+\s+){0,2}(?:beat|topped|rose\s+more|gained\s+more|did\s+better|came\s+close)"),
+             r"|no\s+other\s+(?:[a-z]+\s+){0,2}(?:beat|topped|rose\s+more|gained\s+more|did\s+better|came\s+close)"
+             r"|no\s+(?:[a-z]+\s+){0,2}?(?:beat|outpaced|outperformed|topped|did\s+better)" + _ENT_NEXT +
+             r"|(?:every|all)\s+(?:other\s+)?(?:[a-z]+\s+){0,2}?(?:did\s+worse\s+than|fell\s+more\s+than|lost\s+more\s+than"
+             r"|underperformed|trailed|lagged(?:\s+behind)?)" + _ENT_NEXT),
     ("most", r"most(?:-[a-z]+)?|closest|tightest|nearest"
              r"|more\s+than\s+(?:any|every|all)(?:\s+other)?"
              r"|(?:more\s+(?:[a-z$]+\s+){1,3}|(?!(?:oth|rath|ev|nev|und|ov|aft|lat|earli|ord)er\b)[a-z]+er\s+)than\s+"
@@ -172,7 +212,7 @@ CATEGORIES = (
     ("least", r"least|smallest|fewest|less\s+(?:[a-z$]+\s+){0,3}than\s+(?:any|every|all)(?:\s+other)?"),
     ("only", r"only|sole|lone"),
     ("first", r"first"),
-    ("top", r"top(?:s|ped|ping)?|\#\s?1|no\.\s?1|number\s+one"),
+    ("top", r"top(?:s|ped|ping)?|\#\s?1|no\.\s?1|number[-\s]+one"),
     ("record", r"records?|record-[a-z]+|all-time|unprecedented"),
 )
 SUPER = re.compile(r"(?<![\w$-])(?:" + "|".join(f"(?P<{n}>{p})" for n, p in CATEGORIES) + r")(?![\w])", re.IGNORECASE)
@@ -196,7 +236,7 @@ UP = re.compile(r"\b(?:rose|rise[sn]?|rising|gain(?:s|ed|ers?)?|up|higher|rall(?
                 r"|outperform(?:s|ed|ing|ers?)?)\b", re.IGNORECASE)
 DOWN = re.compile(r"\b(?:fell|fall(?:s|ing)?|lost|los(?:s|ses|ers?)|drop(?:s|ped)?|declin(?:e|ed|es|ers)|down|lower|slid"
                   r"|sank|drags?|dragged|shed|laggards?|sell-?offs?|slump(?:s|ed)?|tumbl(?:e|es|ed)|plung(?:e|es|ed)"
-                  r"|underperform(?:s|ed|ing|ers?)?)\b", re.IGNORECASE)
+                  r"|underperform(?:s|ed|ing|ers?)?|routs?|downturns?|weakness|casualt(?:y|ies))\b", re.IGNORECASE)
 SIGNED = re.compile(r"(?<![\w.,%])([+-])\s?\$?\d")   # +2.64%, -$886B (text normalised: the minus sign is "-")
 CLAUSE = re.compile(r"(?<=[.!?])(?<![Nn]o\.)\s+|\n+|;\s*|,?\s+(?:while|whereas|but)\s+|,\s+and\s+", re.IGNORECASE)  # "No. 1"
 SENTENCE = re.compile(r"(?<=[.!?])(?<![Nn]o\.)\s+|\n+")
@@ -236,10 +276,15 @@ SECTOR_SCOPE = re.compile(mk.SECTOR_SCOPE, re.IGNORECASE)   # "led its sector", 
 # the side a neutral word takes from the noun after it / the verb before it
 _LOSS = (r"los(?:e|es|er|ers|s|ses|ing)|lost|drops?|dropped|dropping|declin\w*|fall(?:s|ers?|ing)?|fell|drags?|dragg\w*"
          r"|laggards?|lagg\w*|sell-?offs?|selloffs?|slides?|slid|lower|down|downside|slump\w*|plung\w*|tumbl\w*|hit|damage"
-         r"|sank|sinks?|shed|sheds|wiped|red|retreat\w*|pullbacks?|bleed\w*|crash\w*|sell(?:ing|ers?)?|sold")
+         r"|sank|sinks?|shed|sheds|wiped|red|retreat\w*|pullbacks?|bleed\w*|crash\w*|sell(?:ing|ers?)?|sold"
+         # r4: loss nouns a reviewer found read as the best end ("led the rout", "the top casualty")
+         r"|routs?|downturns?|downdrafts?|weak\w*|casualt(?:y|ies)|disappoint\w*|victims?|pain|carnage|bloodbath"
+         r"|flops?|misses|missed|beaten|battered|punished|cold\w*|poor\w*|underperform\w*|negative|bearish"
+         r"|outflows?|decliners?|bottom\w*|worse|hurt|bruis\w*|stragglers?|deficits?")
 _GAIN = (r"gain\w*|winners?|ris(?:e|es|ers?|ing)|rose|advanc\w*|rall(?:y|ies|ied|ying)|lifts?|lifted|lifting|jump\w*"
          r"|higher|up|upside|climb\w*|surg\w*|soar\w*|perform\w*|green|added|adds?|rebound\w*|bounc\w*|buy(?:ing|ers?)?"
-         r"|bought")
+         r"|bought|outperform\w*|outpac\w*|strength|strong\w*|positive|bullish|hot\w*|inflows?|risers?|recover\w*"
+         r"|better|winning|wins?")
 LOSS_W = re.compile(rf"\b(?:{_LOSS})\b", re.IGNORECASE)
 GAIN_W = re.compile(rf"\b(?:{_GAIN})\b", re.IGNORECASE)
 MOVE_W = re.compile(r"\b(?:moves?|movers?|moving|swings?|changes?|shifts?)\b", re.IGNORECASE)
@@ -260,9 +305,11 @@ AMOUNT = re.compile(r"\$\s?\d")
 GLOBAL_W = re.compile(
     r"\b(?:of|among|in)\s+(?:all\s+)?(?:the\s+)?500\b|\boverall\b"
     r"|\bin\s+the\s+(?:whole\s+|entire\s+|broad\s+|stock\s+|us\s+)?market\b|\bof\s+the\s+(?:day|session)\b"
-    r"|\b(?:of|than)\s+(?:any|every|all)\s+(?:other\s+)?(?:[\w.-]+\s+)?(?:stocks?|compan(?:y|ies)|names?|tickers?|pairs?)\b"
+    r"|\b(?:of|than)\s+(?:any|every|all)\s+(?:other\s+)?(?:(?!(?:" + _SECTOR_ALT + r")\s)[\w.-]+\s+)?"
+    r"(?:stocks?|compan(?:y|ies)|names?|tickers?|pairs?)\b"
     r"|\b(?:any|every)\s+other\s+(?:stock|company|name|ticker)\b|\bin\s+the\s+(?:us|u\.s\.|country|world)\b"
-    r"|\banywhere\b|\bon\s+wall\s+street\b|\bof\s+(?:all\s+|the\s+)?2,?[45]\d\d\b|\bacross\s+the\s+market\b", re.IGNORECASE)
+    r"|\banywhere\b|\bon\s+wall\s+street\b|\bof\s+(?:all\s+|the\s+)?2,?[45]\d\d\b|\bacross\s+the\s+market\b"
+    r"|\bof\s+all\b(?![\s-]+(?:time|500|the\s+500))|\bon\s+the\s+day\b|\bin\s+the\s+(?:whole\s+)?(?:universe|map)\b", re.IGNORECASE)
 BASKET_W = re.compile(r"\b(?:of|among|in)\s+(?:the\s+|these\s+|those\s+)?(?:10|ten)\b|\b(?:10|ten)\s+(?:largest|biggest|mega)"
                       r"|\bmega[-\s]?caps?\b", re.IGNORECASE)
 UNIVERSE_NOUN = re.compile(r"\b(?:stocks?|compan(?:y|ies)|names?|tickers?|los(?:er|ers)|gainers?|winners?|performers?"
@@ -270,34 +317,13 @@ UNIVERSE_NOUN = re.compile(r"\b(?:stocks?|compan(?:y|ies)|names?|tickers?|los(?:
 SEP = re.compile(r"[,;:()\[\]?!]|\s[-–—]\s|\s+(?:and|while|whereas|but|with|as|after|before|when|plus)\s+",
                  re.IGNORECASE)
 PRON_BEFORE = re.compile(r"\b(?:its|their)\s+(?:[\w-]+\s+)?$", re.IGNORECASE)
-# a comparison of two named entities
-COMPARE = re.compile(
-    r"\b(?P<better>(?:did|performed|fared|held\s+up)\s+better\s+than|better\s+than|stronger\s+than|outperform(?:ed|s|ing)?"
-    r"|beat|beats|topped|tops|(?:rose|gained|climbed|added)\s+more\s+than)\b"
-    r"|\b(?P<worse>(?:did|performed|fared)\s+worse\s+than|worse\s+than|weaker\s+than|underperform(?:ed|s|ing)?|trailed"
-    r"|trails|lagged(?:\s+behind)?|(?:fell|dropped|lost|declined|slid)\s+more\s+than)\b", re.IGNORECASE)
 BENCHMARK = {"SPY"}   # the picks' track record compares with SPY (section 1): not a ranking between two stocks
 COMPARE_END = re.compile(r"\b(?:was|were|did|fared|is|are)\s+(?:even\s+)?(?P<w>worse|better|weaker|stronger)\s*[.!?]?\s*$",
                          re.IGNORECASE)
 
-SECTOR_ALIASES = {
-    "Technology": ["technology", "tech"],
-    "Communication Services": ["communication services", "comm services", "communications"],
-    "Consumer Defensive": ["consumer defensive", "consumer staples", "staples"],
-    "Consumer Cyclical": ["consumer cyclical", "consumer discretionary", "discretionary"],
-    "Financial Services": ["financial services", "financials"],
-    "Healthcare": ["healthcare", "health care"],
-    "Industrials": ["industrials"],
-    "Energy": ["energy"],
-    "Basic Materials": ["basic materials", "materials"],
-    "Real Estate": ["real estate"],
-    "Utilities": ["utilities"],
-}
-_ALIAS = sorted(((a, s) for s, al in SECTOR_ALIASES.items() for a in al), key=lambda x: -len(x[0]))
-_SECTOR_ALT = "|".join(re.escape(a) for a, _ in _ALIAS)
 SECTOR_WORD = re.compile(r"(?<![\w$-])(" + _SECTOR_ALT + r")(?![\w])", re.IGNORECASE)
 SECTOR_NEXT = re.compile(r"^\s+(?:dollar\s+)?(" + _SECTOR_ALT + r")(?![\w])", re.IGNORECASE)    # "biggest Tech name"
-SECTOR_IN = re.compile(r"\b(?:in|of|within|inside|among)\s+(?:the\s+)?(" + _SECTOR_ALT + r")(?![\w])", re.IGNORECASE)
+SECTOR_IN = re.compile(r"\b(?:in|of|within|inside|among)\s+(?:the\s+|any\s+|every\s+|all\s+)?(?:other\s+)?(" + _SECTOR_ALT + r")(?![\w])", re.IGNORECASE)
 SECTOR_POSS = re.compile(r"(?<![\w$-])(" + _SECTOR_ALT + r")['’]s\s+(?:[\w-]+\s+)?$", re.IGNORECASE)  # "Tech's biggest"
 TICKER_POSS = re.compile(r"\$([A-Za-z]{1,5}(?:[.-][A-Za-z]{1,2})?)['’]s\s+(?:[\w-]+\s+)?$")         # "$T's closest"
 ALIAS_OF = {a: s for a, s in _ALIAS}
@@ -404,7 +430,8 @@ def claim_view(c: dict) -> dict:
         pol = None   # the lead sector of a market_move ("led the move") before 2026-10-19: no side of its own
     return {"words": words, "subjects": list(dict.fromkeys(subj)), "kind": kind, "polarity": pol, "rank": rank,
             "metric": metric, "universe": c.get("universe"), "date": c.get("date"),
-            "within": list(dict.fromkeys(within)), "scope": c.get("scope"), "bare": bool(c.get("bare")),
+            "within": list(dict.fromkeys(within)), "scope": c.get("scope"),
+            "bare": bool(c.get("bare")) and not subj,
             "direction": c.get("direction"), "needs": c.get("needs"), "says": c.get("says") or ""}
 
 
@@ -438,9 +465,18 @@ def _sign_dirs(s: str) -> set[str]:
     return {"up" if m.group(1) == "+" else "down" for m in SIGNED.finditer(_norm(s))}
 
 
-# A question to the reader asserts nothing ("Which bank print surprised you most this week?"): exempt. Other questions
-# ("Was $WMT the biggest gainer?") are checked like statements.
-READER_QUESTION = re.compile(r"^(?=.*\byou(?:r|rs)?\b).*\?$", re.IGNORECASE | re.DOTALL)
+# A question to the reader asserts nothing ("Which bank print surprised you most this week?"): exempt only when it names
+# no company / sector and the reader is the superlative's subject ("surprised you most", "your biggest"). Any other
+# question ("Was $WMT the biggest gainer?", "Did you know Tech was the top sector?") is checked like a statement (r4).
+_YOU_BEFORE = re.compile(r"\byou(?:r|rs|['’]re)?\b(?:\s+[\w'’-]+){0,2}\s*$", re.IGNORECASE)
+
+
+def _reader_question(cl: str, ents: list) -> bool:
+    if ents or not cl.strip().endswith("?"):
+        return False
+    body = _prep(cl)
+    occ = list(SUPER.finditer(body))
+    return bool(occ) and all(_YOU_BEFORE.search(body[max(0, m.start() - 40):m.start()]) for m in occ)
 
 
 def claim_clauses(text: str, names: list[str] | None = None) -> list[str]:
@@ -452,7 +488,9 @@ def claim_clauses(text: str, names: list[str] | None = None) -> list[str]:
         parts = re.split(r":\s+", c)
         cur = parts[0]
         for p in parts[1:]:
-            if superlatives(cur) or (superlatives(p) and not (tags_in(p) or sectors_in(p, names))):
+            # r4: a lead-in naming a ticker keeps a superlative after the colon that names none ("$AVGO -$74.4B: biggest
+            # dollar drop of any Tech stock": Tech is the scope, $AVGO the subject)
+            if superlatives(cur) or (superlatives(p) and not tags_in(p) and (tags_in(cur) or not sectors_in(p, names))):
                 cur = f"{cur}: {p}"
             else:
                 out.append(cur)
@@ -474,6 +512,33 @@ def _head(o: dict, body: str) -> str:
 
 SECTOR_NOUN = re.compile(r"\b(?:sectors?|groups?|industr(?:y|ies))\b", re.IGNORECASE)
 STOCK_NOUN = re.compile(r"\b(?:stocks?|compan(?:y|ies)|names?|tickers?|shares?|firms?)\b", re.IGNORECASE)
+
+
+# The words "top" / "led" / "#1" may govern and still mean the best end: entity nouns, places in a ranking, pronouns,
+# the ranking's own nouns (mentions, matches). Sector names, cashtags and numbers are dropped first.
+NEUTRAL_OK = re.compile(
+    r"(?:the|a|an|its|their|his|her|this|that|it|them|these|those|our|your|every|all|whole|entire|other|others|rest"
+    r"|sectors?|stocks?|names?|compan(?:y|ies)|groups?|industr(?:y|ies)|performers?|performing|-performing|spots?|places?"
+    r"|positions?|slots?|ranks?|ranking|picks?|tickers?|members?|holdings?|shares?|firms?|list|lists|board|leaderboard"
+    r"|charts?|pack|way|charge|field|market|everything|everyone|peers?|mentions?|chatter|buzz|reddit|wallstreetbets|wsb"
+    r"|match(?:es)?|trades?|one|ones|two|three|four|five|six|seven|eight|nine|ten|mega|caps?|large|us|u\.s\.|us-listed"
+    r"|listed|monday|tuesday|wednesday|thursday|friday|week|weekend|session|day|again|once|overall|again|too|also"
+    r"|largest|biggest|ranked|spot)", re.IGNORECASE)
+_NP_STOP = re.compile(r"\b(?:in|of|on|among|within|inside|by|at|for|with|to|across|over|from|after|before|than|as|when"
+                      r"|since|because|while|during|into|through|vs|versus|and|or|but|was|were|is|are|had|has|did)\b",
+                      re.IGNORECASE)
+
+
+def _neutral_noun_ok(o: dict, body: str) -> bool:
+    """Is the noun phrase a top / led / #1 governs one that keeps the best end (nothing, an entity noun, a sector, a
+    ticker, a place in a ranking)?"""
+    fwd = body[o["e"]:o["seg_end"]]
+    fwd = CASHTAG.sub(" ", SECTOR_WORD.sub(" ", fwd))
+    stop = _NP_STOP.search(fwd)
+    words = re.findall(r"[\w'.-]+", fwd[:stop.start()] if stop else fwd)
+    words = [re.sub(r"['’]s$", "", w.strip("'.")) for w in words]
+    rest = [w for w in words if w and not (re.fullmatch(r"[\d.,%+-]+|\d+(?:st|nd|rd|th)?", w) or NEUTRAL_OK.fullmatch(w))]
+    return not rest
 
 
 def _side(o: dict, body: str, cl: str) -> tuple[str | None, bool]:
@@ -498,7 +563,10 @@ def _side(o: dict, body: str, cl: str) -> tuple[str | None, bool]:
     if o["cat"] in ("led", "top"):
         if CAP_W.search(body[o["seg_start"]:o["seg_end"]]):
             return "size", False              # "#1 by market cap", "led by market value": size
-        return "best", False                  # "top sector", "led on Friday": the best end, whatever the signs
+        # "top sector", "led on Friday", "led Energy", "led its sector": the best end, whatever the signs. Any other
+        # noun ("led the stampede", "the top story") is never guessed to be the best end (r4: "led the rout" was read
+        # as best): no claim backs an unclear side.
+        return ("best" if _neutral_noun_ok(o, body) else "unclear"), False
     if SIZE_WORD.match(o["w"]) and ENTITY_W.search(head):
         return "size", False                  # "the biggest company", "the largest sector": market cap
     wd = _word_dirs(cl)
@@ -525,17 +593,17 @@ def _metric(o: dict, cl: str, side, changed: bool) -> str | None:
     return "usd~" if AMOUNT.search(cl) else None
 
 
-def _scope(o: dict, cl: str, has_ticks: bool, names: list[str]):
+def _scope(o: dict, cl: str, has_ticks: bool, names: list[str], fwd: str | None = None, back: str | None = None):
     """The scope words of one superlative: ("global",), ("basket",), ("sector", S), ("ticker", T), ("pron", own, hist)
     or None."""
-    fwd = cl[o["e"]:o["seg_end"]]
-    back = cl[o["seg_start"]:o["s"]]
+    fwd = cl[o["e"]:o["seg_end"]] if fwd is None else fwd
+    back = cl[o["seg_start"]:o["s"]] if back is None else back
     if GLOBAL_W.search(fwd):
         return ("global",)
     if BASKET_W.search(fwd):
         return ("basket",)
     pron_b = PRON_BEFORE.search(back)
-    own = SECTOR_SCOPE.search(fwd)
+    own = SECTOR_SCOPE.search(fwd) or SECTOR_SCOPE.search(cl[o["e"]:o.get("next_s", len(cl))])
     if pron_b or own or (o["cat"] == "led" and re.match(r"^\s+(?:it|them)\b", fwd)):
         hist = bool(pron_b) and not own and bool(TIME_W.match(fwd))
         return ("pron", bool(own), hist)
@@ -553,11 +621,46 @@ def _scope(o: dict, cl: str, has_ticks: bool, names: list[str]):
     return None
 
 
+SCOPE_MORE = re.compile(r"^\s*(?:,\s*)?(?:and|&|as\s+well\s+as|plus)\s+(?=(?:on|in|of|across|among|within|inside|for)\b)",
+                        re.IGNORECASE)
+FRONT_SECTOR = re.compile(r"^\W*(?:in|within|inside|among)\s+(?:the\s+)?(" + _SECTOR_ALT + r")(?![\w])", re.IGNORECASE)
+
+
+def _scopes(o: dict, cl: str, body: str, has_ticks: bool, names: list[str]) -> list:
+    """Every scope phrase attached to one superlative (r4: "the biggest dollar drop in Technology and on Wall Street"
+    makes two statements; a fronted "In Tech, $CRWV was the worst stock" scopes it too). [None] when it has none."""
+    out = [_scope(o, cl, has_ticks, names)]
+    end = o["seg_end"]
+    while True:
+        m = SCOPE_MORE.match(cl[end:])
+        if not m:
+            break
+        start = end + m.end()
+        nxt = SEP.search(body, start)
+        end = nxt.start() if nxt else len(cl)
+        sc = _scope(o, cl, has_ticks, names, fwd=" " + cl[start:end], back="")
+        if sc and sc[0] != "pron":
+            out.append(sc)
+    if out[0] is None and has_ticks:
+        m = FRONT_SECTOR.match(_blank_names(cl, names))
+        if m:
+            out[0] = ("sector", ALIAS_OF[m.group(1).lower()])
+    real = [x for x in dict.fromkeys(out) if x is not None]
+    return real or [None]
+
+
 def _grp(o: dict, cl: str):
     """Rank wording of one superlative: ("member",), ("count", N), ("nth", k) or None (singular / a list from #1)."""
     back = cl[o["seg_start"]:o["s"]]
     fwd = cl[o["e"]:o["seg_end"]]
-    if MEMBER_BEFORE.search(back) or INCLUDES.search(cl):
+    mb = MEMBER_BEFORE.search(back)
+    if mb or INCLUDES.search(cl):
+        # "one of the two biggest", "among the top 3": a member of exactly the top N (r4: $NVDA #3 passed as "one of
+        # the two biggest")
+        m = COUNT_BEFORE.search(back) or COUNT_AFTER.match(fwd)
+        if m:
+            n = m.group(1).lower()
+            return ("member", int(n) if n.isdigit() else NUM_N[n])
         return ("member",)
     m = ORDINAL_BEFORE.search(back)
     if m:
@@ -574,6 +677,8 @@ def _rank_ok(c: dict, ranked: list[str], grp) -> bool:
     if not ranked:
         return True
     if grp and grp[0] == "member":
+        if len(grp) > 1:
+            return grp[1] <= len(subj) and all(t in subj[:grp[1]] for t in ranked)
         return c["rank"] == "group" or ranked == subj[:1]
     if grp and grp[0] == "count":
         return grp[1] <= len(subj) and set(ranked) == set(subj[:grp[1]])
@@ -583,6 +688,8 @@ def _rank_ok(c: dict, ranked: list[str], grp) -> bool:
 
 
 def _side_ok(c: dict, side) -> bool:
+    if side == "unclear":
+        return False
     if c["polarity"] is None:
         if side in (None, "size"):
             return True
@@ -630,9 +737,138 @@ def _universe_ok(c: dict, sent: str, text: str, noun: str) -> bool:
     return bool(BASKET_W.search(sent)) or (bool(BASKET_W.search(text)) and not UNIVERSE_NOUN.search(noun))
 
 
+# ---------------------------------------------------------------------------
+# Names (r4): a company named without its cashtag ("Microsoft lost $77.2B, the biggest dollar drop", "Only Microsoft
+# rose") is a subject like its cashtag. The item's own names (ticker_names, its company) and the best-known short names.
+
+KNOWN_NAMES = {
+    "apple": "AAPL", "microsoft": "MSFT", "nvidia": "NVDA", "alphabet": "GOOGL", "google": "GOOGL", "amazon": "AMZN",
+    "meta": "META", "facebook": "META", "tesla": "TSLA", "broadcom": "AVGO", "tsmc": "TSM", "taiwan semiconductor": "TSM",
+    "berkshire": "BRK.B", "berkshire hathaway": "BRK.B", "spacex": "SPCX", "netflix": "NFLX", "oracle": "ORCL",
+    "palantir": "PLTR", "walmart": "WMT", "exxon": "XOM", "exxonmobil": "XOM", "jpmorgan": "JPM", "costco": "COST",
+    "eli lilly": "LLY", "lilly": "LLY", "amd": "AMD", "intel": "INTC", "coreweave": "CRWV", "nebius": "NBIS",
+    "sandisk": "SNDK", "salesforce": "CRM", "adobe": "ADBE", "cisco": "CSCO", "chevron": "CVX", "pepsico": "PEP",
+    "pepsi": "PEP", "coca-cola": "KO", "boeing": "BA", "disney": "DIS", "micron": "MU", "qualcomm": "QCOM", "ibm": "IBM",
+    "palo alto networks": "PANW", "crowdstrike": "CRWD", "goldman sachs": "GS", "morgan stanley": "MS",
+    "bank of america": "BAC", "wells fargo": "WFC", "mastercard": "MA", "unitedhealth": "UNH", "home depot": "HD",
+    "procter & gamble": "PG", "johnson & johnson": "JNJ",
+}
+_NAME_SUFFIX = re.compile(r"[,.]?\s+(?:inc|incorporated|corp|corporation|company|co|holdings?|group|plc|p\.l\.c|n\.v|nv"
+                          r"|ltd|limited|s\.a|sa|ag|se|asa|l\.p|lp|llc|trust|platforms|class\s+[a-c])\.?(?=\s|$)",
+                          re.IGNORECASE)
+_GENERIC_NAME = {
+    "space", "british", "american", "general", "united", "first", "national", "international", "global", "bank", "the",
+    "new", "royal", "digital", "advanced", "applied", "texas", "china", "japan", "canadian", "pacific", "southern",
+    "northern", "western", "eastern", "interactive", "fifth", "south", "north", "east", "west", "great", "old", "public",
+    "federal", "capital", "energy", "real", "consumer", "health", "financial", "industrial", "technology", "communication",
+    "communications", "citizens", "regions", "progressive", "equity", "life", "home", "data", "air", "american",
+    "standard", "principal", "smart", "target", "match", "block", "best", "top",
+}
+
+
+def name_map(item: dict) -> dict[str, str]:
+    """{lowercase company name / short name: ticker} for the item (its ticker_names and its own company) and the
+    best-known short names. A person's name (an item with an office) is never a company."""
+    pairs = [(k, v) for k, v in (item.get("ticker_names") or {}).items() if k and isinstance(v, str)]
+    t = item.get("ticker")
+    if t:
+        if isinstance(item.get("company"), str):
+            pairs.append((t, item["company"]))
+        if isinstance(item.get("name"), str) and not item.get("office"):
+            pairs.append((t, item["name"]))
+    out: dict[str, str] = {}
+    for tk, nm in pairs:
+        tk = mk.norm_ticker(tk)
+        base = nm.strip().rstrip(".")
+        cleaned = base
+        while True:
+            nxt = _NAME_SUFFIX.sub("", cleaned).strip(" ,.")
+            if nxt == cleaned:
+                break
+            cleaned = nxt
+        first = cleaned.split()[0] if cleaned.split() else ""
+        for v in (base, cleaned, first):
+            v = v.lower().strip(" ,.")
+            if len(v) >= 3 and v not in _GENERIC_NAME and v not in ALIAS_OF and not v.isdigit():
+                out.setdefault(v, tk)
+    for k, v in KNOWN_NAMES.items():
+        out.setdefault(k, mk.norm_ticker(v))
+    return out
+
+
+_NAME_RX: dict = {}
+
+
+def _name_rx(nmap: dict):
+    key = tuple(sorted(nmap))
+    if key not in _NAME_RX:
+        if len(_NAME_RX) > 64:
+            _NAME_RX.clear()
+        alt = "|".join(re.escape(n) for n in sorted(nmap, key=len, reverse=True))
+        _NAME_RX[key] = re.compile(r"(?<![\w$&.-])(?:" + alt + r")(?![\w&])", re.IGNORECASE) if alt else None
+    return _NAME_RX[key]
+
+
+def entities(cl: str, nmap: dict, names: list[str]) -> list[tuple[int, int, str, str]]:
+    """(start, end, entity, kind) for every cashtag, company name and sector named in cl, in text order (names and
+    sectors inside parentheses are labels, not subjects)."""
+    out = [(m.start(), m.end(), mk.norm_ticker(m.group(1)), "stock") for m in CASHTAG.finditer(cl)]
+    blank = PAREN.sub(lambda m: " " * len(m.group(0)), CASHTAG.sub(lambda m: " " * len(m.group(0)), cl))
+    rx = _name_rx(nmap)
+    if rx:
+        for m in rx.finditer(blank):
+            key = re.sub(r"\s+", " ", m.group(0).lower())
+            if key in nmap:
+                out.append((m.start(), m.end(), nmap[key], "stock"))
+        blank = rx.sub(lambda m: " " * len(m.group(0)), blank)
+    blank = _blank_names(blank, names)
+    out += [(m.start(), m.end(), ALIAS_OF[m.group(1).lower()], "sector") for m in SECTOR_WORD.finditer(blank)]
+    return sorted(out)
+
+
+# A clause that names nothing and refers back ("It was the biggest dollar drop", "The biggest dollar drop of the 500.")
+# is about the company / sector the post named last (or, at the top of a post, the one it names next), never about
+# whatever a claim ranks #1 (r4: "$MSFT lost $77.2B. It was the biggest dollar drop of the 500." passed).
+REF_PRON = re.compile(r"\b(?:it|that|this|they|these|those)\b(?!\s+(?:week|weekend|day|session|month|year|morning|afternoon"
+                      r"|evening|quarter|time|one|ones|stocks?|compan(?:y|ies)|sectors?|names?|moves?|drops?|list|group"
+                      r"|basket|number|figure)\b)", re.IGNORECASE)
+FRAG_LEAD = re.compile(r"^(?:[\W_]|\b(?:and|but|so|also|plus|then|the|a|an|its|their|which|making|marking|second|third"
+                       r"|fourth|fifth|2nd|3rd|4th|5th|one|of|among)\b)*$", re.IGNORECASE)
+GROUP_NOUN = re.compile(r"\b(?:stocks|names|companies|tickers|members|sectors|days?|sessions?|closes?|weeks?)\b",
+                        re.IGNORECASE)
+SECTOR_STOCK = re.compile(r"(?<![\w$-])(?:" + _SECTOR_ALT + r")\s+(?:stocks?|names?|compan(?:y|ies)|tickers?|shares?"
+                          r"|firms?|members?)\b", re.IGNORECASE)   # "of any Tech stock": Tech scopes a stock ranking
+
+
+QUIZ = re.compile(r"\?\s*$")   # a question that names nothing: its answer follows ("The biggest drop? $GOOGL.")
+
+
+OF_NOUN = re.compile(r"^\s*(?:of|among)\s+(?:any|every|all|the|these|those)?\s*(?:other\s+)?(?:[\w.-]+\s+)?"
+                     r"(?:stocks?|names?|compan(?:y|ies)|tickers?|sectors?|groups?|industr(?:y|ies))\b", re.IGNORECASE)
+STOCK_SCOPE_W = re.compile(r"\b(?:of|among|in)\s+(?:all\s+)?(?:the\s+)?500\b|\bof\s+(?:all\s+|the\s+)?2,?[45]\d\d\b",
+                           re.IGNORECASE)
+
+
+def _reference(cl: str) -> str | None:
+    """"pron" (a pronoun subject before the first superlative: "It was the biggest"), "frag" (the clause opens with the
+    superlative: "The biggest dollar drop of the 500.") or None ("Only one of the 10 rose": a subject of its own)."""
+    body = _prep(cl)
+    m = SUPER.search(body)
+    if not m:
+        return None
+    lead = body[:m.start()]
+    if REF_PRON.search(lead):
+        return "pron"
+    if m.lastgroup not in ("only", "first") and FRAG_LEAD.match(lead):
+        return "frag"
+    return None
+
+
 def _clause_reasons(cl: str, claims: list[dict], names: list[str], ctx: dict) -> list[str]:
     body = _prep(cl)
-    ticks, secs = tags_in(cl), sectors_in(cl, names)
+    ents = ctx["ents"]
+    ticks = list(dict.fromkeys(e for _, _, e, k in ents if k == "stock"))
+    secs = list(dict.fromkeys(e for _, _, e, k in ents if k == "sector"))
     named = set(ticks) | set(secs)
     item = ctx["item"]
     occ = [{"cat": m.lastgroup, "s": m.start(), "e": m.end(), "w": m.group(0)} for m in SUPER.finditer(body)]
@@ -652,27 +888,40 @@ def _clause_reasons(cl: str, claims: list[dict], names: list[str], ctx: dict) ->
         if m:
             return [f"window: {m.group(0)!r} - the item's comparisons hold for {item.get('when')}, not one day"]
     seps = [(m.start(), m.end()) for m in SEP.finditer(body)]
-    for o in occ:
+    for i, o in enumerate(occ):
         o["seg_start"] = max([0] + [e for s, e in seps if e <= o["s"]])
         o["seg_end"] = min([len(body)] + [s for s, e in seps if s >= o["e"]])
+        o["next_s"] = occ[i + 1]["s"] if i + 1 < len(occ) else len(body)
     # "Friday's best sector was not Energy" (the part that is true is left unsaid): rejected; a "not" elsewhere in the
     # sentence ("..., not a small move") is not the comparison's
     if any(NEGATION.search(cl[o["seg_start"]:o["seg_end"]]) for o in occ):
         return [f"negated comparison in \"{cl.strip()[:90]}\": state what is true positively (the item's claims say: "
                 + ("; ".join(c["says"] for c in claims if c["says"])[:300] or "none") + ")"]
     dirs = directions(_prep(cl))
+    vdirs = {"up" if _UP_V.match(re.sub(r"\s+", " ", m.group(0))) else "down" for m in MOVE_VERB.finditer(cl)}
     sent, text = ctx["sentence"], ctx["text"]
     secmap = ctx["secmap"]
-    pos = {}
-    for t in ticks:
-        m = re.search(r"(?<![\w$])\$" + re.escape(t).replace(r"\.", r"[.-]") + r"(?![\w])", cl, re.IGNORECASE)
-        pos[t] = m.start() if m else 0
+    ref = ctx.get("ref")
+    inh = ctx.get("inherit") or {}
+    inh_t = inh.get("stock") if ref and not ticks else None
+    inh_s = inh.get("sector") if ref and not ticks and not secs else None
+    has_ticks = bool(ticks or inh_t)
+    named_ext = named | {x for x in (inh_t, inh_s) if x}
+    pos: dict[str, int] = {}
+    for st, _, e, k in ents:
+        if k == "stock":
+            pos.setdefault(e, st)
 
     def scope_ok(c, sc, ranked, noun):
         within = c["within"]
         if sc is None:
             if within:
-                return bool(set(within) & named) or bool(c["scope"] and re.search(c["scope"], cl, re.IGNORECASE))
+                # a ticker's peers ("$PEP moved most like $KO"): the ticker named anywhere; a sector's ranking needs its
+                # scope next to the word ("in Tech", "Tech's", "its sector"), not a sector named elsewhere (r4)
+                wt = [w for w in within if not canon_sector(w)]
+                if not wt:
+                    return False
+                return bool(set(wt) & named_ext) or bool(c["scope"] and re.search(c["scope"], cl, re.IGNORECASE))
             return _universe_ok(c, sent, text, noun)
         k = sc[0]
         if k == "global":
@@ -696,69 +945,98 @@ def _clause_reasons(cl: str, claims: list[dict], names: list[str], ctx: dict) ->
         """A ticker-scoped ranking ("$T moved most like $VZ") names its own ticker first, unless it says whose
         ("$VZ is $T's closest match")."""
         wt = [w for w in c["within"] if w in ticks]
-        if not (wt and ranked) or (sc and sc[0] == "ticker"):
+        if not (wt and ranked) or (sc and sc[0] == "ticker") or ranked[0] not in pos:
             return True
         return min(pos[w] for w in wt) < pos[ranked[0]]
 
     for o in occ:
-        o["scope"] = _scope(o, cl, bool(ticks), names)
+        o["scopes"] = _scopes(o, cl, body, has_ticks, names)
     # a sector that only scopes a stock ranking ("$MSFT led Tech lower", "Tech's biggest drops: $MSFT") is not itself
     # the subject of a sector claim in that clause
-    scope_secs = {o["scope"][1] for o in occ if o["scope"] and o["scope"][0] == "sector"}
+    scope_secs = {sc[1] for o in occ for sc in o["scopes"] if sc and sc[0] == "sector"}
     subj_secs = [s for s in secs if s not in scope_secs]
     backing, covered, fails = [], set(), []
     for o in occ:
         side, changed = _side(o, body, cl)
         metric = _metric(o, cl, side, changed)
-        sc = o["scope"]
         grp = _grp(o, cl)
         seg = cl[o["seg_start"]:o["seg_end"]]
-        noun = re.split(r"\b(?:in|of|on|among|within|inside|by|at|for|with|to|across|over|from)\b", _head(o, body),
+        head = _head(o, body)
+        noun = re.split(r"\b(?:in|of|on|among|within|inside|by|at|for|with|to|across|over|from)\b", head,
                         maxsplit=1, flags=re.IGNORECASE)[0]   # "worst stock in its sector": the noun is "stock"
         if o["cat"] == "led":    # its words are an object ("led its sector", "led Energy"), not the ranked noun
             noun = ""
         only = "sector" if SECTOR_NOUN.search(noun) else "stock" if STOCK_NOUN.search(noun) else None
-        ok = []
-        for c in claims:
-            if o["cat"] not in c["words"] or (only and c["kind"] != only):
-                continue
-            if not (_side_ok(c, side) and _metric_ok(c, metric, side)):
-                continue
-            if c["needs"] and not re.search(c["needs"], cl, re.IGNORECASE):
-                continue
-            if c["direction"] == "mixed" and dirs:
-                continue
-            if c["direction"] in ("up", "down") and dirs and c["direction"] not in dirs:
-                continue
-            pool = subj_secs if c["kind"] == "sector" else ticks
-            ranked = [e for e in pool if e in c["subjects"]]
-            if named:
-                if not ranked:
+        if not only:
+            # "the biggest dollar drop of any Tech stock", "the best of any stock", "the worst of the 500" rank stocks,
+            # not sectors (r4)
+            fwd = cl[o["e"]:o["seg_end"]]
+            om = OF_NOUN.match(fwd)
+            if SECTOR_STOCK.search(fwd) or (om and STOCK_NOUN.search(om.group(0))) or STOCK_SCOPE_W.search(fwd):
+                only = "stock"
+            elif om and SECTOR_NOUN.search(om.group(0)):
+                only = "sector"
+        group_noun = bool(GROUP_NOUN.search(head))
+        per_scope = []
+        for sc in o["scopes"]:
+            ok = []
+            for c in claims:
+                if o["cat"] not in c["words"] or (only and c["kind"] != only):
                     continue
-            elif not c["bare"] or not _date_ok(c, seg):
-                continue
-            if not (scope_ok(c, sc, ranked, noun) and _rank_ok(c, ranked, grp) and order_ok(c, ranked, sc)):
-                continue
-            ok.append((c, ranked))
-        if not ok:
+                if not (_side_ok(c, side) and _metric_ok(c, metric, side)):
+                    continue
+                if c["needs"] and not re.search(c["needs"], cl, re.IGNORECASE):
+                    continue
+                if c["direction"] == "mixed" and dirs:
+                    continue
+                if c["direction"] in ("up", "down") and dirs and c["direction"] not in dirs:
+                    continue
+                if c["kind"] == "sector":
+                    pool = subj_secs or ([inh_s] if inh_s else [])
+                else:
+                    pool = ticks or ([inh_t] if inh_t else [])
+                ranked = [e for e in pool if e in c["subjects"]]
+                # a claim with no direction of its own takes its subjects' move from the item ("The most-mentioned stock
+                # rose" when it fell; r4): a move verb in the clause must agree
+                moved = {ctx["moves"].get(e) for e in ranked}
+                if c["direction"] is None and len(moved) == 1 and None not in moved and vdirs and moved - vdirs:
+                    continue
+                if pool or named:
+                    if not ranked:
+                        continue
+                else:
+                    # nothing named or carried over: only a claim with no subjects ("the strongest up day"), marked
+                    # bare; a clause that refers back to a company takes no subject-less claim unless it speaks of a
+                    # group or a day ("The most-mentioned stocks all fell", not "It had the most mentions")
+                    if c["subjects"] or not c["bare"] or not _date_ok(c, seg):
+                        continue
+                    if ref and (inh_t or inh_s) and not group_noun:
+                        continue
+                if not (scope_ok(c, sc, ranked, noun) and _rank_ok(c, ranked, grp) and order_ok(c, ranked, sc)):
+                    continue
+                ok.append((c, ranked))
+            per_scope.append(ok)
+        if any(not ok for ok in per_scope):
             fails.append((o, side))
-        for c, ranked in ok:
-            covered |= set(ranked) | (set(c["within"]) & named)
-        backing += ok
+        for ok in per_scope:
+            for c, ranked in ok:
+                covered |= set(ranked) | (set(c["within"]) & named)
+            backing += ok
     out = []
     # the object of a comparison ("worse than Energy") is checked by comparison_reasons, not ranked here
     objs = set()
-    ents = _entities(cl, names)
     for m in COMPARE.finditer(cl):
         after = [e for e in ents if e[0] >= m.end() and e[0] - m.end() <= 25]
         if after:
-            objs.add(after[0][1])
+            objs.add(after[0][2])
     miss_e = [e for e in ticks + secs if e not in covered and e not in objs] if named and not fails else []
     if fails or miss_e:
         o, side = fails[0] if fails else (occ[0], None)
-        side_txt = {"best": "best side", "worst": "worst side", "size": "size", None: "no side"}[side]
-        what = ", ".join(ticks + secs) or "no named company or sector"
-        rel = [c for c in claims if (set(c["subjects"]) | set(c["within"])) & named] or claims
+        side_txt = {"best": "best side", "worst": "worst side", "size": "size", None: "no side",
+                    "unclear": "unclear side: say best / worst or gain / loss"}[side]
+        what = ", ".join(ticks + secs) or (f"{inh_t or inh_s} (named before)" if (inh_t or inh_s)
+                                           else "no named company or sector")
+        rel = [c for c in claims if (set(c["subjects"]) | set(c["within"])) & named_ext] or claims
         backed = "; ".join(c["says"] for c in rel if c["says"]) or "none"
         out.append(f"unsupported comparison ({o['w'].lower()}; {side_txt}) about {what} in \"{cl.strip()[:90]}\": "
                    f"only the item's claims may be stated - the #1 for that side and metric, a list only from #1 in order, "
@@ -777,90 +1055,276 @@ def _clause_reasons(cl: str, claims: list[dict], names: list[str], ctx: dict) ->
     return list(dict.fromkeys(out))
 
 
-def _order_backed(claims: list[dict], a: str, b: str, how: str) -> bool:
-    """Is "a <how> b" (better / worse) what a claim's rank order says (one claim ranking both, or a is in a best claim
-    and b in a worst claim of the same kind and metric)?"""
-    for c in claims:
+# Comparisons of two named entities (r4): "better / worse / outperformed / fell more" mean percent unless the clause
+# speaks of dollars ("market value", "dollar", a $ amount); a dollar order never backs a percent comparison. "more /
+# less than $T" after an amount compares the amounts ("$PANW lost $23.1B, more than $MSFT").
+COMPARE = re.compile(
+    r"\b(?P<better>(?:did|performed|fared|held\s+up)\s+better\s+than|better\s+than|stronger\s+than|outperform(?:ed|s|ing)?"
+    r"|outpac(?:ed|es|ing)?|beat|beats|topped|tops|(?:rose|gained|climbed|added|jumped)\s+more\s+than)\b"
+    r"|\b(?P<worse>(?:did|performed|fared)\s+worse\s+than|worse\s+than|weaker\s+than|underperform(?:ed|s|ing)?|trailed"
+    r"|trails|lagged(?:\s+behind)?|(?:fell|dropped|lost|declined|slid|shed)\s+more\s+than)\b"
+    r"|\b(?P<more>more|further|harder|bigger|larger)(?:\s+(?!than\b)[\w$'-]+){0,3}?\s+than\b"
+    r"|\b(?P<less>less|fewer|smaller)(?:\s+(?!than\b)[\w$'-]+){0,3}?\s+than\b", re.IGNORECASE)
+_CMP_LOSS = re.compile(r"\b(?:lost|lose|loses|fell|falls|dropped|drops|declined|slid|shed|sank|tumbled|wiped)\b", re.IGNORECASE)
+_CMP_GAIN = re.compile(r"\b(?:gained|gains|rose|rises|added|adds|jumped|climbed|rallied|surged)\b", re.IGNORECASE)
+
+
+def _cmp_metric(cl: str) -> str:
+    if USD_W.search(cl) or AMOUNT.search(cl):
+        return "usd"
+    if re.search(r"mention|talked|discussed|reddit|buzz", cl, re.IGNORECASE):
+        return "mentions"
+    if re.search(r"\blike\b|\bsync|closely|correlat", cl, re.IGNORECASE):
+        return "sync"
+    return "pct"
+
+
+def _metric_fits(c: dict, metric: str) -> bool:
+    cm = c.get("metric")
+    if metric == "usd":
+        return cm == "usd_change"
+    if metric == "pct":
+        return cm in ("pct_change", None)
+    if metric == "mentions":
+        return cm in ("mentions", "mention_ratio")
+    return cm == metric
+
+
+def _cmp_how(m, cl: str) -> str:
+    how = m.lastgroup
+    if how not in ("more", "less"):
+        return how
+    lead = cl[:m.start()]
+    loss = [x.end() for x in _CMP_LOSS.finditer(lead)]
+    gain = [x.end() for x in _CMP_GAIN.finditer(lead)]
+    if loss or gain:
+        down = (max(loss) if loss else -1) > (max(gain) if gain else -1)
+        more_is_worse = down
+        return ("worse" if more_is_worse else "better") if how == "more" else ("better" if more_is_worse else "worse")
+    return "ahead" if how == "more" else "behind"
+
+
+def _order_backed(claims: list[dict], a: str, b: str, how: str, metric: str = "pct") -> bool:
+    """Is "a <how> b" (better / worse; ahead / behind in a ranking with no good end) what a claim of the comparison's
+    metric says (one claim ranking both, or a in a best claim and b in a worst claim of the same kind and metric)?"""
+    cs = [c for c in claims if _metric_fits(c, metric)]
+    for c in cs:
         s = c["subjects"]
         if a in s and b in s:
             first = s.index(a) < s.index(b)
-            if how == "better" and ((c["polarity"] == "best" and first) or (c["polarity"] == "worst" and not first)):
+            pol = c["polarity"]
+            if how == "better" and ((pol == "best" and first) or (pol == "worst" and not first)):
                 return True
-            if how == "worse" and ((c["polarity"] == "worst" and first) or (c["polarity"] == "best" and not first)):
+            if how == "worse" and ((pol == "worst" and first) or (pol == "best" and not first)):
                 return True
+            if how == "ahead" and first and pol is None:
+                return True
+            if how == "behind" and not first and pol is None:
+                return True
+    if how not in ("better", "worse"):
+        return False
     top = "best" if how == "better" else "worst"
     bottom = "worst" if top == "best" else "best"
-    ka = [c for c in claims if c["polarity"] == top and a in c["subjects"]]
-    kb = [c for c in claims if c["polarity"] == bottom and b in c["subjects"]]
+    ka = [c for c in cs if c["polarity"] == top and a in c["subjects"]]
+    kb = [c for c in cs if c["polarity"] == bottom and b in c["subjects"]]
     return any(x["kind"] == y["kind"] and x.get("metric") == y.get("metric") and not x["within"] and not y["within"]
                for x in ka for y in kb)
 
 
-def _entities(cl: str, names: list[str]) -> list[tuple[int, str, str]]:
-    """(position, entity, kind) for every cashtag and sector named in cl, in text order."""
-    out = [(m.start(), mk.norm_ticker(m.group(1)), "stock") for m in CASHTAG.finditer(cl)]
-    blank = PAREN.sub(lambda m: " " * len(m.group(0)), CASHTAG.sub(lambda m: " " * len(m.group(0)), _blank_names(cl, names)))
-    out += [(m.start(), ALIAS_OF[m.group(1).lower()], "sector") for m in SECTOR_WORD.finditer(blank)]
-    return sorted(out)
-
-
-def comparison_reasons(claims: list[dict], cls: list[str], names: list[str]) -> list[str]:
-    """Two named tickers / sectors compared ("$MSFT did better than $AAPL", "...$CRWV was worse.") need a claim that
-    ranks them that way."""
+def comparison_reasons(claims: list[dict], cls: list[tuple[str, list]]) -> list[str]:
+    """Two named tickers / sectors compared ("$MSFT did better than $AAPL", "...$CRWV was worse.") need a claim of that
+    metric that ranks them that way. cls: (clause, entities) in post order."""
     out = []
-    prev: list[tuple[int, str, str]] = []
-    for cl in cls:
-        ents = _entities(cl, names)
+    prev: list = []
+    for cl, ents in cls:
+        metric = _cmp_metric(cl)
         for m in COMPARE.finditer(cl):
-            how = m.lastgroup
+            how = _cmp_how(m, cl)
             after = [e for e in ents if e[0] >= m.end() and e[0] - m.end() <= 25]
             if not after:
                 continue
             b = after[0]
-            before = [e for e in ents if e[0] < m.start() and e[2] == b[2]]
+            before = [e for e in ents if e[0] < m.start() and e[3] == b[3]]
             if not before:
                 continue
             a = before[-1]
-            if a[1] != b[1] and not {a[1], b[1]} & BENCHMARK and not _order_backed(claims, a[1], b[1], how):
-                out.append(f"unsupported comparison: \"{a[1]} {m.group(0)} {b[1]}\" - no claim of the item ranks them so")
+            if a[2] != b[2] and not {a[2], b[2]} & BENCHMARK and not _order_backed(claims, a[2], b[2], how, metric):
+                out.append(f"unsupported comparison: \"{a[2]} {m.group(0)} {b[2]}\" ({'dollars' if metric == 'usd' else metric}) "
+                           "- no claim of the item ranks them so in that measure")
         me = COMPARE_END.search(cl)
         if me and prev:
             how = "worse" if me.group("w").lower() in ("worse", "weaker") else "better"
             own = [e for e in ents if e[0] < me.start()]
             if own:
                 a = own[-1]
-                bs = [e for e in prev if e[2] == a[2] and e[1] != a[1] and e[1] not in BENCHMARK]
-                if bs and a[1] not in BENCHMARK and not _order_backed(claims, a[1], bs[-1][1], how):
-                    out.append(f"unsupported comparison: \"{a[1]} was {me.group('w')}\" than {bs[-1][1]} - no claim of "
+                bs = [e for e in prev if e[3] == a[3] and e[2] != a[2] and e[2] not in BENCHMARK]
+                if bs and a[2] not in BENCHMARK and not _order_backed(claims, a[2], bs[-1][2], how, metric):
+                    out.append(f"unsupported comparison: \"{a[2]} was {me.group('w')}\" than {bs[-1][2]} - no claim of "
                                "the item ranks them so")
         if ents:
             prev = ents
     return out
 
 
+# Rank numbers (r4): "#3 by dollar drop", "No. 15 by market cap", "the 15th-biggest dollar drop" state a rank: it must be
+# the item's rank of that company for that measure (rank_by_usd / rank_by_cap, or its place in a dollar-move claim).
+_RANK_METRIC = (r"(?P<m>market\s+(?:cap(?:italization)?|value)(?:\s+(?:lost|loss|drop|decline|gained|gain|change|move"
+                r"|wiped))?|size|valuation|dollars?(?:[\s-]+(?:drops?|loss(?:es)?|lost|declines?|falls?|moves?|changes?"
+                r"|gains?|gained|terms))?|percent(?:age)?(?:[\s-]+(?:drops?|loss(?:es)?|declines?|falls?|moves?|gains?))?"
+                r"|%\s+(?:drops?|loss(?:es)?|declines?|falls?|moves?|gains?))")
+RANK_PHRASE = re.compile(
+    r"(?:\#\s?(?P<a>\d{1,4})|\bno\.\s?(?P<b>\d{1,4})|\bnumber\s+(?P<c>\d{1,4})|\b(?P<d>\d{1,4})(?:st|nd|rd|th)"
+    r"(?:[\s-]+(?:biggest|largest|most\s+valuable))?)(?![\w.,])\s*(?:(?:biggest|largest)\s+)?(?:(?:by|in|for)\s+)?"
+    + _RANK_METRIC + r"\b", re.IGNORECASE)
+
+
+def rank_map(item: dict, claims: list[dict]) -> dict:
+    """{(ticker, "usd" | "cap", scope sector or None): (rank, direction)} the item states."""
+    out = {}
+    t = mk.norm_ticker(item.get("ticker")) if item.get("ticker") else None
+    mv = item.get("mover") or {}
+    d = ("down" if (mv.get("usd") or mv.get("pct") or 0) < 0 else "up") if mv else None
+    if t and isinstance(item.get("rank_by_usd"), int):
+        out[(t, "usd", None)] = (item["rank_by_usd"], d)
+    if t and isinstance(item.get("rank_by_cap"), int):
+        out[(t, "cap", None)] = (item["rank_by_cap"], None)
+    for c in claims:
+        metric = {"usd_change": "usd", "market_cap": "cap"}.get(c["metric"])
+        if not metric or c["kind"] != "stock" or c.get("universe"):
+            continue
+        scopes = [w for w in c["within"] if canon_sector(w)] or ([None] if not c["within"] else [])
+        for sc in scopes:
+            for i, s in enumerate(c["subjects"]):
+                out.setdefault((s, metric, sc), (i + 1, c["direction"]))
+    return out
+
+
+_RANK_SECTOR_AFTER = re.compile(r"^\s*(?:(?:in|of|among|within)\s+(?:the\s+)?(" + _SECTOR_ALT + r")(?![\w])"
+                                r"|(?:in|of|among|within)\s+(?:its|their)\s+sector)", re.IGNORECASE)
+
+
+def rank_reasons(item: dict, claims: list[dict], cls: list[tuple[str, list]]) -> list[str]:
+    ranks = rank_map(item, claims)
+    secmap = {mk.norm_ticker(k): canon_sector(v) for k, v in (item.get("ticker_sectors") or {}).items() if v}
+    names = item_names(item)
+    out = []
+    last = mk.norm_ticker(item.get("ticker")) if item.get("ticker") else None
+    for cl, ents in cls:
+        for m in RANK_PHRASE.finditer(_norm(cl)):
+            n = int(next(g for g in m.group("a", "b", "c", "d") if g))
+            mt = m.group("m").lower()
+            metric = ("pct" if ("percent" in mt or "%" in mt) else
+                      "usd" if ("dollar" in mt or re.search(r"lost|loss|drop|decline|gain|change|move|wiped", mt)) else "cap")
+            before = [e for e in ents if e[0] < m.start() and e[3] == "stock"]
+            who = before[-1][2] if before else last
+            # "Tech's #1 by market value", "#1 by market cap in Tech", "#2 in its sector": a rank inside that sector
+            scope = None
+            ps = SECTOR_POSS.search(_blank_names(cl[:m.start()], names))
+            pa = _RANK_SECTOR_AFTER.match(cl[m.end():])
+            if ps:
+                scope = ALIAS_OF[ps.group(1).lower()]
+            elif pa:
+                scope = ALIAS_OF[pa.group(1).lower()] if pa.group(1) else secmap.get(who)
+            got = ranks.get((who, metric, scope)) if who else None
+            if metric == "pct" or got is None:
+                out.append(f"rank: {m.group(0).strip()!r} - the item states no {'percent' if metric == 'pct' else metric} "
+                           f"rank for ${who}{' in ' + scope if scope else ''}" + (
+                               f" (it states: {', '.join(f'${k[0]} #{v[0]} by {k[1]}' + (f' in {k[2]}' if k[2] else '') for k, v in ranks.items())})"
+                               if ranks else ""))
+                continue
+            if got[0] != n:
+                out.append(f"rank: {m.group(0).strip()!r} - ${who} is #{got[0]} by "
+                           f"{'dollar move' if metric == 'usd' else 'market cap'}, not #{n}")
+                continue
+            wd = _word_dirs(mt)
+            if got[1] and wd and got[1] not in wd:
+                out.append(f"rank: {m.group(0).strip()!r} - ${who}'s dollar move was {'a drop' if got[1] == 'down' else 'a gain'}")
+        stocks = [e for e in ents if e[3] == "stock"]
+        if stocks:
+            last = stocks[-1][2]
+    return out
+
+
+# Elliptical follow-ups (r4): "Energy was the best sector, and so was Tech." / "Tech too." / "$MSFT and $NVDA too."
+# attach new subjects to the previous clause's superlative: they are checked as part of it (a singular superlative takes
+# one subject only: "the biggest dollar drop" cannot be three companies).
+ELLIPSIS_W = re.compile(r"\b(?:too|as\s+well|also|likewise|ditto|same\s+(?:for|with|goes\s+for)"
+                        r"|so\s+(?:was|were|did|had|is|are|has|have))\b", re.IGNORECASE)
+_ELLIPSIS_FILL = re.compile(r"(?:and|so|was|were|did|had|is|are|has|have|too|also|as|well|likewise|ditto|same|for|with"
+                            r"|goes|plus|the|a|on|in|of|this|that|week|weekend|session|day|both|" + WEEKDAYS + r")",
+                            re.IGNORECASE)
+PLURAL_HEAD = re.compile(r"\b(?:sectors|stocks|names|companies|drops|declines|losses|gains|gainers|losers|decliners|movers"
+                         r"|moves|performers|winners|tickers|members|groups|matches|peers|firms|laggards|leaders)\b",
+                         re.IGNORECASE)
+
+
+def _elliptical(cl: str, ents: list) -> bool:
+    if not ents or not ELLIPSIS_W.search(cl):
+        return False
+    s = cl
+    for st, en, _, _ in sorted(ents, reverse=True):
+        s = s[:st] + " " + s[en:]
+    s = re.sub(r"[+\-−]?\$?\d[\d.,]*[%×xKMBT]?", " ", s)
+    left = [w for w in re.findall(r"[A-Za-z']+", s) if not _ELLIPSIS_FILL.fullmatch(w)]
+    return not left
+
+
+def ellipsis_reasons(prev_cl: str, cl: str, ents: list, claims: list[dict], names: list[str], ctx: dict) -> list[str]:
+    body = _prep(prev_cl)
+    m = SUPER.search(body)
+    head = " ".join(_words(body[m.end():])[:4]) if m else ""
+    new = list(dict.fromkeys(f"${e}" if k == "stock" else e for _, _, e, k in ents))
+    if not PLURAL_HEAD.search(head):
+        return [f"unsupported comparison: \"{cl.strip()[:60]}\" adds {', '.join(new)} to \"{prev_cl.strip()[:70]}\" - "
+                "only one subject can be the #1 for a singular superlative; state each true claim on its own"]
+    synth = prev_cl.rstrip(" .!?") + ", " + ", ".join(new) + "."
+    sub = dict(ctx, ents=entities(synth, ctx["nmap"], names), ref=None)
+    return _clause_reasons(synth, claims, names, sub)
+
+
 def claim_reasons(item: dict, text: str) -> list[str]:
     """REJECT reasons for comparative / superlative wording the item's claims do not back."""
     claims = [claim_view(c) for c in item.get("claims") or [] if isinstance(c, dict)]
     names = item_names(item)
+    nmap = name_map(item)
     secmap = {mk.norm_ticker(k): canon_sector(v) for k, v in (item.get("ticker_sectors") or {}).items() if v}
     norm = _norm(text or "")
-    ctx = {"item": item, "text": norm, "secmap": secmap, "sector": None}
-    out, all_cls = [], []
+    ctx = {"item": item, "text": norm, "secmap": secmap, "sector": None, "nmap": nmap,
+           "moves": (item.get("moves") or item_moves(item)).get("subjects") or {}}
+    seq = []   # (sentence, clause, entities) in post order
     for sent in SENTENCE.split(norm):
-        if not sent.strip():
-            continue
-        ctx["sentence"] = sent
-        for cl in claim_clauses(sent, names):
-            all_cls.append(cl)
-            if superlatives(cl) and not READER_QUESTION.search(cl.strip()):
+        if sent.strip():
+            for cl in claim_clauses(sent, names):
+                seq.append((sent, cl, entities(cl, nmap, names)))
+    out, last_sup = [], None
+    for i, (sent, cl, ents) in enumerate(seq):
+        ctx["sentence"], ctx["ents"] = sent, ents
+        ref = _reference(cl) if superlatives(cl) else None
+        if superlatives(cl) and not ents and QUIZ.search(cl.strip()):
+            ref = "quiz"    # "Which company lost the most dollars on Friday? $GOOGL.": the answer that follows
+        inherit = {}
+        if ref:
+            for kind in ("stock", "sector"):
+                before = [e[2] for _, _, es in seq[:i] for e in es if e[3] == kind]
+                after = [e[2] for _, _, es in seq[i + 1:] for e in es if e[3] == kind]
+                inherit[kind] = (after[0] if after else None) if ref == "quiz" else (before[-1] if before else None)
+        ctx["ref"], ctx["inherit"] = ref, inherit
+        if superlatives(cl):
+            if not _reader_question(cl, ents):
                 out += _clause_reasons(cl, claims, names, ctx)
-            secs = sectors_in(cl, names)
-            if len(secs) == 1:
-                ctx["sector"] = secs[0]
-            elif len(secs) > 1:
-                ctx["sector"] = None
+            last_sup = cl
+        elif last_sup and _elliptical(cl, ents):
+            out += ellipsis_reasons(last_sup, cl, ents, claims, names, dict(ctx))
+        secs = [e[2] for e in ents if e[3] == "sector"]
+        secs = list(dict.fromkeys(secs))
+        if len(secs) == 1:
+            ctx["sector"] = secs[0]
+        elif len(secs) > 1:
+            ctx["sector"] = None
+    pairs = [(cl, ents) for _, cl, ents in seq]
     if claims:  # an item with no ranking claims (an earnings card, a Form 4) was never ranked: nothing to compare with
-        out += comparison_reasons(claims, all_cls, names)
+        out += comparison_reasons(claims, pairs)
+    out += rank_reasons(item, claims, pairs)
     return list(dict.fromkeys(out))
 
 
@@ -922,10 +1386,129 @@ def card_reasons(item: dict, text: str) -> list[str]:
             f"({m.group(0)!r})"]
 
 
+# A one-session item (r4): a weekday or date other than its session's ("Tech was the worst sector on Thursday") and
+# words of the posting moment ("this morning", "pre-market", "so far") misdate it: Grok posts Friday's facts on Monday.
+PRESENT_W = re.compile(r"\b(?:this\s+(?:morning|afternoon|evening)|overnight|right\s+now|pre-?market|premarket|so\s+far"
+                       r"|intraday|as\s+we\s+speak|at\s+the\s+moment|currently)\b", re.IGNORECASE)
+_DAY_EXEMPT = re.compile(r"\b(?:ahead\s+of|before|into|for|this|next|happy)\s+(?:" + "|".join(
+    ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")) + r")\b"
+    r"|\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)(?:['’]s)?\s+(?:open|opening\s+bell|bell|watchlist"
+    r"|setup|preview|outlook|session\s+ahead|motivation)\b", re.IGNORECASE)
+_ANY_DAY = re.compile(r"\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b", re.IGNORECASE)
+_MDAY = re.compile(r"\b(" + _MONTHS + r")\.?\s+(\d{1,2})\b(?!\s*,?\s*\d{3})", re.IGNORECASE)
+_ISO = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def _item_dates(item: dict) -> list[str]:
+    out = [str(item.get("session_date") or "")[:10]]
+    out += [str(c.get("date") or "")[:10] for c in item.get("claims") or [] if isinstance(c, dict)]
+    out += [str(n) for n in item.get("allowed_numbers") or [] if _ISO.match(str(n))]
+    return [d for d in dict.fromkeys(out) if _ISO.match(d)]
+
+
+def _session_day_words(item: dict, text: str) -> list[str]:
+    if not item.get("session_date"):
+        return []
+    t = _norm(text)
+    bad = [m.group(0) for m in PRESENT_W.finditer(t)]
+    dates = _item_dates(item)
+    days = {dt.date.fromisoformat(d).strftime("%A").lower() for d in dates}
+    mdays = {f"{dt.date.fromisoformat(d).strftime('%b').lower()} {dt.date.fromisoformat(d).day}" for d in dates}
+    blank = _DAY_EXEMPT.sub(lambda m: " " * len(m.group(0)), t)
+    bad += [m.group(0) for m in _ANY_DAY.finditer(blank) if m.group(0).lower() not in days]
+    for m in _MDAY.finditer(t):
+        if f"{m.group(1).lower()[:3]} {int(m.group(2))}" not in mdays:
+            bad.append(m.group(0))
+    return bad
+
+
+# ---------------------------------------------------------------------------
+# 6. Direction (r4): a gain / loss verb next to a number or a company / sector that moved the other way ("Energy fell
+# 2.6%" on a day Energy rose 2.6%; "$GOOGL gained $105.5B"). facts.py stores each item's `moves` (item_moves): the sign
+# of every number it allows with one sign only, and the direction of every company / sector it describes.
+
+_V_UP = (r"rose|gained|jumped|climbed|rallied|added|surged|soared|advanced|rebounded|popped|spiked|ticked\s+up|moved\s+up"
+         r"|up|higher")
+_V_DOWN = (r"fell|lost|dropped|declined|slid|sank|shed|tumbled|slumped|plunged|retreated|gave\s+back|erased|ticked\s+down"
+           r"|moved\s+down|down|lower")
+_FILL = r"(?:\s+(?:by|about|nearly|roughly|almost|around|over|some|a|an|another|just|more\s+than|less\s+than|as\s+much\s+as))*"
+NUM_AFTER_VERB = re.compile(r"\b(?P<v>" + _V_UP + "|" + _V_DOWN + r")\b" + _FILL
+                            + r"\s+(?P<n>[+-]?\$?\d[\d.,]*(?:%|[×x](?![a-z])|[KMBT]\b)?)", re.IGNORECASE)
+VERB_AFTER_ENT = re.compile(r"^\s*(?:\([^()]*\)\s*)?(?:['’]s\s+)?(?:shares\s+|stocks?\s+|names\s+|sector\s+)?"
+                            r"(?:was\s+|were\s+|is\s+|are\s+|ended\s+|closed\s+|finished\s+|traded\s+)?"
+                            r"(?P<v>" + _V_UP + "|" + _V_DOWN + r")\b", re.IGNORECASE)
+_UP_V = re.compile(r"^(?:" + _V_UP + r")$", re.IGNORECASE)
+MOVE_VERB = re.compile(r"\b(?:rose|gained|jumped|climbed|rallied|surged|soared|advanced|rebounded|fell|lost|dropped|declined"
+                       r"|slid|sank|tumbled|slumped|plunged|retreated)\b", re.IGNORECASE)
+
+
+def item_moves(item: dict) -> dict:
+    """{"numbers": {unsigned number: "+" | "-"}, "subjects": {ticker / sector: "up" | "down"}} for one item: numbers
+    the item allows with a single sign, subjects from its movers, sector lists, basket and single-subject claims (a
+    subject seen both ways is left out)."""
+    signs: dict[str, set] = {}
+    for n in item.get("allowed_numbers") or []:
+        n = _norm(str(n))
+        if n[:1] in "+-" and len(n) > 1 and re.search(r"\d", n):
+            signs.setdefault(n[1:], set()).add(n[0])
+    nums = {k: next(iter(v)) for k, v in signs.items() if len(v) == 1}
+    subj: dict[str, set] = {}
+
+    def put(e, x):
+        if e and isinstance(x, (int, float)) and x != 0:
+            subj.setdefault(e, set()).add("up" if x > 0 else "down")
+
+    for r in [item.get("mover") or {}, *(item.get("next_movers") or [])]:
+        put(mk.norm_ticker(r.get("ticker")), r.get("pct"))
+    for r in [*(item.get("best") or []), *(item.get("worst") or [])]:
+        if isinstance(r, dict):
+            put(canon_sector(r.get("sector")), r.get("pct"))
+    for k in ("sector_leaders", "sector_movers"):
+        for r in (item.get(k) or {}).values():
+            if isinstance(r, dict):
+                put(mk.norm_ticker(r.get("ticker")), r.get("pct"))
+    for r in item.get("basket") or []:
+        if isinstance(r, dict):
+            put(mk.norm_ticker(r.get("ticker")), r.get("pct_5d"))
+    lead = item.get("lead") or {}
+    if isinstance(lead, dict):
+        put(mk.norm_ticker(lead.get("ticker")), lead.get("move"))
+    for c in item.get("claims") or []:
+        if isinstance(c, dict) and c.get("direction") in ("up", "down") and len(c.get("subjects") or []) == 1:
+            s0 = c["subjects"][0]
+            e = (canon_sector(s0) or s0) if c.get("kind") == "sector" else mk.norm_ticker(s0)
+            put(e, 1 if c["direction"] == "up" else -1)
+    return {"numbers": nums, "subjects": {k: next(iter(v)) for k, v in subj.items() if len(v) == 1}}
+
+
+def direction_reasons(item: dict, text: str) -> list[str]:
+    mv = item.get("moves") or item_moves(item)
+    nums, subj = mv.get("numbers") or {}, mv.get("subjects") or {}
+    if not (nums or subj):
+        return []
+    names, nmap = item_names(item), name_map(item)
+    out = []
+    for cl in clauses(text):
+        for m in NUM_AFTER_VERB.finditer(cl):
+            up = bool(_UP_V.match(re.sub(r"\s+", " ", m.group("v"))))
+            n = m.group("n").rstrip(".,")
+            sign = n[0] if n[0] in "+-" else nums.get(n)
+            if sign and (sign == "+") != up:
+                out.append(f"direction: {m.group(0).strip()!r} - that number is a {'gain' if sign == '+' else 'loss'} "
+                           "in the item's facts")
+        for st, en, e, k in entities(cl, nmap, names):
+            d = subj.get(e)
+            m = VERB_AFTER_ENT.match(cl[en:]) if d else None
+            if m and (d == "up") != bool(_UP_V.match(re.sub(r"\s+", " ", m.group("v")))):
+                out.append(f"direction: {cl[st:en + m.end()].strip()!r} - {e} {'rose' if d == 'up' else 'fell'} in the "
+                           "item's facts")
+    return list(dict.fromkeys(out))
+
+
 def content_reasons(item: dict, text: str, strip_allowed=None) -> list[str]:
     """Every content check of this module for one text (facts self-check and the validator)."""
     out = (index_reasons(item.get("type"), text, item_names(item)) + claim_reasons(item, text) + sector_reasons(item, text)
-           + card_reasons(item, text) + window_reasons(item, text))
+           + card_reasons(item, text) + window_reasons(item, text) + direction_reasons(item, text))
     if strip_allowed is not None:
         out += scope_reasons(item, text, strip_allowed)
     return out

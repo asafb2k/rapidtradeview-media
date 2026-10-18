@@ -253,8 +253,8 @@ def claim(words, subjects=(), says: str = "", bare: bool = False, direction: str
     (tickers, or map sector names when kind="sector"), polarity ("best" / "worst": which end of the ranking; None: a
     ranking with no good / bad end, e.g. market value, mentions; "auto": best / worst from the words), rank (1: the
     single subject is #1; "group": the subjects are the top N in order; default from the count), within (the sectors /
-    tickers the ranking is inside: the sentence must name one, or match scope), bare (the word may stand without naming
-    a subject), direction ("up" / "down": the subjects' move; the sentence's direction words and signs must agree),
+    tickers the ranking is inside: the sentence must name one, or match scope), bare (a claim with no subjects only: the
+    word may stand without naming a subject), direction ("up" / "down": the subjects' move; the sentence's direction words and signs must agree),
     needs (a pattern the sentence must carry, e.g. "dollar" for a $ ranking), metric (what is ranked: usd_change,
     pct_change, market_cap, mentions, mention_ratio, sync, trades, usd_flow, breadth), universe ("10": the 10-largest
     basket, which a sentence must name), date (a bare claim's session: "the strongest up day" was Oct 15) and says (the
@@ -270,7 +270,7 @@ def claim(words, subjects=(), says: str = "", bare: bool = False, direction: str
     return {"words": list(dict.fromkeys(words)), "subjects": subj, "kind": kind, "polarity": polarity,
             "rank": rank or (1 if len(subj) <= 1 else "group"), "within": list(dict.fromkeys(wi)), "scope": scope,
             "metric": metric, "universe": universe, "date": date,
-            "bare": bool(bare), "direction": direction, "needs": needs, "says": says}
+            "bare": bool(bare) and not subj, "direction": direction, "needs": needs, "says": says}
 
 
 SECTOR_SCOPE = r"\b(?:its|their|each)\s+(?:[a-z]+\s+)?sectors?\b"  # claims.SECTOR_SCOPE: "led its sector"
@@ -655,7 +655,7 @@ def mega_movers(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
         pol = "worst" if down else "best"
         if pos == 1:
             # by_usd[0] is the largest dollar move either way too ("the biggest dollar move"): no polarity needed then
-            claims = [claim(["biggest", "most", "top", "led"], [mv["ticker"]], bare=True, needs=DOLLAR, direction=d,
+            claims = [claim(["biggest", "most", "top", "led"], [mv["ticker"]], needs=DOLLAR, direction=d,
                             polarity=None if r is by_usd[0] else pol, metric="usd_change",
                             says=f"${mv['ticker']}: the biggest dollar {word} among the 500 largest US-listed companies {when}"),
                       claim(["biggest", "most", "top"], [mv["ticker"], *(n["ticker"] for n in nxt)], needs=DOLLAR, direction=d,
@@ -927,11 +927,15 @@ def basket_week(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
               f"{len(up)} of the {n} largest US-listed companies rose {when}.",
               f"What did a mega-cap portfolio do {when}? {signed_pct(mean)}, equal-weighted."]
     if len(up) == 1:
-        claims.append(claim(["only"], [tk(up[0])], bare=True, direction="up", universe="10", says=f"only ${tk(up[0])} of the {n} rose"))
+        # a claim with subjects is never bare (HQ review r4): "Only Microsoft rose" names its subject; "Only one of the
+        # 10 rose" is the count, a claim of its own
+        claims.append(claim(["only"], [tk(up[0])], direction="up", universe="10", says=f"only ${tk(up[0])} of the {n} rose"))
+        claims.append(claim(["only"], [], bare=True, direction="up", universe="10", says=f"only one of the {n} rose"))
         angles[1] = f"Only 1 of the {n} largest US-listed companies rose {when}: ${tk(up[0])}."
     elif len(up) == n - 1:
         dn = next(r for r in rows if r["pct_change_5d"] <= 0)
-        claims.append(claim(["only"], [tk(dn)], bare=True, direction="down", universe="10", says=f"only ${tk(dn)} of the {n} fell"))
+        claims.append(claim(["only"], [tk(dn)], direction="down", universe="10", says=f"only ${tk(dn)} of the {n} fell"))
+        claims.append(claim(["only"], [], bare=True, direction="down", universe="10", says=f"only one of the {n} fell"))
     named = list(dict.fromkeys(tk(r) for r in (worst + best)))
     allowed = [*pct_forms(mean), str(n), *count_forms(len(up)), "5", *date_words(m.session), *date_words(m.p["horizon_from"]["5d"]),
                *(x for r in rows for x in pct_forms(r["pct_change_5d"]))]

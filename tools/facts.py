@@ -1701,6 +1701,9 @@ def self_check(items: list[dict]) -> tuple[list[dict], list[str], int]:
     facts_text fails is not published. (kept items, errors, angles dropped)"""
     kept, errors, dropped = [], [], 0
     for it in items:
+        # the sign of every number the item allows with one sign, and the direction of every company / sector it
+        # describes (claims.direction_reasons: "Energy fell 2.6%" on a day Energy rose; HQ review r4)
+        it["moves"] = cl.item_moves(it)
         bad = cl.content_reasons(it, it.get("facts_text") or "")
         if bad:
             errors.append(f"self-check: {it.get('type')} {it.get('ticker') or it.get('item_id')} not built: {bad[0][:200]}")
@@ -1894,17 +1897,28 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                        "claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst "
                        "= top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the "
                        "top N in order) and a metric (usd_change, pct_change, market_cap, ...): say the side with the "
-                       "noun ('top loser', 'led the drop', 'biggest gainer'; 'top' / 'led' / '#1' alone read as best, "
-                       "whatever number stands beside them), say the metric as the claim does (dollars vs percent vs "
-                       "market cap), the singular ('the biggest drop') only for the rank-1 subject, a list only from #1 "
-                       "in order, 'among the biggest' for other members, 'the two biggest' only for exactly the top 2; "
-                       "'of the 500' / 'overall' only with a claim that has no within, 'of the 10' for the basket; a "
-                       "sector only as a sector claim (kind sector) says, a stock 'within' a sector only with that sector "
-                       "or 'its sector' named; never widen the window ('ever', 'in months', 'of the quarter', 'since "
-                       "September', a week on a one-session item) or call the session 'today' / 'yesterday' unless the "
-                       "item's when does; no negated comparisons; never say a stock led its sector unless "
-                       "sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does "
-                       "not show"),
+                       "noun ('top loser', 'led the drop', 'biggest gainer'; 'top' / 'led' / '#1' alone or with an entity "
+                       "noun ('top sector', 'led its sector') read as best, whatever number stands beside them; with any "
+                       "other noun ('led the rout', 'top casualty') say best / worst instead), say the metric as the "
+                       "claim does (dollars vs percent vs market cap), the singular ('the biggest drop') only for the "
+                       "rank-1 subject, a list only from #1 in order, 'among the biggest' for other members, 'the two "
+                       "biggest' / 'one of the two biggest' only for the top 2; '#N by <metric>' only as the item's "
+                       "rank_by_usd / rank_by_cap / claims state it; 'of the 500' / 'overall' / 'of all' / 'on the day' "
+                       "only with a claim that has no within, 'of the 10' for the basket; a sector only as a sector "
+                       "claim (kind sector) says, a stock 'within' a sector only with that sector next to the word ('in "
+                       "Tech', 'Tech's', 'its sector'); a company named in words (Microsoft) counts as its cashtag; a "
+                       "sentence that names no company ('It was the biggest...', 'The biggest dollar drop of the 500.') "
+                       "is about the one named before it; 'too' / 'so was X' after a superlative adds X to it; a question "
+                       "is checked like a statement (only one about the reader, naming nothing, is exempt); 'did better "
+                       "than' / 'outperformed' / 'fell more than' compare percent unless dollars are named, and need a "
+                       "claim of that metric; never widen the window ('ever', 'in months', 'of the quarter', 'since "
+                       "September', a week on a one-session item) or call the session 'today' / 'yesterday' / 'this "
+                       "morning' / 'pre-market' / another weekday unless the item's when does; no negated comparisons; "
+                       "never say a stock led its sector unless sector_leaders / claims say so; never put a company in a "
+                       "sector its ticker_sectors entry does not show"),
+            "moves": ("each item's moves: numbers = the sign of every number it allows with one sign, subjects = the "
+                      "direction of every company / sector it describes; never put a gain word (rose, gained, up) "
+                      "beside a loss or a loss word beside a gain ('Energy fell 2.6%' when Energy rose)"),
             "pillars": {"P0": "picks + scoreboard (max 1 a day per platform)", "P1": "market day (market_move)",
                         "P2": "big-name movers (mega_mover)",
                         "P3": "smart money in names you know (congress_flow, insider_flow, form4_buy, congress_trade, ptr_summary)",
