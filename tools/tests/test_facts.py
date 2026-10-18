@@ -48,10 +48,10 @@ def crow(ticker, side, traded, filed, low, high, src=PTR, fig=None, **kw):
 
 
 def irow(tid, ticker, value, filed="2026-10-09", side="buy", name="Ramin Kamfar", slug="kamfar-ramin", plan="not_marked",
-         acc="000139834426018110"):
+         acc="000139834426018110", acquisition=None):
     return {"trade_id": tid, "figure": {"kind": "insider", "display_name": name, "slug": slug, "role": "director", "title": None},
             "ticker": ticker, "side": side, "owner": "self", "transaction_date": "2026-10-07", "disclosure_date": filed,
-            "trading_plan": {"status": plan},
+            "trading_plan": {"status": plan}, "acquisition": acquisition,
             "amount": {"low": None, "high": None, "value_usd": value, "value_flag": None},
             "source_url": f"https://www.sec.gov/Archives/edgar/data/1551047/{acc}/index.json"}
 
@@ -175,6 +175,26 @@ def test_form4_material_buys_only():
     assert it["source_url"] == "https://www.sec.gov/Archives/edgar/data/1551047/000139834426018110/0001398344-26-018110-index.htm"
     assert it["office"] == "Director at Bluerock Fund"
     assert "$2.42M" in it["allowed_numbers"] and "2026-10-09" in it["allowed_numbers"]
+
+
+def test_form4_purchases_the_filing_says_were_not_open_market_are_left_out():
+    # Prod PEP 0001061272-26-000004 (2026-10-14): four code-P rows, $23.69M, an asset substitution between the
+    # director's own trusts. The API labels each row; one filing is one item, its open-market rows summed.
+    trust = {"kind": "related_party_transfer", "label": "Acquired via trust or related-party transfer", "evidence": []}
+    pep = "000106127226000004"
+    rows = [irow(10 + i, "PEP", v, name="Robert C. Pohlad", slug="pohlad-robert-c", acc=pep, acquisition=trust)
+            for i, v in enumerate((10_840_557.96, 5_782_221.00, 5_782_221.00, 1_281_388.92))]
+    rows += [irow(1, "BPRE", 2_000_000, acquisition=None),
+             irow(2, "BPRE", 424_164.52, acquisition={"kind": "open_market", "label": None, "evidence": []}),
+             irow(3, "BPRE", 9_000_000, acquisition={"kind": "private_placement", "label": "x", "evidence": []})]
+    f = build(**{"/notable/feed?tab=insiders": {"items": rows, "has_more": False},
+                 "/market/pictures": market_stub({"BPRE": 5e9, "PEP": 2e11})})
+    items = [i for i in f["items"] if i["type"] == "form4_buy"]
+    assert [i["ticker"] for i in items] == ["BPRE"]
+    assert items[0]["rows"] == 2 and items[0]["amount_text"] == "$2.42M"
+    assert "2 open-market purchases" in items[0]["facts_text"]
+    assert f["left_out"]["form4_buy"]["not_open_market"] == 5
+    assert "PEP" not in json.dumps([i for i in f["items"] if i["type"] == "form4_buy"])
 
 
 def test_picks_never_carry_the_number_one():

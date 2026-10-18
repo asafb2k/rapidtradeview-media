@@ -470,7 +470,8 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
     since = target
     while weekday_age(since - dt.timedelta(days=1), target) <= window:
         since -= dt.timedelta(days=1)
-    dropped = {"out_of_window": 0, "not_listed": 0, "sale_or_other": 0, "pre_planned": 0, "flagged_value": 0, "below_minimum": 0,
+    dropped = {"out_of_window": 0, "not_listed": 0, "sale_or_other": 0, "pre_planned": 0, "not_open_market": 0,
+               "flagged_value": 0, "below_minimum": 0,
                "not_renderable": 0, "late_filing_over_90d": 0}
     errors: list[str] = []
     groups: dict[tuple, Trade] = {}
@@ -491,6 +492,13 @@ def gather_trades(api: Api, target: dt.date, window: int, names: dict[str, str],
             continue
         if (it.get("trading_plan") or {}).get("status") == "pre_planned":
             dropped["pre_planned"] += 1
+            continue
+        # The API's reading of the Form 4 (notable_sec::acquisition, 2026-10-18): a code-P row whose filing says the
+        # shares came from a trust, a private placement, an offering or a company plan is not an open-market buy
+        # (PEP 0001061272-26-000004: a director's $23.69M asset substitution between his own trusts).
+        acq = it.get("acquisition")
+        if isinstance(acq, dict) and acq.get("kind") not in (None, "open_market"):
+            dropped["not_open_market"] += 1
             continue
         if amt.get("value_flag") is not None or not isinstance(amt.get("value_usd"), (int, float)):
             dropped["flagged_value"] += 1

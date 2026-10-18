@@ -562,7 +562,7 @@ def congress_items(api, target: dt.date, names: dict[str, str]) -> tuple[list[di
 # Form 4
 
 def form4_items(api, target: dt.date, names: dict[str, str], fame: dict) -> tuple[list[dict], dict, list[str]]:
-    trades, _, errors = ss.gather_trades(api, target, WINDOW_WEEKDAYS, names, fame, pages=1)
+    trades, gathered, errors = ss.gather_trades(api, target, WINDOW_WEEKDAYS, names, fame, pages=1)
     ins = [t for t in trades if t.kind == "insider"]
     dropped = {"below_minimum": 0}
     kept = ss.rank_trades(api, ins, target, fame, [], dropped) if ins else []
@@ -572,7 +572,7 @@ def form4_items(api, target: dt.date, names: dict[str, str], fame: dict) -> tupl
         if isinstance(r, dict):
             rows_by_id[r.get("trade_id")] = r
     left = {"rows_read": len(feed), "filings_passing_filters": len(ins), "below_minimum": dropped["below_minimum"],
-            "no_sec_index": 0}
+            "not_open_market": gathered.get("not_open_market", 0), "no_sec_index": 0}
     items = []
     date = target.isoformat()
     for t in sorted(kept, key=lambda t: (t.filed, t.value_usd), reverse=True):
