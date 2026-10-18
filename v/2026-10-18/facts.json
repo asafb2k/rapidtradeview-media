@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T21:10:22Z",
-  "as_of": "2026-10-18T21:10:22Z",
+  "generated_at": "2026-10-18T21:38:45Z",
+  "as_of": "2026-10-18T21:38:45Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -79,7 +79,7 @@
   },
   "counts": {
     "congress_trade": 0,
-    "form4_buy": 2,
+    "form4_buy": 1,
     "earnings_result": 0,
     "earnings_upcoming": 14,
     "picks_ready": 1,
@@ -100,7 +100,7 @@
   },
   "reasons": {
     "ptr_summary": "6 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "earnings_result": "no earnings report published between 2026-10-17T21:10Z and 2026-10-18T21:10Z",
+    "earnings_result": "no earnings report published between 2026-10-17T21:38Z and 2026-10-18T21:38Z",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
     "insider_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)"
   },
@@ -143,7 +143,8 @@
     "form4_buy": {
       "rows_read": 20,
       "filings_passing_filters": 17,
-      "below_minimum": 11,
+      "below_minimum": 13,
+      "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
@@ -165,7 +166,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 24,
+      "tickers_in_items": 23,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -179,16 +180,15 @@
     "market": {
       "market_session": "2026-10-16",
       "priced_cap_share": 0.9663367467709199,
-      "flows_as_of": "2026-10-18T21:10:31.365542+00:00"
+      "flows_as_of": "2026-10-18T21:38:53.539221+00:00"
     },
     "gates": {
-      "weekend_replay": 11,
+      "weekend_replay": 10,
       "small_cap": 1,
       "cooldown": 0,
       "reasons": [
         "form4_buy BORR: small cap under $2B and a buy under $10M",
         "form4_buy FLSC: weekend, filed before the last weekday session",
-        "form4_buy TRXB: weekend, filed before the last weekday session",
         "form4_buy GOLD: weekend, filed before the last weekday session",
         "congress_trade T: weekend, filed before the last weekday session",
         "congress_trade BRK.B: weekend, filed before the last weekday session",
@@ -206,7 +206,7 @@
       "top8": {
         "small_cap": 0,
         "session_map": 5,
-        "repeat": 5,
+        "repeat": 4,
         "ranked_below": 16,
         "pillars": 6
       }
@@ -242,7 +242,7 @@
     "read": true,
     "own_posts": 47
   },
-  "api_requests": 17,
+  "api_requests": 15,
   "items": [
     {
       "item_id": "2026-10-18-mega-mover-GOOGL-feff17",
@@ -1516,18 +1516,16 @@
       "in_500": false,
       "context_numbers": [
         "$4.4B",
-        "$650M",
-        "+$650M",
-        "$650.0M",
-        "+$650.0M",
+        "$486M",
+        "+$486M",
+        "$486.3M",
+        "+$486.3M",
         "+$4.4B",
         "$4B",
         "+$4B",
         "30"
       ],
-      "context_tickers": [
-        "PEP"
-      ],
+      "context_tickers": [],
       "trigger": null,
       "card": null,
       "claims": [],
@@ -1542,10 +1540,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$650M",
-            "+$650M",
-            "$650.0M",
-            "+$650.0M",
+            "$486M",
+            "+$486M",
+            "$486.3M",
+            "+$486.3M",
             "$4.4B",
             "+$4.4B",
             "$4B",
@@ -1561,7 +1559,7 @@
       "context": {
         "market_cap": "$4.4B",
         "insiders_30d": {
-          "bought": "$650M",
+          "bought": "$486M",
           "sold": "$4.4B"
         }
       },
@@ -1739,138 +1737,92 @@
       "top8": true
     },
     {
-      "item_id": "2026-10-18-form4-buy-PEP-08d02c",
-      "type": "form4_buy",
-      "ticker": "PEP",
+      "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
+      "type": "earnings_reaction",
+      "ticker": "IBKR",
       "tickers": [
-        "PEP"
+        "IBKR"
       ],
-      "name": "Robert C. Pohlad",
-      "office": "Director at PepsiCo, Inc.",
-      "amount_text": "$10.84M",
-      "traded": [
-        "2026-10-14"
-      ],
-      "filed": "2026-10-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/77476/000106127226000004/0001061272-26-000004-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/pohlad-robert-c-1061272?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-form4-buy-PEP-08d02c#trades",
+      "name": "Interactive Brokers Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IBKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-reaction-IBKR-6246d9",
       "allowed_numbers": [
-        "$10.84M",
+        "−3.88%",
+        "3.88%",
+        "−3.9%",
+        "3.9%",
         "2026-10-16",
         "Oct 16, 2026",
         "Oct 16",
-        "2026-10-14",
-        "Oct 14, 2026",
-        "Oct 14"
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3 2026",
+        "Q3"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Robert C. Pohlad (Director at PepsiCo, Inc.) reported an open-market purchase of PEP totaling $10.84M on a Form 4 filed 2026-10-16, traded 2026-10-14.",
-      "dedupe_key": "form4:0001061272-26-000004:PEP",
-      "company": "PepsiCo, Inc.",
-      "side": "buy",
-      "accession": "0001061272-26-000004",
-      "rows": 1,
-      "figure_slug": "pohlad-robert-c-1061272",
-      "amount_top_usd": 10840557.96,
-      "market_cap_usd": 174948718438.8945,
-      "famous_person": null,
-      "row_amounts": [
-        "$10.84M"
+      "facts_text": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close).",
+      "dedupe_key": "earnings_reaction:IBKR:2026-10-15",
+      "pillar": "P5",
+      "session_date": "2026-10-16",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "fiscal_label": "Q3 2026",
+      "move": -3.8823666162966397,
+      "angles": [
+        "$IBKR −3.88% the session after its Q3 2026 report.",
+        "How the market took $IBKR's Q3 2026 numbers: −3.88%.",
+        "$IBKR reported after the close on Oct 15. The next session: −3.88%."
       ],
+      "market_cap_usd": 146579243008.0,
+      "headline": {
+        "tickers": [
+          "IBKR"
+        ],
+        "numbers": [
+          "3.88%",
+          "3.9%"
+        ]
+      },
+      "magnitude": 1.9411833081483199,
+      "trigger": "|next-session move| 3.88% >= 3.0%",
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/pohlad-robert-c-1061272/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/IBKR/opengraph-image",
           "kind": "image",
-          "alt": "Robert C. Pohlad (Director at PepsiCo, Inc.) reported an open-market purchase of PEP totaling $10.84M on a Form 4 filed 2026-10-16, traded 2026-10-14."
+          "alt": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close)."
         }
       ],
-      "rank": 4.5,
-      "rank_why": "form4_buy 2; large cap $174.95B +2.5; magnitude (top $10.84M) +3; filed 2026-10-16 (age 0) +2; posted $PEP on 2026-10-18 -4; same pillar as the newest own post (P3) -1",
-      "pillar": "P3",
-      "market_cap_feed_usd": 179186843648.0,
       "market_cap_source": "market_map",
       "cap_tier": "large",
       "in_500": true,
-      "context_numbers": [
-        "$174.9B",
-        "+2.42%",
-        "2.42%",
-        "+2.4%",
-        "2.4%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "$650M",
-        "+$650M",
-        "$650.0M",
-        "+$650.0M",
-        "$4.4B",
-        "+$4.4B",
-        "$4B",
-        "+$4B",
-        "30"
-      ],
-      "context_tickers": [],
-      "trigger": null,
       "card": null,
       "claims": [],
-      "headline": {
-        "tickers": [
-          "PEP"
-        ],
-        "numbers": []
-      },
       "ticker_sectors": {
-        "PEP": "Consumer Defensive"
+        "IBKR": "Financial Services"
       },
       "ticker_names": {
-        "PEP": "PepsiCo, Inc."
+        "IBKR": "Interactive Brokers Group, Inc."
       },
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$650M",
-            "+$650M",
-            "$650.0M",
-            "+$650.0M",
-            "$4.4B",
-            "+$4.4B",
-            "$4B",
-            "+$4B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$174.9B",
-        "last_session_move": {
-          "pct": "+2.42%",
-          "session": "2026-10-16"
-        },
-        "insiders_30d": {
-          "bought": "$650M",
-          "sold": "$4.4B"
-        }
-      },
-      "angles": [
-        "$10.84M open-market buy of $PEP by its director.",
-        "PepsiCo, Inc. director Robert C. Pohlad bought $10.84M of $PEP.",
-        "Officers and directors sold $4.4B on the open market over 30 days in our feed. This director bought $PEP."
-      ],
       "cooldown": {
-        "same_item_posted_on": [
-          "threads",
-          "x"
-        ],
-        "ticker_last_posted": {},
+        "same_item_posted_on": [],
+        "ticker_last_posted": {
+          "x": "2026-10-14",
+          "instagram": "2026-10-14"
+        },
         "filer_last_posted": null
       },
+      "rank": 4.44,
+      "rank_why": "earnings_reaction 2; large cap $146.58B +2.5; magnitude (market) +1.94; session_date 2026-10-16 (age 0) +2; posted $IBKR on 2026-10-14 -4",
       "top8": true
     },
     {
@@ -3803,96 +3755,6 @@
       "top8_out": "repeat: leads with $FITB like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
     },
     {
-      "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
-      "type": "earnings_reaction",
-      "ticker": "IBKR",
-      "tickers": [
-        "IBKR"
-      ],
-      "name": "Interactive Brokers Group, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/IBKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-reaction-IBKR-6246d9",
-      "allowed_numbers": [
-        "−3.88%",
-        "3.88%",
-        "−3.9%",
-        "3.9%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15",
-        "Q3 2026",
-        "Q3"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close).",
-      "dedupe_key": "earnings_reaction:IBKR:2026-10-15",
-      "pillar": "P5",
-      "session_date": "2026-10-16",
-      "report_date": "2026-10-15",
-      "hour": "amc",
-      "fiscal_label": "Q3 2026",
-      "move": -3.8823666162966397,
-      "angles": [
-        "$IBKR −3.88% the session after its Q3 2026 report.",
-        "How the market took $IBKR's Q3 2026 numbers: −3.88%.",
-        "$IBKR reported after the close on Oct 15. The next session: −3.88%."
-      ],
-      "market_cap_usd": 146579243008.0,
-      "headline": {
-        "tickers": [
-          "IBKR"
-        ],
-        "numbers": [
-          "3.88%",
-          "3.9%"
-        ]
-      },
-      "magnitude": 1.9411833081483199,
-      "trigger": "|next-session move| 3.88% >= 3.0%",
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/IBKR/opengraph-image",
-          "kind": "image",
-          "alt": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "card": null,
-      "claims": [],
-      "ticker_sectors": {
-        "IBKR": "Financial Services"
-      },
-      "ticker_names": {
-        "IBKR": "Interactive Brokers Group, Inc."
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {
-          "x": "2026-10-14",
-          "instagram": "2026-10-14"
-        },
-        "filer_last_posted": null
-      },
-      "rank": 4.44,
-      "rank_why": "earnings_reaction 2; large cap $146.58B +2.5; magnitude (market) +1.94; session_date 2026-10-16 (age 0) +2; posted $IBKR on 2026-10-14 -4",
-      "top8": false,
-      "top8_out": "ranked below the top 8"
-    },
-    {
       "item_id": "2026-10-18-earnings-upcoming-WTFC-3682ae",
       "type": "earnings_upcoming",
       "ticker": "WTFC",
@@ -5436,7 +5298,7 @@
         "MDLZ": "Mondelez International, Inc."
       },
       "top8": false,
-      "top8_out": "repeat: leads with $PEP like 2026-10-18-form4-buy-PEP-08d02c"
+      "top8_out": "ranked below the top 8"
     }
   ]
 }
