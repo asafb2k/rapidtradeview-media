@@ -88,3 +88,19 @@ QA header; an item whose card is not served is left out. The preflight pass refr
 (the map publishes the session about 16:50 ET). `tools/grok_review.py` checks the new rules (cashtags and numbers from
 tickers / allowed_numbers plus the context lists, the market-wording guard, the pinned card) and the variety lint (warn
 first, reject a repeat the same day; state `D:/rtv-ops/tracks/growth/research/grok-variety-state.json`).
+
+Market pillar review fixes (HQ 2026-10-18, before the first Monday pre-market posts). One content rule set,
+`tools/claims.py`, runs in three places: the facts build checks each item's own facts_text and angles (an angle that fails
+is dropped, an item whose text fails is not published), `tools/grok_review.py` checks every draft, and the Growth post audit
+gets it through `grok_review.wording_reasons`. Rules, for every item type: our universe is never the S&P (S&P 500,
+S&P500, SPX, "the index"; only a picks post may compare "vs SPY"), and "largest US-listed", not "largest US companies";
+comparatives and superlatives (led, biggest, worst, most, only, first, ...) only as the item's `claims` back them
+(`market_facts.py` computes them, e.g. `sector_leaders`: the best / worst % move inside each named sector), one claim's
+companies / sectors per sentence; no company put in a sector its `ticker_sectors` entry does not show; the 30-day insider
+totals say "open-market" and "officers and directors" (`scoped_numbers`); a 5-session item's window follows the build date
+(`when`: "this week" only on a weekday of that week, "last week", else "in the week to Oct 16"); a breadth post never
+contradicts its card (`card_message`: a card headlining a broad decline bars "narrow", "concentrated", "typical",
+"median"). Variety in facts: the first 8 items (`top8`) hold at most 2 session-map items, at most one small cap, no lead
+ticker or headline number twice (`headline`), and 4+ pillars when the day has them (`top8_out` says why an item is
+below); the novelty term, the cooldown gate and the validator's rule 7 compare lead tickers across pillars
+(`post_history` headline_tickers). Caps are map-first for every item type (`market_cap_feed_usd` keeps the feed's value).
