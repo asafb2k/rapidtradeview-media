@@ -341,3 +341,126 @@ def test_idioms_that_are_not_claims():
     for t in ("Link in the first comment.", "The report has EPS only: $1.16 vs $1.21.", "Link in bio only."):
         assert gr.wording_reasons(g, t) == [], t
     assert gr.wording_reasons(g, "Only Energy rose on Friday.") != []
+
+
+# Claim polarity and rank (HQ review 2026-10-18 round 2): a claim carries kind (stock / sector), polarity (best / worst /
+# none), rank (1 / group in order) and within (its scope). Every case below is one a reviewer found approved before.
+
+def week_rot():
+    return next(i for i in DOC["items"] if i["type"] == "sector_rotation" and i["window"] == "week")
+
+
+def day_rot():
+    return next(i for i in DOC["items"] if i["type"] == "sector_rotation" and i["window"] == "day")
+
+
+def rejected(it, text):
+    why = gr.wording_reasons(it, text)
+    assert why, text
+    return why
+
+
+def approved(it, text):
+    assert gr.wording_reasons(it, text) == [], text
+
+
+def test_neutral_superlatives_take_the_sentence_polarity():
+    w, d, mm = week_rot(), day_rot(), item("market_move")
+    # the MAJOR: no up / down word, so the direction was never checked; Tech was the WORST sector both windows
+    for it in (w, d, mm):
+        rejected(it, "Tech was the top sector.")
+        rejected(it, "Tech was the top-performing group.")
+        rejected(it, "Tech topped every sector.")
+        rejected(it, "Tech was the biggest winner.")
+    rejected(w, "Industrials led in the week to Oct 16.")                 # a down sector, and only a scope of stock claims
+    rejected(w, "Energy was the top sector in the week to Oct 16.")       # #2: Consumer Defensive was the best
+    rejected(w, "No other sector beat Energy in the week to Oct 16.")
+    rejected(w, "Energy was the worst sector, +5.0%.")
+    rejected(mm, "Technology led the move.")                              # which way? led reads as the best end
+    rejected(w, "Tech was No. 1 in the week to Oct 16.")
+    approved(w, "Consumer Defensive was No. 1 in the week to Oct 16, +5.5%.")
+    approved(w, "Consumer Defensive was the top sector in the week to Oct 16.")
+    approved(w, "Tech was the worst sector in the week to Oct 16, −7.3%.")
+    approved(d, "Energy was the top sector on Friday, +2.6%.")
+    approved(mm, "Technology led the move, −$886B.")
+    approved(mm, "Technology led the drop.")
+    approved(mm, "Energy was the best sector on Friday.")
+
+
+def test_stock_claims_inside_a_sector():
+    w, d = week_rot(), day_rot()
+    rejected(w, "$CIEN was the top stock in Tech in the week to Oct 16.")                 # CIEN was the worst
+    rejected(w, "$SPCX was the biggest market value winner in Industrials in the week to Oct 16.")  # it fell
+    rejected(w, "$COP +9.25% led Consumer Defensive in the week to Oct 16.")              # COP led Energy
+    rejected(w, "$DEO +9.66% led Energy and $COP +9.25% led Consumer Defensive.")         # swapped pairs
+    rejected(w, "$WMT +6.70% outperformed every other stock in Consumer Defensive in the week to Oct 16.")
+    approved(w, "$CIEN −26.02% was the worst stock in Tech in the week to Oct 16.")
+    approved(w, "$DEO +9.66% led its sector in the week to Oct 16.")
+    approved(d, "$GOOGL −2.47% and $NVDA −1.43% were the biggest names by market value moving with their sector.")
+
+
+def test_group_claims_allow_only_group_wording_for_members_below_1():
+    mm, g, b, pv, k = item("market_move"), item("mega_mover", "GOOGL"), item("breadth_day"), item("earnings_week_preview"), item("basket_week")
+    for it in (mm, g, b):
+        rejected(it, "Was $MSFT the biggest dollar loser on Friday?")                     # $GOOGL was #1
+        rejected(it, "$MSFT had the biggest dollar drop on Friday.")
+    rejected(g, "$GOOGL and $MSFT: $MSFT had the biggest dollar drop on Friday, $77.2B.")
+    rejected(g, "$GOOGL fell 2.47% on Friday, but $MSFT was #1 in dollars lost.")
+    rejected(g, "$GOOGL lost $105.5B on Friday; $NVDA was the number one loser by percent at 1.43%.")
+    rejected(mm, "$MSFT and $NVDA were the biggest dollar drops on Friday.")             # a list must start at #1
+    rejected(mm, "$NVDA was the second-biggest dollar drop on Friday.")                    # #3
+    rejected(pv, "$TSLA is the biggest company reporting in the week of Oct 19.")          # $SPCX is
+    rejected(pv, "$PG is the biggest company reporting in the week of Oct 19.")
+    rejected(k, "$TSM was the worst of the 10 largest US-listed companies in the week to Oct 16: −8.98%.")  # $SPCX
+    approved(mm, "$GOOGL, $MSFT and $NVDA were the biggest dollar drops on Friday.")
+    approved(mm, "$MSFT was among the biggest dollar drops on Friday.")
+    approved(mm, "$MSFT was one of the biggest dollar drops on Friday.")
+    approved(mm, "$MSFT was the second-biggest dollar drop on Friday.")
+    approved(mm, "Technology's biggest dollar drops: $MSFT −1.93%, $NVDA −1.43%.")
+    approved(g, "$GOOGL had the biggest dollar drop on Friday.")
+    approved(g, "$GOOGL: the biggest dollar move of the day, $105.5B.")
+    approved(g, "Was $GOOGL the biggest dollar loser on Friday?")
+    approved(pv, "$SPCX is the biggest company reporting in the week of Oct 19.")
+    approved(pv, "$TSLA is among the biggest companies reporting in the week of Oct 19.")
+    approved(k, "$SPCX was the worst of the 10 largest US-listed companies in the week to Oct 16: −10.17%.")
+
+
+def test_a_comparison_stays_inside_the_item_window():
+    g, pep = item("mega_mover", "GOOGL"), item("form4_buy", "PEP")
+    rejected(g, "$GOOGL: the biggest dollar drop of the year. It lost $105.5B on Friday.")
+    rejected(g, "$GOOGL fell 2.47% on Friday. That was the biggest dollar drop in market history: $105.5B.")
+    rejected(g, "$GOOGL lost $105.5B on Friday, the most market value any company has ever lost in a day.")
+    rejected(pep, "An unprecedented buy: director Robert C. Pohlad bought $10.84M of $PEP.")
+    rejected(pep, "Director Robert C. Pohlad made the biggest-ever buy of $PEP: $10.84M.")
+
+
+def test_universe_and_window_wording_found_by_reviewers():
+    pv, bz, g = item("earnings_week_preview"), item("reddit_buzz"), item("mega_mover", "GOOGL")
+    for t in ("60 members of the benchmark index report in the week of Oct 19: $META.",
+              "60 S\u200b&P names report in the week of Oct 19: $META.",
+              "60 index heavyweights report in the week of Oct 19, led by $SPCX."):
+        assert any("universe wording" in r for r in rejected(pv, t)), t
+    assert any("universe wording" in r for r in rejected(bz, "Reddit is talking about $NBIS more than anything in the "
+                                                              "Standard & Poor's 500."))
+    assert any("universe wording" in r for r in rejected(bz, "$NBIS is the Reddit name of the weekend, more than any SPY stock."))
+    assert any("window" in r for r in rejected(pv, "60 of the 500 largest US-listed companies reported earnings over the "
+                                                   "past week, including $META."))
+    assert any("window" in r for r in rejected(g, "$GOOGL lost $105.5B of market value this week (−2.47%)."))
+
+
+def test_old_claims_without_semantics_are_read_safely():
+    """facts.json files built before round 2 (no kind / polarity / rank / within) get the same reading."""
+    w = dict(week_rot())
+    w["claims"] = [{k: v for k, v in c.items() if k in ("words", "subjects", "bare", "direction", "needs", "says")}
+                   | ({"subjects": [*c["subjects"], *c["within"]]} if c.get("within") else {}) for c in w["claims"]]
+    rejected(w, "Tech was the top sector in the week to Oct 16.")
+    rejected(w, "Industrials led in the week to Oct 16.")
+    approved(w, "Tech was the worst sector in the week to Oct 16.")
+    approved(w, "$DEO +9.66% led Consumer Defensive.")
+
+
+def test_moves_like_ranks_its_peers():
+    it = {"type": "moves_like", "ticker": "PEP", "name": "PepsiCo, Inc.", "claims": fx.moves_like_claims("PEP", ["KO", "MDLZ"])}
+    approved(it, "Over 60 sessions, $PEP moved most like $KO.")
+    approved(it, "PepsiCo moved most like $KO, then $MDLZ.")
+    rejected(it, "Over 60 sessions, $PEP moved most like $MDLZ.")                       # #2

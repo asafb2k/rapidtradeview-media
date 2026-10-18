@@ -25,7 +25,8 @@ default (what Grok reads) or a local v/ directory. Checks:
     Moves Like post never touches picks);
   - content (tools/claims.py, every item type; HQ review 2026-10-18): never the S&P for our universe ("the 500 largest
     US-listed stocks"; a picks post may compare "vs SPY"); comparatives / superlatives (led, biggest, worst, most, only,
-    first, ...) only as the item's claims back them, one claim's companies / sectors per sentence; no company put in a
+    first, ...) only as the item's claims back them, one claim's companies / sectors per sentence, on the claim's side
+    (best / worst) and rank (#1 singular, group lists from #1 or "among the"); no company put in a
     sector its ticker_sectors entry does not show; scoped numbers (the 30-day insider totals: "open-market", "officers
     and directors"); nothing that contradicts the item's card (card_message);
   - G-N1 holdout: until 2026-11-21 (New York date of the review, as facts.py and select_stories date things) no
