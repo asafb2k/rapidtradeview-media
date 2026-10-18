@@ -533,6 +533,9 @@ def test_compare_items(tmp_path, capsys):
     assert fx.main(["--compare-items", str(tmp_path / "a.json"), str(tmp_path / "c.json")]) == 1
     assert "1 new, 0 gone" in capsys.readouterr().out
     assert fx.main(["--compare-items", str(tmp_path / "a.json"), str(tmp_path / "missing.json")]) == 2
+    # new rules (a pipeline change) republish the same items once
+    (tmp_path / "d.json").write_text(json.dumps(dict(a, rules={"claims": "new"})), encoding="utf-8")
+    assert fx.main(["--compare-items", str(tmp_path / "a.json"), str(tmp_path / "d.json")]) == 1
 
 
 def test_old_archive_tiles_are_not_fetched():

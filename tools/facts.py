@@ -87,8 +87,8 @@ error).
 
   facts.py --compare-items OLD NEW    OLD / NEW: a file or an https URL (Pages; fetched past its cache). Exit 0 when
                                       both carry the same items (item_id + dedupe_key + media URLs: a card Reel the
-                                      runner adds counts; generated_at and the rest do not), 1 when they differ, 2 when
-                                      one cannot be read.
+                                      runner adds counts; so does a change of the rules block, i.e. a pipeline change;
+                                      generated_at and the rest do not), 1 when they differ, 2 when one cannot be read.
 """
 from __future__ import annotations
 
@@ -1933,10 +1933,15 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
 # Comparing two feeds (the runner publishes only when the item set changed)
 
 def item_set(facts: dict) -> set[tuple[str, str, tuple[str, ...]]]:
-    """item_id, dedupe_key and the media URLs of every item (a card Reel added to an item's media is a change to publish)."""
-    return {(str(i.get("item_id")), str(i.get("dedupe_key")),
-             tuple(str(m.get("url")) for m in i.get("media") or [] if isinstance(m, dict)))
-            for i in facts.get("items") or [] if isinstance(i, dict)}
+    """item_id, dedupe_key and the media URLs of every item (a card Reel added to an item's media is a change to publish),
+    plus one entry for the rules block: new rules (a pipeline change, e.g. the 10-18 review fixes) republish the day's
+    file once; a reworded facts_text alone still does not."""
+    out = {(str(i.get("item_id")), str(i.get("dedupe_key")),
+            tuple(str(m.get("url")) for m in i.get("media") or [] if isinstance(m, dict)))
+           for i in facts.get("items") or [] if isinstance(i, dict)}
+    rules = hashlib.sha1(json.dumps(facts.get("rules") or {}, sort_keys=True).encode("utf-8")).hexdigest()[:12]
+    out.add(("(rules)", rules, ()))
+    return out
 
 
 def read_facts(where: str) -> dict:
