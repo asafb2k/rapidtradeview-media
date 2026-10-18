@@ -275,6 +275,23 @@ def claim(words, subjects=(), says: str = "", bare: bool = False, direction: str
 
 SECTOR_SCOPE = r"\b(?:its|their|each)\s+(?:[a-z]+\s+)?sectors?\b"  # claims.SECTOR_SCOPE: "led its sector"
 
+# Claim phrases (HQ 2026-10-18 allowlist, claims.py section 2b): every comparison / ranking an item backs, as complete
+# sentences with the exact number, window and scope. A post sentence with ranking language must be one of them verbatim.
+US500 = "among the 500 largest US-listed companies"
+ORDW = {1: "", 2: "second-", 3: "third-", 4: "fourth-", 5: "fifth-"}
+
+
+def ordinal_phrases(subjects: list[tuple[str, str]], head: str, noun: str, tail: str, list_head: str | None = None,
+                    lists: tuple[int, ...] = (3, 4)) -> list[str]:
+    """subjects [(subject, number text)] in rank order from #1: "{subject} {head} the {ord}{noun} {tail} ({number})." for
+    the top 5, and "{list_head}, in order: A (x), B (y), C (z)." for each list length in `lists` (cashtags: at most 4)."""
+    out = [f"{s} {head} the {ORDW[i + 1]}{noun} {tail} ({n})." for i, (s, n) in enumerate(subjects[:5])]
+    if list_head:
+        for k in lists:
+            if 2 <= k <= len(subjects):
+                out.append(f"{list_head}, in order: " + ", ".join(f"{s} ({n})" for s, n in subjects[:k]) + ".")
+    return out
+
 
 def headline(tickers=(), numbers=()) -> dict:
     """What an item leads with: its lead tickers and its headline numbers (signs stripped). facts.py keeps two items that
@@ -575,6 +592,20 @@ def market_move(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
         allowed += [*usd_forms(lead[2]), *pct_forms(lead[1])]
     if other:
         allowed += pct_forms(other[1])
+    word = "drop" if down else "gain"
+    phrases = ordinal_phrases([("$" + mv["ticker"], mv["usd_text"]) for mv in movers], "had", f"biggest dollar {word}",
+                              f"{US500} {when}", f"The biggest dollar {word}s {US500} {when}")
+    if lead:
+        lead_usd = (MINUS if lead[2] < 0 else "+") + usd_text(lead[2])
+        phrases.append(f"{lead[0]} had the biggest dollar {word} of any sector {when} ({lead_usd}).")
+        if rows1d and ((down and rows1d[-1][0] == lead[0]) or (not down and rows1d[0][0] == lead[0])):
+            phrases.append(f"{lead[0]} was the {'worst' if down else 'best'} sector {when} ({signed_pct(lead[1])}).")
+        if lead_movers:
+            phrases += ordinal_phrases([("$" + mv["ticker"], mv["usd_text"]) for mv in lead_movers], "had",
+                                       f"biggest dollar {word}", f"in {lead[0]} {when}",
+                                       f"{lead[0]}'s biggest dollar {word}s {when}", (2, 3))
+    if other:
+        phrases.append(f"{other[0]} was the {'best' if down else 'worst'} sector {when} ({signed_pct(other[1])}).")
     top = movers[0] if movers else None
     angles = [f"About {about_usd(total)} {'gone from' if down else 'added to'} the 500 largest US-listed stocks {when}.",
               (f"${top['ticker']} alone {'lost' if down else 'added'} {usd_text(top['usd'])} of market value {when}."
@@ -590,6 +621,7 @@ def market_move(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                                                "movers": lead_movers} if lead else None),
                   counter_sector=({"sector": other[0], "pct": other[1]} if other else None),
                   facts_text=text, allowed_numbers=allowed, angles=[a for a in angles if a], claims=claims,
+                  claim_phrases=phrases,
                   headline=headline([mv["ticker"] for mv in movers[:3]], [about_usd(total), *pct_forms(pct)]),
                   magnitude=min(3.0, abs(pct) / MOVE_TRIGGER * 1.5),
                   trigger=f"|move| {js_fixed(abs(pct), 2)}% >= {MOVE_TRIGGER}%, cap share {js_fixed(share, 3)} >= {MIN_CAP_SHARE}",
@@ -666,11 +698,34 @@ def mega_movers(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                             metric="usd_change", says=f"the biggest dollar {word}s other than ${mv['ticker']}, in order: "
                             + ", ".join("$" + n["ticker"] for n in nxt))]
             allowed += ["100", str(MEGA_TOP)]
+        place_of = {norm_ticker(x["symbol"]): i + 1 for i, x in enumerate(same)}
+        ranked = sorted([mv, *nxt], key=lambda x: place_of.get(x["ticker"], 999))
+        top_run = [x for i, x in enumerate(ranked) if place_of.get(x["ticker"]) == i + 1]   # #1, #2, ... without a gap
+        phrases = ordinal_phrases([("$" + x["ticker"], x["usd_text"]) for x in top_run], "had", f"biggest dollar {word}",
+                                  f"{US500} {when}", f"The biggest dollar {word}s {US500} {when}", (2, 3))
+        if pos and pos > len(top_run):
+            phrases.append(f"${mv['ticker']} was #{pos} by dollar {word} {US500} {when} ({mv['usd_text']}).")
+        move_p = f"${mv['ticker']} had the biggest dollar move {US500} {when} ({mv['usd_text']})."
+        if r is by_usd[0]:
+            phrases.append(move_p)
+        cap_p = f"${mv['ticker']} was #{rank} by market cap {US500} {when}."
+        phrases.append(cap_p)
+        if rank <= MEGA_TOP:
+            phrases.append(f"${mv['ticker']} is one of the {MEGA_TOP} largest US-listed companies by market cap (#{rank}).")
+            allowed += [str(MEGA_TOP)]
+        if pos == 1:
+            angles[1] = move_p if r is by_usd[0] else phrases[0]
+            angles[2] = next((p for p in phrases if ", in order: " in p), phrases[0])
+        else:
+            angles[1] = cap_p
+            angles[2] = (f"${mv['ticker']} was #{pos} by dollar {word} {US500} {when} ({mv['usd_text']})." if pos
+                         else angles[0])
         mag = max(abs(mv["usd"]) / MEGA_USD * 1.5, abs(mv["pct"]) / MEGA_PCT * 1.5)
         out.append(_spec("mega_mover", f"mega_mover:{m.session}:{mv['ticker']}", ticker=mv["ticker"],
                          tickers=[mv["ticker"], *(n["ticker"] for n in nxt)], name=mv["name"], session_date=m.session,
                          when=when, mover=mv, rank_by_cap=rank, rank_by_usd=pos, next_movers=nxt, facts_text=text,
-                         allowed_numbers=allowed, angles=angles, magnitude=min(3.0, mag), trigger=trig, claims=claims,
+                         allowed_numbers=allowed, angles=list(dict.fromkeys(angles)), magnitude=min(3.0, mag), trigger=trig,
+                         claims=claims, claim_phrases=phrases,
                          headline=headline([mv["ticker"]], [usd_text(mv["usd"]), *pct_forms(mv["pct"])]),
                          market_cap_usd=mv["cap"],
                          fingerprint=fingerprint(m.session, mv["ticker"], round(mv["usd"] / 1e8)), card_date=m.session))
@@ -775,6 +830,22 @@ def sector_rotation(m: Market, target: dt.date) -> tuple[list[dict], str | None]
                              needs=r"market (?:value|cap)", metric="market_cap", direction="up" if v["pct"] > 0 else "down",
                              says=f"by market value, ${v['ticker']} was the biggest {short(k)} name moving with its sector "
                                   f"({v['pct_text']})") for k, v in movers.items()]
+        p1 = lambda r: signed_pct(r[1], 1)  # noqa: E731
+        phrases = [f"{short(b0[0])} was the best sector {when} ({p1(b0)}).",
+                   f"{short(w0[0])} was the worst sector {when} ({p1(w0)})."]
+        if len(rows) >= 4:
+            phrases += [f"{short(best[1][0])} was the second-best sector {when} ({p1(best[1])}).",
+                        f"{short(worst[1][0])} was the second-worst sector {when} ({p1(worst[1])}).",
+                        f"The best sectors {when}, in order: " + ", ".join(f"{short(r[0])} ({p1(r)})" for r in best) + ".",
+                        f"The worst sectors {when}, in order: " + ", ".join(f"{short(r[0])} ({p1(r)})" for r in worst) + "."]
+        for k, v in ups:
+            phrases += [f"${v['ticker']} was the best {short(k)} stock {US500} {when} ({v['pct_text']}).",
+                        f"${v['ticker']} led {short(k)} {US500} {when} ({v['pct_text']})."]
+        for k, v in downs:
+            phrases.append(f"${v['ticker']} was the worst {short(k)} stock {US500} {when} ({v['pct_text']}).")
+        for k, v in movers.items():
+            phrases.append(f"By market value, ${v['ticker']} was the biggest {short(k)} name moving with its sector {when} "
+                           f"({v['pct_text']}).")
         allowed = [*pct_forms(all500), "500", *date_words(m.session), js_fixed(spread, 1), *(x for r in named for x in pct_forms(r[1])),
                    *(x for v in [*movers.values(), *leaders.values()] for x in pct_forms(v["pct"]))]
         if win == "week":
@@ -789,7 +860,7 @@ def sector_rotation(m: Market, target: dt.date) -> tuple[list[dict], str | None]
                          best=[{"sector": r[0], "pct": r[1]} for r in best],
                          worst=[{"sector": r[0], "pct": r[1]} for r in worst], spread_pp=round(spread, 2),
                          sector_movers=movers, sector_leaders=leaders, facts_text=text, allowed_numbers=allowed,
-                         angles=angles, claims=claims,
+                         angles=angles, claims=claims, claim_phrases=phrases,
                          # the story is the best and the worst sector: their names lead, the other movers are context
                          headline=headline([movers[k]["ticker"] for k in (b0[0], w0[0]) if k in movers],
                                            [*pct_forms(all500, (1,)), *pct_forms(b0[1], (1,)), *pct_forms(w0[1], (1,))]),
@@ -855,7 +926,21 @@ def breadth_day(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                             says="biggest dollar " + ("drags" if down else "lifts") + ", in order: "
                             + ", ".join("$" + d["ticker"] for d in drags)))
     allowed = [*count_forms(adv), *count_forms(dec), *count_forms(unch), *count_forms(total), f"{share}%", str(share),
-               *pct_forms(pct), "500", *date_words(m.session), *(x for d in drags for x in pct_forms(d["pct"]))]
+               *pct_forms(pct), "500", *date_words(m.session), *(x for d in drags for x in _mover_numbers(d))]
+    phrases = ordinal_phrases([("$" + d["ticker"], d["usd_text"]) for d in drags], "was",
+                              f"biggest dollar {'drag' if down else 'lift'}", f"{US500} {when}",
+                              f"The biggest dollar {'drags' if down else 'lifts'} {US500} {when}", (2, 3))
+    side_n = dec if fell else adv
+    if side_n * 2 > total:
+        phrases.append(f"Most US stocks RapidTradeView tracks {'fell' if fell else 'rose'} {when}: {side_n:,} of {total:,} "
+                       f"({share}%).")
+    if peak:
+        day_of = lead_in(when.replace("on ", ""))
+        phrases += [f"{date_words(peak[0])[2]} was the strongest up day of the last {n_series} closes "
+                    f"(+{peak[1]:,} stocks up minus down).",
+                    f"{day_of} came a day after the strongest up day of the last {n_series} closes.",
+                    f"{day_of} came a day after the strongest up day of the last {n_series} closes "
+                    f"(+{peak[1]:,} on {date_words(peak[0])[2]})."]
     if narrative == "narrow":
         allowed += [*pct_forms(med), *count_forms(up500), *count_forms(priced)]
     if peak:
@@ -874,14 +959,17 @@ def breadth_day(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                    if peak else f"The 500 largest moved {signed_pct(pct)} {when}, and most US stocks moved with them.")]
         card = {"says": f"{with_mkt:,} of {total:,} US stocks {'fell' if down else 'rose'} ({side_share}%): a broad move",
                 "never": (r"\b(?:narrow\w*|concentrat\w*|typical|median|handful|under the surface)\b"
-                          r"|\bfew\s+(?:giants|names|stocks|companies|big)\b|\bonly\s+(?:a\s+few|the\s+giants|the\s+biggest)\b")}
+                          r"|\bfew\s+(?:giants|names|stocks|companies|big)\b|\bonly\s+(?:a\s+few|the\s+giants|the\s+biggest)\b"
+                          # r4 review: "The giants did all the damage", "a Big Tech selloff, not a broad one"
+                          r"|\bgiants?\b|\bmega[\s-]?caps?\b|\bbig\s+tech\b|\bnot\s+(?:a\s+|that\s+|so\s+)?broad"
+                          r"|\ball\s+the\s+damage\b|\baverage\s+(?:stock|company|name)\b|\bheld\s+up\b")}
     mag = min(3.0, max((ratio - 1), abs(pct) / MOVE_TRIGGER * 1.5 if diverge else 0))
     return [_spec("breadth_day", f"breadth_day:{m.session}", session_date=m.session, when=when,
                   tickers=[d["ticker"] for d in drags],
                   breadth={"advancers": adv, "decliners": dec, "unchanged": unch, "total": total, "share_pct": share},
                   median_500=round(med, 4), risers_500=up500, priced_500=priced, cap_weighted_pct=pct, drags=drags,
                   signal=kind, narrative=narrative, card_message=card, facts_text=text, allowed_numbers=allowed,
-                  angles=angles, claims=claims, magnitude=mag,
+                  angles=angles, claims=claims, claim_phrases=phrases, magnitude=mag,
                   headline=headline([d["ticker"] for d in drags], [*count_forms(with_mkt), f"{share}%", *pct_forms(pct)]),
                   trigger=(f"divergence: cap-weighted {signed_pct(pct)} vs median {signed_pct(med)}" if diverge
                            else f"advancers:decliners {js_fixed(ratio, 2)} >= {BREADTH_RATIO}"),
@@ -936,6 +1024,18 @@ def basket_week(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
         dn = next(r for r in rows if r["pct_change_5d"] <= 0)
         claims.append(claim(["only"], [tk(dn)], direction="down", universe="10", says=f"only ${tk(dn)} of the {n} fell"))
         claims.append(claim(["only"], [], bare=True, direction="down", universe="10", says=f"only one of the {n} fell"))
+    b10 = f"the {n} largest US-listed companies"
+    pc = lambda r: signed_pct(r["pct_change_5d"])  # noqa: E731
+    phrases = (ordinal_phrases([("$" + tk(r), pc(r)) for r in best], "was", "best", f"of {b10} {when}",
+                               f"The best of {b10} {when}", (2, 3))
+               + ordinal_phrases([("$" + tk(r), pc(r)) for r in worst], "was", "worst", f"of {b10} {when}",
+                                 f"The worst of {b10} {when}", (2, 3)))
+    if len(up) == 1:
+        phrases += [f"Only ${tk(up[0])} of {b10} rose {when} ({pc(up[0])}).", f"Only 1 of {b10} rose {when}."]
+        angles[1] = f"Only ${tk(up[0])} of {b10} rose {when} ({pc(up[0])})."
+    elif len(up) == n - 1:
+        dn = next(r for r in rows if r["pct_change_5d"] <= 0)
+        phrases += [f"Only ${tk(dn)} of {b10} fell {when} ({pc(dn)}).", f"Only 1 of {b10} fell {when}."]
     named = list(dict.fromkeys(tk(r) for r in (worst + best)))
     allowed = [*pct_forms(mean), str(n), *count_forms(len(up)), "5", *date_words(m.session), *date_words(m.p["horizon_from"]["5d"]),
                *(x for r in rows for x in pct_forms(r["pct_change_5d"]))]
@@ -943,7 +1043,8 @@ def basket_week(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                   context_tickers=named[4:],
                   basket=[{"ticker": tk(r), "pct_5d": r["pct_change_5d"]} for r in rows],
                   excluded=bk["excluded"], mean_5d=round(mean, 4), risers=len(up), facts_text=text, allowed_numbers=allowed,
-                  angles=angles, claims=claims, headline=headline([tk(best[0]), tk(worst[0]), tk(worst[1])], pct_forms(mean)),
+                  angles=angles, claims=claims, claim_phrases=phrases,
+                  headline=headline([tk(best[0]), tk(worst[0]), tk(worst[1])], pct_forms(mean)),
                   magnitude=min(3.0, abs(mean) / BASKET_MIN * 1.5),
                   trigger=f"|equal-weight 5d| {js_fixed(abs(mean), 2)}% >= {BASKET_MIN}%",
                   fingerprint=fingerprint(m.session, round(mean, 3)), card_date=m.session)], None
@@ -993,12 +1094,16 @@ def congress_flow(m: Market, target: dt.date, before: dict | None) -> tuple[list
     angles = [f"{lead['members']} members of Congress traded ${lt} in the last {win.get('days')} days.",
               f"${lt}: the most-traded 500-largest stock in Congress over {win.get('days')} days, {lead['buys']} buys vs {lead['sells']} sells.",
               f"Congress disclosed {tot.get('sells')} sells and {tot.get('buys')} buys in {win.get('days')} days. Most-traded 500-largest name: ${lt}."]
+    phrases = [f"${lt} was the most-traded of the 500 largest US-listed stocks in Congress over {win.get('days')} days "
+               f"({lead['trades']} trades)."]
+    angles[1] = phrases[0]
+    angles[2] = f"Congress disclosed {tot.get('sells')} sells and {tot.get('buys')} buys over {win.get('days')} days. {phrases[0]}"
     claims = [claim(["most", "top", "led", "biggest"], [lt], needs=r"trad", metric="trades",
                     says=f"${lt} was the most-traded 500-largest stock in Congress over {win.get('days')} days (by trades)")]
     return [_spec("congress_flow", f"congress_flow:{c.get('last_disclosure')}:{lt}", ticker=lt,
                   tickers=[lt, *(norm_ticker(x["ticker"]) for x in others)], name=lead.get("name"),
                   window=win, totals=tot, leader=lead, others=others, facts_text=text, allowed_numbers=allowed, angles=angles,
-                  claims=claims, headline=headline([lt]),
+                  claims=claims, claim_phrases=phrases, headline=headline([lt]),
                   market_cap_usd=m.cap(lt), magnitude=min(3.0, lead["trades"] / 4), trigger=due, top5=top5,
                   fingerprint=fingerprint(c.get("last_disclosure"), tot, [(x["ticker"], x["trades"]) for x in tops[:3]]),
                   card_date=c.get("last_disclosure"))], None, top5
@@ -1052,6 +1157,21 @@ def insider_flow(m: Market, target: dt.date, before: dict | None) -> tuple[list[
               f"${lt} insiders: {usd_text((lead_s or lead_b)[0]['total_usd'])} {'sold' if lead_s else 'bought'} in {days} days.",
               (f"For every $1 officers and directors bought on the open market, they sold ${js_fixed(sold / bought, 1)}. "
                f"{'Top seller' if lead_s else 'Top buyer'} among the 500 largest: ${lt}." if bought else "")]
+    feed = f"{US500} over {days} days in our feed"
+    phrases = []
+    if lead_s:
+        phrases += ordinal_phrases([("$" + norm_ticker(x["ticker"]), usd_text(x["total_usd"])) for x in lead_s], "had",
+                                   "largest open-market sells by officers and directors", feed,
+                                   f"The largest open-market sellers {feed}", (2, 3))
+    if lead_b:
+        phrases += ordinal_phrases([("$" + norm_ticker(x["ticker"]), usd_text(x["total_usd"])) for x in lead_b], "had",
+                                   "largest open-market buys by officers and directors", feed,
+                                   f"The largest open-market buyers {feed}", (2,))
+    if bought:
+        ratio_p = (f"For every $1 officers and directors bought on the open market over {days} days in our feed, they sold "
+                   f"${js_fixed(sold / bought, 1)}.")
+        phrases.append(ratio_p)
+        angles[2] = f"{ratio_p} {phrases[0]}" if (lead_s or lead_b) else ratio_p
     claims = []
     if lead_s:
         claims.append(claim(["biggest", "top", "most", "led"], [norm_ticker(x["ticker"]) for x in lead_s], needs=r"sell|sold",
@@ -1068,7 +1188,7 @@ def insider_flow(m: Market, target: dt.date, before: dict | None) -> tuple[list[
                "say": (f"the 30-day totals ({usd_text(bought)} bought, {usd_text(sold)} sold) are open-market buys / sells by "
                        "officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\"")}]
     return [_spec("insider_flow", f"insider_flow:{last}:{lt}", ticker=lt, tickers=list(dict.fromkeys(named))[:4],
-                  claims=claims, scoped_numbers=scoped,
+                  claims=claims, claim_phrases=phrases, scoped_numbers=scoped,
                   headline=headline([norm_ticker(x["ticker"]) for x in (lead_s or lead_b)[:3]], [usd_text(sold), usd_text(bought)]),
                   window=win, bought_usd=bought, sold_usd=sold, buy_companies=i.get("company_count"),
                   sell_companies=sells.get("company_count"), top_sellers_500=lead_s, top_buyers_500=lead_b,
@@ -1142,8 +1262,19 @@ def reddit_buzz(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                     says=f"${first} had the most Reddit mentions of the stocks on the buzz card (ETFs are not ranked there)"),
               claim(["most", "top"], [], bare=True, needs=r"mention|talked|discussed", metric="mentions", direction=buzz_dir,
                     says=f"the {len(rows)} most-mentioned stocks on Reddit (the buzz card's rows)")]
-    angles = [f"Reddit is talking about ${lt} {ratio_text(lr)}{TIMES} more than usual: {lead['mentions']} mentions vs {avg_txt[1 if lead['mentions_avg'] < 9.95 else 0]}.",
-              f"${lt} is the most unusual name on Reddit {span}.",
+    talk = (f"Reddit is talking about ${lt} {ratio_text(lr)}{TIMES} more than usual: {lead['mentions']} mentions vs "
+            f"{avg_txt[1 if lead['mentions_avg'] < 9.95 else 0]}.")
+    phrases = [talk, f"${lt} had the highest mentions-vs-usual ratio of the top {len(rows)} stocks on Reddit "
+                     f"({ratio_text(lr)}{TIMES} usual)."]
+    phrases.append(f"${first} had the most Reddit mentions of the stocks on the buzz card"
+                   + (f" ({lead['mentions']})." if first == lt else "."))
+    if moved:
+        phrases.append(f"{fell} of the {len(moved)} most-mentioned stocks with a close for {date_words(session)[2]} fell "
+                       "that day." if fell * 2 >= len(moved) else
+                       f"{len(moved) - fell} of the {len(moved)} most-mentioned stocks with a close for "
+                       f"{date_words(session)[2]} rose that day.")
+    angles = [talk,
+              phrases[1],
               (f"${lt} moved {signed_pct(lead_move)}, and Reddit noticed: {ratio_text(lr)}{TIMES} its usual mentions."
                if isinstance(lead_move, (int, float)) else "")]
     return [_spec("reddit_buzz", f"reddit_buzz:{bz.get('trade_date')}:{lt}", ticker=lt,
@@ -1154,7 +1285,7 @@ def reddit_buzz(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
                   others=[{"ticker": norm_ticker(s["ticker"]), "ratio": round(ratio(s), 3)} for s in others],
                   top_rows=len(rows), fell=fell, with_close=len(moved), facts_text=text, allowed_numbers=allowed,
                   angles=[a for a in angles if a], market_cap_usd=m.cap(lt), magnitude=min(3.0, math.log2(lr)),
-                  claims=claims, headline=headline([lt], [ratio_forms(lr)[0]]),
+                  claims=claims, claim_phrases=phrases, headline=headline([lt], [ratio_forms(lr)[0]]),
                   trigger=f"${lt} {ratio_text(lr)}x usual >= {BUZZ_TOP20_HOT if top20 and lr < BUZZ_HOT else BUZZ_HOT}x",
                   fingerprint=fingerprint(bz.get("trade_date"), lt, lead["mentions"], session),
                   card_date=session)], None
@@ -1200,10 +1331,18 @@ def earnings_week_preview(m: Market, target: dt.date, week: dict | None, monday:
     angles = [f"{len(uniq)} big names report {when}. The biggest: ${t0['ticker']} on {dt.date.fromisoformat(t0['date']).strftime('%A')}.",
               f"${show[0]['ticker']}, ${show[1]['ticker']} and ${show[2]['ticker']} all report {when}.",
               f"Which report are you watching {when}: ${show[0]['ticker']} or ${show[1]['ticker']}?"]
+    phrases = ordinal_phrases([("$" + r["ticker"], "by market value, confirmed dates") for r in show], "is",
+                              "largest company reporting earnings", when)
+    for k in (3, 4):
+        if len(show) >= k:
+            phrases.append(f"The largest companies reporting earnings {when} (by market value, confirmed dates), in order: "
+                           + ", ".join("$" + r["ticker"] for r in show[:k]) + ".")
+    angles[0] = phrases[0]
+    angles[1] = f"${show[0]['ticker']}, ${show[1]['ticker']} and ${show[2]['ticker']} report {when}."
     claims = [claim(["biggest", "top", "led", "most"], [r["ticker"] for r in show], metric="market_cap",
                     says="largest by market value among the confirmed $10B+ reporters, in order: " + ", ".join("$" + r["ticker"] for r in show))]
     return [_spec("earnings_week_preview", f"earnings_week_preview:{monday.isoformat()}", tickers=[r["ticker"] for r in show[:4]],
-                  context_tickers=[r["ticker"] for r in show[4:]], when=when, claims=claims,
+                  context_tickers=[r["ticker"] for r in show[4:]], when=when, claims=claims, claim_phrases=phrases,
                   headline=headline([r["ticker"] for r in show[:3]]),
                   week_of=monday.isoformat(), reporters=show, reporters_total=len(uniq), facts_text=text,
                   market_cap_usd=show[0]["cap"],

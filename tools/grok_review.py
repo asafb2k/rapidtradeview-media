@@ -24,9 +24,10 @@ default (what Grok reads) or a local v/ directory. Checks:
   - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
     Moves Like post never touches picks);
   - content (tools/claims.py, every item type; HQ review 2026-10-18): never the S&P for our universe ("the 500 largest
-    US-listed stocks"; a picks post may compare "vs SPY"); comparatives / superlatives (led, biggest, worst, most, only,
-    first, ...) only as the item's claims back them, one claim's companies / sectors per sentence, on the claim's side
-    (best / worst) and rank (#1 singular, group lists from #1 or "among the"); no company put in a
+    US-listed stocks"; a picks post may compare "vs SPY"); a sentence with any ranking / comparison / order / quantifier
+    / record / streak / ratio language (best, biggest, most, top, led, #N, second, next, then, only, all, every, since,
+    again, double, more than, beat, missed, ...) only as one of the item's claim_phrases verbatim (HQ 2026-10-19
+    allowlist; an item from an older facts file without claim_phrases keeps its `claims` reading); no company put in a
     sector its ticker_sectors entry does not show; scoped numbers (the 30-day insider totals: "open-market", "officers
     and directors"); nothing that contradicts the item's card (card_message);
   - G-N1 holdout: until 2026-11-21 (New York date of the review, as facts.py and select_stories date things) no

@@ -55,10 +55,12 @@ Top 8 (HQ review 2026-10-18, diversify_top): the first 8 items of the file are a
 cap, at most 2 session-map items (market_move, mega_mover, sector_rotation, breadth_day, basket_week: one selloff cannot
 fill the menu), no headline ticker or headline number of one top-8 item repeated by another (item.headline), and at least
 4 distinct pillars when the day has them. Every item carries top8 (bool) and, below the top 8, top8_out (why).
-Content (tools/claims.py): every item carries claims (the comparative / superlative statements it backs: led, biggest,
-worst, most, only, first, ...), ticker_sectors / ticker_names (from the market map) and, where needed, scoped_numbers and
-card_message; each item's own facts_text and angles must pass claims.content_reasons (an angle that fails is dropped, an
-item whose facts_text fails is not published: errors "self-check: ..."). Caps are map-first: an item's market_cap_usd is
+Content (tools/claims.py): every item carries claim_phrases (HQ 2026-10-19 allowlist: the complete sentences, built from
+the data with exact numbers, window and scope, that state every comparison / ranking the item backs; a post sentence with
+any ranking language must be one of them verbatim), claims (the older structured reading, kept for direction / dates),
+ticker_sectors / ticker_names (from the market map) and, where needed, scoped_numbers and card_message; each item's
+claim_phrases and angles pass every post check (one that fails is dropped) and its facts_text every check but the
+allowlist (an item whose facts_text fails is not published: errors "self-check: ..."). Caps are map-first: an item's market_cap_usd is
 the market map's when the company is in it (market_cap_source "market_map"; the feed's own value stays in
 market_cap_feed_usd), so one company shows one cap across item types.
 chart_pattern and moves_like carry banned_words of their own (PREDICTION_WORDS): descriptive wording only.
@@ -382,6 +384,7 @@ def make_item(date: str, kind: str, ticker: str | None, key: str, path: str, **f
         "name": None, "office": None, "amount_text": None, "traded": [], "filed": None,
         "source_url": None, "page_url": page_url(path, iid, kind), "allowed_numbers": [],
         "must_include": [DISCLAIMER], "facts_text": "", "dedupe_key": key,
+        "claim_phrases": [],   # the comparisons a post may state, verbatim (claims.py section 2b, HQ 2026-10-19)
     }
     item.update(fields)
     item["allowed_numbers"] = uniq(item["allowed_numbers"])
@@ -1487,6 +1490,60 @@ def moves_like_claims(ticker: str, peers: list[str | None]) -> list[dict]:
                      says=f"${ticker} moved most like " + ", then ".join("$" + p for p in peers) + " (by Sync)")]
 
 
+def moves_like_phrases(item: dict) -> list[str]:
+    """Claim phrases (claims.py section 2b) of a Moves Like item: its peers in Sync order, with the window."""
+    t, n, sess = item.get("ticker"), item.get("window_sessions"), item.get("session")
+    peers = [p for p in item.get("peers") or [] if isinstance(p, dict) and p.get("ticker") and isinstance(p.get("sync"), int)]
+    if not (t and n and sess and peers):
+        return []
+    lead = f"Over the {n} sessions before {mk.date_words(sess)[1]}"
+    p0 = peers[0]
+    out = [f"{lead}, ${t} moved most like ${mk.norm_ticker(p0['ticker'])} (Sync {p0['sync']}).",
+           f"Over {n} sessions, ${t} moved most like ${mk.norm_ticker(p0['ticker'])} (Sync {p0['sync']})."]
+    for i, p in enumerate(peers[1:4], start=2):
+        out.append(f"{lead}, ${mk.norm_ticker(p['ticker'])} was the {mk.ORDW[i]}closest peer of ${t} by Sync ({p['sync']}).")
+    if len(peers) >= 2:
+        out.append(f"{lead}, ${t}'s closest peers by Sync, in order: "
+                   + ", ".join(f"${mk.norm_ticker(p['ticker'])} ({p['sync']})" for p in peers[:3]) + ".")
+    return out
+
+
+def earnings_phrases(item: dict) -> list[str]:
+    """Claim phrases of an earnings_result: beat / missed / in line per compared figure, from the report data's verdicts,
+    in the formats our posts use ("$UNH Q3 2026 revenue: $112.7B vs $111.49B consensus (beat by $1.21B).")."""
+    t, fl, res = item.get("ticker"), (item.get("fiscal_label") or "").strip(), item.get("results") or {}
+    q = re.match(r"^(Q[1-4])\b", fl)
+    labels = list(dict.fromkeys([x for x in (fl, q.group(1) if q else None) if x]))
+    out, verdicts = [], []
+    for key in ("revenue", "eps"):
+        m = res.get(key) or {}
+        v, rep_, cons = m.get("verdict"), m.get("reported"), m.get("consensus")
+        if v not in ("beat", "miss", "in_line") or not rep_ or not cons:
+            continue
+        verdicts.append(v)
+        names = ["revenue"] if key == "revenue" else list(dict.fromkeys(
+            [n for n in ("EPS", str(m.get("basis") or "").strip()) if n and len(n) <= 40]))
+        by = re.match(r"^(?:Beat|Missed)\s+by\s+(\S+)$", str(m.get("label") or ""))
+        verb = {"beat": "beat", "miss": "missed"}.get(v)
+        for lab in labels:
+            for name in names:
+                if v == "in_line":
+                    out.append(f"${t} {lab} {name} was in line with the consensus: {rep_} vs {cons}.")
+                    continue
+                out += [f"${t} {verb} the {lab} {name} consensus: {rep_} vs {cons}.",
+                        f"${t} {lab} {name}: {rep_} vs {cons} consensus ({verb} by {by.group(1)})." if by else None,
+                        f"${t} {lab} {name} {rep_}, {verb} by {by.group(1)}." if by else None,
+                        f"{name} {rep_} vs {cons} consensus ({verb} by {by.group(1)})." if by else None,
+                        f"{name} {rep_} vs {cons} ({verb} by {by.group(1)})." if by else None,
+                        f"${t} {verb} {lab} {name} estimates by {by.group(1)}." if by else None]
+    for lab in labels:
+        if verdicts and all(v == "beat" for v in verdicts):
+            out.append(f"${t} beat {lab} estimates.")
+        elif verdicts and all(v == "miss" for v in verdicts):
+            out.append(f"${t} missed {lab} estimates.")
+    return list(dict.fromkeys(x for x in out if x))
+
+
 def enrich(items: list[dict], m: "mk.Market") -> None:
     """pillar, cap fill (the map's company cap when the item has none), cap_tier, in_500, context_numbers /
     context_tickers (numbers computed from our API: the cap, the last session's move, the 30-day flow totals), angles,
@@ -1522,8 +1579,12 @@ def enrich(items: list[dict], m: "mk.Market") -> None:
                 if row.get("name"):
                     names[mk.norm_ticker(x)] = row["name"]
         it["ticker_sectors"], it["ticker_names"] = secs, names
+        it.setdefault("claim_phrases", [])
         if kind == "moves_like" and t and it.get("peers"):
             it["claims"] = moves_like_claims(t, [(p or {}).get("ticker") for p in it["peers"]])
+            it["claim_phrases"] = moves_like_phrases(it)
+        if kind == "earnings_result":
+            it["claim_phrases"] = earnings_phrases(it)
         if kind in mk.MARKET_TYPES:
             continue
         ctx: dict = {}
@@ -1697,18 +1758,29 @@ def diversify_top(items: list[dict]) -> tuple[list[dict], dict]:
 
 
 def self_check(items: list[dict]) -> tuple[list[dict], list[str], int]:
-    """Each item's own facts_text and angles through claims.content_reasons: an angle that fails is dropped, an item whose
-    facts_text fails is not published. (kept items, errors, angles dropped)"""
+    """Each item's own facts_text, claim_phrases and angles through claims.content_reasons: a claim phrase or an angle that
+    fails (or prints a number the item does not allow) is dropped, an item whose facts_text fails is not published. The
+    facts_text is the data sheet and states its rankings in its own words (no allowlist on it); claim phrases and angles
+    are what a post may copy, so they pass every check a post does. (kept items, errors, phrases + angles dropped)"""
+    import grok_review as gr  # noqa: PLC0415 (grok_review imports this module)
     kept, errors, dropped = [], [], 0
     for it in items:
         # the sign of every number the item allows with one sign, and the direction of every company / sector it
         # describes (claims.direction_reasons: "Energy fell 2.6%" on a day Energy rose; HQ review r4)
         it["moves"] = cl.item_moves(it)
-        bad = cl.content_reasons(it, it.get("facts_text") or "")
+        bad = cl.content_reasons(it, it.get("facts_text") or "", allowlist=False)
         if bad:
             errors.append(f"self-check: {it.get('type')} {it.get('ticker') or it.get('item_id')} not built: {bad[0][:200]}")
             continue
-        good = [a for a in it.get("angles") or [] if not cl.content_reasons(it, a)]
+        nums, tags = gr.item_numbers(it), gr.item_cashtags(it)
+
+        def ok(text: str) -> bool:
+            return not cl.content_reasons(it, text) and not gr.unexplained_numbers(text, nums, tags)
+
+        phrases = [p for p in dict.fromkeys(it.get("claim_phrases") or []) if ok(p)]
+        dropped += len(it.get("claim_phrases") or []) - len(phrases)
+        it["claim_phrases"] = phrases
+        good = [a for a in it.get("angles") or [] if ok(a)]
         dropped += len(it.get("angles") or []) - len(good)
         it["angles"] = good
         kept.append(it)
@@ -1892,7 +1964,17 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                       "the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one "
                       "small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has "
                       "them; items below carry top8_out (why). Pick across pillars per variety"),
-            "claims": ("comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, "
+            "claim_phrases": ("ALLOWLIST (HQ 2026-10-19): any sentence of a post that compares, ranks or orders anything "
+                              "- best / worst / biggest / largest / most / least / top / led / #N / first / second / next / "
+                              "then / followed by / only / all / every / none / record / ever / since / streak / in a row "
+                              "/ again / double / twice / half / N times / more than / less than / any '-er than' / beat / "
+                              "missed / outperformed / lagged / winner / loser / last / bottom, and every other word like "
+                              "them - must be one of the item's claim_phrases, copied verbatim as its own sentence (only "
+                              "'and' / 'also' / 'so' / 'plus' may stand around it). No claim phrase for what you want to "
+                              "say = say it without comparing (plain numbers from allowed_numbers). The facts_text "
+                              "describes the data; it is not a phrase list. A question to the reader that names no "
+                              "company, sector or number is exempt ('Which move surprised you most?')"),
+            "claims": ("superseded by claim_phrases (kept for the direction / date reading): comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, "
                        "#1, record, 'outperformed every other') only as the item's claims state them: name only that "
                        "claim's companies / sectors in that sentence; each claim has a polarity (best = top gainer, worst "
                        "= top loser, null = no side) and a rank (1 = its one subject is #1; group = its subjects are the "

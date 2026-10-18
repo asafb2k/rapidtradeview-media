@@ -37,7 +37,9 @@ def facts_fixture() -> dict:
         name="Apple Inc.", banned_words=fx.PREDICTION_WORDS, source_url="https://www.rapidtradeview.trade/dashboard/AAPL",
         facts_text="Moves Like: over the 60 sessions before Oct 9, 2026, $AAPL moved most like $TU (Sync 55, Loose).",
         allowed_numbers=["60", "100", "55", "54", *fx.date_forms("2026-10-09"), "−4.0%", "4.0%"],
-        claims=fx.moves_like_claims("AAPL", ["TU", "WU", "HLN"]))
+        claims=fx.moves_like_claims("AAPL", ["TU", "WU", "HLN"]), window_sessions=60, session="2026-10-09",
+        peers=[{"ticker": "TU", "sync": 55}, {"ticker": "WU", "sync": 54}])
+    moves["claim_phrases"] = fx.moves_like_phrases(moves)   # the allowlist (HQ 2026-10-19): "moved most like" is a phrase
     return {"schema": fx.SCHEMA, "date": DATE,
             "rules": {"banned_words": fx.BANNED_WORDS, "disclaimer": fx.DISCLAIMER, "max_len": fx.MAX_LEN,
                       "platform_placeholder": "{platform}"},
@@ -193,7 +195,7 @@ def feature_draft(item, text, platform="x"):
 
 PATTERN_TEXT = ("$MARA: automatic technical analysis flagged a rising wedge (Jul 31 to Sep 21). Confirmed Sep 28: "
                 "closed $12.11, below the lower line at $12.22. Not investment advice.")
-MOVES_TEXT = ("$AAPL moved most like $TU and $WU over the 60 sessions before Oct 9 (Sync 55 and 54, out of 100). "
+MOVES_TEXT = ("Over the 60 sessions before Oct 9, 2026, $AAPL moved most like $TU (Sync 55). $WU was at Sync 54, out of 100. "
               "$TU fell 4.0% on Oct 9. Not investment advice.")
 
 
@@ -345,7 +347,7 @@ def earnings_facts(path="/dashboard/JPM"):
 
 
 def er_draft(er, **over):
-    d = {"item_id": er["item_id"], "platform": "x", "text": "$JPM published FY2026 Q3 results: beat estimates. Not investment advice.",
+    d = {"item_id": er["item_id"], "platform": "x", "text": "$JPM published FY2026 Q3 results. Not investment advice.",
          "reply_text": f"Filing: {SEC}\nEarnings history: {link(er, 'x')}", "link": link(er, "x"), "media_url": er["media"][0]["url"]}
     d.update(over)
     return d
