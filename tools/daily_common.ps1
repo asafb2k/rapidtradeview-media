@@ -143,6 +143,39 @@ function Invoke-CardReel([string]$Date, [string]$Work, [string]$FactsFile, [bool
     }
 }
 
+# Market share cards of the day's facts items (tools/pin_cards.py; HQ 2026-10-18): the cards the market items use are copied to
+# Pages (v/<date>/cards/market-<panel>-<data date>-<fingerprint>.png), committed, pushed and served before the facts point at
+# them; an item whose card is not served is taken out of $FactsFile. Never throws or changes the exit code.
+function Invoke-PinCards([string]$Date, [string]$Work, [string]$FactsFile, [bool]$Push) {
+    try {
+        $tool = Join-Path $script:Tools 'pin_cards.py'
+        $code = Invoke-Native $script:Python @($tool, 'prepare', '--facts', $FactsFile, '--repo', $script:Repo, '--date', $Date, '--work', $Work)
+        if ($code -eq 10 -and $Push) {
+            $files = @(Get-Content -Encoding UTF8 (Join-Path $Work 'pin-cards-files.txt') | Where-Object { $_.Trim() })
+            if ((Invoke-Git (@('add', '--') + $files)) -ne 0) { Log 'PIN CARDS: git add failed; their items are left out this run' }
+            else {
+                & git.exe -C $script:Repo diff --cached --quiet -- @files
+                if ($LASTEXITCODE -ne 0) {
+                    if ((Invoke-Git (@('commit', '--quiet', '-m', "Market cards $Date", '--') + $files)) -ne 0) { Log 'PIN CARDS: git commit failed' }
+                }
+                if ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) {
+                    Log 'pin cards push rejected; merging origin and retrying'
+                    if ((Invoke-Git @('pull', '--no-rebase', '--no-edit', '--quiet', 'origin', 'main')) -ne 0) {
+                        [void](Invoke-Git @('merge', '--abort'))
+                        Log 'PIN CARDS: git pull failed; the commit stays local'
+                    } elseif ((Invoke-Git @('push', '--quiet', 'origin', 'HEAD')) -ne 0) { Log 'PIN CARDS: git push failed; the commit stays local' }
+                }
+            }
+        } elseif ($code -ne 0 -and $code -ne 10) { Log "PIN CARDS: pin_cards.py prepare exit $code (see above); unpinned items are left out" }
+        $argv = @($tool, 'apply', '--facts', $FactsFile, '--repo', $script:Repo, '--work', $Work, '--timeout', '420')
+        if (-not $Push) { $argv += '--no-wait' }
+        $code = Invoke-Native $script:Python $argv
+        if ($code -ne 0) { Log "PIN CARDS: apply exit $code" }
+    } catch {
+        Log "PIN CARDS FAILED: $($_.Exception.Message); the facts go on"
+    }
+}
+
 # Facts feed for Grok-run brand social (tools/facts.py -> v/<date>/facts.json; GROK-SOCIAL.md). It never depends
 # on a render and never changes the run's exit code: every failure here is logged and the run goes on.
 # facts.py gets the day's published file as --previous (Moves Like answers of the day are not asked again).
@@ -168,6 +201,7 @@ function Publish-Facts([string]$Date, [string]$Work, [bool]$Push, [int]$PagesTim
         if ($code -eq 4) { Log "FACTS PARTIAL (a core source failed): publishing it, there is no $rel yet" }
         # The day's card Reel (tools/card_reel.py): rendered, pushed and served by Pages first, then added to its item's media in
         # $tmp, so the compare below publishes it. It never blocks the facts or changes the exit code.
+        Invoke-PinCards $Date $Work $tmp $Push
         Invoke-CardReel $Date $Work $tmp $Push $NowIso
         if (Test-Path $dest) {
             $same = Invoke-Native $script:Python @($facts, '--compare-items', $dest, $tmp)
@@ -225,8 +259,8 @@ function Invoke-IndexNowFacts([string]$Date, [bool]$Push) {
     }
 }
 
-# Intraday facts refresh (the 15-minute preflight pass; Grok re-reads facts.json every 30 min 07:00-17:00 ET):
-# weekdays 07:00-17:00 ET, at most every 30 minutes (<work>\facts-last-run.txt, written by every facts run; 28 min
+# Intraday facts refresh (the 15-minute preflight pass; Grok re-reads facts.json every 30 min 07:00-17:45 ET):
+# weekdays 07:00-17:45 ET, at most every 30 minutes (<work>\facts-last-run.txt, written by every facts run; 28 min
 # so a 15-minute tick a few seconds early still counts). $NowUtc is the clock (run_daily.ps1 -Now for a dry run).
 # Returns why it did not run, or $null after a run. Never throws and never touches the video / manifest steps.
 function Update-FactsIfDue([string]$Date, [string]$Work, [bool]$Push, [DateTime]$NowUtc) {
@@ -235,7 +269,9 @@ function Update-FactsIfDue([string]$Date, [string]$Work, [bool]$Push, [DateTime]
         $label = $et.ToString('ddd HH:mm') + ' ET'
         if ($et.DayOfWeek -eq [DayOfWeek]::Saturday -or $et.DayOfWeek -eq [DayOfWeek]::Sunday) { return "facts refresh: not a weekday ($label)" }
         $min = $et.Hour * 60 + $et.Minute
-        if ($min -lt 420 -or $min -gt 1020) { return "facts refresh: outside 07:00-17:00 ET ($label)" }
+        # Until 17:45 ET (HQ 2026-10-18): the market map publishes the session about 16:50 ET, so the 17:00-17:45 refreshes
+        # carry the day's market items ("today") for same-evening posts.
+        if ($min -lt 420 -or $min -gt 1065) { return "facts refresh: outside 07:00-17:45 ET ($label)" }
         $stamp = Join-Path $Work 'facts-last-run.txt'
         if (Test-Path $stamp) {
             $last = [DateTime]::Parse((Get-Content -Raw $stamp).Trim(), [Globalization.CultureInfo]::InvariantCulture, [Globalization.DateTimeStyles]::RoundtripKind).ToUniversalTime()

@@ -75,6 +75,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import draft_lint as dl  # noqa: E402
 import facts as fx  # noqa: E402
 import manifest as mf  # noqa: E402
+import market_facts as mk  # noqa: E402
+import post_history as ph  # noqa: E402
 import select_stories as ss  # noqa: E402
 
 DEFAULT_FACTS_BASE = f"{mf.PAGES_BASE}/v"
@@ -84,8 +86,10 @@ UA = "RapidTradeView grok-review (contact@rapidtradeview.trade)"
 SOURCE_TYPES = ("congress_trade", "form4_buy", "ptr_summary")
 # Several cashtags in one post: only the roundup kinds (facts.ROUNDUP_TYPES, at most facts.ROUNDUP_MAX_TICKERS, all from
 # the item's tickers). moves_like (subject + listed peers) and picks_ready (the public picks) keep their item's own list.
-MULTI_CASHTAG_TYPES = fx.ROUNDUP_TYPES
+# Market pillars (HQ 2026-10-18) are multi-cashtag too: at most 4, all from tickers + context_tickers.
+MULTI_CASHTAG_TYPES = (*fx.ROUNDUP_TYPES, *mk.MARKET_TYPES)
 MULTI_CASHTAG_MAX = fx.ROUNDUP_MAX_TICKERS
+SINGLE_CASHTAG_MAX = 4  # a single-ticker item: its $TICKER plus listed context_tickers, at most 4 distinct
 LIST_TYPES = ("moves_like", "picks_ready")
 NO_PICK_HINT_TYPES = ("picks_ready", "chart_pattern", "moves_like")
 URL = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
@@ -100,8 +104,15 @@ PICK_HINT = re.compile(
     re.IGNORECASE)
 DRAFT_HEAD = re.compile(r"^\s*DRAFT\b")
 ITEM_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$")
-PLATFORMS = ("x", "instagram")
+PLATFORMS = ("x", "instagram", "threads")
 REPLY_MAX = 3500
+THREADS_MAX = 500
+# Market wording (HQ 2026-10-18): our map is the 500 largest US-listed companies, not an index.
+INDEX_WORDS = re.compile(r"\bs\s*&\s*p\b(?:\s*500)?|\bthe\s+index\b|\bspx\b", re.IGNORECASE)
+UNIVERSE_PHRASE = re.compile(r"\b500\s+largest\b|\blargest\s+US-listed\b", re.IGNORECASE)
+ALL_500 = re.compile(r"\ball\s+500\b", re.IGNORECASE)
+MARKET_CARD_LIVE = re.compile(r"^https://(?:www\.)?rapidtradeview\.trade/market/card/", re.IGNORECASE)
+MARKET_CARD_PINNED = re.compile(rf"^{re.escape(mf.PAGES_BASE)}/v/\d{{4}}-\d{{2}}-\d{{2}}/cards/market-[A-Za-z0-9._-]+\.png$")
 
 # Post media (owner rule 2026-10-12: every own post or Reel carries native media)
 GROK_GENERATED = "grok_generated"
@@ -223,6 +234,48 @@ def uniq_words(words) -> list[str]:
     return out
 
 
+def item_cashtags(item: dict) -> list[str]:
+    """Cashtags a post of this item may carry: its tickers plus its context_tickers (facts.py; HQ 2026-10-18)."""
+    base = item.get("tickers") or ([item["ticker"]] if item.get("ticker") else [])
+    return list(dict.fromkeys(str(t).upper() for t in [*base, *(item.get("context_tickers") or [])] if t))
+
+
+def item_numbers(item: dict) -> list[str]:
+    """Numbers a post of this item may print: allowed_numbers plus context_numbers (both computed by facts.py)."""
+    return [str(a) for a in [*(item.get("allowed_numbers") or []), *(item.get("context_numbers") or [])] if a]
+
+
+def market_total_numbers(item: dict) -> list[str]:
+    """The numbers of an item that state a total of the 500 (its market total): a post printing one must say whose."""
+    kind = item.get("type")
+    if kind == "market_move":
+        t = item.get("totals") or {}
+        return [*mk.usd_forms(t.get("usd_change_sum") or 0), *mk.pct_forms(t.get("pct_change") or 0)]
+    if kind == "sector_rotation" and isinstance(item.get("all_500"), (int, float)):
+        return mk.pct_forms(item["all_500"])
+    if kind == "breadth_day" and isinstance(item.get("cap_weighted_pct"), (int, float)):
+        return mk.pct_forms(item["cap_weighted_pct"])
+    return []
+
+
+def wording_reasons(item: dict, text: str) -> list[str]:
+    """Market-wording guard for P1 / P2 / P6 / P7: never an index name; "all 500" only when all 500 were priced; a post
+    that gives a market total says "500 largest" (or "largest US-listed")."""
+    if item.get("type") not in mk.WORDING_TYPES:
+        return []
+    out = []
+    m = INDEX_WORDS.search(text)
+    if m:
+        out.append(f"market wording: no index name ({short(m.group(0))!r}); say \"{mk.UNIVERSE_WORDS}\"")
+    t = item.get("totals") or {}
+    if ALL_500.search(text) and not (t.get("priced") and t.get("priced") == t.get("total")):
+        out.append("market wording: not \"all 500\" (not every one of the 500 was priced)")
+    totals = market_total_numbers(item)
+    if totals and not UNIVERSE_PHRASE.search(text) and strip_allowed(text, totals) != _norm(text):
+        out.append(f"market wording: a market total needs \"500 largest\" (\"{mk.UNIVERSE_WORDS}\")")
+    return out
+
+
 # G-N1 holdout (select_stories.G_N1_HOLDOUT_END, 2026-11-21): no post, self-reply, comment, link or media of ours carries
 # an earnings report page (/earnings/reports/<id>) of either arm before the readout. The whole draft is screened.
 
@@ -251,7 +304,7 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     if not isinstance(iid, str) or not iid:
         return "REJECT", ["no item_id"]
     if platform not in PLATFORMS:
-        reasons.append(f"platform must be x or instagram (got {short(platform)!r})")
+        reasons.append(f"platform must be x, instagram or threads (got {short(platform)!r})")
     if not isinstance(text, str) or not text.strip():
         return "REJECT", reasons + ["no text"]
     if reply is not None and not isinstance(reply, str):
@@ -265,8 +318,8 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     rules = facts.get("rules") or {}
     both = f"{text}\n{reply}"
 
-    # Ticker
-    tickers = [t.upper() for t in (item.get("tickers") or ([item["ticker"]] if item.get("ticker") else []))]
+    # Ticker (tickers + context_tickers; HQ 2026-10-18)
+    tickers = item_cashtags(item)
     tags = [m.group(1).upper() for m in CASHTAG.finditer(both)]
     other = sorted({t for t in tags if t not in tickers})
     if other:
@@ -276,18 +329,27 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     if kind in MULTI_CASHTAG_TYPES:
         if len(distinct) > MULTI_CASHTAG_MAX:
             reasons.append(f"{kind}: at most {MULTI_CASHTAG_MAX} cashtags (got {len(distinct)})")
-        if not distinct & set(tickers):
+        if tickers and not distinct & set(tickers):
             reasons.append(f"{kind}: the text must name at least one of the item's tickers")
-    elif kind not in LIST_TYPES and len(distinct) > 1:
-        reasons.append(f"one cashtag per post: several only for {' / '.join(MULTI_CASHTAG_TYPES)} (got {len(distinct)})")
+    elif kind not in LIST_TYPES:
+        own = {str(item.get("ticker") or "").upper(), *(str(t).upper() for t in item.get("context_tickers") or [])} - {""}
+        extra = sorted(distinct - own)
+        if extra:
+            reasons.append(f"one cashtag per post (plus the item's context_tickers): {', '.join('$' + short(t, 8) for t in extra)} "
+                           "is not the item's ticker or one of its context_tickers")
+        elif len(distinct) > SINGLE_CASHTAG_MAX:
+            reasons.append(f"at most {SINGLE_CASHTAG_MAX} cashtags (got {len(distinct)})")
     if item.get("ticker") and f"${item['ticker'].upper()}" not in {f"${m.group(1).upper()}" for m in CASHTAG.finditer(text)}:
         reasons.append(f"the text must name ${item['ticker']}")
 
-    # Numbers
-    allowed = [str(a) for a in item.get("allowed_numbers") or []]
+    # Numbers (allowed_numbers + context_numbers)
+    allowed = item_numbers(item)
     bad = unexplained_numbers(both, allowed, tickers)
     if bad:
-        reasons.append("numbers not in allowed_numbers: " + ", ".join(sorted({short(b, 24) for b in bad})))
+        reasons.append("numbers not in allowed_numbers / context_numbers: " + ", ".join(sorted({short(b, 24) for b in bad})))
+
+    # Market wording (P1 P2 P6 P7)
+    reasons += wording_reasons(item, both)
 
     # Words
     low = both.lower()
@@ -331,6 +393,11 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
             n = mf.x_weighted_length(body)
             if n > limit:
                 reasons.append(f"X {name} is {n} characters (limit {limit})")
+    elif platform == "threads":
+        limit = int((rules.get("max_len") or {}).get("threads") or THREADS_MAX)
+        for name, body in (("text", text), ("reply_text", reply)):
+            if len(body) > limit:
+                reasons.append(f"Threads {name} is {len(body)} characters (limit {limit})")
 
     # Picks
     if item.get("type") in NO_PICK_HINT_TYPES:
@@ -380,6 +447,16 @@ def media_reasons(draft: dict, item: dict) -> list[str]:
             return ["media_note: a Grok-made image carries no numbers, $, %, logos, faces or real names "
                     f"({', '.join(sorted({short(b, 24) for b in bad}))})"]
         return []
+    card = item.get("card") if isinstance(item.get("card"), dict) else None
+    if MARKET_CARD_LIVE.match(media):
+        return ["media_url: the live /market/card/ image changes every session; attach the item's pinned card "
+                f"({short((card or {}).get('url') or 'card.url', 90)})"]
+    if MARKET_CARD_PINNED.match(media) and media not in ours:
+        return [f"media_url {short(media, 90)} is a Market card of another item or day; this item's card is "
+                f"{short((card or {}).get('url') or '(none)', 90)}"]
+    reel_dir = f"{mf.PAGES_BASE}/v/{str(item.get('item_id'))[:10]}/cards/{item.get('item_id')}/"
+    if card and card.get("url") and media not in ours and not media.startswith(reel_dir):
+        return [f"media_url: a market post carries its pinned card {short(card['url'], 90)} (or the card Reel made from it)"]
     if media in ours or (OUR_MEDIA.match(media) and ".." not in media):
         return []
     return [f"media_url {short(media, 80)} is not one of the item's media urls, a file under {mf.PAGES_BASE}/v/<date>/ "
@@ -491,7 +568,7 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
     text = draft.get("text")
     iid = draft.get("item_id")
     reasons += holdout_reasons(draft, now)
-    if platform not in PLATFORMS:
+    if platform not in COMMENT_MAX:
         return "REJECT", reasons + [f"platform must be x or instagram (got {short(platform)!r})"]
     if not isinstance(text, str) or not text.strip():
         return "REJECT", reasons + ["no text"]
@@ -536,11 +613,11 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
     elif cashtags or has_number:
         reasons.append("a comment with numbers or a $cashtag needs the item_id of the facts it uses")
     if item is not None:
-        tickers = [t.upper() for t in (item.get("tickers") or ([item["ticker"]] if item.get("ticker") else []))]
+        tickers = item_cashtags(item)
         other = sorted({t for t in cashtags if t not in tickers})
         if other:
             reasons.append(f"cashtag not in this item: {', '.join('$' + short(t, 8) for t in other)}")
-        bad = unexplained_numbers(scan, [str(a) for a in item.get("allowed_numbers") or []], tickers)
+        bad = unexplained_numbers(scan, item_numbers(item), tickers)
         if bad:
             reasons.append("numbers not in allowed_numbers: " + ", ".join(sorted({short(b, 24) for b in bad})))
         if item.get("type") in NO_PICK_HINT_TYPES:
@@ -560,6 +637,152 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
     if state is not None:
         reasons += state.reasons(platform, target, text, now)
     return ("REJECT", reasons) if reasons else ("APPROVE", [])
+
+
+# ---------------------------------------------------------------------------
+# Variety lint (HQ 2026-10-18, social-content PLAN §3.2 rules 5-10). Own posts only (comments are exempt). History = the
+# platform's own posts from the kit post_log (post_history.py). Each rule WARNs on its first breach on a platform's New York
+# day (a NOTES line; the verdict stands) and REJECTs a repeat breach of the same rule that day (VarietyState, written only
+# after an APPROVE answer with the warning was sent).
+
+DEFAULT_VARIETY_STATE = Path("D:/rtv-ops/tracks/growth/research/grok-variety-state.json")
+VARIETY_STATE_ENV = "GROK_VARIETY_STATE"
+HISTORY_POSTS = 10           # rule 8 looks at the platform's last 10 own posts
+FIRST_WORDS = 8
+FIRST_LINE_OVERLAP = 0.6     # rule 8: share of the draft's first 8 words found in an earlier first 8 words
+TWIN_SIMILARITY = 0.7        # rule 9: >= 30% different wording = word-set similarity under 0.7
+PILLAR_DAY_CAP = 2           # rule 6
+WORD = re.compile(r"\$?[a-z0-9][a-z0-9.%'\u2212-]*")
+MONEY_PCT = re.compile(r"[\u2212+-]?\$\d[\d,]*(?:\.\d+)?[KMBT]?|[\u2212+-]?\d+(?:\.\d+)?%")
+
+
+def words_of(text: str) -> list[str]:
+    return WORD.findall(_norm(text or "").lower())
+
+
+def first_words(text: str) -> list[str]:
+    line = next((ln for ln in (text or "").splitlines() if ln.strip()), "")
+    return words_of(line)[:FIRST_WORDS]
+
+
+def overlap(a: list[str], b: list[str]) -> float:
+    return len(set(a) & set(b)) / len(set(a)) if a else 0.0
+
+
+def similarity(a: str, b: str) -> float:
+    x, y = set(words_of(a)), set(words_of(b))
+    return len(x & y) / len(x | y) if x | y else 0.0
+
+
+def variety_breaches(draft: dict, item: dict, history: list[dict], now: dt.datetime) -> list[tuple[str, str]]:
+    """[(rule, why)] for one post draft against our own posts (oldest first)."""
+    platform, text, iid = draft.get("platform"), draft.get("text") or "", draft.get("item_id")
+    today = (now.astimezone(ss.NY) if ss.NY else now).date()
+    own = [p for p in history if p.get("platform") == platform and p.get("item_id") != iid]
+    pillar = ph.pillar_of(item.get("type"))
+    out: list[tuple[str, str]] = []
+    if own and pillar and own[-1].get("pillar") == pillar:
+        out.append(("rule5_same_pillar", f"same pillar ({pillar}) as the platform's newest own post"))
+    n_today = sum(1 for p in own if p.get("ny_date") == today.isoformat() and p.get("pillar") == pillar)
+    if pillar and n_today >= PILLAR_DAY_CAP:
+        out.append(("rule6_pillar_cap", f"{n_today} {pillar} posts on {platform} today already (max {PILLAR_DAY_CAP})"))
+    tick = mk.norm_ticker(item.get("ticker"))
+    mine = [p for p in history if p.get("platform") == platform]
+    if item.get("dedupe_key") and any(p.get("dedupe_key") == item["dedupe_key"] for p in mine):
+        out.append(("rule7_ticker_repeat", f"this item is already posted on {platform}"))
+    elif tick and item.get("type") != "earnings_result":
+        hit = [p for p in mine if p.get("ticker") == tick and p.get("ny_date")
+               and ss.weekday_age(ss.d(p["ny_date"]), today) < fx.TICKER_COOLDOWN_SESSIONS]
+        if hit:
+            out.append(("rule7_ticker_repeat", f"${tick} was posted on {platform} on {hit[-1]['ny_date']} (within 3 trading days)"))
+    fw = first_words(text)
+    for p in mine[-HISTORY_POSTS:]:
+        if overlap(fw, first_words(p.get("text") or "")) >= FIRST_LINE_OVERLAP:
+            out.append(("rule8_first_line", f"the first line repeats {int(round(overlap(fw, first_words(p.get('text') or '')) * 100))}% "
+                                            f"of an own post's first words ({p.get('ny_date')})"))
+            break
+    for p in history:
+        if p.get("platform") != platform and item.get("dedupe_key") and p.get("dedupe_key") == item["dedupe_key"]:
+            same_first = first_words(p.get("text") or "") == fw
+            sim = similarity(text, p.get("text") or "")
+            if same_first or sim >= TWIN_SIMILARITY:
+                out.append(("rule9_cross_platform", f"the {p['platform']} post of this item reads the same "
+                                                    f"({'same first line' if same_first else f'{int(sim * 100)}% same words'})"))
+                break
+    nums = [m.group(0).lstrip("+-\u2212") for m in MONEY_PCT.finditer(_norm(URL.sub(" ", text)))]
+    dup = sorted({n for n in nums if nums.count(n) > 1})
+    if dup:
+        out.append(("rule10_duplicate_number", f"the same number twice: {', '.join(short(d, 16) for d in dup)}"))
+    return out
+
+
+class VarietyState:
+    """{"warned": [{date, platform, rule, msg_id}]}: the variety rules already warned today (New York date)."""
+
+    def __init__(self, path: Path):
+        self.path = Path(path)
+        self.warned: list[dict] = []
+        if self.path.exists():
+            try:
+                data = json.loads(self.path.read_text(encoding="utf-8-sig"))
+                self.warned = [w for w in data.get("warned") or [] if isinstance(w, dict)]
+            except (OSError, ValueError, AttributeError) as e:
+                raise StateUnreadable(f"{self.path}: {type(e).__name__}") from None
+
+    def seen(self, day: str, platform: str, rule: str) -> bool:
+        return any(w.get("date") == day and w.get("platform") == platform and w.get("rule") == rule for w in self.warned)
+
+    def add(self, day: str, platform: str, rule: str, msg_id) -> None:
+        self.warned.append({"date": day, "platform": platform, "rule": rule, "msg_id": msg_id})
+
+    def save(self, today: str) -> None:
+        self.warned = [w for w in self.warned if str(w.get("date") or "") >= today]
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = self.path.with_name(self.path.name + ".tmp")
+        tmp.write_text(json.dumps({"warned": self.warned}, indent=1), encoding="utf-8")
+        tmp.replace(self.path)
+
+
+def apply_variety(draft: dict, facts: dict | None, history: list[dict] | None, state: "VarietyState | None",
+                  now: dt.datetime) -> tuple[list[str], list[str], list[str]]:
+    """(reject reasons, NOTES lines, rules to record as warned once the answer is sent) for a post draft."""
+    if history is None or facts is None:
+        return [], [], []
+    item = next((i for i in facts.get("items") or [] if i.get("item_id") == draft.get("item_id")), None)
+    if item is None:
+        return [], [], []
+    day = (now.astimezone(ss.NY) if ss.NY else now).date().isoformat()
+    rejects, notes, record = [], [], []
+    for rule, why in variety_breaches(draft, item, history, now):
+        if state is not None and state.seen(day, draft.get("platform"), rule):
+            rejects.append(f"variety {rule} (a repeat today): {why}")
+        else:
+            notes.append(f"- VARIETY WARN {rule}: {why} (a second {rule} on {draft.get('platform')} today is rejected)")
+            record.append(rule)
+    return rejects, notes, record
+
+
+def history_from_rest(rest, instinct, env: str, facts_base: str, days: int = 8) -> list[dict]:
+    """Our own posts of the last `days` days through the inbox's gateway client, resolved against facts_base."""
+    since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)
+    rows = rest.get_all(instinct.q("select=id,created_at,platform,item_id,url,body", f"env=eq.{env}",
+                                   "direction=eq.from_instinct", "kind=eq.post_log",
+                                   f"created_at=gte.{instinct.iso(since)}", "order=created_at.asc,id.asc"))
+    cache: dict[str, dict | None] = {}
+
+    def get(date: str):
+        if date not in cache:
+            try:
+                cache[date] = load_facts(facts_location(facts_base, date))
+            except FactsUnavailable:
+                cache[date] = None
+        return cache[date]
+    return ph.resolve(ph.own_posts(rows), get)
+
+
+def variety_state_path(flag: str | None = None) -> Path:
+    import os
+    return Path(flag or os.environ.get(VARIETY_STATE_ENV) or DEFAULT_VARIETY_STATE)
 
 
 # ---------------------------------------------------------------------------
@@ -641,7 +864,8 @@ def draft_kind(draft: dict) -> tuple[str | None, str | None]:
 
 
 def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, limit: int = 200,
-              comment_state: Path | None = None, now: dt.datetime | None = None) -> dict:
+              comment_state: Path | None = None, now: dt.datetime | None = None, history=None,
+              variety_state: Path | None = None) -> dict:
     """Review every unacked DRAFT row; `send(platform, body) -> bool` answers one. Returns counts. An approved comment
     is written to the comment state only once its APPROVE answer was sent (a dry run keeps it in memory only)."""
     rows = rest.call("GET", instinct.q("select=id,created_at,kind,platform,item_id,body", f"env=eq.{env}",
@@ -653,7 +877,14 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
           + (" (dry run: nothing sent or acked)" if dry_run else ""))
     cache: dict[str, dict | None] = {}
     state: CommentState | None = None
+    vstate: VarietyState | None = None
+    if history is not None and variety_state is not None:
+        try:
+            vstate = VarietyState(variety_state)
+        except StateUnreadable as e:
+            print(f"  variety state unreadable ({e}); variety rules warn only this run")
     for row in drafts:
+        record: list[str] = []
         draft, err = parse_draft(row)
         kind = None
         if not err:
@@ -680,6 +911,10 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                 if kind == "post":
                     verdict, reasons = review(draft, facts, clock)
                     notes = playbook_notes(draft, facts, clock)
+                    vrej, vnotes, record = apply_variety(draft, facts, history, vstate, clock)
+                    if vrej:
+                        verdict, reasons = "REJECT", reasons + vrej
+                    notes += vnotes
                 else:
                     if state is None:
                         try:
@@ -705,6 +940,11 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
         if approved_comment:
             state.add(draft, int(row["id"]), clock)
             state.save(clock)
+        if verdict == "APPROVE" and record and vstate is not None:
+            day = (clock.astimezone(ss.NY) if ss.NY else clock).date().isoformat()
+            for rule in record:
+                vstate.add(day, draft.get("platform"), rule, int(row["id"]))
+            vstate.save(day)
         stamp = dt.datetime.now(dt.timezone.utc).isoformat()
         out = rest.call("PATCH", instinct.q(f"id=eq.{int(row['id'])}", f"env=eq.{env}", "direction=eq.from_instinct",
                                             "acked_at=is.null", "select=id"), {"acked_at": stamp}, prefer="return=representation")
@@ -730,6 +970,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--limit", type=int, default=200)
     ap.add_argument("--comment-state", help=f"approved-comments state JSON (default: ${COMMENT_STATE_ENV}, else "
                                             f"{DEFAULT_COMMENT_STATE})")
+    ap.add_argument("--variety-state", help=f"variety warnings state JSON (default: ${VARIETY_STATE_ENV}, else "
+                                            f"{DEFAULT_VARIETY_STATE})")
+    ap.add_argument("--history", action="store_true", help="--draft: read our own posts for the variety lint (read only)")
+    ap.add_argument("--no-variety", action="store_true", help="--inbox: skip the variety lint")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if a.draft:
@@ -750,6 +994,18 @@ def main(argv: list[str] | None = None) -> int:
         if kind == "post":
             verdict, reasons = review(draft, facts)
             notes = playbook_notes(draft, facts)
+            if a.history:
+                ins = load_instinct(Path(a.instinct))
+                env_file = Path(a.env_file) if a.env_file else ins.DEFAULT_ENV_FILE
+                hist = history_from_rest(ins.Rest(*ins.load_config(env_file)), ins, a.env, a.facts_base)
+                try:
+                    vs = VarietyState(variety_state_path(a.variety_state))
+                except StateUnreadable:
+                    vs = None
+                vrej, vnotes, _ = apply_variety(draft, facts, hist, vs, dt.datetime.now(dt.timezone.utc))
+                if vrej:
+                    verdict, reasons = "REJECT", reasons + vrej
+                notes += vnotes
         else:
             try:
                 state = CommentState(comment_state_path(a.comment_state))
@@ -765,9 +1021,15 @@ def main(argv: list[str] | None = None) -> int:
     instinct = load_instinct(Path(a.instinct))
     env_file = Path(a.env_file) if a.env_file else instinct.DEFAULT_ENV_FILE
     rest = instinct.Rest(*instinct.load_config(env_file))
+    history = None
+    if not a.no_variety:
+        try:
+            history = history_from_rest(rest, instinct, a.env, a.facts_base)
+        except SystemExit as e:  # instinct's client exits on a gateway error: the variety lint is skipped, not guessed
+            print(f"variety lint skipped: post history unreadable ({str(e)[:120]})")
     run_inbox(rest, instinct, a.env, a.facts_base, a.dry_run,
               lambda platform, body: send_reply(Path(a.instinct), a.env, a.env_file, platform, body), a.limit,
-              comment_state_path(a.comment_state))
+              comment_state_path(a.comment_state), history=history, variety_state=variety_state_path(a.variety_state))
     return 0
 
 

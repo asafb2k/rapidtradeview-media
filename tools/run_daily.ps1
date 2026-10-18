@@ -14,7 +14,7 @@
     -Pass picks     13:45 ET  slot 4 (today's picks, published ~13:30; retried up to -RetryEmptyMinutes;
                               the slot posts at 15:00, so it is ready about an hour before)
     -Pass preflight every 15 min: the preflight gate for posts due in 60-90 minutes (see below); on weekdays
-                              07:00-17:00 ET it also refreshes the Grok facts feed at most every 30 minutes
+                              07:00-17:45 ET it also refreshes the Grok facts feed at most every 30 minutes
                               (Update-FactsIfDue; -Now sets its clock for a dry run)
   Owner rule 2026-09-28: every post is ready at least an hour before it goes live. Each render pass ends
   with the preflight gate (manifest.py preflight) on the slots it published, and the 15-minute

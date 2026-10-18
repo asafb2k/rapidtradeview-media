@@ -40,6 +40,17 @@ post for a New York market date. Every item is read from RapidTradeView's public
                      peers the stock card lists with Sync >= 65 (Close / Tight), Sync and band as the card shows them.
                      not_covered, disabled, unavailable or no peer at the floor: no item. With --previous (the day's
                      published file) a ticker already looked up today is not asked again: its item is carried over.
+  market pillars     (HQ 2026-10-18, tools/market_facts.py): market_move (P1), mega_mover (P2), congress_flow /
+                     insider_flow (P3), reddit_buzz (P4), earnings_week_preview / earnings_reaction (P5), sector_rotation
+                     (P6), breadth_day / basket_week (P7), from GET /market/pictures and /market/flows (2 GETs a pass), each
+                     only when its trigger fires; their media is the pinned share card (card {panel, url, live_url, date,
+                     fingerprint, file, sha256}; tools/pin_cards.py fills url / media in the runner, or drops the item).
+Every item also carries pillar, cap_tier, in_500, context_numbers / context_tickers (numbers and cashtags a post may add:
+the company's cap, its last session move, the 30-day insider / Congress totals; computed here, checked by the validator),
+angles (3 first-line seeds), trigger and cooldown (our own posts, tools/post_history.py: the same item posted on x,
+instagram and threads, its ticker on all three within 3 trading days, or its filer within 7 days -> left_out.gates).
+Gates before the rank: weekend facts do not replay filings older than the last weekday session; a form4_buy needs cap
+>= $2B, a fame person, or $10M+ at cap >= $300M; at most one small / micro item among the first 8.
 chart_pattern and moves_like carry banned_words of their own (PREDICTION_WORDS): descriptive wording only.
 Each item carries item_id, type, ticker, name / office, amount text as our pages show it, dates, the official
 source_url, page_url (UTM built in; "{platform}" is a literal placeholder Grok fills with x or instagram),
@@ -48,10 +59,9 @@ images a post may carry ([{url, kind: image, alt}], the landing page's Open Grap
 earnings_upcoming: <SITE>/earnings/opengraph-image; never fetched here). The runner (tools/card_reel.py, via
 daily_common.ps1 Publish-Facts) may append one {url: <Pages>/v/<date>/cards/<item_id>/reel_9x16.mp4, kind: reel, alt}
 a day to one item: its share card as a 9:16 Reel for Instagram.
-Rank (Growth B1 2026-10-12): every item carries a numeric rank (higher = more newsworthy) and rank_why; the items are
-sorted by rank, highest first. Points: a base per type, buys over sales, the top of the amount range (summed when an item
-has several trades), a known name (fame.json, or a CEO / CFO / director title), a mid / large market cap the item already
-carries (form4_buy from select_stories' snapshot read, earnings from the calendar row; no extra GET) and freshness. At
+Rank (audience rank, HQ 2026-10-18; replaces Growth B1's): every item carries rank and rank_why; the items are sorted by
+rank, highest first: base per type + recognisability (cap tier; market-level +4; a known person: fame.json or a CEO / CFO /
+Chair title) + magnitude + freshness - novelty (our own recent posts). See the "Audience rank" section. At
 most one Congress item per filer a day, congress_trade and ptr_summary alike (the highest-ranked; one filer, one post);
 the rest are counted in left_out.per_filer_cap (dropped, and per type).
 An empty type is valid: items [] and reasons say why. Nothing is estimated or invented (No Fallbacks).
@@ -88,6 +98,8 @@ from urllib.parse import quote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import manifest as mf  # noqa: E402
+import market_facts as mk  # noqa: E402
+import post_history as ph  # noqa: E402
 import select_stories as ss  # noqa: E402
 
 SCHEMA = "rtv-facts/1"
@@ -101,13 +113,13 @@ BANNED_WORDS = ["insider trading", "guaranteed", "moon", "buy now", "will rise",
                 # stocks and ETFs only: no crypto talk, also on items about crypto-adjacent miners (MARA, RIOT, ...)
                 "bitcoin", "btc", "crypto", "cryptocurrency", "ethereum", "blockchain"]
 PREDICTION_WORDS = ["will", "going to"]  # per item (chart_pattern, moves_like): descriptive wording only
-MAX_LEN = {"x": 270}
-PLATFORMS = ["x", "instagram"]
+MAX_LEN = {"x": 270, "threads": 500}
+PLATFORMS = ["x", "instagram", "threads"]
 PLATFORM_PLACEHOLDER = "{platform}"
 PARTIAL = 4  # exit code: written, but a source failed (2 is argparse's usage error)
 HOLDOUT_LEAK = 5  # exit code: not written, the document carries a report page inside the G-N1 holdout
 TYPES = ("congress_trade", "form4_buy", "earnings_result", "earnings_upcoming", "picks_ready", "chart_pattern", "moves_like",
-         "earnings_tomorrow_roundup", "ptr_summary")
+         "earnings_tomorrow_roundup", "ptr_summary", *mk.MARKET_TYPES)
 # Roundups (Growth B1 2026-10-12): the only kinds whose posts may carry several cashtags of their own (grok_review.py),
 # at most ROUNDUP_MAX_TICKERS. moves_like (its peers) and picks_ready (the public picks) keep their own ticker lists.
 ROUNDUP_TYPES = ("earnings_tomorrow_roundup", "ptr_summary")
@@ -338,6 +350,8 @@ KIND_ANCHORS = {"moves_like": "#moves-like", "chart_pattern": "#pattern",
 
 
 def anchor_for(kind: str, path: str) -> str:
+    if path == "/" and kind in mk.PANEL_OF:  # the home page's Market section, one anchor per panel (HQ 10-18)
+        return f"#{mk.PANEL_OF[kind]}"
     if path.startswith("/smart-money/figures/"):
         return "#trades"
     if path.startswith("/dashboard/"):
@@ -568,7 +582,7 @@ def form4_items(api, target: dt.date, names: dict[str, str], fame: dict) -> tupl
                       f"{', traded ' + ', '.join(traded) if traded else ''}.")
         items.append(make_item(
             date, "form4_buy", t.ticker, f"form4:{acc}:{t.ticker}", f"/smart-money/figures/{t.slug}",
-            name=t.name, office=office, company=company, side="buy", accession=acc, rows=t.rows,
+            name=t.name, office=office, company=company, side="buy", accession=acc, rows=t.rows, figure_slug=t.slug,
             amount_top_usd=float(t.value_usd), market_cap_usd=t.market_cap, famous_person=t.famous_person,
             amount_text=total, row_amounts=row_amounts, traded=traded, filed=filed, source_url=index,
             facts_text=facts_text,
@@ -1155,31 +1169,46 @@ def earnings_roundup_items(target: dt.date, upcoming: list[dict]) -> tuple[list[
 
 
 # ---------------------------------------------------------------------------
-# Newsworthiness rank (Growth B1 2026-10-12): the file is sorted by it, highest first; Grok posts in that order.
-# Points: a base per type, then buys over sales, the top of the amount range (summed over the item's trades), a known
-# name (fame.json, or a CEO / CFO / director title), a mid / large company (a market cap the item already carries:
-# no extra GET), and freshness (the filed / release / scan date, weekday age 0-4). rank_why spells out every point.
+# Audience rank (HQ 2026-10-18, social-content PLAN §2.2; replaces Growth B1's newsworthiness rank): the file is sorted by
+# it, highest first. Grok picks across pillars (rules.variety); the order is a menu, not a posting order.
+#   rank = base(type) + recognisability + magnitude + freshness - novelty
+#   base            market-level items (P1 P2 P3a P3b P4 P6 P7) 4; earnings_result 3; form4_buy, congress_trade,
+#                   ptr_summary, the week preview, a reaction, picks, the tomorrow roundup 2; upcoming, pattern 1; moves_like 0.5
+#   recognisability market-level items without a lead ticker +4 (they name the largest companies); else the lead ticker's
+#                   cap tier (the week preview: its largest reporter): mega >= $200B +4,
+#                   large >= $10B +2.5, mid >= $2B +1, small 0, micro < $300M -2 (unknown cap 0); a known person +2
+#                   (fame.json, or a CEO / CFO / Chair title; "director" is no longer a known name)
+#   magnitude       0..3 per type: filings log10(top of the amount / $10K) ($100K 1, $1M 2, $10M+ 3), plus +1 for a
+#                   Congress buy (buys over sales); market items their own (market_facts: move / 0.75% x 1.5, $ move /
+#                   $50B x 1.5, log2(buzz ratio), sector spread / threshold x 1.5, ...); earnings_result 1.5 with a verdict
+#   freshness       2 - 0.5 per weekday of age (filed / release / scan / session date; today's items age 0)
+#   novelty         the primary ticker (or the same item) in an own post of the last 3 trading days -4; the same filer
+#                   within 7 days -6; the same pillar as the newest own post -1 (post_history; no history read: no novelty)
+# rank_why spells out every term.
 
-RANK_BASE = {"earnings_result": 3.0, "earnings_tomorrow_roundup": 2.5, "ptr_summary": 2.0, "congress_trade": 2.0,
+RANK_BASE = {**{k: 4.0 for k in mk.MARKET_TYPES}, "earnings_week_preview": 2.0, "earnings_reaction": 2.0,
+             "earnings_result": 3.0, "earnings_tomorrow_roundup": 2.0, "ptr_summary": 2.0, "congress_trade": 2.0,
              "form4_buy": 2.0, "picks_ready": 2.0, "earnings_upcoming": 1.0, "chart_pattern": 1.0, "moves_like": 0.5}
-RANK_BUY = 2.0
+MARKET_LEVEL = tuple(k for k in mk.MARKET_TYPES if k not in ("earnings_week_preview", "earnings_reaction"))
+RECOG = {"mega": 4.0, "large": 2.5, "mid": 1.0, "small": 0.0, "micro": -2.0, "unknown": 0.0}
+RECOG_MARKET = 4.0
 RANK_KNOWN = 2.0
-RANK_AMOUNT_MAX = 4.0  # log10(top / $1K): $15K 1.18, $50K 1.7, $1M 3, $10M+ 4
-RANK_CAP = ((10e9, 2.0, "large"), (2e9, 1.0, "mid"))  # defaults of fame.json company_tiers_usd large / mid
+RANK_CONGRESS_BUY = 1.0
+RANK_MAG_MAX = 3.0
 RANK_FRESH = 2.0       # minus 0.5 per weekday of age
-KNOWN_TITLE = re.compile(r"\b(?:ceo|cfo|chief executive|chief financial|director)\b", re.IGNORECASE)
+NOVELTY_TICKER = 4.0   # primary ticker in an own post within TICKER_COOLDOWN_SESSIONS trading days
+NOVELTY_FILER = 6.0    # same filer within FILER_COOLDOWN_DAYS days
+NOVELTY_PILLAR = 1.0   # same pillar as the newest own post (a tie-breaker)
+TICKER_COOLDOWN_SESSIONS = 3   # weekday age 0..2: the facts date and the 2 weekdays before it
+FILER_COOLDOWN_DAYS = 7
+KNOWN_TITLE = re.compile(r"\b(?:ceo|cfo|chief executive|chief financial|chair(?:man|woman|person)?)\b", re.IGNORECASE)
 RANK_DATE_FIELD = {"congress_trade": "filed", "form4_buy": "filed", "ptr_summary": "filed", "earnings_result": "release_date",
-                   "chart_pattern": "scan_date", "moves_like": "session"}  # the rest are about today / tomorrow: age 0
-
-
-def _cap_tiers(fame: dict) -> tuple:
-    tiers = fame.get("company_tiers_usd") or {}
-    return ((float(tiers.get("large") or RANK_CAP[0][0]), RANK_CAP[0][1], "large"),
-            (float(tiers.get("mid") or RANK_CAP[1][0]), RANK_CAP[1][1], "mid"))
+                   "chart_pattern": "scan_date", "moves_like": "session", **{k: "session_date" for k in mk.MARKET_TYPES},
+                   "earnings_week_preview": None, "congress_flow": None, "insider_flow": None, "reddit_buzz": "capture_date"}
 
 
 def known_name(item: dict, fame: dict) -> str | None:
-    """Why the item's person counts as a known name (fame.json, or a CEO / CFO / director title), else None."""
+    """Why the item's person counts as a known name (fame.json, or a CEO / CFO / Chair title), else None."""
     name = item.get("name") or ""
     if item.get("type") in ("congress_trade", "ptr_summary"):
         hit = ss.matches_any(name, fame.get("members") or [])
@@ -1193,49 +1222,104 @@ def known_name(item: dict, fame: dict) -> str | None:
     return None
 
 
-def rank(item: dict, target: dt.date, fame: dict) -> tuple[float, str]:
-    """(rank, rank_why) for one item: higher is more newsworthy."""
+def magnitude(item: dict) -> tuple[float, str]:
+    kind = item.get("type")
+    if isinstance(item.get("magnitude"), (int, float)):
+        return min(RANK_MAG_MAX, max(0.0, float(item["magnitude"]))), "market"
+    if kind in ("form4_buy", "congress_trade", "ptr_summary"):
+        top = item.get("amount_top_usd")
+        ok = isinstance(top, (int, float)) and top > 0
+        p = round(min(RANK_MAG_MAX, max(0.0, math.log10(top / 1e4))), 2) if ok else 0.0
+        why = f"top {usd_compact(top)}" if ok else "no amount"
+        if kind == "congress_trade" and item.get("side") == "buy":
+            p += RANK_CONGRESS_BUY
+            why += f", buy +{RANK_CONGRESS_BUY:g}"
+        return p, why
+    if kind == "earnings_result":
+        verdict = any((m or {}).get("verdict") for m in (item.get("results") or {}).values())
+        return (1.5, "verdict") if verdict else (1.0, "results")
+    return {"earnings_tomorrow_roundup": (1.0, "roundup"), "picks_ready": (1.0, "picks"),
+            "chart_pattern": (0.5, "pattern")}.get(kind, (0.0, "none"))
+
+
+def item_age(item: dict, target: dt.date) -> tuple[int | None, str]:
+    key = RANK_DATE_FIELD.get(item.get("type"), "")
+    day = item.get(key) if key else target.isoformat()
+    try:
+        return (ss.weekday_age(ss.d(day), target) if day else None), f"{key or 'today'} {str(day)[:10]}"
+    except (TypeError, ValueError):
+        return None, f"{key} unreadable"
+
+
+def recent_posts(history: list[dict] | None, target: dt.date) -> list[dict]:
+    """Own posts of the last TICKER_COOLDOWN_SESSIONS trading days (weekday age 0..2)."""
+    return [p for p in history or [] if p.get("ny_date") and ss.d(p["ny_date"]) <= target
+            and ss.weekday_age(ss.d(p["ny_date"]), target) < TICKER_COOLDOWN_SESSIONS]
+
+
+def novelty(item: dict, target: dt.date, history: list[dict] | None) -> tuple[float, list[str]]:
+    """The novelty penalty from our own posts (post_history.resolve): ticker (or the same item), filer, pillar."""
+    if not history:
+        return 0.0, []
+    pen, why = 0.0, []
+    tick = mk.norm_ticker(item.get("ticker"))
+    same = [p for p in recent_posts(history, target) if (tick and p.get("ticker") == tick)
+            or (item.get("dedupe_key") and p.get("dedupe_key") == item.get("dedupe_key"))]
+    if same:
+        pen += NOVELTY_TICKER
+        why.append(f"posted {'$' + tick if tick else 'this item'} on {same[-1]['ny_date']} -{NOVELTY_TICKER:g}")
+    filer = ph.filer_of(item)
+    if filer:
+        hit = [p for p in history if p.get("filer") == filer and p.get("dedupe_key") != item.get("dedupe_key")
+               and p.get("ny_date") and 0 <= (target - ss.d(p["ny_date"])).days <= FILER_COOLDOWN_DAYS]
+        if hit:
+            pen += NOVELTY_FILER
+            why.append(f"filer posted on {hit[-1]['ny_date']} -{NOVELTY_FILER:g}")
+    newest = history[-1]
+    if newest.get("pillar") and newest["pillar"] == item.get("pillar"):
+        pen += NOVELTY_PILLAR
+        why.append(f"same pillar as the newest own post ({newest['pillar']}) -{NOVELTY_PILLAR:g}")
+    return pen, why
+
+
+def rank(item: dict, target: dt.date, fame: dict, history: list[dict] | None = None) -> tuple[float, str]:
+    """(rank, rank_why) for one item: higher reaches more people we can win."""
     kind = item.get("type")
     pts = RANK_BASE.get(kind, 0.0)
     why = [f"{kind} {pts:g}"]
-    if item.get("side") == "buy":
-        pts += RANK_BUY
-        why.append(f"buy +{RANK_BUY:g}")
-    elif item.get("side") == "sell":
-        why.append("sale +0")
-    top = item.get("amount_top_usd")
-    if isinstance(top, (int, float)) and top > 0:
-        p = round(min(RANK_AMOUNT_MAX, max(0.0, math.log10(top / 1e3))), 2)
-        pts += p
-        why.append(f"top {usd_compact(top)} +{p:g}")
+    if kind in MARKET_LEVEL and not item.get("ticker"):  # about the whole market: it names the largest companies
+        pts += RECOG_MARKET
+        why.append(f"market-level +{RECOG_MARKET:g}")
+    else:
+        tier = item.get("cap_tier") or mk.tier_of(item.get("market_cap_usd"))
+        if tier != "unknown":
+            r = RECOG.get(tier, 0.0)
+            pts += r
+            cap = item.get("market_cap_usd")
+            why.append(f"{tier} cap{' ' + usd_compact(cap) if isinstance(cap, (int, float)) else ''} {r:+g}")
     known = known_name(item, fame)
     if known:
         pts += RANK_KNOWN
         why.append(f"known name {known} +{RANK_KNOWN:g}")
-    cap = item.get("market_cap_usd")
-    if isinstance(cap, (int, float)) and cap > 0:
-        for floor, p, label in _cap_tiers(fame):
-            if cap >= floor:
-                pts += p
-                why.append(f"{label} cap {usd_compact(cap)} +{p:g}")
-                break
-    key = RANK_DATE_FIELD.get(kind)
-    day = item.get(key) if key else target.isoformat()
-    try:
-        age = ss.weekday_age(ss.d(day), target) if day else None
-    except (TypeError, ValueError):
-        age = None
+    mag, mwhy = magnitude(item)
+    if mag:
+        pts += mag
+        why.append(f"magnitude ({mwhy}) +{round(mag, 2):g}")
+    age, label = item_age(item, target)
     if age is not None and age >= 0:
         p = max(0.0, RANK_FRESH - 0.5 * age)
         pts += p
-        why.append(f"{key or 'today'} {str(day)[:10]} (age {age}) +{p:g}")
+        why.append(f"{label} (age {age}) +{p:g}")
+    pen, pwhy = novelty(item, target, history)
+    pts -= pen
+    why += pwhy
     return round(pts, 2), "; ".join(why)
 
 
-def rank_items(items: list[dict], target: dt.date, fame: dict) -> list[dict]:
+def rank_items(items: list[dict], target: dt.date, fame: dict, history: list[dict] | None = None) -> list[dict]:
     """Every item gets rank and rank_why; the list comes back sorted by rank, highest first (ties keep their order)."""
     for it in items:
-        it["rank"], it["rank_why"] = rank(it, target, fame)
+        it["rank"], it["rank_why"] = rank(it, target, fame, history)
     return sorted(items, key=lambda i: -i["rank"])
 
 
@@ -1252,6 +1336,284 @@ def cap_per_filer(congress: list[dict], target: dt.date, fame: dict) -> tuple[li
         seen.add(who)
         kept.append(it)
     return kept, dropped
+
+
+# ---------------------------------------------------------------------------
+# Market pillars (HQ 2026-10-18, social-content PLAN §1-§3): market_facts specs become items; every item gets pillar,
+# cap tier, context and first-line seeds; the pipeline gates (weekend replay, small caps, cooldowns) run before the rank.
+
+MARKET_CARD_URL = SITE + "/market/card/{panel}"
+COOLDOWN_PLATFORMS = ("x", "instagram", "threads")  # the brand accounts Grok posts own posts on
+SMALL_CAP_MIN = 2e9         # form4_buy: emitted at cap >= $2B, ...
+SMALL_CAP_BIG_BUY = 10e6    # ... or a $10M+ buy at cap >= $300M, ...
+MICRO_CAP = 300e6           # ... or a fame.json person (the only way a micro cap gets in)
+TOP_SMALL_SLOTS = 8         # at most one small / micro item among the first 8
+FILING_TYPES = ("form4_buy", "congress_trade", "ptr_summary")
+WEEKEND_REPLAY_TYPES = (*FILING_TYPES, "chart_pattern")
+
+
+def card_file(spec: dict) -> str:
+    """The pinned card's file name: panel, the data date the card prints, the fingerprint of the item's numbers."""
+    return f"market-{spec['panel']}-{spec.get('card_date') or 'nodate'}-{spec.get('fingerprint') or 'x'}.png"
+
+
+def market_item(target: dt.date, spec: dict) -> dict:
+    """A market_facts spec as a facts item. Items with a share card start with media [] and card.url null: the runner
+    pins the card (tools/pin_cards.py) and fills both, or drops the item (No Fallbacks: no post without its own card)."""
+    path = spec.get("path") or "/"
+    skip = ("type", "key", "path", "panel", "fingerprint", "card_date", "ticker")
+    fields = {k: v for k, v in spec.items() if k not in skip}
+    fields["source_url"] = f"{SITE}/earnings" if spec["type"] == "earnings_week_preview" else None
+    if spec.get("panel"):
+        fields["card"] = {"panel": spec["panel"], "url": None, "live_url": MARKET_CARD_URL.format(panel=spec["panel"]),
+                          "date": spec.get("card_date"), "fingerprint": spec.get("fingerprint"), "file": card_file(spec),
+                          "sha256": None}
+        fields["media"] = []
+    return make_item(target.isoformat(), spec["type"], spec.get("ticker"), spec["key"], path, **fields)
+
+
+def market_items(api, target: dt.date, now: dt.datetime, before: dict | None
+                 ) -> tuple[list[dict], dict, dict[str, str], list[str], dict, "mk.Market"]:
+    """(items, left_out, reasons, errors, state, market). state = this pass's flow top-5 lists (the next day's facts read
+    them to tell when a 500-largest name enters the top 5)."""
+    m, errors = mk.load(api)
+    reasons: dict[str, str] = {}
+    specs: list[dict] = []
+    for kind, fn in (("market_move", mk.market_move), ("mega_mover", mk.mega_movers), ("sector_rotation", mk.sector_rotation),
+                     ("breadth_day", mk.breadth_day), ("basket_week", mk.basket_week), ("reddit_buzz", mk.reddit_buzz)):
+        if kind != "reddit_buzz" and not m.p:
+            reasons[kind] = f"{mk.PICTURES} did not load"
+            continue
+        got, why = fn(m, target)
+        specs += got
+        if why:
+            reasons[kind] = why
+    c, cwhy, ctop = mk.congress_flow(m, target, before)
+    i, iwhy, itop = mk.insider_flow(m, target, before)
+    specs += c + i
+    for kind, why in (("congress_flow", cwhy), ("insider_flow", iwhy)):
+        if why:
+            reasons[kind] = why
+    # P5: the week preview (Sunday: next week; Monday: this week) and the reactions of the current calendar week
+    if target.weekday() in (6, 0):
+        monday = target + dt.timedelta(days=1) if target.weekday() == 6 else target
+        weeks, werr = calendar_week(api, monday, now)
+        errors += werr
+        got, why = mk.earnings_week_preview(m, target, weeks[0] if weeks else None, monday)
+        specs += got
+        if why:
+            reasons["earnings_week_preview"] = why
+    else:
+        reasons["earnings_week_preview"] = "built on Sunday and Monday facts only"
+    if m.session:
+        today = now.astimezone(ss.NY).date() if ss.NY else now.date()
+        session = ss.d(m.session)
+        week = None
+        if ss.week_monday(session) == ss.week_monday(today):
+            weeks, werr = calendar_week(api, session, now)
+            errors += werr
+            week = weeks[0] if weeks else None
+        archive, aerr = api.get("/earnings/reports/archive")
+        reports = archive.get("reports") if isinstance(archive, dict) and isinstance(archive.get("reports"), list) else []
+        got, why = mk.earnings_reactions(m, target, week, reports)
+        specs += got
+        if why:
+            reasons["earnings_reaction"] = why
+    else:
+        reasons["earnings_reaction"] = f"{mk.PICTURES} did not load"
+    for s in specs:  # one pinned file per panel and data, shared by its items
+        if s.get("panel"):
+            s["fingerprint"] = mk.panel_fingerprint(m, s["panel"])
+    items = [market_item(target, s) for s in specs]
+    left = {"market_session": m.session, "priced_cap_share": ((m.p or {}).get("totals") or {}).get("priced_cap_share"),
+            "flows_as_of": (m.f or {}).get("as_of")}
+    state = {"session_date": m.session, "congress_top5": ctop, "insider_sell_top5": itop}
+    return items, left, reasons, errors, state, m
+
+
+def _angles(item: dict, m: "mk.Market") -> list[str]:
+    """Three first-line seeds for the older types (number-first, name-first, contrast / question): seeds, not templates."""
+    kind, t = item.get("type"), item.get("ticker")
+    if kind == "form4_buy":
+        role = str(item.get("office") or "Insider").split(" at ")[0]
+        co = item.get("company") or t
+        out = [f"{item.get('amount_text')} open-market buy of ${t} by its {role.lower()}.",
+               f"{co} {role.lower()} {item.get('name')} bought {item.get('amount_text')} of ${t}."]
+        sold = ((m.f or {}).get("insiders") or {}).get("sells", {}).get("total_usd") if m.f else None
+        if isinstance(sold, (int, float)):
+            out.append(f"Insiders sold {mk.usd_text(sold)} in 30 days. This {role.lower()} bought ${t}.")
+        return out
+    if kind == "congress_trade":
+        verb = "purchase" if item.get("side") == "buy" else "sale"
+        return [f"{item.get('amount_text')} {verb} of ${t} disclosed by {item.get('name')}.",
+                f"{item.get('office', '').split(' (')[0]} {item.get('name')} disclosed a ${t} {verb}.",
+                f"Who in Congress is {'buying' if verb == 'purchase' else 'selling'} ${t}? {item.get('name')}."]
+    if kind == "earnings_result":
+        eps = (item.get("results") or {}).get("eps") or {}
+        return [x for x in [f"${t} {item.get('fiscal_label')}: {eps['basis']} {eps['reported']} vs {eps['consensus']} consensus."
+                            if eps.get("reported") and eps.get("consensus") else None,
+                            f"{item.get('name') or t} (${t}) reported {item.get('fiscal_label')}.",
+                            f"Did ${t} beat? {eps['label']}." if eps.get("label") else None] if x]
+    return []
+
+
+def enrich(items: list[dict], m: "mk.Market") -> None:
+    """pillar, cap fill (the map's company cap when the item has none), cap_tier, in_500, context_numbers /
+    context_tickers (numbers computed from our API: the cap, the last session's move, the 30-day flow totals), angles,
+    trigger and card defaults. In place."""
+    ins = ((m.f or {}).get("insiders") or {}) if m.f else {}
+    con = ((m.f or {}).get("congress") or {}) if m.f else {}
+    buyers500 = [i["ticker"] for i in items if i.get("type") == "form4_buy" and m.in_500(i.get("ticker"))]
+    for it in items:
+        kind, t = it.get("type"), it.get("ticker")
+        it["pillar"] = ph.pillar_of(kind)
+        if t and not isinstance(it.get("market_cap_usd"), (int, float)) and m.cap(t):
+            it["market_cap_usd"], it["market_cap_source"] = m.cap(t), "market_map"
+        it["cap_tier"] = "market" if kind in MARKET_LEVEL and not t else mk.tier_of(it.get("market_cap_usd"))
+        it["in_500"] = m.in_500(t) if t else None
+        it.setdefault("context_numbers", [])
+        it.setdefault("context_tickers", [])
+        it.setdefault("trigger", None)
+        it.setdefault("card", None)
+        if kind in mk.MARKET_TYPES:
+            continue
+        ctx: dict = {}
+        nums: list[str] = []
+        cap = it.get("market_cap_usd")
+        if t and isinstance(cap, (int, float)):
+            ctx["market_cap"] = mk.usd_text(cap)
+            nums += [mk.usd_text(cap), mk.about_usd(cap)]
+        mv = m.move(t) if t else None
+        if mv is not None and m.session:
+            ctx["last_session_move"] = {"pct": mk.signed_pct(mv), "session": m.session}
+            nums += [*mk.pct_forms(mv), *mk.date_words(m.session)]
+        if kind == "form4_buy" and isinstance(ins.get("total_usd"), (int, float)):
+            sold = (ins.get("sells") or {}).get("total_usd")
+            ctx["insiders_30d"] = {"bought": mk.usd_text(ins["total_usd"]),
+                                   "sold": mk.usd_text(sold) if isinstance(sold, (int, float)) else None}
+            nums += mk.usd_forms(ins["total_usd"]) + (mk.usd_forms(sold) if isinstance(sold, (int, float)) else []) + ["30"]
+            it["context_tickers"] = [x for x in dict.fromkeys(buyers500) if x != t][:3]
+        if kind in ("congress_trade", "ptr_summary") and con.get("totals"):
+            tot = con["totals"]
+            ctx["congress_30d"] = {"buys": tot.get("buys"), "sells": tot.get("sells"), "members": tot.get("members")}
+            nums += [str(tot.get("buys")), str(tot.get("sells")), str(tot.get("members")), "30"]
+            row = next((x for x in con.get("top_tickers") or [] if t and mk.norm_ticker(x.get("ticker")) == t), None)
+            if row:
+                ctx["ticker_congress_30d"] = {k: row.get(k) for k in ("trades", "members", "buys", "sells")}
+                nums += [str(row.get(k)) for k in ("trades", "members", "buys", "sells") if row.get(k) is not None]
+        if ctx:
+            it["context"] = ctx
+            it["context_numbers"] = uniq([*it["context_numbers"], *nums])
+        it.setdefault("angles", _angles(it, m))
+
+
+def weekend_replay(it: dict, target: dt.date) -> bool:
+    """On Saturday / Sunday facts, a single filing (or pattern) older than the last weekday session is not replayed."""
+    if target.weekday() < 5 or it.get("type") not in WEEKEND_REPLAY_TYPES:
+        return False
+    key = RANK_DATE_FIELD.get(it["type"])
+    try:
+        return ss.weekday_age(ss.d(it.get(key)), target) >= 1
+    except (TypeError, ValueError):
+        return True
+
+
+def small_cap_out(it: dict, fame: dict) -> str | None:
+    """Why a form4_buy is left out by the small-cap gate (None: kept). Kept at cap >= $2B, or a fame.json person, or a
+    $10M+ buy at cap >= $300M; a micro cap (< $300M) only for a fame.json person; an unknown cap only for a fame person."""
+    if it.get("type") != "form4_buy":
+        return None
+    famous = bool(it.get("famous_person") or ss.matches_any(it.get("name") or "", fame.get("insiders") or []))
+    if famous:
+        return None
+    cap, amt = it.get("market_cap_usd"), it.get("amount_top_usd") or 0
+    if not isinstance(cap, (int, float)):
+        return "cap unknown"
+    if cap >= SMALL_CAP_MIN or (amt >= SMALL_CAP_BIG_BUY and cap >= MICRO_CAP):
+        return None
+    return "micro cap" if cap < MICRO_CAP else "small cap under $2B and a buy under $10M"
+
+
+def cooldown(it: dict, target: dt.date, history: list[dict] | None) -> tuple[dict | None, str | None]:
+    """(the item's cooldown field, why it is left out or None). The same item posted on every brand platform; its primary
+    ticker posted on every platform within 3 trading days by another item (earnings results exempt); its filer posted
+    within 7 days by another item."""
+    if history is None:
+        return None, None
+    key, tick, filer = it.get("dedupe_key"), mk.norm_ticker(it.get("ticker")), ph.filer_of(it)
+    same_on = sorted({p["platform"] for p in history if key and p.get("dedupe_key") == key})
+    recent = recent_posts(history, target)
+    tick_last = {}
+    for p in recent:
+        if tick and p.get("ticker") == tick and p.get("dedupe_key") != key:
+            tick_last[p["platform"]] = p["ny_date"]
+    filer_hits = [p for p in history if filer and p.get("filer") == filer and p.get("dedupe_key") != key
+                  and p.get("ny_date") and 0 <= (target - ss.d(p["ny_date"])).days <= FILER_COOLDOWN_DAYS]
+    field = {"same_item_posted_on": same_on, "ticker_last_posted": tick_last,
+             "filer_last_posted": filer_hits[-1]["ny_date"] if filer_hits else None}
+    if set(COOLDOWN_PLATFORMS) <= set(same_on):
+        return field, "already posted on every platform"
+    if it.get("type") != "earnings_result" and set(COOLDOWN_PLATFORMS) <= set(tick_last):
+        return field, f"${tick} posted on every platform within {TICKER_COOLDOWN_SESSIONS} trading days"
+    if filer_hits:
+        return field, f"filer posted on {filer_hits[-1]['ny_date']} (within {FILER_COOLDOWN_DAYS} days)"
+    return field, None
+
+
+def apply_gates(items: list[dict], target: dt.date, fame: dict, history: list[dict] | None) -> tuple[list[dict], dict]:
+    """Weekend replay, the small-cap gate and the cooldowns: (kept, left_out counts with one reason per item)."""
+    left = {"weekend_replay": 0, "small_cap": 0, "cooldown": 0, "reasons": []}
+    kept = []
+    for it in items:
+        tag = f"{it.get('type')} {it.get('ticker') or it.get('item_id')}"
+        if weekend_replay(it, target):
+            left["weekend_replay"] += 1
+            left["reasons"].append(f"{tag}: weekend, filed before the last weekday session")
+            continue
+        why = small_cap_out(it, fame)
+        if why:
+            left["small_cap"] += 1
+            left["reasons"].append(f"{tag}: {why}")
+            continue
+        field, why = cooldown(it, target, history)
+        it["cooldown"] = field
+        if why:
+            left["cooldown"] += 1
+            left["reasons"].append(f"{tag}: {why}")
+            continue
+        kept.append(it)
+    return kept, left
+
+
+def limit_small(items: list[dict]) -> tuple[list[dict], int]:
+    """At most one small / micro cap item among the first TOP_SMALL_SLOTS: later ones move just below that window."""
+    top, moved, seen = [], [], 0
+    for it in items:
+        if len(top) < TOP_SMALL_SLOTS and it.get("cap_tier") in ("small", "micro"):
+            if seen:
+                moved.append(it)
+                continue
+            seen += 1
+        if len(top) < TOP_SMALL_SLOTS:
+            top.append(it)
+        else:
+            break
+    rest = [i for i in items if i not in top and i not in moved]
+    return top + moved + rest, len(moved)
+
+
+def previous_state(repo: Path, target: dt.date, days: int = 7) -> dict | None:
+    """market_state of the newest facts file before the target date (the flow top-5 lists), or None."""
+    for n in range(1, days + 1):
+        p = Path(repo) / "v" / (target - dt.timedelta(days=n)).isoformat() / "facts.json"
+        if p.exists():
+            try:
+                st = json.loads(p.read_text(encoding="utf-8-sig")).get("market_state")
+            except (OSError, ValueError):
+                continue
+            if isinstance(st, dict):
+                return st
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -1278,7 +1640,10 @@ def ptr_summary_reason(skipped: int, capped: int) -> str:
 
 
 def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None, as_of: dt.datetime | None = None,
-                previous: dict | None = None) -> dict:
+                previous: dict | None = None, history: list[dict] | None = None, history_error: str | None = None,
+                before_state: dict | None = None) -> dict:
+    """history: our own posts (post_history.load; None = not read: no cooldown, no novelty term, the error is listed);
+    before_state: the previous facts day's market_state (flow top-5 lists)."""
     now = now or dt.datetime.now(dt.timezone.utc)
     as_of = as_of or default_as_of(target, now)
     errors: list[str] = []
@@ -1370,10 +1735,22 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                                  if checked else "no ticker in today's other items to look up")
     items += m
 
-    items, leaks = screen_holdout(rank_items(items, target, fame), target)
+    # Market pillars (HQ 2026-10-18): non-core sources (a failed read is an error, its items are not built)
+    mi, left["market"], mreasons, merrs, market_state, mkt = market_items(api, target, now, before_state)
+    errors += merrs
+    reasons.update({k: v for k, v in mreasons.items() if not any(i["type"] == k for i in mi)})
+    items += mi
+    enrich(items, mkt)
+    if history_error:
+        errors.append(history_error)
+    items, left["gates"] = apply_gates(items, target, fame, history)
+
+    items, leaks = screen_holdout(rank_items(items, target, fame, history), target)
     if leaks:
         errors += [f"not built: {why}" for why in leaks]
         left["g_n1_holdout"] = {"dropped": len(leaks), "reasons": leaks}
+    items, moved = limit_small(items)
+    left["gates"]["small_cap_moved_below_top_8"] = moved
 
     counts = {k: sum(1 for i in items if i["type"] == k) for k in TYPES}
     return {
@@ -1387,15 +1764,36 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
             "max_len": MAX_LEN,
             "platforms": PLATFORMS,
             "platform_placeholder": PLATFORM_PLACEHOLDER,
-            "numbers": "every number, date or amount in a post must be one of the item's allowed_numbers, as written there",
+            "numbers": ("every number, date or amount in a post must be one of the item's allowed_numbers or "
+                        "context_numbers, as written there (- and − alike); never the same number twice in a post"),
             "picks": "never name or hint at the #1 pick; it is locked and not in this file",
             "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
             "descriptive": ("chart_pattern and moves_like describe what happened only (no forecasts; their items' "
                             "banned_words apply too); moves_like may cashtag only the peers listed in its item"),
-            "cashtags": (f"one cashtag per post (the item's ticker); several only for {' and '.join(ROUNDUP_TYPES)} "
-                         f"(at most {ROUNDUP_MAX_TICKERS}, all from the item's tickers), moves_like (its peers) and "
-                         "picks_ready (the public picks)"),
-            "order": "items are sorted by rank (newsworthiness, highest first; rank_why says why): post in that order",
+            "cashtags": ("at most 4 distinct cashtags, all from the item's tickers + context_tickers; a single-ticker item "
+                         "names its own $TICKER; moves_like may add its peers, picks_ready the public picks"),
+            "order": ("items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); "
+                      "pick across pillars per variety"),
+            "pillars": {"P0": "picks + scoreboard (max 1 a day per platform)", "P1": "market day (market_move)",
+                        "P2": "big-name movers (mega_mover)",
+                        "P3": "smart money in names you know (congress_flow, insider_flow, form4_buy, congress_trade, ptr_summary)",
+                        "P4": "Reddit buzz vs usual (reddit_buzz)",
+                        "P5": "earnings (earnings_result, earnings_upcoming, earnings_tomorrow_roundup, earnings_week_preview, earnings_reaction)",
+                        "P6": "sector rotation (sector_rotation)", "P7": "breadth and the typical stock (breadth_day, basket_week)",
+                        "PX": "automatic analysis (chart_pattern, moves_like)"},
+            "variety": ["no same pillar twice in a row among a platform's own posts",
+                        "at most 2 posts per pillar per platform per day",
+                        "the same primary ticker on one platform not within 3 trading days (earnings results exempt)",
+                        "a first line sharing >= 60% of its first 8 words with one of the platform's last 10 own posts is rejected",
+                        "the same item on 2+ platforms: a different first line and >= 30% different wording",
+                        "market-level pillars (P1 P2 P3 flows P4 P6 P7) >= 50% of own posts per platform per week; single "
+                        "filings <= 25%; picks <= 1 a day; <= 1 small-cap post in 4 (defaults; Growth tunes them)",
+                        "the item's angles are first-line seeds, not templates: rotate the angle per pillar"],
+            "wording": (f"market items (P1 P2 P6 P7) say '{mk.UNIVERSE_WORDS}' (or 'the 500 largest US-listed companies'), "
+                        "never 'S&P 500', 'S&P' or 'the index'; no 'crash', 'bloodbath', 'dump'"),
+            "cards": ("a market item's media is its pinned share card (card.url, a file on our Pages site, the same numbers "
+                      "the item states); never the live /market/card/ URL, never another day's card; no link in the main "
+                      "post: the UTM link goes in a self-reply"),
         },
         "counts": counts,
         "reasons": reasons,
@@ -1403,6 +1801,8 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
         "errors": errors,
         "partial_sources": partial,
         "moves_like_checked": checked,
+        "market_state": market_state,
+        "post_history": {"read": history is not None, "own_posts": len(history) if history is not None else None},
         "api_requests": getattr(api, "requests", None),
         "items": items,
     }
@@ -1463,6 +1863,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--fame", default=str(ss.TOOLS / "fame.json"))
     ap.add_argument("--api", default=ss.API)
     ap.add_argument("--as-of", help="end of the 24-hour earnings window (ISO, UTC if no offset)")
+    ap.add_argument("--no-history", action="store_true", help="do not read our own posts (no cooldowns, no novelty term)")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if a.compare_items:
@@ -1478,7 +1879,9 @@ def main(argv: list[str] | None = None) -> int:
             previous = read_facts(a.previous)
         except (OSError, ValueError) as e:
             print(f"--previous unreadable ({type(e).__name__}): every Moves Like ticker is asked again")
-    facts = build_facts(target, ss.Api(a.api), fame, as_of=as_of, previous=previous)
+    history, herr = (None, "post history: not read (--no-history)") if a.no_history else ph.load(Path(a.repo), now=None)
+    facts = build_facts(target, ss.Api(a.api), fame, as_of=as_of, previous=previous, history=history, history_error=herr,
+                        before_state=previous_state(Path(a.repo), target))
     out = Path(a.out) if a.out else Path(a.repo) / "v" / target.isoformat() / "facts.json"
     leaks = holdout_doc_leaks(facts, target)
     if leaks:

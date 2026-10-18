@@ -66,12 +66,25 @@ def answers(**over):
         "/earnings?weeks_ahead=": {"days": []},
         "/tips/daily": {"status": "pending"},
         "/notable/pattern-showcase": {"v": 1, "status": "ok", "tile": None, "error": None},
+        "/market/pictures": {"status": "no_session"},
+        "/market/flows": {"status": "ok", "congress": {}, "insiders": {}, "buzz": {}},
         "/moves-like/": {"v": 1, "status": "not_covered", "ticker": "X", "session": None, "valid_through": None,
                          "window": 60, "baseline_same_dir": None, "subject": None, "peers": [], "error": None},
     }
     base.update(over)
     base["/moves-like/"] = base.pop("/moves-like/")  # the catch-all prefix goes last: a ticker's own answer wins
     return base
+
+
+def market_stub(caps: dict, session: str = "2026-10-01") -> dict:
+    """A /market/pictures answer whose map holds only `caps` (an old session: no market item fires, the caps fill)."""
+    return {"status": "ok", "session_date": session, "horizon_from": {"1d": session, "5d": session, "21d": session},
+            "map": [{"symbol": t, "name": t, "sector": "Technology", "market_cap": c, "covered": True, "pct_change": 0.5,
+                     "pct_change_5d": 1.0, "usd_change": c * 0.005, "price": 10.0, "prev_close": 9.95,
+                     "price_as_of": session, "price_source": "session", "stale": False} for t, c in caps.items()],
+            "totals": {"ticker_count": len(caps), "priced_count": len(caps), "usd_change_sum": 1.0, "pct_change": 0.5,
+                       "priced_cap_share": 1.0}, "sectors": [], "breadth": {"total": 0, "advancers": 0, "decliners": 0,
+                                                                             "unchanged": 0, "series": []}}
 
 
 @pytest.fixture(autouse=True)
@@ -147,9 +160,16 @@ def test_form4_material_buys_only():
         irow(3, "MSFT", 5_000_000, plan="pre_planned", name="Planner", slug="planner", acc="000139834426018112"),
         irow(4, "UNH", 3_000_000, side="sell", name="Seller", slug="seller", acc="000139834426018113"),
     ]
-    f = build(**{"/notable/feed?tab=insiders": {"items": rows, "has_more": False}})
+    # BPRE's cap comes from the market map (cap fill): the small-cap gate keeps a $2B+ company
+    f = build(**{"/notable/feed?tab=insiders": {"items": rows, "has_more": False},
+                 "/market/pictures": market_stub({"BPRE": 5e9})})
     items = [i for i in f["items"] if i["type"] == "form4_buy"]
     assert [i["ticker"] for i in items] == ["BPRE"]
+    assert items[0]["market_cap_source"] == "market_map" and items[0]["cap_tier"] == "mid"
+    # without a known cap the gate leaves it out (No Fallbacks: a micro cap is never assumed big)
+    f = build(**{"/notable/feed?tab=insiders": {"items": rows, "has_more": False}})
+    assert not [i for i in f["items"] if i["type"] == "form4_buy"]
+    assert f["left_out"]["gates"]["small_cap"] == 1 and "cap unknown" in f["left_out"]["gates"]["reasons"][0]
     it = items[0]
     assert it["amount_text"] == "$2.42M"
     assert it["source_url"] == "https://www.sec.gov/Archives/edgar/data/1551047/000139834426018110/0001398344-26-018110-index.htm"
@@ -302,7 +322,7 @@ def test_empty_day_is_valid_with_reasons():
     assert bw == fx.BANNED_WORDS
     for w in ("insider trading", "guaranteed", "price target", "breakout coming", "should buy", "load up", "bitcoin", "crypto"):
         assert w in bw
-    assert f["rules"]["disclaimer"] == "Not investment advice." and f["rules"]["max_len"] == {"x": 270}
+    assert f["rules"]["disclaimer"] == "Not investment advice." and f["rules"]["max_len"] == {"x": 270, "threads": 500}
 
 
 def test_a_failed_source_is_an_error_not_a_fallback():
@@ -571,30 +591,55 @@ def test_rank_sorts_the_file_and_explains_every_point():
     c = [i for i in f["items"] if i["type"] == "congress_trade"]
     assert [i["ticker"] for i in c] == ["AAPL", "UNH"]
     top, low = c
-    assert "buy +2" in top["rank_why"] and "known name Nancy Pelosi (fame) +2" in top["rank_why"]
-    assert "top $5M +3.7" in top["rank_why"] and "filed 2026-10-08 (age 1) +1.5" in top["rank_why"]
-    assert "sale +0" in low["rank_why"] and "known name" not in low["rank_why"]
+    assert "known name Nancy Pelosi (fame) +2" in top["rank_why"]
+    assert "magnitude (top $5M, buy +1) +3.7" in top["rank_why"] and "filed 2026-10-08 (age 1) +1.5" in top["rank_why"]
+    assert "buy" not in low["rank_why"] and "known name" not in low["rank_why"]
     assert top["rank"] > low["rank"]
+    assert f["rules"]["order"].startswith("items are sorted by audience_rank")
 
 
 def test_rank_factors():
+    """Audience rank (HQ 2026-10-18): recognisability by cap tier, a known person (fame / CEO / CFO / Chair, no longer
+    "director"), magnitude, freshness, novelty."""
     t = FRI
     base = {"type": "form4_buy", "side": "buy", "name": "Jane Roe", "office": "Director at Foo", "filed": "2026-10-09"}
     plain = dict(base, office="10% owner at Foo")
-    assert fx.rank(base, t, FAME)[0] - fx.rank(plain, t, FAME)[0] == 2.0           # a director title is a known name
-    assert "known name Director (title) +2" in fx.rank(base, t, FAME)[1]
+    assert fx.rank(base, t, FAME)[0] == fx.rank(plain, t, FAME)[0]                 # a director is not a known name
+    ceo = dict(base, office="Chief Executive Officer at Foo")
+    assert fx.rank(ceo, t, FAME)[0] - fx.rank(plain, t, FAME)[0] == 2.0
     assert "known name Warren Buffett (fame)" in fx.rank(dict(plain, name="Warren E. Buffett"), t, FAME)[1]
-    big = dict(plain, market_cap_usd=250e9)
-    mid = dict(plain, market_cap_usd=5e9)
-    small = dict(plain, market_cap_usd=1e9)
-    assert fx.rank(big, t, FAME)[0] - fx.rank(small, t, FAME)[0] == 2.0 and "large cap $250B +2" in fx.rank(big, t, FAME)[1]
-    assert fx.rank(mid, t, FAME)[0] - fx.rank(small, t, FAME)[0] == 1.0
-    # buys over sales; the top of the range, summed over trades; freshness
-    sale = {"type": "congress_trade", "side": "sell", "name": "X Y", "filed": "2026-10-09", "amount_top_usd": 15000}
-    assert fx.rank(dict(sale, side="buy"), t, FAME)[0] - fx.rank(sale, t, FAME)[0] == 2.0
-    assert fx.rank(dict(sale, amount_top_usd=1e6), t, FAME)[0] > fx.rank(sale, t, FAME)[0]
+    tiers = {"mega": 250e9, "large": 50e9, "mid": 5e9, "small": 1e9, "micro": 100e6}
+    score = {k: fx.rank(dict(plain, market_cap_usd=v), t, FAME)[0] for k, v in tiers.items()}
+    assert score["mega"] - score["small"] == 4.0 and score["large"] - score["small"] == 2.5
+    assert score["mid"] - score["small"] == 1.0 and score["micro"] - score["small"] == -2.0
+    assert "mega cap $250B +4" in fx.rank(dict(plain, market_cap_usd=250e9), t, FAME)[1]
+    # magnitude: log10(top / $10K): $100K 1, $1M 2, $10M+ 3 (capped); a Congress buy +1
+    sale = {"type": "congress_trade", "side": "sell", "name": "X Y", "filed": "2026-10-09", "amount_top_usd": 100_000}
+    assert fx.rank(dict(sale, side="buy"), t, FAME)[0] - fx.rank(sale, t, FAME)[0] == 1.0
+    assert fx.rank(dict(sale, amount_top_usd=1e6), t, FAME)[0] - fx.rank(sale, t, FAME)[0] == 1.0
+    assert fx.rank(dict(sale, amount_top_usd=1e9), t, FAME)[0] - fx.rank(sale, t, FAME)[0] == 2.0
     assert fx.rank(dict(sale, filed="2026-10-05"), t, FAME)[0] == pytest.approx(fx.rank(sale, t, FAME)[0] - 2.0)  # age 4: +0
     assert fx.range_tops([{"amount": {"low": 1001, "high": 15000}}, {"amount": {"low": 15001, "high": 50000}}]) == 65000.0
+    # market-level items without a lead ticker: +4; their magnitude comes with the item
+    mm = {"type": "market_move", "session_date": "2026-10-09", "magnitude": 2.42}
+    assert fx.rank(mm, t, FAME) == (12.42, "market_move 4; market-level +4; magnitude (market) +2.42; "
+                                           "session_date 2026-10-09 (age 0) +2")
+
+
+def test_rank_novelty_from_our_own_posts():
+    t = FRI
+    pep = {"type": "form4_buy", "side": "buy", "ticker": "PEP", "name": "Robert C. Pohlad", "office": "Director at PepsiCo",
+           "filed": "2026-10-09", "market_cap_usd": 179e9, "amount_top_usd": 10.84e6, "figure_slug": "pohlad",
+           "dedupe_key": "form4:1:PEP", "pillar": "P3"}
+    assert fx.rank(pep, t, FAME)[0] == 9.5                       # 2 + large 2.5 + $10M+ 3 + fresh 2 (PLAN §2.2)
+    hist = [{"platform": "x", "ny_date": "2026-10-08", "ticker": "PEP", "dedupe_key": "other", "filer": None, "pillar": "P5"}]
+    r, why = fx.rank(pep, t, FAME, hist)
+    assert r == 5.5 and "posted $PEP on 2026-10-08 -4" in why
+    hist = [{"platform": "x", "ny_date": "2026-10-05", "ticker": "KO", "dedupe_key": "x", "filer": "pohlad", "pillar": "P3"}]
+    r, why = fx.rank(pep, t, FAME, hist)
+    assert r == 2.5 and "filer posted on 2026-10-05 -6" in why and "same pillar as the newest own post (P3) -1" in why
+    old = [{"platform": "x", "ny_date": "2026-10-01", "ticker": "PEP", "dedupe_key": "y", "filer": None, "pillar": "P5"}]
+    assert fx.rank(pep, t, FAME, old)[0] == 9.5                  # older than 3 trading days: no penalty
 
 
 GOTT = politician("Josh Gottheimer", "josh-gottheimer", "house", "Democratic", "NJ")
