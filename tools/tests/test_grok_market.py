@@ -334,3 +334,10 @@ def test_a_question_to_the_reader_is_not_a_claim():
     g = item("mega_mover", "GOOGL")
     assert gr.wording_reasons(g, "Which mega cap move surprised you most on Friday?") == []
     assert gr.wording_reasons(g, "Was Energy the biggest dollar loser on Friday?") != []
+
+
+def test_idioms_that_are_not_claims():
+    g = item("mega_mover", "GOOGL")
+    for t in ("Link in the first comment.", "The report has EPS only: $1.16 vs $1.21.", "Link in bio only."):
+        assert gr.wording_reasons(g, t) == [], t
+    assert gr.wording_reasons(g, "Only Energy rose on Friday.") != []
