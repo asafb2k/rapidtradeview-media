@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-18",
-  "generated_at": "2026-10-18T19:03:55Z",
-  "as_of": "2026-10-18T19:03:55Z",
+  "generated_at": "2026-10-18T19:47:17Z",
+  "as_of": "2026-10-18T19:47:17Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -52,7 +52,8 @@
     "no_advice": "no buy / sell calls, predictions or price targets; every post carries the disclaimer",
     "descriptive": "chart_pattern and moves_like describe what happened only (no forecasts; their items' banned_words apply too); moves_like may cashtag only the peers listed in its item",
     "cashtags": "at most 4 distinct cashtags, all from the item's tickers + context_tickers; a single-ticker item names its own $TICKER; moves_like may add its peers, picks_ready the public picks",
-    "order": "items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); pick across pillars per variety",
+    "order": "items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has them; items below carry top8_out (why). Pick across pillars per variety",
+    "claims": "comparatives and superlatives (led, biggest, largest, worst, best, most, least, only, first, top, record) only as the item's claims state them: name only that claim's companies / sectors in that sentence; never say a stock led its sector unless sector_leaders / claims say so; never put a company in a sector its ticker_sectors entry does not show",
     "pillars": {
       "P0": "picks + scoreboard (max 1 a day per platform)",
       "P1": "market day (market_move)",
@@ -73,7 +74,7 @@
       "market-level pillars (P1 P2 P3 flows P4 P6 P7) >= 50% of own posts per platform per week; single filings <= 25%; picks <= 1 a day; <= 1 small-cap post in 4 (defaults; Growth tunes them)",
       "the item's angles are first-line seeds, not templates: rotate the angle per pillar"
     ],
-    "wording": "market items (P1 P2 P6 P7) say 'the 500 largest US-listed stocks' (or 'the 500 largest US-listed companies'), never 'S&P 500', 'S&P' or 'the index'; no 'crash', 'bloodbath', 'dump'",
+    "wording": "every post of every item type: our universe is 'the 500 largest US-listed stocks' (or 'the 500 largest US-listed companies'), never 'S&P 500', 'S&P', 'SPX' or 'the index' (only a picks post may compare with the benchmark, as 'vs SPY'); 'the 10 largest US-listed companies', not 'US companies'; a 5-session window is worded as the item's when field says ('in the week to Oct 16', 'last week'); the 30-day insider totals are 'open-market buys / sells by officers and directors over 30 days in our feed'; a post never contradicts its card (card_message); market items: no 'crash', 'bloodbath', 'dump'",
     "cards": "a market item's media is its pinned share card (card.url, a file on our Pages site, the same numbers the item states); never the live /market/card/ URL, never another day's card; no link in the main post: the UTM link goes in a self-reply"
   },
   "counts": {
@@ -99,7 +100,7 @@
   },
   "reasons": {
     "ptr_summary": "6 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "earnings_result": "no earnings report published between 2026-10-17T19:03Z and 2026-10-18T19:03Z",
+    "earnings_result": "no earnings report published between 2026-10-17T19:47Z and 2026-10-18T19:47Z",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
     "insider_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)"
   },
@@ -146,7 +147,7 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1538,
+      "archive_reports": 1547,
       "recent_ready": 51,
       "outside_24h": 51,
       "unreadable": 0
@@ -178,7 +179,7 @@
     "market": {
       "market_session": "2026-10-16",
       "priced_cap_share": 0.9663367467709199,
-      "flows_as_of": "2026-10-18T19:04:03.626629+00:00"
+      "flows_as_of": "2026-10-18T19:47:26.570601+00:00"
     },
     "gates": {
       "weekend_replay": 11,
@@ -198,7 +199,17 @@
         "congress_trade ZTS: weekend, filed before the last weekday session",
         "congress_trade WSM: weekend, filed before the last weekday session"
       ],
-      "small_cap_moved_below_top_8": 0
+      "self_check": {
+        "items_not_built": 0,
+        "angles_dropped": 0
+      },
+      "top8": {
+        "small_cap": 0,
+        "session_map": 5,
+        "repeat": 5,
+        "ranked_below": 16,
+        "pillars": 6
+      }
     }
   },
   "errors": [],
@@ -332,6 +343,49 @@
       ],
       "magnitude": 3.0,
       "trigger": "|$ move| $105.5B >= $50.0B",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top",
+            "led"
+          ],
+          "subjects": [
+            "GOOGL"
+          ],
+          "bare": true,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "$GOOGL: the biggest dollar drop among the 500 largest US-listed companies on Friday"
+        },
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top"
+          ],
+          "subjects": [
+            "GOOGL",
+            "MSFT",
+            "NVDA"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "the biggest dollar drops: $GOOGL, $MSFT, $NVDA"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "GOOGL"
+        ],
+        "numbers": [
+          "$105.5B",
+          "2.47%",
+          "2.5%"
+        ]
+      },
       "market_cap_usd": 4270938005486.0913,
       "context_tickers": [],
       "context_numbers": [],
@@ -367,15 +421,27 @@
           "alt": "$GOOGL (Alphabet Inc.) lost $105.5B of market value on Friday, −2.47%: the biggest dollar drop among the 500 largest US-listed companies (#3 by market cap). Next: $MSFT −$77.2B (−1.93%), $NVDA −$74.9B (−1.43%)."
         }
       ],
+      "market_cap_source": "market_map",
       "cap_tier": "mega",
       "in_500": true,
+      "ticker_sectors": {
+        "GOOGL": "Communication Services",
+        "MSFT": "Technology",
+        "NVDA": "Technology"
+      },
+      "ticker_names": {
+        "GOOGL": "Alphabet Inc.",
+        "MSFT": "Microsoft Corporation",
+        "NVDA": "NVIDIA Corporation"
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
       },
       "rank": 13.0,
-      "rank_why": "mega_mover 4; mega cap $4270.94B +4; magnitude (market) +3; session_date 2026-10-16 (age 0) +2"
+      "rank_why": "mega_mover 4; mega cap $4270.94B +4; magnitude (market) +3; session_date 2026-10-16 (age 0) +2",
+      "top8": true
     },
     {
       "item_id": "2026-10-18-sector-rotation-LIST-420ef4",
@@ -436,6 +502,22 @@
         "10.17%",
         "−10.2%",
         "10.2%",
+        "+9.66%",
+        "9.66%",
+        "+9.7%",
+        "9.7%",
+        "+9.25%",
+        "9.25%",
+        "+9.3%",
+        "9.3%",
+        "−26.02%",
+        "26.02%",
+        "−26.0%",
+        "26.0%",
+        "−25.47%",
+        "25.47%",
+        "−25.5%",
+        "25.5%",
         "5",
         "2026-10-09",
         "Oct 9, 2026",
@@ -444,12 +526,18 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "This week: the 500 largest US-listed stocks moved −2.7% (5 sessions to Oct 16). Up: Consumer Defensive +5.5%, Energy +5.0%. Down: Tech −7.3%, Industrials −3.9%. Best minus worst: 12.8 points. Largest names moving with their sector: $WMT +6.70% (Consumer Defensive), $XOM +5.94% (Energy), $NVDA −6.61% (Tech), $SPCX −10.17% (Industrials).",
+      "facts_text": "In the week to Oct 16: the 500 largest US-listed stocks moved −2.7% (5 sessions to Oct 16). Up: Consumer Defensive +5.5%, Energy +5.0%. Down: Tech −7.3%, Industrials −3.9%. Best minus worst: 12.8 points. Best stock in each up sector: $DEO +9.66% (Consumer Defensive), $COP +9.25% (Energy). Worst stock in each down sector: $CIEN −26.02% (Tech), $RKLB −25.47% (Industrials). By market value, the biggest names moving with their sector: $WMT +6.70% (Consumer Defensive), $XOM +5.94% (Energy), $NVDA −6.61% (Tech), $SPCX −10.17% (Industrials).",
       "dedupe_key": "sector_rotation:2026-10-16:week",
       "pillar": "P6",
       "session_date": "2026-10-16",
       "window": "week",
-      "when": "this week",
+      "when": "in the week to Oct 16",
+      "context_tickers": [
+        "DEO",
+        "COP",
+        "CIEN",
+        "RKLB"
+      ],
       "all_500": -2.729306176378831,
       "best": [
         {
@@ -494,493 +582,137 @@
           "pct_text": "−10.17%"
         }
       },
-      "angles": [
-        "Tech −7.3%, Consumer Defensive +5.5% this week.",
-        "The 500 largest moved −2.7% this week, but not evenly.",
-        "Consumer Defensive up, Tech down: a 12.8-point gap this week."
-      ],
-      "magnitude": 3.0,
-      "trigger": "week: best minus worst 12.8 pp >= 4.0 pp",
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [
-        "crash",
-        "crashed",
-        "crashing",
-        "bloodbath",
-        "dump",
-        "dumps",
-        "dumped",
-        "dumping",
-        "s&p 500",
-        "s&p",
-        "the index",
-        "plunge",
-        "plunged",
-        "plunging"
-      ],
-      "card": {
-        "panel": "sectors",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-sectors-2026-10-16-e789b0e7.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/sectors",
-        "date": "2026-10-16",
-        "fingerprint": "e789b0e7",
-        "file": "market-sectors-2026-10-16-e789b0e7.png",
-        "sha256": "9c17c0be2e68b45e1d04db80682fe080f6dbb256292a546a7fe036b6a8c822b2"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-sectors-2026-10-16-e789b0e7.png",
-          "kind": "image",
-          "alt": "This week: the 500 largest US-listed stocks moved −2.7% (5 sessions to Oct 16). Up: Consumer Defensive +5.5%, Energy +5.0%. Down: Tech −7.3%, Industrials −3.9%. Best minus worst: 12.8 points. Largest names moving with their sector: $WMT +6.70% (Consumer Defensive), $XOM +5.94% (Energy), $NVDA −6.61% (Tech), $SPCX −10.17% (Industrials)."
-        }
-      ],
-      "cap_tier": "market",
-      "in_500": null,
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "rank": 13.0,
-      "rank_why": "sector_rotation 4; market-level +4; magnitude (market) +3; session_date 2026-10-16 (age 0) +2"
-    },
-    {
-      "item_id": "2026-10-18-basket-week-LIST-53e3ac",
-      "type": "basket_week",
-      "ticker": null,
-      "tickers": [
-        "SPCX",
-        "AVGO",
-        "TSM",
-        "AAPL"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-basket-week-LIST-53e3ac#map",
-      "allowed_numbers": [
-        "−5.04%",
-        "5.04%",
-        "−5.0%",
-        "5.0%",
-        "10",
-        "1",
-        "5",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "2026-10-09",
-        "Oct 9, 2026",
-        "Oct 9",
-        "−10.17%",
-        "10.17%",
-        "−10.2%",
-        "10.2%",
-        "−9.07%",
-        "9.07%",
-        "−9.1%",
-        "9.1%",
-        "−8.98%",
-        "8.98%",
-        "−9.0%",
-        "9.0%",
-        "−7.31%",
-        "7.31%",
-        "−7.3%",
-        "7.3%",
-        "−6.61%",
-        "6.61%",
-        "−6.6%",
-        "6.6%",
-        "−4.74%",
-        "4.74%",
-        "−4.7%",
-        "4.7%",
-        "−3.15%",
-        "3.15%",
-        "−3.1%",
-        "3.1%",
-        "−1.30%",
-        "1.30%",
-        "−1.3%",
-        "1.3%",
-        "−1.13%",
-        "1.13%",
-        "−1.1%",
-        "1.1%",
-        "+2.03%",
-        "2.03%",
-        "+2.0%",
-        "2.0%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The 10 largest US-listed companies by market value, held in equal amounts, moved −5.04% over the 5 sessions to Oct 16. 1 of 10 rose. Best: $AAPL +2.03%, $MSFT −1.13%, $META −1.30%. Worst: $SPCX −10.17%, $AVGO −9.07%, $TSM −8.98%.",
-      "dedupe_key": "basket_week:2026-10-16",
-      "pillar": "P7",
-      "session_date": "2026-10-16",
-      "basket": [
-        {
-          "ticker": "SPCX",
-          "pct_5d": -10.174078858337943
-        },
-        {
-          "ticker": "AVGO",
-          "pct_5d": -9.069535874315438
-        },
-        {
-          "ticker": "TSM",
-          "pct_5d": -8.978403300169857
-        },
-        {
-          "ticker": "TSLA",
-          "pct_5d": -7.311209824928133
-        },
-        {
-          "ticker": "NVDA",
-          "pct_5d": -6.60764131193301
-        },
-        {
-          "ticker": "AMZN",
-          "pct_5d": -4.73650116221469
-        },
-        {
-          "ticker": "GOOGL",
-          "pct_5d": -3.1479269749189687
-        },
-        {
-          "ticker": "META",
-          "pct_5d": -1.300318644162124
-        },
-        {
-          "ticker": "MSFT",
-          "pct_5d": -1.1250864372885916
-        },
-        {
-          "ticker": "AAPL",
-          "pct_5d": 2.0259030418250834
-        }
-      ],
-      "excluded": [],
-      "mean_5d": -5.0425,
-      "risers": 1,
-      "angles": [
-        "Owning the 10 largest US companies equally cost 5.04% this week.",
-        "1 of the 10 largest US companies rose this week.",
-        "What did a mega-cap portfolio do this week? −5.04%, equal-weighted."
-      ],
-      "magnitude": 3.0,
-      "trigger": "|equal-weight 5d| 5.04% >= 2.0%",
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [
-        "crash",
-        "crashed",
-        "crashing",
-        "bloodbath",
-        "dump",
-        "dumps",
-        "dumped",
-        "dumping",
-        "s&p 500",
-        "s&p",
-        "the index",
-        "plunge",
-        "plunged",
-        "plunging"
-      ],
-      "card": {
-        "panel": "map",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/map",
-        "date": "2026-10-16",
-        "fingerprint": "526c160e",
-        "file": "market-map-2026-10-16-526c160e.png",
-        "sha256": "9f688bda214eb28748ee78951a48757b53c7fd042da4e1430c35e0a155e33868"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
-          "kind": "image",
-          "alt": "The 10 largest US-listed companies by market value, held in equal amounts, moved −5.04% over the 5 sessions to Oct 16. 1 of 10 rose. Best: $AAPL +2.03%, $MSFT −1.13%, $META −1.30%. Worst: $SPCX −10.17%, $AVGO −9.07%, $TSM −8.98%."
-        }
-      ],
-      "cap_tier": "market",
-      "in_500": null,
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "rank": 13.0,
-      "rank_why": "basket_week 4; market-level +4; magnitude (market) +3; session_date 2026-10-16 (age 0) +2"
-    },
-    {
-      "item_id": "2026-10-18-mega-mover-PANW-ed9bc2",
-      "type": "mega_mover",
-      "ticker": "PANW",
-      "tickers": [
-        "PANW",
-        "GOOGL",
-        "MSFT"
-      ],
-      "name": "Palo Alto Networks, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-mega-mover-PANW-ed9bc2#map",
-      "allowed_numbers": [
-        "−7.63%",
-        "7.63%",
-        "−7.6%",
-        "7.6%",
-        "$23.1B",
-        "−$23.1B",
-        "$23B",
-        "−$23B",
-        "500",
-        "42",
-        "#42",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "−2.47%",
-        "2.47%",
-        "−2.5%",
-        "2.5%",
-        "$105.5B",
-        "−$105.5B",
-        "$106B",
-        "−$106B",
-        "−1.93%",
-        "1.93%",
-        "−1.9%",
-        "1.9%",
-        "$77.2B",
-        "−$77.2B",
-        "$77B",
-        "−$77B",
-        "15",
-        "#15"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "$PANW (Palo Alto Networks, Inc.) lost $23.1B of market value on Friday, −7.63%: #15 by dollar drop among the 500 largest US-listed companies (#42 by market cap). Biggest dollar drops: $GOOGL −$105.5B (−2.47%), $MSFT −$77.2B (−1.93%).",
-      "dedupe_key": "mega_mover:2026-10-16:PANW",
-      "pillar": "P2",
-      "session_date": "2026-10-16",
-      "when": "on Friday",
-      "mover": {
-        "ticker": "PANW",
-        "name": "Palo Alto Networks, Inc.",
-        "sector": "Technology",
-        "pct": -7.6349690766197575,
-        "usd": -23124861121.541977,
-        "cap": 302880874689.542,
-        "pct_text": "−7.63%",
-        "usd_text": "−$23.1B"
-      },
-      "rank_by_cap": 42,
-      "rank_by_usd": 15,
-      "next_movers": [
-        {
-          "ticker": "GOOGL",
-          "name": "Alphabet Inc.",
-          "sector": "Communication Services",
-          "pct": -2.4712215795200887,
-          "usd": -105544341639.49713,
-          "cap": 4270938005486.0913,
-          "pct_text": "−2.47%",
-          "usd_text": "−$105.5B"
-        },
-        {
-          "ticker": "MSFT",
-          "name": "Microsoft Corporation",
-          "sector": "Technology",
-          "pct": -1.9260714815364288,
-          "usd": -77151422804.11249,
-          "cap": 4005636527184.797,
-          "pct_text": "−1.93%",
-          "usd_text": "−$77.2B"
-        }
-      ],
-      "angles": [
-        "$PANW −7.63% on Friday, a $23.1B move in market value.",
-        "One of the 100 largest US-listed companies moved 7.63% on Friday: $PANW.",
-        "$PANW is #42 by market cap. Friday it fell 7.63%."
-      ],
-      "magnitude": 2.863113403732409,
-      "trigger": "top-100 name (#42 by cap) |1d| 7.63% >= 4.0%",
-      "market_cap_usd": 302880874689.542,
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [
-        "crash",
-        "crashed",
-        "crashing",
-        "bloodbath",
-        "dump",
-        "dumps",
-        "dumped",
-        "dumping",
-        "s&p 500",
-        "s&p",
-        "the index",
-        "plunge",
-        "plunged",
-        "plunging"
-      ],
-      "card": {
-        "panel": "map",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/map",
-        "date": "2026-10-16",
-        "fingerprint": "526c160e",
-        "file": "market-map-2026-10-16-526c160e.png",
-        "sha256": "9f688bda214eb28748ee78951a48757b53c7fd042da4e1430c35e0a155e33868"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
-          "kind": "image",
-          "alt": "$PANW (Palo Alto Networks, Inc.) lost $23.1B of market value on Friday, −7.63%: #15 by dollar drop among the 500 largest US-listed companies (#42 by market cap). Biggest dollar drops: $GOOGL −$105.5B (−2.47%), $MSFT −$77.2B (−1.93%)."
-        }
-      ],
-      "cap_tier": "mega",
-      "in_500": true,
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "rank": 12.86,
-      "rank_why": "mega_mover 4; mega cap $302.88B +4; magnitude (market) +2.86; session_date 2026-10-16 (age 0) +2"
-    },
-    {
-      "item_id": "2026-10-18-sector-rotation-LIST-39bbb6",
-      "type": "sector_rotation",
-      "ticker": null,
-      "tickers": [
-        "XOM",
-        "WMT",
-        "NVDA",
-        "GOOGL"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-sector-rotation-LIST-39bbb6#sectors",
-      "allowed_numbers": [
-        "−1.21%",
-        "1.21%",
-        "−1.2%",
-        "1.2%",
-        "500",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "5.4",
-        "+2.64%",
-        "2.64%",
-        "+2.6%",
-        "2.6%",
-        "+1.44%",
-        "1.44%",
-        "+1.4%",
-        "1.4%",
-        "−2.77%",
-        "2.77%",
-        "−2.8%",
-        "2.8%",
-        "−2.51%",
-        "2.51%",
-        "−2.5%",
-        "2.5%",
-        "+2.46%",
-        "2.46%",
-        "+2.5%",
-        "+0.80%",
-        "0.80%",
-        "+0.8%",
-        "0.8%",
-        "−1.43%",
-        "1.43%",
-        "−1.4%",
-        "−2.47%",
-        "2.47%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "On Friday: the 500 largest US-listed stocks moved −1.2% (close of Oct 16). Up: Energy +2.6%, Consumer Defensive +1.4%. Down: Tech −2.8%, Communication Services −2.5%. Best minus worst: 5.4 points. Largest names moving with their sector: $XOM +2.46% (Energy), $WMT +0.80% (Consumer Defensive), $NVDA −1.43% (Tech), $GOOGL −2.47% (Communication Services).",
-      "dedupe_key": "sector_rotation:2026-10-16:day",
-      "pillar": "P6",
-      "session_date": "2026-10-16",
-      "window": "day",
-      "when": "on Friday",
-      "all_500": -1.2083885693687288,
-      "best": [
-        {
-          "sector": "Energy",
-          "pct": 2.6439084174568217
-        },
-        {
-          "sector": "Consumer Defensive",
-          "pct": 1.4403014619066652
-        }
-      ],
-      "worst": [
-        {
-          "sector": "Technology",
-          "pct": -2.7698624405280867
-        },
-        {
-          "sector": "Communication Services",
-          "pct": -2.507656908845717
-        }
-      ],
-      "spread_pp": 5.41,
-      "sector_movers": {
-        "Energy": {
-          "ticker": "XOM",
-          "pct": 2.4616441493015673,
-          "pct_text": "+2.46%"
-        },
+      "sector_leaders": {
         "Consumer Defensive": {
-          "ticker": "WMT",
-          "pct": 0.7974887588020785,
-          "pct_text": "+0.80%"
+          "ticker": "DEO",
+          "name": "Diageo plc",
+          "pct": 9.66216995272684,
+          "pct_text": "+9.66%"
+        },
+        "Energy": {
+          "ticker": "COP",
+          "name": "ConocoPhillips",
+          "pct": 9.254287844891863,
+          "pct_text": "+9.25%"
         },
         "Technology": {
-          "ticker": "NVDA",
-          "pct": -1.4270588776872373,
-          "pct_text": "−1.43%"
+          "ticker": "CIEN",
+          "name": "Ciena Corporation",
+          "pct": -26.022189118882977,
+          "pct_text": "−26.02%"
         },
-        "Communication Services": {
-          "ticker": "GOOGL",
-          "pct": -2.4712215795200887,
-          "pct_text": "−2.47%"
+        "Industrials": {
+          "ticker": "RKLB",
+          "name": "Rocket Lab Corporation",
+          "pct": -25.465474270634793,
+          "pct_text": "−25.47%"
         }
       },
       "angles": [
-        "Tech −2.8%, Energy +2.6% on Friday.",
-        "The 500 largest moved −1.2% on Friday, but not evenly.",
-        "Energy up, Tech down: a 5.4-point gap on Friday."
+        "Tech −7.3%, Consumer Defensive +5.5% in the week to Oct 16.",
+        "The 500 largest moved −2.7% in the week to Oct 16, but not evenly.",
+        "Consumer Defensive up, Tech down: a 12.8-point gap in the week to Oct 16."
       ],
-      "magnitude": 2.706885428992454,
-      "trigger": "day: best minus worst 5.4 pp >= 3.0 pp",
-      "context_tickers": [],
+      "claims": [
+        {
+          "words": [
+            "best",
+            "top",
+            "led",
+            "biggest"
+          ],
+          "subjects": [
+            "Consumer Defensive"
+          ],
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "Consumer Defensive was the best sector in the week to Oct 16"
+        },
+        {
+          "words": [
+            "worst",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "Technology"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "Tech was the worst sector in the week to Oct 16"
+        },
+        {
+          "words": [
+            "best",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "DEO",
+            "Consumer Defensive",
+            "COP",
+            "Energy"
+          ],
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "best stock by % in its sector: $DEO (Consumer Defensive), $COP (Energy)"
+        },
+        {
+          "words": [
+            "worst",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "CIEN",
+            "Technology",
+            "RKLB",
+            "Industrials"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "worst stock by % in its sector: $CIEN (Tech), $RKLB (Industrials)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "WMT",
+            "Consumer Defensive",
+            "XOM",
+            "Energy",
+            "NVDA",
+            "Technology",
+            "SPCX",
+            "Industrials"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": "market (?:value|cap)",
+          "says": "by market value, the biggest name moving with its sector: $WMT (Consumer Defensive), $XOM (Energy), $NVDA (Tech), $SPCX (Industrials)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "WMT",
+          "NVDA"
+        ],
+        "numbers": [
+          "2.7%",
+          "5.5%",
+          "7.3%"
+        ]
+      },
+      "magnitude": 3.0,
+      "trigger": "week: best minus worst 12.8 pp >= 4.0 pp",
       "context_numbers": [],
       "banned_words": [
         "crash",
@@ -1011,378 +743,39 @@
         {
           "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-sectors-2026-10-16-e789b0e7.png",
           "kind": "image",
-          "alt": "On Friday: the 500 largest US-listed stocks moved −1.2% (close of Oct 16). Up: Energy +2.6%, Consumer Defensive +1.4%. Down: Tech −2.8%, Communication Services −2.5%. Best minus worst: 5.4 points. Largest names moving with their sector: $XOM +2.46% (Energy), $WMT +0.80% (Consumer Defensive), $NVDA −1.43% (Tech), $GOOGL −2.47% (Communication Services)."
+          "alt": "In the week to Oct 16: the 500 largest US-listed stocks moved −2.7% (5 sessions to Oct 16). Up: Consumer Defensive +5.5%, Energy +5.0%. Down: Tech −7.3%, Industrials −3.9%. Best minus worst: 12.8 points. Best stock in each up sector: $DEO +9.66% (Consumer Defensive), $COP +9.25% (Energy). Worst stock in each down sector: $CIEN −26.02% (Tech), $RKLB −25.47% (Industrials). By market value, the biggest names moving with their sector: $WMT +6.70% (Consumer Defensive), $XOM +5.94% (Energy), $NVDA −6.61% (Tech), $SPCX −10.17% (Industrials)."
         }
       ],
       "cap_tier": "market",
       "in_500": null,
+      "ticker_sectors": {
+        "WMT": "Consumer Defensive",
+        "XOM": "Energy",
+        "NVDA": "Technology",
+        "SPCX": "Industrials",
+        "DEO": "Consumer Defensive",
+        "COP": "Energy",
+        "CIEN": "Technology",
+        "RKLB": "Industrials"
+      },
+      "ticker_names": {
+        "WMT": "Walmart Inc.",
+        "XOM": "ExxonMobil Holdings Corporation",
+        "NVDA": "NVIDIA Corporation",
+        "SPCX": "Space Exploration Technologies Corp.",
+        "DEO": "Diageo plc",
+        "COP": "ConocoPhillips",
+        "CIEN": "Ciena Corporation",
+        "RKLB": "Rocket Lab Corporation"
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
       },
-      "rank": 12.71,
-      "rank_why": "sector_rotation 4; market-level +4; magnitude (market) +2.71; session_date 2026-10-16 (age 0) +2"
-    },
-    {
-      "item_id": "2026-10-18-market-move-LIST-b9e7dc",
-      "type": "market_move",
-      "ticker": null,
-      "tickers": [
-        "GOOGL",
-        "MSFT",
-        "NVDA",
-        "AVGO"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-market-move-LIST-b9e7dc#map",
-      "allowed_numbers": [
-        "$1.01T",
-        "−$1.01T",
-        "$1.0T",
-        "−$1.0T",
-        "−1.21%",
-        "1.21%",
-        "−1.2%",
-        "1.2%",
-        "500",
-        "445",
-        "96.6%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "−2.47%",
-        "2.47%",
-        "−2.5%",
-        "2.5%",
-        "$105.5B",
-        "−$105.5B",
-        "$106B",
-        "−$106B",
-        "−1.93%",
-        "1.93%",
-        "−1.9%",
-        "1.9%",
-        "$77.2B",
-        "−$77.2B",
-        "$77B",
-        "−$77B",
-        "−1.43%",
-        "1.43%",
-        "−1.4%",
-        "1.4%",
-        "$74.9B",
-        "−$74.9B",
-        "$75B",
-        "−$75B",
-        "−4.52%",
-        "4.52%",
-        "−4.5%",
-        "4.5%",
-        "$74.4B",
-        "−$74.4B",
-        "$74B",
-        "−$74B",
-        "$886B",
-        "−$886B",
-        "$0.9T",
-        "−$0.9T",
-        "$885.6B",
-        "−$885.6B",
-        "−2.77%",
-        "2.77%",
-        "−2.8%",
-        "2.8%",
-        "+2.64%",
-        "2.64%",
-        "+2.6%",
-        "2.6%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The 500 largest US-listed stocks lost about $1.0T on Friday (−1.21%; 445 of 500 priced, 96.6% of market value). Biggest dollar drops: $GOOGL −$105.5B (−2.47%), $MSFT −$77.2B (−1.93%), $NVDA −$74.9B (−1.43%), $AVGO −$74.4B (−4.52%). Technology −$886B (−2.77%) led the move. Energy +2.64% went the other way.",
-      "dedupe_key": "market_move:2026-10-16",
-      "pillar": "P1",
-      "session_date": "2026-10-16",
-      "when": "on Friday",
-      "totals": {
-        "usd_change_sum": -1006506902502.828,
-        "usd_text": "$1.0T",
-        "pct_change": -1.2083885693687288,
-        "pct_text": "−1.21%",
-        "priced": 445,
-        "total": 500,
-        "priced_cap_share": 0.9663
-      },
-      "movers": [
-        {
-          "ticker": "GOOGL",
-          "name": "Alphabet Inc.",
-          "sector": "Communication Services",
-          "pct": -2.4712215795200887,
-          "usd": -105544341639.49713,
-          "cap": 4270938005486.0913,
-          "pct_text": "−2.47%",
-          "usd_text": "−$105.5B"
-        },
-        {
-          "ticker": "MSFT",
-          "name": "Microsoft Corporation",
-          "sector": "Technology",
-          "pct": -1.9260714815364288,
-          "usd": -77151422804.11249,
-          "cap": 4005636527184.797,
-          "pct_text": "−1.93%",
-          "usd_text": "−$77.2B"
-        },
-        {
-          "ticker": "NVDA",
-          "name": "NVIDIA Corporation",
-          "sector": "Technology",
-          "pct": -1.4270588776872373,
-          "usd": -74855697505.98595,
-          "cap": 5245452635233.985,
-          "pct_text": "−1.43%",
-          "usd_text": "−$74.9B"
-        },
-        {
-          "ticker": "AVGO",
-          "name": "Broadcom Inc.",
-          "sector": "Technology",
-          "pct": -4.524729184212816,
-          "usd": -74373157370.66182,
-          "cap": 1643704061453.1458,
-          "pct_text": "−4.52%",
-          "usd_text": "−$74.4B"
-        }
-      ],
-      "lead_sector": {
-        "sector": "Technology",
-        "pct": -2.7698624405280867,
-        "usd": -885615161610.2262
-      },
-      "counter_sector": {
-        "sector": "Energy",
-        "pct": 2.6439084174568217
-      },
-      "angles": [
-        "About $1.0T gone from the 500 largest US-listed stocks on Friday.",
-        "$GOOGL alone lost $105.5B of market value on Friday.",
-        "Technology −$886B, Energy +2.64%: one day, two directions."
-      ],
-      "magnitude": 2.4167771387374577,
-      "trigger": "|move| 1.21% >= 0.75%, cap share 0.966 >= 0.95",
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [
-        "crash",
-        "crashed",
-        "crashing",
-        "bloodbath",
-        "dump",
-        "dumps",
-        "dumped",
-        "dumping",
-        "s&p 500",
-        "s&p",
-        "the index",
-        "plunge",
-        "plunged",
-        "plunging"
-      ],
-      "card": {
-        "panel": "map",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/map",
-        "date": "2026-10-16",
-        "fingerprint": "526c160e",
-        "file": "market-map-2026-10-16-526c160e.png",
-        "sha256": "9f688bda214eb28748ee78951a48757b53c7fd042da4e1430c35e0a155e33868"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
-          "kind": "image",
-          "alt": "The 500 largest US-listed stocks lost about $1.0T on Friday (−1.21%; 445 of 500 priced, 96.6% of market value). Biggest dollar drops: $GOOGL −$105.5B (−2.47%), $MSFT −$77.2B (−1.93%), $NVDA −$74.9B (−1.43%), $AVGO −$74.4B (−4.52%). Technology −$886B (−2.77%) led the move. Energy +2.64% went the other way."
-        }
-      ],
-      "cap_tier": "market",
-      "in_500": null,
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "rank": 12.42,
-      "rank_why": "market_move 4; market-level +4; magnitude (market) +2.42; session_date 2026-10-16 (age 0) +2"
-    },
-    {
-      "item_id": "2026-10-18-breadth-day-LIST-fb0b4d",
-      "type": "breadth_day",
-      "ticker": null,
-      "tickers": [
-        "GOOGL",
-        "MSFT",
-        "NVDA"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-breadth-day-LIST-fb0b4d#breadth",
-      "allowed_numbers": [
-        "840",
-        "1631",
-        "1,631",
-        "26",
-        "2497",
-        "2,497",
-        "65%",
-        "65",
-        "−1.21%",
-        "1.21%",
-        "−1.2%",
-        "1.2%",
-        "−0.03%",
-        "0.03%",
-        "0.0%",
-        "221",
-        "445",
-        "500",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "−2.47%",
-        "2.47%",
-        "−2.5%",
-        "2.5%",
-        "−1.93%",
-        "1.93%",
-        "−1.9%",
-        "1.9%",
-        "−1.43%",
-        "1.43%",
-        "−1.4%",
-        "1.4%",
-        "1212",
-        "1,212",
-        "+1,212",
-        "+1212",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15",
-        "20"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "1,631 of 2,497 US stocks RapidTradeView tracks fell on Friday (65%); 840 rose and 26 were flat. It came a day after the strongest up day of the last 20 closes (+1,212 on Oct 15). The 500 largest US-listed stocks moved −1.21% weighted by market value, while the median company moved −0.03%: 221 of 445 priced rose. Biggest dollar drags: $GOOGL −2.47%, $MSFT −1.93%, $NVDA −1.43%.",
-      "dedupe_key": "breadth_day:2026-10-16",
-      "pillar": "P7",
-      "session_date": "2026-10-16",
-      "when": "on Friday",
-      "breadth": {
-        "advancers": 840,
-        "decliners": 1631,
-        "unchanged": 26,
-        "total": 2497,
-        "share_pct": 65
-      },
-      "median_500": -0.0269,
-      "risers_500": 221,
-      "priced_500": 445,
-      "cap_weighted_pct": -1.2083885693687288,
-      "drags": [
-        {
-          "ticker": "GOOGL",
-          "name": "Alphabet Inc.",
-          "sector": "Communication Services",
-          "pct": -2.4712215795200887,
-          "usd": -105544341639.49713,
-          "cap": 4270938005486.0913,
-          "pct_text": "−2.47%",
-          "usd_text": "−$105.5B"
-        },
-        {
-          "ticker": "MSFT",
-          "name": "Microsoft Corporation",
-          "sector": "Technology",
-          "pct": -1.9260714815364288,
-          "usd": -77151422804.11249,
-          "cap": 4005636527184.797,
-          "pct_text": "−1.93%",
-          "usd_text": "−$77.2B"
-        },
-        {
-          "ticker": "NVDA",
-          "name": "NVIDIA Corporation",
-          "sector": "Technology",
-          "pct": -1.4270588776872373,
-          "usd": -74855697505.98595,
-          "cap": 5245452635233.985,
-          "pct_text": "−1.43%",
-          "usd_text": "−$74.9B"
-        }
-      ],
-      "signal": "divergence",
-      "angles": [
-        "1,631 of 2,497 US stocks fell on Friday.",
-        "The 500 largest moved −1.21%, yet the typical one moved −0.03%.",
-        "Was Friday as broad as it looked? 221 of the 500 largest rose."
-      ],
-      "magnitude": 2.4167771387374577,
-      "trigger": "divergence: cap-weighted −1.21% vs median −0.03%",
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [
-        "crash",
-        "crashed",
-        "crashing",
-        "bloodbath",
-        "dump",
-        "dumps",
-        "dumped",
-        "dumping",
-        "s&p 500",
-        "s&p",
-        "the index",
-        "plunge",
-        "plunged",
-        "plunging"
-      ],
-      "card": {
-        "panel": "breadth",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-breadth-2026-10-16-ab817fc6.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/breadth",
-        "date": "2026-10-16",
-        "fingerprint": "ab817fc6",
-        "file": "market-breadth-2026-10-16-ab817fc6.png",
-        "sha256": "f80cc6138f0a5e42becdae9b3ae7ac78b7588fdb99dfdf537155c2f0518e468b"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-breadth-2026-10-16-ab817fc6.png",
-          "kind": "image",
-          "alt": "1,631 of 2,497 US stocks RapidTradeView tracks fell on Friday (65%); 840 rose and 26 were flat. It came a day after the strongest up day of the last 20 closes (+1,212 on Oct 15). The 500 largest US-listed stocks moved −1.21% weighted by market value, while the median company moved −0.03%: 221 of 445 priced rose. Biggest dollar drags: $GOOGL −2.47%, $MSFT −1.93%, $NVDA −1.43%."
-        }
-      ],
-      "cap_tier": "market",
-      "in_500": null,
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "rank": 12.42,
-      "rank_why": "breadth_day 4; market-level +4; magnitude (market) +2.42; session_date 2026-10-16 (age 0) +2"
+      "rank": 13.0,
+      "rank_why": "sector_rotation 4; market-level +4; magnitude (market) +3; session_date 2026-10-16 (age 0) +2",
+      "top8": true
     },
     {
       "item_id": "2026-10-18-reddit-buzz-NBIS-e33705",
@@ -1475,6 +868,56 @@
       ],
       "market_cap_usd": 47836957108.7796,
       "magnitude": 2.9068905956085187,
+      "claims": [
+        {
+          "words": [
+            "most",
+            "top",
+            "led",
+            "biggest"
+          ],
+          "subjects": [
+            "NBIS"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": "unusual|usual|normal|average|more than|\\d\\s*[x\\u00d7]",
+          "says": "$NBIS had the highest mentions-vs-usual ratio of the top 10 Reddit stocks (20+ mentions, usual 5+)"
+        },
+        {
+          "words": [
+            "most",
+            "top",
+            "led"
+          ],
+          "subjects": [
+            "NBIS"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": "mention|talked|discussed",
+          "says": "$NBIS had the most Reddit mentions of the stocks on the buzz card (ETFs are not ranked there)"
+        },
+        {
+          "words": [
+            "most",
+            "top"
+          ],
+          "subjects": [],
+          "bare": true,
+          "direction": null,
+          "needs": "mention|talked|discussed",
+          "says": "the 10 most-mentioned stocks on Reddit (the buzz card's rows)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "NBIS"
+        ],
+        "numbers": [
+          "7.5×"
+        ]
+      },
       "trigger": "$NBIS 7.5x usual >= 3.0x",
       "context_tickers": [],
       "context_numbers": [],
@@ -1495,15 +938,27 @@
           "alt": "Reddit mentions of $NBIS (Nebius Group N.V.): 45 vs a usual weekend average of 6.0 (7.5× usual; capture Oct 18). The stock moved −12.18% on Friday, Oct 16. Also running hot: $SNDK 3.3×, $NVDA 2.0×. 10 of the 10 most-mentioned stocks with a close for Oct 16 fell that day."
         }
       ],
+      "market_cap_source": "market_map",
       "cap_tier": "large",
       "in_500": true,
+      "ticker_sectors": {
+        "NBIS": "Communication Services",
+        "SNDK": "Technology",
+        "NVDA": "Technology"
+      },
+      "ticker_names": {
+        "NBIS": "Nebius Group N.V.",
+        "SNDK": "Sandisk Corporation",
+        "NVDA": "NVIDIA Corporation"
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
       },
       "rank": 11.41,
-      "rank_why": "reddit_buzz 4; large cap $47.84B +2.5; magnitude (market) +2.91; capture_date 2026-10-18 (age 0) +2"
+      "rank_why": "reddit_buzz 4; large cap $47.84B +2.5; magnitude (market) +2.91; capture_date 2026-10-18 (age 0) +2",
+      "top8": true
     },
     {
       "item_id": "2026-10-18-earnings-week-preview-LIST-218d10",
@@ -1546,6 +1001,40 @@
       "facts_text": "60 of the 500 largest US-listed companies (each worth $10B+) report earnings in the week of Oct 19 (confirmed dates). Largest: $SPCX Tue Oct 20, after the close, $META Wed Oct 21, after the close, $TSLA Wed Oct 21, after the close, $PG Thu Oct 22, before the open, $LRCX Wed Oct 21, after the close, $GE Tue Oct 20, before the open.",
       "dedupe_key": "earnings_week_preview:2026-10-19",
       "pillar": "P5",
+      "context_tickers": [
+        "LRCX",
+        "GE"
+      ],
+      "when": "in the week of Oct 19",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "led"
+          ],
+          "subjects": [
+            "SPCX",
+            "META",
+            "TSLA",
+            "PG",
+            "LRCX",
+            "GE"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": null,
+          "says": "largest by market value among the confirmed $10B+ reporters: $SPCX, $META, $TSLA, $PG, $LRCX, $GE"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "SPCX",
+          "META",
+          "TSLA"
+        ],
+        "numbers": []
+      },
       "week_of": "2026-10-19",
       "reporters": [
         {
@@ -1594,13 +1083,12 @@
       "reporters_total": 60,
       "market_cap_usd": 1957947708992.1536,
       "angles": [
-        "60 big names report this week. The biggest: $SPCX on Tuesday.",
-        "$SPCX, $META and $TSLA all report this week.",
-        "Which report are you watching this week: $SPCX or $META?"
+        "60 big names report in the week of Oct 19. The biggest: $SPCX on Tuesday.",
+        "$SPCX, $META and $TSLA all report in the week of Oct 19.",
+        "Which report are you watching in the week of Oct 19: $SPCX or $META?"
       ],
       "magnitude": 3.0,
       "trigger": "60 reporters >= $10B >= 3",
-      "context_tickers": [],
       "context_numbers": [],
       "banned_words": [],
       "media": [
@@ -1613,13 +1101,30 @@
       "cap_tier": "mega",
       "in_500": null,
       "card": null,
+      "ticker_sectors": {
+        "SPCX": "Industrials",
+        "META": "Communication Services",
+        "TSLA": "Consumer Cyclical",
+        "PG": "Consumer Defensive",
+        "LRCX": "Technology",
+        "GE": "Industrials"
+      },
+      "ticker_names": {
+        "SPCX": "Space Exploration Technologies Corp.",
+        "META": "Meta Platforms, Inc.",
+        "TSLA": "Tesla, Inc.",
+        "PG": "The Procter & Gamble Company",
+        "LRCX": "Lam Research Corporation",
+        "GE": "GE Aerospace"
+      },
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
       },
       "rank": 10.0,
-      "rank_why": "earnings_week_preview 2; mega cap $1957.95B +4; magnitude (market) +3; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1"
+      "rank_why": "earnings_week_preview 2; mega cap $1957.95B +4; magnitude (market) +3; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
+      "top8": true
     },
     {
       "item_id": "2026-10-18-form4-buy-PEP-08d02c",
@@ -1657,7 +1162,7 @@
       "rows": 1,
       "figure_slug": "pohlad-robert-c-1061272",
       "amount_top_usd": 10840557.96,
-      "market_cap_usd": 179186843648.0,
+      "market_cap_usd": 174948718438.8945,
       "famous_person": null,
       "row_amounts": [
         "$10.84M"
@@ -1670,12 +1175,14 @@
         }
       ],
       "rank": 9.5,
-      "rank_why": "form4_buy 2; large cap $179.19B +2.5; magnitude (top $10.84M) +3; filed 2026-10-16 (age 0) +2",
+      "rank_why": "form4_buy 2; large cap $174.95B +2.5; magnitude (top $10.84M) +3; filed 2026-10-16 (age 0) +2",
       "pillar": "P3",
+      "market_cap_feed_usd": 179186843648.0,
+      "market_cap_source": "market_map",
       "cap_tier": "large",
       "in_500": true,
       "context_numbers": [
-        "$179.2B",
+        "$174.9B",
         "+2.42%",
         "2.42%",
         "+2.4%",
@@ -1696,8 +1203,40 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "PEP"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "PEP": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "PEP": "PepsiCo, Inc."
+      },
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$650M",
+            "+$650M",
+            "$650.0M",
+            "+$650.0M",
+            "$4.4B",
+            "+$4.4B",
+            "$4B",
+            "+$4B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
       "context": {
-        "market_cap": "$179.2B",
+        "market_cap": "$174.9B",
         "last_session_move": {
           "pct": "+2.42%",
           "session": "2026-10-16"
@@ -1710,13 +1249,14 @@
       "angles": [
         "$10.84M open-market buy of $PEP by its director.",
         "PepsiCo, Inc. director Robert C. Pohlad bought $10.84M of $PEP.",
-        "Insiders sold $4.4B in 30 days. This director bought $PEP."
+        "Officers and directors sold $4.4B on the open market over 30 days in our feed. This director bought $PEP."
       ],
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": true
     },
     {
       "item_id": "2026-10-18-form4-buy-PAM-8bdf75",
@@ -1787,6 +1327,34 @@
       ],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "PAM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$650M",
+            "+$650M",
+            "$650.0M",
+            "+$650.0M",
+            "$4.4B",
+            "+$4.4B",
+            "$4B",
+            "+$4B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
       "context": {
         "market_cap": "$4.4B",
         "insiders_30d": {
@@ -1797,81 +1365,14 @@
       "angles": [
         "$35.14M open-market buy of $PAM by its director.",
         "Pampa Energía S.A. director Marcos Marcelo Mindlin bought $35.14M of $PAM.",
-        "Insiders sold $4.4B in 30 days. This director bought $PAM."
+        "Officers and directors sold $4.4B on the open market over 30 days in our feed. This director bought $PAM."
       ],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      }
-    },
-    {
-      "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
-      "type": "earnings_reaction",
-      "ticker": "IBKR",
-      "tickers": [
-        "IBKR"
-      ],
-      "name": "Interactive Brokers Group, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/IBKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-reaction-IBKR-6246d9",
-      "allowed_numbers": [
-        "−3.88%",
-        "3.88%",
-        "−3.9%",
-        "3.9%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16",
-        "2026-10-15",
-        "Oct 15, 2026",
-        "Oct 15",
-        "Q3 2026",
-        "Q3"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close).",
-      "dedupe_key": "earnings_reaction:IBKR:2026-10-15",
-      "pillar": "P5",
-      "session_date": "2026-10-16",
-      "report_date": "2026-10-15",
-      "hour": "amc",
-      "fiscal_label": "Q3 2026",
-      "move": -3.8823666162966397,
-      "angles": [
-        "$IBKR −3.88% the session after its Q3 2026 report.",
-        "How the market took $IBKR's Q3 2026 numbers: −3.88%.",
-        "$IBKR reported after the close on Oct 15. The next session: −3.88%."
-      ],
-      "market_cap_usd": 146579243008.0,
-      "magnitude": 1.9411833081483199,
-      "trigger": "|next-session move| 3.88% >= 3.0%",
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/IBKR/opengraph-image",
-          "kind": "image",
-          "alt": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close)."
-        }
-      ],
-      "cap_tier": "large",
-      "in_500": true,
-      "card": null,
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
       },
-      "rank": 7.44,
-      "rank_why": "earnings_reaction 2; large cap $146.58B +2.5; magnitude (market) +1.94; session_date 2026-10-16 (age 0) +2; same pillar as the newest own post (P5) -1"
+      "top8": true
     },
     {
       "item_id": "2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1",
@@ -1931,12 +1432,28 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "FITB",
+          "CLF",
+          "DX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "FITB": "Financial Services"
+      },
+      "ticker_names": {
+        "FITB": "Fifth Third Bancorp"
+      },
       "angles": [],
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": true
     },
     {
       "item_id": "2026-10-18-moves-like-T-45c2be",
@@ -2051,7 +1568,1402 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "claims": [
+        {
+          "words": [
+            "most",
+            "top",
+            "best",
+            "led"
+          ],
+          "subjects": [
+            "T",
+            "VZ",
+            "TMUS",
+            "BCE"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": "\\blike\\b|sync|mov",
+          "says": "$T moved most like $VZ, then $TMUS, then $BCE (by Sync)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "T"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "T": "Communication Services",
+        "VZ": "Communication Services",
+        "TMUS": "Communication Services"
+      },
+      "ticker_names": {
+        "T": "AT&T Inc.",
+        "VZ": "Verizon Communications Inc.",
+        "TMUS": "T-Mobile US, Inc."
+      },
+      "top8": true
+    },
+    {
+      "item_id": "2026-10-18-basket-week-LIST-53e3ac",
+      "type": "basket_week",
+      "ticker": null,
+      "tickers": [
+        "SPCX",
+        "AVGO",
+        "TSM",
+        "AAPL"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-basket-week-LIST-53e3ac#map",
+      "allowed_numbers": [
+        "−5.04%",
+        "5.04%",
+        "−5.0%",
+        "5.0%",
+        "10",
+        "1",
+        "5",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "2026-10-09",
+        "Oct 9, 2026",
+        "Oct 9",
+        "−10.17%",
+        "10.17%",
+        "−10.2%",
+        "10.2%",
+        "−9.07%",
+        "9.07%",
+        "−9.1%",
+        "9.1%",
+        "−8.98%",
+        "8.98%",
+        "−9.0%",
+        "9.0%",
+        "−7.31%",
+        "7.31%",
+        "−7.3%",
+        "7.3%",
+        "−6.61%",
+        "6.61%",
+        "−6.6%",
+        "6.6%",
+        "−4.74%",
+        "4.74%",
+        "−4.7%",
+        "4.7%",
+        "−3.15%",
+        "3.15%",
+        "−3.1%",
+        "3.1%",
+        "−1.30%",
+        "1.30%",
+        "−1.3%",
+        "1.3%",
+        "−1.13%",
+        "1.13%",
+        "−1.1%",
+        "1.1%",
+        "+2.03%",
+        "2.03%",
+        "+2.0%",
+        "2.0%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The 10 largest US-listed companies by market value, held in equal amounts, moved −5.04% over the 5 sessions to Oct 16. 1 of 10 rose. Best: $AAPL +2.03%, $MSFT −1.13%, $META −1.30%. Worst: $SPCX −10.17%, $AVGO −9.07%, $TSM −8.98%.",
+      "dedupe_key": "basket_week:2026-10-16",
+      "pillar": "P7",
+      "session_date": "2026-10-16",
+      "when": "in the week to Oct 16",
+      "context_tickers": [
+        "MSFT",
+        "META"
+      ],
+      "basket": [
+        {
+          "ticker": "SPCX",
+          "pct_5d": -10.174078858337943
+        },
+        {
+          "ticker": "AVGO",
+          "pct_5d": -9.069535874315438
+        },
+        {
+          "ticker": "TSM",
+          "pct_5d": -8.978403300169857
+        },
+        {
+          "ticker": "TSLA",
+          "pct_5d": -7.311209824928133
+        },
+        {
+          "ticker": "NVDA",
+          "pct_5d": -6.60764131193301
+        },
+        {
+          "ticker": "AMZN",
+          "pct_5d": -4.73650116221469
+        },
+        {
+          "ticker": "GOOGL",
+          "pct_5d": -3.1479269749189687
+        },
+        {
+          "ticker": "META",
+          "pct_5d": -1.300318644162124
+        },
+        {
+          "ticker": "MSFT",
+          "pct_5d": -1.1250864372885916
+        },
+        {
+          "ticker": "AAPL",
+          "pct_5d": 2.0259030418250834
+        }
+      ],
+      "excluded": [],
+      "mean_5d": -5.0425,
+      "risers": 1,
+      "angles": [
+        "Owning the 10 largest US-listed companies equally cost 5.04% in the week to Oct 16.",
+        "Only 1 of the 10 largest US-listed companies rose in the week to Oct 16: $AAPL.",
+        "What did a mega-cap portfolio do in the week to Oct 16? −5.04%, equal-weighted."
+      ],
+      "claims": [
+        {
+          "words": [
+            "best",
+            "top"
+          ],
+          "subjects": [
+            "AAPL",
+            "MSFT",
+            "META"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": null,
+          "says": "best 3 of the 10 by 5-session move: $AAPL, $MSFT, $META"
+        },
+        {
+          "words": [
+            "worst",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "SPCX",
+            "AVGO",
+            "TSM"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "worst 3 of the 10 by 5-session move: $SPCX, $AVGO, $TSM"
+        },
+        {
+          "words": [
+            "best",
+            "led",
+            "top"
+          ],
+          "subjects": [
+            "AAPL"
+          ],
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "$AAPL was the best of the 10"
+        },
+        {
+          "words": [
+            "worst",
+            "biggest"
+          ],
+          "subjects": [
+            "SPCX"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "$SPCX was the worst of the 10"
+        },
+        {
+          "words": [
+            "only"
+          ],
+          "subjects": [
+            "AAPL"
+          ],
+          "bare": true,
+          "direction": "up",
+          "needs": null,
+          "says": "only $AAPL of the 10 rose"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "AAPL",
+          "SPCX",
+          "AVGO"
+        ],
+        "numbers": [
+          "5.04%",
+          "5.0%"
+        ]
+      },
+      "magnitude": 3.0,
+      "trigger": "|equal-weight 5d| 5.04% >= 2.0%",
+      "context_numbers": [],
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "card": {
+        "panel": "map",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/map",
+        "date": "2026-10-16",
+        "fingerprint": "526c160e",
+        "file": "market-map-2026-10-16-526c160e.png",
+        "sha256": "9f688bda214eb28748ee78951a48757b53c7fd042da4e1430c35e0a155e33868"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
+          "kind": "image",
+          "alt": "The 10 largest US-listed companies by market value, held in equal amounts, moved −5.04% over the 5 sessions to Oct 16. 1 of 10 rose. Best: $AAPL +2.03%, $MSFT −1.13%, $META −1.30%. Worst: $SPCX −10.17%, $AVGO −9.07%, $TSM −8.98%."
+        }
+      ],
+      "cap_tier": "market",
+      "in_500": null,
+      "ticker_sectors": {
+        "SPCX": "Industrials",
+        "AVGO": "Technology",
+        "TSM": "Technology",
+        "AAPL": "Technology",
+        "MSFT": "Technology",
+        "META": "Communication Services"
+      },
+      "ticker_names": {
+        "SPCX": "Space Exploration Technologies Corp.",
+        "AVGO": "Broadcom Inc.",
+        "TSM": "Taiwan Semiconductor Manufacturing Company Limited",
+        "AAPL": "Apple Inc.",
+        "MSFT": "Microsoft Corporation",
+        "META": "Meta Platforms, Inc."
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "rank": 13.0,
+      "rank_why": "basket_week 4; market-level +4; magnitude (market) +3; session_date 2026-10-16 (age 0) +2",
+      "top8": false,
+      "top8_out": "session_map: already 2 session-map items (one market day does not fill the menu)"
+    },
+    {
+      "item_id": "2026-10-18-mega-mover-PANW-ed9bc2",
+      "type": "mega_mover",
+      "ticker": "PANW",
+      "tickers": [
+        "PANW",
+        "GOOGL",
+        "MSFT"
+      ],
+      "name": "Palo Alto Networks, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-mega-mover-PANW-ed9bc2#map",
+      "allowed_numbers": [
+        "−7.63%",
+        "7.63%",
+        "−7.6%",
+        "7.6%",
+        "$23.1B",
+        "−$23.1B",
+        "$23B",
+        "−$23B",
+        "500",
+        "42",
+        "#42",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "−2.47%",
+        "2.47%",
+        "−2.5%",
+        "2.5%",
+        "$105.5B",
+        "−$105.5B",
+        "$106B",
+        "−$106B",
+        "−1.93%",
+        "1.93%",
+        "−1.9%",
+        "1.9%",
+        "$77.2B",
+        "−$77.2B",
+        "$77B",
+        "−$77B",
+        "15",
+        "#15",
+        "100"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "$PANW (Palo Alto Networks, Inc.) lost $23.1B of market value on Friday, −7.63%: #15 by dollar drop among the 500 largest US-listed companies (#42 by market cap). Biggest dollar drops: $GOOGL −$105.5B (−2.47%), $MSFT −$77.2B (−1.93%).",
+      "dedupe_key": "mega_mover:2026-10-16:PANW",
+      "pillar": "P2",
+      "session_date": "2026-10-16",
+      "when": "on Friday",
+      "mover": {
+        "ticker": "PANW",
+        "name": "Palo Alto Networks, Inc.",
+        "sector": "Technology",
+        "pct": -7.6349690766197575,
+        "usd": -23124861121.541977,
+        "cap": 302880874689.542,
+        "pct_text": "−7.63%",
+        "usd_text": "−$23.1B"
+      },
+      "rank_by_cap": 42,
+      "rank_by_usd": 15,
+      "next_movers": [
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "sector": "Communication Services",
+          "pct": -2.4712215795200887,
+          "usd": -105544341639.49713,
+          "cap": 4270938005486.0913,
+          "pct_text": "−2.47%",
+          "usd_text": "−$105.5B"
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "sector": "Technology",
+          "pct": -1.9260714815364288,
+          "usd": -77151422804.11249,
+          "cap": 4005636527184.797,
+          "pct_text": "−1.93%",
+          "usd_text": "−$77.2B"
+        }
+      ],
+      "angles": [
+        "$PANW −7.63% on Friday, a $23.1B move in market value.",
+        "One of the 100 largest US-listed companies moved 7.63% on Friday: $PANW.",
+        "$PANW is #42 by market cap. Friday it fell 7.63%."
+      ],
+      "magnitude": 2.863113403732409,
+      "trigger": "top-100 name (#42 by cap) |1d| 7.63% >= 4.0%",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top"
+          ],
+          "subjects": [
+            "GOOGL",
+            "MSFT"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "the biggest dollar drops: $GOOGL, $MSFT"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "PANW"
+        ],
+        "numbers": [
+          "$23.1B",
+          "7.63%",
+          "7.6%"
+        ]
+      },
+      "market_cap_usd": 302880874689.542,
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "card": {
+        "panel": "map",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/map",
+        "date": "2026-10-16",
+        "fingerprint": "526c160e",
+        "file": "market-map-2026-10-16-526c160e.png",
+        "sha256": "9f688bda214eb28748ee78951a48757b53c7fd042da4e1430c35e0a155e33868"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
+          "kind": "image",
+          "alt": "$PANW (Palo Alto Networks, Inc.) lost $23.1B of market value on Friday, −7.63%: #15 by dollar drop among the 500 largest US-listed companies (#42 by market cap). Biggest dollar drops: $GOOGL −$105.5B (−2.47%), $MSFT −$77.2B (−1.93%)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "ticker_sectors": {
+        "PANW": "Technology",
+        "GOOGL": "Communication Services",
+        "MSFT": "Technology"
+      },
+      "ticker_names": {
+        "PANW": "Palo Alto Networks, Inc.",
+        "GOOGL": "Alphabet Inc.",
+        "MSFT": "Microsoft Corporation"
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "rank": 12.86,
+      "rank_why": "mega_mover 4; mega cap $302.88B +4; magnitude (market) +2.86; session_date 2026-10-16 (age 0) +2",
+      "top8": false,
+      "top8_out": "session_map: already 2 session-map items (one market day does not fill the menu)"
+    },
+    {
+      "item_id": "2026-10-18-sector-rotation-LIST-39bbb6",
+      "type": "sector_rotation",
+      "ticker": null,
+      "tickers": [
+        "XOM",
+        "WMT",
+        "NVDA",
+        "GOOGL"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-sector-rotation-LIST-39bbb6#sectors",
+      "allowed_numbers": [
+        "−1.21%",
+        "1.21%",
+        "−1.2%",
+        "1.2%",
+        "500",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "5.4",
+        "+2.64%",
+        "2.64%",
+        "+2.6%",
+        "2.6%",
+        "+1.44%",
+        "1.44%",
+        "+1.4%",
+        "1.4%",
+        "−2.77%",
+        "2.77%",
+        "−2.8%",
+        "2.8%",
+        "−2.51%",
+        "2.51%",
+        "−2.5%",
+        "2.5%",
+        "+2.46%",
+        "2.46%",
+        "+2.5%",
+        "+0.80%",
+        "0.80%",
+        "+0.8%",
+        "0.8%",
+        "−1.43%",
+        "1.43%",
+        "−1.4%",
+        "−2.47%",
+        "2.47%",
+        "+4.59%",
+        "4.59%",
+        "+4.6%",
+        "4.6%",
+        "+3.45%",
+        "3.45%",
+        "+3.4%",
+        "3.4%",
+        "−11.91%",
+        "11.91%",
+        "−11.9%",
+        "11.9%",
+        "−12.18%",
+        "12.18%",
+        "−12.2%",
+        "12.2%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "On Friday: the 500 largest US-listed stocks moved −1.2% (close of Oct 16). Up: Energy +2.6%, Consumer Defensive +1.4%. Down: Tech −2.8%, Communication Services −2.5%. Best minus worst: 5.4 points. Best stock in each up sector: $EQNR +4.59% (Energy), $BTI +3.45% (Consumer Defensive). Worst stock in each down sector: $CRWV −11.91% (Tech), $NBIS −12.18% (Communication Services). By market value, the biggest names moving with their sector: $XOM +2.46% (Energy), $WMT +0.80% (Consumer Defensive), $NVDA −1.43% (Tech), $GOOGL −2.47% (Communication Services).",
+      "dedupe_key": "sector_rotation:2026-10-16:day",
+      "pillar": "P6",
+      "session_date": "2026-10-16",
+      "window": "day",
+      "when": "on Friday",
+      "context_tickers": [
+        "EQNR",
+        "BTI",
+        "CRWV",
+        "NBIS"
+      ],
+      "all_500": -1.2083885693687288,
+      "best": [
+        {
+          "sector": "Energy",
+          "pct": 2.6439084174568217
+        },
+        {
+          "sector": "Consumer Defensive",
+          "pct": 1.4403014619066652
+        }
+      ],
+      "worst": [
+        {
+          "sector": "Technology",
+          "pct": -2.7698624405280867
+        },
+        {
+          "sector": "Communication Services",
+          "pct": -2.507656908845717
+        }
+      ],
+      "spread_pp": 5.41,
+      "sector_movers": {
+        "Energy": {
+          "ticker": "XOM",
+          "pct": 2.4616441493015673,
+          "pct_text": "+2.46%"
+        },
+        "Consumer Defensive": {
+          "ticker": "WMT",
+          "pct": 0.7974887588020785,
+          "pct_text": "+0.80%"
+        },
+        "Technology": {
+          "ticker": "NVDA",
+          "pct": -1.4270588776872373,
+          "pct_text": "−1.43%"
+        },
+        "Communication Services": {
+          "ticker": "GOOGL",
+          "pct": -2.4712215795200887,
+          "pct_text": "−2.47%"
+        }
+      },
+      "sector_leaders": {
+        "Energy": {
+          "ticker": "EQNR",
+          "name": "Equinor ASA",
+          "pct": 4.585930543187877,
+          "pct_text": "+4.59%"
+        },
+        "Consumer Defensive": {
+          "ticker": "BTI",
+          "name": "British American Tobacco p.l.c.",
+          "pct": 3.4482758620689724,
+          "pct_text": "+3.45%"
+        },
+        "Technology": {
+          "ticker": "CRWV",
+          "name": "CoreWeave, Inc.",
+          "pct": -11.909886640837996,
+          "pct_text": "−11.91%"
+        },
+        "Communication Services": {
+          "ticker": "NBIS",
+          "name": "Nebius Group N.V.",
+          "pct": -12.175574544875534,
+          "pct_text": "−12.18%"
+        }
+      },
+      "angles": [
+        "Tech −2.8%, Energy +2.6% on Friday.",
+        "The 500 largest moved −1.2% on Friday, but not evenly.",
+        "Energy up, Tech down: a 5.4-point gap on Friday."
+      ],
+      "claims": [
+        {
+          "words": [
+            "best",
+            "top",
+            "led",
+            "biggest"
+          ],
+          "subjects": [
+            "Energy"
+          ],
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "Energy was the best sector on Friday"
+        },
+        {
+          "words": [
+            "worst",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "Technology"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "Tech was the worst sector on Friday"
+        },
+        {
+          "words": [
+            "best",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "EQNR",
+            "Energy",
+            "BTI",
+            "Consumer Defensive"
+          ],
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "best stock by % in its sector: $EQNR (Energy), $BTI (Consumer Defensive)"
+        },
+        {
+          "words": [
+            "worst",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "CRWV",
+            "Technology",
+            "NBIS",
+            "Communication Services"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "worst stock by % in its sector: $CRWV (Tech), $NBIS (Communication Services)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "XOM",
+            "Energy",
+            "WMT",
+            "Consumer Defensive",
+            "NVDA",
+            "Technology",
+            "GOOGL",
+            "Communication Services"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": "market (?:value|cap)",
+          "says": "by market value, the biggest name moving with its sector: $XOM (Energy), $WMT (Consumer Defensive), $NVDA (Tech), $GOOGL (Communication Services)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "XOM",
+          "NVDA"
+        ],
+        "numbers": [
+          "1.2%",
+          "2.6%",
+          "2.8%"
+        ]
+      },
+      "magnitude": 2.706885428992454,
+      "trigger": "day: best minus worst 5.4 pp >= 3.0 pp",
+      "context_numbers": [],
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "card": {
+        "panel": "sectors",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-sectors-2026-10-16-e789b0e7.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/sectors",
+        "date": "2026-10-16",
+        "fingerprint": "e789b0e7",
+        "file": "market-sectors-2026-10-16-e789b0e7.png",
+        "sha256": "9c17c0be2e68b45e1d04db80682fe080f6dbb256292a546a7fe036b6a8c822b2"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-sectors-2026-10-16-e789b0e7.png",
+          "kind": "image",
+          "alt": "On Friday: the 500 largest US-listed stocks moved −1.2% (close of Oct 16). Up: Energy +2.6%, Consumer Defensive +1.4%. Down: Tech −2.8%, Communication Services −2.5%. Best minus worst: 5.4 points. Best stock in each up sector: $EQNR +4.59% (Energy), $BTI +3.45% (Consumer Defensive). Worst stock in each down sector: $CRWV −11.91% (Tech), $NBIS −12.18% (Communication Services). By market value, the biggest names moving with their sector: $XOM +2.46% (Energy), $WMT +0.80% (Consumer Defensive), $NVDA −1.43% (Tech), $GOOGL −2.47% (Communication Services)."
+        }
+      ],
+      "cap_tier": "market",
+      "in_500": null,
+      "ticker_sectors": {
+        "XOM": "Energy",
+        "WMT": "Consumer Defensive",
+        "NVDA": "Technology",
+        "GOOGL": "Communication Services",
+        "EQNR": "Energy",
+        "BTI": "Consumer Defensive",
+        "CRWV": "Technology",
+        "NBIS": "Communication Services"
+      },
+      "ticker_names": {
+        "XOM": "ExxonMobil Holdings Corporation",
+        "WMT": "Walmart Inc.",
+        "NVDA": "NVIDIA Corporation",
+        "GOOGL": "Alphabet Inc.",
+        "EQNR": "Equinor ASA",
+        "BTI": "British American Tobacco p.l.c.",
+        "CRWV": "CoreWeave, Inc.",
+        "NBIS": "Nebius Group N.V."
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "rank": 12.71,
+      "rank_why": "sector_rotation 4; market-level +4; magnitude (market) +2.71; session_date 2026-10-16 (age 0) +2",
+      "top8": false,
+      "top8_out": "session_map: already 2 session-map items (one market day does not fill the menu)"
+    },
+    {
+      "item_id": "2026-10-18-market-move-LIST-b9e7dc",
+      "type": "market_move",
+      "ticker": null,
+      "tickers": [
+        "GOOGL",
+        "MSFT",
+        "NVDA",
+        "AVGO"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-market-move-LIST-b9e7dc#map",
+      "allowed_numbers": [
+        "$1.01T",
+        "−$1.01T",
+        "$1.0T",
+        "−$1.0T",
+        "−1.21%",
+        "1.21%",
+        "−1.2%",
+        "1.2%",
+        "500",
+        "445",
+        "96.6%",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "−2.47%",
+        "2.47%",
+        "−2.5%",
+        "2.5%",
+        "$105.5B",
+        "−$105.5B",
+        "$106B",
+        "−$106B",
+        "−1.93%",
+        "1.93%",
+        "−1.9%",
+        "1.9%",
+        "$77.2B",
+        "−$77.2B",
+        "$77B",
+        "−$77B",
+        "−1.43%",
+        "1.43%",
+        "−1.4%",
+        "1.4%",
+        "$74.9B",
+        "−$74.9B",
+        "$75B",
+        "−$75B",
+        "−4.52%",
+        "4.52%",
+        "−4.5%",
+        "4.5%",
+        "$74.4B",
+        "−$74.4B",
+        "$74B",
+        "−$74B",
+        "$886B",
+        "−$886B",
+        "$0.9T",
+        "−$0.9T",
+        "$885.6B",
+        "−$885.6B",
+        "−2.77%",
+        "2.77%",
+        "−2.8%",
+        "2.8%",
+        "+2.64%",
+        "2.64%",
+        "+2.6%",
+        "2.6%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The 500 largest US-listed stocks lost about $1.0T on Friday (−1.21%; 445 of 500 priced, 96.6% of market value). Biggest dollar drops: $GOOGL −$105.5B (−2.47%, Communication Services), $MSFT −$77.2B (−1.93%, Technology), $NVDA −$74.9B (−1.43%, Technology), $AVGO −$74.4B (−4.52%, Technology). Technology −$886B (−2.77%) led the move. Technology's biggest dollar drops: $MSFT −1.93%, $NVDA −1.43%, $AVGO −4.52%. Energy +2.64% went the other way.",
+      "dedupe_key": "market_move:2026-10-16",
+      "pillar": "P1",
+      "session_date": "2026-10-16",
+      "when": "on Friday",
+      "context_tickers": [],
+      "totals": {
+        "usd_change_sum": -1006506902502.828,
+        "usd_text": "$1.0T",
+        "pct_change": -1.2083885693687288,
+        "pct_text": "−1.21%",
+        "priced": 445,
+        "total": 500,
+        "priced_cap_share": 0.9663
+      },
+      "movers": [
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "sector": "Communication Services",
+          "pct": -2.4712215795200887,
+          "usd": -105544341639.49713,
+          "cap": 4270938005486.0913,
+          "pct_text": "−2.47%",
+          "usd_text": "−$105.5B"
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "sector": "Technology",
+          "pct": -1.9260714815364288,
+          "usd": -77151422804.11249,
+          "cap": 4005636527184.797,
+          "pct_text": "−1.93%",
+          "usd_text": "−$77.2B"
+        },
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "sector": "Technology",
+          "pct": -1.4270588776872373,
+          "usd": -74855697505.98595,
+          "cap": 5245452635233.985,
+          "pct_text": "−1.43%",
+          "usd_text": "−$74.9B"
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "sector": "Technology",
+          "pct": -4.524729184212816,
+          "usd": -74373157370.66182,
+          "cap": 1643704061453.1458,
+          "pct_text": "−4.52%",
+          "usd_text": "−$74.4B"
+        }
+      ],
+      "lead_sector": {
+        "sector": "Technology",
+        "pct": -2.7698624405280867,
+        "usd": -885615161610.2262,
+        "movers": [
+          {
+            "ticker": "MSFT",
+            "name": "Microsoft Corporation",
+            "sector": "Technology",
+            "pct": -1.9260714815364288,
+            "usd": -77151422804.11249,
+            "cap": 4005636527184.797,
+            "pct_text": "−1.93%",
+            "usd_text": "−$77.2B"
+          },
+          {
+            "ticker": "NVDA",
+            "name": "NVIDIA Corporation",
+            "sector": "Technology",
+            "pct": -1.4270588776872373,
+            "usd": -74855697505.98595,
+            "cap": 5245452635233.985,
+            "pct_text": "−1.43%",
+            "usd_text": "−$74.9B"
+          },
+          {
+            "ticker": "AVGO",
+            "name": "Broadcom Inc.",
+            "sector": "Technology",
+            "pct": -4.524729184212816,
+            "usd": -74373157370.66182,
+            "cap": 1643704061453.1458,
+            "pct_text": "−4.52%",
+            "usd_text": "−$74.4B"
+          }
+        ]
+      },
+      "counter_sector": {
+        "sector": "Energy",
+        "pct": 2.6439084174568217
+      },
+      "angles": [
+        "About $1.0T gone from the 500 largest US-listed stocks on Friday.",
+        "$GOOGL alone lost $105.5B of market value on Friday.",
+        "Technology −$886B, Energy +2.64%: one day, two directions."
+      ],
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "GOOGL",
+            "MSFT",
+            "NVDA",
+            "AVGO"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "biggest dollar drops on Friday: $GOOGL, $MSFT, $NVDA, $AVGO"
+        },
+        {
+          "words": [
+            "led"
+          ],
+          "subjects": [
+            "Technology"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "Technology led the move (largest sector dollar move)"
+        },
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top"
+          ],
+          "subjects": [
+            "Technology"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "Technology had the biggest sector dollar move"
+        },
+        {
+          "words": [
+            "worst",
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "Technology"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "Technology was the worst sector by % on Friday"
+        },
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "Technology",
+            "MSFT",
+            "NVDA",
+            "AVGO"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "Technology's biggest dollar drops: $MSFT, $NVDA, $AVGO"
+        },
+        {
+          "words": [
+            "best",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "Energy"
+          ],
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "Energy +2.64% was the best sector on Friday"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "GOOGL",
+          "MSFT",
+          "NVDA"
+        ],
+        "numbers": [
+          "$1.0T",
+          "1.21%",
+          "1.2%"
+        ]
+      },
+      "magnitude": 2.4167771387374577,
+      "trigger": "|move| 1.21% >= 0.75%, cap share 0.966 >= 0.95",
+      "context_numbers": [],
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "card": {
+        "panel": "map",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/map",
+        "date": "2026-10-16",
+        "fingerprint": "526c160e",
+        "file": "market-map-2026-10-16-526c160e.png",
+        "sha256": "9f688bda214eb28748ee78951a48757b53c7fd042da4e1430c35e0a155e33868"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-map-2026-10-16-526c160e.png",
+          "kind": "image",
+          "alt": "The 500 largest US-listed stocks lost about $1.0T on Friday (−1.21%; 445 of 500 priced, 96.6% of market value). Biggest dollar drops: $GOOGL −$105.5B (−2.47%, Communication Services), $MSFT −$77.2B (−1.93%, Technology), $NVDA −$74.9B (−1.43%, Technology), $AVGO −$74.4B (−4.52%, Technology). Technology −$886B (−2.77%) led the move. Technology's biggest dollar drops: $MSFT −1.93%, $NVDA −1.43%, $AVGO −4.52%. Energy +2.64% went the other way."
+        }
+      ],
+      "cap_tier": "market",
+      "in_500": null,
+      "ticker_sectors": {
+        "GOOGL": "Communication Services",
+        "MSFT": "Technology",
+        "NVDA": "Technology",
+        "AVGO": "Technology"
+      },
+      "ticker_names": {
+        "GOOGL": "Alphabet Inc.",
+        "MSFT": "Microsoft Corporation",
+        "NVDA": "NVIDIA Corporation",
+        "AVGO": "Broadcom Inc."
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "rank": 12.42,
+      "rank_why": "market_move 4; market-level +4; magnitude (market) +2.42; session_date 2026-10-16 (age 0) +2",
+      "top8": false,
+      "top8_out": "session_map: already 2 session-map items (one market day does not fill the menu)"
+    },
+    {
+      "item_id": "2026-10-18-breadth-day-LIST-fb0b4d",
+      "type": "breadth_day",
+      "ticker": null,
+      "tickers": [
+        "GOOGL",
+        "MSFT",
+        "NVDA"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-breadth-day-LIST-fb0b4d#breadth",
+      "allowed_numbers": [
+        "840",
+        "1631",
+        "1,631",
+        "26",
+        "2497",
+        "2,497",
+        "65%",
+        "65",
+        "−1.21%",
+        "1.21%",
+        "−1.2%",
+        "1.2%",
+        "500",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "−2.47%",
+        "2.47%",
+        "−2.5%",
+        "2.5%",
+        "−1.93%",
+        "1.93%",
+        "−1.9%",
+        "1.9%",
+        "−1.43%",
+        "1.43%",
+        "−1.4%",
+        "1.4%",
+        "1212",
+        "1,212",
+        "+1,212",
+        "+1212",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "20"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "1,631 of 2,497 US stocks RapidTradeView tracks fell on Friday (65%); 840 rose and 26 were flat. It came a day after the strongest up day of the last 20 closes (+1,212 on Oct 15). The 500 largest US-listed stocks moved −1.21% weighted by market value. Biggest dollar drags: $GOOGL −2.47%, $MSFT −1.93%, $NVDA −1.43%.",
+      "dedupe_key": "breadth_day:2026-10-16",
+      "pillar": "P7",
+      "session_date": "2026-10-16",
+      "when": "on Friday",
+      "breadth": {
+        "advancers": 840,
+        "decliners": 1631,
+        "unchanged": 26,
+        "total": 2497,
+        "share_pct": 65
+      },
+      "median_500": -0.0269,
+      "risers_500": 221,
+      "priced_500": 445,
+      "cap_weighted_pct": -1.2083885693687288,
+      "drags": [
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "sector": "Communication Services",
+          "pct": -2.4712215795200887,
+          "usd": -105544341639.49713,
+          "cap": 4270938005486.0913,
+          "pct_text": "−2.47%",
+          "usd_text": "−$105.5B"
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "sector": "Technology",
+          "pct": -1.9260714815364288,
+          "usd": -77151422804.11249,
+          "cap": 4005636527184.797,
+          "pct_text": "−1.93%",
+          "usd_text": "−$77.2B"
+        },
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "sector": "Technology",
+          "pct": -1.4270588776872373,
+          "usd": -74855697505.98595,
+          "cap": 5245452635233.985,
+          "pct_text": "−1.43%",
+          "usd_text": "−$74.9B"
+        }
+      ],
+      "signal": "divergence",
+      "narrative": "broad",
+      "card_message": {
+        "says": "1,631 of 2,497 US stocks fell (65%): a broad move",
+        "never": "\\b(?:narrow\\w*|concentrat\\w*|typical|median|handful|under the surface)\\b|\\bfew\\s+(?:giants|names|stocks|companies|big)\\b|\\bonly\\s+(?:a\\s+few|the\\s+giants|the\\s+biggest)\\b"
+      },
+      "angles": [
+        "1,631 of 2,497 US stocks fell on Friday.",
+        "65% of US stocks fell on Friday.",
+        "Friday came a day after the strongest up day of the last 20 closes."
+      ],
+      "claims": [
+        {
+          "words": [
+            "best"
+          ],
+          "subjects": [],
+          "bare": true,
+          "direction": "up",
+          "needs": "\\bday\\b|close|session",
+          "says": "Oct 15 was the strongest up day (stocks up minus down) of the last 20 closes"
+        },
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "GOOGL",
+            "MSFT",
+            "NVDA"
+          ],
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "biggest dollar drags: $GOOGL, $MSFT, $NVDA"
+        }
+      ],
+      "magnitude": 2.4167771387374577,
+      "headline": {
+        "tickers": [
+          "GOOGL",
+          "MSFT",
+          "NVDA"
+        ],
+        "numbers": [
+          "1631",
+          "1,631",
+          "65%",
+          "1.21%",
+          "1.2%"
+        ]
+      },
+      "trigger": "divergence: cap-weighted −1.21% vs median −0.03%",
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "card": {
+        "panel": "breadth",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-breadth-2026-10-16-ab817fc6.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/breadth",
+        "date": "2026-10-16",
+        "fingerprint": "ab817fc6",
+        "file": "market-breadth-2026-10-16-ab817fc6.png",
+        "sha256": "f80cc6138f0a5e42becdae9b3ae7ac78b7588fdb99dfdf537155c2f0518e468b"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-18/cards/market-breadth-2026-10-16-ab817fc6.png",
+          "kind": "image",
+          "alt": "1,631 of 2,497 US stocks RapidTradeView tracks fell on Friday (65%); 840 rose and 26 were flat. It came a day after the strongest up day of the last 20 closes (+1,212 on Oct 15). The 500 largest US-listed stocks moved −1.21% weighted by market value. Biggest dollar drags: $GOOGL −2.47%, $MSFT −1.93%, $NVDA −1.43%."
+        }
+      ],
+      "cap_tier": "market",
+      "in_500": null,
+      "ticker_sectors": {
+        "GOOGL": "Communication Services",
+        "MSFT": "Technology",
+        "NVDA": "Technology"
+      },
+      "ticker_names": {
+        "GOOGL": "Alphabet Inc.",
+        "MSFT": "Microsoft Corporation",
+        "NVDA": "NVIDIA Corporation"
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "rank": 12.42,
+      "rank_why": "breadth_day 4; market-level +4; magnitude (market) +2.42; session_date 2026-10-16 (age 0) +2",
+      "top8": false,
+      "top8_out": "session_map: already 2 session-map items (one market day does not fill the menu)"
     },
     {
       "item_id": "2026-10-18-moves-like-PEP-2636ca",
@@ -2166,7 +3078,45 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "claims": [
+        {
+          "words": [
+            "most",
+            "top",
+            "best",
+            "led"
+          ],
+          "subjects": [
+            "PEP",
+            "BF.B",
+            "KO",
+            "MDLZ"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": "\\blike\\b|sync|mov",
+          "says": "$PEP moved most like $BF.B, then $KO, then $MDLZ (by Sync)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "PEP"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "PEP": "Consumer Defensive",
+        "KO": "Consumer Defensive",
+        "MDLZ": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "PEP": "PepsiCo, Inc.",
+        "KO": "The Coca-Cola Company",
+        "MDLZ": "Mondelez International, Inc."
+      },
+      "top8": false,
+      "top8_out": "repeat: leads with $PEP like 2026-10-18-form4-buy-PEP-08d02c"
     },
     {
       "item_id": "2026-10-18-moves-like-FITB-bbbeb1",
@@ -2278,7 +3228,45 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "claims": [
+        {
+          "words": [
+            "most",
+            "top",
+            "best",
+            "led"
+          ],
+          "subjects": [
+            "FITB",
+            "USB",
+            "CFG",
+            "RF"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": "\\blike\\b|sync|mov",
+          "says": "$FITB moved most like $USB, then $CFG, then $RF (by Sync)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "FITB"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "FITB": "Financial Services",
+        "USB": "Financial Services",
+        "CFG": "Financial Services"
+      },
+      "ticker_names": {
+        "FITB": "Fifth Third Bancorp",
+        "USB": "U.S. Bancorp",
+        "CFG": "Citizens Financial Group, Inc."
+      },
+      "top8": false,
+      "top8_out": "repeat: leads with $FITB like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-FITB-44c0c0",
@@ -2310,7 +3298,7 @@
       "report_date": "2026-10-19",
       "hour": "bmo",
       "hour_text": "before the open",
-      "market_cap_usd": 45437435904.0,
+      "market_cap_usd": 45645947680.89386,
       "date_confirmed_source": "calendar",
       "media": [
         {
@@ -2320,12 +3308,14 @@
         }
       ],
       "rank": 4.5,
-      "rank_why": "earnings_upcoming 1; large cap $45.44B +2.5; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
+      "rank_why": "earnings_upcoming 1; large cap $45.65B +2.5; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
       "pillar": "P5",
+      "market_cap_feed_usd": 45437435904.0,
+      "market_cap_source": "market_map",
       "cap_tier": "large",
       "in_500": true,
       "context_numbers": [
-        "$45.4B",
+        "$45.6B",
         "+0.04%",
         "0.04%",
         "0.0%",
@@ -2336,8 +3326,21 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "FITB"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "FITB": "Financial Services"
+      },
+      "ticker_names": {
+        "FITB": "Fifth Third Bancorp"
+      },
       "context": {
-        "market_cap": "$45.4B",
+        "market_cap": "$45.6B",
         "last_session_move": {
           "pct": "+0.04%",
           "session": "2026-10-16"
@@ -2348,209 +3351,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-STLD-f76b5c",
-      "type": "earnings_upcoming",
-      "ticker": "STLD",
-      "tickers": [
-        "STLD"
-      ],
-      "name": "Steel Dynamics, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/STLD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-STLD-f76b5c#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Steel Dynamics, Inc. (STLD) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:STLD:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 34166552576.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/STLD/opengraph-image",
-          "kind": "image",
-          "alt": "Steel Dynamics, Inc. (STLD) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_upcoming 1; large cap $34.17B +2.5; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "$34.2B",
-        "−0.09%",
-        "0.09%",
-        "−0.1%",
-        "0.1%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "context": {
-        "market_cap": "$34.2B",
-        "last_session_move": {
-          "pct": "−0.09%",
-          "session": "2026-10-16"
-        }
       },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      }
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-WRB-5e08f1",
-      "type": "earnings_upcoming",
-      "ticker": "WRB",
-      "tickers": [
-        "WRB"
-      ],
-      "name": "W. R. Berkley Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/WRB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-WRB-5e08f1#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "W. R. Berkley Corporation (WRB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:WRB:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 26694971392.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/WRB/opengraph-image",
-          "kind": "image",
-          "alt": "W. R. Berkley Corporation (WRB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_upcoming 1; large cap $26.69B +2.5; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "$26.7B",
-        "+1.96%",
-        "1.96%",
-        "+2.0%",
-        "2.0%",
-        "2026-10-16",
-        "Oct 16, 2026",
-        "Oct 16"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "context": {
-        "market_cap": "$26.7B",
-        "last_session_move": {
-          "pct": "+1.96%",
-          "session": "2026-10-16"
-        }
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      }
-    },
-    {
-      "item_id": "2026-10-18-earnings-upcoming-CCK-0a0069",
-      "type": "earnings_upcoming",
-      "ticker": "CCK",
-      "tickers": [
-        "CCK"
-      ],
-      "name": "Crown Holdings, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CCK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-CCK-0a0069#earnings-history",
-      "allowed_numbers": [
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Crown Holdings, Inc. (CCK) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:CCK:2026-10-19",
-      "report_date": "2026-10-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 11752660992.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CCK/opengraph-image",
-          "kind": "image",
-          "alt": "Crown Holdings, Inc. (CCK) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_upcoming 1; large cap $11.75B +2.5; today 2026-10-18 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "large",
-      "in_500": false,
-      "context_numbers": [
-        "$11.8B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "context": {
-        "market_cap": "$11.8B"
-      },
-      "angles": [],
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      }
+      "top8": false,
+      "top8_out": "repeat: leads with $FITB like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
     },
     {
       "item_id": "2026-10-18-chart-pattern-IREN-a1292e",
@@ -2651,12 +3454,113 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "IREN"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "angles": [],
       "cooldown": {
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-reaction-IBKR-6246d9",
+      "type": "earnings_reaction",
+      "ticker": "IBKR",
+      "tickers": [
+        "IBKR"
+      ],
+      "name": "Interactive Brokers Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IBKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-reaction-IBKR-6246d9",
+      "allowed_numbers": [
+        "−3.88%",
+        "3.88%",
+        "−3.9%",
+        "3.9%",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "Q3 2026",
+        "Q3"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close).",
+      "dedupe_key": "earnings_reaction:IBKR:2026-10-15",
+      "pillar": "P5",
+      "session_date": "2026-10-16",
+      "report_date": "2026-10-15",
+      "hour": "amc",
+      "fiscal_label": "Q3 2026",
+      "move": -3.8823666162966397,
+      "angles": [
+        "$IBKR −3.88% the session after its Q3 2026 report.",
+        "How the market took $IBKR's Q3 2026 numbers: −3.88%.",
+        "$IBKR reported after the close on Oct 15. The next session: −3.88%."
+      ],
+      "market_cap_usd": 146579243008.0,
+      "headline": {
+        "tickers": [
+          "IBKR"
+        ],
+        "numbers": [
+          "3.88%",
+          "3.9%"
+        ]
+      },
+      "magnitude": 1.9411833081483199,
+      "trigger": "|next-session move| 3.88% >= 3.0%",
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IBKR/opengraph-image",
+          "kind": "image",
+          "alt": "$IBKR (Interactive Brokers Group, Inc.) moved −3.88% on Friday, Oct 16, the first session after its Q3 2026 report (Oct 15, after the close)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "card": null,
+      "claims": [],
+      "ticker_sectors": {
+        "IBKR": "Financial Services"
+      },
+      "ticker_names": {
+        "IBKR": "Interactive Brokers Group, Inc."
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {
+          "x": "2026-10-14",
+          "instagram": "2026-10-14"
+        },
+        "filer_last_posted": null
+      },
+      "rank": 3.44,
+      "rank_why": "earnings_reaction 2; large cap $146.58B +2.5; magnitude (market) +1.94; session_date 2026-10-16 (age 0) +2; posted $IBKR on 2026-10-14 -4; same pillar as the newest own post (P5) -1",
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-WTFC-3682ae",
@@ -2708,6 +3612,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "WTFC"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$9.7B"
       },
@@ -2716,7 +3629,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-ZION-f5bd41",
@@ -2768,6 +3683,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ZION"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$9.1B"
       },
@@ -2776,7 +3700,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-WAL-6779ef",
@@ -2828,6 +3754,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "WAL"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$8.1B"
       },
@@ -2836,7 +3771,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-BOKF-895eff",
@@ -2888,6 +3825,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "BOKF"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$7.8B"
       },
@@ -2896,7 +3842,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-CLF-b7041d",
@@ -2948,6 +3896,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CLF"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$7.2B"
       },
@@ -2956,7 +3913,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "repeat: leads with $CLF like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-FNB-bf76f8",
@@ -3008,6 +3967,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "FNB"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$6.0B"
       },
@@ -3016,7 +3984,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-RLI-5b95bb",
@@ -3068,6 +4038,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "RLI"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$5.1B"
       },
@@ -3076,7 +4055,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-SFBS-fd3914",
@@ -3128,6 +4109,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SFBS"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$4.5B"
       },
@@ -3136,7 +4126,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-DX-ed12fc",
@@ -3188,6 +4180,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$2.8B"
       },
@@ -3196,7 +4197,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "repeat: leads with $DX like 2026-10-18-earnings-tomorrow-roundup-LIST-56a8c1"
     },
     {
       "item_id": "2026-10-18-earnings-tomorrow-roundup-LIST-867833",
@@ -3251,7 +4254,7 @@
         }
       ],
       "rank": 2.5,
-      "rank_why": "earnings_tomorrow_roundup 2; large cap $34.17B +2.5; magnitude (roundup) +1; today 2026-10-18 (age 0) +2; posted this item on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
+      "rank_why": "earnings_tomorrow_roundup 2; large cap $34.17B +2.5; magnitude (roundup) +1; today 2026-10-18 (age 0) +2; posted $CCK, $STLD, $WRB on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
       "pillar": "P5",
       "cap_tier": "large",
       "in_500": null,
@@ -3259,6 +4262,23 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "STLD",
+          "WRB",
+          "CCK"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "STLD": "Basic Materials",
+        "WRB": "Financial Services"
+      },
+      "ticker_names": {
+        "STLD": "Steel Dynamics, Inc.",
+        "WRB": "W. R. Berkley Corporation"
+      },
       "angles": [],
       "cooldown": {
         "same_item_posted_on": [
@@ -3266,7 +4286,9 @@
         ],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-moves-like-IREN-0edea3",
@@ -3363,7 +4385,37 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "claims": [
+        {
+          "words": [
+            "most",
+            "top",
+            "best",
+            "led"
+          ],
+          "subjects": [
+            "IREN",
+            "KEEL",
+            "APLD",
+            "CORZ"
+          ],
+          "bare": false,
+          "direction": null,
+          "needs": "\\blike\\b|sync|mov",
+          "says": "$IREN moved most like $KEEL, then $APLD, then $CORZ (by Sync)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "IREN"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-earnings-upcoming-WASH-1a5c4f",
@@ -3415,6 +4467,15 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "WASH"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "context": {
         "market_cap": "$707M"
       },
@@ -3423,7 +4484,9 @@
         "same_item_posted_on": [],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     },
     {
       "item_id": "2026-10-18-picks-ready-LIST-39a08c",
@@ -3471,7 +4534,7 @@
         }
       ],
       "rank": 1.0,
-      "rank_why": "picks_ready 2; magnitude (picks) +1; today 2026-10-18 (age 0) +2; posted this item on 2026-10-16 -4",
+      "rank_why": "picks_ready 2; magnitude (picks) +1; today 2026-10-18 (age 0) +2; posted $DAR, $DRS on 2026-10-16 -4",
       "pillar": "P0",
       "cap_tier": "unknown",
       "in_500": null,
@@ -3479,6 +4542,16 @@
       "context_tickers": [],
       "trigger": null,
       "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DRS",
+          "DAR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
       "angles": [],
       "cooldown": {
         "same_item_posted_on": [
@@ -3487,7 +4560,262 @@
         ],
         "ticker_last_posted": {},
         "filer_last_posted": null
-      }
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-STLD-f76b5c",
+      "type": "earnings_upcoming",
+      "ticker": "STLD",
+      "tickers": [
+        "STLD"
+      ],
+      "name": "Steel Dynamics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/STLD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-STLD-f76b5c#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Steel Dynamics, Inc. (STLD) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:STLD:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 34507673454.97844,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/STLD/opengraph-image",
+          "kind": "image",
+          "alt": "Steel Dynamics, Inc. (STLD) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 0.5,
+      "rank_why": "earnings_upcoming 1; large cap $34.51B +2.5; today 2026-10-18 (age 0) +2; posted $STLD on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
+      "pillar": "P5",
+      "market_cap_feed_usd": 34166552576.0,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "$34.5B",
+        "−0.09%",
+        "0.09%",
+        "−0.1%",
+        "0.1%",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "STLD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "STLD": "Basic Materials"
+      },
+      "ticker_names": {
+        "STLD": "Steel Dynamics, Inc."
+      },
+      "context": {
+        "market_cap": "$34.5B",
+        "last_session_move": {
+          "pct": "−0.09%",
+          "session": "2026-10-16"
+        }
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {
+          "instagram": "2026-10-18"
+        },
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-WRB-5e08f1",
+      "type": "earnings_upcoming",
+      "ticker": "WRB",
+      "tickers": [
+        "WRB"
+      ],
+      "name": "W. R. Berkley Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WRB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-WRB-5e08f1#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "W. R. Berkley Corporation (WRB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:WRB:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 27459700095.483803,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WRB/opengraph-image",
+          "kind": "image",
+          "alt": "W. R. Berkley Corporation (WRB) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 0.5,
+      "rank_why": "earnings_upcoming 1; large cap $27.46B +2.5; today 2026-10-18 (age 0) +2; posted $WRB on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
+      "pillar": "P5",
+      "market_cap_feed_usd": 26694971392.0,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "$27.5B",
+        "+1.96%",
+        "1.96%",
+        "+2.0%",
+        "2.0%",
+        "2026-10-16",
+        "Oct 16, 2026",
+        "Oct 16"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "WRB"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "WRB": "Financial Services"
+      },
+      "ticker_names": {
+        "WRB": "W. R. Berkley Corporation"
+      },
+      "context": {
+        "market_cap": "$27.5B",
+        "last_session_move": {
+          "pct": "+1.96%",
+          "session": "2026-10-16"
+        }
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {
+          "instagram": "2026-10-18"
+        },
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-10-18-earnings-upcoming-CCK-0a0069",
+      "type": "earnings_upcoming",
+      "ticker": "CCK",
+      "tickers": [
+        "CCK"
+      ],
+      "name": "Crown Holdings, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CCK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-18-earnings-upcoming-CCK-0a0069#earnings-history",
+      "allowed_numbers": [
+        "2026-10-19",
+        "Oct 19, 2026",
+        "Oct 19",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Crown Holdings, Inc. (CCK) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:CCK:2026-10-19",
+      "report_date": "2026-10-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "market_cap_usd": 11752660992.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CCK/opengraph-image",
+          "kind": "image",
+          "alt": "Crown Holdings, Inc. (CCK) reports earnings on 2026-10-19, after the close (confirmed date; source: calendar)."
+        }
+      ],
+      "rank": 0.5,
+      "rank_why": "earnings_upcoming 1; large cap $11.75B +2.5; today 2026-10-18 (age 0) +2; posted $CCK on 2026-10-18 -4; same pillar as the newest own post (P5) -1",
+      "pillar": "P5",
+      "cap_tier": "large",
+      "in_500": false,
+      "context_numbers": [
+        "$11.8B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CCK"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$11.8B"
+      },
+      "angles": [],
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {
+          "instagram": "2026-10-18"
+        },
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8"
     }
   ]
 }
