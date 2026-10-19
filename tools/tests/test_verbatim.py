@@ -139,6 +139,7 @@ def test_any_change_inside_a_fact_sentence_is_rejected():
 
 def test_hooks_carry_no_fact():
     mm = vitem("market_move")
+    assert verdict(mm, "• " + GOOGL_P + "\n• Here is how the day looked. | Full map in the reply.") == []
     for ok in ["Here is how the day looked.", "What stood out to you?", "Full map in the reply.", "Link in bio.",
                "Which move surprised you?", "Here's the full picture \U0001f447", "Thoughts? #stocks #investing"]:
         assert verdict(mm, ok) == [], ok
