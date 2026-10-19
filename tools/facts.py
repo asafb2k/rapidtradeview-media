@@ -1790,6 +1790,11 @@ def enrich(items: list[dict], m: "mk.Market") -> None:
         it["ticker_sectors"], it["ticker_names"] = secs, names
         it.setdefault("claim_phrases", [])
         if kind == "moves_like" and t and it.get("peers"):
+            # cashtags in the class-dot form the phrases print ($BF.B, not $BF-B), and the "0" of "0 to 100" (an item
+            # carried over from an earlier file of the day may predate either; HQ 2026-10-19)
+            it["tickers"] = list(dict.fromkeys(mk.norm_ticker(x) for x in it.get("tickers") or [] if x))
+            if "0" not in (it.get("allowed_numbers") or []):
+                it["allowed_numbers"] = [*(it.get("allowed_numbers") or []), "0"]
             it["claims"] = moves_like_claims(t, [(p or {}).get("ticker") for p in it["peers"]])
             it["claim_phrases"] = moves_like_phrases(it)
         if kind == "earnings_result":
