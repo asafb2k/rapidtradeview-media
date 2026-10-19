@@ -55,7 +55,12 @@ Top 8 (HQ review 2026-10-18, diversify_top): the first 8 items of the file are a
 cap, at most 2 session-map items (market_move, mega_mover, sector_rotation, breadth_day, basket_week: one selloff cannot
 fill the menu), no headline ticker or headline number of one top-8 item repeated by another (item.headline), and at least
 4 distinct pillars when the day has them. Every item carries top8 (bool) and, below the top 8, top8_out (why).
-Content (tools/claims.py): every item carries claim_phrases (HQ 2026-10-19 allowlist: the complete sentences, built from
+Content (tools/claims.py): VERBATIM FACTS (HQ 2026-10-19, claims.py section 2d; rules.verbatim): every item carries
+fact_phrases (fact_phrases(): plain, complete, true sentences built from its own fields and context, each naming its
+subject and dates) next to claim_phrases; every factual sentence of a post / self-reply / comment must equal one of
+them, every other sentence is a fact-free hook (post_vocab.HOOK_WORDS); self_check keeps a phrase only when it passes
+as a one-sentence post (grok_review.phrase_reasons) and angles are phrases. Ranking phrases never order a tie at the
+published precision (market_facts.ordinal_phrases). Before that: every item carries claim_phrases (HQ 2026-10-19 allowlist: the complete sentences, built from
 the data with exact numbers, window and scope, that state every comparison / ranking the item backs; a post sentence with
 any ranking language, or any word outside the plain vocabulary of post_vocab.py, must be one of them verbatim),
 subject_numbers (each number of its facts_text / claim phrases tied to its company / sector: claims.binding_reasons),
@@ -1048,6 +1053,8 @@ def moves_like_items(api, target: dt.date, items: list[dict], previous: dict | N
             left["no_peer"] += 1
             checked[ticker] = "no_peer"
             continue
+        ranked = sorted(peers, key=lambda p: -p["sync"])
+        next_sync = ranked[3]["sync"] if len(ranked) > 3 else None   # ties at the 3rd place (moves_like_phrases)
         peers = [p for p in peers if p["sync"] >= MOVES_LIKE_SYNC_FLOOR]
         if not peers:
             left["below_floor"] += 1
@@ -1067,8 +1074,9 @@ def moves_like_items(api, target: dt.date, items: list[dict], previous: dict | N
             target.isoformat(), "moves_like", ticker, f"moves:{ticker}:{session}", f"/dashboard/{ticker}",
             tickers=[ticker, *(p["ticker"] for p in peers)], name=name, session=session,
             valid_through=data.get("valid_through"), window_sessions=MOVES_LIKE_SESSIONS, subject_day_move=subj_move,
-            peers=peers, banned_words=PREDICTION_WORDS, source_url=f"{SITE}/dashboard/{ticker}", facts_text=facts_text,
-            allowed_numbers=[str(MOVES_LIKE_SESSIONS), "100", *(str(p["sync"]) for p in peers), *date_forms(session),
+            peers=peers, peer_next_sync=next_sync, banned_words=PREDICTION_WORDS, source_url=f"{SITE}/dashboard/{ticker}",
+            facts_text=facts_text,
+            allowed_numbers=[str(MOVES_LIKE_SESSIONS), "0", "100", *(str(p["sync"]) for p in peers), *date_forms(session),
                              *(_move_numbers(subj_move) if subj_move else []),
                              *(x for p in peers for x in _move_numbers(p["day_move"])),
                              *digit_words(name, *(p["name"] for p in peers))]))
@@ -1493,20 +1501,38 @@ def moves_like_claims(ticker: str, peers: list[str | None]) -> list[dict]:
 
 
 def moves_like_phrases(item: dict) -> list[str]:
-    """Claim phrases (claims.py section 2b) of a Moves Like item: its peers in Sync order, with the window."""
+    """Claim phrases (claims.py section 2b) of a Moves Like item: its peers in Sync order, with the window. Ties at the
+    published precision (whole Sync points, the next peer's Sync in peer_next_sync): no order between tied peers, one
+    non-ordered phrase for a tied group listed whole (verbatim rule, HQ 2026-10-19)."""
     t, n, sess = item.get("ticker"), item.get("window_sessions"), item.get("session")
     peers = [p for p in item.get("peers") or [] if isinstance(p, dict) and p.get("ticker") and isinstance(p.get("sync"), int)]
     if not (t and n and sess and peers):
         return []
+    peers = peers[:3]
     lead = f"Over the {n} sessions before {mk.date_words(sess)[1]}"
-    p0 = peers[0]
-    out = [f"{lead}, ${t} moved most like ${mk.norm_ticker(p0['ticker'])} (Sync {p0['sync']}).",
-           f"Over {n} sessions, ${t} moved most like ${mk.norm_ticker(p0['ticker'])} (Sync {p0['sync']})."]
-    for i, p in enumerate(peers[1:4], start=2):
-        out.append(f"{lead}, ${mk.norm_ticker(p['ticker'])} was the {mk.ORDW[i]}closest peer of ${t} by Sync ({p['sync']}).")
-    if len(peers) >= 2:
+    nxt = item.get("peer_next_sync")
+    ext = [p["sync"] for p in peers] + ([nxt] if isinstance(nxt, int) else [])
+    tk = lambda p: "$" + mk.norm_ticker(p["ticker"])  # noqa: E731
+    out = []
+    i = 0
+    while i < len(peers):
+        j = i
+        while j + 1 < len(ext) and ext[j + 1] == ext[i]:
+            j += 1
+        p = peers[i]
+        if j == i and i == 0:
+            out += [f"{lead}, ${t} moved most like {tk(p)} (Sync {p['sync']}).",
+                    f"Over {n} sessions, ${t} moved most like {tk(p)} (Sync {p['sync']})."]
+        elif j == i:
+            out.append(f"{lead}, {tk(p)} was the {mk.ORDW[i + 1]}closest peer of ${t} by Sync ({p['sync']}).")
+        elif j < len(peers):
+            out.append(f"{lead}, {mk.and_join([tk(peers[k]) for k in range(i, j + 1)])} tied for the {mk.ORDW[i + 1]}"
+                       f"closest peer of ${t} by Sync ({p['sync']} each).")
+        i = j + 1
+    k = len(peers)
+    if k >= 2 and len(set(ext[:k])) == k and (len(ext) <= k or ext[k] != ext[k - 1]):
         out.append(f"{lead}, ${t}'s closest peers by Sync, in order: "
-                   + ", ".join(f"${mk.norm_ticker(p['ticker'])} ({p['sync']})" for p in peers[:3]) + ".")
+                   + ", ".join(f"{tk(p)} ({p['sync']})" for p in peers) + ".")
     return out
 
 
@@ -1548,6 +1574,185 @@ def earnings_phrases(item: dict) -> list[str]:
     return list(dict.fromkeys(x for x in out if x))
 
 
+def _md(iso: str | None) -> str:
+    return mk.date_words(iso)[2] if iso else ""
+
+
+def _on_day(iso: str | None) -> str:
+    return f"on {mk.weekday_name(iso)}, {_md(iso)}" if iso else ""
+
+
+def _owners(it: dict) -> str:
+    own = [o for o in it.get("owner") or [] if o and o != "self"]
+    return f" (owner: {', '.join(own)})" if own else ""
+
+
+def fact_phrases(it: dict) -> list[str]:
+    """The plain, complete, true sentences a post of this item may state (HQ 2026-10-19 verbatim rule, claims.py section
+    2d), built from the item's own fields and its context (cap, last session move, 30-day flow totals). Each one names its
+    subject and its dates, so it stays true wherever it stands in a post; comparisons are claim_phrases. self_check drops
+    a phrase that fails a post check."""
+    kind, t = it.get("type"), it.get("ticker")
+    if kind in mk.MARKET_TYPES:
+        return mk.market_fact_phrases(it)
+    out: list[str] = []
+    if kind == "form4_buy" and t:
+        name, amt, rows, filed = it.get("name"), it.get("amount_text"), int(it.get("rows") or 1), it.get("filed")
+        role = str(it.get("office") or "Insider").split(" at ")[0]
+        role_l = role if role[:1].isdigit() else role.lower()
+        co = it.get("company") or f"${t}"
+        buy = f"bought {amt} of ${t} on the open market" + (f" in {rows} purchases" if rows > 1 else "")
+        how = "an open-market purchase" if rows == 1 else f"{rows} open-market purchases"
+        out += [f"{co} {role_l} {name} {buy} (Form 4, filed {_md(filed)}).",
+                f"{co} {role_l} {name} {buy}.",
+                f"{name} {buy}.",
+                f"{name} ({role} at {co}) reported {how} of ${t} totaling {amt} on a Form 4 filed {_md(filed)}."]
+        traded = it.get("traded") or []
+        if traded:
+            out.append(f"{name}'s ${t} {'purchase was' if rows == 1 else 'purchases were'} traded "
+                       f"{mk.and_join([_md(x) for x in traded])} and reported on a Form 4 filed {_md(filed)}.")
+    elif kind == "congress_trade" and t:
+        office = it.get("office") or "Member of Congress"
+        title = office.split(" (")[0]
+        tag = office[len(title):].strip()
+        rows, buy = int(it.get("rows") or 1), it.get("side") == "buy"
+        what = ("a purchase" if buy else "a sale") if rows == 1 else f"{rows} {'purchases' if buy else 'sales'}"
+        amt = ", ".join(str(it.get("amount_text") or "").split("; "))
+        name, filed = it.get("name"), it.get("filed")
+        out += [f"{title} {name}{' ' + tag if tag else ''} disclosed {what} of ${t}{_owners(it)}, {amt} "
+                f"(filed {_md(filed)}).",
+                f"{name} disclosed {what} of ${t}{_owners(it)}, {amt}."]
+        traded = it.get("traded") or []
+        if traded:
+            out.append(f"{name}'s ${t} {('purchase' if buy else 'sale') + ('s were' if rows > 1 else ' was')} traded "
+                       f"{mk.and_join([_md(x) for x in traded])} and disclosed on {_md(filed)}.")
+    elif kind == "ptr_summary":
+        office = it.get("office") or "Member of Congress"
+        title = office.split(" (")[0]
+        tag = office[len(title):].strip()
+        name, filed, trades = it.get("name"), it.get("filed"), it.get("rows")
+        srcs = it.get("source_urls") or []
+        reports = "a report" if len(srcs) <= 1 else f"{len(srcs)} reports"
+        out.append(f"{title} {name}{' ' + tag if tag else ''} disclosed {trades} trades in {it.get('tickers_total')} "
+                   f"tickers on {reports} filed {_md(filed)}.")
+        sides = [x for x in [f"{it['buys']} {'purchase' if it['buys'] == 1 else 'purchases'}" if it.get("buys") else None,
+                             f"{it['sales']} {'sale' if it['sales'] == 1 else 'sales'}" if it.get("sales") else None] if x]
+        if sides:
+            out.append(f"{name} disclosed {' and '.join(sides)} on {reports} filed {_md(filed)}.")
+        if it.get("tickers"):
+            out.append(f"The trades {name} disclosed on {_md(filed)} include "
+                       f"{mk.and_join(['$' + x for x in it['tickers']])}.")
+    elif kind == "earnings_result" and t:
+        fl, rel, res = it.get("fiscal_label") or "", it.get("release_date"), it.get("results") or {}
+        if it.get("name"):
+            out.append(f"{it['name']} (${t}) published {fl} results on {_md(rel)}.")
+        out.append(f"${t} published {fl} results on {_md(rel)}.")
+        rv = res.get("revenue") or {}
+        if rv.get("reported"):
+            out.append(f"${t} {fl} revenue: {rv['reported']}"
+                       + (f" vs {rv['consensus']} consensus." if rv.get("consensus") else "."))
+            out.append(f"${t} {fl} revenue was {rv['reported']}.")
+        ep = res.get("eps") or {}
+        if ep.get("reported") and ep.get("basis"):
+            out.append(f"${t} {fl} {ep['basis']}: {ep['reported']}"
+                       + (f" vs {ep['consensus']} consensus." if ep.get("consensus") else "."))
+            out.append(f"${t} {fl} {ep['basis']} was {ep['reported']}.")
+    elif kind == "earnings_upcoming" and t:
+        day, hour = it.get("report_date"), it.get("hour_text") or ""
+        tail = " (confirmed date, time not announced)" if hour == "time not announced" else f", {hour} (confirmed date)"
+        if it.get("name"):
+            out.append(f"{it['name']} (${t}) reports earnings {_on_day(day)}{tail}.")
+        out.append(f"${t} reports earnings {_on_day(day)}{tail}.")
+    elif kind == "earnings_tomorrow_roundup":
+        day, hour, ts = it.get("report_date"), it.get("hour_text") or "", it.get("tickers") or []
+        if ts:
+            out.append(f"{mk.and_join(['$' + x for x in ts])} report earnings {_on_day(day)}, {hour} (confirmed dates).")
+        for x in ts:
+            nm = (it.get("names") or {}).get(x)
+            out.append(f"${x}{' (' + nm + ')' if nm else ''} reports earnings {_on_day(day)}, {hour} (confirmed date).")
+    elif kind == "picks_ready":
+        td, ts = it.get("trade_date"), it.get("tickers") or []
+        out.append(f"The RapidTradeView daily picks list for {_md(td)} is published.")
+        if ts:
+            out.append(f"The public {'picks' if len(ts) > 1 else 'pick'} on the RapidTradeView list for {_md(td)} "
+                       f"{'are' if len(ts) > 1 else 'is'} {mk.and_join(['$' + x for x in ts])}.")
+        out.append("Every pick is graded in public on the RapidTradeView scoreboard.")
+    elif kind == "chart_pattern" and t:
+        pt, lv = it.get("pattern") or {}, it.get("levels") or {}
+        pname = str(pt.get("name") or "").lower()
+        if pname:
+            out.append(f"Automatic technical analysis flagged {_article(pname)} {pname} on ${t} "
+                       f"(scan {_md(it.get('scan_date'))}).")
+            if pt.get("start") and pt.get("end"):
+                out.append(f"The ${t} {pname} pattern ran from {_md(pt['start'])} to {_md(pt['end'])}.")
+            close, level, lname = lv.get("breakout_close"), lv.get("key_level"), lv.get("key_level_name")
+            if pt.get("status") == "confirmed" and pt.get("confirmed_on") and close and level and lname:
+                try:
+                    c, k = float(close.replace("$", "").replace(",", "")), float(level.replace("$", "").replace(",", ""))
+                except ValueError:
+                    c = k = None
+                if c is not None and c != k:
+                    out.append(f"${t} closed at {close} on {_md(pt['confirmed_on'])}, {'below' if c < k else 'above'} "
+                               f"the {level} {str(lname).lower()}.")
+    elif kind == "moves_like" and t:
+        n, sess = it.get("window_sessions"), it.get("session")
+        for p in it.get("peers") or []:
+            if isinstance(p, dict) and p.get("ticker") and isinstance(p.get("sync"), int):
+                out.append(f"Over the {n} sessions before {mk.date_words(sess)[1]}, ${t} and ${mk.norm_ticker(p['ticker'])} "
+                           f"had a Sync of {p['sync']} ({p.get('band')}).")
+                if p.get("day_move"):
+                    out.append(f"${mk.norm_ticker(p['ticker'])} moved {p['day_move']} {_on_day(sess)}.")
+        if it.get("subject_day_move"):
+            out.append(f"${t} moved {it['subject_day_move']} {_on_day(sess)}.")
+        out.append("Sync runs from 0 to 100 and measures past moves, not a prediction.")
+    # context (enrich: numbers computed from our own API)
+    ctx = it.get("context") or {}
+    if t and ctx.get("market_cap") and ctx.get("market_cap_session"):
+        out.append(f"${t} had a market value of {ctx['market_cap']} at the {_md(ctx['market_cap_session'])} close.")
+    mv = ctx.get("last_session_move") or {}
+    if t and mv.get("pct") and mv.get("session"):
+        out.append(f"${t} moved {mv['pct']} {_on_day(mv['session'])}.")
+    ins = ctx.get("insiders_30d") or {}
+    if ins.get("bought") and ins.get("sold") and ins.get("days"):
+        out.append(f"Officers and directors reported {ins['bought']} of open-market buys and {ins['sold']} of open-market "
+                   f"sells over {ins['days']} days in our feed.")
+    con = ctx.get("congress_30d") or {}
+    if con.get("days") and con.get("buys") is not None and con.get("sells") is not None:
+        out.append(f"Members of Congress disclosed {con['buys']} buys and {con['sells']} sells over {con['days']} days in "
+                   "our feed.")
+    tc = ctx.get("ticker_congress_30d") or {}
+    if t and con.get("days") and tc.get("trades"):
+        out.append(f"Members of Congress disclosed {tc['trades']} trades in ${t} over {con['days']} days in our feed: "
+                   f"{tc.get('buys')} buys and {tc.get('sells')} sells by {tc.get('members')} members.")
+    return mk.clean_phrases(out)
+
+
+VERBATIM_RULE = (
+    "VERBATIM FACTS (HQ 2026-10-19; replaces the claim_phrases / plain_words reading for every item that has "
+    "fact_phrases): every sentence of a post, self-reply or comment that holds ANY fact - a $cashtag or ticker, a company "
+    "or person name, a number / percent / amount / count, a sector, a date / weekday / session word, a direction word "
+    "(up / down / rose / fell / gained / lost / green / red / rally / drop ...), a ranking or comparison word - must be one "
+    "of the item's fact_phrases or claim_phrases COPIED VERBATIM as its own sentence (only case, spacing, punctuation, $ on "
+    "cashtags and dash types may differ; a closing '(number)' may be left off). No partial copies, no splicing two "
+    "phrases, no word added, dropped or changed inside a fact sentence, no 'And' / 'Monday recap:' in front. Any other "
+    "sentence is a HOOK: only hook_words, at most hook_max_words words, no fact at all ('Here is how the day looked.', "
+    "'What stood out to you?', 'Full map in the reply.'); never advice (buy / sell / hold / own / should / expect / due / "
+    "target / forecast / will / going to / undervalued / opportunity ...). No comparison outside the phrases. "
+    "'Not investment advice.' stays in every post. Hashtags: only the generic ones listed here (and the item type's "
+    "topic hashtags); emoji: only hook_emoji (no arrows, chart, fire, rocket, medal or colour emoji). Comments follow the "
+    "same rule: without an item_id a comment holds hooks only. A rejection names the closest phrase: copy it exactly.")
+
+
+def verbatim_rules() -> dict:
+    """rules.verbatim of facts.json (HQ 2026-10-19): the rule and its closed lists, from post_vocab (one source)."""
+    pv = cl.pv
+    return {"rule": VERBATIM_RULE, "hook_words": sorted(pv.HOOK_WORDS), "hook_max_words": pv.HOOK_MAX_WORDS,
+            "hook_emoji": sorted(pv.HOOK_EMOJI - {"️"}), "hashtags": sorted(pv.HOOK_HASHTAGS),
+            "hashtags_by_type": {k: sorted(v) for k, v in pv.HOOK_HASHTAGS_BY_TYPE.items()},
+            "example": ("Here is how the day looked. The 500 largest US-listed stocks lost about $1.0T on Friday. "
+                        "Energy went the other way on Friday (+2.64%). What stood out to you? Not investment advice.")}
+
+
 def enrich(items: list[dict], m: "mk.Market") -> None:
     """pillar, cap fill (the map's company cap when the item has none), cap_tier, in_500, context_numbers /
     context_tickers (numbers computed from our API: the cap, the last session's move, the 30-day flow totals), angles,
@@ -1585,17 +1790,26 @@ def enrich(items: list[dict], m: "mk.Market") -> None:
         it["ticker_sectors"], it["ticker_names"] = secs, names
         it.setdefault("claim_phrases", [])
         if kind == "moves_like" and t and it.get("peers"):
+            # cashtags in the class-dot form the phrases print ($BF.B, not $BF-B), and the "0" of "0 to 100" (an item
+            # carried over from an earlier file of the day may predate either; HQ 2026-10-19)
+            it["tickers"] = list(dict.fromkeys(mk.norm_ticker(x) for x in it.get("tickers") or [] if x))
+            if "0" not in (it.get("allowed_numbers") or []):
+                it["allowed_numbers"] = [*(it.get("allowed_numbers") or []), "0"]
             it["claims"] = moves_like_claims(t, [(p or {}).get("ticker") for p in it["peers"]])
             it["claim_phrases"] = moves_like_phrases(it)
         if kind == "earnings_result":
             it["claim_phrases"] = earnings_phrases(it)
         if kind in mk.MARKET_TYPES:
+            it["fact_phrases"] = fact_phrases(it)
             continue
         ctx: dict = {}
         nums: list[str] = []
         cap = it.get("market_cap_usd")
         if t and isinstance(cap, (int, float)):
             ctx["market_cap"] = mk.usd_text(cap)
+            if it.get("market_cap_source") == "market_map" and m.session:
+                ctx["market_cap_session"] = m.session   # the map's cap is as of its session close
+                nums += mk.date_words(m.session)
             nums += [mk.usd_text(cap), mk.about_usd(cap)]
         mv = m.move(t) if t else None
         if mv is not None and m.session:
@@ -1603,18 +1817,21 @@ def enrich(items: list[dict], m: "mk.Market") -> None:
             nums += [*mk.pct_forms(mv), *mk.date_words(m.session)]
         if kind == "form4_buy" and isinstance(ins.get("total_usd"), (int, float)):
             sold = (ins.get("sells") or {}).get("total_usd")
+            days = (ins.get("window") or {}).get("days") or 30
             ctx["insiders_30d"] = {"bought": mk.usd_text(ins["total_usd"]),
-                                   "sold": mk.usd_text(sold) if isinstance(sold, (int, float)) else None}
+                                   "sold": mk.usd_text(sold) if isinstance(sold, (int, float)) else None, "days": days}
             totals = mk.usd_forms(ins["total_usd"]) + (mk.usd_forms(sold) if isinstance(sold, (int, float)) else [])
-            nums += totals + ["30"]
+            nums += totals + [str(days)]
             it["context_tickers"] = [x for x in dict.fromkeys(buyers500) if x != t][:3]
             it["scoped_numbers"] = [{"numbers": totals, "require": [r"officers?\s+and\s+directors?", r"open[-\s]market"],
                                      "say": ("the 30-day totals are open-market buys / sells by officers and directors "
                                              "over 30 days in our feed: say \"open-market\" and \"officers and directors\"")}]
         if kind in ("congress_trade", "ptr_summary") and con.get("totals"):
             tot = con["totals"]
-            ctx["congress_30d"] = {"buys": tot.get("buys"), "sells": tot.get("sells"), "members": tot.get("members")}
-            nums += [str(tot.get("buys")), str(tot.get("sells")), str(tot.get("members")), "30"]
+            cdays = (con.get("window") or {}).get("days") or 30
+            ctx["congress_30d"] = {"buys": tot.get("buys"), "sells": tot.get("sells"), "members": tot.get("members"),
+                                   "days": cdays}
+            nums += [str(tot.get("buys")), str(tot.get("sells")), str(tot.get("members")), str(cdays)]
             row = next((x for x in con.get("top_tickers") or [] if t and mk.norm_ticker(x.get("ticker")) == t), None)
             if row:
                 ctx["ticker_congress_30d"] = {k: row.get(k) for k in ("trades", "members", "buys", "sells")}
@@ -1623,6 +1840,7 @@ def enrich(items: list[dict], m: "mk.Market") -> None:
             it["context"] = ctx
             it["context_numbers"] = uniq([*it["context_numbers"], *nums])
         it.setdefault("angles", _angles(it, m))
+        it["fact_phrases"] = fact_phrases(it)
 
 
 def weekend_replay(it: dict, target: dt.date) -> bool:
@@ -1782,13 +2000,29 @@ def self_check(items: list[dict]) -> tuple[list[dict], list[str], int]:
         nums, tags = gr.item_numbers(it), gr.item_cashtags(it)
 
         def ok(text: str) -> bool:
+            if cl.verbatim_mode(it):   # HQ 2026-10-19: every phrase passes as a one-sentence post (grok_review.phrase_reasons)
+                return not gr.phrase_reasons(it, text)
             return not cl.content_reasons(it, text) and not gr.unexplained_numbers(text, nums, tags)
 
         phrases = [p for p in dict.fromkeys(it.get("claim_phrases") or []) if ok(p)]
         dropped += len(it.get("claim_phrases") or []) - len(phrases)
         it["claim_phrases"] = phrases
-        good = [a for a in it.get("angles") or [] if ok(a)]
-        dropped += len(it.get("angles") or []) - len(good)
+        if cl.verbatim_mode(it):
+            facts = [p for p in dict.fromkeys(it.get(cl.VERBATIM_KEY) or []) if p not in phrases and ok(p)]
+            dropped += len(set(it.get(cl.VERBATIM_KEY) or [])) - len(facts)
+            it[cl.VERBATIM_KEY] = facts
+            # angles are first lines a post copies: under the verbatim rule only phrases (fact phrases first)
+            pool = set(phrases) | set(facts)
+            good = [a for a in it.get("angles") or [] if a in pool]
+            for a in [*facts, *phrases]:
+                if len(good) >= 3:
+                    break
+                if a not in good:
+                    good.append(a)
+            dropped += len([a for a in it.get("angles") or [] if a not in pool])
+        else:
+            good = [a for a in it.get("angles") or [] if ok(a)]
+            dropped += len(it.get("angles") or []) - len(good)
         it["angles"] = good
         kept.append(it)
     return kept, errors, dropped
@@ -1971,7 +2205,9 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                       "the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one "
                       "small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has "
                       "them; items below carry top8_out (why). Pick across pillars per variety"),
-            "claim_phrases": ("ALLOWLIST (HQ 2026-10-19): any sentence of a post that compares, ranks or orders anything "
+            "verbatim": verbatim_rules(),
+            "claim_phrases": ("SUPERSEDED by rules.verbatim for every item with fact_phrases (copy a claim phrase verbatim, as "
+                              "its own sentence). Older items: ALLOWLIST (HQ 2026-10-19): any sentence of a post that compares, ranks or orders anything "
                               "- best / worst / biggest / largest / most / least / top / led / #N / first / second / next / "
                               "then / followed by / only / all / every / none / record / ever / since / streak / in a row "
                               "/ again / double / twice / half / N times / more than / less than / any '-er than' / beat / "
@@ -1981,7 +2217,8 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                               "say = say it without comparing (plain numbers from allowed_numbers). The facts_text "
                               "describes the data; it is not a phrase list. A question to the reader that names no "
                               "company, sector or number is exempt ('Which move surprised you most?')"),
-            "plain_words": ("ROUND 2 (HQ 2026-10-19): every sentence that is not a claim phrase uses only plain words: the "
+            "plain_words": ("SUPERSEDED by rules.verbatim for every item with fact_phrases (no free-form factual sentence at "
+                            "all). Older items: ROUND 2 (HQ 2026-10-19): every sentence that is not a claim phrase uses only plain words: the "
                             "item's cashtags, company / person names and sectors, its allowed numbers and dates, its window "
                             "('on Friday', 'in the week to Oct 16', 'last week' for a week item), 'the 500 largest US-listed "
                             "stocks', and a closed list of plain words (reported, filed, bought, sold, moved, rose, fell, "

@@ -20,7 +20,7 @@ IG_TARGET = "https://www.instagram.com/p/DAbCdEfGhIj/"
 
 def comment(**over):
     d = {"kind": "comment", "platform": "x", "target_url": TARGET,
-         "text": "Interesting read on the filing timeline, thanks for laying out the dates so clearly."}
+         "text": "Thanks for sharing this chart, what stood out to you?"}   # a hook (verbatim rule, HQ 2026-10-19)
     d.update(over)
     return d
 
@@ -40,7 +40,7 @@ def approve(state, d, when=NOW, msg_id=1):
 
 def test_good_comment_is_approved(state):
     assert gr.review_comment(comment(), None, state, NOW) == ("APPROVE", [])
-    ig = comment(platform="instagram", target_url=IG_TARGET, text="Clean breakdown of the sector rotation, appreciated.")
+    ig = comment(platform="instagram", target_url=IG_TARGET, text="Helpful breakdown, thanks.")
     assert gr.review_comment(ig, None, state, NOW) == ("APPROVE", [])
 
 
@@ -56,8 +56,10 @@ def test_comment_with_item_numbers_is_approved_and_any_mention_rejected(state):
 
 
 def test_comment_filing_names_are_not_numbers(state):
+    # without an item a comment holds hooks only (HQ 2026-10-19): filing names with digits are not hook words
     d = comment(text="Worth reading the Form 4 and the 10-K side by side before the 8-K lands.")
-    assert gr.review_comment(d, None, state, NOW) == ("APPROVE", [])
+    v, why = gr.review_comment(d, None, state, NOW)
+    assert v == "REJECT" and all(r.startswith("comment:") for r in why)
     d = comment(item_id=CONGRESS["item_id"], text="The $UNH insider buy (Form 4) was $15K–$50K, filed Oct 7.")
     assert gr.review_comment(d, FACTS, state, NOW) == ("APPROVE", [])
     v, why = gr.review_comment(comment(item_id=CONGRESS["item_id"], text="The $UNH Form 4 shows a 4% stake."), FACTS, state, NOW)
@@ -124,7 +126,8 @@ def test_comment_length_limits(state):
     v, why = gr.review_comment(comment(text="word " * 57), None, state, NOW)   # 285 characters
     assert v == "REJECT" and any("limit 280" in r for r in why)
     ig = comment(platform="instagram", target_url=IG_TARGET, text="word " * 57)
-    assert gr.review_comment(ig, None, state, NOW) == ("APPROVE", [])
+    v, why = gr.review_comment(ig, None, state, NOW)   # within 300; not a hook (57 words, "word"): no length reason
+    assert not any("limit" in r for r in why)
     v, why = gr.review_comment(dict(ig, text="word " * 61), None, state, NOW)
     assert v == "REJECT" and any("limit 300" in r for r in why)
 
@@ -156,7 +159,7 @@ def test_bad_targets_are_rejected(state, url, platform):
 def test_duplicate_text_is_rejected(state):
     approve(state, comment())
     again = comment(target_url="https://x.com/other/status/1844000000000000009",
-                    text="interesting read on the filing timeline; thanks for laying out the dates so clearly!!")
+                    text="thanks for sharing this chart; what stood out to you!!")
     v, why = gr.review_comment(again, None, state, NOW)
     assert v == "REJECT" and any(r.startswith("duplicate") for r in why)
     # exact repeats are blocked for 7 days, near-duplicates only on the same UTC day
@@ -168,7 +171,7 @@ def test_duplicate_text_is_rejected(state):
 def test_near_duplicate_today_is_rejected(state):
     approve(state, comment())
     near = comment(target_url="https://x.com/other/status/1844000000000000009",
-                   text="Really interesting read on the filing timeline, thanks for laying out the dates so clearly.")
+                   text="Thanks for sharing this chart, what stood out to you here?")
     v, why = gr.review_comment(near, None, state, NOW)
     assert v == "REJECT" and any("near-duplicate" in r for r in why)
     assert gr.review_comment(near, None, state, NOW + dt.timedelta(days=1)) == ("APPROVE", [])
@@ -254,7 +257,7 @@ def test_inbox_answers_comments_and_updates_state_only_on_approve(facts_dir, tmp
     bodies = [b for _, b in sent]
     assert bodies[0] == "APPROVE 21 comment"
     assert bodies[1].startswith("REJECT 22 comment: duplicate")
-    assert bodies[2].startswith("REJECT 23 comment: banned words: follow us")
+    assert bodies[2].startswith("REJECT 23 comment:") and "banned words: follow us" in bodies[2]
     assert bodies[3].splitlines()[0] == f"APPROVE 24 {CONGRESS['item_id']}"   # + playbook v2 NOTES lines
     assert bodies[4].startswith("REJECT 26 (no valid item_id): kind must be post or comment")
     assert sorted(rest.acked) == [21, 22, 23, 24, 26]                    # 25 is not a DRAFT: never acked

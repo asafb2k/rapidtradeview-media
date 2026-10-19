@@ -213,7 +213,7 @@ def test_enrich_gates_and_rank_on_the_16th():
     allit = items + [pep, micro, old]
     fx.enrich(allit, m)
     assert pep["market_cap_source"] == "market_map" and pep["cap_tier"] == "large" and pep["in_500"] is True
-    assert pep["context"]["insiders_30d"] == {"bought": "$650M", "sold": "$4.4B"} and "$650M" in pep["context_numbers"]
+    assert pep["context"]["insiders_30d"] == {"bought": "$650M", "sold": "$4.4B", "days": 30} and "$650M" in pep["context_numbers"]
     assert len(pep["angles"]) == 3
     kept, gates = fx.apply_gates(allit, SUN, FAME, None)
     assert micro not in kept and old not in kept and gates["small_cap"] == 1 and gates["weekend_replay"] == 1

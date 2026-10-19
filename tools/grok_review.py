@@ -23,6 +23,11 @@ default (what Grok reads) or a local v/ directory. Checks:
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
   - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
     Moves Like post never touches picks);
+  - VERBATIM FACTS (HQ 2026-10-19; every item with fact_phrases): every sentence of text / reply_text (and of a
+    comment) that holds any fact is one of the item's fact_phrases / claim_phrases verbatim (light normalisation
+    only); any other sentence is a hook made of post_vocab.HOOK_WORDS only (<= 12 words; no name, number, sector,
+    date / session, direction, ranking, mood or advice word); a comment without an item_id holds hooks only;
+    only generic hashtags and HOOK_EMOJI; the S&P, scope and card rules below still apply. Older items:
   - content (tools/claims.py, every item type; HQ review 2026-10-18): never the S&P for our universe ("the 500 largest
     US-listed stocks"; a picks post may compare "vs SPY"); a sentence with any ranking / comparison / order / quantifier
     / record / streak / ratio language (best, biggest, most, top, led, #N, second, next, then, only, all, every, since,
@@ -273,7 +278,13 @@ def wording_reasons(item: dict, text: str) -> list[str]:
     them; no company put in a sector it is not in; scoped numbers carry their scope; no contradiction of the card.
     P1 / P2 / P6 / P7 also: "all 500" only when all 500 were priced; a market total says "500 largest". The Growth post
     audit calls this too (one rule set)."""
-    out = cl.content_reasons(item, text, strip_allowed)
+    if cl.verbatim_mode(item):
+        # HQ 2026-10-19 verbatim facts rule (claims.py section 2d): every factual sentence is one of the item's pre-verified
+        # phrases, every other sentence a fact-free hook; the S&P / scope / card rules still read the whole text
+        out = (cl.verbatim_reasons(item, text) + cl.index_reasons(item.get("type"), text, cl.item_names(item))
+               + cl.card_reasons(item, text) + cl.scope_reasons(item, text, strip_allowed))
+    else:
+        out = cl.content_reasons(item, text, strip_allowed)
     if item.get("type") not in mk.WORDING_TYPES:
         return out
     t = item.get("totals") or {}
@@ -282,6 +293,30 @@ def wording_reasons(item: dict, text: str) -> list[str]:
     totals = market_total_numbers(item)
     if totals and not UNIVERSE_PHRASE.search(text) and strip_allowed(text, totals) != _norm(text):
         out.append(f"market wording: a market total needs \"500 largest\" (\"{mk.UNIVERSE_WORDS}\")")
+    return out
+
+
+def phrase_reasons(item: dict, text: str) -> list[str]:
+    """Why one of the item's own phrases (fact / claim phrase, angle) may not be published (facts.self_check, HQ
+    2026-10-19): it must pass as a one-sentence post of the item - the verbatim reading, every number allowed, its
+    cashtags the item's (at most 4), no banned word, the S&P / scope / card / market wording rules - and the data checks
+    of the free-form era as a safety net (window, direction, sector attribution)."""
+    out = wording_reasons(item, f"{text} Not investment advice.")
+    tickers = item_cashtags(item)
+    tags = {m.group(1).upper() for m in CASHTAG.finditer(text)}
+    if tags - set(tickers):
+        out.append(f"cashtag not in this item: {', '.join(sorted(tags - set(tickers)))}")
+    if len(tags) > MULTI_CASHTAG_MAX:
+        out.append(f"{len(tags)} cashtags (at most {MULTI_CASHTAG_MAX})")
+    bad = unexplained_numbers(cl.spy_blank(item.get("type"), text), item_numbers(item), tickers)
+    if bad:
+        out.append("numbers not allowed: " + ", ".join(sorted(set(bad))))
+    low = text.lower()
+    banned = [w for w in uniq_words([*fx.BANNED_WORDS, *(item.get("banned_words") or [])])
+              if re.search(rf"(?<!\w){re.escape(w.lower())}(?!\w)", low)]
+    if banned:
+        out.append(f"banned words: {', '.join(banned)}")
+    out += cl.window_reasons(item, text) + cl.direction_reasons(item, text) + cl.sector_reasons(item, text)
     return out
 
 
@@ -634,6 +669,12 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
             if hint:
                 reasons.append(f"picks: no #1 / top-pick hint ({short(hint.group(0))!r})")
         reasons += cl.index_reasons(item.get("type"), scan, cl.item_names(item))
+        if cl.verbatim_mode(item):
+            # HQ 2026-10-19 verbatim facts rule: a comment states facts only as the item's phrases, verbatim
+            reasons += cl.verbatim_reasons(item, scan, comment=True)
+    elif not iid:
+        # no item: hooks only (a comment is never an unchecked path for a fact)
+        reasons += cl.verbatim_reasons(None, scan, comment=True)
 
     # Words
     low = text.lower()

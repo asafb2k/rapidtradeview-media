@@ -126,3 +126,51 @@ IDIOMS = (
     r"\bevery\s+(?:filing|pick|trade|report)\s+(?:is\s+(?:then\s+)?graded(?:\s+in\s+public)?|on)\b", r"\+\s?\d[\d,]*\s+more\b",
     r"\band\s+more\b",
 )
+
+# ---------------------------------------------------------------------------
+# Verbatim facts rule (HQ 2026-10-19, claims.py section 2d): a post sentence is either one of the item's pre-verified
+# sentences (fact_phrases / claim_phrases) copied verbatim, or a HOOK. A hook carries no fact at all: every word of it is
+# in HOOK_WORDS (closed on purpose: no name, number, sector, date / weekday / session word, direction word, ranking or
+# comparison word, intensity or mood word, advice word), at most HOOK_MAX_WORDS words. "Here is how the day looked." /
+# "What stood out to you?" / "Full map in the reply." are hooks; "A down day for chips." / "Big names led." are not.
+HOOK_MAX_WORDS = 12
+HOOK_WORDS = frozenset("""
+a an the this that these those here there it its is are was were be been do does did have has had i we you your our
+us they them their what which who how why where and or but so if of in on at to for from with about into out as
+here's what's it's that's there's you're we're let's
+look looks looked see seen check read take think know tell share sharing follow save watch watching stand stands stood catch
+notice noticed surprised surprise matter matters mean means show shows find found tap swipe scroll
+day chart charts map maps card cards numbers data list details breakdown picture view thread post link bio reply
+comments page source sources context story summary recap question thoughts market stocks companies investors traders
+move moves names rapidtradeview sec filing filings official
+full quick key clear interesting helpful useful curious below
+thanks thank
+""".split())
+# emoji a hook (or a verbatim sentence) may carry: pointers and props, no direction, size, mood or ranking (arrows, charts
+# up / down, fire, rockets, medals, colours, alarms are all out)
+HOOK_EMOJI = frozenset("\U0001f447\U0001f440\U0001f9f5\U0001f4ca\U0001f5fa\U0001f4c5\U0001f50e\U0001f50d\U0001f4ac"
+                       "\U0001f4cc\ufe0f")
+# hashtags without a fact in them (sector, ticker and company hashtags are facts: never in a hook); topic hashtags only on
+# an item of that topic
+HOOK_HASHTAGS = frozenset("stocks stockmarket investing investors trading stocktrading finance markets wallstreet".split())
+HOOK_HASHTAGS_BY_TYPE = {
+    "form4_buy": frozenset("insiderbuying form4 secfilings smartmoney sec".split()),
+    "insider_flow": frozenset("insiderbuying form4 secfilings smartmoney sec".split()),
+    "congress_trade": frozenset("congresstrades congress politics smartmoney".split()),
+    "ptr_summary": frozenset("congresstrades congress politics smartmoney".split()),
+    "congress_flow": frozenset("congresstrades congress politics smartmoney".split()),
+    "earnings_result": frozenset("earnings earningsseason".split()),
+    "earnings_upcoming": frozenset("earnings earningsseason earningscalendar".split()),
+    "earnings_tomorrow_roundup": frozenset("earnings earningsseason earningscalendar".split()),
+    "earnings_week_preview": frozenset("earnings earningsseason earningscalendar".split()),
+    "earnings_reaction": frozenset("earnings earningsseason".split()),
+    "reddit_buzz": frozenset("reddit wallstreetbets".split()),
+    "chart_pattern": frozenset("technicalanalysis chartpatterns".split()),
+    "picks_ready": frozenset("dailypicks".split()),
+}
+# advice / forecast words: never in a hook (none is in HOOK_WORDS; named here so the reason says why)
+ADVICE_WORDS = frozenset("""
+buy buying buys sell selling sells hold holding own owning should shouldn't must expect expects expected expecting
+due target targets forecast forecasts will won't going gonna undervalued overvalued opportunity opportunities cheap
+bargain upside downside predict prediction soon next
+""".split())
