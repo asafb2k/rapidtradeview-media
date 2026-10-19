@@ -265,9 +265,9 @@ HOOKS = [
     _h("H86", "Clear and useful, thanks.", ("x", "instagram"), "comment"),
 ]
 HOOK_BY_ID = {h["id"]: h for h in HOOKS}
-# A phrasing id or hook id used in one of the last ROTATION_POSTS own posts of the same item type on the same platform
-# is not used again (grok_review.rotation_reasons); when every phrasing of a fact was used in that window, only the
-# least recently used one may come back (so a fact is never blocked outright).
+# A phrasing id or hook id used in one of the last min(ROTATION_POSTS, k - 1) own posts of the same item type on the same
+# platform is not used again, k = the phrasings of its fact / the hooks of the type (grok_review.rotation_reasons,
+# post_history.rotation_span; review round 7b: the window is sized by the choices, so a fact is never blocked outright).
 ROTATION_POSTS = 5
 
 # advice / forecast words: never in a hook (none is in HOOK_WORDS; named here so the reason says why)

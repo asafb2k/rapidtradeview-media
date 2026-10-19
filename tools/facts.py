@@ -1827,9 +1827,10 @@ VERBATIM_RULE = (
     "'And' / 'Monday recap:' in front) OR one of the approved hook sentences in hooks, copied WHOLE (its platforms, its "
     "item types and its use: post = posts and self-replies, comment = comments on other accounts' posts). There is no "
     "free wording at all: no hook made up from words, no comparison outside the phrases, never advice. 'Not investment "
-    "advice.' stays in every post. A comment without an item_id holds only comment hooks. ROTATION: a phrasing id or a "
-    "hook id used in one of the last 5 own posts of the same item type on the same platform is rejected (when every "
-    "phrasing of a fact was used in that window, only its least recently used phrasing may come back); each item's "
+    "advice.' stays in every post. A comment without an item_id holds only comment hooks. ROTATION: a phrasing id used "
+    "in one of the last min(5, k - 1) own posts of the same item type on the same platform is rejected, k = the number "
+    "of phrasings of its fact (3 phrasings: cycle them); a hook id likewise over the hooks of the item type; drafts "
+    "already approved count at once, before they are posted; each item's "
     "rotation shows the ids used per platform when the file was built, and each phrasing's recent_on the platforms where "
     "it is blocked (the validator reads the live post log). Pick a different phrasing of the fact (same numbers, other "
     "order) and a different hook every time. Hashtags: only the generic ones listed here (and the item type's topic "
@@ -1870,8 +1871,13 @@ def mark_rotation(items: list[dict], history: list[dict] | None) -> None:
             hids = list(dict.fromkeys(x for p in win for x in p.get("hook_ids") or []))
             rot[platform] = {"posts": len(win), "used_phrasing_ids": pids, "used_hook_ids": hids}
         it["rotation"] = rot
+        size: dict[str, set] = {}
         for p in phr:
-            p["recent_on"] = [pl for pl in PLATFORMS if p.get("id") in rot[pl]["used_phrasing_ids"]]
+            size.setdefault(p.get("fact"), set()).add(p.get("id"))
+        wins = {pl: ph.rotation_window(history, it.get("type"), pl) for pl in PLATFORMS}
+        for p in phr:   # blocked where used within min(5, k - 1) posts (k = the fact's phrasings; review round 7b)
+            span = ph.rotation_span(len(size.get(p.get("fact")) or ()))
+            p["recent_on"] = [pl for pl in PLATFORMS if ph.used_within(wins[pl], p.get("id"), span, "phrasing_ids")]
 
 
 def enrich(items: list[dict], m: "mk.Market") -> None:

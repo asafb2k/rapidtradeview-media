@@ -102,12 +102,29 @@ def test_bare_comments_hold_comment_hooks_only():
     assert v == "APPROVE", why
 
 
-def test_items_without_phrasings_keep_the_hook_word_reading():
-    """A post audit of a post published under the 10-19 hook-word rule (its facts carry no phrasings) reads it as then."""
-    mm = {k: v for k, v in vitem("market_move").items() if k != "phrasings"}
-    assert not cl.closed_hooks(mm)
-    assert cl.verbatim_reasons(mm, "Here is how it looked.") == []          # hook words only: passed then
-    assert cl.verbatim_reasons(vitem("market_move"), "Here is how it looked.")    # closed now
+def test_validator_reads_closed_hooks_whatever_the_item_audit_keeps_hook_words():
+    """Review round 7b: the validator always reads the closed hook list (an item without phrasings is rejected outright);
+    only the Growth audit of posts already published (audit flag) keeps the hook-word reading."""
+    mm = vitem("market_move")
+    old = {k: v for k, v in mm.items() if k != "phrasings"}
+    for it in (old, mm):
+        assert cl.verbatim_reasons(it, "Here is how it looked.", audit=True) == []      # the audit: hook words pass
+        assert cl.verbatim_reasons(it, "Here is how the day looked.", audit=True) == []  # a closed hook passes too
+        assert cl.verbatim_reasons(it, "Here is how it looked.")                         # the validator: closed
+    assert gr.wording_reasons(old, f"Here is how it looked. {NIA}") == []                # Growth's call (audit default)
+    assert gr.wording_reasons(old, f"Here is how it looked. {NIA}", audit=False)
+    doc = dict(VDOC, items=[old if i is mm else i for i in VDOC["items"]])
+    v, why = gr.review(tg.draft(old, f"Here is the map. {mm['phrasings'][0]['text']} {NIA}", platform="threads"), doc, NOW)
+    assert v == "REJECT" and any("round-7 rules" in r for r in why), why
+    c = {"kind": "comment", "platform": "x", "target_url": "https://x.com/someone/status/1234567890123456789",
+         "item_id": old["item_id"], "text": "Thanks for sharing, curious what traders think of this chart here."}
+    v, why = gr.review_comment(c, doc, None, NOW)
+    assert v == "REJECT" and any("round-7 rules" in r for r in why), why
+    # with phrasings: a free comment sentence is not a hook, a free post hook neither
+    v, why = gr.review_comment(dict(c, item_id=mm["item_id"]), VDOC, None, NOW)
+    assert v == "REJECT" and any("not an approved hook" in r for r in why), why
+    v, why = post(mm, f"Look at this chart. {mm['phrasings'][0]['text']} {NIA}")
+    assert v == "REJECT" and any("not an approved hook" in r for r in why), why
 
 
 # ---------------------------------------------------------------------------
@@ -200,15 +217,125 @@ def test_rotation_rejects_a_phrasing_or_hook_used_in_the_last_five_posts():
     assert gr.rotation_reasons(d, mm, old) == []
 
 
-def test_rotation_lets_the_least_recently_used_phrasing_back_when_all_were_used():
+def _pids_why(why):
+    return [r for r in why if r.startswith("rotation: phrasing")]
+
+
+def test_rotation_window_is_sized_by_the_phrasings_of_the_fact():
+    """Review round 7b: a used phrasing waits min(5, k - 1) posts of the type on the platform (k = its fact's phrasings),
+    no least-recently-used escape: five posts of one phrasing block a sixth; a, b, c cycles always pass."""
+    assert [ph.rotation_span(k) for k in (1, 2, 3, 4, 6, 9)] == [0, 1, 2, 3, 5, 5]
     mm = vitem("market_move")
     f0 = mm["phrasings"][0]
-    fam = [p["id"] for p in mm["phrasings"] if p["fact"] == f0["fact"]]
-    history = [hist("market_move", "x", [pid], [f"H0{i + 3}"]) for i, pid in enumerate(fam)]   # fam[0] oldest
-    t = lambda pid: tg.draft(mm, f"Here is the map. {ptext(mm, pid)} {NIA}", platform="x")  # noqa: E731
-    assert gr.rotation_reasons(t(fam[0]), mm, history) == []
-    for pid in fam[1:]:
-        assert any(f"only {fam[0]} may come back" in r for r in gr.rotation_reasons(t(pid), mm, history))
+    fam = list(dict.fromkeys(p["id"] for p in mm["phrasings"] if p["fact"] == f0["fact"]))
+    assert len(fam) == 3
+
+    def t(pid):
+        return tg.draft(mm, f"Here is the map. {ptext(mm, pid)} {NIA}", platform="x")
+
+    def H(pids):
+        return [hist("market_move", "x", [p], []) for p in pids]
+    assert _pids_why(gr.rotation_reasons(t(fam[0]), mm, H([fam[0]])))
+    assert _pids_why(gr.rotation_reasons(t(fam[0]), mm, H([fam[0], fam[1]])))
+    assert not _pids_why(gr.rotation_reasons(t(fam[0]), mm, H([fam[0], fam[1], fam[2]])))
+    assert not _pids_why(gr.rotation_reasons(t(fam[2]), mm, H([fam[0], fam[1]])))
+    assert _pids_why(gr.rotation_reasons(t(fam[0]), mm, H([fam[0]] * 5)))            # the reviewer's repro
+    assert _pids_why(gr.rotation_reasons(t(fam[1]), mm, H([fam[0], fam[1], fam[0]])))  # a repeat at distance 2
+    h = []
+    for k in range(9):                                                                # a, b, c, a, ... always passes
+        assert not _pids_why(gr.rotation_reasons(t(fam[k % 3]), mm, h)), k
+        h.append(hist("market_move", "x", [fam[k % 3]], []))
+    # hooks: a used hook waits min(5, hooks of the type - 1) posts
+    hooks = [x["id"] for x in cl.hooks_for(mm, "x") if not x["text"].endswith(":")]
+    assert len(hooks) > 5
+    used = [hist("market_move", "x", [], ["H01"])] + [hist("market_move", "x", [], []) for _ in range(4)]
+    assert any("hook H01" in r for r in gr.rotation_reasons(t(fam[0]), mm, used))
+    assert not any("hook H01" in r for r in gr.rotation_reasons(t(fam[0]), mm, used + H([fam[1]])))
+
+
+def test_every_claim_fact_has_three_phrasings():
+    """Review round 7b: every claim fact of the fixture items has at least 3 phrasings (the template alternates and
+    the list / ordinal / count re-orderings)."""
+    short = []
+    for it in VDOC["items"]:
+        by: dict[str, list] = {}
+        for p in it["phrasings"]:
+            by.setdefault(p["fact"], []).append(p)
+        short += [(it["type"], ps[0]["text"]) for ps in by.values() if ps[0]["claim"] and len({p["id"] for p in ps}) < 3]
+    assert not short, short[:5]
+
+
+def test_template_and_list_reorderings():
+    import re  # noqa: PLC0415
+    drops = ("The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $GOOGL (\u2212$105.5B), "
+             "$MSFT (\u2212$77.2B).")
+    v = dict(pr.variants([drops]))
+    assert v["t"].startswith("On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order:")
+    assert v["l"] == ("$GOOGL (\u2212$105.5B) and $MSFT (\u2212$77.2B) were the biggest dollar drops among the 500 largest "
+                      "US-listed companies on Friday, in that order.")
+    assert pr.subject_last("$META is the second-largest company reporting earnings this week (by market value, "
+                           "confirmed dates).") == ("The second-largest company reporting earnings this week (by "
+                                                    "market value, confirmed dates): $META.")
+    assert dict(pr.variants(["$CRWD had the second-largest open-market sells by officers and directors among the 500 "
+                             "largest US-listed companies over 30 days in our feed ($307M)."]))["o"].endswith(
+        "over 30 days in our feed ($307M): $CRWD.")
+    assert dict(pr.variants(["Only 1 of the 10 largest US-listed companies rose last week."]))["f"] == (
+        "Of the 10 largest US-listed companies, only 1 rose last week.")
+    ml = dict(pr.variants(["Over the 60 sessions before Oct 16, 2026, $T moved most like $VZ (Sync 93)."]))
+    assert ml["h1"] == "$T moved most like $VZ over the 60 sessions before Oct 16, 2026 (Sync 93)."
+    assert ml["h2"] == "Over the 60 sessions before Oct 16, 2026, $T's closest peer by Sync was $VZ (93)."
+    rb = dict(pr.variants(["Reddit mentions of $MSFT hit 5.2\u00d7 its usual weekend count: 43 vs 8.3."]))
+    assert rb["h1"] == "$MSFT drew 43 Reddit mentions vs its usual weekend count of 8.3 (5.2\u00d7)."
+    for s in [drops, "Over the 60 sessions before Oct 16, 2026, $T moved most like $VZ (Sync 93)."]:
+        nums = sorted(re.findall(r"\d[\d.,]*\d|\d", s))
+        for _, txt in pr.variants([s]):
+            assert sorted(re.findall(r"\d[\d.,]*\d|\d", txt)) == nums, txt
+
+
+def test_inbox_counts_approvals_of_the_same_run_and_the_ledger(tmp_path):
+    """Review round 7b: an APPROVE joins the working history at once (a batch of identical drafts is not approved
+    together), and a sent APPROVE stays in the approved ledger until its post_log row arrives (or 24 h)."""
+    from test_grok_review import INSTINCT, FakeRest  # noqa: PLC0415
+    a, b = [i for i in VDOC["items"] if i["type"] == "mega_mover"][:2]
+    vdir = tmp_path / "v" / "2026-10-18"
+    vdir.mkdir(parents=True)
+    (vdir / "facts.json").write_text(json.dumps(VDOC), encoding="utf-8")
+
+    def d(it):
+        lead = next(p["text"] for p in it["phrasings"] if f"${it['ticker']}" in p["text"])
+        return tg.draft(it, f"Here is the map. {lead} {NIA}", platform="threads")
+    for it in (a, b):
+        assert gr.review(d(it), VDOC, NOW) == ("APPROVE", []), gr.review(d(it), VDOC, NOW)
+    rows = [{"id": 900 + n, "created_at": "2026-10-18T15:00:00Z", "kind": "draft", "platform": "threads",
+             "item_id": it["item_id"], "body": "DRAFT " + json.dumps(d(it))} for n, it in enumerate([a, b, a])]
+    led = tmp_path / "ledger.json"
+    stats = gr.run_inbox(FakeRest(rows), INSTINCT, "prod", str(tmp_path / "v"), True, lambda p, x: True, now=NOW,
+                         history=[], need_history=True, variety=False, approved_ledger=led)
+    assert (stats["approved"], stats["rejected"]) == (1, 2), stats       # the hook / the exact repeat rotate out
+    assert not led.exists()                                              # a dry run writes nothing
+    sent = []
+    stats = gr.run_inbox(FakeRest(rows[:1]), INSTINCT, "prod", str(tmp_path / "v"), False,
+                         lambda p, x: sent.append(x) or True, now=NOW, history=[], need_history=True, variety=False,
+                         approved_ledger=led)
+    assert stats["approved"] == 1 and json.loads(led.read_text(encoding="utf-8"))["approved"][0]["msg_id"] == 900
+    # the next run, no post_log row yet: the same draft again is rejected by the ledger
+    again = [dict(rows[2], id=903)]
+    stats = gr.run_inbox(FakeRest(again), INSTINCT, "prod", str(tmp_path / "v"), True, lambda p, x: True,
+                         now=NOW + dt.timedelta(minutes=15), history=[], need_history=True, variety=False,
+                         approved_ledger=led)
+    assert (stats["approved"], stats["rejected"]) == (0, 1), stats
+    # the post_log row arrives: the entry leaves the ledger (the post itself now rotates it out); 24 h also expire it
+    ledger = gr.ApprovedLedger(led)
+    logged = [{"platform": "threads", "item_id": a["item_id"], "created_at": (NOW + dt.timedelta(minutes=5)).isoformat()}]
+    assert ledger.pending([], NOW) and not ledger.pending(logged, NOW)
+    assert not ledger.pending([], NOW + dt.timedelta(hours=25))
+    before = [{"platform": "threads", "item_id": a["item_id"], "created_at": (NOW - dt.timedelta(days=1)).isoformat()}]
+    assert ledger.pending(before, NOW)                                   # an older post of the item is not its row
+    # an unreadable ledger: post drafts wait (No Fallbacks)
+    led.write_text("{not json", encoding="utf-8")
+    stats = gr.run_inbox(FakeRest(again), INSTINCT, "prod", str(tmp_path / "v"), True, lambda p, x: True, now=NOW,
+                         history=[], need_history=True, variety=False, approved_ledger=led)
+    assert stats["deferred"] == 1
 
 
 def test_inbox_rejects_a_repeat_and_defers_posts_without_history(tmp_path):
@@ -458,3 +585,17 @@ def test_register_script_builds_one_trigger_per_offset_period():
     assert "<StartBoundary>2026-11-02T18:45:00Z</StartBoundary>" in picks          # 13:45 EST
     weekend = out.split("(weekend 0800 ET)")[1].split("----")[0]
     assert "<StartBoundary>2026-11-01T13:00:00Z</StartBoundary>" in weekend        # Sunday 11-01 08:00 EST
+
+
+def test_an_exact_repeat_is_rejected_outside_the_rotation_window():
+    """Review round 7b: the same text again on the same platform within 7 days (posted, or approved and not logged)."""
+    d = {"platform": "x", "text": "Here is the map. $GOOGL lost $105.5B. Not investment advice."}
+    at = "2026-10-18T15:00:00+00:00"
+    posted = [{"platform": "x", "created_at": at, "ny_date": "2026-10-18",
+               "text": d["text"] + "\n\nitem_id=2026-10-18-mega-mover-GOOGL-feff17"}]
+    assert any(r.startswith("duplicate: this text was already posted") for r in gr.duplicate_reasons(d, posted, NOW))
+    assert gr.duplicate_reasons(dict(d, platform="threads"), posted, NOW) == []
+    assert gr.duplicate_reasons(d, posted, NOW + dt.timedelta(days=8)) == []
+    assert gr.duplicate_reasons(dict(d, text=d["text"].replace("105.5", "104.5")), posted, NOW) == []
+    pending = [dict(posted[0], pending=True)]
+    assert any("approved (not posted yet)" in r for r in gr.duplicate_reasons(d, pending, NOW))
