@@ -55,6 +55,13 @@ Top 8 (HQ review 2026-10-18, diversify_top): the first 8 items of the file are a
 cap, at most 2 session-map items (market_move, mega_mover, sector_rotation, breadth_day, basket_week: one selloff cannot
 fill the menu), no headline ticker or headline number of one top-8 item repeated by another (item.headline), and at least
 4 distinct pillars when the day has them. Every item carries top8 (bool) and, below the top 8, top8_out (why).
+Round 7 (HQ 2026-10-19): every item carries phrasings (2-3 validator-checked phrasings per fact, ids
+"<fact key>.<variant>", phrasings.py; fact_phrases / claim_phrases are their flat lists) and rotation (the phrasing / hook
+ids its type used in the last 5 own posts per platform; each phrasing's recent_on); rules.verbatim.hooks is the closed
+list of hook sentences (post_vocab.HOOKS). Card consistency: basket_week has no card (and stays out of the top 8), a
+mega_mover keeps the map card only when the map card labels its ticker with its move (map_layout.py), the week preview
+uses /earnings/this-week's card; map items carry priced / total and a coverage phrase; market_move / mega_mover name a
+non-mega context mover (crypto-linked left out). The earnings week counts weeks_ahead from the API's UTC week.
 Content (tools/claims.py): VERBATIM FACTS (HQ 2026-10-19, claims.py section 2d; rules.verbatim): every item carries
 fact_phrases (fact_phrases(): plain, complete, true sentences built from its own fields and context, each naming its
 subject and dates) next to claim_phrases; every factual sentence of a post / self-reply / comment must equal one of
@@ -119,6 +126,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import manifest as mf  # noqa: E402
 import claims as cl  # noqa: E402
 import market_facts as mk  # noqa: E402
+import phrasings as pr  # noqa: E402
 import post_history as ph  # noqa: E402
 import select_stories as ss  # noqa: E402
 
@@ -768,15 +776,27 @@ def next_weekday(day: dt.date) -> dt.date:
 
 
 def calendar_week(api, nxt: dt.date, now: dt.datetime) -> tuple[list[dict], list[str]]:
-    """The one /earnings week (weeks_ahead counts from New York's current week) that holds `nxt`."""
-    today = now.astimezone(ss.NY).date() if ss.NY else now.date()
+    """The one /earnings week that holds `nxt`. The API counts weeks_ahead from ITS clock's week, which is UTC
+    (backend seo_catalog/earnings.rs week_bounds(Utc::now().date_naive(), ...)): New York's date would ask one week too
+    far from Monday 00:00Z to 04:00Z (05:00Z in winter), when New York is still on Sunday, and every earnings item of the
+    day would drop (HQ 2026-10-19 round 7). The returned week is checked to hold `nxt` (a request that crosses
+    midnight UTC is an error, never another week's rows)."""
+    today = now.astimezone(dt.timezone.utc).date() if now.tzinfo else now.date()
     w = (ss.week_monday(nxt) - ss.week_monday(today)).days // 7
     if not 0 <= w <= 2:
-        return [], [f"/earnings: {nxt} is outside the calendar's reach (weeks_ahead {w})"]
+        return [], [f"/earnings: {nxt} is outside the calendar's reach (weeks_ahead {w} from the API's UTC week)"]
     data, err = api.get(f"/earnings?weeks_ahead={w}&scope=all")
     if err:
         return [], [err]
-    return ([data] if isinstance(data, dict) and isinstance(data.get("days"), list) else []), []
+    if not (isinstance(data, dict) and isinstance(data.get("days"), list)):
+        return [], []
+    days = {str(d.get("date")) for d in data["days"] if isinstance(d, dict)}
+    start, end = str(data.get("week_start") or ""), str(data.get("week_end") or "")
+    holds = nxt.isoformat() in days or (start and end and start <= nxt.isoformat() <= end)
+    if days and not holds:
+        return [], [f"/earnings?weeks_ahead={w}: the API returned the week {start or min(days)}..{end or max(days)}, "
+                    f"not the one holding {nxt} (its clock crossed midnight UTC): not used"]
+    return [data], []
 
 
 def upcoming_items(api, target: dt.date, names: dict[str, str], now: dt.datetime | None = None
@@ -1394,6 +1414,15 @@ def market_item(target: dt.date, spec: dict) -> dict:
     skip = ("type", "key", "path", "panel", "fingerprint", "card_date", "ticker")
     fields = {k: v for k, v in spec.items() if k not in skip}
     fields["source_url"] = f"{SITE}/earnings" if spec["type"] == "earnings_week_preview" else None
+    if spec["type"] == "earnings_week_preview":
+        # the week's own card (Growth PILLARS section 9 ask 8): /earnings/this-week lists New York's week (the coming one
+        # on a weekend), the preview's own window; the /earnings hub card flips between the day and week views
+        fields["media"] = [{"url": f"{SITE}/earnings/this-week/opengraph-image", "kind": "image",
+                            "alt": " ".join(str(spec.get("facts_text") or "").split())}]
+    elif spec["type"] in mk.PANEL_OF and not spec.get("panel"):
+        # a map type without its own card (basket_week; a mega_mover the map does not label): no card, no stand-in image
+        # (HQ 2026-10-19 round 7: an item's card depicts its own claim and window)
+        fields["card"], fields["media"] = None, []
     if spec.get("panel"):
         fields["card"] = {"panel": spec["panel"], "url": None, "live_url": MARKET_CARD_URL.format(panel=spec["panel"]),
                           "date": spec.get("card_date"), "fingerprint": spec.get("fingerprint"), "file": card_file(spec),
@@ -1454,6 +1483,8 @@ def market_items(api, target: dt.date, now: dt.datetime, before: dict | None
     for s in specs:  # one pinned file per panel and data, shared by its items
         if s.get("panel"):
             s["fingerprint"] = mk.panel_fingerprint(m, s["panel"])
+        if s["type"] in mk.WORDING_TYPES:
+            mk.add_coverage(s, m)
     items = [market_item(target, s) for s in specs]
     left = {"market_session": m.session, "priced_cap_share": ((m.p or {}).get("totals") or {}).get("priced_cap_share"),
             "flows_as_of": (m.f or {}).get("as_of")}
@@ -1589,13 +1620,20 @@ def _owners(it: dict) -> str:
 
 def fact_phrases(it: dict) -> list[str]:
     """The plain, complete, true sentences a post of this item may state (HQ 2026-10-19 verbatim rule, claims.py section
-    2d), built from the item's own fields and its context (cap, last session move, 30-day flow totals). Each one names its
-    subject and its dates, so it stays true wherever it stands in a post; comparisons are claim_phrases. self_check drops
-    a phrase that fails a post check."""
+    2d): every phrasing of fact_phrase_groups, flat."""
+    return pr.flat(fact_phrase_groups(it))
+
+
+def fact_phrase_groups(it: dict) -> list[list[str]]:
+    """The item's facts, each a list of phrasings (first = base, then hand-made alternates: another order / subject /
+    verb, the same numbers and claim; HQ 2026-10-19 round 7), built from the item's own fields and its context (cap, last
+    session move, 30-day flow totals). Each one names its subject and its dates, so it stays true wherever it stands in a
+    post; comparisons are claim_phrases. phrasings.build adds the generic re-orderings and the ids; self_check drops a
+    phrasing that fails a post check."""
     kind, t = it.get("type"), it.get("ticker")
     if kind in mk.MARKET_TYPES:
-        return mk.market_fact_phrases(it)
-    out: list[str] = []
+        return mk.market_fact_phrase_groups(it)
+    out: list = []
     if kind == "form4_buy" and t:
         name, amt, rows, filed = it.get("name"), it.get("amount_text"), int(it.get("rows") or 1), it.get("filed")
         role = str(it.get("office") or "Insider").split(" at ")[0]
@@ -1603,14 +1641,20 @@ def fact_phrases(it: dict) -> list[str]:
         co = it.get("company") or f"${t}"
         buy = f"bought {amt} of ${t} on the open market" + (f" in {rows} purchases" if rows > 1 else "")
         how = "an open-market purchase" if rows == 1 else f"{rows} open-market purchases"
-        out += [f"{co} {role_l} {name} {buy} (Form 4, filed {_md(filed)}).",
-                f"{co} {role_l} {name} {buy}.",
+        buys = ("An open-market purchase" if rows == 1 else f"{rows} open-market purchases") + f" of ${t} totaling {amt}"
+        out += [[f"{co} {role_l} {name} {buy} (Form 4, filed {_md(filed)}).",
+                 f"{name}, {role_l} at {co}, {buy} (Form 4, filed {_md(filed)}).",
+                 f"{buys} by {co} {role_l} {name} {'was' if rows == 1 else 'were'} reported on a Form 4 filed "
+                 f"{_md(filed)}."],
+                [f"{co} {role_l} {name} {buy}.", f"{name}, {role_l} at {co}, {buy}."],
                 f"{name} {buy}.",
                 f"{name} ({role} at {co}) reported {how} of ${t} totaling {amt} on a Form 4 filed {_md(filed)}."]
         traded = it.get("traded") or []
         if traded:
-            out.append(f"{name}'s ${t} {'purchase was' if rows == 1 else 'purchases were'} traded "
-                       f"{mk.and_join([_md(x) for x in traded])} and reported on a Form 4 filed {_md(filed)}.")
+            out.append([f"{name}'s ${t} {'purchase was' if rows == 1 else 'purchases were'} traded "
+                        f"{mk.and_join([_md(x) for x in traded])} and reported on a Form 4 filed {_md(filed)}.",
+                        f"Traded {mk.and_join([_md(x) for x in traded])}, {name}'s ${t} "
+                        f"{'purchase was' if rows == 1 else 'purchases were'} reported on a Form 4 filed {_md(filed)}."])
     elif kind == "congress_trade" and t:
         office = it.get("office") or "Member of Congress"
         title = office.split(" (")[0]
@@ -1619,13 +1663,19 @@ def fact_phrases(it: dict) -> list[str]:
         what = ("a purchase" if buy else "a sale") if rows == 1 else f"{rows} {'purchases' if buy else 'sales'}"
         amt = ", ".join(str(it.get("amount_text") or "").split("; "))
         name, filed = it.get("name"), it.get("filed")
-        out += [f"{title} {name}{' ' + tag if tag else ''} disclosed {what} of ${t}{_owners(it)}, {amt} "
-                f"(filed {_md(filed)}).",
-                f"{name} disclosed {what} of ${t}{_owners(it)}, {amt}."]
+        who = f"{title} {name}{' ' + tag if tag else ''}"
+        out += [[f"{who} disclosed {what} of ${t}{_owners(it)}, {amt} (filed {_md(filed)}).",
+                 f"{_cap(what)} of ${t}{_owners(it)}, {amt}, {'was' if rows == 1 else 'were'} disclosed by {who} "
+                 f"(filed {_md(filed)})."],
+                [f"{name} disclosed {what} of ${t}{_owners(it)}, {amt}.",
+                 f"{_cap(what)} of ${t}{_owners(it)}, {amt}, {'was' if rows == 1 else 'were'} disclosed by {name}."]]
         traded = it.get("traded") or []
         if traded:
-            out.append(f"{name}'s ${t} {('purchase' if buy else 'sale') + ('s were' if rows > 1 else ' was')} traded "
-                       f"{mk.and_join([_md(x) for x in traded])} and disclosed on {_md(filed)}.")
+            noun = ('purchase' if buy else 'sale') + ('s were' if rows > 1 else ' was')
+            out.append([f"{name}'s ${t} {noun} traded {mk.and_join([_md(x) for x in traded])} and disclosed on "
+                        f"{_md(filed)}.",
+                        f"Traded {mk.and_join([_md(x) for x in traded])}, {name}'s ${t} {noun} disclosed on "
+                        f"{_md(filed)}."])
     elif kind == "ptr_summary":
         office = it.get("office") or "Member of Congress"
         title = office.split(" (")[0]
@@ -1633,58 +1683,80 @@ def fact_phrases(it: dict) -> list[str]:
         name, filed, trades = it.get("name"), it.get("filed"), it.get("rows")
         srcs = it.get("source_urls") or []
         reports = "a report" if len(srcs) <= 1 else f"{len(srcs)} reports"
-        out.append(f"{title} {name}{' ' + tag if tag else ''} disclosed {trades} trades in {it.get('tickers_total')} "
-                   f"tickers on {reports} filed {_md(filed)}.")
+        out.append([f"{title} {name}{' ' + tag if tag else ''} disclosed {trades} trades in {it.get('tickers_total')} "
+                    f"tickers on {reports} filed {_md(filed)}.",
+                    f"On {reports} filed {_md(filed)}, {title} {name}{' ' + tag if tag else ''} disclosed {trades} "
+                    f"trades in {it.get('tickers_total')} tickers."])
         sides = [x for x in [f"{it['buys']} {'purchase' if it['buys'] == 1 else 'purchases'}" if it.get("buys") else None,
                              f"{it['sales']} {'sale' if it['sales'] == 1 else 'sales'}" if it.get("sales") else None] if x]
         if sides:
-            out.append(f"{name} disclosed {' and '.join(sides)} on {reports} filed {_md(filed)}.")
+            out.append([f"{name} disclosed {' and '.join(sides)} on {reports} filed {_md(filed)}.",
+                        f"On {reports} filed {_md(filed)}, {name} disclosed {' and '.join(sides)}."])
         if it.get("tickers"):
-            out.append(f"The trades {name} disclosed on {_md(filed)} include "
-                       f"{mk.and_join(['$' + x for x in it['tickers']])}.")
+            tl = mk.and_join(['$' + x for x in it['tickers']])
+            out.append([f"The trades {name} disclosed on {_md(filed)} include {tl}.",
+                        f"{tl} are among the trades {name} disclosed on {_md(filed)}."])
     elif kind == "earnings_result" and t:
         fl, rel, res = it.get("fiscal_label") or "", it.get("release_date"), it.get("results") or {}
         if it.get("name"):
-            out.append(f"{it['name']} (${t}) published {fl} results on {_md(rel)}.")
-        out.append(f"${t} published {fl} results on {_md(rel)}.")
+            out.append([f"{it['name']} (${t}) published {fl} results on {_md(rel)}.",
+                        f"${t} ({it['name']}) reported {fl} results on {_md(rel)}."])
+        out.append([f"${t} published {fl} results on {_md(rel)}.", f"{fl} results from ${t} came out on {_md(rel)}."])
         rv = res.get("revenue") or {}
         if rv.get("reported"):
-            out.append(f"${t} {fl} revenue: {rv['reported']}"
-                       + (f" vs {rv['consensus']} consensus." if rv.get("consensus") else "."))
-            out.append(f"${t} {fl} revenue was {rv['reported']}.")
+            vs = f" vs {rv['consensus']} consensus" if rv.get("consensus") else ""
+            out.append([f"${t} {fl} revenue: {rv['reported']}{vs}.", f"${t} reported {fl} revenue of {rv['reported']}{vs}."])
+            out.append([f"${t} {fl} revenue was {rv['reported']}.", f"{fl} revenue at ${t} was {rv['reported']}."])
         ep = res.get("eps") or {}
         if ep.get("reported") and ep.get("basis"):
-            out.append(f"${t} {fl} {ep['basis']}: {ep['reported']}"
-                       + (f" vs {ep['consensus']} consensus." if ep.get("consensus") else "."))
-            out.append(f"${t} {fl} {ep['basis']} was {ep['reported']}.")
+            vs = f" vs {ep['consensus']} consensus" if ep.get("consensus") else ""
+            out.append([f"${t} {fl} {ep['basis']}: {ep['reported']}{vs}.",
+                        f"${t} reported {fl} {ep['basis']} of {ep['reported']}{vs}."])
+            out.append([f"${t} {fl} {ep['basis']} was {ep['reported']}.",
+                        f"{fl} {ep['basis']} at ${t} was {ep['reported']}."])
     elif kind == "earnings_upcoming" and t:
         day, hour = it.get("report_date"), it.get("hour_text") or ""
         tail = " (confirmed date, time not announced)" if hour == "time not announced" else f", {hour} (confirmed date)"
         if it.get("name"):
-            out.append(f"{it['name']} (${t}) reports earnings {_on_day(day)}{tail}.")
-        out.append(f"${t} reports earnings {_on_day(day)}{tail}.")
+            out.append([f"{it['name']} (${t}) reports earnings {_on_day(day)}{tail}.",
+                        f"${t} ({it['name']}) is scheduled to report earnings {_on_day(day)}{tail}."])
+        out.append([f"${t} reports earnings {_on_day(day)}{tail}.",
+                    f"${t} is scheduled to report earnings {_on_day(day)}{tail}."])
     elif kind == "earnings_tomorrow_roundup":
         day, hour, ts = it.get("report_date"), it.get("hour_text") or "", it.get("tickers") or []
         if ts:
-            out.append(f"{mk.and_join(['$' + x for x in ts])} report earnings {_on_day(day)}, {hour} (confirmed dates).")
+            tl = mk.and_join(['$' + x for x in ts])
+            out.append([f"{tl} report earnings {_on_day(day)}, {hour} (confirmed dates).",
+                        f"{_cap(_on_day(day))}, {hour}: {tl} report earnings (confirmed dates)."])
         for x in ts:
             nm = (it.get("names") or {}).get(x)
-            out.append(f"${x}{' (' + nm + ')' if nm else ''} reports earnings {_on_day(day)}, {hour} (confirmed date).")
+            out.append([f"${x}{' (' + nm + ')' if nm else ''} reports earnings {_on_day(day)}, {hour} (confirmed date).",
+                        f"${x}{' (' + nm + ')' if nm else ''} is scheduled to report earnings {_on_day(day)}, {hour} "
+                        "(confirmed date)."])
     elif kind == "picks_ready":
         td, ts = it.get("trade_date"), it.get("tickers") or []
-        out.append(f"The RapidTradeView daily picks list for {_md(td)} is published.")
+        out.append([f"The RapidTradeView daily picks list for {_md(td)} is published.",
+                    f"The {_md(td)} RapidTradeView daily picks list is out."])
         if ts:
-            out.append(f"The public {'picks' if len(ts) > 1 else 'pick'} on the RapidTradeView list for {_md(td)} "
-                       f"{'are' if len(ts) > 1 else 'is'} {mk.and_join(['$' + x for x in ts])}.")
-        out.append("Every pick is graded in public on the RapidTradeView scoreboard.")
+            tl = mk.and_join(['$' + x for x in ts])
+            many = len(ts) > 1
+            out.append([f"The public {'picks' if many else 'pick'} on the RapidTradeView list for {_md(td)} "
+                        f"{'are' if many else 'is'} {tl}.",
+                        f"{tl} {'are' if many else 'is'} the public {'picks' if many else 'pick'} on the RapidTradeView "
+                        f"list for {_md(td)}."])
+        out.append(["Every pick is graded in public on the RapidTradeView scoreboard.",
+                    "The RapidTradeView scoreboard grades every pick in public."])
     elif kind == "chart_pattern" and t:
         pt, lv = it.get("pattern") or {}, it.get("levels") or {}
         pname = str(pt.get("name") or "").lower()
         if pname:
-            out.append(f"Automatic technical analysis flagged {_article(pname)} {pname} on ${t} "
-                       f"(scan {_md(it.get('scan_date'))}).")
+            out.append([f"Automatic technical analysis flagged {_article(pname)} {pname} on ${t} "
+                        f"(scan {_md(it.get('scan_date'))}).",
+                        f"{_cap(_article(pname))} {pname} on ${t} was flagged by automatic technical analysis "
+                        f"(scan {_md(it.get('scan_date'))})."])
             if pt.get("start") and pt.get("end"):
-                out.append(f"The ${t} {pname} pattern ran from {_md(pt['start'])} to {_md(pt['end'])}.")
+                out.append([f"The ${t} {pname} pattern ran from {_md(pt['start'])} to {_md(pt['end'])}.",
+                            f"From {_md(pt['start'])} to {_md(pt['end'])}, ${t} formed the {pname} pattern."])
             close, level, lname = lv.get("breakout_close"), lv.get("key_level"), lv.get("key_level_name")
             if pt.get("status") == "confirmed" and pt.get("confirmed_on") and close and level and lname:
                 try:
@@ -1692,70 +1764,114 @@ def fact_phrases(it: dict) -> list[str]:
                 except ValueError:
                     c = k = None
                 if c is not None and c != k:
-                    out.append(f"${t} closed at {close} on {_md(pt['confirmed_on'])}, {'below' if c < k else 'above'} "
-                               f"the {level} {str(lname).lower()}.")
+                    side = 'below' if c < k else 'above'
+                    out.append([f"${t} closed at {close} on {_md(pt['confirmed_on'])}, {side} the {level} "
+                                f"{str(lname).lower()}.",
+                                f"On {_md(pt['confirmed_on'])}, ${t} closed at {close}, {side} the {level} "
+                                f"{str(lname).lower()}."])
     elif kind == "moves_like" and t:
         n, sess = it.get("window_sessions"), it.get("session")
         for p in it.get("peers") or []:
             if isinstance(p, dict) and p.get("ticker") and isinstance(p.get("sync"), int):
-                out.append(f"Over the {n} sessions before {mk.date_words(sess)[1]}, ${t} and ${mk.norm_ticker(p['ticker'])} "
-                           f"had a Sync of {p['sync']} ({p.get('band')}).")
+                pt = mk.norm_ticker(p['ticker'])
+                before = mk.date_words(sess)[1]
+                out.append([f"Over the {n} sessions before {before}, ${t} and ${pt} had a Sync of {p['sync']} "
+                            f"({p.get('band')}).",
+                            f"${t} and ${pt} had a Sync of {p['sync']} ({p.get('band')}) over the {n} sessions before "
+                            f"{before}."])
                 if p.get("day_move"):
-                    out.append(f"${mk.norm_ticker(p['ticker'])} moved {p['day_move']} {_on_day(sess)}.")
+                    out.append(f"${pt} moved {p['day_move']} {_on_day(sess)}.")
         if it.get("subject_day_move"):
             out.append(f"${t} moved {it['subject_day_move']} {_on_day(sess)}.")
-        out.append("Sync runs from 0 to 100 and measures past moves, not a prediction.")
+        out.append(["Sync runs from 0 to 100 and measures past moves, not a prediction.",
+                    "Sync measures past moves on a 0 to 100 scale, not a prediction."])
     # context (enrich: numbers computed from our own API)
     ctx = it.get("context") or {}
     if t and ctx.get("market_cap") and ctx.get("market_cap_session"):
-        out.append(f"${t} had a market value of {ctx['market_cap']} at the {_md(ctx['market_cap_session'])} close.")
+        md = _md(ctx['market_cap_session'])
+        out.append([f"${t} had a market value of {ctx['market_cap']} at the {md} close.",
+                    f"${t}'s market value at the {md} close was {ctx['market_cap']}."])
     mv = ctx.get("last_session_move") or {}
     if t and mv.get("pct") and mv.get("session"):
         out.append(f"${t} moved {mv['pct']} {_on_day(mv['session'])}.")
     ins = ctx.get("insiders_30d") or {}
     if ins.get("bought") and ins.get("sold") and ins.get("days"):
-        out.append(f"Officers and directors reported {ins['bought']} of open-market buys and {ins['sold']} of open-market "
-                   f"sells over {ins['days']} days in our feed.")
+        out.append([f"Officers and directors reported {ins['bought']} of open-market buys and {ins['sold']} of "
+                    f"open-market sells over {ins['days']} days in our feed.",
+                    f"Over {ins['days']} days in our feed, officers and directors reported {ins['sold']} of open-market "
+                    f"sells and {ins['bought']} of open-market buys."])
     con = ctx.get("congress_30d") or {}
     if con.get("days") and con.get("buys") is not None and con.get("sells") is not None:
-        out.append(f"Members of Congress disclosed {con['buys']} buys and {con['sells']} sells over {con['days']} days in "
-                   "our feed.")
+        out.append([f"Members of Congress disclosed {con['buys']} buys and {con['sells']} sells over {con['days']} days "
+                    "in our feed.",
+                    f"Over {con['days']} days in our feed, members of Congress disclosed {con['sells']} sells and "
+                    f"{con['buys']} buys."])
     tc = ctx.get("ticker_congress_30d") or {}
     if t and con.get("days") and tc.get("trades"):
-        out.append(f"Members of Congress disclosed {tc['trades']} trades in ${t} over {con['days']} days in our feed: "
-                   f"{tc.get('buys')} buys and {tc.get('sells')} sells by {tc.get('members')} members.")
-    return mk.clean_phrases(out)
+        out.append([f"Members of Congress disclosed {tc['trades']} trades in ${t} over {con['days']} days in our feed: "
+                    f"{tc.get('buys')} buys and {tc.get('sells')} sells by {tc.get('members')} members.",
+                    f"{tc.get('members')} members of Congress disclosed {tc['trades']} trades in ${t} over {con['days']} "
+                    f"days in our feed: {tc.get('buys')} buys and {tc.get('sells')} sells."])
+    return pr.norm_groups(out)
+
+
+def _cap(s: str) -> str:
+    return s[:1].upper() + s[1:]
 
 
 VERBATIM_RULE = (
-    "VERBATIM FACTS (HQ 2026-10-19; replaces the claim_phrases / plain_words reading for every item that has "
-    "fact_phrases): every sentence of a post, self-reply or comment that holds ANY fact - a $cashtag or ticker, a company "
-    "or person name, a number / percent / amount / count, a sector, a date / weekday / session word, a direction word "
-    "(up / down / rose / fell / gained / lost / green / red / rally / drop ...), a ranking or comparison word - must be one "
-    "of the item's fact_phrases or claim_phrases COPIED VERBATIM as its own sentence (only case, spacing, punctuation, $ on "
-    "cashtags and dash types may differ; a closing '(number)' may be left off). No partial copies, no splicing two "
-    "phrases, no word added, dropped or changed inside a fact sentence, no 'And' / 'Monday recap:' in front. Any other "
-    "sentence is a HOOK: only hook_words, at most hook_max_words words, no fact at all ('Here is how the day looked.', "
-    "'What stood out to you?', 'Full map in the reply.'); never advice (buy / sell / hold / own / should / expect / due / "
-    "target / forecast / will / going to / undervalued / opportunity ...). No comparison outside the phrases. "
-    "'Not investment advice.' stays in every post. Hashtags: only the generic ones listed here (and the item type's "
-    "topic hashtags); emoji: only hook_emoji (no arrows, chart, fire, rocket, medal or colour emoji). Comments follow the "
-    "same rule: without an item_id a comment holds hooks only. A rejection names the closest phrase: copy it exactly. "
-    "Plain letters only (no math-bold / fullwidth / other-script letters: they are read as words). Use an item of "
-    "today's facts: an item is usable only through the next weekday after its facts date (a picks item until its "
-    "valid_until); an item from a facts file without fact_phrases is never usable. Links: the item's page_url or source "
-    "written in full (https://...), never a domain with a path typed bare. A hook never tells anyone to act and never "
-    "claims we did anything (no 'do', 'did', 'have', 'I', 'we', 'move', 'follow', 'take', 'know').")
+    "VERBATIM FACTS + CLOSED HOOKS (HQ 2026-10-19; round 7 for every item that has phrasings): every sentence of a post, "
+    "self-reply or comment is EITHER one of the item's phrasings (fact_phrases / claim_phrases; each listed in phrasings "
+    "with its id) COPIED VERBATIM as its own sentence (only case, spacing, punctuation, $ on cashtags and dash types may "
+    "differ; a closing '(number)' may be left off; no partial copies, no splicing, no word added, dropped or changed, no "
+    "'And' / 'Monday recap:' in front) OR one of the approved hook sentences in hooks, copied WHOLE (its platforms, its "
+    "item types and its use: post = posts and self-replies, comment = comments on other accounts' posts). There is no "
+    "free wording at all: no hook made up from words, no comparison outside the phrases, never advice. 'Not investment "
+    "advice.' stays in every post. A comment without an item_id holds only comment hooks. ROTATION: a phrasing id or a "
+    "hook id used in one of the last 5 own posts of the same item type on the same platform is rejected (when every "
+    "phrasing of a fact was used in that window, only its least recently used phrasing may come back); each item's "
+    "rotation shows the ids used per platform when the file was built, and each phrasing's recent_on the platforms where "
+    "it is blocked (the validator reads the live post log). Pick a different phrasing of the fact (same numbers, other "
+    "order) and a different hook every time. Hashtags: only the generic ones listed here (and the item type's topic "
+    "hashtags); emoji: only hook_emoji. Plain letters only. Use an item of today's facts (usable through the next weekday "
+    "after its facts date; picks until valid_until); an item from a facts file without fact_phrases is never usable. "
+    "Links: the item's page_url or source written in full (https://...), never a domain with a path typed bare.")
 
 
 def verbatim_rules() -> dict:
-    """rules.verbatim of facts.json (HQ 2026-10-19): the rule and its closed lists, from post_vocab (one source)."""
+    """rules.verbatim of facts.json (HQ 2026-10-19; round 7): the rule and its closed lists, from post_vocab (one
+    source)."""
     pv = cl.pv
-    return {"rule": VERBATIM_RULE, "hook_words": sorted(pv.HOOK_WORDS), "hook_max_words": pv.HOOK_MAX_WORDS,
+    return {"rule": VERBATIM_RULE,
+            "hooks": [{k: h[k] for k in ("id", "text", "platforms", "use", "types")} for h in pv.HOOKS],
+            "rotation_posts": pv.ROTATION_POSTS,
             "hook_emoji": sorted(pv.HOOK_EMOJI - {"️"}), "hashtags": sorted(pv.HOOK_HASHTAGS),
             "hashtags_by_type": {k: sorted(v) for k, v in pv.HOOK_HASHTAGS_BY_TYPE.items()},
-            "example": ("Here is how the day looked. The 500 largest US-listed stocks lost about $1.0T on Friday. "
-                        "Energy went the other way on Friday (+2.64%). What stood out to you? Not investment advice.")}
+            "example": ("Here are the numbers. The 500 largest US-listed stocks lost about $1.0T on Friday. "
+                        "On Friday, Energy went the other way (+2.64%). What stood out to you? Not investment advice.")}
+
+
+def mark_rotation(items: list[dict], history: list[dict] | None) -> None:
+    """Each item's rotation marks from our own posts (HQ 2026-10-19 round 7): rotation = {platform: {posts, used_phrasing_ids,
+    used_hook_ids}} over the last ROTATION_POSTS own posts of its type on that platform, and every phrasing's recent_on
+    (the platforms where its id is blocked now). history None (not read): rotation null - the validator still reads the
+    live post log. In place."""
+    for it in items:
+        phr = it.get(cl.PHRASINGS_KEY)
+        if not isinstance(phr, list):
+            continue
+        if history is None:
+            it["rotation"] = None
+            continue
+        rot = {}
+        for platform in PLATFORMS:
+            win = ph.rotation_window(history, it.get("type"), platform)
+            pids = list(dict.fromkeys(x for p in win for x in p.get("phrasing_ids") or []))
+            hids = list(dict.fromkeys(x for p in win for x in p.get("hook_ids") or []))
+            rot[platform] = {"posts": len(win), "used_phrasing_ids": pids, "used_hook_ids": hids}
+        it["rotation"] = rot
+        for p in phr:
+            p["recent_on"] = [pl for pl in PLATFORMS if p.get("id") in rot[pl]["used_phrasing_ids"]]
 
 
 def enrich(items: list[dict], m: "mk.Market") -> None:
@@ -1767,6 +1883,8 @@ def enrich(items: list[dict], m: "mk.Market") -> None:
     buyers500 = [i["ticker"] for i in items if i.get("type") == "form4_buy" and m.in_500(i.get("ticker"))]
     for it in items:
         kind, t = it.get("type"), it.get("ticker")
+        if isinstance(it.get(cl.PHRASINGS_KEY), list):   # carried over from an earlier file of the day: base claims only
+            it["claim_phrases"] = [p["text"] for p in it[cl.PHRASINGS_KEY] if p.get("claim") and p.get("variant") == "a"]
         it["pillar"] = ph.pillar_of(kind)
         # Map-first cap (review 10-18: PEP showed $179.2B on its Form 4 item and $174.9B on Moves Like): one company,
         # one cap, the market map's, whatever the item type; the feed's own value is kept beside it.
@@ -1846,6 +1964,19 @@ def enrich(items: list[dict], m: "mk.Market") -> None:
             it["context_numbers"] = uniq([*it["context_numbers"], *nums])
         it.setdefault("angles", _angles(it, m))
         it["fact_phrases"] = fact_phrases(it)
+    for it in items:
+        build_phrasings(it)
+
+
+def build_phrasings(it: dict) -> None:
+    """2-3 phrasings per fact, each with its id (phrasings.py; HQ 2026-10-19 round 7): it["phrasings"], and the flat
+    claim_phrases / fact_phrases the verbatim rule reads (every phrasing is one of them). In place; self_check drops the
+    phrasings that fail a post check."""
+    claims = [[p] for p in dict.fromkeys(it.get("claim_phrases") or [])]
+    phr = pr.build(it.get("type"), claims, fact_phrase_groups(it))
+    it[cl.PHRASINGS_KEY] = phr
+    it["claim_phrases"] = [p["text"] for p in phr if p["claim"]]
+    it[cl.VERBATIM_KEY] = [p["text"] for p in phr if not p["claim"]]
 
 
 def weekend_replay(it: dict, target: dt.date) -> bool:
@@ -1931,6 +2062,8 @@ def apply_gates(items: list[dict], target: dt.date, fame: dict, history: list[di
 TOP_N = 8                    # the menu Grok reads first
 TOP_MAP_MAX = 2              # session-map items among them
 TOP_MAP_TYPES = mk.WORDING_TYPES
+# Types kept out of the top 8 while they have no card of their own (HQ 2026-10-19 round 7, Growth 10-18 ~20:40Z).
+TOP_NEEDS_CARD = ("basket_week",)
 TOP_PILLARS_MIN = 4
 
 
@@ -1941,6 +2074,8 @@ def headline_numbers(item: dict) -> list[str]:
 def top_block(it: dict, top: list[dict]) -> str | None:
     """Why `it` may not join `top` (None: it may): a second small / micro cap, a third session-map item, or a headline
     ticker / number another top item already leads with."""
+    if it.get("type") in TOP_NEEDS_CARD and not it.get("card"):
+        return "no_card: no share card shows this item's claim yet (a basket card does not exist)"
     if it.get("cap_tier") in ("small", "micro") and any(t.get("cap_tier") in ("small", "micro") for t in top):
         return "small_cap: a second small / micro cap"
     if it.get("type") in TOP_MAP_TYPES and sum(1 for t in top if t.get("type") in TOP_MAP_TYPES) >= TOP_MAP_MAX:
@@ -1972,7 +2107,7 @@ def diversify_top(items: list[dict]) -> tuple[list[dict], dict]:
         top.append(fresh[0] if need >= TOP_N - len(top) and fresh else ok[0])
     top.sort(key=lambda i: pool.index(i))
     rest = [i for i in pool if i not in top]
-    counts = {"small_cap": 0, "session_map": 0, "repeat": 0, "ranked_below": 0,
+    counts = {"no_card": 0, "small_cap": 0, "session_map": 0, "repeat": 0, "ranked_below": 0,
               "pillars": len({t.get("pillar") for t in top if t.get("pillar")})}
     for it in top:
         it["top8"] = True
@@ -2029,6 +2164,9 @@ def self_check(items: list[dict]) -> tuple[list[dict], list[str], int]:
             good = [a for a in it.get("angles") or [] if ok(a)]
             dropped += len(it.get("angles") or []) - len(good)
         it["angles"] = good
+        if isinstance(it.get(cl.PHRASINGS_KEY), list):   # only the phrasings that passed stay (round 7)
+            keep = set(it.get("claim_phrases") or []) | set(it.get(cl.VERBATIM_KEY) or [])
+            it[cl.PHRASINGS_KEY] = [p for p in it[cl.PHRASINGS_KEY] if p.get("text") in keep]
         kept.append(it)
     return kept, errors, dropped
 
@@ -2185,6 +2323,7 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
         left["g_n1_holdout"] = {"dropped": len(leaks), "reasons": leaks}
     items, top = diversify_top(items)
     left["gates"]["top8"] = top
+    mark_rotation(items, history)
 
     counts = {k: sum(1 for i in items if i["type"] == k) for k in TYPES}
     return {

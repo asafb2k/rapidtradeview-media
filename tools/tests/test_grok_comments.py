@@ -30,7 +30,7 @@ IG_TARGET = "https://www.instagram.com/p/DAbCdEfGhIj/"
 
 def comment(**over):
     d = {"kind": "comment", "platform": "x", "target_url": TARGET,
-         "text": "Thanks for sharing this chart, what stood out to you?"}   # a hook (verbatim rule, HQ 2026-10-19)
+         "text": "Thanks for sharing, what stood out to you?"}   # a closed comment hook (H70; HQ 2026-10-19 round 7)
     d.update(over)
     return d
 
@@ -169,7 +169,7 @@ def test_bad_targets_are_rejected(state, url, platform):
 def test_duplicate_text_is_rejected(state):
     approve(state, comment())
     again = comment(target_url="https://x.com/other/status/1844000000000000009",
-                    text="thanks for sharing this chart; what stood out to you!!")
+                    text="thanks for sharing; what stood out to you!!")
     v, why = gr.review_comment(again, None, state, NOW)
     assert v == "REJECT" and any(r.startswith("duplicate") for r in why)
     # exact repeats are blocked for 7 days, near-duplicates only on the same UTC day
@@ -181,7 +181,7 @@ def test_duplicate_text_is_rejected(state):
 def test_near_duplicate_today_is_rejected(state):
     approve(state, comment())
     near = comment(target_url="https://x.com/other/status/1844000000000000009",
-                   text="Thanks for sharing this chart, what stood out to you here?")
+                   text="Thanks for sharing. What stood out to you? What else would you look at?")
     v, why = gr.review_comment(near, None, state, NOW)
     assert v == "REJECT" and any("near-duplicate" in r for r in why)
     assert gr.review_comment(near, None, state, NOW + dt.timedelta(days=1)) == ("APPROVE", [])
@@ -190,7 +190,7 @@ def test_near_duplicate_today_is_rejected(state):
 def test_same_target_twice_is_rejected(state):
     approve(state, comment())
     other_text = comment(target_url="https://twitter.com/SomeTrader/status/1844000000000000001?s=20",
-                         text="Different angle: the sector context matters here too.")
+                         text="Interesting chart, thanks for sharing.")
     v, why = gr.review_comment(other_text, None, state, NOW)
     assert v == "REJECT" and any("already got an approved comment" in r for r in why)
 

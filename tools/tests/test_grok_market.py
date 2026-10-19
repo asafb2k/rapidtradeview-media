@@ -71,7 +71,11 @@ def item(kind, ticker=None):
 def draft(it, text, platform="x", **over):
     link = it["page_url"].replace("{platform}", platform)
     d = {"item_id": it["item_id"], "platform": platform, "text": text, "link": link,
-         "reply_text": f"Every company on one map: {link}" if platform == "x" else "", "media_url": it["media"][0]["url"]}
+         "reply_text": f"Every company on one map: {link}" if platform == "x" else "",
+         # an item without its own card (basket_week, round 7) has no media: our own visual without numbers
+         "media_url": it["media"][0]["url"] if it.get("media") else "grok_generated"}
+    if not it.get("media"):
+        d["media_note"] = "abstract illustration of a market map"
     d.update(over)
     return d
 

@@ -2497,8 +2497,61 @@ def _closest(sent_toks: list[str], phrases: list[str]) -> str | None:
     return best if score >= 0.5 else None
 
 
-def verbatim_reasons(item: dict | None, text: str, comment: bool = False) -> list[str]:
-    """REJECT reasons under the verbatim facts rule (section 2d) for a post text / self-reply / comment."""
+# ---------------------------------------------------------------------------
+# Round 7 (HQ 2026-10-19): CLOSED HOOKS + PHRASING ROTATION. An item whose facts carry `phrasings` (facts.py builds 2-3
+# validator-checked phrasings per fact, each with an id "<fact key>.<variant>") is read in closed mode: a sentence that
+# is not one of its phrases must EQUAL one of post_vocab.HOOKS (for the platform, the item type and post / comment use);
+# a comment without an item_id likewise holds only comment hooks. Items from older facts files (no `phrasings`) keep the
+# hook-word reading above (the Growth audit of posts published under it). The ids a text uses (used_ids) feed the
+# rotation rule (grok_review.rotation_reasons) and the post history (post_history.resolve).
+
+PHRASINGS_KEY = "phrasings"
+
+
+def closed_hooks(item: dict | None) -> bool:
+    """True when the closed hook list applies: an item built with phrasings, or no item at all (a bare comment)."""
+    return item is None or (isinstance(item, dict) and PHRASINGS_KEY in item)
+
+
+def hooks_for(item: dict | None, platform: str | None = None, comment: bool = False) -> list[dict]:
+    """The hooks a sentence may equal: the platform's (any platform when None), the item type's, post or comment use."""
+    kind = (item or {}).get("type")
+    use = "comment" if comment else "post"
+    return [h for h in pv.HOOKS if (platform is None or platform in h["platforms"]) and h["use"] in (use, "any")
+            and (not h.get("types") or (kind in h["types"]))]
+
+
+_HOOK_TOKS: dict[str, tuple] = {}
+
+
+def hook_tokens(h: dict) -> tuple:
+    if h["id"] not in _HOOK_TOKS:
+        _HOOK_TOKS[h["id"]] = tuple(verbatim_tokens(h["text"]))
+    return _HOOK_TOKS[h["id"]]
+
+
+def phrasing_index(item: dict | None) -> dict[tuple, str]:
+    """Token form of every phrasing (and its forms: closing number left off, "last week") -> its phrasing id."""
+    out: dict[tuple, str] = {}
+    for p in (item or {}).get(PHRASINGS_KEY) or []:
+        if isinstance(p, dict) and p.get("id") and isinstance(p.get("text"), str):
+            for f in _phrase_forms(item, [p["text"]]):
+                out.setdefault(tuple(verbatim_tokens(f)), p["id"])
+    return out
+
+
+_V_COLON = re.compile(r"(?<=:)\s+(?=\S)")
+
+
+def _v_sentences(s: str) -> list[str]:
+    """post_sentences, each also split after a colon ("Full map: Source:" are two hooks; a phrase holding a colon spans
+    two pieces and is matched whole by the span reading)."""
+    return [y for x in post_sentences(s) for y in _V_COLON.split(x) if y.strip()]
+
+
+def _verbatim_scan(item: dict | None, text: str, comment: bool = False, platform: str | None = None
+                   ) -> tuple[list[str], list[str], list[str]]:
+    """(REJECT reasons, phrasing ids used, hook ids used) for a post text / self-reply / comment."""
     out: list[str] = []
     s = _norm(nfkc(html.unescape(text or "")))
     s = _V_URL.sub(" ", s)
@@ -2521,9 +2574,16 @@ def verbatim_reasons(item: dict | None, text: str, comment: bool = False) -> lis
     phrases = verbatim_phrases(item)
     want = {tuple(verbatim_tokens(p)) for p in phrases}
     want.discard(())
-    span = max([len(post_sentences(p)) for p in phrases] or [1])
-    sents = post_sentences(s)
+    pidx = phrasing_index(item)
+    closed = closed_hooks(item)
+    allowed = hooks_for(item, platform, comment) if closed else []
+    every = {hook_tokens(h): h for h in pv.HOOKS}
+    ok_hooks = {hook_tokens(h): h for h in allowed}
+    span = max([len(_v_sentences(p)) for p in phrases] or [1])
+    sents = _v_sentences(s)
     toks = [verbatim_tokens(x) for x in sents]
+    pids: list[str] = []
+    hids: list[str] = []
     i = 0
     while i < len(sents):
         if not toks[i] and not any(c.isalpha() for c in sents[i]):
@@ -2531,15 +2591,48 @@ def verbatim_reasons(item: dict | None, text: str, comment: bool = False) -> lis
             continue
         hit = 0
         for j in range(min(len(sents), i + span), i, -1):
-            if tuple(t for k in range(i, j) for t in toks[k]) in want:
+            key = tuple(t for k in range(i, j) for t in toks[k])
+            if key in want:
                 hit = j
+                if key in pidx:
+                    pids.append(pidx[key])
                 break
         if hit:
             i = hit
             continue
+        tk = tuple(toks[i])
+        st = short_text(sents[i].strip())
+        if tk in every:   # one of the closed hooks (counted for rotation even where it is not allowed)
+            hids.append(every[tk]["id"])
+        if closed:
+            if tk in ok_hooks:
+                i += 1
+                continue
+            why = hook_reasons(item, sents[i], toks[i])
+            if tk in every:
+                h = every[tk]
+                where = (f"platforms {', '.join(h['platforms'])}"
+                         + (f", item types {', '.join(h['types'])}" if h.get("types") else "") + f", use {h['use']}")
+                out.append(f"hook {h['id']} {h['text']!r} is not for this {'comment' if comment else 'post'} ({where})")
+            elif comment and not item:
+                out.append(f"comment: {st!r} is not one of the approved comment hooks - a comment without an item_id holds "
+                           "only rules.verbatim.hooks sentences with use comment / any, copied whole (closest: "
+                           f"{_closest_hook(tk, allowed)!r}); to state a fact give the item_id and copy one of its "
+                           "fact_phrases / claim_phrases verbatim")
+            elif why and _FACT_KIND.search("; ".join(why)):
+                near = _closest(toks[i], phrases)
+                out.append(f"not verbatim: {st!r} states facts ({'; '.join(why)}) but is not one of the item's "
+                           "fact_phrases / claim_phrases - copy one exactly as its own sentence (no word added, dropped "
+                           "or changed), or use one of rules.verbatim.hooks whole"
+                           + (f"; closest phrase: {short_text(near, 140)!r}" if near else ""))
+            else:
+                out.append(f"not an approved hook: {st!r} - every sentence that is not one of the item's phrases must be "
+                           "one of rules.verbatim.hooks, copied whole (no free hook wording since 2026-10-19 round 7); "
+                           f"closest hook for {platform or 'this platform'}: {_closest_hook(tk, allowed)!r}")
+            i += 1
+            continue
         why = hook_reasons(item, sents[i], toks[i])
         if why:
-            st = short_text(sents[i].strip())
             if comment and not item:
                 out.append(f"comment: {st!r} is not a hook ({'; '.join(why)}) - a comment without an item_id holds only "
                            "fact-free hooks (rules.verbatim.hook_words); to state a fact give the item_id and copy one of "
@@ -2551,4 +2644,83 @@ def verbatim_reasons(item: dict | None, text: str, comment: bool = False) -> lis
                            "or changed), or write a hook with no fact in it"
                            + (f"; closest phrase: {short_text(near, 140)!r}" if near else ""))
         i += 1
+    return out, list(dict.fromkeys(pids)), list(dict.fromkeys(hids))
+
+
+# the hook-word analysis found a fact (not only words outside the old hook list)
+_FACT_KIND = re.compile(r"\((?:number|ticker|name|sector|date / session word|direction word|advice / forecast word"
+                        r"|ranking / count word|letters outside A-Z|characters that are not plain words)\)")
+
+
+def _closest_hook(toks: tuple, hooks: list[dict]) -> str | None:
+    import difflib  # noqa: PLC0415
+    best, score = None, -1.0
+    for h in hooks:
+        r = difflib.SequenceMatcher(None, list(toks), list(hook_tokens(h)), autojunk=False).ratio()
+        if r > score:
+            best, score = h["text"], r
+    return best
+
+
+def verbatim_reasons(item: dict | None, text: str, comment: bool = False, platform: str | None = None) -> list[str]:
+    """REJECT reasons under the verbatim facts rule (section 2d; closed hooks from round 7) for a post text / self-reply /
+    comment. platform: the hooks of that platform only (None: a hook of any platform passes - the Growth audit)."""
+    return _verbatim_scan(item, text, comment, platform)[0]
+
+
+def used_ids(item: dict | None, text: str, platform: str | None = None, comment: bool = False
+             ) -> tuple[list[str], list[str]]:
+    """(phrasing ids, hook ids) a text uses, in order of first use (any closed hook counts, wherever it may stand)."""
+    _, pids, hids = _verbatim_scan(item, text, comment, platform)
+    return pids, hids
+
+
+# ---------------------------------------------------------------------------
+# Universe claims (Growth PILLARS section 9 ask 4, HQ 2026-10-19 round 7), every item type: "the stock market" / "stock
+# market" as the subject of a move or a state is a claim about every stock (our map is the 500 largest US-listed stocks:
+# say so), and "every company" / "every stock" / "all 500" holds only when every company of the item's universe was
+# priced (priced == total); an item that gives no coverage cannot back it at all. "Every company on one map" (the map
+# shows them all, unpriced ones hatched) is not a move claim.
+_SM_VERBS = (r"lost|gained|fell|rose|dropped|slid|sank|shed|added|jumped|climbed|rallied|tumbled|slipped|dipped|moved"
+             r"|closed|ended|finished|was|is|had|has|did|went|sold\s+off|bounced|rebounded|plunged|surged|soared|crashed"
+             r"|declined|advanced|traded|opened|wiped|erased|lose|loses|gain|gains|fall|falls|rise|rises|drop|drops")
+STOCK_MARKET_SUBJECT = re.compile(
+    r"(?:^|(?<=[.!?:;])\s*|\b(?:and|but|while|as|when|so)\s+)"
+    r"(?:the\s+)?(?:(?:whole|entire|overall|broad|broader)\s+)?(?:U\.?S\.?\s+|American\s+)?stock\s+market(?:['’]s)?"
+    r"(?=\s+(?:(?:\w+ly|also|just|then|again)\s+)?(?:" + _SM_VERBS + r")\b|\s*[,:]?\s*[+\-−]\$?\d)",
+    re.IGNORECASE)
+EVERY_COMPANY = re.compile(r"\b(?:every|each)\s+(?:single\s+)?(?:company|stock|name|ticker|one\s+of\s+(?:the|them|those))\b"
+                           r"|\ball\s+(?:of\s+the\s+)?500\b|\ball\s+(?:the\s+)?(?:companies|stocks)\b", re.IGNORECASE)
+EVERY_EXEMPT = re.compile(r"\b(?:every|all)\s+(?:company|companies|stock|stocks)\s+on\s+(?:one|a\s+single|the|our)\s+"
+                          r"(?:map|page)\b", re.IGNORECASE)
+
+
+def coverage(item: dict | None) -> tuple[int | None, int | None]:
+    """(priced, total) of the item's universe: its own priced / total fields, else its totals block."""
+    it = item or {}
+    t = it.get("totals") if isinstance(it.get("totals"), dict) else {}
+    priced = it.get("priced", t.get("priced"))
+    total = it.get("total", t.get("total"))
+    return (priced if isinstance(priced, int) else None), (total if isinstance(total, int) else None)
+
+
+def universe_reasons(item: dict | None, text: str) -> list[str]:
+    """REJECT reasons for a universe claim the item cannot back (the stock market as a subject; every company)."""
+    out = []
+    s = _norm(nfkc(html.unescape(text or "")))
+    s = re.sub(r"(?<![\w&])#\w+", " ", s)
+    m = STOCK_MARKET_SUBJECT.search(s)
+    if m:
+        out.append(f"universe claim: {m.group(0).strip(' .!?:;')!r} speaks for every stock; our data is "
+                   f"\"{UNIVERSE_WORDS}\" - say that (as the item's phrases do)")
+    scan = EVERY_EXEMPT.sub(" ", s)
+    e = EVERY_COMPANY.search(scan)
+    if e:
+        priced, total = coverage(item)
+        if priced is None or total is None:
+            out.append(f"universe claim: {e.group(0)!r} - this item gives no coverage (priced / total), so 'every' / 'all' "
+                       "cannot be backed")
+        elif priced < total:
+            out.append(f"universe claim: {e.group(0)!r} - only {priced} of {total} were priced, so not every one moved; "
+                       "copy the item's coverage phrase instead")
     return out

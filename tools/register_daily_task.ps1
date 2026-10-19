@@ -11,10 +11,13 @@
 
 .DESCRIPTION
   The triggers are anchored to UTC ("synchronize across time zones"), so the local (Israel) clock
-  change does not move them. The US clock change does: the UTC times are computed from the New York
-  offset in force today. After a US change (next: Sunday 2026-11-01, EDT -> EST) every run lands an
-  hour earlier in New York time; re-run this script after the change (the 13:45 picks pass would
-  otherwise start at 12:45, before the picks publish, and only its retry window would be left).
+  change does not move them. The US clock changes are built in (HQ 2026-10-19): every pass gets one
+  trigger per New York offset period (EDT / EST) for the next $HorizonYears years, each with its own
+  UTC time and an EndBoundary at the next change, so 05:00 / 10:00 / 13:45 / 08:00 ET stay New York
+  times across Sunday 2026-11-01 (EDT -> EST) and every later change. Before that, a single trigger
+  kept the offset in force on the day it was registered and every run landed an hour early after a
+  change (the 13:45 picks pass at 12:45, before the picks publish). Re-run this script before the
+  last period ends (the script prints its date).
 
   Default: runs only while the user is logged on (InteractiveToken): no stored password. -LogonType S4U
   runs the tasks whether or not the user is logged on, still without storing a password, but Windows only
@@ -37,7 +40,8 @@ param(
     [string]$From,
     [ValidateSet('InteractiveToken', 'S4U')][string]$LogonType = 'InteractiveToken',
     [switch]$PrintOnly,
-    [switch]$Unregister
+    [switch]$Unregister,
+    [int]$HorizonYears = 3
 )
 $ErrorActionPreference = 'Stop'
 $toolsDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -67,20 +71,47 @@ $nowNy = [System.TimeZoneInfo]::ConvertTimeFromUtc([DateTime]::UtcNow, $eastern)
 $firstDay = $nowNy.Date
 if ($From) { $firstDay = [DateTime]::ParseExact($From, 'yyyy-MM-dd', $null) }
 
-# The next New York date on or after -From (default today) whose weekday is in $Days, at $Hour:$Minute New York time, in UTC.
-function Get-UtcStart([int]$Hour, [int]$Minute, [string[]]$Days) {
-    $d = $firstDay
-    while ($Days -notcontains $d.DayOfWeek.ToString()) { $d = $d.AddDays(1) }
-    $local = [DateTime]::SpecifyKind($d.AddHours($Hour).AddMinutes($Minute), [DateTimeKind]::Unspecified)
+# New York offset periods from -From for $HorizonYears years: @{ Start = first NY date; End = first NY date of the next
+# period (or $null for the last); Offset }. A US change happens at 02:00 on a Sunday; no pass runs between 00:00 and
+# 02:00 NY, so a period starting at that Sunday's 00:00 holds every run of that day.
+function Get-OffsetPeriods([DateTime]$From, [int]$Days) {
+    $periods = @()
+    $start = $From
+    $offset = $eastern.GetUtcOffset($From.AddHours(12))
+    for ($i = 1; $i -le $Days; $i++) {
+        $d = $From.AddDays($i)
+        $o = $eastern.GetUtcOffset($d.AddHours(12))
+        if ($o -ne $offset) {
+            $periods += @{ Start = $start; End = $d; Offset = $offset }
+            $start = $d
+            $offset = $o
+        }
+    }
+    $periods += @{ Start = $start; End = $From.AddDays($Days); Offset = $offset }
+    return $periods
+}
+
+# A New York wall time on a NY date, in UTC (the zone's own rule for that date).
+function ConvertTo-UtcFromNy([DateTime]$Day, [int]$Hour, [int]$Minute) {
+    $local = [DateTime]::SpecifyKind($Day.Date.AddHours($Hour).AddMinutes($Minute), [DateTimeKind]::Unspecified)
     return [System.TimeZoneInfo]::ConvertTimeToUtc($local, $eastern)
 }
 
-# UTC weekday names equal the New York ones at these hours (10:15 to 17:45 UTC in EDT, an hour later in EST).
-function Get-TriggerXml([DateTime]$Utc, [string[]]$DayNames) {
+# One weekly trigger per offset period: its first matching NY date at $Hour:$Minute NY in UTC, ending at the next change.
+# UTC weekday names equal the New York ones at these hours (09:00 to 18:45 UTC in EDT, an hour later in EST).
+function Get-TriggersXml([int]$Hour, [int]$Minute, [string[]]$DayNames) {
     $days = ($DayNames | ForEach-Object { "<$_ />" }) -join ''
-    return @"
+    $xml = ''
+    foreach ($p in $script:periods) {
+        $d = $p.Start
+        while ($DayNames -notcontains $d.DayOfWeek.ToString() -and $d -lt $p.End) { $d = $d.AddDays(1) }
+        if ($d -ge $p.End) { continue }
+        $startUtc = ConvertTo-UtcFromNy $d $Hour $Minute
+        $endUtc = ConvertTo-UtcFromNy $p.End 0 0
+        $xml += @"
     <CalendarTrigger>
-      <StartBoundary>$($Utc.ToString('yyyy-MM-ddTHH:mm:ss'))Z</StartBoundary>
+      <StartBoundary>$($startUtc.ToString('yyyy-MM-ddTHH:mm:ss'))Z</StartBoundary>
+      <EndBoundary>$($endUtc.ToString('yyyy-MM-ddTHH:mm:ss'))Z</EndBoundary>
       <Enabled>true</Enabled>
       <ScheduleByWeek>
         <WeeksInterval>1</WeeksInterval>
@@ -89,6 +120,13 @@ function Get-TriggerXml([DateTime]$Utc, [string[]]$DayNames) {
     </CalendarTrigger>
 
 "@
+    }
+    return $xml
+}
+
+$script:periods = Get-OffsetPeriods $firstDay ([int](365.25 * $HorizonYears))
+foreach ($p in $script:periods) {
+    Write-Host ("NY offset period {0:yyyy-MM-dd} .. {1:yyyy-MM-dd} (UTC{2})" -f $p.Start, $p.End, $p.Offset)
 }
 
 function Get-TaskXml([string]$Description, [string]$Triggers, [string]$Arguments) {
@@ -159,11 +197,10 @@ if (-not $PrintOnly) {
 }
 foreach ($p in $plan) {
     $name = "$NamePrefix ($($p.Suffix))"
-    $utc = Get-UtcStart $p.Hour $p.Minute $p.Days
     $runArgs = ("-NoProfile -ExecutionPolicy Bypass -File `"$script`" " + $p.Args).TrimEnd()
-    $xml = Get-TaskXml "RapidTradeView daily social videos (tools\run_daily.ps1 $($p.Args)): $($p.Suffix)." (Get-TriggerXml $utc $p.Days) $runArgs
+    $xml = Get-TaskXml "RapidTradeView daily social videos (tools\run_daily.ps1 $($p.Args)): $($p.Suffix); one trigger per New York offset period, re-run this script before $($script:periods[-1].End.ToString('yyyy-MM-dd'))." (Get-TriggersXml $p.Hour $p.Minute $p.Days) $runArgs
     if ($PrintOnly) {
-        Write-Host ("---- {0}: first run {1:u} (UTC)" -f $name, $utc)
+        Write-Host ("---- {0}" -f $name)
         Write-Host $xml
         continue
     }

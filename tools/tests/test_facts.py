@@ -352,7 +352,15 @@ def test_a_failed_source_is_an_error_not_a_fallback():
     assert "did not load" in f["reasons"]["congress_trade"]
 
 
+def _clock(monkeypatch):
+    """main() reads the wall clock; the earnings calendar's weeks_ahead counts from it (round 7: from the API's UTC
+    week), so these runs pin it to the fixture's Friday."""
+    real = fx.build_facts
+    monkeypatch.setattr(fx, "build_facts", lambda *a, **k: real(*a, **{**k, "now": NOW}))
+
+
 def test_main_exit_codes(tmp_path, monkeypatch):
+    _clock(monkeypatch)
     monkeypatch.setattr(fx.ss, "Api", lambda base: StubApi(answers()))
     out = tmp_path / "facts.json"
     assert fx.main(["--date", "2026-10-09", "--out", str(out)]) == 0
@@ -509,6 +517,7 @@ def test_main_exit_0_when_only_moves_like_failed(tmp_path, monkeypatch):
     rows = [crow("UNH", "buy", "2026-09-24", "2026-10-07", 15001, 50000)]
     over = {"/notable/feed?tab=congress": {"items": rows, "has_more": False}, "/moves-like/UNH": None}
     monkeypatch.setattr(fx.ss, "Api", lambda base: StubApi(answers(**over)))
+    _clock(monkeypatch)
     out = tmp_path / "facts.json"
     assert fx.main(["--date", "2026-10-09", "--out", str(out)]) == 0
     written = json.loads(out.read_text(encoding="utf-8"))

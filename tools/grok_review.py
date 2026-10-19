@@ -23,6 +23,13 @@ default (what Grok reads) or a local v/ directory. Checks:
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
   - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
     Moves Like post never touches picks);
+  - ROUND 7 (HQ 2026-10-19; every item with phrasings): a sentence that is not one of the item's phrases must EQUAL
+    one of post_vocab.HOOKS for the platform, the item type and post / comment use (closed list, no free hook
+    wording; a bare comment: comment hooks only); ROTATION (inbox, and --draft --history): a phrasing id or hook id
+    used in one of the last 5 own posts of the same item type on the same platform is REJECTED, unless every
+    phrasing of that fact was used (then only its least recently used one); link labels ("Full map:") never rotate;
+    the inbox leaves post drafts unacked while the post history cannot be read. Universe claims on every type
+    ("the stock market" as a subject; "every company" / "all 500" unless priced == total) are REJECTED.
   - VERBATIM FACTS (HQ 2026-10-19; every item with fact_phrases): every sentence of text / reply_text (and of a
     comment) that holds any fact is one of the item's fact_phrases / claim_phrases verbatim (light normalisation
     only); any other sentence is a hook made of post_vocab.HOOK_WORDS only (<= 12 words; no name, number, sector,
@@ -278,7 +285,7 @@ def market_total_numbers(item: dict) -> list[str]:
     return []
 
 
-def wording_reasons(item: dict, text: str) -> list[str]:
+def wording_reasons(item: dict, text: str, platform: str | None = None) -> list[str]:
     """Content rules every post of every item type passes (HQ 2026-10-18 review fixes; tools/claims.py): never the S&P
     for our universe (only a picks post may compare "vs SPY"); comparatives / superlatives only as the item's claims back
     them; no company put in a sector it is not in; scoped numbers carry their scope; no contradiction of the card.
@@ -287,10 +294,13 @@ def wording_reasons(item: dict, text: str) -> list[str]:
     if cl.verbatim_mode(item):
         # HQ 2026-10-19 verbatim facts rule (claims.py section 2d): every factual sentence is one of the item's pre-verified
         # phrases, every other sentence a fact-free hook; the S&P / scope / card rules still read the whole text
-        out = (cl.verbatim_reasons(item, text) + cl.index_reasons(item.get("type"), text, cl.item_names(item))
+        out = (cl.verbatim_reasons(item, text, platform=platform)
+               + cl.index_reasons(item.get("type"), text, cl.item_names(item))
                + cl.card_reasons(item, text) + cl.scope_reasons(item, text, strip_allowed))
     else:
         out = cl.content_reasons(item, text, strip_allowed)
+    # every item type (Growth PILLARS section 9 ask 4): "the stock market" as a subject, "every company" without coverage
+    out += cl.universe_reasons(item, text)
     if item.get("type") not in mk.WORDING_TYPES:
         return out
     t = item.get("totals") or {}
@@ -480,8 +490,8 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     if bad:
         reasons.append("numbers not in allowed_numbers / context_numbers: " + ", ".join(sorted({short(b, 24) for b in bad})))
 
-    # Market wording (P1 P2 P6 P7)
-    reasons += wording_reasons(item, both)
+    # Market wording (P1 P2 P6 P7), the verbatim rule with the platform's closed hooks
+    reasons += wording_reasons(item, both, platform if platform in PLATFORMS else None)
 
     # Words
     low = both.lower()
@@ -766,13 +776,14 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
             hint = PICK_HINT.search(text)
             if hint:
                 reasons.append(f"picks: no #1 / top-pick hint ({short(hint.group(0))!r})")
-        reasons += cl.index_reasons(item.get("type"), scan, cl.item_names(item))
+        reasons += cl.index_reasons(item.get("type"), scan, cl.item_names(item)) + cl.universe_reasons(item, scan)
         if cl.verbatim_mode(item):
-            # HQ 2026-10-19 verbatim facts rule: a comment states facts only as the item's phrases, verbatim
-            reasons += cl.verbatim_reasons(item, scan, comment=True)
+            # HQ 2026-10-19 verbatim facts rule: a comment states facts only as the item's phrases, verbatim (round 7:
+            # every other sentence one of the closed comment hooks)
+            reasons += cl.verbatim_reasons(item, scan, comment=True, platform=platform)
     elif not iid:
-        # no item: hooks only (a comment is never an unchecked path for a fact)
-        reasons += cl.verbatim_reasons(None, scan, comment=True)
+        # no item: closed comment hooks only (a comment is never an unchecked path for a fact)
+        reasons += cl.verbatim_reasons(None, scan, comment=True, platform=platform)
 
     # Words
     low = text.lower()
@@ -912,6 +923,65 @@ def apply_variety(draft: dict, facts: dict | None, history: list[dict] | None, s
     return rejects, notes, record
 
 
+# ---------------------------------------------------------------------------
+# Rotation (HQ 2026-10-19 round 7): a post may not reuse a phrasing id or a hook id that one of the last ROTATION_POSTS
+# own posts of the same item type on the same platform used (post_history.rotation_window; the ids each post used come
+# from its text: post_history.resolve -> claims.used_ids). When every phrasing of a fact was used in the window, only its
+# least recently used phrasing may come back (a fact is never blocked outright); hooks likewise. A REJECT, not a note.
+
+def rotation_reasons(draft: dict, item: dict, history: list[dict]) -> list[str]:
+    """REJECT reasons for phrasing / hook ids the draft repeats from the rotation window (items with phrasings only)."""
+    if not isinstance(item.get(cl.PHRASINGS_KEY), list):
+        return []
+    platform, kind = draft.get("platform"), item.get("type")
+    win = ph.rotation_window(history, kind, platform)
+    if not win:
+        return []
+    last: dict[str, int] = {}
+    when: dict[str, str] = {}
+    for i, p in enumerate(win):
+        for x in [*(p.get("phrasing_ids") or []), *(p.get("hook_ids") or [])]:
+            last[x] = i
+            when[x] = str(p.get("ny_date") or str(p.get("created_at") or "")[:10])
+    text = "\n".join([str(draft.get("text") or ""), str(draft.get("reply_text") or "")])
+    pids, hids = cl.used_ids(item, cl.nfkc(text), platform)
+    out: list[str] = []
+    by_fact: dict[str, list[dict]] = {}
+    for p in item[cl.PHRASINGS_KEY]:
+        by_fact.setdefault(p.get("fact"), []).append(p)
+
+    def lru_ok(x: str, group: list[str]) -> bool:
+        return all(g in last for g in group) and min(group, key=lambda g: last[g]) == x
+    for pid in pids:
+        if pid not in last:
+            continue
+        fact = pid.rsplit(".", 1)[0]
+        group = sorted({p["id"] for p in by_fact.get(fact, [])})
+        if lru_ok(pid, group):
+            continue
+        free = [p for p in by_fact.get(fact, []) if p["id"] not in last]
+        alt = (f"; use another phrasing of this fact: {short(free[0]['text'], 160)!r}" if free else
+               f"; every phrasing of this fact was used, so only {min(group, key=lambda g: last[g])} may come back")
+        out.append(f"rotation: phrasing {pid} was used in a {kind} post on {platform} on {when.get(pid)} (one of the "
+                   f"last {pv_rotation()} {kind} posts there){alt}")
+    # link labels ("Full map:", "Source:") are structure, not wording: they never rotate
+    allowed = [h["id"] for h in cl.hooks_for(item, platform) if not cl.pv.HOOK_BY_ID[h["id"]]["text"].endswith(":")]
+    for hid in hids:
+        if hid not in last or hid not in allowed:
+            continue
+        if lru_ok(hid, allowed):
+            continue
+        free = [cl.pv.HOOK_BY_ID[h]["text"] for h in allowed if h not in last]
+        out.append(f"rotation: hook {hid} {cl.pv.HOOK_BY_ID[hid]['text']!r} was used in a {kind} post on {platform} on "
+                   f"{when.get(hid)} (one of the last {pv_rotation()} {kind} posts there)"
+                   + (f"; unused hooks for it: {', '.join(repr(x) for x in free[:4])}" if free else ""))
+    return out
+
+
+def pv_rotation() -> int:
+    return cl.pv.ROTATION_POSTS
+
+
 def history_from_rest(rest, instinct, env: str, facts_base: str, days: int = 8) -> list[dict]:
     """Our own posts of the last `days` days through the inbox's gateway client, resolved against facts_base."""
     since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)
@@ -1015,7 +1085,7 @@ def draft_kind(draft: dict) -> tuple[str | None, str | None]:
 
 def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, limit: int = 200,
               comment_state: Path | None = None, now: dt.datetime | None = None, history=None,
-              variety_state: Path | None = None) -> dict:
+              variety_state: Path | None = None, need_history: bool = False, variety: bool = True) -> dict:
     """Review every unacked DRAFT row; `send(platform, body) -> bool` answers one. Returns counts. An approved comment
     is written to the comment state only once its APPROVE answer was sent (a dry run keeps it in memory only)."""
     rows = rest.call("GET", instinct.q("select=id,created_at,kind,platform,item_id,body", f"env=eq.{env}",
@@ -1028,7 +1098,7 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
     cache: dict[str, dict | None] = {}
     state: CommentState | None = None
     vstate: VarietyState | None = None
-    if history is not None and variety_state is not None:
+    if history is not None and variety_state is not None and variety:
         try:
             vstate = VarietyState(variety_state)
         except StateUnreadable as e:
@@ -1058,13 +1128,24 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                             stats["deferred"] += 1
                             continue
                     facts = cache[date]
+                if kind == "post" and history is None and need_history:
+                    # the rotation rule reads our own posts: a post draft is not answered without them (No Fallbacks)
+                    print(f"  #{row['id']}: post history unreadable; left unacked for the next run (rotation rule)")
+                    stats["deferred"] += 1
+                    continue
                 if kind == "post":
                     verdict, reasons = review(draft, facts, clock)
                     notes = playbook_notes(draft, facts, clock)
-                    vrej, vnotes, record = apply_variety(draft, facts, history, vstate, clock)
-                    if vrej:
-                        verdict, reasons = "REJECT", reasons + vrej
-                    notes += vnotes
+                    item = next((i for i in (facts or {}).get("items") or [] if i.get("item_id") == iid), None)
+                    if history is not None and item is not None:
+                        rrej = rotation_reasons(draft, item, history)
+                        if rrej:
+                            verdict, reasons = "REJECT", reasons + rrej
+                    if variety:
+                        vrej, vnotes, record = apply_variety(draft, facts, history, vstate, clock)
+                        if vrej:
+                            verdict, reasons = "REJECT", reasons + vrej
+                        notes += vnotes
                 else:
                     if state is None:
                         try:
@@ -1123,7 +1204,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--variety-state", help=f"variety warnings state JSON (default: ${VARIETY_STATE_ENV}, else "
                                             f"{DEFAULT_VARIETY_STATE})")
     ap.add_argument("--history", action="store_true", help="--draft: read our own posts for the variety lint (read only)")
-    ap.add_argument("--no-variety", action="store_true", help="--inbox: skip the variety lint")
+    ap.add_argument("--no-variety", action="store_true", help="--inbox: skip the variety lint (the rotation rule still runs)")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if a.draft:
@@ -1153,9 +1234,13 @@ def main(argv: list[str] | None = None) -> int:
                 except StateUnreadable:
                     vs = None
                 vrej, vnotes, _ = apply_variety(draft, facts, hist, vs, dt.datetime.now(dt.timezone.utc))
-                if vrej:
-                    verdict, reasons = "REJECT", reasons + vrej
+                item = next((i for i in (facts or {}).get("items") or [] if i.get("item_id") == draft.get("item_id")), None)
+                rrej = rotation_reasons(draft, item, hist) if item is not None else []
+                if vrej or rrej:
+                    verdict, reasons = "REJECT", reasons + rrej + vrej
                 notes += vnotes
+            else:
+                notes.append("rotation (phrasing / hook ids of the last 5 posts) not checked: run with --history")
         else:
             try:
                 state = CommentState(comment_state_path(a.comment_state))
@@ -1172,14 +1257,14 @@ def main(argv: list[str] | None = None) -> int:
     env_file = Path(a.env_file) if a.env_file else instinct.DEFAULT_ENV_FILE
     rest = instinct.Rest(*instinct.load_config(env_file))
     history = None
-    if not a.no_variety:
-        try:
-            history = history_from_rest(rest, instinct, a.env, a.facts_base)
-        except SystemExit as e:  # instinct's client exits on a gateway error: the variety lint is skipped, not guessed
-            print(f"variety lint skipped: post history unreadable ({str(e)[:120]})")
+    try:
+        history = history_from_rest(rest, instinct, a.env, a.facts_base)
+    except SystemExit as e:  # instinct's client exits on a gateway error: post drafts wait (rotation), never guessed
+        print(f"post history unreadable ({str(e)[:120]}): post drafts are left for the next run; comments go on")
     run_inbox(rest, instinct, a.env, a.facts_base, a.dry_run,
               lambda platform, body: send_reply(Path(a.instinct), a.env, a.env_file, platform, body), a.limit,
-              comment_state_path(a.comment_state), history=history, variety_state=variety_state_path(a.variety_state))
+              comment_state_path(a.comment_state), history=history, variety_state=variety_state_path(a.variety_state),
+              need_history=True, variety=not a.no_variety)
     return 0
 
 

@@ -171,6 +171,105 @@ HOOK_HASHTAGS_BY_TYPE = {
     "chart_pattern": frozenset("technicalanalysis chartpatterns".split()),
     "picks_ready": frozenset("dailypicks".split()),
 }
+# ---------------------------------------------------------------------------
+# CLOSED HOOK LIST (HQ 2026-10-19, round 7): a sentence that is not one of the item's phrases must EQUAL one of these whole
+# sentences (verbatim normalisation: case, spacing, punctuation), for an item whose facts carry `phrasings` and for every
+# comment without an item_id. No free combination of hook words any more. Each hook is neutral, names nothing (no
+# company, number, sector, date, direction, ranking, mood), never advises or tells anyone to act on a stock, and never
+# claims we did anything. id = the rotation key (post_history / grok_review: a hook id used in one of the last
+# ROTATION_POSTS posts of the same item type on the same platform is not used again). platforms = where it may stand
+# (link hooks say where the link is); use = "post" (posts and self-replies), "comment" (comments on other accounts'
+# posts) or "any" (the questions to the reader: a comment may pair one with a thanks line); types = the item types it fits
+# (None = every type). HOOK_WORDS above stays only to explain a
+# rejection ("states facts" vs "not an approved hook") and to read items from facts files built before this list.
+_ALL = ("x", "threads", "instagram")
+_XT = ("x", "threads")
+_FILINGS = ("form4_buy", "congress_trade", "ptr_summary", "insider_flow", "congress_flow")
+_EARNINGS = ("earnings_result", "earnings_upcoming", "earnings_tomorrow_roundup", "earnings_week_preview",
+             "earnings_reaction")
+_MAP = ("market_move", "mega_mover", "sector_rotation", "breadth_day", "basket_week")
+_CHART = ("chart_pattern", "moves_like")
+
+
+def _h(hid: str, text: str, platforms=_ALL, use: str = "post", types=None) -> dict:
+    return {"id": hid, "text": text, "platforms": list(platforms), "use": use, "types": list(types) if types else None}
+
+
+HOOKS = [
+    # openers / statements
+    _h("H01", "Here is the map.", types=_MAP),
+    _h("H02", "Here is how the day looked.", types=("market_move", "mega_mover", "sector_rotation", "breadth_day",
+                                                     "reddit_buzz", "earnings_reaction")),
+    _h("H03", "Here is the picture."),
+    _h("H04", "Here are the numbers."),
+    _h("H05", "The numbers are below."),
+    _h("H06", "A quick look at the data."),
+    _h("H07", "Here is the breakdown."),
+    _h("H08", "Here is the chart."),
+    _h("H09", "The data, in plain numbers."),
+    _h("H10", "Here is what the filings show.", types=_FILINGS),
+    _h("H11", "Here is what the filing shows.", types=("form4_buy", "congress_trade")),
+    _h("H12", "Here is the earnings calendar.", types=("earnings_upcoming", "earnings_tomorrow_roundup",
+                                                       "earnings_week_preview")),
+    _h("H13", "Here is what the report shows.", types=("earnings_result",)),
+    _h("H14", "Here is what Reddit is talking about.", types=("reddit_buzz",)),
+    _h("H15", "Here is what the chart shows.", types=_CHART),
+    _h("H16", "Here is the context."),
+    # questions to the reader that name nothing
+    _h("H20", "What stood out to you?", use="any"),
+    _h("H21", "What surprised you?", use="any"),
+    _h("H22", "What do you see here?", use="any"),
+    _h("H23", "Which number stands out to you?", use="any"),
+    _h("H24", "What would you look at here?", use="any"),
+    _h("H25", "What caught your eye?", use="any"),
+    _h("H26", "What here was new to you?", use="any"),
+    _h("H27", "What is your read on this?", use="any"),
+    _h("H28", "How do you read this chart?", use="any",
+       types=(*_MAP, *_CHART, "reddit_buzz", "insider_flow", "congress_flow")),
+    _h("H29", "Is this on your radar?", use="any"),
+    _h("H30", "What else would you look at?", use="any"),
+    _h("H31", "Which detail matters to you?", use="any"),
+    # pointers to the link / the visual
+    _h("H40", "Full map in the reply.", _XT, types=_MAP),
+    _h("H41", "Source in the reply.", _XT),
+    _h("H42", "Link in the reply.", _XT),
+    _h("H43", "Details in the reply.", _XT),
+    _h("H44", "Link in bio.", ("instagram",)),
+    _h("H45", "Full map at the link in bio.", ("instagram",), types=_MAP),
+    _h("H46", "Swipe for the numbers.", ("instagram",)),
+    # link labels (a self-reply, or before a link in a caption)
+    _h("H50", "Full map:", types=_MAP),
+    _h("H51", "Source:"),
+    _h("H52", "SEC filing:", types=("form4_buy", "insider_flow")),
+    _h("H53", "The filing:", types=("form4_buy", "congress_trade", "ptr_summary")),
+    _h("H54", "Details:"),
+    _h("H55", "Earnings calendar:", types=("earnings_upcoming", "earnings_tomorrow_roundup", "earnings_week_preview")),
+    _h("H56", "The details:"),
+    # comments on other accounts' posts
+    _h("H70", "Thanks for sharing, what stood out to you?", ("x", "instagram"), "comment"),
+    _h("H71", "Thanks for sharing.", ("x", "instagram"), "comment"),
+    _h("H72", "Interesting chart, thanks for sharing.", ("x", "instagram"), "comment"),
+    _h("H73", "Helpful breakdown, thanks.", ("x", "instagram"), "comment"),
+    _h("H74", "Useful context, thanks.", ("x", "instagram"), "comment"),
+    _h("H75", "Clear chart, thanks for posting.", ("x", "instagram"), "comment"),
+    _h("H76", "Good question, curious what others think.", ("x", "instagram"), "comment"),
+    _h("H77", "Thanks, this is helpful.", ("x", "instagram"), "comment"),
+    _h("H78", "Interesting data.", ("x", "instagram"), "comment"),
+    _h("H79", "Interesting thread.", ("x", "instagram"), "comment"),
+    _h("H80", "Nice breakdown.", ("x", "instagram"), "comment"),
+    _h("H81", "Good context here.", ("x", "instagram"), "comment"),
+    _h("H82", "Helpful thread, thanks.", ("x", "instagram"), "comment"),
+    _h("H83", "This is a useful chart.", ("x", "instagram"), "comment"),
+    _h("H84", "Great question.", ("x", "instagram"), "comment"),
+    _h("H85", "Interesting angle.", ("x", "instagram"), "comment"),
+    _h("H86", "Clear and useful, thanks.", ("x", "instagram"), "comment"),
+]
+HOOK_BY_ID = {h["id"]: h for h in HOOKS}
+# A phrasing id or hook id used in one of the last ROTATION_POSTS own posts of the same item type on the same platform
+# is not used again (grok_review.rotation_reasons); when every phrasing of a fact was used in that window, only the
+# least recently used one may come back (so a fact is never blocked outright).
+ROTATION_POSTS = 5
+
 # advice / forecast words: never in a hook (none is in HOOK_WORDS; named here so the reason says why)
 ADVICE_WORDS = frozenset("""
 buy buying buys sell selling sells hold holding own owning should shouldn't must expect expects expected expecting

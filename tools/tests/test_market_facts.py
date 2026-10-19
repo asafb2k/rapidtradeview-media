@@ -196,7 +196,8 @@ def test_market_items_become_facts_items_with_cards_and_anchors():
     maps = {i["card"]["file"] for i in items if i.get("card") and i["card"]["panel"] == "map"}
     assert len(maps) == 1                                   # one pinned file per panel and data
     pv = next(i for i in items if i["type"] == "earnings_week_preview")
-    assert pv["media"][0]["url"] == "https://www.rapidtradeview.trade/earnings/opengraph-image" and "card" not in pv
+    # the week's own card (Growth PILLARS section 9 ask 8), never the /earnings hub card
+    assert pv["media"][0]["url"] == "https://www.rapidtradeview.trade/earnings/this-week/opengraph-image" and "card" not in pv
 
 
 def test_enrich_gates_and_rank_on_the_16th():
@@ -318,7 +319,7 @@ def test_pin_cards_prepare_and_apply(tmp_path, monkeypatch):
     monkeypatch.setattr(pc, "fetch_png", fetch)
     monkeypatch.setattr(pc, "SLEEP", lambda s: None)
     work = tmp_path / "work"
-    assert pc.prepare(path, tmp_path, "2026-10-18", work) == 10
+    assert pc.prepare(path, tmp_path, "2026-10-18", work, read=lambda panel: M) == 10
     files = (work / "pin-cards-files.txt").read_text(encoding="utf-8").split()
     assert sorted(Path(f).name.split("-")[1] for f in files) == ["breadth", "map", "sectors"]
     assert all(f.startswith("v/2026-10-18/cards/market-") for f in files)
@@ -335,5 +336,5 @@ def test_pin_cards_prepare_and_apply(tmp_path, monkeypatch):
     calls.clear()
     path.write_text(json.dumps(facts), encoding="utf-8")
     monkeypatch.setattr(pc, "fetch_png", lambda url: calls.append(url) or png)
-    assert pc.prepare(path, tmp_path, "2026-10-19", work) == 10   # only the buzz card is new now
+    assert pc.prepare(path, tmp_path, "2026-10-19", work, read=lambda panel: M) == 10   # only buzz is new now
     assert [Path(f).name.split("-")[1] for f in (work / "pin-cards-files.txt").read_text(encoding="utf-8").split()] == ["buzz"]
