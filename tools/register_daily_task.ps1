@@ -189,6 +189,8 @@ function Get-RepeatingTriggerXml([DateTime]$Utc) {
 
 Write-Host ("New York now {0:yyyy-MM-dd HH:mm}" -f $nowNy)
 if (-not $PrintOnly) {
+    # A task someone disabled stays disabled (a re-run for the clock change must not switch a paused pass back on).
+    $script:wasDisabled = @(Get-ScheduledTask -ErrorAction SilentlyContinue | Where-Object { $_.TaskName -like "$NamePrefix (*" -and $_.State -eq 'Disabled' } | ForEach-Object { $_.TaskName })
     # Replace every earlier registration (older names and times) with this plan.
     foreach ($t in Get-ScheduledTask -ErrorAction SilentlyContinue | Where-Object { $_.TaskName -like "$NamePrefix (*" }) {
         Unregister-ScheduledTask -TaskName $t.TaskName -Confirm:$false
@@ -205,6 +207,10 @@ foreach ($p in $plan) {
         continue
     }
     Register-ScheduledTask -TaskName $name -Xml $xml -Force | Out-Null
+    if ($script:wasDisabled -contains $name) {
+        Disable-ScheduledTask -TaskName $name | Out-Null
+        Write-Host "kept disabled: $name (it was disabled before this run)"
+    }
     $info = Get-ScheduledTask -TaskName $name | Get-ScheduledTaskInfo
     Write-Host ("registered: {0}; next run {1} (local time)" -f $name, $info.NextRunTime)
 }
@@ -219,6 +225,10 @@ if ($PrintOnly) {
     Write-Host $xml
 } else {
     Register-ScheduledTask -TaskName $name -Xml $xml -Force | Out-Null
+    if ($script:wasDisabled -contains $name) {
+        Disable-ScheduledTask -TaskName $name | Out-Null
+        Write-Host "kept disabled: $name (it was disabled before this run)"
+    }
     $info = Get-ScheduledTask -TaskName $name | Get-ScheduledTaskInfo
     Write-Host ("registered: {0}; next run {1} (local time)" -f $name, $info.NextRunTime)
 }
