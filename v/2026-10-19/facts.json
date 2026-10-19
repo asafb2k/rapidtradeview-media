@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-19",
-  "generated_at": "2026-10-19T04:06:21Z",
-  "as_of": "2026-10-19T04:06:21Z",
+  "generated_at": "2026-10-19T04:46:19Z",
+  "as_of": "2026-10-19T04:46:19Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -54,7 +54,7 @@
     "cashtags": "at most 4 distinct cashtags, all from the item's tickers + context_tickers; a single-ticker item names its own $TICKER; moves_like may add its peers, picks_ready the public picks",
     "order": "items are sorted by audience_rank (rank / rank_why: recognisability, magnitude, freshness, novelty); the first 8 (top8 true) are a varied menu: at most 2 session-map items (P1 P2 P6 P7), at most one small cap, no lead ticker or headline number repeated between them, 4+ pillars when the day has them; items below carry top8_out (why). Pick across pillars per variety",
     "verbatim": {
-      "rule": "VERBATIM FACTS (HQ 2026-10-19; replaces the claim_phrases / plain_words reading for every item that has fact_phrases): every sentence of a post, self-reply or comment that holds ANY fact - a $cashtag or ticker, a company or person name, a number / percent / amount / count, a sector, a date / weekday / session word, a direction word (up / down / rose / fell / gained / lost / green / red / rally / drop ...), a ranking or comparison word - must be one of the item's fact_phrases or claim_phrases COPIED VERBATIM as its own sentence (only case, spacing, punctuation, $ on cashtags and dash types may differ; a closing '(number)' may be left off). No partial copies, no splicing two phrases, no word added, dropped or changed inside a fact sentence, no 'And' / 'Monday recap:' in front. Any other sentence is a HOOK: only hook_words, at most hook_max_words words, no fact at all ('Here is how the day looked.', 'What stood out to you?', 'Full map in the reply.'); never advice (buy / sell / hold / own / should / expect / due / target / forecast / will / going to / undervalued / opportunity ...). No comparison outside the phrases. 'Not investment advice.' stays in every post. Hashtags: only the generic ones listed here (and the item type's topic hashtags); emoji: only hook_emoji (no arrows, chart, fire, rocket, medal or colour emoji). Comments follow the same rule: without an item_id a comment holds hooks only. A rejection names the closest phrase: copy it exactly.",
+      "rule": "VERBATIM FACTS (HQ 2026-10-19; replaces the claim_phrases / plain_words reading for every item that has fact_phrases): every sentence of a post, self-reply or comment that holds ANY fact - a $cashtag or ticker, a company or person name, a number / percent / amount / count, a sector, a date / weekday / session word, a direction word (up / down / rose / fell / gained / lost / green / red / rally / drop ...), a ranking or comparison word - must be one of the item's fact_phrases or claim_phrases COPIED VERBATIM as its own sentence (only case, spacing, punctuation, $ on cashtags and dash types may differ; a closing '(number)' may be left off). No partial copies, no splicing two phrases, no word added, dropped or changed inside a fact sentence, no 'And' / 'Monday recap:' in front. Any other sentence is a HOOK: only hook_words, at most hook_max_words words, no fact at all ('Here is how the day looked.', 'What stood out to you?', 'Full map in the reply.'); never advice (buy / sell / hold / own / should / expect / due / target / forecast / will / going to / undervalued / opportunity ...). No comparison outside the phrases. 'Not investment advice.' stays in every post. Hashtags: only the generic ones listed here (and the item type's topic hashtags); emoji: only hook_emoji (no arrows, chart, fire, rocket, medal or colour emoji). Comments follow the same rule: without an item_id a comment holds hooks only. A rejection names the closest phrase: copy it exactly. Plain letters only (no math-bold / fullwidth / other-script letters: they are read as words). Use an item of today's facts: an item is usable only through the next weekday after its facts date (a picks item until its valid_until); an item from a facts file without fact_phrases is never usable. Links: the item's page_url or source written in full (https://...), never a domain with a path typed bare. A hook never tells anyone to act and never claims we did anything (no 'do', 'did', 'have', 'I', 'we', 'move', 'follow', 'take', 'know').",
       "hook_words": [
         "a",
         "about",
@@ -71,7 +71,6 @@
         "but",
         "card",
         "cards",
-        "catch",
         "chart",
         "charts",
         "check",
@@ -83,25 +82,17 @@
         "data",
         "day",
         "details",
-        "did",
-        "do",
-        "does",
         "filing",
         "filings",
         "find",
-        "follow",
         "for",
         "found",
         "from",
         "full",
-        "had",
-        "has",
-        "have",
         "helpful",
         "here",
         "here's",
         "how",
-        "i",
         "if",
         "in",
         "interesting",
@@ -112,7 +103,6 @@
         "it's",
         "its",
         "key",
-        "know",
         "let's",
         "link",
         "list",
@@ -126,8 +116,6 @@
         "matters",
         "mean",
         "means",
-        "move",
-        "moves",
         "names",
         "notice",
         "noticed",
@@ -168,7 +156,6 @@
         "surprise",
         "surprised",
         "swipe",
-        "take",
         "tap",
         "tell",
         "thank",
@@ -195,8 +182,6 @@
         "was",
         "watch",
         "watching",
-        "we",
-        "we're",
         "were",
         "what",
         "what's",
@@ -352,7 +337,7 @@
     "basket_week": 1
   },
   "reasons": {
-    "earnings_result": "no earnings report published between 2026-10-18T04:06Z and 2026-10-19T04:06Z",
+    "earnings_result": "no earnings report published between 2026-10-18T04:46Z and 2026-10-19T04:46Z",
     "picks_ready": "the published list (2026-10-16) expires 2026-10-19T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET",
     "earnings_reaction": "the current week's earnings calendar did not load (the API serves no past week)"
   },
@@ -413,13 +398,13 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 45,
-      "carried_over": 0,
-      "requested": 5,
-      "not_covered": 1,
+      "tickers_in_items": 40,
+      "carried_over": 5,
+      "requested": 0,
+      "not_covered": 0,
       "disabled": 0,
       "no_peer": 0,
-      "below_floor": 1,
+      "below_floor": 0,
       "stale": 0,
       "unavailable": 0,
       "unreadable": 0
@@ -427,7 +412,7 @@
     "market": {
       "market_session": "2026-10-16",
       "priced_cap_share": 0.9663367467709199,
-      "flows_as_of": "2026-10-19T04:06:32.829787+00:00"
+      "flows_as_of": "2026-10-19T04:46:26.711074+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -482,7 +467,7 @@
     "read": true,
     "own_posts": 48
   },
-  "api_requests": 18,
+  "api_requests": 13,
   "items": [
     {
       "item_id": "2026-10-19-congress-flow-HD-ff18f7",
