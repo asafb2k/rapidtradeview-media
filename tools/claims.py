@@ -2365,7 +2365,7 @@ _V_URL = re.compile(r"https?://\S+|\b(?:www\.)?(?:rapidtradeview\.trade|rapidtra
                     re.IGNORECASE)
 _V_DISCLAIMER = re.compile(r"\bnot\s+investment\s+advice\b\.?", re.IGNORECASE)
 _V_HASHTAG = re.compile(r"(?<![\w&])#([A-Za-z][A-Za-z0-9_]*)")
-_V_OK_CHARS = set(" \t\n.,;:!?'\"()[]-+$%&/#@*_") | set("’‘“”–—−×…·"
+_V_OK_CHARS = set(" \t\n.,;:!?'\"()[]-+$%&/#@*_|•") | set("’‘“”–—−×…·"
                                                         "  ")
 
 
