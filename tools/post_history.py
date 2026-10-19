@@ -149,6 +149,19 @@ def rotation_window(history: list[dict] | None, kind: str | None, platform: str 
     return [p for p in history or [] if p.get("platform") == platform and p.get("type") == kind][-n:]
 
 
+def rotation_span(choices: int, n: int = pv.ROTATION_POSTS) -> int:
+    """How many of the newest posts of a type block a used id that has `choices` alternatives (itself included): min(n,
+    choices - 1) (review round 7b: a fact with 3 phrasings cycles a, b, c; one with a single phrasing cannot rotate)."""
+    return max(0, min(n, choices - 1))
+
+
+def used_within(win: list[dict], x: str, span: int, field: str) -> dict | None:
+    """The newest of the last `span` posts of `win` (oldest first) whose `field` ids hold x, else None."""
+    if span <= 0:
+        return None
+    return next((p for p in reversed(win[-span:]) if x in (p.get(field) or [])), None)
+
+
 def local_facts_loader(repo: Path):
     """facts_for_date for the media repo's own v/<date>/facts.json files (cached)."""
     import json

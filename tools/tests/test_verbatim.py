@@ -45,7 +45,7 @@ def post(it, text, platform="threads", reply=""):
 
 
 def verdict(it, text):
-    return gr.wording_reasons(it, f"{text} {NIA}")
+    return gr.wording_reasons(it, f"{text} {NIA}", audit=False)   # the validator's reading (review round 7b)
 
 
 # --- every draft a reviewer or HQ found wrong in rounds 1-5 stays rejected; the honest free-form ones may now be rejected
@@ -353,7 +353,7 @@ def test_round6_items_expire():
     # Monday 23:30 New York (03:30Z Tue) is still Monday; Tuesday 00:30 New York (04:30Z) is past a Sunday file
     assert not gr.item_gate_reasons(mm, VDOC, dt.datetime(2026, 10, 20, 3, 30, tzinfo=dt.timezone.utc))
     assert gr.item_gate_reasons(mm, VDOC, dt.datetime(2026, 10, 20, 4, 30, tzinfo=dt.timezone.utc))
-    picks = {"item_id": "2026-10-19-picks-ready", "fact_phrases": [], "valid_until": "2026-10-19T17:30:00+00:00"}
+    picks = {"item_id": "2026-10-19-picks-ready", "fact_phrases": [], "phrasings": [], "valid_until": "2026-10-19T17:30:00+00:00"}
     at = dt.datetime(2026, 10, 19, 17, 0, tzinfo=dt.timezone.utc)
     assert gr.item_gate_reasons(picks, {"date": "2026-10-19"}, at) == []
     why = gr.item_gate_reasons(picks, {"date": "2026-10-19"}, at + dt.timedelta(minutes=31))

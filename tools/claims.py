@@ -2501,15 +2501,17 @@ def _closest(sent_toks: list[str], phrases: list[str]) -> str | None:
 # Round 7 (HQ 2026-10-19): CLOSED HOOKS + PHRASING ROTATION. An item whose facts carry `phrasings` (facts.py builds 2-3
 # validator-checked phrasings per fact, each with an id "<fact key>.<variant>") is read in closed mode: a sentence that
 # is not one of its phrases must EQUAL one of post_vocab.HOOKS (for the platform, the item type and post / comment use);
-# a comment without an item_id likewise holds only comment hooks. Items from older facts files (no `phrasings`) keep the
-# hook-word reading above (the Growth audit of posts published under it). The ids a text uses (used_ids) feed the
+# a comment without an item_id likewise holds only comment hooks. Review round 7b: the validator ALWAYS reads closed mode
+# (grok_review.review / review_comment; an item without phrasings is rejected there); only the Growth audit of posts
+# already published passes audit=True and keeps the hook-word reading above (a closed hook sentence also passes there). The ids a text uses (used_ids) feed the
 # rotation rule (grok_review.rotation_reasons) and the post history (post_history.resolve).
 
 PHRASINGS_KEY = "phrasings"
 
 
 def closed_hooks(item: dict | None) -> bool:
-    """True when the closed hook list applies: an item built with phrasings, or no item at all (a bare comment)."""
+    """True when the item was built with the closed hook list in force (phrasings), or there is no item (a bare comment).
+    Not what decides the reading any more (review round 7b: verbatim_reasons' audit flag does)."""
     return item is None or (isinstance(item, dict) and PHRASINGS_KEY in item)
 
 
@@ -2549,9 +2551,11 @@ def _v_sentences(s: str) -> list[str]:
     return [y for x in post_sentences(s) for y in _V_COLON.split(x) if y.strip()]
 
 
-def _verbatim_scan(item: dict | None, text: str, comment: bool = False, platform: str | None = None
-                   ) -> tuple[list[str], list[str], list[str]]:
-    """(REJECT reasons, phrasing ids used, hook ids used) for a post text / self-reply / comment."""
+def _verbatim_scan(item: dict | None, text: str, comment: bool = False, platform: str | None = None,
+                   audit: bool = False) -> tuple[list[str], list[str], list[str]]:
+    """(REJECT reasons, phrasing ids used, hook ids used) for a post text / self-reply / comment. audit=False (the
+    validator): closed hooks only. audit=True (the Growth audit of published posts): a closed hook or a hook-word
+    sentence."""
     out: list[str] = []
     s = _norm(nfkc(html.unescape(text or "")))
     s = _V_URL.sub(" ", s)
@@ -2575,7 +2579,7 @@ def _verbatim_scan(item: dict | None, text: str, comment: bool = False, platform
     want = {tuple(verbatim_tokens(p)) for p in phrases}
     want.discard(())
     pidx = phrasing_index(item)
-    closed = closed_hooks(item)
+    closed = not audit
     allowed = hooks_for(item, platform, comment) if closed else []
     every = {hook_tokens(h): h for h in pv.HOOKS}
     ok_hooks = {hook_tokens(h): h for h in allowed}
@@ -2631,6 +2635,9 @@ def _verbatim_scan(item: dict | None, text: str, comment: bool = False, platform
                            f"closest hook for {platform or 'this platform'}: {_closest_hook(tk, allowed)!r}")
             i += 1
             continue
+        if tk in every:   # audit: a closed hook sentence is fact-free whatever the item
+            i += 1
+            continue
         why = hook_reasons(item, sents[i], toks[i])
         if why:
             if comment and not item:
@@ -2662,10 +2669,12 @@ def _closest_hook(toks: tuple, hooks: list[dict]) -> str | None:
     return best
 
 
-def verbatim_reasons(item: dict | None, text: str, comment: bool = False, platform: str | None = None) -> list[str]:
+def verbatim_reasons(item: dict | None, text: str, comment: bool = False, platform: str | None = None,
+                     audit: bool = False) -> list[str]:
     """REJECT reasons under the verbatim facts rule (section 2d; closed hooks from round 7) for a post text / self-reply /
-    comment. platform: the hooks of that platform only (None: a hook of any platform passes - the Growth audit)."""
-    return _verbatim_scan(item, text, comment, platform)[0]
+    comment. platform: the hooks of that platform only (None: a hook of any platform). audit: the Growth audit of posts
+    already published (hook-word reading kept); the validator never sets it."""
+    return _verbatim_scan(item, text, comment, platform, audit)[0]
 
 
 def used_ids(item: dict | None, text: str, platform: str | None = None, comment: bool = False

@@ -23,11 +23,15 @@ default (what Grok reads) or a local v/ directory. Checks:
   - X: text and reply each <= max_len.x (X's weighted length: a link counts 23);
   - picks_ready, chart_pattern, moves_like: no "#1" / top-pick hint (the #1 ticker is hidden from us, so a pattern or
     Moves Like post never touches picks);
-  - ROUND 7 (HQ 2026-10-19; every item with phrasings): a sentence that is not one of the item's phrases must EQUAL
-    one of post_vocab.HOOKS for the platform, the item type and post / comment use (closed list, no free hook
-    wording; a bare comment: comment hooks only); ROTATION (inbox, and --draft --history): a phrasing id or hook id
-    used in one of the last 5 own posts of the same item type on the same platform is REJECTED, unless every
-    phrasing of that fact was used (then only its least recently used one); link labels ("Full map:") never rotate;
+  - ROUND 7 (HQ 2026-10-19): a sentence that is not one of the item's phrases must EQUAL one of post_vocab.HOOKS for
+    the platform, the item type and post / comment use (closed list, no free hook wording; a bare comment: comment
+    hooks only). Review round 7b: review / review_comment always read the closed list and REJECT an item without
+    phrasings (a facts file built before round 7); only the Growth audit (wording_reasons' audit default) keeps the
+    hook-word reading. An exact repeat of a text posted / approved on the platform within 7 days is REJECTED
+    (duplicate_reasons). ROTATION (inbox, and --draft --history): a phrasing id or hook id
+    used in one of the last min(5, k - 1) own posts of the same item type on the same platform is REJECTED (k = the
+    fact's phrasings, or the type's hooks; review round 7b: no least-recently-used escape, the window is sized instead;
+    drafts approved but not in the post log yet count too: ApprovedLedger); link labels ("Full map:") never rotate;
     the inbox leaves post drafts unacked while the post history cannot be read. Universe claims on every type
     ("the stock market" as a subject; "every company" / "all 500" unless priced == total) are REJECTED.
   - VERBATIM FACTS (HQ 2026-10-19; every item with fact_phrases): every sentence of text / reply_text (and of a
@@ -285,16 +289,18 @@ def market_total_numbers(item: dict) -> list[str]:
     return []
 
 
-def wording_reasons(item: dict, text: str, platform: str | None = None) -> list[str]:
+def wording_reasons(item: dict, text: str, platform: str | None = None, audit: bool = True) -> list[str]:
     """Content rules every post of every item type passes (HQ 2026-10-18 review fixes; tools/claims.py): never the S&P
     for our universe (only a picks post may compare "vs SPY"); comparatives / superlatives only as the item's claims back
     them; no company put in a sector it is not in; scoped numbers carry their scope; no contradiction of the card.
     P1 / P2 / P6 / P7 also: "all 500" only when all 500 were priced; a market total says "500 largest". The Growth post
-    audit calls this too (one rule set)."""
+    audit calls this too (one rule set). audit=True (the default: the Growth audit's call of posts already published)
+    keeps the hook-word reading of non-fact sentences; the validator (review, phrase_reasons) passes audit=False: closed
+    hook sentences only, whatever the item (review round 7b)."""
     if cl.verbatim_mode(item):
         # HQ 2026-10-19 verbatim facts rule (claims.py section 2d): every factual sentence is one of the item's pre-verified
         # phrases, every other sentence a fact-free hook; the S&P / scope / card rules still read the whole text
-        out = (cl.verbatim_reasons(item, text, platform=platform)
+        out = (cl.verbatim_reasons(item, text, platform=platform, audit=audit)
                + cl.index_reasons(item.get("type"), text, cl.item_names(item))
                + cl.card_reasons(item, text) + cl.scope_reasons(item, text, strip_allowed))
     else:
@@ -317,7 +323,7 @@ def phrase_reasons(item: dict, text: str) -> list[str]:
     2026-10-19): it must pass as a one-sentence post of the item - the verbatim reading, every number allowed, its
     cashtags the item's (at most 4), no banned word, the S&P / scope / card / market wording rules - and the data checks
     of the free-form era as a safety net (window, direction, sector attribution)."""
-    out = wording_reasons(item, f"{text} Not investment advice.")
+    out = wording_reasons(item, f"{text} Not investment advice.", audit=False)
     tickers = item_cashtags(item)
     tags = {m.group(1).upper() for m in CASHTAG.finditer(text)}
     if tags - set(tickers):
@@ -383,6 +389,10 @@ def item_gate_reasons(item: dict, facts: dict | None, now: dt.datetime | None = 
     if not cl.verbatim_mode(item):
         return [f"item {iid} is from a facts file built before the verbatim facts rule (no fact_phrases): use an item of "
                 "today's facts"]
+    if not isinstance(item.get(cl.PHRASINGS_KEY), list):
+        # review round 7b: no phrasings = built before the closed hooks, rotation and card rules (round 7): never usable
+        return [f"item {iid} is from a facts file built before the round-7 rules (no phrasings: closed hooks, rotation, "
+                "card checks): use an item of today's facts"]
     now = now or dt.datetime.now(dt.timezone.utc)
     if now.tzinfo is None:
         now = now.replace(tzinfo=dt.timezone.utc)
@@ -491,7 +501,7 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
         reasons.append("numbers not in allowed_numbers / context_numbers: " + ", ".join(sorted({short(b, 24) for b in bad})))
 
     # Market wording (P1 P2 P6 P7), the verbatim rule with the platform's closed hooks
-    reasons += wording_reasons(item, both, platform if platform in PLATFORMS else None)
+    reasons += wording_reasons(item, both, platform if platform in PLATFORMS else None, audit=False)
 
     # Words
     low = both.lower()
@@ -924,25 +934,22 @@ def apply_variety(draft: dict, facts: dict | None, history: list[dict] | None, s
 
 
 # ---------------------------------------------------------------------------
-# Rotation (HQ 2026-10-19 round 7): a post may not reuse a phrasing id or a hook id that one of the last ROTATION_POSTS
-# own posts of the same item type on the same platform used (post_history.rotation_window; the ids each post used come
-# from its text: post_history.resolve -> claims.used_ids). When every phrasing of a fact was used in the window, only its
-# least recently used phrasing may come back (a fact is never blocked outright); hooks likewise. A REJECT, not a note.
+# Rotation (HQ 2026-10-19 round 7; review round 7b): a post may not reuse a phrasing id or a hook id that one of the
+# newest own posts of the same item type on the same platform used (post_history.rotation_window; the ids each post used
+# come from its text: post_history.resolve -> claims.used_ids). The window is sized by the choices (post_history.
+# rotation_span): a fact with k phrasings blocks a used id for min(ROTATION_POSTS, k - 1) posts (3 phrasings cycle a, b,
+# c; a fact is never blocked outright); a hook for min(ROTATION_POSTS, hooks for the type - 1). Only when one post used
+# several phrasings of one fact (so none is free) may the least recently used come back. A REJECT, not a note.
 
 def rotation_reasons(draft: dict, item: dict, history: list[dict]) -> list[str]:
-    """REJECT reasons for phrasing / hook ids the draft repeats from the rotation window (items with phrasings only)."""
+    """REJECT reasons for phrasing / hook ids the draft repeats from the rotation window (items with phrasings only;
+    review() rejects an item without them)."""
     if not isinstance(item.get(cl.PHRASINGS_KEY), list):
         return []
     platform, kind = draft.get("platform"), item.get("type")
     win = ph.rotation_window(history, kind, platform)
     if not win:
         return []
-    last: dict[str, int] = {}
-    when: dict[str, str] = {}
-    for i, p in enumerate(win):
-        for x in [*(p.get("phrasing_ids") or []), *(p.get("hook_ids") or [])]:
-            last[x] = i
-            when[x] = str(p.get("ny_date") or str(p.get("created_at") or "")[:10])
     text = "\n".join([str(draft.get("text") or ""), str(draft.get("reply_text") or "")])
     pids, hids = cl.used_ids(item, cl.nfkc(text), platform)
     out: list[str] = []
@@ -950,32 +957,70 @@ def rotation_reasons(draft: dict, item: dict, history: list[dict]) -> list[str]:
     for p in item[cl.PHRASINGS_KEY]:
         by_fact.setdefault(p.get("fact"), []).append(p)
 
-    def lru_ok(x: str, group: list[str]) -> bool:
-        return all(g in last for g in group) and min(group, key=lambda g: last[g]) == x
+    def when(post: dict) -> str:
+        return str(post.get("ny_date") or str(post.get("created_at") or "")[:10])
+
+    def lru(group: list[str], field: str) -> str:
+        last = {g: max((i for i, p in enumerate(win) if g in (p.get(field) or [])), default=-1) for g in group}
+        return min(group, key=lambda g: last[g])
     for pid in pids:
-        if pid not in last:
-            continue
         fact = pid.rsplit(".", 1)[0]
-        group = sorted({p["id"] for p in by_fact.get(fact, [])})
-        if lru_ok(pid, group):
+        group = list(dict.fromkeys(p["id"] for p in by_fact.get(fact, [])))   # phrasing order (the base first)
+        span = ph.rotation_span(len(group))
+        hit = ph.used_within(win, pid, span, "phrasing_ids")
+        if hit is None:
             continue
-        free = [p for p in by_fact.get(fact, []) if p["id"] not in last]
-        alt = (f"; use another phrasing of this fact: {short(free[0]['text'], 160)!r}" if free else
-               f"; every phrasing of this fact was used, so only {min(group, key=lambda g: last[g])} may come back")
-        out.append(f"rotation: phrasing {pid} was used in a {kind} post on {platform} on {when.get(pid)} (one of the "
-                   f"last {pv_rotation()} {kind} posts there){alt}")
+        free = [g for g in group if ph.used_within(win, g, span, "phrasing_ids") is None]
+        if not free and pid == lru(group, "phrasing_ids"):
+            continue
+        texts = {p["id"]: p["text"] for p in by_fact.get(fact, [])}
+        alt = (f"; use another phrasing of this fact: {short(texts[free[0]], 160)!r}" if free else
+               f"; only {lru(group, 'phrasing_ids')} of this fact may come back")
+        out.append(f"rotation: phrasing {pid} was used in a {kind} post on {platform} on {when(hit)} (this fact has "
+                   f"{len(group)} phrasings, so a used one waits {span} {kind} posts there){alt}")
     # link labels ("Full map:", "Source:") are structure, not wording: they never rotate
     allowed = [h["id"] for h in cl.hooks_for(item, platform) if not cl.pv.HOOK_BY_ID[h["id"]]["text"].endswith(":")]
+    hspan = ph.rotation_span(len(allowed))
     for hid in hids:
-        if hid not in last or hid not in allowed:
+        if hid not in allowed:
             continue
-        if lru_ok(hid, allowed):
+        hit = ph.used_within(win, hid, hspan, "hook_ids")
+        if hit is None:
             continue
-        free = [cl.pv.HOOK_BY_ID[h]["text"] for h in allowed if h not in last]
+        free = [cl.pv.HOOK_BY_ID[h]["text"] for h in allowed if ph.used_within(win, h, hspan, "hook_ids") is None]
         out.append(f"rotation: hook {hid} {cl.pv.HOOK_BY_ID[hid]['text']!r} was used in a {kind} post on {platform} on "
-                   f"{when.get(hid)} (one of the last {pv_rotation()} {kind} posts there)"
+                   f"{when(hit)} (one of the last {hspan} {kind} posts there)"
                    + (f"; unused hooks for it: {', '.join(repr(x) for x in free[:4])}" if free else ""))
     return out
+
+
+# An exact repeat (review round 7b): the rotation window only reaches the last few posts of a type, so the same text again
+# on the same platform within DUPLICATE_DAYS (an own post, or a draft approved and not logged yet) is rejected outright.
+DUPLICATE_DAYS = 7
+_DUP_TOKEN = re.compile(r"[\w$%+\-\u2212.,]+")
+
+
+def _dup_tokens(s) -> str:
+    return " ".join(_DUP_TOKEN.findall(cl.nfkc(str(s or "")).lower()))
+
+
+def duplicate_reasons(draft: dict, history: list[dict], now: dt.datetime) -> list[str]:
+    """REJECT reasons when the draft's text was already posted (or approved) on its platform within DUPLICATE_DAYS."""
+    t = _dup_tokens(draft.get("text"))
+    platform = draft.get("platform")
+    if not t:
+        return []
+    cut = now - dt.timedelta(days=DUPLICATE_DAYS)
+    for p in reversed(history or []):
+        ts = _ts(p.get("created_at"))
+        if p.get("platform") != platform or (ts is not None and ts < cut):
+            continue
+        if t in _dup_tokens(p.get("text")):
+            what = "approved (not posted yet)" if p.get("pending") else "posted"
+            return [f"duplicate: this text was already {what} on {platform} on "
+                    f"{p.get('ny_date') or str(p.get('created_at') or '')[:10]}; write a new post (another hook and "
+                    "phrasing)"]
+    return []
 
 
 def pv_rotation() -> int:
@@ -1003,6 +1048,93 @@ def history_from_rest(rest, instinct, env: str, facts_base: str, days: int = 8) 
 def variety_state_path(flag: str | None = None) -> Path:
     import os
     return Path(flag or os.environ.get(VARIETY_STATE_ENV) or DEFAULT_VARIETY_STATE)
+
+
+# Approved, not yet logged (review round 7b, HQ 2026-10-19): the rotation window and the variety lint read our own posts
+# from the post_log, which Grok writes only after it posts. A post draft approved earlier in the same inbox run, or in an
+# earlier run whose post_log row has not arrived yet, counts as a post at once: run_inbox adds every APPROVE to its
+# working history, and a sent APPROVE goes into this ledger until a post_log row of the same item on the same platform
+# (created at or after the approval) appears, or LEDGER_HOURS pass.
+DEFAULT_APPROVED_LEDGER = Path("D:/rtv-ops/tracks/growth/research/grok-approved-ledger.json")
+APPROVED_LEDGER_ENV = "GROK_APPROVED_LEDGER"
+LEDGER_HOURS = 24
+
+
+def _ts(s) -> dt.datetime | None:
+    try:
+        t = dt.datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return t if t.tzinfo else t.replace(tzinfo=dt.timezone.utc)
+
+
+def ledger_entry(draft: dict, msg_id, now: dt.datetime) -> dict:
+    return {"msg_id": msg_id, "at": now.astimezone(dt.timezone.utc).isoformat(), "platform": draft.get("platform"),
+            "item_id": draft.get("item_id"),
+            "text": "\n".join([str(draft.get("text") or ""), str(draft.get("reply_text") or "")])}
+
+
+class ApprovedLedger:
+    """{"approved": [{msg_id, at, platform, item_id, text}]}: post drafts approved (answer sent) and not logged yet."""
+
+    def __init__(self, path: Path):
+        self.path = Path(path)
+        self.entries: list[dict] = []
+        if self.path.exists():
+            try:
+                data = json.loads(self.path.read_text(encoding="utf-8-sig"))
+                rows = data.get("approved")
+            except (OSError, ValueError, AttributeError) as e:
+                raise StateUnreadable(f"{self.path}: {type(e).__name__}") from None
+            if not isinstance(rows, list):
+                raise StateUnreadable(f"{self.path}: expected {{\"approved\": [...]}}")
+            self.entries = [r for r in rows if isinstance(r, dict)]
+
+    @staticmethod
+    def logged(entry: dict, history: list[dict]) -> bool:
+        at = _ts(entry.get("at"))
+        for p in history:
+            if p.get("pending"):
+                continue
+            if p.get("platform") == entry.get("platform") and p.get("item_id") == entry.get("item_id"):
+                t = _ts(p.get("created_at"))
+                if at is None or (t is not None and t >= at):
+                    return True
+        return False
+
+    def pending(self, history: list[dict], now: dt.datetime) -> list[dict]:
+        """The entries still waiting for their post_log row (newer than LEDGER_HOURS), oldest first."""
+        cut = now - dt.timedelta(hours=LEDGER_HOURS)
+        return [e for e in self.entries if (_ts(e.get("at")) or cut) > cut and not self.logged(e, history)]
+
+    def save(self, history: list[dict], now: dt.datetime) -> None:
+        self.entries = self.pending(history, now)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = self.path.with_name(self.path.name + ".tmp")
+        tmp.write_text(json.dumps({"approved": self.entries}, indent=1, ensure_ascii=False), encoding="utf-8")
+        tmp.replace(self.path)
+
+
+def pending_records(entries: list[dict], facts_for_date) -> list[dict]:
+    """Ledger entries (or approvals of this run) as resolved own posts (post_history.resolve), marked pending."""
+    posts = [{"platform": e.get("platform"), "url": "", "created_at": e.get("at"), "item_id": e.get("item_id"),
+              "body": e.get("text") or ""} for e in entries]
+    out = ph.resolve(posts, facts_for_date)
+    for r, e in zip(out, entries):
+        r["pending"] = True
+        r["msg_id"] = e.get("msg_id")
+    return out
+
+
+def with_pending(history: list[dict], records: list[dict]) -> list[dict]:
+    """history + pending records, oldest first (the rotation window reads the newest posts)."""
+    floor = dt.datetime.min.replace(tzinfo=dt.timezone.utc)
+    return sorted([*history, *records], key=lambda p: _ts(p.get("created_at")) or floor)
+
+
+def approved_ledger_path(flag: str | None = None) -> Path:
+    import os
+    return Path(flag or os.environ.get(APPROVED_LEDGER_ENV) or DEFAULT_APPROVED_LEDGER)
 
 
 # ---------------------------------------------------------------------------
@@ -1085,9 +1217,12 @@ def draft_kind(draft: dict) -> tuple[str | None, str | None]:
 
 def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, limit: int = 200,
               comment_state: Path | None = None, now: dt.datetime | None = None, history=None,
-              variety_state: Path | None = None, need_history: bool = False, variety: bool = True) -> dict:
+              variety_state: Path | None = None, need_history: bool = False, variety: bool = True,
+              approved_ledger: Path | None = None) -> dict:
     """Review every unacked DRAFT row; `send(platform, body) -> bool` answers one. Returns counts. An approved comment
-    is written to the comment state only once its APPROVE answer was sent (a dry run keeps it in memory only)."""
+    is written to the comment state only once its APPROVE answer was sent (a dry run keeps it in memory only). An
+    approved post joins the working history at once (rotation, variety) and, once its answer was sent, the approved
+    ledger (approved_ledger) until its post_log row arrives (review round 7b)."""
     rows = rest.call("GET", instinct.q("select=id,created_at,kind,platform,item_id,body", f"env=eq.{env}",
                                        "direction=eq.from_instinct", "acked_at=is.null", "order=created_at.asc,id.asc",
                                        f"limit={min(limit, instinct.PAGE_ROWS)}")) or []
@@ -1103,6 +1238,27 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
             vstate = VarietyState(variety_state)
         except StateUnreadable as e:
             print(f"  variety state unreadable ({e}); variety rules warn only this run")
+    def facts_for(date: str):
+        if date not in cache:
+            try:
+                cache[date] = load_facts(facts_location(facts_base, date))
+            except FactsUnavailable:
+                return None   # not cached: a draft of that date still defers on its own load
+        return cache[date]
+    ledger: ApprovedLedger | None = None
+    work = None   # the working history: own posts + approved, not yet logged (ledger) + approved in this run
+    if history is not None:
+        work = list(history)
+        if approved_ledger is not None:
+            try:
+                ledger = ApprovedLedger(approved_ledger)
+                pend = ledger.pending(history, now or dt.datetime.now(dt.timezone.utc))
+                if pend:
+                    work = with_pending(work, pending_records(pend, facts_for))
+                    print(f"  approved, not yet in the post log: {len(pend)} post(s) count in the rotation window")
+            except StateUnreadable as e:
+                print(f"  approved ledger unreadable ({e}); post drafts are left for the next run (rotation rule)")
+                work = None
     for row in drafts:
         record: list[str] = []
         draft, err = parse_draft(row)
@@ -1128,7 +1284,7 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                             stats["deferred"] += 1
                             continue
                     facts = cache[date]
-                if kind == "post" and history is None and need_history:
+                if kind == "post" and work is None and need_history:
                     # the rotation rule reads our own posts: a post draft is not answered without them (No Fallbacks)
                     print(f"  #{row['id']}: post history unreadable; left unacked for the next run (rotation rule)")
                     stats["deferred"] += 1
@@ -1137,12 +1293,12 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                     verdict, reasons = review(draft, facts, clock)
                     notes = playbook_notes(draft, facts, clock)
                     item = next((i for i in (facts or {}).get("items") or [] if i.get("item_id") == iid), None)
-                    if history is not None and item is not None:
-                        rrej = rotation_reasons(draft, item, history)
+                    if work is not None and item is not None:
+                        rrej = duplicate_reasons(draft, work, clock) + rotation_reasons(draft, item, work)
                         if rrej:
                             verdict, reasons = "REJECT", reasons + rrej
                     if variety:
-                        vrej, vnotes, record = apply_variety(draft, facts, history, vstate, clock)
+                        vrej, vnotes, record = apply_variety(draft, facts, work, vstate, clock)
                         if vrej:
                             verdict, reasons = "REJECT", reasons + vrej
                         notes += vnotes
@@ -1160,14 +1316,23 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
         platform = (draft or {}).get("platform") or row.get("platform")
         print(f"  #{row['id']} -> {body}")
         approved_comment = verdict == "APPROVE" and kind == "comment"
+        approved_post = verdict == "APPROVE" and kind == "post" and work is not None
         if dry_run:
             if approved_comment:
                 state.add(draft, int(row["id"]), clock)
+            if approved_post:   # in memory only: the next drafts of this run rotate against it
+                work = with_pending(work, pending_records([ledger_entry(draft, int(row["id"]), clock)], facts_for))
             continue
         if not send(platform if platform in PLATFORMS else None, body):
             print(f"  #{row['id']}: the answer was not sent; left unacked")
             continue
         stats["answered"] += 1
+        if approved_post:
+            entry = ledger_entry(draft, int(row["id"]), clock)
+            work = with_pending(work, pending_records([entry], facts_for))
+            if ledger is not None:
+                ledger.entries.append(entry)
+                ledger.save(history, clock)
         if approved_comment:
             state.add(draft, int(row["id"]), clock)
             state.save(clock)
@@ -1203,6 +1368,8 @@ def main(argv: list[str] | None = None) -> int:
                                             f"{DEFAULT_COMMENT_STATE})")
     ap.add_argument("--variety-state", help=f"variety warnings state JSON (default: ${VARIETY_STATE_ENV}, else "
                                             f"{DEFAULT_VARIETY_STATE})")
+    ap.add_argument("--approved-ledger", help=f"approved, not yet logged post drafts JSON (default: ${APPROVED_LEDGER_ENV}, "
+                                              f"else {DEFAULT_APPROVED_LEDGER})")
     ap.add_argument("--history", action="store_true", help="--draft: read our own posts for the variety lint (read only)")
     ap.add_argument("--no-variety", action="store_true", help="--inbox: skip the variety lint (the rotation rule still runs)")
     a = ap.parse_args(argv)
@@ -1229,13 +1396,28 @@ def main(argv: list[str] | None = None) -> int:
                 ins = load_instinct(Path(a.instinct))
                 env_file = Path(a.env_file) if a.env_file else ins.DEFAULT_ENV_FILE
                 hist = history_from_rest(ins.Rest(*ins.load_config(env_file)), ins, a.env, a.facts_base)
+                try:   # approved, not yet logged posts count too (read only)
+                    led = ApprovedLedger(approved_ledger_path(a.approved_ledger))
+                except StateUnreadable as e:
+                    print(f"approved ledger unreadable: {e}")
+                    return 2
+                pend = led.pending(hist, dt.datetime.now(dt.timezone.utc))
+                if pend:
+                    day = str(draft.get("item_id"))[:10]
+                    def other(d: str):
+                        try:
+                            return facts if d == day else load_facts(facts_location(a.facts_base, d))
+                        except FactsUnavailable:
+                            return None
+                    hist = with_pending(hist, pending_records(pend, other))
                 try:
                     vs = VarietyState(variety_state_path(a.variety_state))
                 except StateUnreadable:
                     vs = None
                 vrej, vnotes, _ = apply_variety(draft, facts, hist, vs, dt.datetime.now(dt.timezone.utc))
                 item = next((i for i in (facts or {}).get("items") or [] if i.get("item_id") == draft.get("item_id")), None)
-                rrej = rotation_reasons(draft, item, hist) if item is not None else []
+                rrej = duplicate_reasons(draft, hist, dt.datetime.now(dt.timezone.utc)) + (
+                    rotation_reasons(draft, item, hist) if item is not None else [])
                 if vrej or rrej:
                     verdict, reasons = "REJECT", reasons + rrej + vrej
                 notes += vnotes
@@ -1264,7 +1446,7 @@ def main(argv: list[str] | None = None) -> int:
     run_inbox(rest, instinct, a.env, a.facts_base, a.dry_run,
               lambda platform, body: send_reply(Path(a.instinct), a.env, a.env_file, platform, body), a.limit,
               comment_state_path(a.comment_state), history=history, variety_state=variety_state_path(a.variety_state),
-              need_history=True, variety=not a.no_variety)
+              need_history=True, variety=not a.no_variety, approved_ledger=approved_ledger_path(a.approved_ledger))
     return 0
 
 
