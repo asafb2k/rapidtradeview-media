@@ -13,6 +13,16 @@ import facts as fx  # noqa: E402
 import grok_review as gr  # noqa: E402
 from test_grok_review import CONGRESS, DATE, FACTS, INSTINCT, MOVES, PATTERN, PICKS, FakeRest, good_x  # noqa: E402
 
+
+@pytest.fixture(autouse=True)
+def _legacy_items(monkeypatch):
+    """These tests guard the link / media / length / word / free-form rules on items of facts files built before the
+    verbatim rule. Review round 6 rejects such items in production (test_verbatim.py guards that gate), so here the gate
+    passes them; an item WITH fact_phrases still goes through the real gate (freshness)."""
+    real = gr.item_gate_reasons
+    monkeypatch.setattr(gr, "item_gate_reasons",
+                        lambda item, facts, now=None: real(item, facts, now) if gr.cl.verbatim_mode(item) else [])
+
 NOW = dt.datetime(2026, 10, 12, 14, 0, tzinfo=dt.timezone.utc)
 TARGET = "https://x.com/sometrader/status/1844000000000000001"
 IG_TARGET = "https://www.instagram.com/p/DAbCdEfGhIj/"

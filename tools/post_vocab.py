@@ -134,15 +134,18 @@ IDIOMS = (
 # comparison word, intensity or mood word, advice word), at most HOOK_MAX_WORDS words. "Here is how the day looked." /
 # "What stood out to you?" / "Full map in the reply." are hooks; "A down day for chips." / "Big names led." are not.
 HOOK_MAX_WORDS = 12
+# Review round 6: no word that turns a hook into an implicit call to act or a position claim - do / does / did ("You know
+# what to do.", "Do what they did.", "I did."), have / has / had ("We have it."), i / we / we're ("We're in."), move /
+# moves ("This is the move."), take / follow / catch / know ("Follow them.", "They know.").
 HOOK_WORDS = frozenset("""
-a an the this that these those here there it its is are was were be been do does did have has had i we you your our
+a an the this that these those here there it its is are was were be been you your our
 us they them their what which who how why where and or but so if of in on at to for from with about into out as
-here's what's it's that's there's you're we're let's
-look looks looked see seen check read take think know tell share sharing follow save watch watching stand stands stood catch
+here's what's it's that's there's you're let's
+look looks looked see seen check read think tell share sharing save watch watching stand stands stood
 notice noticed surprised surprise matter matters mean means show shows find found tap swipe scroll
 day chart charts map maps card cards numbers data list details breakdown picture view thread post link bio reply
 comments page source sources context story summary recap question thoughts market stocks companies investors traders
-move moves names rapidtradeview sec filing filings official
+names rapidtradeview sec filing filings official
 full quick key clear interesting helpful useful curious below
 thanks thank
 """.split())

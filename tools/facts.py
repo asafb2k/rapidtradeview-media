@@ -1740,7 +1740,12 @@ VERBATIM_RULE = (
     "target / forecast / will / going to / undervalued / opportunity ...). No comparison outside the phrases. "
     "'Not investment advice.' stays in every post. Hashtags: only the generic ones listed here (and the item type's "
     "topic hashtags); emoji: only hook_emoji (no arrows, chart, fire, rocket, medal or colour emoji). Comments follow the "
-    "same rule: without an item_id a comment holds hooks only. A rejection names the closest phrase: copy it exactly.")
+    "same rule: without an item_id a comment holds hooks only. A rejection names the closest phrase: copy it exactly. "
+    "Plain letters only (no math-bold / fullwidth / other-script letters: they are read as words). Use an item of "
+    "today's facts: an item is usable only through the next weekday after its facts date (a picks item until its "
+    "valid_until); an item from a facts file without fact_phrases is never usable. Links: the item's page_url or source "
+    "written in full (https://...), never a domain with a path typed bare. A hook never tells anyone to act and never "
+    "claims we did anything (no 'do', 'did', 'have', 'I', 'we', 'move', 'follow', 'take', 'know').")
 
 
 def verbatim_rules() -> dict:

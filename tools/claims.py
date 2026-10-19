@@ -67,6 +67,7 @@ from __future__ import annotations
 import datetime as dt
 import html
 import re
+import unicodedata
 
 import market_facts as mk
 import post_vocab as pv
@@ -2357,12 +2358,24 @@ def content_reasons(item: dict, text: str, strip_allowed=None, allowlist: bool =
 #     by the link rules and removed too; a generic hashtag (HOOK_HASHTAGS, the item type's topic hashtags) is dropped, any
 #     other hashtag is a fact; emoji other than HOOK_EMOJI (arrows, chart up / down, fire, rockets, medals, colours) and
 #     > < = are rejected anywhere.
-# An item from a facts file built before this rule (no `fact_phrases` key) keeps the reading it was published under.
+# An item from a facts file built before this rule (no `fact_phrases` key) is rejected by grok_review (review round 6);
+# only the Growth post audit of older posts still reads it the way it was published (content_reasons).
 
 VERBATIM_KEY = "fact_phrases"
-_VTOKEN = re.compile(r"[+-]?\$?\d(?:[\d,]*\d)?(?:\.\d+)?(?:%|x|[kmbt](?![a-z]))?\+?|[a-z0-9]+(?:'[a-z]+)?")
-_V_URL = re.compile(r"https?://\S+|\b(?:www\.)?(?:rapidtradeview\.trade|rapidtradeview\.com|sec\.gov)(?:/\S*)?",
+# A word token is ANY run of letters / digits of any script, so a Cyrillic look-alike or a CJK word is a token that matches
+# no phrase and no hook word, never a gap the matcher reads past; the text is NFKC-folded first (math-bold "SELL" reads as
+# "SELL"). Letters / digits no token consumed add _V_UNREAD (review round 6).
+_VTOKEN = re.compile(r"[+-]?\$?\d(?:[\d,]*\d)?(?:\.\d+)?(?:%|x|[kmbt](?![a-z]))?\+?|[^\W_]+(?:'[^\W_]+)?")
+_V_UNREAD = "\x00unread"
+# Only full http(s) URLs are removed (review() / review_comment() check each is the item's page_url / source, or allow no
+# link at all) and our bare domain WITHOUT a path; a bare "domain/path" stays in the text, so a path cannot carry words.
+_V_URL = re.compile(r"https?://[^\s<>\"']+|(?<![\w@./-])(?:www\.)?(?:rapidtradeview\.trade|sec\.gov)/?(?![\w/-]|\.\w)",
                     re.IGNORECASE)
+
+
+def nfkc(s: str) -> str:
+    """Compatibility-folded text: math-bold / fullwidth / ligature letters as their plain letters."""
+    return unicodedata.normalize("NFKC", s or "")
 _V_DISCLAIMER = re.compile(r"\bnot\s+investment\s+advice\b\.?", re.IGNORECASE)
 _V_HASHTAG = re.compile(r"(?<![\w&])#([A-Za-z][A-Za-z0-9_]*)")
 _V_OK_CHARS = set(" \t\n.,;:!?'\"()[]-+$%&/#@*_|•") | set("’‘“”–—−×…·"
@@ -2377,12 +2390,15 @@ def verbatim_tokens(s: str) -> list[str]:
     """A sentence as compared under the verbatim rule: lower case, "$" off cashtags, every dash / minus before a number
     a "-", the times sign as "x", sector short names as their canonical name, punctuation dropped (a sign, "$", "%", "+"
     glued to a number stay part of it: "5+" is not "5", "+2.6%" is not "2.6%")."""
-    s = _norm(html.unescape(s or "")).replace("’", "'").replace("‘", "'").replace("×", "x")
+    s = _norm(nfkc(html.unescape(s or ""))).replace("’", "'").replace("‘", "'").replace("×", "x")
     s = re.sub("[–—‒](?=\\$?\\d)", "-", s)
     s = SECTOR_WORD.sub(lambda m: ALIAS_OF[m.group(1).lower()], s)
     s = re.sub(r"\$(?=[A-Za-z])", "", s).lower()
     s = re.sub("(?<=[a-z])[-–—](?=[a-z])", " ", s)
-    return _VTOKEN.findall(s)
+    toks = _VTOKEN.findall(s)
+    if any(c.isalnum() for c in _VTOKEN.sub(" ", s)):
+        toks.append(_V_UNREAD)
+    return toks
 
 
 def _phrase_forms(item: dict, phrases) -> list[str]:
@@ -2456,6 +2472,9 @@ def hook_reasons(item: dict | None, sent: str, toks: list[str] | None = None) ->
     for m in CASHTAG.finditer(sent):
         bad["$" + m.group(1)] = "ticker"
     for w in toks:
+        if w == _V_UNREAD:
+            bad["?"] = "characters that are not plain words"
+            continue
         base = w[:-2] if w.endswith("'s") else w
         if w in pv.HOOK_WORDS or (base in pv.HOOK_WORDS and not re.search(r"\d", base)):
             continue
@@ -2481,7 +2500,7 @@ def _closest(sent_toks: list[str], phrases: list[str]) -> str | None:
 def verbatim_reasons(item: dict | None, text: str, comment: bool = False) -> list[str]:
     """REJECT reasons under the verbatim facts rule (section 2d) for a post text / self-reply / comment."""
     out: list[str] = []
-    s = _norm(html.unescape(text or ""))
+    s = _norm(nfkc(html.unescape(text or "")))
     s = _V_URL.sub(" ", s)
     for must in (item or {}).get("must_include") or []:
         if isinstance(must, str) and must.strip():
