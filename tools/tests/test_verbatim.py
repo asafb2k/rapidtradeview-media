@@ -20,7 +20,7 @@ FIX = TOOLS / "tests" / "fixtures"
 PRIOR = [*json.loads((FIX / "claim_cases_2026-10-18.json").read_text(encoding="utf-8")),
          *json.loads((FIX / "allowlist_cases_2026-10-19.json").read_text(encoding="utf-8")),
          *json.loads((FIX / "vocab_cases_2026-10-19.json").read_text(encoding="utf-8"))]
-HOOK = "Here is how the day looked."
+HOOK = "Here are the numbers."   # a closed hook of every type (H04; round 7)
 NIA = "Not investment advice."
 
 
@@ -62,7 +62,7 @@ def test_prior_approve_cases_pass_or_fail_only_on_the_verbatim_rule():
     other = []
     for c in approves:
         why = verdict(vcase_item(c["item"]), c["text"])
-        if why and not all(r.startswith("not verbatim:") for r in why):
+        if why and not all(r.startswith(("not verbatim:", "not an approved hook")) for r in why):
             other.append(f"[{c['item']}] {c['text']} -> {why[:1]}")
     assert not other, "\n".join(other)
 
@@ -141,8 +141,13 @@ def test_hooks_carry_no_fact():
     mm = vitem("market_move")
     assert verdict(mm, "• " + GOOGL_P + "\n• Here is how the day looked. | Full map in the reply.") == []
     for ok in ["Here is how the day looked.", "What stood out to you?", "Full map in the reply.", "Link in bio.",
-               "What surprised you?", "Here's the full picture \U0001f447", "Thoughts? #stocks #investing"]:
+               "What surprised you?", "Here is the picture \U0001f447", "What is your read on this? #stocks #investing"]:
         assert verdict(mm, ok) == [], ok
+    # round 7: free combinations of hook words are no longer hooks (closed list of whole sentences)
+    for free in ["Here's the full picture.", "Thoughts?", "Here is the full map.", "What stood out?", "Full map below.",
+                 "Here is how the day looked to us."]:
+        why = verdict(mm, free)
+        assert why and any(r.startswith("not an approved hook") for r in why), free
     for bad in ["A down day.", "A down day for chips.", "Big names led.", "Tech had a day.", "Monday recap.",
                 "Time to buy?", "Is it a buying opportunity?", "Should you sell?", "What about $NVDA?",
                 "What about Alphabet?", "Stocks fell.", "The giants did all the damage.", "Green day.",
@@ -279,8 +284,8 @@ def test_ordinal_phrases_never_order_a_tie():
 
 def test_rules_tell_grok_the_verbatim_rule():
     r = fx.verbatim_rules()
-    assert "verbatim" in r["rule"].lower() and set(r["hook_words"]) == set(gr.cl.pv.HOOK_WORDS)
-    assert r["hook_max_words"] == gr.cl.pv.HOOK_MAX_WORDS
+    assert "verbatim" in r["rule"].lower() and "hook_words" not in r and "hook_max_words" not in r
+    assert [h["text"] for h in r["hooks"]] == [h["text"] for h in gr.cl.pv.HOOKS] and r["rotation_posts"] == 5
 
 
 # --- review round 6 (HQ 2026-10-19): non-ASCII letters, older / stale items, hook calls, bare-domain paths
@@ -361,7 +366,7 @@ def test_round6_hooks_carry_no_call_to_act():
     for end in ["You know what to do.", "Do what they did.", "This is the move.", "Follow them.", "We're in.",
                 "They know.", "I did."]:
         v, why = post(pep, f"{pep_p} {end} {NIA}")
-        assert v == "REJECT" and any(r.startswith("not verbatim:") for r in why), end
+        assert v == "REJECT" and any(r.startswith(("not verbatim:", "not an approved hook")) for r in why), end
     for t in ["Do it.", "You know what to do.", "This is the move.", "I did. Thank you.", "We have it.", "Follow them."]:
         v, why = gr.review_comment({"kind": "comment", "platform": "x", "target_url": TARGET, "text": t}, None, None, NOW)
         assert v == "REJECT", t
@@ -380,6 +385,6 @@ def test_round6_bare_domain_paths_are_rejected():
     v, why = post(mm, f'{HOOK} {GOOGL_P} {link}"BUY_NOW {NIA}')
     assert v == "REJECT", why
     # our bare domain without a path reads as a hook; a company name like "Amazon.com" is the item's own wording
-    assert post(mm, f"{HOOK} {GOOGL_P} Full map on rapidtradeview.trade. {NIA}") == ("APPROVE", [])
+    assert post(mm, f"{HOOK} {GOOGL_P} Full map: rapidtradeview.trade {NIA}") == ("APPROVE", [])
     it = {"name": "Amazon.com, Inc.", "fact_phrases": ["Amazon.com director X bought $1M of $AMZN."]}
     assert gr.bare_link_reasons(it, "Amazon.com director X bought $1M of $AMZN.", []) == []

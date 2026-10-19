@@ -18,7 +18,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import claims as cl  # noqa: E402
 import market_facts as mk  # noqa: E402
+import post_vocab as pv  # noqa: E402
 import select_stories as ss  # noqa: E402
 
 DEFAULT_INSTINCT = Path("D:/rtv-ops/tracks/growth/bin/instinct.py")
@@ -119,7 +121,7 @@ def filer_of(item: dict | None) -> str | None:
 
 def resolve(posts: list[dict], facts_for_date) -> list[dict]:
     """Each own post with its item's facts: {platform, url, created_at, ny_date, item_id, type, pillar, ticker, tickers,
-    filer, dedupe_key, first_line, text}. `facts_for_date(date)` -> that day's facts dict or None (cached by the caller).
+    filer, dedupe_key, first_line, text, phrasing_ids, hook_ids}. `facts_for_date(date)` -> that day's facts dict or None (cached by the caller).
     An item missing from its file keeps what its id says (type, ticker)."""
     out = []
     for p in posts:
@@ -129,12 +131,22 @@ def resolve(posts: list[dict], facts_for_date) -> list[dict]:
         kind = (item or {}).get("type") or meta.get("type")
         ticker = mk.norm_ticker((item or {}).get("ticker")) if item else meta.get("ticker")
         text = p.get("body") or ""
+        # the phrasing ids (its item's phrasings, round 7) and the closed-hook ids the post used: the rotation rule
+        pids, hids = cl.used_ids(item, text, p.get("platform"))
         out.append({**p, "ny_date": ny_date(p["created_at"]), "type": kind, "pillar": pillar_of(kind), "ticker": ticker,
+                    "phrasing_ids": pids, "hook_ids": hids,
                     "tickers": [mk.norm_ticker(t) for t in (item or {}).get("tickers") or []],
                     "headline_tickers": mk.headline_tickers(item) if item else ([ticker] if ticker else []),
                     "filer": filer_of(item), "dedupe_key": (item or {}).get("dedupe_key"),
                     "first_line": next((ln.strip() for ln in text.splitlines() if ln.strip()), ""), "text": text})
     return out
+
+
+def rotation_window(history: list[dict] | None, kind: str | None, platform: str | None,
+                    n: int = pv.ROTATION_POSTS) -> list[dict]:
+    """The last n own posts (oldest first) of item type `kind` on `platform`: the rotation window (HQ 2026-10-19 round 7:
+    a phrasing / hook id used in one of them is not used again by a post of that type on that platform)."""
+    return [p for p in history or [] if p.get("platform") == platform and p.get("type") == kind][-n:]
 
 
 def local_facts_loader(repo: Path):
