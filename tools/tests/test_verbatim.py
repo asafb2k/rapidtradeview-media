@@ -141,7 +141,7 @@ def test_hooks_carry_no_fact():
     mm = vitem("market_move")
     assert verdict(mm, "• " + GOOGL_P + "\n• Here is how the day looked. | Full map in the reply.") == []
     for ok in ["Here is how the day looked.", "What stood out to you?", "Full map in the reply.", "Link in bio.",
-               "Which move surprised you?", "Here's the full picture \U0001f447", "Thoughts? #stocks #investing"]:
+               "What surprised you?", "Here's the full picture \U0001f447", "Thoughts? #stocks #investing"]:
         assert verdict(mm, ok) == [], ok
     for bad in ["A down day.", "A down day for chips.", "Big names led.", "Tech had a day.", "Monday recap.",
                 "Time to buy?", "Is it a buying opportunity?", "Should you sell?", "What about $NVDA?",
@@ -151,7 +151,10 @@ def test_hooks_carry_no_fact():
                 "Here is how the day looked for you and for the market and the stocks in it.",
                 "\U0001f4c9 Here is how the day looked.", "Here is how the day looked \U0001f680",
                 "Here is how the day looked. #NVDA", "Here is how the day looked. #Tech",
-                "Тор ріск.", "Here is how the dаy looked."]:   # look-alike letters
+                "Тор ріск.", "Here is how the dаy looked.",   # look-alike letters
+                # review round 6: implicit calls to act / position claims
+                "Which move surprised you?", "This is the move.", "You know what to do.", "Do what they did.",
+                "Follow them.", "They know.", "We're in.", "We have it.", "I did.", "Take it."]:
         assert verdict(mm, bad), bad
 
 
@@ -278,3 +281,105 @@ def test_rules_tell_grok_the_verbatim_rule():
     r = fx.verbatim_rules()
     assert "verbatim" in r["rule"].lower() and set(r["hook_words"]) == set(gr.cl.pv.HOOK_WORDS)
     assert r["hook_max_words"] == gr.cl.pv.HOOK_MAX_WORDS
+
+
+# --- review round 6 (HQ 2026-10-19): non-ASCII letters, older / stale items, hook calls, bare-domain paths
+
+MON = dt.datetime(2026, 10, 19, 15, 0, tzinfo=dt.timezone.utc)
+TARGET = "https://x.com/sometrader/status/1844000000000000001"
+# every string the round-6 reviewer approved on the live 2026-10-19 facts, rewritten onto the fixture's GOOGL phrase
+R6_LETTER_REJECTS = [
+    GOOGL_P[:-1] + ", \U0001d412\U0001d404\U0001d40b\U0001d40b \U0001d40d\U0001d40e\U0001d416.",   # math-bold SELL NOW
+    GOOGL_P[:-1] + " ВՍҮ.",                                                    # Cyrillic / Armenian BUY
+    GOOGL_P[:-1] + ", 買い!",                                                          # Japanese "buy"
+    "$GOOGL 强烈买入 " + GOOGL_P[7:],                                          # Chinese "strong buy"
+    GOOGL_P[:-1] + ", \U0001d41b\U0001d422\U0001d420\U0001d420\U0001d41e\U0001d42c\U0001d42d \U0001d41d\U0001d42b\U0001d428"
+    "\U0001d429 \U0001d41e\U0001d42f\U0001d41e\U0001d42b.",                                    # math-bold "biggest drop ever"
+    GOOGL_P[:-1] + " ＳＥＬＬ.",                                               # fullwidth SELL
+    GOOGL_P[:-1] + " S̶E̶L̶L̶.",                                           # combining strokes
+    GOOGL_P[:-1] + " ​BUY​.",                                                         # zero-width wrapped
+]
+
+
+def test_round6_non_ascii_letters_are_read():
+    mm = vitem("market_move")
+    assert post(mm, f"{HOOK} {GOOGL_P} {NIA}") == ("APPROVE", [])
+    for t in R6_LETTER_REJECTS:
+        v, why = post(mm, f"{HOOK} {t} {NIA}")
+        assert v == "REJECT", t
+        c = {"kind": "comment", "platform": "x", "target_url": TARGET, "item_id": mm["item_id"], "text": t}
+        assert gr.review_comment(c, VDOC, None, NOW)[0] == "REJECT", t
+    # a phrase with its own accented letter still matches itself, and nothing else rides on it
+    it = {"item_id": "2026-10-18-x", "type": "form4_buy", "fact_phrases": ["Grupo Energía Bogotá filed a Form 4."]}
+    assert cl.verbatim_reasons(it, "Grupo Energía Bogotá filed a Form 4.") == []
+    assert cl.verbatim_reasons(it, "Grupo Energía Bogotá filed a Form 4 买.")
+    assert cl.verbatim_reasons(it, "Grupo Energia Bogota filed a Form 4.")
+
+
+def test_round6_items_without_fact_phrases_are_rejected():
+    old = dict(vitem("form4_buy", "PEP"))
+    old.pop("fact_phrases")
+    doc = {**VDOC, "items": [old if i["item_id"] == old["item_id"] else i for i in VDOC["items"]]}
+    pep_p = next(p for p in vitem("form4_buy", "PEP")["fact_phrases"] if "$PEP" in p)
+    for t in [pep_p, "PepsiCo director Robert C. Pohlad bought $10.84M of $PEP. Insiders know something.",
+              "On a down day, $PEP director Robert C. Pohlad bought $10.84M."]:
+        v, why = gr.review(tg.draft(old, f"{t} {NIA}", platform="threads"), doc, NOW)
+        assert v == "REJECT" and any("before the verbatim facts rule" in r for r in why), t
+    c = {"kind": "comment", "platform": "x", "target_url": TARGET, "item_id": old["item_id"],
+         "text": "$PEP will double from here, insiders are loading. Accumulate."}
+    v, why = gr.review_comment(c, doc, None, NOW)
+    assert v == "REJECT" and any("before the verbatim facts rule" in r for r in why)
+
+
+def test_round6_items_expire():
+    assert gr.item_last_day({"item_id": "2026-10-18-a"}, {"date": "2026-10-18"}) == dt.date(2026, 10, 19)  # Sun -> Mon
+    assert gr.item_last_day({"item_id": "2026-10-19-a"}, {"date": "2026-10-19"}) == dt.date(2026, 10, 20)  # Mon -> Tue
+    assert gr.item_last_day({"item_id": "2026-10-23-a"}, {"date": "2026-10-23"}) == dt.date(2026, 10, 26)  # Fri -> Mon
+    mm = vitem("market_move")   # the fixture facts are dated Sunday 2026-10-18
+    d = tg.draft(mm, f"{HOOK} {GOOGL_P} {NIA}", platform="threads", reply_text="")
+    assert gr.review(d, VDOC, MON) == ("APPROVE", [])
+    for late in (dt.datetime(2026, 10, 20, 13, 0, tzinfo=dt.timezone.utc),
+                 dt.datetime(2026, 10, 27, 15, 0, tzinfo=dt.timezone.utc)):
+        v, why = gr.review(d, VDOC, late)
+        assert v == "REJECT" and any("is stale" in r for r in why)
+        c = {"kind": "comment", "platform": "x", "target_url": TARGET, "item_id": mm["item_id"], "text": GOOGL_P}
+        v, why = gr.review_comment(c, VDOC, None, late)
+        assert v == "REJECT" and any("is stale" in r for r in why)
+    # Monday 23:30 New York (03:30Z Tue) is still Monday; Tuesday 00:30 New York (04:30Z) is past a Sunday file
+    assert not gr.item_gate_reasons(mm, VDOC, dt.datetime(2026, 10, 20, 3, 30, tzinfo=dt.timezone.utc))
+    assert gr.item_gate_reasons(mm, VDOC, dt.datetime(2026, 10, 20, 4, 30, tzinfo=dt.timezone.utc))
+    picks = {"item_id": "2026-10-19-picks-ready", "fact_phrases": [], "valid_until": "2026-10-19T17:30:00+00:00"}
+    at = dt.datetime(2026, 10, 19, 17, 0, tzinfo=dt.timezone.utc)
+    assert gr.item_gate_reasons(picks, {"date": "2026-10-19"}, at) == []
+    why = gr.item_gate_reasons(picks, {"date": "2026-10-19"}, at + dt.timedelta(minutes=31))
+    assert any("valid_until" in r for r in why)
+
+
+def test_round6_hooks_carry_no_call_to_act():
+    pep = vitem("form4_buy", "PEP")
+    pep_p = next(p for p in pep["fact_phrases"] if "$PEP" in p)
+    for end in ["You know what to do.", "Do what they did.", "This is the move.", "Follow them.", "We're in.",
+                "They know.", "I did."]:
+        v, why = post(pep, f"{pep_p} {end} {NIA}")
+        assert v == "REJECT" and any(r.startswith("not verbatim:") for r in why), end
+    for t in ["Do it.", "You know what to do.", "This is the move.", "I did. Thank you.", "We have it.", "Follow them."]:
+        v, why = gr.review_comment({"kind": "comment", "platform": "x", "target_url": TARGET, "text": t}, None, None, NOW)
+        assert v == "REJECT", t
+    ok = {"kind": "comment", "platform": "x", "target_url": TARGET, "text": "Thanks for sharing, what stood out to you?"}
+    assert gr.review_comment(ok, None, None, NOW) == ("APPROVE", [])
+
+
+def test_round6_bare_domain_paths_are_rejected():
+    mm = vitem("market_move")
+    link = mm["page_url"].replace("{platform}", "threads")
+    for u in ["rapidtradeview.trade/GOOGL-will-double-load-up-now", "rapidtradeview.trade/GOOGL-is-a-screaming-accumulate",
+              "www.rapidtradeview.trade/buy", "sec.gov/accumulate-now", "rapidtradeview.trade/dashboard/GOOGL",
+              "rapidtradeview．trade/GOOGL-load-up"]:
+        v, why = post(mm, f"{HOOK} {GOOGL_P} {u} {NIA}")
+        assert v == "REJECT" and any("without https://" in r for r in why), u
+    v, why = post(mm, f'{HOOK} {GOOGL_P} {link}"BUY_NOW {NIA}')
+    assert v == "REJECT", why
+    # our bare domain without a path reads as a hook; a company name like "Amazon.com" is the item's own wording
+    assert post(mm, f"{HOOK} {GOOGL_P} Full map on rapidtradeview.trade. {NIA}") == ("APPROVE", [])
+    it = {"name": "Amazon.com, Inc.", "fact_phrases": ["Amazon.com director X bought $1M of $AMZN."]}
+    assert gr.bare_link_reasons(it, "Amazon.com director X bought $1M of $AMZN.", []) == []

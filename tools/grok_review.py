@@ -27,7 +27,13 @@ default (what Grok reads) or a local v/ directory. Checks:
     comment) that holds any fact is one of the item's fact_phrases / claim_phrases verbatim (light normalisation
     only); any other sentence is a hook made of post_vocab.HOOK_WORDS only (<= 12 words; no name, number, sector,
     date / session, direction, ranking, mood or advice word); a comment without an item_id holds hooks only;
-    only generic hashtags and HOOK_EMOJI; the S&P, scope and card rules below still apply. Older items:
+    only generic hashtags and HOOK_EMOJI; the S&P, scope and card rules below still apply. Text is NFKC-folded
+    first (math-bold / fullwidth letters); any letter run of any script is a word. Review round 6 (HQ 2026-10-19): an
+    item without fact_phrases (a facts file built before the rule) is REJECTED for posts and comments alike; an item is
+    usable only through the next weekday after its facts date (New York date of the review: its "on Friday" / "last
+    week" / "this week" / "on Tuesday" wording holds that long), a picks item also only until its valid_until; a bare
+    domain with a path ("rapidtradeview.trade/...") in a post must be the item's page_url / source, else REJECT.
+    The free-form reading below is kept only for the Growth post audit of older posts (wording_reasons):
   - content (tools/claims.py, every item type; HQ review 2026-10-18): never the S&P for our universe ("the 500 largest
     US-listed stocks"; a picks post may compare "vs SPY"); a sentence with any ranking / comparison / order / quantifier
     / record / streak / ratio language (best, biggest, most, top, led, #N, second, next, then, only, all, every, since,
@@ -337,6 +343,83 @@ def holdout_reasons(draft: dict, now: dt.datetime | None = None) -> list[str]:
             "link /dashboard/<T>#earnings-history"] if bad else []
 
 
+# Item gate (review round 6, HQ 2026-10-19): only items built under the verbatim rule, and only while their relative
+# wording is true. A facts file of date D speaks of "on Friday" / "last week" / "this week" / "on Tuesday" as seen on D;
+# that holds through the next weekday after D (New York date of the review), never later. A picks item also stops at its
+# valid_until.
+
+def _iso_date(s) -> dt.date | None:
+    try:
+        return dt.date.fromisoformat(str(s)[:10])
+    except ValueError:
+        return None
+
+
+def item_last_day(item: dict, facts: dict | None) -> dt.date | None:
+    """The last New York date a post / comment may use this item: the next weekday after its facts date (the earlier of
+    the item_id's date and the facts file's date)."""
+    days = [d for d in (_iso_date(item.get("item_id")), _iso_date((facts or {}).get("date"))) if d]
+    if not days:
+        return None
+    nxt = min(days) + dt.timedelta(days=1)
+    while nxt.weekday() >= 5:
+        nxt += dt.timedelta(days=1)
+    return nxt
+
+
+def item_gate_reasons(item: dict, facts: dict | None, now: dt.datetime | None = None) -> list[str]:
+    """REJECT reasons for using `item` at `now`: built before the verbatim rule, or past its validity."""
+    iid = short(item.get("item_id"), 80)
+    if not cl.verbatim_mode(item):
+        return [f"item {iid} is from a facts file built before the verbatim facts rule (no fact_phrases): use an item of "
+                "today's facts"]
+    now = now or dt.datetime.now(dt.timezone.utc)
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=dt.timezone.utc)
+    out = []
+    last = item_last_day(item, facts)
+    ny = now.astimezone(ss.NY).date() if ss.NY else now.date()
+    if last is None:
+        out.append(f"item {iid}: no facts date, so its wording cannot be dated")
+    elif ny > last:
+        out.append(f"item {iid} is stale: its wording (\"on Friday\", \"last week\", \"this week\", ...) holds only through "
+                   f"{last.isoformat()} (New York); use an item of today's facts")
+    until = item.get("valid_until")
+    if until:
+        try:
+            vu = dt.datetime.fromisoformat(str(until).replace("Z", "+00:00"))
+            vu = vu if vu.tzinfo else vu.replace(tzinfo=dt.timezone.utc)
+        except ValueError:
+            vu = None
+        if vu is None:
+            out.append(f"item {iid}: valid_until {short(until, 40)!r} is not a time")
+        elif now > vu:
+            out.append(f"item {iid} expired at {vu.astimezone(dt.timezone.utc).isoformat()} (valid_until)")
+    return out
+
+
+def bare_link_reasons(item: dict, text: str, allowed_urls: list[str]) -> list[str]:
+    """A domain written without https:// (X / Threads auto-link it and show its path): only our bare domain or sec.gov
+    without a path, a domain that is part of the item's own wording (a company name like "Amazon.com"), or one of the
+    item's URLs without its scheme."""
+    s = URL.sub(" ", text)
+    own = " ".join(str(x) for x in [item.get("name"), item.get("company"), item.get("facts_text"),
+                                    *(item.get(cl.VERBATIM_KEY) or []), *(item.get("claim_phrases") or [])] if x).lower()
+    bare_ok = {u.split("://", 1)[-1].rstrip("/") for u in allowed_urls if u}
+    out = []
+    for m in BARE_DOMAIN.finditer(s):
+        b = m.group(0).rstrip(".,;:!?)]}\"'")
+        host, slash, path = b.partition("/")
+        if not path.strip("/") and (host.lower().removeprefix("www.") in ("rapidtradeview.trade", "sec.gov")
+                                    or host.lower() in own):
+            continue
+        if b.rstrip("/") in bare_ok:
+            continue
+        out.append(f"link without https:// not from this item: {short(b, 80)} (write the item's page_url or source in "
+                   "full, or no link)")
+    return out
+
+
 def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> tuple[str, list[str]]:
     """("APPROVE", []) or ("REJECT", reasons)."""
     reasons: list[str] = holdout_reasons(draft, now)
@@ -359,7 +442,12 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     item = next((i for i in facts.get("items") or [] if i.get("item_id") == iid), None)
     if item is None:
         return "REJECT", reasons + [f"item {short(iid, 80)} is not in the {facts.get('date')} facts"]
+    gate = item_gate_reasons(item, facts, now)
+    if gate:
+        return "REJECT", reasons + gate
     rules = facts.get("rules") or {}
+    raw_text, raw_reply = text, reply   # lengths are measured on what is posted
+    text, reply = cl.nfkc(text), cl.nfkc(reply)   # every content check reads the folded text (math-bold, fullwidth)
     both = f"{text}\n{reply}"
 
     # Ticker (tickers + context_tickers; HQ 2026-10-18)
@@ -413,18 +501,22 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
         reasons.append(f"link must be the item's page_url for {short(platform)} (utm_source={short(platform)}, "
                        f"utm_content={short(iid, 80)})")
     srcs = item_sources(item)
-    for u in URL.findall(both):
+    raw_both = f"{raw_text}\n{raw_reply}"
+    for u in dict.fromkeys([*URL.findall(both), *URL.findall(raw_both)]):
         u = u.rstrip(".,;:!?)]}")
         if u != want and u not in srcs:
             reasons.append(f"URL not from this item: {short(u, 80)}")
+    # a domain without https:// (review round 6: "rapidtradeview.trade/GOOGL-will-double" was read past)
+    for r in dict.fromkeys([*bare_link_reasons(item, both, [want, *srcs]), *bare_link_reasons(item, raw_both, [want, *srcs])]):
+        reasons.append(r)
     if item.get("type") == "ptr_summary" and not srcs:
         reasons.append("ptr_summary: the item has no official source URL to cite")
     if platform == "x":
-        if want and want not in reply:
+        if want and want not in raw_reply:
             reasons.append("X: the page link goes in the self-reply (reply_text)")
-        if item.get("type") in SOURCE_TYPES and srcs and not any(u in reply for u in srcs):
+        if item.get("type") in SOURCE_TYPES and srcs and not any(u in raw_reply for u in srcs):
             reasons.append("X: the official source link goes in the self-reply (reply_text)")
-    elif platform == "instagram" and item.get("type") in SOURCE_TYPES and srcs and not any(u in both for u in srcs):
+    elif platform == "instagram" and item.get("type") in SOURCE_TYPES and srcs and not any(u in raw_both for u in srcs):
         reasons.append("Instagram: the caption must carry the official source link")
 
     # Media
@@ -433,13 +525,13 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     # Length
     if platform == "x":
         limit = int((rules.get("max_len") or {}).get("x") or 270)
-        for name, body in (("text", text), ("reply_text", reply)):
+        for name, body in (("text", raw_text), ("reply_text", raw_reply)):
             n = mf.x_weighted_length(body)
             if n > limit:
                 reasons.append(f"X {name} is {n} characters (limit {limit})")
     elif platform == "threads":
         limit = int((rules.get("max_len") or {}).get("threads") or THREADS_MAX)
-        for name, body in (("text", text), ("reply_text", reply)):
+        for name, body in (("text", raw_text), ("reply_text", raw_reply)):
             if len(body) > limit:
                 reasons.append(f"Threads {name} is {len(body)} characters (limit {limit})")
 
@@ -628,8 +720,10 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
     if n > limit:
         reasons.append(f"{platform} comment is {n} characters (limit {limit})")
 
+    raw = text
+    text = cl.nfkc(text)   # every content check reads the folded text (math-bold, fullwidth); the length above is raw
     # Links, hashtags, mentions
-    if URL.search(text) or BARE_DOMAIN.search(text):
+    if URL.search(text) or BARE_DOMAIN.search(text) or URL.search(raw) or BARE_DOMAIN.search(raw):
         reasons.append("no links in comments")
     tags = HASHTAG.findall(text)
     if tags:
@@ -654,6 +748,10 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
             item = next((i for i in facts.get("items") or [] if i.get("item_id") == iid), None)
             if item is None:
                 reasons.append(f"item {short(iid, 80)} is not in the {facts.get('date')} facts")
+            else:
+                gate = item_gate_reasons(item, facts, now)
+                if gate:   # review round 6: an older or stale item is never an unchecked path
+                    return "REJECT", reasons + gate
     elif cashtags or has_number:
         reasons.append("a comment with numbers or a $cashtag needs the item_id of the facts it uses")
     if item is not None:

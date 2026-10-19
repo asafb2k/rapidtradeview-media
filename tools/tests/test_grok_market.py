@@ -6,6 +6,8 @@ import re
 import sys
 from pathlib import Path
 
+import pytest
+
 TOOLS = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(TOOLS / "tests"))
@@ -13,6 +15,16 @@ import facts as fx  # noqa: E402
 import grok_review as gr  # noqa: E402
 import manifest as mf  # noqa: E402
 from test_market_facts import NOW_SUN, SUN, FixtureApi  # noqa: E402
+
+
+@pytest.fixture(autouse=True)
+def _legacy_items(monkeypatch):
+    """These tests guard the link / media / length / word / free-form rules on items of facts files built before the
+    verbatim rule. Review round 6 rejects such items in production (test_verbatim.py guards that gate), so here the gate
+    passes them; an item WITH fact_phrases still goes through the real gate (freshness)."""
+    real = gr.item_gate_reasons
+    monkeypatch.setattr(gr, "item_gate_reasons",
+                        lambda item, facts, now=None: real(item, facts, now) if gr.cl.verbatim_mode(item) else [])
 
 PAGES = mf.PAGES_BASE
 NOW = dt.datetime(2026, 10, 18, 20, 0, tzinfo=dt.timezone.utc)
