@@ -46,6 +46,10 @@ DOC = build_doc()
 # checks; `moves` filled in)
 DOC_RAW_ITEMS = [dict(i) for i in DOC["items"]]
 DOC["items"], DOC_SELF_ERRORS, DOC_SELF_DROPPED = fx.self_check([dict(i) for i in DOC["items"]])
+# HQ 2026-10-19 verbatim facts rule: VDOC is what the runner publishes now (every item carries fact_phrases). DOC drops that
+# key: an older facts file, read the way it was published - the free-form rounds' tests below keep guarding that reading.
+VDOC = {**DOC, "items": DOC["items"]}
+DOC = {**DOC, "items": [{k: v for k, v in i.items() if k != "fact_phrases"} for i in DOC["items"]]}
 
 
 def item(kind, ticker=None):
@@ -76,7 +80,8 @@ def test_plan_examples_are_approved():
          "US-listed companies on Friday (−$77.2B). Not investment advice.")
     assert gr.review(draft(g, t, platform="threads"), DOC, NOW) == ("APPROVE", [])
     b = item("reddit_buzz")
-    t = ("Reddit is talking about $NBIS 7.5× more than usual: 45 mentions vs 6.0. The stock fell 12.18% on Friday. "
+    # HQ 2026-10-19: "7.5× more than usual" was wrong arithmetic; the phrase is "7.5× its usual (weekend) count"
+    t = ("Reddit mentions of $NBIS hit 7.5× its usual weekend count: 45 vs 6.0. The stock fell 12.18% on Friday. "
          "$SNDK: 3.3× usual. 10 of the 10 most-mentioned stocks with a close for Oct 16 fell that day. "
          "Not investment advice.")
     assert gr.review(draft(b, t, platform="threads"), DOC, NOW) == ("APPROVE", [])
@@ -208,8 +213,11 @@ def test_every_item_text_and_angle_passes_the_content_checks():
         for text in [it["facts_text"], *it.get("angles", []), *it.get("claim_phrases", [])]:
             assert gr.unexplained_numbers(text, gr.item_numbers(it), gr.item_cashtags(it)) == [], (it["type"], text)
             assert "S&P" not in text and not re.search(r"\bthis week\b", text), (it["type"], text)
-        for text in [*it.get("angles", []), *it.get("claim_phrases", [])]:
-            assert gr.wording_reasons(it, text) == [], (it["type"], text)
+    # every phrase and angle passes as a one-sentence post under the verbatim rule (HQ 2026-10-19)
+    for it in VDOC["items"]:
+        assert it.get("fact_phrases"), it["type"]
+        for text in [*it.get("angles", []), *it.get("claim_phrases", []), *it.get("fact_phrases", [])]:
+            assert gr.phrase_reasons(it, text) == [], (it["type"], text)
     # the market items keep at least 2 angles each (they were rewritten as claim phrases where they ranked)
     for it in DOC["items"]:
         if it["type"] in gr.mk.MARKET_TYPES:

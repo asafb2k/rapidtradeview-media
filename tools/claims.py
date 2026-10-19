@@ -7,7 +7,9 @@ through grok_review.wording_reasons, the Growth post audit. Pure functions, no I
    type names the S&P (S&P 500, S&P500, SP500, SPX, "the index", "Standard & Poor's", "benchmark index", "index members",
    "SPY stocks"; invisible characters stripped first). The one exception is the track record's benchmark comparison on a
    picks item, written as "vs the S&P 500 (SPY)" / "vs SPY (S&P 500)" ("vs SPY" alone needs no exception).
-2b (HQ 2026-10-19, the gate now). Comparisons are an ALLOWLIST: a sentence with any ranking / comparison language passes
+2d (HQ 2026-10-19, the gate for every item with fact_phrases): VERBATIM FACTS - see section 2d at the end of this
+   module; sections 2, 2b and 2c below are the reading of items from facts files built before it.
+2b (HQ 2026-10-19). Comparisons are an ALLOWLIST: a sentence with any ranking / comparison language passes
    only as one of the item's `claim_phrases` verbatim (see section 2b below).
 2c (HQ 2026-10-19 round 2). And so does any sentence with a word outside the closed plain vocabulary (post_vocab.VOCAB):
    the ranking word list is no longer the gate. Plain sentences tie every number and every rose / fell / up / down to its
@@ -2334,4 +2336,200 @@ def content_reasons(item: dict, text: str, strip_allowed=None, allowlist: bool =
            + direction_reasons(item, text) + bind)
     if strip_allowed is not None:
         out += scope_reasons(item, text, strip_allowed)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# 2d. Verbatim facts (HQ 2026-10-19, the gate for every item built since): free-form factual sentences cannot be validated
+# safely (five review rounds: a subject after its number, "a down day", order / count words, date words beside the wrong
+# number, comments unchecked, buy / sell calls). So the post text is closed by construction:
+#   - a sentence with ANY factual token (a cashtag / ticker, a company or person name, a number / percent / amount / count,
+#     a sector, a date / weekday / session word, a direction word, a ranking / comparison word - in short, any word
+#     outside post_vocab.HOOK_WORDS) must EQUAL one of the item's pre-verified sentences: its claim_phrases or its
+#     fact_phrases (facts.py / market_facts.py build both from the data and self-check each as a one-sentence post).
+#     Equal after light normalisation only: case, whitespace, punctuation, "$" on cashtags, dash / minus types, "x" for
+#     the times sign, sector short names (Tech = Technology); a closing "(number)" may be left off a phrase. No partial
+#     match, no splicing, no extra word inside it;
+#   - every other sentence is a HOOK: only HOOK_WORDS (no fact of any kind), at most HOOK_MAX_WORDS words, and the
+#     banned lists still apply (no buy / sell / hold / should / will / target ... - none is a hook word);
+#   - the same for self-replies and comments (a comment without an item_id may hold hooks only);
+#   - "Not investment advice." (and the item's must_include) is neither: it is removed before the reading; URLs are checked
+#     by the link rules and removed too; a generic hashtag (HOOK_HASHTAGS, the item type's topic hashtags) is dropped, any
+#     other hashtag is a fact; emoji other than HOOK_EMOJI (arrows, chart up / down, fire, rockets, medals, colours) and
+#     > < = are rejected anywhere.
+# An item from a facts file built before this rule (no `fact_phrases` key) keeps the reading it was published under.
+
+VERBATIM_KEY = "fact_phrases"
+_VTOKEN = re.compile(r"[+-]?\$?\d(?:[\d,]*\d)?(?:\.\d+)?(?:%|x|[kmbt](?![a-z]))?\+?|[a-z0-9]+(?:'[a-z]+)?")
+_V_URL = re.compile(r"https?://\S+|\b(?:www\.)?(?:rapidtradeview\.trade|rapidtradeview\.com|sec\.gov)(?:/\S*)?",
+                    re.IGNORECASE)
+_V_DISCLAIMER = re.compile(r"\bnot\s+investment\s+advice\b\.?", re.IGNORECASE)
+_V_HASHTAG = re.compile(r"(?<![\w&])#([A-Za-z][A-Za-z0-9_]*)")
+_V_OK_CHARS = set(" \t\n.,;:!?'\"()[]-+$%&/#@*_") | set("’‘“”–—−×…·"
+                                                        "  ")
+
+
+def verbatim_mode(item: dict | None) -> bool:
+    return isinstance(item, dict) and VERBATIM_KEY in item
+
+
+def verbatim_tokens(s: str) -> list[str]:
+    """A sentence as compared under the verbatim rule: lower case, "$" off cashtags, every dash / minus before a number
+    a "-", the times sign as "x", sector short names as their canonical name, punctuation dropped (a sign, "$", "%", "+"
+    glued to a number stay part of it: "5+" is not "5", "+2.6%" is not "2.6%")."""
+    s = _norm(html.unescape(s or "")).replace("’", "'").replace("‘", "'").replace("×", "x")
+    s = re.sub("[–—‒](?=\\$?\\d)", "-", s)
+    s = SECTOR_WORD.sub(lambda m: ALIAS_OF[m.group(1).lower()], s)
+    s = re.sub(r"\$(?=[A-Za-z])", "", s).lower()
+    s = re.sub("(?<=[a-z])[-–—](?=[a-z])", " ", s)
+    return _VTOKEN.findall(s)
+
+
+def _phrase_forms(item: dict, phrases) -> list[str]:
+    """Each phrase, plus the form without a closing "(number)" and, on a week item, "last week" for its when (as
+    item_phrases does for claim phrases)."""
+    out = []
+    when = str(item.get("when") or "")
+    for p in phrases or []:
+        if not (isinstance(p, str) and p.strip()):
+            continue
+        forms = [p.strip()]
+        if when.startswith("in the week to ") and when in p:
+            forms.append(p.strip().replace(when, "last week"))
+        for f in forms:
+            out.append(f)
+            bare = _NUM_PAREN_END.sub("", f)
+            if bare != f:
+                out.append(bare if bare.endswith(".") else bare + ".")
+    return list(dict.fromkeys(out))
+
+
+def verbatim_phrases(item: dict | None) -> list[str]:
+    """Every sentence a post of this item may state: its claim_phrases and fact_phrases (with their forms)."""
+    if not item:
+        return []
+    return list(dict.fromkeys([*_phrase_forms(item, item.get("claim_phrases")),
+                               *_phrase_forms(item, item.get(VERBATIM_KEY))]))
+
+
+def _hook_hashtags(item: dict | None) -> frozenset:
+    return pv.HOOK_HASHTAGS | pv.HOOK_HASHTAGS_BY_TYPE.get(str((item or {}).get("type")), frozenset())
+
+
+_DATEISH = re.compile(r"(?:" + _DAYS_W + r"|today|tonight|yesterday|tomorrow|weeks?|weekly|weekend|months?|quarters?|"
+                      r"years?|morning|afternoon|evening|sessions?|open|close|premarket|pre|overnight|" + _MONTHS
+                      + r"|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)")
+
+
+def _word_kind(item: dict | None, w: str) -> str:
+    """Why a word is not a hook word (for the reason text)."""
+    if re.search(r"\d", w):
+        return "number"
+    if item:
+        tags = {mk.norm_ticker(t).lower() for t in [*(item.get("tickers") or []), *(item.get("context_tickers") or []),
+                                                     item.get("ticker")] if t}
+        if w in tags:
+            return "ticker"
+        names = " ".join(n.lower() for n in [*item_names(item), *_person_names(item)] if isinstance(n, str))
+        if re.search(rf"\b{re.escape(w)}\b", names):
+            return "name"
+    if w in ALIAS_OF or w in {s.lower() for s in ALIAS_OF.values()}:
+        return "sector"
+    if _DATEISH.fullmatch(w):
+        return "date / session word"
+    if w in pv.DIRECTION_UP or w in pv.DIRECTION_DOWN or LOSS_W.fullmatch(w) or GAIN_W.fullmatch(w):
+        return "direction word"
+    if w in pv.ADVICE_WORDS:
+        return "advice / forecast word"
+    if RANK_LANGUAGE.search(w) or w in pv.NUMBER_WORDS:
+        return "ranking / count word"
+    return "not a hook word"
+
+
+def hook_reasons(item: dict | None, sent: str, toks: list[str] | None = None) -> list[str]:
+    """[] when `sent` is a hook: only HOOK_WORDS, at most HOOK_MAX_WORDS words, no cashtag. Else what makes it factual."""
+    toks = verbatim_tokens(sent) if toks is None else toks
+    bad: dict[str, str] = {}
+    odd = sorted({c for c in sent if c.isalpha() and not c.isascii()})
+    if odd:   # a hook is plain English: a non-Latin or accented letter is never read past (look-alike letters)
+        bad["".join(odd[:5])] = "letters outside A-Z"
+    for m in CASHTAG.finditer(sent):
+        bad["$" + m.group(1)] = "ticker"
+    for w in toks:
+        base = w[:-2] if w.endswith("'s") else w
+        if w in pv.HOOK_WORDS or (base in pv.HOOK_WORDS and not re.search(r"\d", base)):
+            continue
+        bad.setdefault(w, _word_kind(item, base))
+    out = []
+    if bad:
+        out.append(", ".join(f"{w!r} ({k})" for w, k in list(bad.items())[:5]))
+    if len(toks) > pv.HOOK_MAX_WORDS:
+        out.append(f"{len(toks)} words (a hook has at most {pv.HOOK_MAX_WORDS})")
+    return out
+
+
+def _closest(sent_toks: list[str], phrases: list[str]) -> str | None:
+    import difflib  # noqa: PLC0415
+    best, score = None, 0.0
+    for p in phrases:
+        r = difflib.SequenceMatcher(None, sent_toks, verbatim_tokens(p), autojunk=False).ratio()
+        if r > score:
+            best, score = p, r
+    return best if score >= 0.5 else None
+
+
+def verbatim_reasons(item: dict | None, text: str, comment: bool = False) -> list[str]:
+    """REJECT reasons under the verbatim facts rule (section 2d) for a post text / self-reply / comment."""
+    out: list[str] = []
+    s = _norm(html.unescape(text or ""))
+    s = _V_URL.sub(" ", s)
+    for must in (item or {}).get("must_include") or []:
+        if isinstance(must, str) and must.strip():
+            s = re.sub(re.escape(must.strip()), " ", s, flags=re.IGNORECASE)
+    s = _V_DISCLAIMER.sub(" ", s)
+    ok_tags = _hook_hashtags(item)
+    tags_bad = [m.group(1) for m in _V_HASHTAG.finditer(s) if m.group(1).lower() not in ok_tags]
+    if tags_bad:
+        out.append(f"hashtag {', '.join('#' + short_text(t, 24) for t in tags_bad[:4])}: a hashtag may only be a generic one "
+                   f"({', '.join('#' + t for t in sorted(ok_tags))}); a ticker, company, sector or any other hashtag is a "
+                   "fact")
+    s = _V_HASHTAG.sub(" ", s)
+    syms = sorted({c for c in s if not (c.isalnum() or c in _V_OK_CHARS or c in pv.HOOK_EMOJI)})
+    if syms:
+        out.append(f"symbols {' '.join(syms[:6])!r}: no arrows, chart / fire / rocket / medal / colour emoji or > < = "
+                   "(a direction or a ranking without words); allowed emoji: "
+                   + " ".join(sorted(pv.HOOK_EMOJI - {"️"})))
+    phrases = verbatim_phrases(item)
+    want = {tuple(verbatim_tokens(p)) for p in phrases}
+    want.discard(())
+    span = max([len(post_sentences(p)) for p in phrases] or [1])
+    sents = post_sentences(s)
+    toks = [verbatim_tokens(x) for x in sents]
+    i = 0
+    while i < len(sents):
+        if not toks[i] and not any(c.isalpha() for c in sents[i]):
+            i += 1
+            continue
+        hit = 0
+        for j in range(min(len(sents), i + span), i, -1):
+            if tuple(t for k in range(i, j) for t in toks[k]) in want:
+                hit = j
+                break
+        if hit:
+            i = hit
+            continue
+        why = hook_reasons(item, sents[i], toks[i])
+        if why:
+            st = short_text(sents[i].strip())
+            if comment and not item:
+                out.append(f"comment: {st!r} is not a hook ({'; '.join(why)}) - a comment without an item_id holds only "
+                           "fact-free hooks (rules.verbatim.hook_words); to state a fact give the item_id and copy one of "
+                           "its fact_phrases / claim_phrases verbatim")
+            else:
+                near = _closest(toks[i], phrases)
+                out.append(f"not verbatim: {st!r} states facts ({'; '.join(why)}) but is not one of the item's "
+                           "fact_phrases / claim_phrases - copy one exactly as its own sentence (no word added, dropped "
+                           "or changed), or write a hook with no fact in it"
+                           + (f"; closest phrase: {short_text(near, 140)!r}" if near else ""))
+        i += 1
     return out
