@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-20",
-  "generated_at": "2026-10-20T13:00:04Z",
-  "as_of": "2026-10-20T13:00:04Z",
+  "generated_at": "2026-10-20T13:30:04Z",
+  "as_of": "2026-10-20T13:30:04Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -941,9 +941,9 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1634,
-      "recent_ready": 69,
-      "outside_24h": 36,
+      "archive_reports": 1635,
+      "recent_ready": 70,
+      "outside_24h": 37,
       "unreadable": 0,
       "not_compared": 3,
       "not_compared_metrics": [
@@ -984,7 +984,7 @@
     "market": {
       "market_session": "2026-10-19",
       "priced_cap_share": 0.9705152232304083,
-      "flows_as_of": "2026-10-20T13:00:25.596594+00:00"
+      "flows_as_of": "2026-10-20T13:30:27.084526+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -998,7 +998,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 94
+        "angles_dropped": 96
       },
       "top8": {
         "no_card": 0,
@@ -10988,6 +10988,511 @@
       }
     },
     {
+      "item_id": "2026-10-20-earnings-result-CBSH-312f25",
+      "type": "earnings_result",
+      "ticker": "CBSH",
+      "tickers": [
+        "CBSH"
+      ],
+      "name": "Commerce Bancshares, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-20",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/22356/000002235626000209/cbsh09302026ex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CBSH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-20-earnings-result-CBSH-312f25#earnings-history",
+      "allowed_numbers": [
+        "$494M",
+        "$496M",
+        "−$1.89M",
+        "$1.08",
+        "$1.07",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-20",
+        "Oct 20, 2026",
+        "Oct 20"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Commerce Bancshares, Inc. (CBSH) published Q3 2026 results on 2026-10-20: Mixed vs estimates. Revenue $494M vs $496M consensus (In line (−$1.89M)). Diluted EPS (GAAP, street basis) $1.08 vs $1.07 consensus (Beat by $0.01).",
+      "dedupe_key": "report:cbsh-2026-q3",
+      "claim_phrases": [
+        "$CBSH Q3 2026 revenue was in line with the consensus: $494M vs $496M.",
+        "$CBSH Q3 revenue was in line with the consensus: $494M vs $496M.",
+        "EPS came in above the $1.07 consensus.",
+        "$CBSH beat the Q3 2026 EPS consensus: $1.08 vs $1.07.",
+        "$CBSH Q3 2026 EPS: $1.08 vs $1.07 consensus (beat by $0.01).",
+        "$CBSH Q3 2026 EPS $1.08, beat by $0.01.",
+        "EPS $1.08 vs $1.07 consensus (beat by $0.01).",
+        "EPS $1.08 vs $1.07 (beat by $0.01).",
+        "$CBSH beat Q3 2026 EPS estimates by $0.01.",
+        "Diluted EPS (GAAP, street basis) came in above the $1.07 consensus.",
+        "$CBSH beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $1.08 vs $1.07.",
+        "$CBSH Q3 2026 Diluted EPS (GAAP, street basis): $1.08 vs $1.07 consensus (beat by $0.01).",
+        "$CBSH Q3 2026 Diluted EPS (GAAP, street basis) $1.08, beat by $0.01.",
+        "Diluted EPS (GAAP, street basis) $1.08 vs $1.07 consensus (beat by $0.01).",
+        "Diluted EPS (GAAP, street basis) $1.08 vs $1.07 (beat by $0.01).",
+        "$CBSH beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.01.",
+        "$CBSH beat the Q3 EPS consensus: $1.08 vs $1.07.",
+        "$CBSH Q3 EPS: $1.08 vs $1.07 consensus (beat by $0.01).",
+        "$CBSH Q3 EPS $1.08, beat by $0.01.",
+        "$CBSH beat Q3 EPS estimates by $0.01.",
+        "$CBSH beat the Q3 Diluted EPS (GAAP, street basis) consensus: $1.08 vs $1.07.",
+        "$CBSH Q3 Diluted EPS (GAAP, street basis): $1.08 vs $1.07 consensus (beat by $0.01).",
+        "$CBSH Q3 Diluted EPS (GAAP, street basis) $1.08, beat by $0.01.",
+        "$CBSH beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.01."
+      ],
+      "report_id": "cbsh-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-20",
+      "published_at": "2026-10-20T13:21:47.240336+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$494M",
+          "consensus": "$496M",
+          "label": "In line (−$1.89M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "$1.08",
+          "consensus": "$1.07",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CBSH/opengraph-image",
+          "kind": "image",
+          "alt": "Commerce Bancshares, Inc. (CBSH) published Q3 2026 results on 2026-10-20: Mixed vs estimates. Revenue $494M vs $496M consensus (In line (−$1.89M)). Diluted EPS (GAAP, street basis) $1.08 vs $1.07 consensus (Beat by $0.01)."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-10-20 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CBSH"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Commerce Bancshares, Inc. ($CBSH) published Q3 2026 results on Oct 20.",
+        "$CBSH (Commerce Bancshares, Inc.) reported Q3 2026 results on Oct 20.",
+        "On Oct 20, Commerce Bancshares, Inc. ($CBSH) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Commerce Bancshares, Inc. ($CBSH) published Q3 2026 results on Oct 20.",
+        "$CBSH (Commerce Bancshares, Inc.) reported Q3 2026 results on Oct 20.",
+        "On Oct 20, Commerce Bancshares, Inc. ($CBSH) published Q3 2026 results.",
+        "$CBSH published Q3 2026 results on Oct 20.",
+        "Q3 2026 results from $CBSH came out on Oct 20.",
+        "On Oct 20, $CBSH published Q3 2026 results.",
+        "$CBSH Q3 2026 revenue: $494M vs $496M consensus.",
+        "$CBSH reported Q3 2026 revenue of $494M vs $496M consensus.",
+        "$CBSH Q3 2026 revenue was $494M.",
+        "Q3 2026 revenue at $CBSH was $494M.",
+        "$CBSH Q3 2026 Diluted EPS (GAAP, street basis): $1.08 vs $1.07 consensus.",
+        "$CBSH reported Q3 2026 Diluted EPS (GAAP, street basis) of $1.08 vs $1.07 consensus.",
+        "$CBSH Q3 2026 Diluted EPS (GAAP, street basis) was $1.08.",
+        "Q3 2026 Diluted EPS (GAAP, street basis) at $CBSH was $1.08."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-0a67cc.a",
+          "fact": "earningsre-0a67cc",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 revenue was in line with the consensus: $494M vs $496M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-5b24bf.a",
+          "fact": "earningsre-5b24bf",
+          "variant": "a",
+          "text": "$CBSH Q3 revenue was in line with the consensus: $494M vs $496M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.07 consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$CBSH beat the Q3 2026 EPS consensus: $1.08 vs $1.07.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 EPS: $1.08 vs $1.07 consensus (beat by $0.01).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 EPS $1.08, beat by $0.01.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.08 vs $1.07 consensus (beat by $0.01).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.08 vs $1.07 (beat by $0.01).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$CBSH beat Q3 2026 EPS estimates by $0.01.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-12a211.a",
+          "fact": "earningsre-12a211",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in above the $1.07 consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-b45d0c.a",
+          "fact": "earningsre-b45d0c",
+          "variant": "a",
+          "text": "$CBSH beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $1.08 vs $1.07.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-365e1a.a",
+          "fact": "earningsre-365e1a",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 Diluted EPS (GAAP, street basis): $1.08 vs $1.07 consensus (beat by $0.01).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-4de0a3.a",
+          "fact": "earningsre-4de0a3",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 Diluted EPS (GAAP, street basis) $1.08, beat by $0.01.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-e854ec.a",
+          "fact": "earningsre-e854ec",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) $1.08 vs $1.07 consensus (beat by $0.01).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-0f9fa0.a",
+          "fact": "earningsre-0f9fa0",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) $1.08 vs $1.07 (beat by $0.01).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-54bca2.a",
+          "fact": "earningsre-54bca2",
+          "variant": "a",
+          "text": "$CBSH beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.01.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$CBSH beat the Q3 EPS consensus: $1.08 vs $1.07.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$CBSH Q3 EPS: $1.08 vs $1.07 consensus (beat by $0.01).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$CBSH Q3 EPS $1.08, beat by $0.01.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$CBSH beat Q3 EPS estimates by $0.01.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-dc1c68.a",
+          "fact": "earningsre-dc1c68",
+          "variant": "a",
+          "text": "$CBSH beat the Q3 Diluted EPS (GAAP, street basis) consensus: $1.08 vs $1.07.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e82b3.a",
+          "fact": "earningsre-1e82b3",
+          "variant": "a",
+          "text": "$CBSH Q3 Diluted EPS (GAAP, street basis): $1.08 vs $1.07 consensus (beat by $0.01).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-b47e3e.a",
+          "fact": "earningsre-b47e3e",
+          "variant": "a",
+          "text": "$CBSH Q3 Diluted EPS (GAAP, street basis) $1.08, beat by $0.01.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-161196.a",
+          "fact": "earningsre-161196",
+          "variant": "a",
+          "text": "$CBSH beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.01.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Commerce Bancshares, Inc. ($CBSH) published Q3 2026 results on Oct 20.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$CBSH (Commerce Bancshares, Inc.) reported Q3 2026 results on Oct 20.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Oct 20, Commerce Bancshares, Inc. ($CBSH) published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$CBSH published Q3 2026 results on Oct 20.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $CBSH came out on Oct 20.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Oct 20, $CBSH published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 revenue: $494M vs $496M consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$CBSH reported Q3 2026 revenue of $494M vs $496M consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 revenue was $494M.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $CBSH was $494M.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 Diluted EPS (GAAP, street basis): $1.08 vs $1.07 consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
+          "variant": "h1",
+          "text": "$CBSH reported Q3 2026 Diluted EPS (GAAP, street basis) of $1.08 vs $1.07 consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
+          "variant": "a",
+          "text": "$CBSH Q3 2026 Diluted EPS (GAAP, street basis) was $1.08.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
+          "variant": "h1",
+          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $CBSH was $1.08.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$1.89M": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CBSH": [
+          [
+            "$",
+            494.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            496.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.08,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.07,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.01,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": {
+        "x": {
+          "posts": 5,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "instagram": {
+          "posts": 5,
+          "used_phrasing_ids": [],
+          "used_hook_ids": [
+            "H51",
+            "H44"
+          ]
+        },
+        "threads": {
+          "posts": 1,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        }
+      }
+    },
+    {
       "item_id": "2026-10-20-earnings-result-GPC-410bf5",
       "type": "earnings_result",
       "ticker": "GPC",
@@ -18230,162 +18735,6 @@
           "fact": "earningsre-d0ab88",
           "variant": "t",
           "text": "On Oct 19, $RAIL published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": {
-        "x": {
-          "posts": 5,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "instagram": {
-          "posts": 5,
-          "used_phrasing_ids": [],
-          "used_hook_ids": [
-            "H51",
-            "H44"
-          ]
-        },
-        "threads": {
-          "posts": 1,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-20-earnings-result-WERN-b7cf55",
-      "type": "earnings_result",
-      "ticker": "WERN",
-      "tickers": [
-        "WERN"
-      ],
-      "name": "Werner Enterprises, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-19",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/793074/000079307426000162/wern-8xk101926exhibit.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/WERN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-20-earnings-result-WERN-b7cf55#earnings-history",
-      "allowed_numbers": [
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-19",
-        "Oct 19, 2026",
-        "Oct 19"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Werner Enterprises, Inc. (WERN) published Q3 2026 results on 2026-10-19: Published.",
-      "dedupe_key": "report:wern-2026-q3",
-      "claim_phrases": [],
-      "report_id": "wern-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-19",
-      "published_at": "2026-10-19T13:08:13.309970+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {},
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/WERN/opengraph-image",
-          "kind": "image",
-          "alt": "Werner Enterprises, Inc. (WERN) published Q3 2026 results on 2026-10-19: Published."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-10-19 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "WERN"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Werner Enterprises, Inc. ($WERN) published Q3 2026 results on Oct 19.",
-        "$WERN (Werner Enterprises, Inc.) reported Q3 2026 results on Oct 19.",
-        "On Oct 19, Werner Enterprises, Inc. ($WERN) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Werner Enterprises, Inc. ($WERN) published Q3 2026 results on Oct 19.",
-        "$WERN (Werner Enterprises, Inc.) reported Q3 2026 results on Oct 19.",
-        "On Oct 19, Werner Enterprises, Inc. ($WERN) published Q3 2026 results.",
-        "$WERN published Q3 2026 results on Oct 19.",
-        "Q3 2026 results from $WERN came out on Oct 19.",
-        "On Oct 19, $WERN published Q3 2026 results."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Werner Enterprises, Inc. ($WERN) published Q3 2026 results on Oct 19.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$WERN (Werner Enterprises, Inc.) reported Q3 2026 results on Oct 19.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Oct 19, Werner Enterprises, Inc. ($WERN) published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$WERN published Q3 2026 results on Oct 19.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $WERN came out on Oct 19.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Oct 19, $WERN published Q3 2026 results.",
           "claim": false,
           "recent_on": []
         }
