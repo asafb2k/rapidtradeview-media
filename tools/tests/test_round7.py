@@ -482,6 +482,53 @@ def test_pin_cards_checks_the_card_date_and_data(tmp_path, monkeypatch):
     assert "same image as v/2026-10-18/cards/" in plan["i1"]["error"]
 
 
+def test_pin_cards_repins_after_a_card_build_change(tmp_path, monkeypatch):
+    """Growth + HQ 2026-10-22: a pinned card kept a footer prod web had already changed; the build in the name re-pins."""
+    calls, png = [], {"bytes": pc.PNG + b"2" * pc.MIN_BYTES}
+    monkeypatch.setattr(pc, "fetch_png", lambda url: calls.append(url) or png["bytes"])
+    monkeypatch.setattr(pc, "SLEEP", lambda s: None)
+    base = _card_item()["card"]["file"]
+    assert pc.with_build(base, "abc1234") == base[:-4] + "-babc1234.png" and pc.with_build(base, None) == base
+    assert pc.data_name(pc.with_build(base, "abc1234")) == base
+
+    def run(day, build):
+        path = tmp_path / "facts.json"
+        path.write_text(json.dumps({"items": [_card_item()], "counts": {}, "errors": [], "left_out": {}}), encoding="utf-8")
+        work = tmp_path / f"w{day}{build}"
+        code = pc.prepare(path, tmp_path, day, work, read=lambda p: M, build=build)
+        return code, json.loads((work / "pin-cards.json").read_text(encoding="utf-8"))["i1"]
+    code, p1 = run("2026-10-18", "aaaaaaa")
+    assert code == 10 and p1["file"].endswith("-baaaaaaa.png") and len(calls) == 2
+    calls.clear()
+    code, again = run("2026-10-18", "aaaaaaa")                     # same build: reused, no download
+    assert code == 0 and again["file"] == p1["file"] and calls == []
+    png["bytes"] = pc.PNG + b"3" * pc.MIN_BYTES                     # a deploy changed the renderer: new bytes
+    code, p2 = run("2026-10-18", "bbbbbbb")
+    assert code == 10 and p2["file"].endswith("-b" + "bbbbbbb" + ".png") and p2["sha256"] != p1["sha256"] and len(calls) == 2
+    assert (tmp_path / p1["file"]).exists()                         # the old file stays: preflighted posts keep their URL
+    code, p3 = run("2026-10-18", "ccccccc")                         # a deploy that left the renderer alone: same bytes
+    assert code == 10 and "error" not in p3 and p3["sha256"] == p2["sha256"]   # not taken for old data
+    code, old = run("2026-10-18", None)                             # route not deployed: the pre-10-22 name
+    assert old["file"].endswith(base)
+
+
+def test_card_build_reads_only_a_sha7(monkeypatch):
+    class R:
+        def __init__(self, body): self.body = body
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return self.body
+    for body, want in [(b'{"build":"9F3c2d1e"}', "9f3c2d1"), (b'{"build":"xyz"}', None), (b"<html>", None), (b"{}", None)]:
+        monkeypatch.setattr(pc.qa, "urlopen", lambda req, timeout=None, b=body: R(b))
+        assert pc.card_build("https://www.rapidtradeview.trade/market/card/buzz") == want, body
+
+    def down(req, timeout=None):
+        raise pc.urllib.error.HTTPError(req.full_url, 404, "Not Found", {}, None)
+    monkeypatch.setattr(pc.qa, "urlopen", down)
+    assert pc.card_build("https://www.rapidtradeview.trade/market/card/buzz") is None
+    assert pc.card_build("") is None
+
+
 # ---------------------------------------------------------------------------
 # D. Growth section 9: universe claims, context movers, coverage
 
