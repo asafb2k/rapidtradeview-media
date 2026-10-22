@@ -512,6 +512,36 @@ def test_pin_cards_repins_after_a_card_build_change(tmp_path, monkeypatch):
     assert old["file"].endswith(base)
 
 
+def test_pin_cards_checks_the_drawn_date_and_keeps_an_earlier_build(tmp_path, monkeypatch):
+    """Growth 2026-10-22: a mid-session re-pin drew live quotes ('so far today') for an item about the last close."""
+    drawn = {"date": "2026-10-22T19:02:43+00:00"}
+    png = pc.PNG + b"4" * pc.MIN_BYTES
+
+    def fetch(url):
+        pc.CARD_DATE[url] = drawn["date"]
+        return png
+    monkeypatch.setattr(pc, "fetch_png", fetch)
+    monkeypatch.setattr(pc, "SLEEP", lambda s: None)
+    monkeypatch.setattr(pc, "CARD_DATE", {})
+
+    def run(build, day="2026-10-18"):
+        path = tmp_path / "facts.json"
+        path.write_text(json.dumps({"items": [_card_item()], "counts": {}, "errors": [], "left_out": {}}), encoding="utf-8")
+        work = tmp_path / f"w{build}{drawn['date'][:10]}"
+        code = pc.prepare(path, tmp_path, day, work, read=lambda p: M, build=build)
+        return code, json.loads((work / "pin-cards.json").read_text(encoding="utf-8"))["i1"]
+    code, p = run("aaaaaaa")                                        # live quotes, no earlier pin: not pinned
+    assert code == 1 and "X-Card-Date" in p["error"] and "2026-10-22T19:02" in p["error"]
+    assert not list(tmp_path.glob("v/*/cards/*.png"))
+    drawn["date"] = "2026-10-16"                                    # the card draws the item's session: pinned
+    code, p = run("aaaaaaa")
+    assert code == 10 and p["file"].endswith("-baaaaaaa.png")
+    drawn["date"] = "2026-10-22T19:30:00+00:00"                     # a deploy mid-session: keep the earlier build's pin
+    code, kept = run("bbbbbbb")
+    assert code == 0 and kept["file"] == p["file"] and "error" not in kept
+    assert not list(tmp_path.glob("v/*/cards/*-bbbbbbbb.png"))      # nothing written under the new build
+
+
 def test_card_build_reads_only_a_sha7(monkeypatch):
     class R:
         def __init__(self, body): self.body = body

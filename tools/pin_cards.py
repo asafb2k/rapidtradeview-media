@@ -30,9 +30,11 @@ Card date check (HQ 2026-10-19 round 7, Growth PILLARS section 9 ask 6; card con
   - the kept PNG is not byte-identical to a card pinned for another date or data of the same panel (the route's own
     data cache serving the prior session under today's name). The same data pinned under an earlier build is not
     "another date or data": a deploy that left the renderer alone redraws the same bytes.
-A card that fails is not pinned (pin-cards.json carries the reason; apply drops the item: No Fallbacks). What this
-cannot see is the card's pixels: a date served with the card (an X-Card-Date header or the B1 JSON twin, frontend)
-would close the last gap (the route's 15-minute data cache).
+  - the kept card's X-Card-Date header (the as-of of the data it drew; HQ 2026-10-22) is the item's card date. During a
+    session the buzz and map routes draw live quotes (X-Card-Date = now): on 10-22 a mid-session re-pin drew "META is
+    down 7.3% so far today" for an item about Wednesday's close.
+A card that fails is not pinned (pin-cards.json carries the reason; apply drops the item: No Fallbacks), except that
+a same-data pin from an earlier build is kept when the new build's card cannot be pinned (a deploy mid-session).
 """
 from __future__ import annotations
 
@@ -105,15 +107,36 @@ def existing(repo: Path, name: str) -> str | None:
     return hits[0].relative_to(repo).as_posix() if hits else None
 
 
+CARD_DATE: dict[str, str] = {}   # live card URL -> X-Card-Date of its last fetch_png (the as-of of the drawn data)
+
+
 def fetch_png(url: str) -> bytes:
-    """One GET of a share card through the QA header; raises ValueError when it is not a real card PNG."""
+    """One GET of a share card through the QA header; raises ValueError when it is not a real card PNG.
+    Records the response's X-Card-Date (HQ 2026-10-22) in CARD_DATE[url] ('' when the route does not send one)."""
     req = urllib.request.Request(f"{url}?pin={time.time_ns()}", headers={"User-Agent": UA, "Accept": "image/png"})
     with qa.urlopen(req, timeout=60) as r:
         body = r.read()
         ctype = r.headers.get("Content-Type", "")
+        CARD_DATE[url] = (r.headers.get("X-Card-Date") or "").strip()
     if not ctype.startswith("image/png") or not body.startswith(PNG) or len(body) < MIN_BYTES:
         raise ValueError(f"not a card PNG ({ctype or 'no type'}, {len(body)} bytes)")
     return body
+
+
+def drawn_problem(c: dict) -> str | None:
+    """Why the kept card draws another date than the item's card date (its X-Card-Date header), or None. During a
+    session the buzz and map routes draw live quotes (X-Card-Date = now) while the item is about the last close."""
+    drawn = CARD_DATE.get(c.get("live_url") or "")
+    if drawn and str(drawn)[:10] != str(c.get("date"))[:10]:
+        return f"the card draws {drawn} (X-Card-Date), the item {c.get('date')}"
+    return None
+
+
+def same_data_pin(repo: Path, name: str) -> str | None:
+    """The newest pin of the same panel and data under another build (repo-relative), or None."""
+    hits = [p for p in Path(repo).glob("v/*/cards/market-*.png") if p.name != name and data_name(p.name) == data_name(name)]
+    hits.sort(key=lambda p: (p.parent.parent.name, p.stat().st_mtime))
+    return hits[-1].relative_to(repo).as_posix() if hits else None
 
 
 FLOW_PANELS = ("congress", "insiders", "buzz")
@@ -230,23 +253,32 @@ def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_marke
                         fetch_png(c["live_url"])          # warm-up: the card route's data cache refreshes on this request
                         SLEEP(WARMUP_S)
                         body = fetch_png(c["live_url"])
-                        problem = data_problem(c, read(c["panel"]), "after")
+                        problem = drawn_problem(c) or data_problem(c, read(c["panel"]), "after")
                     if not problem:
                         twin = stale_twin(repo, c["panel"], name, body)
                         problem = f"the PNG is the same image as {twin} (old data)" if twin else None
                 except (urllib.error.URLError, TimeoutError, OSError, ValueError) as e:
                     problem = f"{type(e).__name__}: {str(e)[:120]}"
+                prior = same_data_pin(repo, name) if problem else None
+                if prior:
+                    # A new build, but the live card cannot be pinned now (e.g. a deploy mid-session: the route draws
+                    # live quotes): keep the same data's pin from the earlier build rather than drop the item.
+                    print(f"pin {c['panel']}: {problem}; kept {prior} (same data, earlier build)")
+                    by_file[name] = prior
+                    rel = prior
+                    problem = None
                 if problem:
                     print(f"pin {c['panel']}: not pinned: {problem}")
                     failed += 1
                     by_file[name], why_file[name] = "", problem
                     plan[it["item_id"]] = {"error": problem}
                     continue
-                dest = Path(repo) / rel
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                dest.write_bytes(body)
-                new.append(rel)
-                print(f"pinned {c['panel']} -> {rel} ({len(body)} bytes)")
+                if not prior:
+                    dest = Path(repo) / rel
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    dest.write_bytes(body)
+                    new.append(rel)
+                    print(f"pinned {c['panel']} -> {rel} ({len(body)} bytes)")
             by_file[name] = rel
         rel = by_file[name]
         if rel:
