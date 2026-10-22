@@ -3,9 +3,14 @@
 The live card (https://www.rapidtradeview.trade/market/card/<panel>, 1080x1350) redraws every session and with every new
 filing. A post preflighted an hour ahead must carry the image its text describes, and an audit must see what went out, so
 a market item's media is a copy of the card on our Pages site, made in the same facts pass that read the numbers:
-  v/<date>/cards/market-<panel>-<data date>-<fingerprint>.png
+  v/<date>/cards/market-<panel>-<data date>-<fingerprint>-b<build>.png
 <fingerprint> hashes the panel's data (market_facts.panel_fingerprint): every item of one panel and data shares one file,
 and an existing file (any date folder) is reused, never downloaded again.
+<build> is the prod web build the card routes draw with (GET /market/card/build -> {"build": "<sha7>"}, read once per
+prepare; Growth + HQ 2026-10-22). A deploy that changes the card renderer (the 10-22 buzz footnote named a data provider
+until prod web changed it; a pinned file kept the old footer) is a new name, so the next pass pins a fresh card. Older
+files stay, so a post preflighted on one keeps its URL. While the route is not deployed or fails, names carry no
+-b<build> part (the pre-10-22 names).
 
 Usage (conda python), as tools/daily_common.ps1 Invoke-PinCards runs it:
   pin_cards.py prepare --facts TMP --repo REPO --date D --work W   download the missing cards (the QA header via
@@ -23,7 +28,8 @@ Card date check (HQ 2026-10-19 round 7, Growth PILLARS section 9 ask 6; card con
     panels.ts cardDate computes it - shows that date and the item's data fingerprint, read right BEFORE the warm-up and
     right AFTER the kept GET (the data did not move while the card rendered);
   - the kept PNG is not byte-identical to a card pinned for another date or data of the same panel (the route's own
-    data cache serving the prior session under today's name).
+    data cache serving the prior session under today's name). The same data pinned under an earlier build is not
+    "another date or data": a deploy that left the renderer alone redraws the same bytes.
 A card that fails is not pinned (pin-cards.json carries the reason; apply drops the item: No Fallbacks). What this
 cannot see is the card's pixels: a date served with the card (an X-Card-Date header or the B1 JSON twin, frontend)
 would close the last gap (the route's 15-minute data cache).
@@ -34,6 +40,7 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import re
 import sys
 import time
 import urllib.error
@@ -52,6 +59,8 @@ MIN_BYTES = 20_000
 WARMUP_S = 15
 PRUNE_DAYS = 30
 SLEEP = time.sleep
+BUILD_PATH = "/market/card/build"
+BUILD_SUFFIX = re.compile(r"-b[0-9a-f]{7}(?=\.png$)")
 
 
 def card_items(facts: dict) -> list[dict]:
@@ -61,6 +70,33 @@ def card_items(facts: dict) -> list[dict]:
 
 def pages_url(rel: str) -> str:
     return f"{mf.PAGES_BASE}/{rel}"
+
+
+def card_build(live_url: str) -> str | None:
+    """The prod web build (sha7) the card routes draw with, from the live card URL's site; None while the route is not
+    deployed, fails or answers something else (names then carry no build)."""
+    m = re.match(r"^(https?://[^/]+)/", live_url or "")
+    if not m:
+        return None
+    req = urllib.request.Request(f"{m.group(1)}{BUILD_PATH}?pin={time.time_ns()}",
+                                 headers={"User-Agent": UA, "Accept": "application/json"})
+    try:
+        with qa.urlopen(req, timeout=30) as r:
+            build = json.loads(r.read().decode("utf-8")).get("build")
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError, AttributeError):
+        return None
+    build = str(build or "").strip().lower()[:7]
+    return build if re.fullmatch(r"[0-9a-f]{7}", build) else None
+
+
+def with_build(name: str, build: str | None) -> str:
+    """market-<panel>-<date>-<fingerprint>.png -> ...-b<build>.png (unchanged without a build)."""
+    return f"{name[:-4]}-b{build}.png" if build and name.endswith(".png") else name
+
+
+def data_name(name: str) -> str:
+    """The file name without its -b<build> part: equal for the same panel and data under any build."""
+    return BUILD_SUFFIX.sub("", name)
 
 
 def existing(repo: Path, name: str) -> str | None:
@@ -147,7 +183,9 @@ def stale_twin(repo: Path, panel: str, name: str, body: bytes) -> str | None:
     """A pinned card of the same panel for other data with the very same bytes (the route served old data), or None."""
     sha = hashlib.sha256(body).hexdigest()
     for p in sorted(Path(repo).glob(f"v/*/cards/market-{panel}-*.png")):
-        if p.name != name and hashlib.sha256(p.read_bytes()).hexdigest() == sha:
+        if data_name(p.name) == data_name(name):
+            continue                                      # the same data under another build: not old data
+        if hashlib.sha256(p.read_bytes()).hexdigest() == sha:
             return p.relative_to(repo).as_posix()
     return None
 
@@ -165,7 +203,7 @@ def prune(repo: Path, today: dt.date) -> list[str]:
     return out
 
 
-def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_market) -> int:
+def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_market, build: str | None = None) -> int:
     facts = json.loads(facts_path.read_text(encoding="utf-8-sig"))
     plan: dict[str, dict] = {}
     new: list[str] = []
@@ -174,7 +212,7 @@ def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_marke
     why_file: dict[str, str] = {}
     for it in card_items(facts):
         c = it["card"]
-        name = c["file"]
+        name = with_build(c["file"], build)
         bad = date_problem(it)
         if bad:
             print(f"pin {c['panel']} {it['item_id']}: not pinned: {bad}")
@@ -220,7 +258,8 @@ def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_marke
     work.mkdir(parents=True, exist_ok=True)
     (work / "pin-cards.json").write_text(json.dumps(plan, indent=1), encoding="utf-8")
     (work / "pin-cards-files.txt").write_text("\n".join(new + pruned) + ("\n" if new or pruned else ""), encoding="utf-8")
-    print(f"pin cards: {len(plan)} items planned, {len(new)} new files, {len(pruned)} pruned, {failed} failed")
+    print(f"pin cards: {len(plan)} items planned, {len(new)} new files, {len(pruned)} pruned, {failed} failed"
+          f" (card build {build or 'unknown: names without a build'})")
     if new or pruned:
         return 10
     return 1 if failed else 0
@@ -293,7 +332,9 @@ def main(argv: list[str] | None = None) -> int:
     if a.mode == "prepare":
         if not a.date:
             ap.error("--date is required for prepare")
-        return prepare(Path(a.facts), Path(a.repo), a.date, Path(a.work))
+        facts = json.loads(Path(a.facts).read_text(encoding="utf-8-sig"))
+        live = next((i["card"]["live_url"] for i in card_items(facts)), "")
+        return prepare(Path(a.facts), Path(a.repo), a.date, Path(a.work), build=card_build(live) if live else None)
     return apply(Path(a.facts), Path(a.work), a.timeout, not a.no_wait)
 
 
