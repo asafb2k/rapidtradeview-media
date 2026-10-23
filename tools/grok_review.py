@@ -85,6 +85,17 @@ Playbook v2 lint (tools/draft_lint.py, owner approved 2026-10-15): after the che
 REJECT alike) gets "NOTES (playbook v2): score N, advisory" and one "- [level] WARN|NOTE rule: ..." line per finding.
 The notes never change the verdict or the exit code; --draft prints them as "notes" next to "reasons". The inbox has
 no own-post history, so the history rules (spacing, question, link-24h) are skipped here; draft_lint.py --history runs them.
+
+VIRAL CHECK v1 (tools/viral_check.py; owner 2026-10-23, Growth VIRAL-CHECK.md, kit directive #668): --inbox and --draft
+score every post draft (must-haves M1-M8, boosters B1-B6, penalties P1-P4) and every comment (M1, M2, M5 and section D:
+D1 target >= 50k followers within 30 min, D2 on a facts item, D3 no typed @mention). A must-have that is checkable and
+fails, or any penalty, is a REJECT reason "viral: <rule> ..."; a rule the data cannot decide (no planned_at for the 60 min
+spacing, no target_followers / target_posted_at on a comment) is an answer line "viral-unknown: ...", never a REJECT. Every
+answer carries "viral=M8/8 B2 P0" (Grok copies it into the post_log); a post with fewer than 2 boosters is APPROVED with a
+"viral-weak: ..." line. A post draft may carry planned_at (ISO time it goes out) and format "reel"; a comment draft
+target_followers and target_posted_at. --no-viral turns the gate off (run_inbox's viral=False, the default for callers
+that do not ask for it). --draft prints the score ("viral") and the reasons the inbox would add ("viral_reasons"); they
+change its verdict and exit code only with --viral-gate.
 """
 from __future__ import annotations
 
@@ -108,6 +119,7 @@ import manifest as mf  # noqa: E402
 import market_facts as mk  # noqa: E402
 import post_history as ph  # noqa: E402
 import select_stories as ss  # noqa: E402
+import viral_check as vc  # noqa: E402
 
 DEFAULT_FACTS_BASE = f"{mf.PAGES_BASE}/v"
 DEFAULT_INSTINCT = Path("D:/rtv-ops/tracks/growth/bin/instinct.py")
@@ -934,6 +946,20 @@ def apply_variety(draft: dict, facts: dict | None, history: list[dict] | None, s
 
 
 # ---------------------------------------------------------------------------
+# VIRAL CHECK v1 (owner 2026-10-23; tools/viral_check.py): a checkable must-have that fails, or a penalty, is a REJECT;
+# unknown rules and fewer than 2 boosters are answer lines only.
+
+def apply_viral(draft: dict, facts: dict | None, kind: str, history: list[dict] | None,
+                now: dt.datetime) -> tuple[list[str], list[str], dict | None]:
+    """(reject reasons, answer lines, score) for a post or comment draft. A post whose item is not in the facts is
+    already rejected by review(): it is not scored (None)."""
+    if kind == "post" and vc.find_item(facts, draft.get("item_id")) is None:
+        return [], [], None
+    res = vc.score_draft(draft, facts, kind, history, now)
+    return vc.reject_reasons(res), vc.note_lines(res), res
+
+
+# ---------------------------------------------------------------------------
 # Rotation (HQ 2026-10-19 round 7; review round 7b): a post may not reuse a phrasing id or a hook id that one of the
 # newest own posts of the same item type on the same platform used (post_history.rotation_window; the ids each post used
 # come from its text: post_history.resolve -> claims.used_ids). The window is sized by the choices (post_history.
@@ -1069,9 +1095,13 @@ def _ts(s) -> dt.datetime | None:
 
 
 def ledger_entry(draft: dict, msg_id, now: dt.datetime) -> dict:
-    return {"msg_id": msg_id, "at": now.astimezone(dt.timezone.utc).isoformat(), "platform": draft.get("platform"),
-            "item_id": draft.get("item_id"),
-            "text": "\n".join([str(draft.get("text") or ""), str(draft.get("reply_text") or "")])}
+    out = {"msg_id": msg_id, "at": now.astimezone(dt.timezone.utc).isoformat(), "platform": draft.get("platform"),
+           "item_id": draft.get("item_id"),
+           "text": "\n".join([str(draft.get("text") or ""), str(draft.get("reply_text") or "")])}
+    planned = vc.as_time(draft.get("planned_at")) if isinstance(draft.get("planned_at"), str) else None
+    if planned is not None:   # VIRAL CHECK M6: an approved post with a planned time counts in the 60 min spacing
+        out["planned_at"] = planned.isoformat()
+    return out
 
 
 class ApprovedLedger:
@@ -1123,6 +1153,8 @@ def pending_records(entries: list[dict], facts_for_date) -> list[dict]:
     for r, e in zip(out, entries):
         r["pending"] = True
         r["msg_id"] = e.get("msg_id")
+        if e.get("planned_at"):
+            r["planned_at"] = e["planned_at"]
     return out
 
 
@@ -1218,11 +1250,12 @@ def draft_kind(draft: dict) -> tuple[str | None, str | None]:
 def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, limit: int = 200,
               comment_state: Path | None = None, now: dt.datetime | None = None, history=None,
               variety_state: Path | None = None, need_history: bool = False, variety: bool = True,
-              approved_ledger: Path | None = None) -> dict:
+              approved_ledger: Path | None = None, viral: bool = False) -> dict:
     """Review every unacked DRAFT row; `send(platform, body) -> bool` answers one. Returns counts. An approved comment
     is written to the comment state only once its APPROVE answer was sent (a dry run keeps it in memory only). An
     approved post joins the working history at once (rotation, variety) and, once its answer was sent, the approved
-    ledger (approved_ledger) until its post_log row arrives (review round 7b)."""
+    ledger (approved_ledger) until its post_log row arrives (review round 7b). viral=True (the CLI's default) adds the
+    VIRAL CHECK v1 gate to posts and comments (apply_viral)."""
     rows = rest.call("GET", instinct.q("select=id,created_at,kind,platform,item_id,body", f"env=eq.{env}",
                                        "direction=eq.from_instinct", "acked_at=is.null", "order=created_at.asc,id.asc",
                                        f"limit={min(limit, instinct.PAGE_ROWS)}")) or []
@@ -1302,6 +1335,11 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                         if vrej:
                             verdict, reasons = "REJECT", reasons + vrej
                         notes += vnotes
+                    if viral:
+                        xrej, xnotes, _ = apply_viral(draft, facts, "post", work, clock)
+                        if xrej:
+                            verdict, reasons = "REJECT", reasons + xrej
+                        notes = xnotes + notes
                 else:
                     if state is None:
                         try:
@@ -1311,6 +1349,11 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                             stats["deferred"] += 1
                             continue
                     verdict, reasons = review_comment(draft, facts, state, clock)
+                    if viral:
+                        xrej, xnotes, _ = apply_viral(draft, facts, "comment", None, clock)
+                        if xrej:
+                            verdict, reasons = "REJECT", reasons + xrej
+                        notes = xnotes + notes
         body = reply_line(row, draft, verdict, reasons, notes)
         stats["approved" if verdict == "APPROVE" else "rejected"] += 1
         platform = (draft or {}).get("platform") or row.get("platform")
@@ -1372,6 +1415,9 @@ def main(argv: list[str] | None = None) -> int:
                                               f"else {DEFAULT_APPROVED_LEDGER})")
     ap.add_argument("--history", action="store_true", help="--draft: read our own posts for the variety lint (read only)")
     ap.add_argument("--no-variety", action="store_true", help="--inbox: skip the variety lint (the rotation rule still runs)")
+    ap.add_argument("--no-viral", action="store_true", help="skip the VIRAL CHECK v1 gate (tools/viral_check.py)")
+    ap.add_argument("--viral-gate", action="store_true",
+                    help="--draft: the VIRAL CHECK reasons change the verdict as in --inbox (default: printed only)")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if a.draft:
@@ -1389,6 +1435,7 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"facts unavailable: {e}")
                 return 2
         notes: list[str] = []
+        hist = None
         if kind == "post":
             verdict, reasons = review(draft, facts)
             notes = playbook_notes(draft, facts)
@@ -1430,9 +1477,18 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"comment state unreadable: {e}")
                 return 2
             verdict, reasons = review_comment(draft, facts, state)  # --draft reads the state, never writes it
+        vres, xrej = None, []
+        if not a.no_viral:   # M6 reads our own posts only with --history (else unknown)
+            xrej, xnotes, vres = apply_viral(draft, facts, kind, hist, dt.datetime.now(dt.timezone.utc))
+            if xrej and a.viral_gate:
+                verdict, reasons = "REJECT", reasons + xrej
+            notes = notes + xnotes
         out = {"verdict": verdict, "item_id": draft.get("item_id"), "reasons": reasons}
-        if kind == "post":
+        if kind == "post" or notes:
             out["notes"] = notes
+        if vres is not None:
+            out["viral"] = vres
+            out["viral_reasons"] = xrej   # what the inbox REJECTs on; part of the verdict only with --viral-gate
         print(json.dumps(out, ensure_ascii=False, indent=2))
         return 0 if verdict == "APPROVE" else 1
     instinct = load_instinct(Path(a.instinct))
@@ -1446,7 +1502,8 @@ def main(argv: list[str] | None = None) -> int:
     run_inbox(rest, instinct, a.env, a.facts_base, a.dry_run,
               lambda platform, body: send_reply(Path(a.instinct), a.env, a.env_file, platform, body), a.limit,
               comment_state_path(a.comment_state), history=history, variety_state=variety_state_path(a.variety_state),
-              need_history=True, variety=not a.no_variety, approved_ledger=approved_ledger_path(a.approved_ledger))
+              need_history=True, variety=not a.no_variety, approved_ledger=approved_ledger_path(a.approved_ledger),
+              viral=not a.no_viral)
     return 0
 
 
