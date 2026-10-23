@@ -248,7 +248,9 @@ def supported_tickers(item: dict | None, facts: dict | None) -> set[str]:
     for it in items:
         if not isinstance(it, dict):
             continue
-        for t in [it.get("ticker"), *(it.get("tickers") or [])]:
+        # context_tickers / context_mover: the market items' smaller names, in their closed phrasings (B3)
+        mover = it.get("context_mover") if isinstance(it.get("context_mover"), dict) else {}
+        for t in [it.get("ticker"), *(it.get("tickers") or []), *(it.get("context_tickers") or []), mover.get("ticker")]:
             if isinstance(t, str) and t:
                 out.add(t.upper())
         for p in it.get("peers") or []:
