@@ -88,12 +88,15 @@ no own-post history, so the history rules (spacing, question, link-24h) are skip
 
 VIRAL CHECK v1 (tools/viral_check.py; owner 2026-10-23, Growth VIRAL-CHECK.md, kit directive #668): --inbox and --draft
 score every post draft (must-haves M1-M8, boosters B1-B6, penalties P1-P4) and every comment (M1, M2, M5 and section D:
-D1 target >= 50k followers within 30 min, D2 on a facts item, D3 no typed @mention). A must-have that is checkable and
-fails, or any penalty, is a REJECT reason "viral: <rule> ..."; a rule the data cannot decide (no planned_at for the 60 min
-spacing, no target_followers / target_posted_at on a comment) is an answer line "viral-unknown: ...", never a REJECT. Every
-answer carries "viral=M8/8 B2 P0" (Grok copies it into the post_log); a post with fewer than 2 boosters is APPROVED with a
-"viral-weak: ..." line. A post draft may carry planned_at (ISO time it goes out) and format "reel"; a comment draft
-target_followers and target_posted_at. --no-viral turns the gate off (run_inbox's viral=False, the default for callers
+D1 target >= 50k followers within 30 min, D2 on a facts item, D3 no typed @mention). A hard must-have that is checkable
+and fails, or a hard penalty, is a REJECT reason "viral: <rule> ..."; a rule whose evidence does not carry a REJECT on
+that platform / item / kind (viral_check's module doc: Instagram's X-only rules, over 60 words, the top-50 3 h window,
+P2 on filing / Reddit / all-broad items, comment M1 / D1 / D2) is a "viral-note: ..." line; a rule the data cannot
+decide (no planned_at for the 60 min spacing or the post day, no target_followers / target_posted_at on a comment) is a
+"viral-unknown: ..." line; neither is ever a REJECT. Every answer carries "viral=M8/8 B2 P0" (Grok copies it into the
+post_log); a post with fewer than 2 boosters is APPROVED with a "viral-weak: ..." line naming what the item can reach. A
+check that fails on a malformed draft is a "viral-error: ..." line, verdict unchanged. A post draft may carry planned_at
+(ISO time it goes out) and format "reel"; a comment draft target_followers and target_posted_at. --no-viral turns the gate off (run_inbox's viral=False, the default for callers
 that do not ask for it). --draft prints the score ("viral") and the reasons the inbox would add ("viral_reasons"); they
 change its verdict and exit code only with --viral-gate.
 """
@@ -952,11 +955,16 @@ def apply_variety(draft: dict, facts: dict | None, history: list[dict] | None, s
 def apply_viral(draft: dict, facts: dict | None, kind: str, history: list[dict] | None,
                 now: dt.datetime) -> tuple[list[str], list[str], dict | None]:
     """(reject reasons, answer lines, score) for a post or comment draft. A post whose item is not in the facts is
-    already rejected by review(): it is not scored (None)."""
-    if kind == "post" and vc.find_item(facts, draft.get("item_id")) is None:
-        return [], [], None
-    res = vc.score_draft(draft, facts, kind, history, now)
-    return vc.reject_reasons(res), vc.note_lines(res), res
+    already rejected by review(): it is not scored (None). Never raises: draft fields are untrusted Grok JSON, and a
+    check that fails on one is a "viral-error:" answer line with the verdict left alone (as playbook_notes), so one bad
+    row never stops the inbox before it is answered and acked."""
+    try:
+        if kind == "post" and vc.find_item(facts, draft.get("item_id")) is None:
+            return [], [], None
+        res = vc.score_draft(draft, facts, kind, history, now)
+        return vc.reject_reasons(res), vc.note_lines(res), res
+    except Exception as e:  # noqa: BLE001 - the viral check never blocks an answer
+        return [], [f"viral-error: VIRAL CHECK failed on this draft ({type(e).__name__}); verdict unchanged"], None
 
 
 # ---------------------------------------------------------------------------
@@ -1098,7 +1106,10 @@ def ledger_entry(draft: dict, msg_id, now: dt.datetime) -> dict:
     out = {"msg_id": msg_id, "at": now.astimezone(dt.timezone.utc).isoformat(), "platform": draft.get("platform"),
            "item_id": draft.get("item_id"),
            "text": "\n".join([str(draft.get("text") or ""), str(draft.get("reply_text") or "")])}
-    planned = vc.as_time(draft.get("planned_at")) if isinstance(draft.get("planned_at"), str) else None
+    try:   # untrusted draft field: a time it cannot read (or out of range) is simply not kept
+        planned = vc.as_time(draft.get("planned_at")) if isinstance(draft.get("planned_at"), str) else None
+    except Exception:  # noqa: BLE001
+        planned = None
     if planned is not None:   # VIRAL CHECK M6: an approved post with a planned time counts in the 60 min spacing
         out["planned_at"] = planned.isoformat()
     return out
