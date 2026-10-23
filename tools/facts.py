@@ -54,7 +54,10 @@ Gates before the rank: weekend facts do not replay filings older than the last w
 Top 8 (HQ review 2026-10-18, diversify_top): the first 8 items of the file are a varied menu: at most one small / micro
 cap, at most 2 session-map items (market_move, mega_mover, sector_rotation, breadth_day, basket_week: one selloff cannot
 fill the menu), no headline ticker or headline number of one top-8 item repeated by another (item.headline), and at least
-4 distinct pillars when the day has them. Every item carries top8 (bool) and, below the top 8, top8_out (why).
+4 distinct pillars when the day has them. Every item carries top8 (bool) and, below the top 8, top8_out (why). An item
+that is not fresh at build time (viral_check.fresh, the owner's same-session-day rule #652: a previous session's price
+move in a morning file, an earnings result past its release day, an item of an earlier day) never joins the top 8
+(top8_out "stale: ... (#652)"): the validator's VIRAL CHECK M8 rejects every post of it that day.
 Round 7 (HQ 2026-10-19): every item carries phrasings (2-3 validator-checked phrasings per fact, ids
 "<fact key>.<variant>", phrasings.py; fact_phrases / claim_phrases are their flat lists) and rotation (the phrasing / hook
 ids its type used in the last 5 own posts per platform; each phrasing's recent_on); rules.verbatim.hooks is the closed
@@ -129,6 +132,7 @@ import market_facts as mk  # noqa: E402
 import phrasings as pr  # noqa: E402
 import post_history as ph  # noqa: E402
 import select_stories as ss  # noqa: E402
+import viral_check as vc  # noqa: E402
 
 SCHEMA = "rtv-facts/1"
 SITE = ss.SITE
@@ -2096,15 +2100,26 @@ def top_block(it: dict, top: list[dict]) -> str | None:
     return None
 
 
-def diversify_top(items: list[dict]) -> tuple[list[dict], dict]:
+def stale_block(it: dict, now: dt.datetime | None) -> str | None:
+    """Why `it` is stale for posting at `now` (owner #652; viral_check.fresh, the validator's M8): None when it is fresh,
+    when freshness is unknown (an older filing: the facts carry no first-seen time) or without a build time."""
+    if now is None:
+        return None
+    r = vc.fresh(it, now)
+    return f"stale: {r['why']} (#652)" if r["ok"] is False else None
+
+
+def diversify_top(items: list[dict], now: dt.datetime | None = None) -> tuple[list[dict], dict]:
     """The first TOP_N items, picked in rank order under top_block, with at least TOP_PILLARS_MIN distinct pillars when
     the day has them (a slot is kept for a new pillar while one is still possible). The rest follow in rank order with
-    top8_out = the first rule that keeps them out (or "ranked below the top 8"). (items, counts)"""
+    top8_out = the first rule that keeps them out (or "ranked below the top 8"). With the build time (now), an item that
+    is stale at it (stale_block) never joins the top 8. (items, counts)"""
     pool = list(items)
+    stale = {id(i): stale_block(i, now) for i in pool}
     top: list[dict] = []
-    want = min(TOP_PILLARS_MIN, len({i.get("pillar") for i in pool if i.get("pillar")}))
+    want = min(TOP_PILLARS_MIN, len({i.get("pillar") for i in pool if i.get("pillar") and not stale[id(i)]}))
     while len(top) < TOP_N:
-        ok = [i for i in pool if i not in top and top_block(i, top) is None]
+        ok = [i for i in pool if i not in top and not stale[id(i)] and top_block(i, top) is None]
         if not ok:
             break
         have = {t.get("pillar") for t in top}
@@ -2113,13 +2128,13 @@ def diversify_top(items: list[dict]) -> tuple[list[dict], dict]:
         top.append(fresh[0] if need >= TOP_N - len(top) and fresh else ok[0])
     top.sort(key=lambda i: pool.index(i))
     rest = [i for i in pool if i not in top]
-    counts = {"no_card": 0, "small_cap": 0, "session_map": 0, "repeat": 0, "ranked_below": 0,
+    counts = {"stale": 0, "no_card": 0, "small_cap": 0, "session_map": 0, "repeat": 0, "ranked_below": 0,
               "pillars": len({t.get("pillar") for t in top if t.get("pillar")})}
     for it in top:
         it["top8"] = True
         it.pop("top8_out", None)
     for it in rest:
-        why = top_block(it, top) or "ranked below the top 8"
+        why = stale[id(it)] or top_block(it, top) or "ranked below the top 8"
         it["top8"], it["top8_out"] = False, why
         counts[why.split(":")[0] if ":" in why else "ranked_below"] += 1
     return top + rest, counts
@@ -2327,7 +2342,8 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
     if leaks:
         errors += [f"not built: {why}" for why in leaks]
         left["g_n1_holdout"] = {"dropped": len(leaks), "reasons": leaks}
-    items, top = diversify_top(items)
+    # the stale check reads the build time only when the file is built on its own New York day (a backfill is not)
+    items, top = diversify_top(items, now if vc.ny_day(now) == target else None)
     left["gates"]["top8"] = top
     mark_rotation(items, history)
 

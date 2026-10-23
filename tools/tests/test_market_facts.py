@@ -338,3 +338,19 @@ def test_pin_cards_prepare_and_apply(tmp_path, monkeypatch):
     monkeypatch.setattr(pc, "fetch_png", lambda url: calls.append(url) or png)
     assert pc.prepare(path, tmp_path, "2026-10-19", work, read=lambda panel: M) == 10   # only buzz is new now
     assert [Path(f).name.split("-")[1] for f in (work / "pin-cards-files.txt").read_text(encoding="utf-8").split()] == ["buzz"]
+
+
+def test_top_8_skips_items_stale_at_build_time():
+    """Review 2026-10-23: a morning file ranked the previous session's price items into the top 8, which the owner's
+    same-day rule (#652) and the validator's VIRAL CHECK M8 reject all day. With the build time they stay below."""
+    items = [{"item_id": f"2026-10-23-mega-mover-T{n}-0", "type": "mega_mover", "session_date": "2026-10-22",
+              "cap_tier": "large", "pillar": "P2", "ticker": f"T{n}"} for n in range(3)]
+    items += [{"item_id": f"2026-10-23-earnings-result-E{n}-0", "type": "earnings_result", "release_date": "2026-10-23",
+               "cap_tier": "large", "pillar": "P5", "ticker": f"E{n}"} for n in range(3)]
+    morning = dt.datetime(2026, 10, 23, 9, 0, tzinfo=dt.timezone.utc)
+    out, counts = fx.diversify_top(json.loads(json.dumps(items)), morning)
+    top = [i["item_id"] for i in out if i["top8"]]
+    assert all("earnings-result" in t for t in top) and counts["stale"] == 3
+    assert all(i["top8_out"].startswith("stale: a price move of the 2026-10-22 session") for i in out if not i["top8"])
+    out, counts = fx.diversify_top(json.loads(json.dumps(items)))          # no build time (tests, backfills): unchanged
+    assert counts["stale"] == 0 and any(i["top8"] and "mega-mover" in i["item_id"] for i in out)
