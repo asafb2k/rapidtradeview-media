@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-23",
-  "generated_at": "2026-10-23T21:15:06Z",
-  "as_of": "2026-10-23T21:15:06Z",
+  "generated_at": "2026-10-23T21:45:05Z",
+  "as_of": "2026-10-23T21:45:05Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 2,
     "form4_buy": 1,
-    "earnings_result": 18,
+    "earnings_result": 17,
     "earnings_upcoming": 33,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -886,7 +886,7 @@
     "market_move": 0,
     "mega_mover": 1,
     "congress_flow": 0,
-    "insider_flow": 0,
+    "insider_flow": 1,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 4,
@@ -934,15 +934,15 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 17,
-      "below_minimum": 14,
+      "filings_passing_filters": 15,
+      "below_minimum": 12,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
       "archive_reports": 1836,
       "recent_ready": 217,
-      "outside_24h": 199,
+      "outside_24h": 200,
       "unreadable": 0
     },
     "earnings_upcoming": {
@@ -958,7 +958,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 53,
+      "tickers_in_items": 52,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -972,7 +972,7 @@
     "market": {
       "market_session": "2026-10-23",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-10-23T21:15:29.849671+00:00"
+      "flows_as_of": "2026-10-23T21:45:26.923986+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -984,7 +984,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 85
+        "angles_dropped": 82
       },
       "top8": {
         "stale": 0,
@@ -992,20 +992,12 @@
         "small_cap": 0,
         "session_map": 1,
         "repeat": 9,
-        "ranked_below": 54,
+        "ranked_below": 53,
         "pillars": 4
       }
-    },
-    "card_unpinned": {
-      "dropped": 1,
-      "reasons": [
-        "insider_flow CRWD: share card not pinned (the card's data changed since the facts read (before the GET))"
-      ]
     }
   },
-  "errors": [
-    "not published: insider_flow CRWD: share card not pinned (the card's data changed since the facts read (before the GET))"
-  ],
+  "errors": [],
   "partial_sources": [],
   "moves_like_checked": {
     "TLH": "not_covered",
@@ -1035,7 +1027,7 @@
     "read": true,
     "own_posts": 31
   },
-  "api_requests": 49,
+  "api_requests": 47,
   "items": [
     {
       "item_id": "2026-10-23-mega-mover-CRWD-9dd36d",
@@ -5261,6 +5253,615 @@
         },
         "instagram": {
           "posts": 1,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        }
+      }
+    },
+    {
+      "item_id": "2026-10-23-insider-flow-CRWD-83f32d",
+      "type": "insider_flow",
+      "ticker": "CRWD",
+      "tickers": [
+        "CRWD",
+        "AVGO",
+        "ANET"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-23-insider-flow-CRWD-83f32d#insiders",
+      "allowed_numbers": [
+        "$444M",
+        "+$444M",
+        "$443.6M",
+        "+$443.6M",
+        "$3.7B",
+        "+$3.7B",
+        "$4B",
+        "+$4B",
+        "30",
+        "188",
+        "465",
+        "500",
+        "2026-09-23",
+        "Sep 23, 2026",
+        "Sep 23",
+        "2026-10-23",
+        "Oct 23, 2026",
+        "Oct 23",
+        "$267M",
+        "+$267M",
+        "$266.9M",
+        "+$266.9M",
+        "$250M",
+        "+$250M",
+        "$250.0M",
+        "+$250.0M",
+        "$184M",
+        "+$184M",
+        "$184.3M",
+        "+$184.3M",
+        "6",
+        "1",
+        "4",
+        "8.3",
+        "$1"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Officers and directors reported $444M of open-market buys and $3.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Sep 23 to Oct 23; 188 companies with buys, 465 with sells). Largest sellers among the 500 largest US-listed companies: $CRWD $267M (6 insiders), $AVGO $250M (1 insiders), $ANET $184M (4 insiders).",
+      "dedupe_key": "insider_flow:2026-10-23:CRWD",
+      "claim_phrases": [
+        "$CRWD had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($267M).",
+        "Over 30 days in our feed, $CRWD had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($267M).",
+        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($267M): $CRWD.",
+        "$AVGO had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($250M).",
+        "Over 30 days in our feed, $AVGO had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($250M).",
+        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($250M): $AVGO.",
+        "$ANET had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($184M).",
+        "Over 30 days in our feed, $ANET had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($184M).",
+        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($184M): $ANET.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $CRWD ($267M), $AVGO ($250M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $CRWD ($267M), $AVGO ($250M).",
+        "$CRWD ($267M) and $AVGO ($250M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $CRWD ($267M), $AVGO ($250M), $ANET ($184M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $CRWD ($267M), $AVGO ($250M), $ANET ($184M).",
+        "$CRWD ($267M), $AVGO ($250M) and $ANET ($184M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.3.",
+        "Officers and directors sold $8.3 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $8.3 on the open market for every $1 they bought."
+      ],
+      "pillar": "P3",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "CRWD",
+            "AVGO",
+            "ANET"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "sell|sold",
+          "says": "largest open-market sellers among the 500 largest, in order: $CRWD, $AVGO, $ANET"
+        }
+      ],
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$444M",
+            "+$444M",
+            "$443.6M",
+            "+$443.6M",
+            "$3.7B",
+            "+$3.7B",
+            "$4B",
+            "+$4B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals ($444M bought, $3.7B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "CRWD",
+          "AVGO",
+          "ANET"
+        ],
+        "numbers": [
+          "$3.7B",
+          "$444M"
+        ]
+      },
+      "window": {
+        "from": "2026-09-23",
+        "to": "2026-10-23",
+        "days": 30
+      },
+      "bought_usd": 443643749.85,
+      "sold_usd": 3675319448.48,
+      "buy_companies": 188,
+      "sell_companies": 465,
+      "top_sellers_500": [
+        {
+          "ticker": "CRWD",
+          "name": "CrowdStrike Holdings, Inc.",
+          "sector": "Technology",
+          "total_usd": 266898209.61,
+          "insider_count": 6,
+          "roles": {
+            "officer": 4,
+            "director": 2
+          },
+          "row_count": 231,
+          "first_trade": "2026-09-22",
+          "last_trade": "2026-10-20"
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "sector": "Technology",
+          "total_usd": 250006183.62,
+          "insider_count": 1,
+          "roles": {
+            "officer": 0,
+            "director": 1
+          },
+          "row_count": 16,
+          "first_trade": "2026-09-23",
+          "last_trade": "2026-09-23"
+        },
+        {
+          "ticker": "ANET",
+          "name": "Arista Networks, Inc.",
+          "sector": "Technology",
+          "total_usd": 184301926.43,
+          "insider_count": 4,
+          "roles": {
+            "officer": 3,
+            "director": 1
+          },
+          "row_count": 60,
+          "first_trade": "2026-09-21",
+          "last_trade": "2026-10-20"
+        }
+      ],
+      "top_buyers_500": [],
+      "angles": [
+        "Officers and directors sold $3.7B and bought $444M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $444M of open-market buys and $3.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.7B of open-market sells and $444M of open-market buys."
+      ],
+      "market_cap_usd": 243635060736.0,
+      "magnitude": 2.3479426390824534,
+      "trigger": "$DELL entered the top 5",
+      "top5": [
+        "CRWD",
+        "AVGO",
+        "ANET",
+        "SNOW",
+        "DELL"
+      ],
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "card": {
+        "panel": "insiders",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-23/cards/market-insiders-2026-10-23-661d4c55-b9e971b8.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
+        "date": "2026-10-23",
+        "fingerprint": "661d4c55",
+        "file": "market-insiders-2026-10-23-661d4c55.png",
+        "sha256": "61040976e038f5cb1c5ec11534ca2a0a84cec08053faf95877d09272abb7d0e7"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-23/cards/market-insiders-2026-10-23-661d4c55-b9e971b8.png",
+          "kind": "image",
+          "alt": "Officers and directors reported $444M of open-market buys and $3.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Sep 23 to Oct 23; 188 companies with buys, 465 with sells). Largest sellers among the 500 largest US-listed companies: $CRWD $267M (6 insiders), $AVGO $250M (1 insiders), $ANET $184M (4 insiders)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "ticker_sectors": {
+        "CRWD": "Technology",
+        "AVGO": "Technology",
+        "ANET": "Technology"
+      },
+      "ticker_names": {
+        "CRWD": "CrowdStrike Holdings, Inc.",
+        "AVGO": "Broadcom Inc.",
+        "ANET": "Arista Networks, Inc."
+      },
+      "fact_phrases": [
+        "Officers and directors reported $444M of open-market buys and $3.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.7B of open-market sells and $444M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $444M of open-market buys and $3.7B of open-market sells.",
+        "Officers and directors sold $3.7B and bought $444M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $3.7B and bought $444M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 188 companies had open-market buys by officers and directors and 465 had open-market sells.",
+        "465 companies had open-market sells by officers and directors and 188 had open-market buys over 30 days in our feed.",
+        "Officers and directors of $CRWD sold $267M on the open market over 30 days in our feed (6 insiders).",
+        "6 insiders at $CRWD sold $267M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $CRWD sold $267M on the open market (6 insiders).",
+        "Officers and directors of $AVGO sold $250M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $AVGO sold $250M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $AVGO sold $250M on the open market (1 insider).",
+        "Officers and directors of $ANET sold $184M on the open market over 30 days in our feed (4 insiders).",
+        "4 insiders at $ANET sold $184M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $ANET sold $184M on the open market (4 insiders)."
+      ],
+      "phrasings": [
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$CRWD had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($267M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $CRWD had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($267M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($267M): $CRWD.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-c019d4.a",
+          "fact": "insiderflo-c019d4",
+          "variant": "a",
+          "text": "$AVGO had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($250M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-c019d4.t",
+          "fact": "insiderflo-c019d4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $AVGO had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($250M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-c019d4.o",
+          "fact": "insiderflo-c019d4",
+          "variant": "o",
+          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($250M): $AVGO.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-1641a4.a",
+          "fact": "insiderflo-1641a4",
+          "variant": "a",
+          "text": "$ANET had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($184M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-1641a4.t",
+          "fact": "insiderflo-1641a4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $ANET had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($184M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-1641a4.o",
+          "fact": "insiderflo-1641a4",
+          "variant": "o",
+          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($184M): $ANET.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-2a8e57.a",
+          "fact": "insiderflo-2a8e57",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $CRWD ($267M), $AVGO ($250M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-2a8e57.t",
+          "fact": "insiderflo-2a8e57",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $CRWD ($267M), $AVGO ($250M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-2a8e57.l",
+          "fact": "insiderflo-2a8e57",
+          "variant": "l",
+          "text": "$CRWD ($267M) and $AVGO ($250M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-76de2d.a",
+          "fact": "insiderflo-76de2d",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $CRWD ($267M), $AVGO ($250M), $ANET ($184M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-76de2d.t",
+          "fact": "insiderflo-76de2d",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $CRWD ($267M), $AVGO ($250M), $ANET ($184M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-76de2d.l",
+          "fact": "insiderflo-76de2d",
+          "variant": "l",
+          "text": "$CRWD ($267M), $AVGO ($250M) and $ANET ($184M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-eeeffc.a",
+          "fact": "insiderflo-eeeffc",
+          "variant": "a",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.3.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-eeeffc.h1",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h1",
+          "text": "Officers and directors sold $8.3 for every $1 they bought on the open market over 30 days in our feed.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-eeeffc.h2",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h2",
+          "text": "Over 30 days in our feed, officers and directors sold $8.3 on the open market for every $1 they bought.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-de8c5a.a",
+          "fact": "insiderflo-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $444M of open-market buys and $3.7B of open-market sells over 30 days in our feed.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-de8c5a.h1",
+          "fact": "insiderflo-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $3.7B of open-market sells and $444M of open-market buys.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-de8c5a.t",
+          "fact": "insiderflo-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $444M of open-market buys and $3.7B of open-market sells.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-cc7b17.a",
+          "fact": "insiderflo-cc7b17",
+          "variant": "a",
+          "text": "Officers and directors sold $3.7B and bought $444M of their own companies' stock on the open market over 30 days in our feed.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-cc7b17.t",
+          "fact": "insiderflo-cc7b17",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors sold $3.7B and bought $444M of their own companies' stock on the open market.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-ca45c6.a",
+          "fact": "insiderflo-ca45c6",
+          "variant": "a",
+          "text": "Over 30 days in our feed, 188 companies had open-market buys by officers and directors and 465 had open-market sells.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-ca45c6.h1",
+          "fact": "insiderflo-ca45c6",
+          "variant": "h1",
+          "text": "465 companies had open-market sells by officers and directors and 188 had open-market buys over 30 days in our feed.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $CRWD sold $267M on the open market over 30 days in our feed (6 insiders).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "6 insiders at $CRWD sold $267M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $CRWD sold $267M on the open market (6 insiders).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $AVGO sold $250M on the open market over 30 days in our feed (1 insider).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $AVGO sold $250M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $AVGO sold $250M on the open market (1 insider).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $ANET sold $184M on the open market over 30 days in our feed (4 insiders).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "4 insiders at $ANET sold $184M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $ANET sold $184M on the open market (4 insiders).",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$444M": "+",
+          "$443.6M": "+",
+          "$3.7B": "+",
+          "$4B": "+",
+          "$267M": "+",
+          "$266.9M": "+",
+          "$250M": "+",
+          "$250.0M": "+",
+          "$184M": "+",
+          "$184.3M": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CRWD": [
+          [
+            "$",
+            267.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            8.3,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "AVGO": [
+          [
+            "$",
+            250.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "ANET": [
+          [
+            "$",
+            184.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "rank": 12.35,
+      "rank_why": "insider_flow 4; mega cap $243.64B +4; magnitude (market) +2.35; today 2026-10-23 (age 0) +2",
+      "top8": false,
+      "top8_out": "repeat: leads with $CRWD like 2026-10-23-mega-mover-CRWD-9dd36d",
+      "rotation": {
+        "x": {
+          "posts": 1,
+          "used_phrasing_ids": [],
+          "used_hook_ids": [
+            "H10"
+          ]
+        },
+        "instagram": {
+          "posts": 0,
           "used_phrasing_ids": [],
           "used_hook_ids": []
         },
@@ -13799,457 +14400,6 @@
       }
     },
     {
-      "item_id": "2026-10-23-earnings-result-ISTR-994f5e",
-      "type": "earnings_result",
-      "ticker": "ISTR",
-      "tickers": [
-        "ISTR"
-      ],
-      "name": "Investar Holding Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-22",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1602658/000143774926033291/ex_1008963.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ISTR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-23-earnings-result-ISTR-994f5e#earnings-history",
-      "allowed_numbers": [
-        "$0.77",
-        "$0.76",
-        "$0.01",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-22",
-        "Oct 22, 2026",
-        "Oct 22"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Investar Holding Corporation (ISTR) published Q3 2026 results on 2026-10-22: EPS beat. Core diluted earnings per common share $0.77 vs $0.76 consensus (Beat by $0.01).",
-      "dedupe_key": "report:istr-2026-q3",
-      "claim_phrases": [
-        "EPS came in above the $0.76 consensus.",
-        "$ISTR beat the Q3 2026 EPS consensus: $0.77 vs $0.76.",
-        "$ISTR Q3 2026 EPS: $0.77 vs $0.76 consensus (beat by $0.01).",
-        "$ISTR Q3 2026 EPS $0.77, beat by $0.01.",
-        "EPS $0.77 vs $0.76 consensus (beat by $0.01).",
-        "EPS $0.77 vs $0.76 (beat by $0.01).",
-        "$ISTR beat Q3 2026 EPS estimates by $0.01.",
-        "Core diluted earnings per common share came in above the $0.76 consensus.",
-        "$ISTR beat the Q3 2026 Core diluted earnings per common share consensus: $0.77 vs $0.76.",
-        "$ISTR Q3 2026 Core diluted earnings per common share: $0.77 vs $0.76 consensus (beat by $0.01).",
-        "$ISTR Q3 2026 Core diluted earnings per common share $0.77, beat by $0.01.",
-        "Core diluted earnings per common share $0.77 vs $0.76 consensus (beat by $0.01).",
-        "Core diluted earnings per common share $0.77 vs $0.76 (beat by $0.01).",
-        "$ISTR beat Q3 2026 Core diluted earnings per common share estimates by $0.01.",
-        "$ISTR beat the Q3 EPS consensus: $0.77 vs $0.76.",
-        "$ISTR Q3 EPS: $0.77 vs $0.76 consensus (beat by $0.01).",
-        "$ISTR Q3 EPS $0.77, beat by $0.01.",
-        "$ISTR beat Q3 EPS estimates by $0.01.",
-        "$ISTR beat the Q3 Core diluted earnings per common share consensus: $0.77 vs $0.76.",
-        "$ISTR Q3 Core diluted earnings per common share: $0.77 vs $0.76 consensus (beat by $0.01).",
-        "$ISTR Q3 Core diluted earnings per common share $0.77, beat by $0.01.",
-        "$ISTR beat Q3 Core diluted earnings per common share estimates by $0.01.",
-        "$ISTR beat Q3 2026 estimates.",
-        "$ISTR beat Q3 estimates."
-      ],
-      "report_id": "istr-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-22",
-      "published_at": "2026-10-22T21:23:24.621071+00:00",
-      "tile_label": "EPS beat",
-      "tile_state": "beat",
-      "results": {
-        "eps": {
-          "basis": "Core diluted earnings per common share",
-          "reported": "$0.77",
-          "consensus": "$0.76",
-          "label": "Beat by $0.01",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/ISTR/opengraph-image",
-          "kind": "image",
-          "alt": "Investar Holding Corporation (ISTR) published Q3 2026 results on 2026-10-22: EPS beat. Core diluted earnings per common share $0.77 vs $0.76 consensus (Beat by $0.01)."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-10-22 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ISTR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Investar Holding Corporation ($ISTR) published Q3 2026 results on Oct 22.",
-        "$ISTR (Investar Holding Corporation) reported Q3 2026 results on Oct 22.",
-        "On Oct 22, Investar Holding Corporation ($ISTR) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Investar Holding Corporation ($ISTR) published Q3 2026 results on Oct 22.",
-        "$ISTR (Investar Holding Corporation) reported Q3 2026 results on Oct 22.",
-        "On Oct 22, Investar Holding Corporation ($ISTR) published Q3 2026 results.",
-        "$ISTR published Q3 2026 results on Oct 22.",
-        "Q3 2026 results from $ISTR came out on Oct 22.",
-        "On Oct 22, $ISTR published Q3 2026 results.",
-        "$ISTR Q3 2026 Core diluted earnings per common share: $0.77 vs $0.76 consensus.",
-        "$ISTR reported Q3 2026 Core diluted earnings per common share of $0.77 vs $0.76 consensus.",
-        "$ISTR Q3 2026 Core diluted earnings per common share was $0.77.",
-        "Q3 2026 Core diluted earnings per common share at $ISTR was $0.77."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $0.76 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$ISTR beat the Q3 2026 EPS consensus: $0.77 vs $0.76.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$ISTR Q3 2026 EPS: $0.77 vs $0.76 consensus (beat by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$ISTR Q3 2026 EPS $0.77, beat by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $0.77 vs $0.76 consensus (beat by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $0.77 vs $0.76 (beat by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$ISTR beat Q3 2026 EPS estimates by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-812915.a",
-          "fact": "earningsre-812915",
-          "variant": "a",
-          "text": "Core diluted earnings per common share came in above the $0.76 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-34bb14.a",
-          "fact": "earningsre-34bb14",
-          "variant": "a",
-          "text": "$ISTR beat the Q3 2026 Core diluted earnings per common share consensus: $0.77 vs $0.76.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-49265a.a",
-          "fact": "earningsre-49265a",
-          "variant": "a",
-          "text": "$ISTR Q3 2026 Core diluted earnings per common share: $0.77 vs $0.76 consensus (beat by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-91d20e.a",
-          "fact": "earningsre-91d20e",
-          "variant": "a",
-          "text": "$ISTR Q3 2026 Core diluted earnings per common share $0.77, beat by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-b2ed82.a",
-          "fact": "earningsre-b2ed82",
-          "variant": "a",
-          "text": "Core diluted earnings per common share $0.77 vs $0.76 consensus (beat by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-aefe50.a",
-          "fact": "earningsre-aefe50",
-          "variant": "a",
-          "text": "Core diluted earnings per common share $0.77 vs $0.76 (beat by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-c95096.a",
-          "fact": "earningsre-c95096",
-          "variant": "a",
-          "text": "$ISTR beat Q3 2026 Core diluted earnings per common share estimates by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$ISTR beat the Q3 EPS consensus: $0.77 vs $0.76.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$ISTR Q3 EPS: $0.77 vs $0.76 consensus (beat by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$ISTR Q3 EPS $0.77, beat by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$ISTR beat Q3 EPS estimates by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-935e88.a",
-          "fact": "earningsre-935e88",
-          "variant": "a",
-          "text": "$ISTR beat the Q3 Core diluted earnings per common share consensus: $0.77 vs $0.76.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-332513.a",
-          "fact": "earningsre-332513",
-          "variant": "a",
-          "text": "$ISTR Q3 Core diluted earnings per common share: $0.77 vs $0.76 consensus (beat by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-f5b903.a",
-          "fact": "earningsre-f5b903",
-          "variant": "a",
-          "text": "$ISTR Q3 Core diluted earnings per common share $0.77, beat by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-5e00ff.a",
-          "fact": "earningsre-5e00ff",
-          "variant": "a",
-          "text": "$ISTR beat Q3 Core diluted earnings per common share estimates by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$ISTR beat Q3 2026 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$ISTR beat Q3 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Investar Holding Corporation ($ISTR) published Q3 2026 results on Oct 22.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$ISTR (Investar Holding Corporation) reported Q3 2026 results on Oct 22.",
-          "claim": false,
-          "recent_on": [
-            "x"
-          ]
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Oct 22, Investar Holding Corporation ($ISTR) published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$ISTR published Q3 2026 results on Oct 22.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $ISTR came out on Oct 22.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Oct 22, $ISTR published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-74511d.a",
-          "fact": "earningsre-74511d",
-          "variant": "a",
-          "text": "$ISTR Q3 2026 Core diluted earnings per common share: $0.77 vs $0.76 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-74511d.h1",
-          "fact": "earningsre-74511d",
-          "variant": "h1",
-          "text": "$ISTR reported Q3 2026 Core diluted earnings per common share of $0.77 vs $0.76 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-42367f.a",
-          "fact": "earningsre-42367f",
-          "variant": "a",
-          "text": "$ISTR Q3 2026 Core diluted earnings per common share was $0.77.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-42367f.h1",
-          "fact": "earningsre-42367f",
-          "variant": "h1",
-          "text": "Q3 2026 Core diluted earnings per common share at $ISTR was $0.77.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "ISTR": [
-          [
-            "$",
-            0.77,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.76,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.01,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": {
-        "x": {
-          "posts": 5,
-          "used_phrasing_ids": [
-            "earningsre-838a1e.a",
-            "earningsre-413af8.h1",
-            "earningsre-986392.a"
-          ],
-          "used_hook_ids": []
-        },
-        "instagram": {
-          "posts": 2,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
-          "used_hook_ids": [
-            "H13",
-            "H27",
-            "H43"
-          ]
-        }
-      }
-    },
-    {
       "item_id": "2026-10-23-form4-buy-APLD-e75136",
       "type": "form4_buy",
       "ticker": "APLD",
@@ -14305,12 +14455,12 @@
       "in_500": false,
       "context_numbers": [
         "$6.3B",
-        "$441M",
-        "+$441M",
-        "$441.1M",
-        "+$441.1M",
-        "$3.6B",
-        "+$3.6B",
+        "$444M",
+        "+$444M",
+        "$443.6M",
+        "+$443.6M",
+        "$3.7B",
+        "+$3.7B",
         "$4B",
         "+$4B",
         "30"
@@ -14330,12 +14480,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$441M",
-            "+$441M",
-            "$441.1M",
-            "+$441.1M",
-            "$3.6B",
-            "+$3.6B",
+            "$444M",
+            "+$444M",
+            "$443.6M",
+            "+$443.6M",
+            "$3.7B",
+            "+$3.7B",
             "$4B",
             "+$4B"
           ],
@@ -14349,8 +14499,8 @@
       "context": {
         "market_cap": "$6.3B",
         "insiders_30d": {
-          "bought": "$441M",
-          "sold": "$3.6B",
+          "bought": "$444M",
+          "sold": "$3.7B",
           "days": 30
         }
       },
@@ -14373,9 +14523,9 @@
         "On a Form 4 filed Oct 19, Jason Gechen Zhang (President at Applied Digital Corporation) reported an open-market purchase of $APLD totaling $5.66M.",
         "Jason Gechen Zhang's $APLD purchase was traded Oct 16 and reported on a Form 4 filed Oct 19.",
         "Traded Oct 16, Jason Gechen Zhang's $APLD purchase was reported on a Form 4 filed Oct 19.",
-        "Officers and directors reported $441M of open-market buys and $3.6B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.6B of open-market sells and $441M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $441M of open-market buys and $3.6B of open-market sells."
+        "Officers and directors reported $444M of open-market buys and $3.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.7B of open-market sells and $444M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $444M of open-market buys and $3.7B of open-market sells."
       ],
       "phrasings": [
         {
@@ -14486,7 +14636,7 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $441M of open-market buys and $3.6B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $444M of open-market buys and $3.7B of open-market sells over 30 days in our feed.",
           "claim": false,
           "recent_on": []
         },
@@ -14494,7 +14644,7 @@
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.6B of open-market sells and $441M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.7B of open-market sells and $444M of open-market buys.",
           "claim": false,
           "recent_on": []
         },
@@ -14502,16 +14652,16 @@
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $441M of open-market buys and $3.6B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $444M of open-market buys and $3.7B of open-market sells.",
           "claim": false,
           "recent_on": []
         }
       ],
       "moves": {
         "numbers": {
-          "$441M": "+",
-          "$441.1M": "+",
-          "$3.6B": "+",
+          "$444M": "+",
+          "$443.6M": "+",
+          "$3.7B": "+",
           "$4B": "+"
         },
         "subjects": {}
