@@ -123,13 +123,27 @@ def fetch_png(url: str) -> bytes:
     return body
 
 
-def drawn_problem(c: dict) -> str | None:
+def drawn_problem(c: dict, today: str | None = None) -> str | None:
     """Why the kept card draws another date than the item's card date (its X-Card-Date header), or None. During a
-    session the buzz and map routes draw live quotes (X-Card-Date = now) while the item is about the last close."""
+    session the buzz and map routes draw live quotes (X-Card-Date = now) while the item is about the last close.
+    A buzz card drawn on the facts day itself is allowed (see is_live): its claim is the day's mention capture."""
     drawn = CARD_DATE.get(c.get("live_url") or "")
-    if drawn and str(drawn)[:10] != str(c.get("date"))[:10]:
+    if drawn and str(drawn)[:10] != str(c.get("date"))[:10] and not is_live(c, today):
         return f"the card draws {drawn} (X-Card-Date), the item {c.get('date')}"
     return None
+
+
+def is_live(c: dict, today: str | None) -> bool:
+    """A buzz card that draws live quotes on the facts day (Growth 10-23: since the 10-23 deploy the buzz route draws
+    pre-market quotes too). Pinned as ...-live.png and marked card.live: a post with it may use the item's mention
+    phrases only, never a phrase about a past session's prices (kit #652, #669)."""
+    drawn = CARD_DATE.get(c.get("live_url") or "")
+    return bool(c.get("panel") == "buzz" and drawn and today and str(drawn)[:10] == str(today)[:10]
+                and str(drawn)[:10] != str(c.get("date"))[:10])
+
+
+def live_name(name: str) -> str:
+    return f"{name[:-4]}-live.png" if name.endswith(".png") else name
 
 
 def same_data_pin(repo: Path, name: str) -> str | None:
@@ -233,6 +247,7 @@ def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_marke
     failed = 0
     by_file: dict[str, str] = {}
     why_file: dict[str, str] = {}
+    live_files: set[str] = set()
     for it in card_items(facts):
         c = it["card"]
         name = with_build(c["file"], build)
@@ -244,6 +259,9 @@ def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_marke
             continue
         if name not in by_file:
             rel = existing(repo, name)
+            if not rel and existing(repo, live_name(name)):
+                rel = existing(repo, live_name(name))
+                live_files.add(rel)
             if not rel:
                 rel = f"v/{date}/cards/{name}"
                 body = b""
@@ -253,7 +271,7 @@ def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_marke
                         fetch_png(c["live_url"])          # warm-up: the card route's data cache refreshes on this request
                         SLEEP(WARMUP_S)
                         body = fetch_png(c["live_url"])
-                        problem = drawn_problem(c) or data_problem(c, read(c["panel"]), "after")
+                        problem = drawn_problem(c, date) or data_problem(c, read(c["panel"]), "after")
                     if not problem:
                         twin = stale_twin(repo, c["panel"], name, body)
                         problem = f"the PNG is the same image as {twin} (old data)" if twin else None
@@ -274,6 +292,9 @@ def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_marke
                     plan[it["item_id"]] = {"error": problem}
                     continue
                 if not prior:
+                    if is_live(c, date):
+                        rel = f"v/{date}/cards/{live_name(name)}"
+                        live_files.add(rel)
                     dest = Path(repo) / rel
                     dest.parent.mkdir(parents=True, exist_ok=True)
                     dest.write_bytes(body)
@@ -283,7 +304,7 @@ def prepare(facts_path: Path, repo: Path, date: str, work: Path, read=read_marke
         rel = by_file[name]
         if rel:
             sha = hashlib.sha256((Path(repo) / rel).read_bytes()).hexdigest()
-            plan[it["item_id"]] = {"file": rel, "url": pages_url(rel), "sha256": sha}
+            plan[it["item_id"]] = {"file": rel, "url": pages_url(rel), "sha256": sha, "live": rel in live_files}
         else:
             plan[it["item_id"]] = {"error": why_file.get(name) or "download failed"}
     pruned = prune(repo, dt.date.fromisoformat(date))
@@ -336,6 +357,8 @@ def apply(facts_path: Path, work: Path, timeout: int, wait: bool) -> int:
             dropped.append(f"{it['type']} {it.get('ticker') or it['item_id']}: share card not pinned ({why})")
             continue
         c["url"], c["sha256"] = p["url"], p["sha256"]
+        if p.get("live"):
+            c["live"] = True   # the card draws the day's live quotes: mention phrases only (kit #669)
         it["media"] = [{"url": p["url"], "kind": "image", "alt": " ".join(str(it.get("facts_text") or "").split())}]
         kept.append(it)
     facts["items"] = kept
