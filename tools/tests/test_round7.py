@@ -542,6 +542,42 @@ def test_pin_cards_checks_the_drawn_date_and_keeps_an_earlier_build(tmp_path, mo
     assert not list(tmp_path.glob("v/*/cards/*-bbbbbbbb.png"))      # nothing written under the new build
 
 
+def test_pin_cards_pins_a_same_day_live_buzz_card_as_live(tmp_path, monkeypatch):
+    """Growth 10-23: since the 10-23 deploy the buzz route draws pre-market quotes; the day's buzz item was dropped."""
+    monkeypatch.setattr(pc, "CARD_DATE", {})
+    monkeypatch.setattr(pc, "SLEEP", lambda s: None)
+    calls = []
+
+    def fetch(url):
+        calls.append(url)
+        pc.CARD_DATE[url] = "2026-10-19T08:47:58+00:00"           # live, on the facts day (2026-10-19)
+        return pc.PNG + (b"5" if "buzz" in url else b"6") * pc.MIN_BYTES
+    monkeypatch.setattr(pc, "fetch_png", fetch)
+    buzz, mapi = _card_item(panel="buzz"), _card_item()
+    buzz["item_id"], buzz["type"], buzz["price_session"] = "ib", "reddit_buzz", "2026-10-16"
+    buzz["card"]["fingerprint"] = None                              # no flows fixture fingerprint check here
+    monkeypatch.setattr(pc, "data_problem", lambda c, m, when: None)
+
+    def run():
+        path = tmp_path / "facts.json"
+        path.write_text(json.dumps({"items": [buzz, mapi], "counts": {}, "errors": [], "left_out": {}}), encoding="utf-8")
+        work = tmp_path / f"w{len(calls)}"
+        code = pc.prepare(path, tmp_path, "2026-10-19", work, read=lambda p: M, build="ccccccc")
+        plan = json.loads((work / "pin-cards.json").read_text(encoding="utf-8"))
+        monkeypatch.setattr(pc, "served", lambda url: True)
+        pc.apply(path, work, 5, True)
+        return code, plan, json.loads(path.read_text(encoding="utf-8"))
+    code, plan, out = run()
+    assert plan["ib"]["live"] is True and plan["ib"]["file"].endswith("-bccccccc-live.png")
+    assert "X-Card-Date" in plan["i1"]["error"]                       # the map stays strict: its claim is the session
+    b = next(i for i in out["items"] if i["item_id"] == "ib")
+    assert b["card"]["live"] is True and b["media"][0]["url"].endswith("-live.png")
+    n = len(calls)
+    code, plan2, _ = run()                                          # a later pass reuses the live pin, no download
+    assert plan2["ib"]["file"] == plan["ib"]["file"] and plan2["ib"]["live"] is True
+    assert not [u for u in calls[n:] if "buzz" in u]
+
+
 def test_card_build_reads_only_a_sha7(monkeypatch):
     class R:
         def __init__(self, body): self.body = body
