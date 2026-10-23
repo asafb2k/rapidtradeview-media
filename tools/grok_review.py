@@ -5,7 +5,8 @@ Usage (conda python: C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe):
   grok_review.py --inbox [--dry-run] [--env prod|dev] [--facts-base DIR|URL] [--instinct PATH] [--env-file PATH]
                  [--comment-state PATH]
 
-A post draft is {"item_id", "platform": "x"|"instagram", "text", "reply_text"?, "link", "media_url", "media_note"?}. The facts come from the day's
+A post draft is {"item_id", "platform": "x"|"instagram", "text", "reply_text"?, "link", "media_url", "media_note"?,
+"supersedes"?: <msg id of our own earlier APPROVE of the same item and platform that it withdraws>}. The facts come from the day's
 facts.json (tools/facts.py): the date is the item_id's first 10 characters; --facts-base is the Pages site by
 default (what Grok reads) or a local v/ directory. Checks:
   - the item exists in that day's facts;
@@ -1156,6 +1157,31 @@ class ApprovedLedger:
         tmp.replace(self.path)
 
 
+def supersedes_id(draft: dict) -> int | None:
+    """A post draft's "supersedes": the msg id of our own earlier APPROVE it withdraws (Growth 2026-10-23: AXP #674 was
+    withdrawn and resent as #678, and the ledger rejected #678 for reusing #674's own phrasings). Only an approved,
+    not yet logged entry of the same item on the same platform can be superseded; anything else is ignored."""
+    v = draft.get("supersedes")
+    try:
+        return int(v) if v is not None and str(v).strip().lstrip("#").isdigit() else None
+    except (TypeError, ValueError):
+        return None
+
+
+def drop_superseded(work: list[dict] | None, ledger: "ApprovedLedger | None", draft: dict) -> tuple[list[dict] | None, int | None]:
+    """(work, msg id) without the pending approval this draft supersedes; (work, None) when there is none to drop."""
+    sid = supersedes_id(draft)
+    if sid is None or work is None:
+        return work, None
+    same = lambda r: (r.get("msg_id") == sid and r.get("item_id") == draft.get("item_id")
+                      and r.get("platform") == draft.get("platform"))
+    if not any(r.get("pending") and same(r) for r in work):
+        return work, None
+    if ledger is not None:
+        ledger.entries = [e for e in ledger.entries if not same(e)]
+    return [r for r in work if not (r.get("pending") and same(r))], sid
+
+
 def pending_records(entries: list[dict], facts_for_date) -> list[dict]:
     """Ledger entries (or approvals of this run) as resolved own posts (post_history.resolve), marked pending."""
     posts = [{"platform": e.get("platform"), "url": "", "created_at": e.get("at"), "item_id": e.get("item_id"),
@@ -1334,8 +1360,13 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                     stats["deferred"] += 1
                     continue
                 if kind == "post":
+                    work, dropped = drop_superseded(work, ledger, draft)
+                    if dropped is not None:
+                        notes.append(f"supersedes #{dropped}: that approval is withdrawn and no longer counts")
+                        if ledger is not None and not dry_run:
+                            ledger.save(history, clock)
                     verdict, reasons = review(draft, facts, clock)
-                    notes = playbook_notes(draft, facts, clock)
+                    notes = notes + playbook_notes(draft, facts, clock)
                     item = next((i for i in (facts or {}).get("items") or [] if i.get("item_id") == iid), None)
                     if work is not None and item is not None:
                         rrej = duplicate_reasons(draft, work, clock) + rotation_reasons(draft, item, work)
