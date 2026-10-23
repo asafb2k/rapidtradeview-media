@@ -338,6 +338,34 @@ def test_inbox_counts_approvals_of_the_same_run_and_the_ledger(tmp_path):
     assert stats["deferred"] == 1
 
 
+def test_a_draft_that_supersedes_its_own_pending_approval_is_reviewed_without_it(tmp_path):
+    """Growth 2026-10-23: AXP #674 was approved, withdrawn (never posted) and resent as #678; the ledger rejected #678
+    for reusing #674's own phrasings and hooks. "supersedes": 674 withdraws that approval; without it the repeat is
+    still rejected (round 7b), and a supersedes naming another item or platform is ignored."""
+    from test_grok_review import INSTINCT, FakeRest  # noqa: PLC0415
+    a, b = [i for i in VDOC["items"] if i["type"] == "mega_mover"][:2]
+    vdir = tmp_path / "v" / "2026-10-18"
+    vdir.mkdir(parents=True)
+    (vdir / "facts.json").write_text(json.dumps(VDOC), encoding="utf-8")
+    lead = next(p["text"] for p in a["phrasings"] if f"${a['ticker']}" in p["text"])
+    draft = tg.draft(a, f"Here is the map. {lead} {NIA}", platform="threads")
+    led = tmp_path / "ledger.json"
+    run = lambda rows, minutes: gr.run_inbox(FakeRest(rows), INSTINCT, "prod", str(tmp_path / "v"), False,
+                                            lambda p, x: True, now=NOW + dt.timedelta(minutes=minutes), history=[],
+                                            need_history=True, variety=False, approved_ledger=led)
+    row = lambda i, d: {"id": i, "created_at": "2026-10-18T15:00:00Z", "kind": "draft", "platform": "threads",
+                        "item_id": d["item_id"], "body": "DRAFT " + json.dumps(d)}
+    assert run([row(910, draft)], 0)["approved"] == 1
+    assert run([row(911, draft)], 15)["rejected"] == 1                       # a plain repeat: still rejected
+    other = dict(tg.draft(b, f"Here is the map. {lead} {NIA}", platform="threads"), supersedes=910)
+    assert gr.drop_superseded([{"pending": True, "msg_id": 910, "item_id": a["item_id"], "platform": "threads"}],
+                              None, other)[1] is None                       # another item cannot withdraw it
+    stats = run([row(912, dict(draft, supersedes=910))], 30)
+    assert stats["approved"] == 1, stats
+    entries = json.loads(led.read_text(encoding="utf-8"))["approved"]
+    assert [e["msg_id"] for e in entries] == [912]                            # 910 withdrawn, 912 now pending
+
+
 def test_inbox_rejects_a_repeat_and_defers_posts_without_history(tmp_path):
     from test_grok_review import INSTINCT, FakeRest  # noqa: PLC0415
     mm = vitem("market_move")
