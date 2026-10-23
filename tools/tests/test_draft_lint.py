@@ -104,6 +104,16 @@ def test_cashtag_must_be_supported_by_the_facts():
     assert any("not supported by the facts: $ZZZZ" in f["message"] and f["kind"] == "warn" for f in bad["findings"])
 
 
+def test_context_tickers_are_supported():
+    # 2026-10-23: a sector recap naming $VG / $ROIV (the item's context_tickers, in its phrasings) was warned "not supported"
+    sect = item("sector-rotation-LIST-1", "sector_rotation", None, ["XOM", "LLY"], context_tickers=["VG", "ROIV"],
+                context_mover={"ticker": "APLD"})
+    facts = {"date": DATE, "items": [sect]}
+    res = dl.lint(draft("$VG +10.06% led Energy, $ROIV +8.83% and $APLD with $XOM and $LLY " + "word " * 25, sect),
+                  facts, now=NOW)
+    assert not any("not supported" in f["message"] for f in res["findings"])
+
+
 # numbers [real] --------------------------------------------------------------------------------------------------
 
 def test_numbers():
