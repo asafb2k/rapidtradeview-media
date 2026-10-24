@@ -793,7 +793,7 @@ def test_earnings_tomorrow_roundup():
     assert it["allowed_numbers"] == ["2026-10-12", "Oct 12, 2026", "Oct 12", "before the open"]
     assert it["page_url"].startswith("https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}")
     assert "#" not in it["page_url"]
-    assert it["media"][0]["url"] == "https://www.rapidtradeview.trade/earnings/opengraph-image"
+    assert it["media"][0]["url"] == "https://www.rapidtradeview.trade/earnings/tomorrow/opengraph-image"
     assert it["facts_text"].startswith("Reporting earnings on 2026-10-12, before the open (confirmed dates): $AAPL")
     assert f["left_out"]["earnings_tomorrow_roundup"] == {"bmo": 5, "amc": 1, "no_set_session": 1}
     assert "earnings_tomorrow_roundup" not in f["reasons"]
