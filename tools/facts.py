@@ -445,9 +445,11 @@ def holdout_doc_leaks(doc: dict, target: dt.date) -> list[str]:
 
 def og_media(kind: str, path: str, facts_text: str) -> dict:
     """The landing page's own Open Graph card (a 1200x630 PNG the site renders; not fetched here).
-    earnings_tomorrow_roundup lands on /earnings/tomorrow, whose card is the /earnings one; a single-ticker item uses its
-    ticker's own card, which names the company (HQ 10-12: the week card did not show DPZ on the DPZ post)."""
-    page = ("/earnings" if kind == "earnings_tomorrow_roundup"
+    earnings_tomorrow_roundup lands on /earnings/tomorrow and uses that page's own card, which names the next trading
+    day's largest reporters (Growth 10-24: the /earnings week card showed the wrong week's names on a Monday roundup);
+    a single-ticker item uses its ticker's own card, which names the company (HQ 10-12: the week card did not show DPZ
+    on the DPZ post)."""
+    page = ("/earnings/tomorrow" if kind == "earnings_tomorrow_roundup"
             else path.split("?")[0].split("#")[0].rstrip("/"))
     return {"url": f"{SITE}{page}/opengraph-image", "kind": "image", "alt": " ".join(str(facts_text or "").split())}
 
