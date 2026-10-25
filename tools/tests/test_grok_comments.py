@@ -196,11 +196,12 @@ def test_same_target_twice_is_rejected(state):
 
 
 def test_daily_cap_is_rejected(state):
+    assert gr.COMMENT_CAP == 10   # Growth gate fixes 2026-10-26 (was 15 per UTC day)
     for i in range(gr.COMMENT_CAP):
         state.add(comment(target_url=f"https://x.com/u{i}/status/{1000 + i}", text=f"distinct remark number {'abcdefghijklmnop'[i]} here"),
                   i, NOW)
     v, why = gr.review_comment(comment(), None, state, NOW)
-    assert v == "REJECT" and any("daily cap" in r for r in why)
+    assert v == "REJECT" and any(r.startswith("cap: 10 comments a day on x") for r in why), why
     ig = comment(platform="instagram", target_url=IG_TARGET)
     assert gr.review_comment(ig, None, state, NOW) == ("APPROVE", [])           # the cap is per platform
     assert gr.review_comment(comment(), None, state, NOW + dt.timedelta(days=1)) == ("APPROVE", [])
@@ -342,19 +343,18 @@ def test_post_media_from_elsewhere_is_rejected(url):
     assert v == "REJECT" and any("is not one of the item's media urls" in r for r in why)
 
 
-def test_grok_generated_media_needs_a_clean_note():
-    ok = good_x(media_url="grok_generated", media_note="An abstract dark trading desk with a glowing candlestick chart.")
-    assert gr.review(ok, FACTS) == ("APPROVE", [])
-    v, why = gr.review(good_x(media_url="grok_generated"), FACTS)
-    assert v == "REJECT" and any("needs a media_note" in r for r in why)
-    for note in ("A chart showing 12% gains", "A $UNH ticker board", "A 50% pie", "The UnitedHealth logo on a wall",
-                 "A portrait of a congresswoman", "Close-up face of a trader", "Maria Elvira Salazar at a podium",
-                 "Salazar waving"):
-        v, why = gr.review(good_x(media_url="grok_generated", media_note=note), FACTS)
-        assert v == "REJECT" and any(r.startswith("media_note") for r in why), note
-    d = {"item_id": MOVES["item_id"], "platform": "x", "text": "x", "media_url": "grok_generated",
-         "media_note": "Two Apple-style laptops side by side"}
-    assert any(r.startswith("media_note") for r in gr.media_reasons(d, MOVES))
+def test_grok_generated_media_is_rejected():
+    """Growth gate fixes 2026-10-26: a Grok-made image is no longer accepted, whatever its media_note says."""
+    for media in ("grok_generated", "GROK_GENERATED", " grok_generated "):
+        d = good_x(media_url=media, media_note="An abstract dark trading desk with a glowing candlestick chart.")
+        v, why = gr.review(d, FACTS)
+        assert v == "REJECT" and any(r.startswith("media_url grok_generated is not accepted") for r in why), (media, why)
+        assert not any("grok_generated" in r and "or grok_generated" in r for r in why)
+    d = {"item_id": MOVES["item_id"], "platform": "x", "text": "x", "media_url": "grok_generated"}
+    assert gr.media_reasons(d, MOVES)[0].startswith("media_url grok_generated is not accepted")
+    # the generic rejection no longer offers grok_generated as an option
+    [why] = gr.media_reasons(good_x(media_url="https://evil.example/card.png"), CONGRESS)
+    assert "grok_generated" not in why and "is not one of the item's media urls" in why
 
 
 def test_comments_need_no_media(state):
