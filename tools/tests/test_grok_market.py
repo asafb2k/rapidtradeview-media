@@ -68,14 +68,18 @@ def item(kind, ticker=None):
     return next(i for i in DOC["items"] if i["type"] == kind and (ticker is None or i.get("ticker") == ticker))
 
 
+def own_still(it):
+    """An item without its own card (basket_week, round 7) has no media: our rendered still on Pages (a Grok-made
+    image is rejected since the 2026-10-26 gate fixes)."""
+    return f"https://asafb2k.github.io/rapidtradeview-media/v/{it['item_id'][:10]}/stills/{it.get('type')}.png"
+
+
 def draft(it, text, platform="x", **over):
     link = it["page_url"].replace("{platform}", platform)
     d = {"item_id": it["item_id"], "platform": platform, "text": text, "link": link,
          "reply_text": f"Every company on one map: {link}" if platform == "x" else "",
-         # an item without its own card (basket_week, round 7) has no media: our own visual without numbers
-         "media_url": it["media"][0]["url"] if it.get("media") else "grok_generated"}
-    if not it.get("media"):
-        d["media_note"] = "abstract illustration of a market map"
+         # an item without its own card (basket_week, round 7) has no media: our rendered still on Pages
+         "media_url": it["media"][0]["url"] if it.get("media") else own_still(it)}
     d.update(over)
     return d
 

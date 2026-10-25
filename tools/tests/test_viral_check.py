@@ -41,13 +41,17 @@ PG_TEXT = ("Here are the numbers.\n\n$PG Q1 2027 revenue: $23.3B vs $22.82B cons
            "$2.00 vs $1.89 consensus (beat by $0.11).\n\nWhat is your read on this?\n\nDetails in the reply.\n\n" + NIA)
 
 
+def own_still(it):
+    """An item without its own card (basket_week, round 7) has no media: our rendered still on Pages (a Grok-made
+    image is rejected since the 2026-10-26 gate fixes)."""
+    return f"https://asafb2k.github.io/rapidtradeview-media/v/{it['item_id'][:10]}/stills/{it.get('type')}.png"
+
+
 def draft(it, text, platform="x", **over):
     link = it["page_url"].replace("{platform}", platform)
     d = {"item_id": it["item_id"], "platform": platform, "text": text, "link": link,
          "reply_text": f"Full map: {link}" if platform == "x" else "",
-         "media_url": it["media"][0]["url"] if it.get("media") else "grok_generated"}
-    if not it.get("media"):
-        d["media_note"] = "abstract illustration of a market map"
+         "media_url": it["media"][0]["url"] if it.get("media") else own_still(it)}
     d.update(over)
     return d
 

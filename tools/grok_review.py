@@ -3,9 +3,9 @@
 Usage (conda python: C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe):
   grok_review.py --draft DRAFT.json [--facts FILE|URL] [--comment-state PATH]   one draft; exit 0 APPROVE, 1 REJECT
   grok_review.py --inbox [--dry-run] [--env prod|dev] [--facts-base DIR|URL] [--instinct PATH] [--env-file PATH]
-                 [--comment-state PATH]
+                 [--comment-state PATH] [--no-retire]
 
-A post draft is {"item_id", "platform": "x"|"instagram", "text", "reply_text"?, "link", "media_url", "media_note"?,
+A post draft is {"item_id", "platform": "x"|"instagram", "text", "reply_text"?, "link", "media_url", "alt"?,
 "supersedes"?: <msg id of our own earlier APPROVE of the same item and platform that it withdraws>}. The facts come from the day's
 facts.json (tools/facts.py): the date is the item_id's first 10 characters; --facts-base is the Pages site by
 default (what Grok reads) or a local v/ directory. Checks:
@@ -56,9 +56,14 @@ default (what Grok reads) or a local v/ directory. Checks:
   - G-N1 holdout: until 2026-11-21 (New York date of the review, as facts.py and select_stories date things) no
     string anywhere in the draft (every field, nested ones and keys included) carries "/earnings/reports/" (an
     earnings report page of either arm); comments likewise;
-  - media_url (every own post carries native media, owner 2026-10-12): one of the item's media[].url, a file under
-    <Pages>/v/<YYYY-MM-DD>/ (our rendered stills / Reels), or "grok_generated" with a media_note that names no
-    digit, $, %, logo, face or real name (the item's person / company / peers).
+  - media_url (every own post carries native media, owner 2026-10-12): one of the item's media[].url or a file under
+    <Pages>/v/<YYYY-MM-DD>/ (our rendered stills / Reels); "grok_generated" (a Grok-made image) is REJECTED since
+    2026-10-26 (Growth gate fixes; #696 bans self-made cards);
+  - PROVIDER NAMES (owner 2026-10-19; Growth gate fixes 2026-10-26; posts and comments): text, reply_text, alt /
+    alt_text, the link's host and the media_url's host never name or hint a data provider (PROVIDER_WORDS: the
+    backend's leak list, the owner's examples, outside consensus vendors; domains such as finance.yahoo.com /
+    stocktwits.com by host label). A REJECT reason starting "provider:". Never a provider: a $cashtag, SEC / sec.gov,
+    our own pages (rapidtradeview.trade, asafb2k.github.io), the item's own ticker or company name, Reddit.
 
 A comment / reply on another account's post is {"kind": "comment", "platform", "target_url", "text", "item_id"?}
 (a draft without "kind", or kind "post", is a post). Checks: target_url is an https x.com / twitter.com (x) or
@@ -69,7 +74,8 @@ self-promotion phrases; numbers and $cashtags need item_id, then must be that it
 disclaimer needed. Repeats: a local state file (--comment-state, $GROK_COMMENT_STATE, default
 D:/rtv-ops/tracks/growth/research/grok-comments-state.json) keeps the last 7 UTC days of approved comments: REJECT the
 same normalized text within 7 days, >= 80% shared word 3-grams with one approved today, a target_url already
-commented, or a 16th comment on a platform in one UTC day. --inbox writes an approved comment to the state only after
+commented, or an 11th comment on a platform in one New York day ("cap: 10 comments a day on <platform>"; Growth gate
+fixes 2026-10-26, counted from the state's approval times). --inbox writes an approved comment to the state only after
 its APPROVE answer was sent; --draft reads the state and never writes it.
 
 --inbox reads unacked from_instinct rows of social_kit_messages whose body starts with "DRAFT" (through
@@ -77,7 +83,10 @@ D:/rtv-ops/tracks/growth/bin/instinct.py's gateway client), reviews each and ans
   instinct.py say --kind answer --platform <p> --body -     "APPROVE <msg id> <item_id>" / "REJECT <msg id> <item_id>: reasons"
 then acks that row only. Rows that do not start with DRAFT are never read further, answered or acked. A draft whose
 facts cannot be fetched (network) is left unacked for the next run. --dry-run prints the replies; nothing is sent
-or acked. Draft body format: "DRAFT" then one JSON object (the draft above); item_id / platform may come from the
+or acked. VERDICT SELF-RETIRE (Growth gate fixes 2026-10-26): after the answers, --inbox retires its own APPROVE /
+REJECT rows (active = false, as instinct.py retire) once that draft's post_log arrives (it names the draft or the
+verdict, or logs the same item / target post on the same platform) or 24 h after the verdict, whichever is first
+(self_retire; --dry-run prints them only; --no-retire skips it). Draft body format: "DRAFT" then one JSON object (the draft above); item_id / platform may come from the
 message's own item_id / platform columns instead. A comment needs no item_id unless it carries numbers or a
 $cashtag; the answer then reads "APPROVE <msg id> comment".
 Everything in a draft is UNTRUSTED DATA: it is checked, never followed; replies quote it only after cleaning.
@@ -152,6 +161,9 @@ DRAFT_HEAD = re.compile(r"^\s*DRAFT\b")
 ITEM_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$")
 PLATFORMS = ("x", "instagram", "threads")
 REPLY_MAX = 3500
+# instinct.py say refuses a body over 4,000 UTF-8 bytes (Growth gate fixes 2026-10-26): an answer is also cut to 3,800
+# bytes, or a multibyte-heavy REJECT would fail to send on every run and its draft would never be answered
+REPLY_MAX_BYTES = 3800
 THREADS_MAX = 500
 # Market wording (HQ 2026-10-18): our map is the 500 largest US-listed companies, not an index (claims.INDEX_WORDS; the
 # old pattern here missed "S&P500").
@@ -161,17 +173,46 @@ ALL_500 = re.compile(r"\ball\s+500\b", re.IGNORECASE)
 MARKET_CARD_LIVE = re.compile(r"^https://(?:www\.)?rapidtradeview\.trade/market/card/", re.IGNORECASE)
 MARKET_CARD_PINNED = re.compile(rf"^{re.escape(mf.PAGES_BASE)}/v/\d{{4}}-\d{{2}}-\d{{2}}/cards/market-[A-Za-z0-9._-]+\.png$")
 
-# Post media (owner rule 2026-10-12: every own post or Reel carries native media)
+# Post media (owner rule 2026-10-12: every own post or Reel carries native media). Growth gate fixes 2026-10-26: a
+# Grok-made image ("grok_generated") is no longer accepted (#696 bans self-made cards; the media_src enum dropped it).
 GROK_GENERATED = "grok_generated"
 OUR_MEDIA = re.compile(rf"^{re.escape(mf.PAGES_BASE)}/v/\d{{4}}-\d{{2}}-\d{{2}}/[A-Za-z0-9._~/-]+$")
-NOTE_BAD = re.compile(r"\d|\$|%|\blogos?\b|\btrademarks?\b|\bfaces?\b|\bfacial\b|\bportraits?\b|\bheadshots?\b"
-                      r"|\bselfies?\b|\blikeness\b", re.IGNORECASE)
-NAME_FILLER = {"inc", "corp", "corporation", "company", "holdings", "group", "the", "and", "ltd", "plc", "llc", "class",
-               "trust", "fund", "etf", "rep", "sen"}
+
+# Provider names (owner 2026-10-19: no data-provider name on any public surface; Growth gate fixes 2026-10-26). The
+# backend's leak list (backend/src/error.rs PROVIDER_HOST / PROVIDER_NAME, mcp/tools.rs: yahoo, finnhub, stocktwits,
+# apewisdom, alpaca, tiingo, polygon, cnbc), the owner's examples (IEX, Zacks, Elbstream as a data source) and the outside
+# consensus / data vendors Grok cited before the consensus-with-source relays were voided (#346 #369 #371 #378). Whole
+# words, case-insensitive; words of a name may run together or carry - _ . ("Stock Twits", "seekingalpha"). Never a
+# provider: a $cashtag ($IEX is IDEX Corp), SEC / sec.gov (official filings), our own pages, the item's own ticker or
+# company name (FactSet Research Systems, Morningstar, Inc.), Reddit (a platform: our P4 phrases name it).
+# Free text: only our own data sources (the backend leak list), the owner's examples and vendors Grok has cited. Other
+# vendors are caught as link hosts only (PROVIDER_HOST_ONLY): their names are ordinary words too ("seeking alpha",
+# "twelve data", "Capitol trades", Michael Bloomberg), and post_audit turns a hit into a binding delete-and-repost.
+PROVIDER_WORDS = (
+    "yahoo", "yfinance", "finnhub", "stock twits", "ape wisdom", "alpaca", "tiingo", "polygon io", "cnbc", "iex",
+    "iex cloud", "iex apis", "zacks", "elbstream", "marketbeat", "factset", "google news")
+PROVIDER_HOST_ONLY = (
+    "lseg", "refinitiv", "bloomberg", "morningstar", "benzinga", "tipranks", "seekingalpha", "finviz", "barchart",
+    "estimize", "visiblealpha", "capitaliq", "quiverquant", "quiverquantitative", "capitoltrades", "unusualwhales",
+    "openinsider", "alphavantage", "twelvedata", "financialmodelingprep", "intrinio", "marketstack")
+PROVIDER_RX = re.compile(
+    r"(?<![A-Za-z0-9$])(?:"
+    + "|".join(r"[\s_.-]*".join(map(re.escape, w.split())) for w in sorted(PROVIDER_WORDS, key=len, reverse=True))
+    + r")(?![A-Za-z0-9])", re.IGNORECASE)
+# a URL host naming a provider: any label equal to a provider word run together (finance.yahoo.com, api.stocktwits.com,
+# apewisdom.io, polygon.io), plus nasdaq.com and news.google.*
+PROVIDER_HOST_LABELS = (frozenset({w.replace(" ", "") for w in PROVIDER_WORDS} | set(PROVIDER_HOST_ONLY)
+                                   | {"polygon", "nasdaq", "iexapis"}) - {"polygonio"})
+OWN_HOSTS = ("rapidtradeview.trade", "asafb2k.github.io")
+OFFICIAL_HOSTS = ("sec.gov",)
+# zero-width / bidi / format characters ("Ya" U+200B "hoo") are dropped before the words are read (escapes only:
+# no raw invisible character in this file)
+_INVISIBLE = re.compile("[\u00ad\u034f\u061c\u115f\u1160\u17b4\u17b5\u180b-\u180f\u200b-\u200f\u202a-\u202e"
+                        "\u2060-\u206f\u3164\ufe00-\ufe0f\ufeff\uffa0\U000e0000-\U000e007f]")
 
 # Comments and replies on other accounts' threads (owner rule 2026-10-12: >= 5 actions/day per platform)
 COMMENT_MAX = {"x": 280, "instagram": 300}
-COMMENT_CAP = 15            # approved comments per platform per UTC day: a ceiling against spam
+COMMENT_CAP = 10            # approved comments per platform per New York day (Growth gate fixes 2026-10-26; was 15/UTC)
 COMMENT_DAYS = 7            # the state keeps (and exact-dedupes over) this many UTC days, today included
 COMMENT_NGRAM_SHARE = 0.8   # same-day near-duplicate: share of word 3-grams
 PROMO_WORDS = ["follow us", "check out", "dm", "dms", "link in bio", "our app", "sign up"]
@@ -464,8 +505,11 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     text = draft.get("text")
     reply = draft.get("reply_text")
     link = draft.get("link")
+    # provider names (owner 10-19): screened first, so a draft rejected for its item or facts still hears it
+    own_item = next((i for i in (facts or {}).get("items") or [] if isinstance(i, dict) and i.get("item_id") == iid), None)
+    reasons += provider_reasons(draft, own_item)
     if not isinstance(iid, str) or not iid:
-        return "REJECT", ["no item_id"]
+        return "REJECT", reasons + ["no item_id"]
     if platform not in PLATFORMS:
         reasons.append(f"platform must be x, instagram or threads (got {short(platform)!r})")
     if not isinstance(text, str) or not text.strip():
@@ -589,36 +633,17 @@ def item_sources(item: dict) -> list[str]:
     return list(dict.fromkeys(urls))
 
 
-def item_names(item: dict) -> list[str]:
-    """Name words a Grok-made image note must not carry: the item's person / company and its peers' names."""
-    names = [item.get("name"), *((p or {}).get("name") for p in item.get("peers") or [] if isinstance(p, dict))]
-    out: list[str] = []
-    for n in names:
-        if isinstance(n, str) and n.strip():
-            out.append(n.strip())
-            out += [w for w in re.split(r"[^A-Za-z]+", n) if len(w) >= 3 and w.lower() not in NAME_FILLER]
-    return uniq_words(out)
-
-
 def media_reasons(draft: dict, item: dict) -> list[str]:
-    """A post carries native media: one of the item's media urls, our rendered file on Pages, or a Grok-made image
-    whose media_note shows no number, logo or real person."""
+    """A post carries native media: one of the item's media urls or our rendered file on Pages. A Grok-made image
+    ("grok_generated") is not accepted (Growth gate fixes 2026-10-26)."""
     media = draft.get("media_url")
     ours = [m.get("url") for m in item.get("media") or [] if isinstance(m, dict) and m.get("url")]
     if not isinstance(media, str) or not media.strip():
-        return ["media_url missing: every post carries an image or video (one of the item's media urls, our file "
-                f"under {mf.PAGES_BASE}/v/<date>/, or \"{GROK_GENERATED}\" with a media_note)"]
-    if media == GROK_GENERATED:
-        note = draft.get("media_note")
-        if not isinstance(note, str) or not note.strip():
-            return [f"media_url {GROK_GENERATED} needs a media_note describing the image"]
-        bad = [m.group(0) for m in NOTE_BAD.finditer(note)]
-        low = note.lower()
-        bad += [n for n in item_names(item) if re.search(rf"(?<!\w){re.escape(n.lower())}(?!\w)", low)]
-        if bad:
-            return ["media_note: a Grok-made image carries no numbers, $, %, logos, faces or real names "
-                    f"({', '.join(sorted({short(b, 24) for b in bad}))})"]
-        return []
+        return ["media_url missing: every post carries an image or video (one of the item's media urls or our file "
+                f"under {mf.PAGES_BASE}/v/<date>/)"]
+    if media.strip().lower() == GROK_GENERATED:
+        return [f"media_url {GROK_GENERATED} is not accepted: attach one of the item's media urls or our file under "
+                f"{mf.PAGES_BASE}/v/<date>/ (no self-made images or cards)"]
     card = item.get("card") if isinstance(item.get("card"), dict) else None
     if MARKET_CARD_LIVE.match(media):
         return ["media_url: the live /market/card/ image changes every session; attach the item's pinned card "
@@ -631,8 +656,89 @@ def media_reasons(draft: dict, item: dict) -> list[str]:
         return [f"media_url: a market post carries its pinned card {short(card['url'], 90)} (or the card Reel made from it)"]
     if media in ours or (OUR_MEDIA.match(media) and ".." not in media):
         return []
-    return [f"media_url {short(media, 80)} is not one of the item's media urls, a file under {mf.PAGES_BASE}/v/<date>/ "
-            f"or {GROK_GENERATED}"]
+    return [f"media_url {short(media, 80)} is not one of the item's media urls or a file under {mf.PAGES_BASE}/v/<date>/"]
+
+
+# ---------------------------------------------------------------------------
+# Provider names (owner 2026-10-19; PROVIDER_WORDS above): posts and comments alike
+
+def _pkey(s: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", str(s).lower())
+
+
+def _host(url: str) -> str:
+    try:
+        return (urllib.parse.urlsplit(cl.nfkc(str(url)).strip()).hostname or "").lower().rstrip(".")
+    except ValueError:
+        return ""
+
+
+def own_or_official_host(host: str) -> bool:
+    h = str(host or "").lower().rstrip(".").removeprefix("www.")
+    return any(h == d or h.endswith("." + d) for d in (*OWN_HOSTS, *OFFICIAL_HOSTS))
+
+
+def provider_host(host: str) -> bool:
+    """True when a URL host belongs to a data provider (finance.yahoo.com, stocktwits.com, news.google.com, ...)."""
+    h = str(host or "").lower().rstrip(".")
+    if not h or own_or_official_host(h):
+        return False
+    return bool(set(h.split(".")) & PROVIDER_HOST_LABELS) or ".news.google." in f".{h}."
+
+
+def _item_provider_keys(item: dict | None) -> set[str]:
+    """Provider words that are this item's own ticker or part of its company / person names: the subject, not a source
+    (an earnings post on FactSet Research Systems, IEX the IDEX ticker)."""
+    if not isinstance(item, dict):
+        return set()
+    own = {_pkey(t) for t in item_cashtags(item)}
+    for n in cl.item_names(item):
+        own |= {_pkey(m.group(0)) for m in PROVIDER_RX.finditer(cl.nfkc(n))}
+    return own
+
+
+def provider_hits(text, item: dict | None = None) -> list[str]:
+    """The provider names a public text carries: words (NFKC-folded, zero-width characters dropped; our own and
+    sec.gov bare domains and every http(s) URL blanked first) and the hosts of its http(s) links."""
+    if not isinstance(text, str) or not text.strip():
+        return []
+    folded = _INVISIBLE.sub("", cl.nfkc(text))
+    out = [h for u in URL.findall(folded) for h in [_host(u.rstrip(".,;:!?)]}"))] if provider_host(h)]
+    scan = URL.sub(" ", folded)
+    # a bare domain (no scheme) is read by its host too ("news.google.com/rss", "nasdaq.com")
+    out += [h for m in BARE_DOMAIN.finditer(scan) for h in [m.group(0).split("/", 1)[0].lower().rstrip(".")]
+            if provider_host(h)]
+    scan = BARE_DOMAIN.sub(lambda m: " " if own_or_official_host(m.group(0).split("/", 1)[0]) else m.group(0), scan)
+    own = _item_provider_keys(item)
+    out += [m.group(0) for m in PROVIDER_RX.finditer(scan) if _pkey(m.group(0)) not in own]
+    return list(dict.fromkeys(out))
+
+
+PROVIDER_TEXT_FIELDS = ("text", "reply_text", "alt", "alt_text")
+PROVIDER_URL_FIELDS = ("link", "media_url")
+
+
+def provider_reasons(draft: dict, item: dict | None = None) -> list[str]:
+    """One REJECT reason starting "provider:" when a public field of a post or comment draft names or hints a data
+    provider: text, reply_text, alt / alt_text (words and link hosts), the link's and the media_url's host (our own
+    domains and sec.gov are fine; a value without a scheme is read as text)."""
+    found: list[str] = []
+    for f in PROVIDER_TEXT_FIELDS:
+        found += [f"{f} {short(h, 40)!r}" for h in provider_hits(draft.get(f), item)]
+    for f in PROVIDER_URL_FIELDS:
+        v = draft.get(f)
+        if not isinstance(v, str) or not v.strip():
+            continue
+        host = _host(v)
+        if host:
+            if provider_host(host):
+                found.append(f"{f} host {short(host, 60)}")
+        else:
+            found += [f"{f} {short(h, 40)!r}" for h in provider_hits(v, item)]
+    if not found:
+        return []
+    return ["provider: no data-provider name on a public surface (owner 10-19): " + "; ".join(dict.fromkeys(found))
+            + ". Cite only our page_url (and the official filing)"]
 
 
 # ---------------------------------------------------------------------------
@@ -690,16 +796,32 @@ class CommentState:
     def day(now: dt.datetime) -> str:
         return now.astimezone(dt.timezone.utc).date().isoformat()
 
+    @staticmethod
+    def ny_day(now: dt.datetime) -> str:
+        return (now.astimezone(ss.NY) if ss.NY else now.astimezone(dt.timezone.utc)).date().isoformat()
+
+    @classmethod
+    def entry_ny_day(cls, entry: dict) -> str:
+        """The New York day an approved comment was approved on (its "at"; an entry without one: its UTC "date")."""
+        at = _ts(entry.get("at")) if entry.get("at") else None
+        return cls.ny_day(at) if at is not None else str(entry.get("date") or "")
+
     def recent(self, now: dt.datetime) -> list[dict]:
         since = (now.astimezone(dt.timezone.utc).date() - dt.timedelta(days=COMMENT_DAYS - 1)).isoformat()
         return [a for a in self.approved if str(a.get("date") or "") >= since]
 
+    def approved_today(self, platform: str, now: dt.datetime) -> int:
+        """Comments approved on `platform` on the New York day of `now` (the daily cap's count)."""
+        today = self.ny_day(now)
+        return sum(1 for a in self.recent(now) if a.get("platform") == platform and self.entry_ny_day(a) == today)
+
     def reasons(self, platform: str, target: str | None, text: str, now: dt.datetime) -> list[str]:
         today, out = self.day(now), []
         recent = self.recent(now)
-        n_today = sum(1 for a in recent if a.get("date") == today and a.get("platform") == platform)
+        n_today = self.approved_today(platform, now)
         if n_today >= COMMENT_CAP:
-            out.append(f"daily cap: {n_today} {platform} comments already approved today (UTC; cap {COMMENT_CAP})")
+            out.append(f"cap: {COMMENT_CAP} comments a day on {platform} ({n_today} approved already on New York day "
+                       f"{self.ny_day(now)})")
         if target and any(a.get("target") == target for a in recent):
             out.append("this target_url already got an approved comment")
         norm = norm_comment(text)
@@ -818,6 +940,7 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
     banned = [w for w in words if re.search(rf"(?<!\w){re.escape(w.lower())}(?!\w)", low)]
     if banned:
         reasons.append(f"banned words: {', '.join(banned)}")
+    reasons += provider_reasons(draft, item)
 
     # Repeats and the daily cap
     if state is not None:
@@ -1252,7 +1375,9 @@ def reply_line(row: dict, draft: dict | None, verdict: str, reasons: list[str], 
     head = f"{verdict} {int(row['id'])} {iid}"
     if verdict != "APPROVE":
         head = f"{head}: " + "; ".join(reasons)
-    return "\n".join([head, *(notes or [])])[:REPLY_MAX]
+    body = "\n".join([head, *(notes or [])])[:REPLY_MAX]
+    raw = body.encode("utf-8")
+    return body if len(raw) <= REPLY_MAX_BYTES else raw[:REPLY_MAX_BYTES].decode("utf-8", "ignore")
 
 
 def send_reply(instinct_path: Path, env: str, env_file: str | None, platform: str | None, body: str) -> bool:
@@ -1435,6 +1560,151 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
 
 
 # ---------------------------------------------------------------------------
+# Verdict self-retire (Growth gate fixes 2026-10-26; CONTRACT section 2). Grok sees only the newest 100 active
+# to_instinct rows, so the validator retires its own answers (to_instinct, kind answer, body "APPROVE <draft id> <item>"
+# / "REJECT <draft id> <item>: ...") - active = false, the PATCH instinct.py retire makes - as soon as a post_log for
+# that draft arrives, or VERDICT_RETIRE_HOURS after the verdict, whichever is first. A post_log is "for that draft" when,
+# created at or after the verdict, it names the draft or the verdict ("draft=#758", "approve=#769", "APPROVE #760"), or,
+# on the verdict's platform, logs the draft's item (a post draft; a comment post_log does not count) or the draft's
+# target post (a comment draft). Growth's own answers ("to=rtv-grok-main; from=Growth. ...") never match.
+
+VERDICT_RETIRE_HOURS = 24
+VERDICT_BODY = re.compile(r"^(APPROVE|REJECT) (\d{1,12}) (\S+)")
+LOG_REF = re.compile(r"\b(?:draft|approv(?:e|ed|al))\s*[=:]?\s*#?\s*(\d{1,12})\b", re.IGNORECASE)
+# a post_log with no "---" metadata block: only "#"-prefixed ids count ("APPROVE #121, draft #120"), so a caption
+# like "FDA approval 812 days" cannot retire verdict #812
+LOG_REF_HASH = re.compile(r"\b(?:draft|approv(?:e|ed|al))\s*[=:]?\s*#\s*(\d{1,12})\b", re.IGNORECASE)
+
+
+def _log_refs(body: str) -> set[int]:
+    """Draft / verdict ids a post_log names: in its metadata after the last "---" line (CONTRACT section 3), never in
+    the published caption above it; a log without that line counts only "#"-prefixed ids."""
+    i = body.rfind("\n---")
+    if i >= 0:
+        return {int(x) for x in LOG_REF.findall(body[i + 4:])}
+    return {int(x) for x in LOG_REF_HASH.findall(body)}
+
+
+LOG_ITEM = re.compile(r"\bitem_id\s*[=:]\s*([A-Za-z0-9][A-Za-z0-9._:-]{0,119}?)(?=[;,\s\])|]|$)")
+LOG_KIND = re.compile(r"\bkind\s*=\s*(post|reel|reply|comment)\b", re.IGNORECASE)
+LOG_TARGET = re.compile(r"\btarget_url\s*=\s*(https://[^\s;,|]+)")
+RETIRE_BATCH = 50
+
+
+def parse_verdict(row: dict) -> dict | None:
+    """{id, verdict, draft_id, item_id (None for "comment" / an invalid id), platform, at} of one of this validator's
+    answer rows; None for any other row."""
+    m = VERDICT_BODY.match(str(row.get("body") or ""))
+    if not m:
+        return None
+    iid = m.group(3).rstrip(":")
+    return {"id": int(row["id"]), "verdict": m.group(1), "draft_id": int(m.group(2)),
+            "item_id": iid if ITEM_ID.match(iid) and iid != "comment" else None,
+            "platform": str(row.get("platform") or "").lower() or None, "at": _ts(row.get("created_at"))}
+
+
+def draft_info(rest, instinct, env: str, ids) -> dict[int, dict]:
+    """{draft id: {kind, platform, item_id, target}} of the DRAFT rows behind some verdicts (read only)."""
+    out: dict[int, dict] = {}
+    ids = sorted({int(i) for i in ids})
+    for k in range(0, len(ids), RETIRE_BATCH):
+        chunk = ",".join(str(i) for i in ids[k:k + RETIRE_BATCH])
+        for r in rest.call("GET", instinct.q("select=id,platform,item_id,body", f"id=in.({chunk})", f"env=eq.{env}",
+                                             "direction=eq.from_instinct")) or []:
+            d, err = parse_draft(r)
+            kind = draft_kind(d)[0] if d is not None and not err else None
+            if kind is None:
+                continue
+            platform = d.get("platform")
+            target = parse_target(platform, d.get("target_url"))[0] if kind == "comment" and platform in COMMENT_MAX else None
+            out[int(r["id"])] = {"kind": kind, "platform": platform, "item_id": d.get("item_id"), "target": target}
+    return out
+
+
+def verdict_logged(v: dict, draft: dict | None, logs: list[dict]) -> bool:
+    """True when one of `logs` (post_log rows) is the post_log of the verdict's draft (see the section doc)."""
+    draft = draft or {}
+    kind = draft.get("kind") or ("post" if v.get("item_id") else None)
+    platform = v.get("platform") or draft.get("platform")
+    iid = v.get("item_id") or draft.get("item_id")
+    for p in logs:
+        t = _ts(p.get("created_at"))
+        if t is None or v.get("at") is None or t < v["at"]:
+            continue
+        body = str(p.get("body") or "")
+        refs = _log_refs(body)
+        if v["id"] in refs or v["draft_id"] in refs:
+            return True
+        if not platform or str(p.get("platform") or "").lower() != platform:
+            continue
+        logged_kind = LOG_KIND.search(body)
+        logged_kind = logged_kind.group(1).lower() if logged_kind else None
+        if kind == "comment":
+            m = LOG_TARGET.search(body)
+            if draft.get("target") and m and parse_target(platform, m.group(1))[0] == draft["target"]:
+                return True
+        elif kind == "post" and iid and logged_kind != "comment":
+            m = LOG_ITEM.search(body)
+            if p.get("item_id") == iid or (m and m.group(1) == iid):
+                return True
+    return False
+
+
+def retire_rows(rest, instinct, env: str, ids) -> int:
+    """active = false on verdict rows (instinct.py retire's PATCH, in batches, limited to this env's active
+    to_instinct answers): the number of rows retired."""
+    n = 0
+    ids = sorted({int(i) for i in ids})
+    for k in range(0, len(ids), RETIRE_BATCH):
+        chunk = ",".join(str(i) for i in ids[k:k + RETIRE_BATCH])
+        out = rest.call("PATCH", instinct.q(f"id=in.({chunk})", f"env=eq.{env}", "direction=eq.to_instinct",
+                                            "kind=eq.answer", "active=is.true", "select=id"),
+                        {"active": False}, prefer="return=representation")
+        n += len(out or [])
+    return n
+
+
+def self_retire(rest, instinct, env: str, now: dt.datetime, dry_run: bool, retire,
+                hours: int = VERDICT_RETIRE_HOURS) -> dict:
+    """Retire this validator's own verdict rows whose draft got its post_log, or that are `hours` old. `retire(ids) ->
+    int` does the write (retire_rows on the CLI); a dry run prints what it would retire and writes nothing."""
+    rows = rest.get_all(instinct.q("select=id,created_at,platform,item_id,body", f"env=eq.{env}",
+                                   "direction=eq.to_instinct", "kind=eq.answer", "active=is.true",
+                                   "order=created_at.asc,id.asc"))
+    verdicts = [v for v in (parse_verdict(r) for r in rows or []) if v]
+    cut = now - dt.timedelta(hours=hours)
+    due: dict[int, str] = {}
+    young = []
+    for v in verdicts:
+        if v["at"] is None:
+            continue   # no readable time: never guessed old
+        if v["at"] <= cut:
+            due[v["id"]] = f"older than {hours} h"
+        else:
+            young.append(v)
+    if young:
+        since = min(v["at"] for v in young)
+        logs = rest.get_all(instinct.q("select=id,created_at,platform,item_id,url,body", f"env=eq.{env}",
+                                       "direction=eq.from_instinct", "kind=eq.post_log",
+                                       f"created_at=gte.{instinct.iso(since)}", "order=created_at.asc,id.asc"))
+        drafts = draft_info(rest, instinct, env, [v["draft_id"] for v in young]) if logs else {}
+        for v in young:
+            if logs and verdict_logged(v, drafts.get(v["draft_id"]), logs):
+                due[v["id"]] = "its post_log arrived"
+    by_id = {v["id"]: v for v in verdicts}
+    print(f"verdicts ({env}): {len(verdicts)} active, {len(due)} to retire"
+          + (" (dry run: nothing retired)" if dry_run else ""))
+    for vid in sorted(due):
+        v = by_id[vid]
+        print(f"  {'would retire' if dry_run else 'retire'} #{vid} ({v['verdict']} of draft #{v['draft_id']}): {due[vid]}")
+    retired = 0
+    if due and not dry_run:
+        retired = retire(sorted(due))
+        print(f"  retired {retired} of {len(due)}")
+    return {"active": len(verdicts), "due": len(due), "retired": retired, "ids": sorted(due)}
+
+
+# ---------------------------------------------------------------------------
 # CLI
 
 def main(argv: list[str] | None = None) -> int:
@@ -1460,6 +1730,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-viral", action="store_true", help="skip the VIRAL CHECK v1 gate (tools/viral_check.py)")
     ap.add_argument("--viral-gate", action="store_true",
                     help="--draft: the VIRAL CHECK reasons change the verdict as in --inbox (default: printed only)")
+    ap.add_argument("--no-retire", action="store_true",
+                    help=f"--inbox: do not retire our own verdict rows (default: retired once the draft's post_log "
+                         f"arrives or after {VERDICT_RETIRE_HOURS} h; --dry-run only prints them)")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if a.draft:
@@ -1546,6 +1819,14 @@ def main(argv: list[str] | None = None) -> int:
               comment_state_path(a.comment_state), history=history, variety_state=variety_state_path(a.variety_state),
               need_history=True, variety=not a.no_variety, approved_ledger=approved_ledger_path(a.approved_ledger),
               viral=not a.no_viral)
+    if not a.no_retire:
+        try:   # after the answers: a gateway error here never costs a draft its verdict
+            self_retire(rest, instinct, a.env, dt.datetime.now(dt.timezone.utc), a.dry_run,
+                        lambda ids: retire_rows(rest, instinct, a.env, ids))
+        except SystemExit as e:   # instinct's client exits on a gateway error: the verdicts wait for the next run
+            print(f"verdict retire skipped this run: {str(e)[:160]}")
+        except Exception as e:  # noqa: BLE001 - shown, never hidden; the next run retries
+            print(f"verdict retire skipped this run: {type(e).__name__}: {str(e)[:160]}")
     return 0
 
 

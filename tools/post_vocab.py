@@ -61,10 +61,12 @@ chart charts close
 picks list lists scoreboard app site page pages card cards link links bio details detail source sources data feed
 dashboard post reel clip video poll question answer comment reply replies thread view views tool tools screener
 research analysis summary summaries note notes
-reddit stocktwits apewisdom mentions
+reddit mentions
 am pm et utc est q fy bmo amc co both then
-analyst analysts zacks factset marketbeat yahoo finnhub rapidtradeview
+analyst analysts rapidtradeview
 """
+# No data-provider name is vocabulary (owner 2026-10-19; Growth gate fixes 2026-10-26: stocktwits, apewisdom, zacks,
+# factset, marketbeat, yahoo, finnhub removed): grok_review.provider_reasons REJECTs them on every public field.
 _ADJ = """
 public daily free full official new open confirmed automatic technical reported live plain past prediction
 individual direct indirect
