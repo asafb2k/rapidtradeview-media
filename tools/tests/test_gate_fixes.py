@@ -473,3 +473,13 @@ def test_cli_gateway_error_during_retire_never_fails_the_run(monkeypatch, tmp_pa
     assert gr.main(["--inbox", "--facts-base", str(tmp_path / "v"), "--comment-state", str(tmp_path / "c.json"),
                     "--approved-ledger", str(tmp_path / "l.json"), "--variety-state", str(tmp_path / "v.json")]) == 0
     assert "verdict retire skipped this run: GET social_kit_messages: HTTP 503" in capsys.readouterr().out
+
+
+def test_answers_fit_the_kit_byte_limit():
+    """instinct.py say refuses > 4000 UTF-8 bytes: a long multibyte REJECT is cut to 3800 bytes, never inside a character."""
+    row = {"id": 77, "item_id": None}
+    reasons = [f"numbers not in allowed_numbers: {chr(0x2212)}$1.{i:02d}{chr(0x00D7)}" for i in range(200)]
+    body = gr.reply_line(row, {"item_id": CONGRESS["item_id"]}, "REJECT", reasons)
+    assert len(body) <= gr.REPLY_MAX and len(body.encode("utf-8")) <= gr.REPLY_MAX_BYTES
+    assert body.startswith(f"REJECT 77 {CONGRESS['item_id']}: numbers not in allowed_numbers")
+    assert gr.reply_line(row, {"item_id": CONGRESS["item_id"]}, "APPROVE", []) == f"APPROVE 77 {CONGRESS['item_id']}"

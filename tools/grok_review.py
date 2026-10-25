@@ -161,6 +161,9 @@ DRAFT_HEAD = re.compile(r"^\s*DRAFT\b")
 ITEM_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,119}$")
 PLATFORMS = ("x", "instagram", "threads")
 REPLY_MAX = 3500
+# instinct.py say refuses a body over 4,000 UTF-8 bytes (Growth gate fixes 2026-10-26): an answer is also cut to 3,800
+# bytes, or a multibyte-heavy REJECT would fail to send on every run and its draft would never be answered
+REPLY_MAX_BYTES = 3800
 THREADS_MAX = 500
 # Market wording (HQ 2026-10-18): our map is the 500 largest US-listed companies, not an index (claims.INDEX_WORDS; the
 # old pattern here missed "S&P500").
@@ -1367,7 +1370,9 @@ def reply_line(row: dict, draft: dict | None, verdict: str, reasons: list[str], 
     head = f"{verdict} {int(row['id'])} {iid}"
     if verdict != "APPROVE":
         head = f"{head}: " + "; ".join(reasons)
-    return "\n".join([head, *(notes or [])])[:REPLY_MAX]
+    body = "\n".join([head, *(notes or [])])[:REPLY_MAX]
+    raw = body.encode("utf-8")
+    return body if len(raw) <= REPLY_MAX_BYTES else raw[:REPLY_MAX_BYTES].decode("utf-8", "ignore")
 
 
 def send_reply(instinct_path: Path, env: str, env_file: str | None, platform: str | None, body: str) -> bool:
