@@ -185,19 +185,24 @@ OUR_MEDIA = re.compile(rf"^{re.escape(mf.PAGES_BASE)}/v/\d{{4}}-\d{{2}}-\d{{2}}/
 # words, case-insensitive; words of a name may run together or carry - _ . ("Stock Twits", "seekingalpha"). Never a
 # provider: a $cashtag ($IEX is IDEX Corp), SEC / sec.gov (official filings), our own pages, the item's own ticker or
 # company name (FactSet Research Systems, Morningstar, Inc.), Reddit (a platform: our P4 phrases name it).
+# Free text: only our own data sources (the backend leak list), the owner's examples and vendors Grok has cited. Other
+# vendors are caught as link hosts only (PROVIDER_HOST_ONLY): their names are ordinary words too ("seeking alpha",
+# "twelve data", "Capitol trades", Michael Bloomberg), and post_audit turns a hit into a binding delete-and-repost.
 PROVIDER_WORDS = (
     "yahoo", "yfinance", "finnhub", "stock twits", "ape wisdom", "alpaca", "tiingo", "polygon io", "cnbc", "iex",
-    "iex cloud", "iex apis", "zacks", "elbstream", "marketbeat", "factset", "lseg", "refinitiv", "bloomberg",
-    "morningstar", "benzinga", "tipranks", "seeking alpha", "finviz", "barchart", "estimize", "visible alpha",
-    "capital iq", "quiver quantitative", "quiver quant", "capitol trades", "unusual whales", "openinsider",
-    "alpha vantage", "twelve data", "financial modeling prep", "intrinio", "marketstack", "google news")
+    "iex cloud", "iex apis", "zacks", "elbstream", "marketbeat", "factset", "google news")
+PROVIDER_HOST_ONLY = (
+    "lseg", "refinitiv", "bloomberg", "morningstar", "benzinga", "tipranks", "seekingalpha", "finviz", "barchart",
+    "estimize", "visiblealpha", "capitaliq", "quiverquant", "quiverquantitative", "capitoltrades", "unusualwhales",
+    "openinsider", "alphavantage", "twelvedata", "financialmodelingprep", "intrinio", "marketstack")
 PROVIDER_RX = re.compile(
     r"(?<![A-Za-z0-9$])(?:"
     + "|".join(r"[\s_.-]*".join(map(re.escape, w.split())) for w in sorted(PROVIDER_WORDS, key=len, reverse=True))
     + r")(?![A-Za-z0-9])", re.IGNORECASE)
 # a URL host naming a provider: any label equal to a provider word run together (finance.yahoo.com, api.stocktwits.com,
 # apewisdom.io, polygon.io), plus nasdaq.com and news.google.*
-PROVIDER_HOST_LABELS = frozenset({w.replace(" ", "") for w in PROVIDER_WORDS} | {"polygon", "nasdaq", "iexapis"}) - {"polygonio"}
+PROVIDER_HOST_LABELS = (frozenset({w.replace(" ", "") for w in PROVIDER_WORDS} | set(PROVIDER_HOST_ONLY)
+                                   | {"polygon", "nasdaq", "iexapis"}) - {"polygonio"})
 OWN_HOSTS = ("rapidtradeview.trade", "asafb2k.github.io")
 OFFICIAL_HOSTS = ("sec.gov",)
 # zero-width / bidi / format characters ("Ya" U+200B "hoo") are dropped before the words are read (escapes only:
@@ -1566,6 +1571,20 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
 VERDICT_RETIRE_HOURS = 24
 VERDICT_BODY = re.compile(r"^(APPROVE|REJECT) (\d{1,12}) (\S+)")
 LOG_REF = re.compile(r"\b(?:draft|approv(?:e|ed|al))\s*[=:]?\s*#?\s*(\d{1,12})\b", re.IGNORECASE)
+# a post_log with no "---" metadata block: only "#"-prefixed ids count ("APPROVE #121, draft #120"), so a caption
+# like "FDA approval 812 days" cannot retire verdict #812
+LOG_REF_HASH = re.compile(r"\b(?:draft|approv(?:e|ed|al))\s*[=:]?\s*#\s*(\d{1,12})\b", re.IGNORECASE)
+
+
+def _log_refs(body: str) -> set[int]:
+    """Draft / verdict ids a post_log names: in its metadata after the last "---" line (CONTRACT section 3), never in
+    the published caption above it; a log without that line counts only "#"-prefixed ids."""
+    i = body.rfind("\n---")
+    if i >= 0:
+        return {int(x) for x in LOG_REF.findall(body[i + 4:])}
+    return {int(x) for x in LOG_REF_HASH.findall(body)}
+
+
 LOG_ITEM = re.compile(r"\bitem_id\s*[=:]\s*([A-Za-z0-9][A-Za-z0-9._:-]{0,119}?)(?=[;,\s\])|]|$)")
 LOG_KIND = re.compile(r"\bkind\s*=\s*(post|reel|reply|comment)\b", re.IGNORECASE)
 LOG_TARGET = re.compile(r"\btarget_url\s*=\s*(https://[^\s;,|]+)")
@@ -1613,7 +1632,7 @@ def verdict_logged(v: dict, draft: dict | None, logs: list[dict]) -> bool:
         if t is None or v.get("at") is None or t < v["at"]:
             continue
         body = str(p.get("body") or "")
-        refs = {int(x) for x in LOG_REF.findall(body)}
+        refs = _log_refs(body)
         if v["id"] in refs or v["draft_id"] in refs:
             return True
         if not platform or str(p.get("platform") or "").lower() != platform:

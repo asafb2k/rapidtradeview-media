@@ -44,7 +44,7 @@ def test_every_owner_and_backend_provider_word_is_caught(word):
 @pytest.mark.parametrize("text", [
     "Source: yahoo.com", "see finance.yahoo for the chart", "https://finance.yahoo.com/quote/UNH",
     "query2.finance.yahoo.com/v8/x", "stocktwits.com/symbol/UNH", "https://api.stocktwits.com/x", "apewisdom.io",
-    "Yahoo Finance consensus", "Yahoo! Finance", "per Stock Twits", "stock-twits buzz", "Seeking Alpha says",
+    "Yahoo Finance consensus", "Yahoo! Finance", "per Stock Twits", "stock-twits buzz", "https://seekingalpha.com/article/1",
     "seekingalpha.com", "(MarketBeat consensus)", "est (Zacks).", "#StockTwits", "@Finnhub", "via yfinance",
     "IEX Cloud", "iexcloud", "Google News headline", "news.google.com/rss", "https://news.google.com/x",
     "\U0001d418\U0001d41a\U0001d421\U0001d428\U0001d428 data",   # math-bold "Yahoo"
@@ -483,3 +483,24 @@ def test_answers_fit_the_kit_byte_limit():
     assert len(body) <= gr.REPLY_MAX and len(body.encode("utf-8")) <= gr.REPLY_MAX_BYTES
     assert body.startswith(f"REJECT 77 {CONGRESS['item_id']}: numbers not in allowed_numbers")
     assert gr.reply_line(row, {"item_id": CONGRESS["item_id"]}, "APPROVE", []) == f"APPROVE 77 {CONGRESS['item_id']}"
+
+
+@pytest.mark.parametrize("text", [
+    "Traders seeking alpha in small caps", "Microsoft says it will open twelve data centers",
+    "Capitol trades this week: 3 senators", "Michael Bloomberg donated again", "unusual whales of volume",
+])
+def test_ordinary_phrases_that_name_other_vendors_are_not_hits(text):
+    # review 10-26: other vendors are host-only; their names are ordinary words too
+    assert gr.provider_hits(text) == []
+
+
+def test_host_only_vendors_are_still_caught_as_links():
+    for host in ("https://www.bloomberg.com/x", "https://capitoltrades.com/trades", "https://unusualwhales.com/flow"):
+        assert gr.provider_hits(host), host
+
+
+def test_caption_numbers_never_retire_a_verdict():
+    # review 10-26: "FDA approval 812 days" in a caption must not count as approval #812
+    assert gr._log_refs("$LLY after FDA approval 812 days in the making.\n---\ndraft=#806; approval=#811") == {806, 811}
+    assert gr._log_refs("Earnings this week ... (APPROVE #121, draft #120).") == {120, 121}
+    assert gr._log_refs("FDA approval 812 days in the making. Not investment advice.") == set()
