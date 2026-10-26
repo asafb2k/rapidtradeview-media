@@ -243,6 +243,57 @@ def facts_location(base: str, date: str) -> str:
     return f"{base.rstrip('/')}/{date}/facts.json"
 
 
+# Manifest videos (PROMPT v1, 2026-10-26: every manifest variant goes through the gate as a DRAFT). Their ids are the
+# manifest's own ("video-2026-10-26-earnings-today-2026-10-26"), not a facts item id.
+from zoneinfo import ZoneInfo  # noqa: E402
+MANIFEST_ID = re.compile(r"^video-(?P<date>\d{4}-\d{2}-\d{2})-[A-Za-z0-9._-]+$")
+MANIFEST_TEXT_KEY = {"instagram": "caption", "x": "text", "threads": "text"}
+
+
+def manifest_location(base: str, date: str) -> str:
+    return f"{base.rstrip('/')}/{date}/manifest.json"
+
+
+def _same_text(a, b) -> bool:
+    norm = lambda s: "\n".join(line.rstrip() for line in str(s or "").strip().splitlines())
+    return norm(a) == norm(b)
+
+
+def review_manifest(draft: dict, manifest: dict | None, date: str) -> tuple[str, list[str]]:
+    """A manifest video DRAFT: APPROVE only when it is that day's manifest post with a variant for this platform, the
+    text is that variant's caption / text verbatim, media_url is its media_url, planned_at falls on the manifest's New
+    York date, and no text names a data provider. The caption was preflighted with the manifest (manifest.py)."""
+    iid = str(draft.get("item_id") or "")
+    platform = str(draft.get("platform") or "").lower()
+    if not manifest:
+        return "REJECT", [f"no manifest for {date}: a video id must be one of that day's manifest posts"]
+    post = next((p for p in manifest.get("posts") or [] if p.get("id") == iid), None)
+    if post is None:
+        return "REJECT", [f"{iid} is not a post in the {date} manifest"]
+    variant = (post.get("platforms") or {}).get(platform)
+    key = MANIFEST_TEXT_KEY.get(platform)
+    if not variant or not key:
+        return "REJECT", [f"the {date} manifest has no {platform or '?'} variant for {iid}"]
+    reasons = []
+    if not _same_text(draft.get("text"), variant.get(key)):
+        reasons.append(f"text must be the manifest's {platform} {key} verbatim")
+    if str(draft.get("media_url") or "").strip() != str(variant.get("media_url") or "").strip():
+        reasons.append(f"media_url must be the manifest's {platform} media_url ({short(str(variant.get('media_url')), 90)})")
+    planned = draft.get("planned_at")
+    if planned:
+        try:
+            when = dt.datetime.fromisoformat(str(planned).replace("Z", "+00:00"))
+            if when.tzinfo is None or when.astimezone(ZoneInfo("America/New_York")).date().isoformat() != date:
+                reasons.append(f"planned_at must fall on {date} (New York)")
+        except ValueError:
+            reasons.append("planned_at is not an ISO time")
+    for field in ("text", "reply_text", "alt", "alt_text"):
+        hits = provider_hits(draft.get(field))
+        if hits:
+            reasons.append(f"provider: {field} names a data provider ({', '.join(hits[:3])})")
+    return ("REJECT", reasons) if reasons else ("APPROVE", [])
+
+
 def load_facts(where: str) -> dict | None:
     """The facts dict; None when there is no file for that date (404 / missing); FactsUnavailable on other errors."""
     if re.match(r"^https?://", where):
@@ -1467,7 +1518,17 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
             iid = draft.get("item_id")
             date = str(iid or "")[:10]
             facts = None
-            if (kind == "post" or iid) and not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
+            mid = MANIFEST_ID.match(str(iid or "")) if kind == "post" else None
+            if mid:
+                mdate = mid.group("date")
+                try:
+                    manifest = load_facts(manifest_location(facts_base, mdate))
+                except FactsUnavailable as e:
+                    print(f"  #{row['id']}: manifest unavailable ({e}); left unacked for the next run")
+                    stats["deferred"] += 1
+                    continue
+                verdict, reasons = review_manifest(draft, manifest, mdate)
+            elif (kind == "post" or iid) and not re.match(r"^\d{4}-\d{2}-\d{2}$", date):
                 verdict, reasons = "REJECT", ["item_id must start with the facts date (YYYY-MM-DD)"]
             else:
                 if kind == "post" or iid:
@@ -1526,7 +1587,9 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
         platform = (draft or {}).get("platform") or row.get("platform")
         print(f"  #{row['id']} -> {body}")
         approved_comment = verdict == "APPROVE" and kind == "comment"
-        approved_post = verdict == "APPROVE" and kind == "post" and work is not None
+        # a manifest video is not a facts item: it never enters the approved ledger / rotation window
+        approved_post = (verdict == "APPROVE" and kind == "post" and work is not None
+                         and not MANIFEST_ID.match(str((draft or {}).get("item_id") or "")))
         if dry_run:
             if approved_comment:
                 state.add(draft, int(row["id"]), clock)
