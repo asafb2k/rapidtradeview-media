@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-26",
-  "generated_at": "2026-10-26T11:00:05Z",
-  "as_of": "2026-10-26T11:00:05Z",
+  "generated_at": "2026-10-26T11:30:05Z",
+  "as_of": "2026-10-26T11:30:05Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 1,
     "form4_buy": 0,
-    "earnings_result": 1,
+    "earnings_result": 2,
     "earnings_upcoming": 119,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -939,8 +939,8 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 1839,
-      "recent_ready": 158,
+      "archive_reports": 1840,
+      "recent_ready": 159,
       "outside_24h": 157,
       "unreadable": 0
     },
@@ -957,7 +957,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 119,
+      "tickers_in_items": 120,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -971,7 +971,7 @@
     "market": {
       "market_session": "2026-10-23",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-10-26T11:00:12.494136+00:00"
+      "flows_as_of": "2026-10-26T11:30:14.945748+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -983,7 +983,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 27
+        "angles_dropped": 30
       },
       "top8": {
         "stale": 3,
@@ -991,7 +991,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 10,
-        "ranked_below": 114,
+        "ranked_below": 115,
         "pillars": 3
       }
     }
@@ -1026,7 +1026,7 @@
     "read": true,
     "own_posts": 24
   },
-  "api_requests": 12,
+  "api_requests": 18,
   "items": [
     {
       "item_id": "2026-10-26-insider-flow-ANET-ea4143",
@@ -20631,6 +20631,703 @@
           "posts": 0,
           "used_phrasing_ids": [],
           "used_hook_ids": []
+        }
+      }
+    },
+    {
+      "item_id": "2026-10-26-earnings-result-VZ-86b133",
+      "type": "earnings_result",
+      "ticker": "VZ",
+      "tickers": [
+        "VZ"
+      ],
+      "name": "Verizon Communications Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-26",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/732712/000073271226000049/a2026q3exhibit99.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/VZ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-26-earnings-result-VZ-86b133#earnings-history",
+      "allowed_numbers": [
+        "$34.31B",
+        "$34.85B",
+        "$540M",
+        "$1.31",
+        "$1.27",
+        "$0.04",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-26",
+        "Oct 26, 2026",
+        "Oct 26"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Verizon Communications Inc. (VZ) published Q3 2026 results on 2026-10-26: Mixed vs estimates. Revenue $34.31B vs $34.85B consensus (Missed by $540M). Adjusted EPS $1.31 vs $1.27 consensus (Beat by $0.04).",
+      "dedupe_key": "report:vz-2026-q3",
+      "claim_phrases": [
+        "revenue came in below the $34.85B consensus.",
+        "$VZ missed the Q3 2026 revenue consensus: $34.31B vs $34.85B.",
+        "$VZ Q3 2026 revenue: $34.31B vs $34.85B consensus (missed by $540M).",
+        "$VZ Q3 2026 revenue $34.31B, missed by $540M.",
+        "revenue $34.31B vs $34.85B consensus (missed by $540M).",
+        "revenue $34.31B vs $34.85B (missed by $540M).",
+        "$VZ missed Q3 2026 revenue estimates by $540M.",
+        "$VZ missed the Q3 revenue consensus: $34.31B vs $34.85B.",
+        "$VZ Q3 revenue: $34.31B vs $34.85B consensus (missed by $540M).",
+        "$VZ Q3 revenue $34.31B, missed by $540M.",
+        "$VZ missed Q3 revenue estimates by $540M.",
+        "EPS came in above the $1.27 consensus.",
+        "$VZ beat the Q3 2026 EPS consensus: $1.31 vs $1.27.",
+        "$VZ Q3 2026 EPS: $1.31 vs $1.27 consensus (beat by $0.04).",
+        "$VZ Q3 2026 EPS $1.31, beat by $0.04.",
+        "EPS $1.31 vs $1.27 consensus (beat by $0.04).",
+        "EPS $1.31 vs $1.27 (beat by $0.04).",
+        "$VZ beat Q3 2026 EPS estimates by $0.04.",
+        "Adjusted EPS came in above the $1.27 consensus.",
+        "$VZ beat the Q3 2026 Adjusted EPS consensus: $1.31 vs $1.27.",
+        "$VZ Q3 2026 Adjusted EPS: $1.31 vs $1.27 consensus (beat by $0.04).",
+        "$VZ Q3 2026 Adjusted EPS $1.31, beat by $0.04.",
+        "Adjusted EPS $1.31 vs $1.27 consensus (beat by $0.04).",
+        "Adjusted EPS $1.31 vs $1.27 (beat by $0.04).",
+        "$VZ beat Q3 2026 Adjusted EPS estimates by $0.04.",
+        "$VZ beat the Q3 EPS consensus: $1.31 vs $1.27.",
+        "$VZ Q3 EPS: $1.31 vs $1.27 consensus (beat by $0.04).",
+        "$VZ Q3 EPS $1.31, beat by $0.04.",
+        "$VZ beat Q3 EPS estimates by $0.04.",
+        "$VZ beat the Q3 Adjusted EPS consensus: $1.31 vs $1.27.",
+        "$VZ Q3 Adjusted EPS: $1.31 vs $1.27 consensus (beat by $0.04).",
+        "$VZ Q3 Adjusted EPS $1.31, beat by $0.04.",
+        "$VZ beat Q3 Adjusted EPS estimates by $0.04."
+      ],
+      "report_id": "vz-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-26",
+      "published_at": "2026-10-26T11:02:45.920988+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$34.31B",
+          "consensus": "$34.85B",
+          "label": "Missed by $540M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adjusted EPS",
+          "reported": "$1.31",
+          "consensus": "$1.27",
+          "label": "Beat by $0.04",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/VZ/opengraph-image",
+          "kind": "image",
+          "alt": "Verizon Communications Inc. (VZ) published Q3 2026 results on 2026-10-26: Mixed vs estimates. Revenue $34.31B vs $34.85B consensus (Missed by $540M). Adjusted EPS $1.31 vs $1.27 consensus (Beat by $0.04)."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; large cap $187.8B +2.5; magnitude (verdict) +1.5; release_date 2026-10-26 (age 0) +2; posted $VZ on 2026-10-25 -4",
+      "pillar": "P5",
+      "market_cap_usd": 187795844781.37262,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-10-23",
+        "Oct 23, 2026",
+        "Oct 23",
+        "$187.8B",
+        "−1.19%",
+        "1.19%",
+        "−1.2%",
+        "1.2%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "VZ"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "VZ": "Communication Services"
+      },
+      "ticker_names": {
+        "VZ": "Verizon Communications Inc."
+      },
+      "context": {
+        "market_cap": "$187.8B",
+        "market_cap_session": "2026-10-23",
+        "last_session_move": {
+          "pct": "−1.19%",
+          "session": "2026-10-23"
+        }
+      },
+      "angles": [
+        "Verizon Communications Inc. ($VZ) published Q3 2026 results on Oct 26.",
+        "$VZ (Verizon Communications Inc.) reported Q3 2026 results on Oct 26.",
+        "On Oct 26, Verizon Communications Inc. ($VZ) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Verizon Communications Inc. ($VZ) published Q3 2026 results on Oct 26.",
+        "$VZ (Verizon Communications Inc.) reported Q3 2026 results on Oct 26.",
+        "On Oct 26, Verizon Communications Inc. ($VZ) published Q3 2026 results.",
+        "$VZ published Q3 2026 results on Oct 26.",
+        "Q3 2026 results from $VZ came out on Oct 26.",
+        "On Oct 26, $VZ published Q3 2026 results.",
+        "$VZ Q3 2026 revenue: $34.31B vs $34.85B consensus.",
+        "$VZ reported Q3 2026 revenue of $34.31B vs $34.85B consensus.",
+        "$VZ Q3 2026 revenue was $34.31B.",
+        "Q3 2026 revenue at $VZ was $34.31B.",
+        "$VZ Q3 2026 Adjusted EPS: $1.31 vs $1.27 consensus.",
+        "$VZ reported Q3 2026 Adjusted EPS of $1.31 vs $1.27 consensus.",
+        "$VZ Q3 2026 Adjusted EPS was $1.31.",
+        "Q3 2026 Adjusted EPS at $VZ was $1.31.",
+        "$VZ had a market value of $187.8B at the Oct 23 close.",
+        "$VZ's market value at the Oct 23 close was $187.8B.",
+        "At the Oct 23 close, $VZ had a market value of $187.8B.",
+        "$VZ moved −1.19% on Friday, Oct 23.",
+        "$VZ's move on Friday, Oct 23: −1.19%.",
+        "On Friday, Oct 23, $VZ moved −1.19%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $34.85B consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-39974b.a",
+          "fact": "earningsre-39974b",
+          "variant": "a",
+          "text": "$VZ missed the Q3 2026 revenue consensus: $34.31B vs $34.85B.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-832d86.a",
+          "fact": "earningsre-832d86",
+          "variant": "a",
+          "text": "$VZ Q3 2026 revenue: $34.31B vs $34.85B consensus (missed by $540M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1c6ba4.a",
+          "fact": "earningsre-1c6ba4",
+          "variant": "a",
+          "text": "$VZ Q3 2026 revenue $34.31B, missed by $540M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $34.31B vs $34.85B consensus (missed by $540M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $34.31B vs $34.85B (missed by $540M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-3da506.a",
+          "fact": "earningsre-3da506",
+          "variant": "a",
+          "text": "$VZ missed Q3 2026 revenue estimates by $540M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-b5f6a9.a",
+          "fact": "earningsre-b5f6a9",
+          "variant": "a",
+          "text": "$VZ missed the Q3 revenue consensus: $34.31B vs $34.85B.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-f542e8.a",
+          "fact": "earningsre-f542e8",
+          "variant": "a",
+          "text": "$VZ Q3 revenue: $34.31B vs $34.85B consensus (missed by $540M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-90244e.a",
+          "fact": "earningsre-90244e",
+          "variant": "a",
+          "text": "$VZ Q3 revenue $34.31B, missed by $540M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-01ded6.a",
+          "fact": "earningsre-01ded6",
+          "variant": "a",
+          "text": "$VZ missed Q3 revenue estimates by $540M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.27 consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$VZ beat the Q3 2026 EPS consensus: $1.31 vs $1.27.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$VZ Q3 2026 EPS: $1.31 vs $1.27 consensus (beat by $0.04).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$VZ Q3 2026 EPS $1.31, beat by $0.04.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.31 vs $1.27 consensus (beat by $0.04).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.31 vs $1.27 (beat by $0.04).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$VZ beat Q3 2026 EPS estimates by $0.04.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "Adjusted EPS came in above the $1.27 consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$VZ beat the Q3 2026 Adjusted EPS consensus: $1.31 vs $1.27.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$VZ Q3 2026 Adjusted EPS: $1.31 vs $1.27 consensus (beat by $0.04).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$VZ Q3 2026 Adjusted EPS $1.31, beat by $0.04.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "Adjusted EPS $1.31 vs $1.27 consensus (beat by $0.04).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "Adjusted EPS $1.31 vs $1.27 (beat by $0.04).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$VZ beat Q3 2026 Adjusted EPS estimates by $0.04.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$VZ beat the Q3 EPS consensus: $1.31 vs $1.27.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$VZ Q3 EPS: $1.31 vs $1.27 consensus (beat by $0.04).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$VZ Q3 EPS $1.31, beat by $0.04.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$VZ beat Q3 EPS estimates by $0.04.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$VZ beat the Q3 Adjusted EPS consensus: $1.31 vs $1.27.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$VZ Q3 Adjusted EPS: $1.31 vs $1.27 consensus (beat by $0.04).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$VZ Q3 Adjusted EPS $1.31, beat by $0.04.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$VZ beat Q3 Adjusted EPS estimates by $0.04.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Verizon Communications Inc. ($VZ) published Q3 2026 results on Oct 26.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$VZ (Verizon Communications Inc.) reported Q3 2026 results on Oct 26.",
+          "claim": false,
+          "recent_on": [
+            "x"
+          ]
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Oct 26, Verizon Communications Inc. ($VZ) published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$VZ published Q3 2026 results on Oct 26.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $VZ came out on Oct 26.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Oct 26, $VZ published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$VZ Q3 2026 revenue: $34.31B vs $34.85B consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$VZ reported Q3 2026 revenue of $34.31B vs $34.85B consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$VZ Q3 2026 revenue was $34.31B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $VZ was $34.31B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-938394.a",
+          "fact": "earningsre-938394",
+          "variant": "a",
+          "text": "$VZ Q3 2026 Adjusted EPS: $1.31 vs $1.27 consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-938394.h1",
+          "fact": "earningsre-938394",
+          "variant": "h1",
+          "text": "$VZ reported Q3 2026 Adjusted EPS of $1.31 vs $1.27 consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$VZ Q3 2026 Adjusted EPS was $1.31.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted EPS at $VZ was $1.31.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$VZ had a market value of $187.8B at the Oct 23 close.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$VZ's market value at the Oct 23 close was $187.8B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Oct 23 close, $VZ had a market value of $187.8B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$VZ moved −1.19% on Friday, Oct 23.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$VZ's move on Friday, Oct 23: −1.19%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Friday, Oct 23, $VZ moved −1.19%.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "1.19%": "-",
+          "1.2%": "-"
+        },
+        "subjects": {
+          "VZ": "down"
+        }
+      },
+      "subject_numbers": {
+        "VZ": [
+          [
+            "$",
+            34.31,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            34.85,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            540.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.31,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.27,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.04,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            1.19,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            187.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {
+          "x": "2026-10-24",
+          "threads": "2026-10-25"
+        },
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": {
+        "x": {
+          "posts": 1,
+          "used_phrasing_ids": [
+            "earningsre-838a1e.a",
+            "earningsre-413af8.h1",
+            "earningsre-986392.a"
+          ],
+          "used_hook_ids": []
+        },
+        "instagram": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 1,
+          "used_phrasing_ids": [],
+          "used_hook_ids": [
+            "H13",
+            "H27",
+            "H43"
+          ]
         }
       }
     },
