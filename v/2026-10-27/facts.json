@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-27",
-  "generated_at": "2026-10-27T17:30:05Z",
-  "as_of": "2026-10-27T17:30:05Z",
+  "generated_at": "2026-10-27T19:15:05Z",
+  "as_of": "2026-10-27T19:15:05Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -942,23 +942,23 @@
     "earnings_result": {
       "archive_reports": 1924,
       "recent_ready": 174,
-      "outside_24h": 93,
+      "outside_24h": 94,
       "unreadable": 0,
-      "not_compared": 5,
+      "not_compared": 6,
       "not_compared_metrics": [
         "AB: revenue (basis_mismatch)",
         "CNC: revenue (basis_mismatch)",
         "ESQ: revenue (basis_mismatch)",
         "IVZ: revenue (basis_mismatch)",
-        "PCAR: revenue (basis_mismatch)"
+        "PCAR: revenue (basis_mismatch)",
+        "SUI: eps_adjusted (unverified)"
       ],
-      "consensus_mismatch_hold": 7,
+      "consensus_mismatch_hold": 6,
       "held": [
         "AMT: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
         "PCAR: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "PII: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
         "PSA: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
-        "SUI: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
         "WELL: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
         "WHR: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)"
       ]
@@ -990,7 +990,7 @@
     "market": {
       "market_session": "2026-10-26",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-10-27T17:30:45.735797+00:00"
+      "flows_as_of": "2026-10-27T19:15:46.013929+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1003,15 +1003,15 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 213
+        "angles_dropped": 211
       },
       "top8": {
-        "stale": 4,
+        "stale": 3,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 4,
-        "ranked_below": 235,
+        "ranked_below": 236,
         "pillars": 4
       }
     }
@@ -1046,7 +1046,7 @@
     "read": true,
     "own_posts": 29
   },
-  "api_requests": 94,
+  "api_requests": 93,
   "items": [
     {
       "item_id": "2026-10-27-reddit-buzz-RDDT-2dd441",
@@ -34523,6 +34523,365 @@
       }
     },
     {
+      "item_id": "2026-10-27-earnings-result-SUI-236d73",
+      "type": "earnings_result",
+      "ticker": "SUI",
+      "tickers": [
+        "SUI"
+      ],
+      "name": "Sun Communities, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-26",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/912593/000091259326000272/exhibit991pressreleaseands.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SUI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-27-earnings-result-SUI-236d73#earnings-history",
+      "allowed_numbers": [
+        "$558M",
+        "$575M",
+        "$16.8M",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-26",
+        "Oct 26, 2026",
+        "Oct 26"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Sun Communities, Inc. (SUI) published Q3 2026 results on 2026-10-26. Revenue $558M vs $575M consensus (Missed by $16.8M).",
+      "dedupe_key": "report:sui-2026-q3",
+      "claim_phrases": [
+        "revenue came in below the $575M consensus.",
+        "$SUI missed the Q3 2026 revenue consensus: $558M vs $575M.",
+        "$SUI Q3 2026 revenue: $558M vs $575M consensus (missed by $16.8M).",
+        "$SUI Q3 2026 revenue $558M, missed by $16.8M.",
+        "revenue $558M vs $575M consensus (missed by $16.8M).",
+        "revenue $558M vs $575M (missed by $16.8M).",
+        "$SUI missed Q3 2026 revenue estimates by $16.8M.",
+        "$SUI missed the Q3 revenue consensus: $558M vs $575M.",
+        "$SUI Q3 revenue: $558M vs $575M consensus (missed by $16.8M).",
+        "$SUI Q3 revenue $558M, missed by $16.8M.",
+        "$SUI missed Q3 revenue estimates by $16.8M.",
+        "$SUI missed Q3 2026 estimates.",
+        "$SUI missed Q3 estimates."
+      ],
+      "report_id": "sui-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-26",
+      "published_at": "2026-10-26T20:14:48.469405+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "revenue": {
+          "reported": "$558M",
+          "consensus": "$575M",
+          "label": "Missed by $16.8M",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SUI/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SUI: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-10-26 (age 1) +1.5; same pillar as the newest own post (P5) -1",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SUI"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Sun Communities, Inc. ($SUI) published Q3 2026 results on Oct 26.",
+        "$SUI (Sun Communities, Inc.) reported Q3 2026 results on Oct 26.",
+        "On Oct 26, Sun Communities, Inc. ($SUI) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Sun Communities, Inc. ($SUI) published Q3 2026 results on Oct 26.",
+        "$SUI (Sun Communities, Inc.) reported Q3 2026 results on Oct 26.",
+        "On Oct 26, Sun Communities, Inc. ($SUI) published Q3 2026 results.",
+        "$SUI published Q3 2026 results on Oct 26.",
+        "Q3 2026 results from $SUI came out on Oct 26.",
+        "On Oct 26, $SUI published Q3 2026 results.",
+        "$SUI Q3 2026 revenue: $558M vs $575M consensus.",
+        "$SUI reported Q3 2026 revenue of $558M vs $575M consensus.",
+        "$SUI Q3 2026 revenue was $558M.",
+        "Q3 2026 revenue at $SUI was $558M."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $575M consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-39974b.a",
+          "fact": "earningsre-39974b",
+          "variant": "a",
+          "text": "$SUI missed the Q3 2026 revenue consensus: $558M vs $575M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-832d86.a",
+          "fact": "earningsre-832d86",
+          "variant": "a",
+          "text": "$SUI Q3 2026 revenue: $558M vs $575M consensus (missed by $16.8M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1c6ba4.a",
+          "fact": "earningsre-1c6ba4",
+          "variant": "a",
+          "text": "$SUI Q3 2026 revenue $558M, missed by $16.8M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $558M vs $575M consensus (missed by $16.8M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $558M vs $575M (missed by $16.8M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-3da506.a",
+          "fact": "earningsre-3da506",
+          "variant": "a",
+          "text": "$SUI missed Q3 2026 revenue estimates by $16.8M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-b5f6a9.a",
+          "fact": "earningsre-b5f6a9",
+          "variant": "a",
+          "text": "$SUI missed the Q3 revenue consensus: $558M vs $575M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-f542e8.a",
+          "fact": "earningsre-f542e8",
+          "variant": "a",
+          "text": "$SUI Q3 revenue: $558M vs $575M consensus (missed by $16.8M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-90244e.a",
+          "fact": "earningsre-90244e",
+          "variant": "a",
+          "text": "$SUI Q3 revenue $558M, missed by $16.8M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-01ded6.a",
+          "fact": "earningsre-01ded6",
+          "variant": "a",
+          "text": "$SUI missed Q3 revenue estimates by $16.8M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$SUI missed Q3 2026 estimates.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$SUI missed Q3 estimates.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Sun Communities, Inc. ($SUI) published Q3 2026 results on Oct 26.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$SUI (Sun Communities, Inc.) reported Q3 2026 results on Oct 26.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Oct 26, Sun Communities, Inc. ($SUI) published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$SUI published Q3 2026 results on Oct 26.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $SUI came out on Oct 26.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Oct 26, $SUI published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$SUI Q3 2026 revenue: $558M vs $575M consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$SUI reported Q3 2026 revenue of $558M vs $575M consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$SUI Q3 2026 revenue was $558M.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $SUI was $558M.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "SUI": [
+          [
+            "$",
+            558.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            575.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            16.8,
+            1,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": {
+        "x": {
+          "posts": 5,
+          "used_phrasing_ids": [
+            "earningsre-129e50.a",
+            "earningsre-14d721.a"
+          ],
+          "used_hook_ids": [
+            "H74",
+            "H71",
+            "H73",
+            "H81"
+          ]
+        },
+        "instagram": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 2,
+          "used_phrasing_ids": [
+            "earningsre-6220e0.a",
+            "earningsre-1f3fc1.a"
+          ],
+          "used_hook_ids": [
+            "H13",
+            "H27",
+            "H43",
+            "H16",
+            "H26",
+            "H41"
+          ]
+        }
+      }
+    },
+    {
       "item_id": "2026-10-27-earnings-result-GBX-0fbb47",
       "type": "earnings_result",
       "ticker": "GBX",
@@ -37195,465 +37554,6 @@
       },
       "top8": false,
       "top8_out": "ranked below the top 8",
-      "rotation": {
-        "x": {
-          "posts": 5,
-          "used_phrasing_ids": [
-            "earningsre-129e50.a",
-            "earningsre-14d721.a"
-          ],
-          "used_hook_ids": [
-            "H74",
-            "H71",
-            "H73",
-            "H81"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [
-            "earningsre-6220e0.a",
-            "earningsre-1f3fc1.a"
-          ],
-          "used_hook_ids": [
-            "H13",
-            "H27",
-            "H43",
-            "H16",
-            "H26",
-            "H41"
-          ]
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-27-earnings-result-CHCO-e4cac7",
-      "type": "earnings_result",
-      "ticker": "CHCO",
-      "tickers": [
-        "CHCO"
-      ],
-      "name": "City Holding Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-26",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/726854/000072685426000190/chco09-30x2026exhibit991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CHCO?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-27-earnings-result-CHCO-e4cac7#earnings-history",
-      "allowed_numbers": [
-        "$2.43",
-        "$2.36",
-        "$0.07",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-26",
-        "Oct 26, 2026",
-        "Oct 26"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "City Holding Company (CHCO) published Q3 2026 results on 2026-10-26: EPS beat. Diluted EPS (GAAP, street basis) $2.43 vs $2.36 consensus (Beat by $0.07).",
-      "dedupe_key": "report:chco-2026-q3",
-      "claim_phrases": [
-        "EPS came in above the $2.36 consensus.",
-        "$CHCO beat the Q3 2026 EPS consensus: $2.43 vs $2.36.",
-        "$CHCO Q3 2026 EPS: $2.43 vs $2.36 consensus (beat by $0.07).",
-        "$CHCO Q3 2026 EPS $2.43, beat by $0.07.",
-        "EPS $2.43 vs $2.36 consensus (beat by $0.07).",
-        "EPS $2.43 vs $2.36 (beat by $0.07).",
-        "$CHCO beat Q3 2026 EPS estimates by $0.07.",
-        "Diluted EPS (GAAP, street basis) came in above the $2.36 consensus.",
-        "$CHCO beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $2.43 vs $2.36.",
-        "$CHCO Q3 2026 Diluted EPS (GAAP, street basis): $2.43 vs $2.36 consensus (beat by $0.07).",
-        "$CHCO Q3 2026 Diluted EPS (GAAP, street basis) $2.43, beat by $0.07.",
-        "Diluted EPS (GAAP, street basis) $2.43 vs $2.36 consensus (beat by $0.07).",
-        "Diluted EPS (GAAP, street basis) $2.43 vs $2.36 (beat by $0.07).",
-        "$CHCO beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.07.",
-        "$CHCO beat the Q3 EPS consensus: $2.43 vs $2.36.",
-        "$CHCO Q3 EPS: $2.43 vs $2.36 consensus (beat by $0.07).",
-        "$CHCO Q3 EPS $2.43, beat by $0.07.",
-        "$CHCO beat Q3 EPS estimates by $0.07.",
-        "$CHCO beat the Q3 Diluted EPS (GAAP, street basis) consensus: $2.43 vs $2.36.",
-        "$CHCO Q3 Diluted EPS (GAAP, street basis): $2.43 vs $2.36 consensus (beat by $0.07).",
-        "$CHCO Q3 Diluted EPS (GAAP, street basis) $2.43, beat by $0.07.",
-        "$CHCO beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.07.",
-        "$CHCO beat Q3 2026 estimates.",
-        "$CHCO beat Q3 estimates."
-      ],
-      "report_id": "chco-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-26",
-      "published_at": "2026-10-26T19:01:12.746804+00:00",
-      "tile_label": "EPS beat",
-      "tile_state": "beat",
-      "results": {
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "$2.43",
-          "consensus": "$2.36",
-          "label": "Beat by $0.07",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CHCO/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CHCO: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-10-26 (age 1) +1.5; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CHCO"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "City Holding Company ($CHCO) published Q3 2026 results on Oct 26.",
-        "$CHCO (City Holding Company) reported Q3 2026 results on Oct 26.",
-        "On Oct 26, City Holding Company ($CHCO) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "City Holding Company ($CHCO) published Q3 2026 results on Oct 26.",
-        "$CHCO (City Holding Company) reported Q3 2026 results on Oct 26.",
-        "On Oct 26, City Holding Company ($CHCO) published Q3 2026 results.",
-        "$CHCO published Q3 2026 results on Oct 26.",
-        "Q3 2026 results from $CHCO came out on Oct 26.",
-        "On Oct 26, $CHCO published Q3 2026 results.",
-        "$CHCO Q3 2026 Diluted EPS (GAAP, street basis): $2.43 vs $2.36 consensus.",
-        "$CHCO reported Q3 2026 Diluted EPS (GAAP, street basis) of $2.43 vs $2.36 consensus.",
-        "$CHCO Q3 2026 Diluted EPS (GAAP, street basis) was $2.43.",
-        "Q3 2026 Diluted EPS (GAAP, street basis) at $CHCO was $2.43."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $2.36 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$CHCO beat the Q3 2026 EPS consensus: $2.43 vs $2.36.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$CHCO Q3 2026 EPS: $2.43 vs $2.36 consensus (beat by $0.07).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$CHCO Q3 2026 EPS $2.43, beat by $0.07.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $2.43 vs $2.36 consensus (beat by $0.07).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $2.43 vs $2.36 (beat by $0.07).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$CHCO beat Q3 2026 EPS estimates by $0.07.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-12a211.a",
-          "fact": "earningsre-12a211",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) came in above the $2.36 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-b45d0c.a",
-          "fact": "earningsre-b45d0c",
-          "variant": "a",
-          "text": "$CHCO beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $2.43 vs $2.36.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-365e1a.a",
-          "fact": "earningsre-365e1a",
-          "variant": "a",
-          "text": "$CHCO Q3 2026 Diluted EPS (GAAP, street basis): $2.43 vs $2.36 consensus (beat by $0.07).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-4de0a3.a",
-          "fact": "earningsre-4de0a3",
-          "variant": "a",
-          "text": "$CHCO Q3 2026 Diluted EPS (GAAP, street basis) $2.43, beat by $0.07.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-e854ec.a",
-          "fact": "earningsre-e854ec",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) $2.43 vs $2.36 consensus (beat by $0.07).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-0f9fa0.a",
-          "fact": "earningsre-0f9fa0",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) $2.43 vs $2.36 (beat by $0.07).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-54bca2.a",
-          "fact": "earningsre-54bca2",
-          "variant": "a",
-          "text": "$CHCO beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.07.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$CHCO beat the Q3 EPS consensus: $2.43 vs $2.36.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$CHCO Q3 EPS: $2.43 vs $2.36 consensus (beat by $0.07).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$CHCO Q3 EPS $2.43, beat by $0.07.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$CHCO beat Q3 EPS estimates by $0.07.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-dc1c68.a",
-          "fact": "earningsre-dc1c68",
-          "variant": "a",
-          "text": "$CHCO beat the Q3 Diluted EPS (GAAP, street basis) consensus: $2.43 vs $2.36.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e82b3.a",
-          "fact": "earningsre-1e82b3",
-          "variant": "a",
-          "text": "$CHCO Q3 Diluted EPS (GAAP, street basis): $2.43 vs $2.36 consensus (beat by $0.07).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-b47e3e.a",
-          "fact": "earningsre-b47e3e",
-          "variant": "a",
-          "text": "$CHCO Q3 Diluted EPS (GAAP, street basis) $2.43, beat by $0.07.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-161196.a",
-          "fact": "earningsre-161196",
-          "variant": "a",
-          "text": "$CHCO beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.07.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$CHCO beat Q3 2026 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$CHCO beat Q3 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "City Holding Company ($CHCO) published Q3 2026 results on Oct 26.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$CHCO (City Holding Company) reported Q3 2026 results on Oct 26.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Oct 26, City Holding Company ($CHCO) published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$CHCO published Q3 2026 results on Oct 26.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $CHCO came out on Oct 26.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Oct 26, $CHCO published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-5e9f86.a",
-          "fact": "earningsre-5e9f86",
-          "variant": "a",
-          "text": "$CHCO Q3 2026 Diluted EPS (GAAP, street basis): $2.43 vs $2.36 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-5e9f86.h1",
-          "fact": "earningsre-5e9f86",
-          "variant": "h1",
-          "text": "$CHCO reported Q3 2026 Diluted EPS (GAAP, street basis) of $2.43 vs $2.36 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1011ad.a",
-          "fact": "earningsre-1011ad",
-          "variant": "a",
-          "text": "$CHCO Q3 2026 Diluted EPS (GAAP, street basis) was $2.43.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1011ad.h1",
-          "fact": "earningsre-1011ad",
-          "variant": "h1",
-          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $CHCO was $2.43.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "CHCO": [
-          [
-            "$",
-            2.43,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            2.36,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.07,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "stale: the 2026-10-26 release posted on 2026-10-27: its release day only (the next session day after an after-close release) (#652)",
       "rotation": {
         "x": {
           "posts": 5,
