@@ -1,0 +1,18 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "earnings-today-2026-10-27",
+ "media_date": "2026-10-27",
+ "files": [
+  {
+   "name": "earnings-calendar-w0.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-27/earnings-today-2026-10-27/evidence/earnings-calendar-w0.json",
+   "request_url": "https://api.rapidtradeview.trade/earnings?weeks_ahead=0&scope=all",
+   "fetched_at_utc": "2026-10-27T09:33:41.306357+00:00",
+   "status": 200,
+   "sha256": "fc2db8d77bb0cb5e6a64a337fdbf7713b963cbdcb6c995d5143dee66b03ac9cd",
+   "bytes": 247137
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
