@@ -243,7 +243,7 @@ def test_earnings_results_in_the_last_24_hours():
     assert it["page_url"].startswith("https://www.rapidtradeview.trade/dashboard/DAL?utm_source={platform}&")
     assert it["page_url"].endswith("#earnings-history")
     assert it["media"] == [{"url": "https://www.rapidtradeview.trade/dashboard/DAL/opengraph-image", "kind": "image",
-                            "alt": it["facts_text"]}]
+                            "alt": "RapidTradeView research card for DAL: recent price, trend, analyst and filing summary."}]   # the alt describes the dashboard card (10-27)
     assert "/earnings/reports/" not in json.dumps(f)  # no field of the published file, item or not
 
 
