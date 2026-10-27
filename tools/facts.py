@@ -451,7 +451,13 @@ def og_media(kind: str, path: str, facts_text: str) -> dict:
     on the DPZ post)."""
     page = ("/earnings/tomorrow" if kind == "earnings_tomorrow_roundup"
             else path.split("?")[0].split("#")[0].rstrip("/"))
-    return {"url": f"{SITE}{page}/opengraph-image", "kind": "image", "alt": " ".join(str(facts_text or "").split())}
+    alt = " ".join(str(facts_text or "").split())
+    m = re.match(r"^/dashboard/([A-Za-z0-9.\-]+)$", page)
+    if m:
+        # the ticker's dashboard card shows its price, trend, analyst and filing summary, not the item's numbers (Grok
+        # 10-27 #879: an EPS alt on the HIG dashboard card): the alt describes the picture
+        alt = f"RapidTradeView research card for {m.group(1).upper()}: recent price, trend, analyst and filing summary."
+    return {"url": f"{SITE}{page}/opengraph-image", "kind": "image", "alt": alt}
 
 
 def official(url: str | None, hosts: tuple[str, ...]) -> bool:
