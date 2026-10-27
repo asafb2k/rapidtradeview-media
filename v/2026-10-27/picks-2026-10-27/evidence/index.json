@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-27",
+ "media_date": "2026-10-27",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-27/picks-2026-10-27/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-27",
+   "fetched_at_utc": "2026-10-27T18:46:04.583793+00:00",
+   "status": 200,
+   "sha256": "7de40da592519fcadf984fb8219d8642c45935c08ef862cad36eaaae1bb46572",
+   "bytes": 5495
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-27/picks-2026-10-27/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-27T18:46:04.979873+00:00",
+   "status": 200,
+   "sha256": "d36917254760c8b172a82f8535c6b7e6b7a2b3ee0c5a14e29b928759c8a1b179",
+   "bytes": 9999
+  },
+  {
+   "name": "search-GTX.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-27/picks-2026-10-27/evidence/search-GTX.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=GTX",
+   "fetched_at_utc": "2026-10-27T18:46:05.654526+00:00",
+   "status": 200,
+   "sha256": "0979dbff73a8bbae8cbb12b3f6ffecaa8b062c6416ea50b2458c7fa37721f32a",
+   "bytes": 350
+  },
+  {
+   "name": "search-VRT.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-27/picks-2026-10-27/evidence/search-VRT.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=VRT",
+   "fetched_at_utc": "2026-10-27T18:46:06.186133+00:00",
+   "status": 200,
+   "sha256": "855152926ddb68d6c93f6402f6088394bf90ab646e870e69ab59c9affe57be1b",
+   "bytes": 539
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
