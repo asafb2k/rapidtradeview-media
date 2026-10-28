@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-28",
+ "media_date": "2026-10-28",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-28/picks-2026-10-28/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-28",
+   "fetched_at_utc": "2026-10-28T18:46:02.023487+00:00",
+   "status": 200,
+   "sha256": "2e9a5e26aa87eed1002b4557787808199d4433ad5db7aaa01a2538e727abcecc",
+   "bytes": 5784
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-28/picks-2026-10-28/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-28T18:46:02.425096+00:00",
+   "status": 200,
+   "sha256": "f0f23862cda02142f671b119b71c56ae821f464060913b0ef42b6fa0c46c36f0",
+   "bytes": 9985
+  },
+  {
+   "name": "search-BG.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-28/picks-2026-10-28/evidence/search-BG.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=BG",
+   "fetched_at_utc": "2026-10-28T18:46:02.917010+00:00",
+   "status": 200,
+   "sha256": "1ef497147c0d61367a7978faece81949c1c471fa87715cac2b90a2fb4f24b9f9",
+   "bytes": 472
+  },
+  {
+   "name": "search-AGI.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-28/picks-2026-10-28/evidence/search-AGI.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=AGI",
+   "fetched_at_utc": "2026-10-28T18:46:03.400881+00:00",
+   "status": 200,
+   "sha256": "921b32ad4aec5203e64832bbf4a9232eb0a72f75a63a066cd87eb9b49b7095a1",
+   "bytes": 503
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
