@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-29",
-  "generated_at": "2026-10-29T09:00:34Z",
-  "as_of": "2026-10-29T09:00:34Z",
+  "generated_at": "2026-10-29T11:00:05Z",
+  "as_of": "2026-10-29T11:00:05Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,8 +875,8 @@
   },
   "counts": {
     "congress_trade": 0,
-    "form4_buy": 4,
-    "earnings_result": 3,
+    "form4_buy": 2,
+    "earnings_result": 0,
     "earnings_upcoming": 38,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -895,6 +895,7 @@
     "basket_week": 0
   },
   "reasons": {
+    "earnings_result": "no earnings report published between 2026-10-28T11:00Z and 2026-10-29T11:00Z",
     "picks_ready": "the published list (2026-10-28) expires 2026-10-29T17:30:00+00:00 before the 15:00 ET slot; today's list publishes at 1:30 PM ET",
     "market_move": "|move| 0.40% < 0.75% (a quiet day: no market-day post)",
     "sector_rotation": "day: best minus worst sector 1.9 pp < 3.0 pp; week: the session is not a Friday",
@@ -936,14 +937,14 @@
     "form4_buy": {
       "rows_read": 20,
       "filings_passing_filters": 19,
-      "below_minimum": 14,
+      "below_minimum": 15,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
       "archive_reports": 1982,
       "recent_ready": 145,
-      "outside_24h": 142,
+      "outside_24h": 145,
       "unreadable": 0
     },
     "earnings_upcoming": {
@@ -959,10 +960,10 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 47,
-      "carried_over": 0,
-      "requested": 5,
-      "not_covered": 1,
+      "tickers_in_items": 39,
+      "carried_over": 5,
+      "requested": 0,
+      "not_covered": 0,
       "disabled": 0,
       "no_peer": 0,
       "below_floor": 0,
@@ -973,26 +974,27 @@
     "market": {
       "market_session": "2026-10-28",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-10-29T09:00:55.028514+00:00"
+      "flows_as_of": "2026-10-29T11:00:20.858309+00:00"
     },
     "gates": {
       "weekend_replay": 0,
-      "small_cap": 1,
+      "small_cap": 2,
       "cooldown": 0,
       "reasons": [
-        "form4_buy CTEV: small cap under $2B and a buy under $10M"
+        "form4_buy GOLD: small cap under $2B and a buy under $10M",
+        "form4_buy BPRE: small cap under $2B and a buy under $10M"
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 38
+        "angles_dropped": 30
       },
       "top8": {
-        "stale": 8,
+        "stale": 5,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 7,
-        "ranked_below": 35,
+        "ranked_below": 33,
         "pillars": 4
       }
     }
@@ -1027,7 +1029,7 @@
     "read": true,
     "own_posts": 29
   },
-  "api_requests": 40,
+  "api_requests": 31,
   "items": [
     {
       "item_id": "2026-10-29-reddit-buzz-ORCL-4773a3",
@@ -1578,12 +1580,12 @@
         "3.50%",
         "+3.5%",
         "3.5%",
-        "$491M",
-        "+$491M",
-        "$490.7M",
-        "+$490.7M",
-        "$2.8B",
-        "+$2.8B",
+        "$495M",
+        "+$495M",
+        "$494.5M",
+        "+$494.5M",
+        "$2.9B",
+        "+$2.9B",
         "$3B",
         "+$3B",
         "30"
@@ -1607,12 +1609,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$491M",
-            "+$491M",
-            "$490.7M",
-            "+$490.7M",
-            "$2.8B",
-            "+$2.8B",
+            "$495M",
+            "+$495M",
+            "$494.5M",
+            "+$494.5M",
+            "$2.9B",
+            "+$2.9B",
             "$3B",
             "+$3B"
           ],
@@ -1631,8 +1633,8 @@
           "session": "2026-10-28"
         },
         "insiders_30d": {
-          "bought": "$491M",
-          "sold": "$2.8B",
+          "bought": "$495M",
+          "sold": "$2.9B",
           "days": 30
         }
       },
@@ -1661,9 +1663,9 @@
         "$ACN moved +3.50% on Wednesday, Oct 28.",
         "$ACN's move on Wednesday, Oct 28: +3.50%.",
         "On Wednesday, Oct 28, $ACN moved +3.50%.",
-        "Officers and directors reported $491M of open-market buys and $2.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $2.8B of open-market sells and $491M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $491M of open-market buys and $2.8B of open-market sells."
+        "Officers and directors reported $495M of open-market buys and $2.9B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $2.9B of open-market sells and $495M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $495M of open-market buys and $2.9B of open-market sells."
       ],
       "phrasings": [
         {
@@ -1822,7 +1824,7 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $491M of open-market buys and $2.8B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $495M of open-market buys and $2.9B of open-market sells over 30 days in our feed.",
           "claim": false,
           "recent_on": []
         },
@@ -1830,7 +1832,7 @@
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $2.8B of open-market sells and $491M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $2.9B of open-market sells and $495M of open-market buys.",
           "claim": false,
           "recent_on": []
         },
@@ -1838,7 +1840,7 @@
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $491M of open-market buys and $2.8B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $495M of open-market buys and $2.9B of open-market sells.",
           "claim": false,
           "recent_on": []
         }
@@ -1847,9 +1849,9 @@
         "numbers": {
           "3.50%": "+",
           "3.5%": "+",
-          "$491M": "+",
-          "$490.7M": "+",
-          "$2.8B": "+",
+          "$495M": "+",
+          "$494.5M": "+",
+          "$2.9B": "+",
           "$3B": "+"
         },
         "subjects": {
@@ -2196,12 +2198,12 @@
       "in_500": false,
       "context_numbers": [
         "$6.4B",
-        "$491M",
-        "+$491M",
-        "$490.7M",
-        "+$490.7M",
-        "$2.8B",
-        "+$2.8B",
+        "$495M",
+        "+$495M",
+        "$494.5M",
+        "+$494.5M",
+        "$2.9B",
+        "+$2.9B",
         "$3B",
         "+$3B",
         "30"
@@ -2223,12 +2225,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$491M",
-            "+$491M",
-            "$490.7M",
-            "+$490.7M",
-            "$2.8B",
-            "+$2.8B",
+            "$495M",
+            "+$495M",
+            "$494.5M",
+            "+$494.5M",
+            "$2.9B",
+            "+$2.9B",
             "$3B",
             "+$3B"
           ],
@@ -2242,8 +2244,8 @@
       "context": {
         "market_cap": "$6.4B",
         "insiders_30d": {
-          "bought": "$491M",
-          "sold": "$2.8B",
+          "bought": "$495M",
+          "sold": "$2.9B",
           "days": 30
         }
       },
@@ -2266,9 +2268,9 @@
         "On a Form 4 filed Oct 27, Mitchell Jacobson (Director at MSC Industrial Direct Co., Inc.) reported an open-market purchase of $MSM totaling $15.62M.",
         "Mitchell Jacobson's $MSM purchase was traded Oct 23 and reported on a Form 4 filed Oct 27.",
         "Traded Oct 23, Mitchell Jacobson's $MSM purchase was reported on a Form 4 filed Oct 27.",
-        "Officers and directors reported $491M of open-market buys and $2.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $2.8B of open-market sells and $491M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $491M of open-market buys and $2.8B of open-market sells."
+        "Officers and directors reported $495M of open-market buys and $2.9B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $2.9B of open-market sells and $495M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $495M of open-market buys and $2.9B of open-market sells."
       ],
       "phrasings": [
         {
@@ -2379,7 +2381,7 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $491M of open-market buys and $2.8B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $495M of open-market buys and $2.9B of open-market sells over 30 days in our feed.",
           "claim": false,
           "recent_on": []
         },
@@ -2387,7 +2389,7 @@
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $2.8B of open-market sells and $491M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $2.9B of open-market sells and $495M of open-market buys.",
           "claim": false,
           "recent_on": []
         },
@@ -2395,16 +2397,16 @@
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $491M of open-market buys and $2.8B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $495M of open-market buys and $2.9B of open-market sells.",
           "claim": false,
           "recent_on": []
         }
       ],
       "moves": {
         "numbers": {
-          "$491M": "+",
-          "$490.7M": "+",
-          "$2.8B": "+",
+          "$495M": "+",
+          "$494.5M": "+",
+          "$2.9B": "+",
           "$3B": "+"
         },
         "subjects": {}
@@ -2745,614 +2747,6 @@
       }
     },
     {
-      "item_id": "2026-10-29-form4-buy-LRN-ddce50",
-      "type": "form4_buy",
-      "ticker": "LRN",
-      "tickers": [
-        "LRN"
-      ],
-      "name": "Dylan G. Haggart",
-      "office": "Director at Stride, Inc.",
-      "amount_text": "$7.13M",
-      "traded": [
-        "2026-10-26"
-      ],
-      "filed": "2026-10-27",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1157408/000121390026113031/0001213900-26-113031-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/haggart-dylan-g-1684185?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-form4-buy-LRN-ddce50#trades",
-      "allowed_numbers": [
-        "$7.13M",
-        "2026-10-27",
-        "Oct 27, 2026",
-        "Oct 27",
-        "2026-10-26",
-        "Oct 26, 2026",
-        "Oct 26"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Dylan G. Haggart (Director at Stride, Inc.) reported an open-market purchase of LRN totaling $7.13M on a Form 4 filed 2026-10-27, traded 2026-10-26.",
-      "dedupe_key": "form4:0001213900-26-113031:LRN",
-      "claim_phrases": [],
-      "company": "Stride, Inc.",
-      "side": "buy",
-      "accession": "0001213900-26-113031",
-      "rows": 1,
-      "figure_slug": "haggart-dylan-g-1684185",
-      "amount_top_usd": 7126744.64,
-      "market_cap_usd": 3472740352.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$7.13M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/haggart-dylan-g-1684185/opengraph-image",
-          "kind": "image",
-          "alt": "Dylan G. Haggart (Director at Stride, Inc.) reported an open-market purchase of LRN totaling $7.13M on a Form 4 filed 2026-10-27, traded 2026-10-26."
-        }
-      ],
-      "rank": 6.85,
-      "rank_why": "form4_buy 2; mid cap $3.47B +1; magnitude (top $7.13M) +2.85; filed 2026-10-27 (age 2) +1",
-      "pillar": "P3",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$3.5B",
-        "$491M",
-        "+$491M",
-        "$490.7M",
-        "+$490.7M",
-        "$2.8B",
-        "+$2.8B",
-        "$3B",
-        "+$3B",
-        "30"
-      ],
-      "context_tickers": [
-        "ACN"
-      ],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "LRN"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$491M",
-            "+$491M",
-            "$490.7M",
-            "+$490.7M",
-            "$2.8B",
-            "+$2.8B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$3.5B",
-        "insiders_30d": {
-          "bought": "$491M",
-          "sold": "$2.8B",
-          "days": 30
-        }
-      },
-      "angles": [
-        "Stride, Inc. director Dylan G. Haggart bought $7.13M of $LRN on the open market (Form 4, filed Oct 27).",
-        "Dylan G. Haggart, director at Stride, Inc., bought $7.13M of $LRN on the open market (Form 4, filed Oct 27).",
-        "An open-market purchase of $LRN totaling $7.13M by Stride, Inc. director Dylan G. Haggart was reported on a Form 4 filed Oct 27."
-      ],
-      "fact_phrases": [
-        "Stride, Inc. director Dylan G. Haggart bought $7.13M of $LRN on the open market (Form 4, filed Oct 27).",
-        "Dylan G. Haggart, director at Stride, Inc., bought $7.13M of $LRN on the open market (Form 4, filed Oct 27).",
-        "An open-market purchase of $LRN totaling $7.13M by Stride, Inc. director Dylan G. Haggart was reported on a Form 4 filed Oct 27.",
-        "Stride, Inc. director Dylan G. Haggart bought $7.13M of $LRN on the open market.",
-        "Dylan G. Haggart, director at Stride, Inc., bought $7.13M of $LRN on the open market.",
-        "On the open market, Stride, Inc. director Dylan G. Haggart bought $7.13M of $LRN.",
-        "Dylan G. Haggart bought $7.13M of $LRN on the open market.",
-        "On the open market, Dylan G. Haggart bought $7.13M of $LRN.",
-        "Dylan G. Haggart made an open-market purchase of $LRN: $7.13M.",
-        "Dylan G. Haggart (Director at Stride, Inc.) reported an open-market purchase of $LRN totaling $7.13M on a Form 4 filed Oct 27.",
-        "On a Form 4 filed Oct 27, Dylan G. Haggart (Director at Stride, Inc.) reported an open-market purchase of $LRN totaling $7.13M.",
-        "Dylan G. Haggart's $LRN purchase was traded Oct 26 and reported on a Form 4 filed Oct 27.",
-        "Traded Oct 26, Dylan G. Haggart's $LRN purchase was reported on a Form 4 filed Oct 27.",
-        "Officers and directors reported $491M of open-market buys and $2.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $2.8B of open-market sells and $491M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $491M of open-market buys and $2.8B of open-market sells."
-      ],
-      "phrasings": [
-        {
-          "id": "form4buy-3a6ae8.a",
-          "fact": "form4buy-3a6ae8",
-          "variant": "a",
-          "text": "Stride, Inc. director Dylan G. Haggart bought $7.13M of $LRN on the open market (Form 4, filed Oct 27).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-3a6ae8.h1",
-          "fact": "form4buy-3a6ae8",
-          "variant": "h1",
-          "text": "Dylan G. Haggart, director at Stride, Inc., bought $7.13M of $LRN on the open market (Form 4, filed Oct 27).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-3a6ae8.h2",
-          "fact": "form4buy-3a6ae8",
-          "variant": "h2",
-          "text": "An open-market purchase of $LRN totaling $7.13M by Stride, Inc. director Dylan G. Haggart was reported on a Form 4 filed Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-736a9f.a",
-          "fact": "form4buy-736a9f",
-          "variant": "a",
-          "text": "Stride, Inc. director Dylan G. Haggart bought $7.13M of $LRN on the open market.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-736a9f.h1",
-          "fact": "form4buy-736a9f",
-          "variant": "h1",
-          "text": "Dylan G. Haggart, director at Stride, Inc., bought $7.13M of $LRN on the open market.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-736a9f.h2",
-          "fact": "form4buy-736a9f",
-          "variant": "h2",
-          "text": "On the open market, Stride, Inc. director Dylan G. Haggart bought $7.13M of $LRN.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
-          "variant": "a",
-          "text": "Dylan G. Haggart bought $7.13M of $LRN on the open market.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
-          "variant": "h1",
-          "text": "On the open market, Dylan G. Haggart bought $7.13M of $LRN.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "Dylan G. Haggart made an open-market purchase of $LRN: $7.13M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-39fdef.a",
-          "fact": "form4buy-39fdef",
-          "variant": "a",
-          "text": "Dylan G. Haggart (Director at Stride, Inc.) reported an open-market purchase of $LRN totaling $7.13M on a Form 4 filed Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-39fdef.h1",
-          "fact": "form4buy-39fdef",
-          "variant": "h1",
-          "text": "On a Form 4 filed Oct 27, Dylan G. Haggart (Director at Stride, Inc.) reported an open-market purchase of $LRN totaling $7.13M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "Dylan G. Haggart's $LRN purchase was traded Oct 26 and reported on a Form 4 filed Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Oct 26, Dylan G. Haggart's $LRN purchase was reported on a Form 4 filed Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $491M of open-market buys and $2.8B of open-market sells over 30 days in our feed.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $2.8B of open-market sells and $491M of open-market buys.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $491M of open-market buys and $2.8B of open-market sells.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$491M": "+",
-          "$490.7M": "+",
-          "$2.8B": "+",
-          "$3B": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "LRN": [
-          [
-            "$",
-            3.5,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": true,
-      "rotation": {
-        "x": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-29-form4-buy-SRRK-0da34e",
-      "type": "form4_buy",
-      "ticker": "SRRK",
-      "tickers": [
-        "SRRK"
-      ],
-      "name": "Srinivas Akkaraju",
-      "office": "Director at Scholar Rock Holding Corporation",
-      "amount_text": "$4.08M",
-      "traded": [
-        "2026-10-26"
-      ],
-      "filed": "2026-10-27",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1727196/000125317026000014/0001253170-26-000014-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/akkaraju-srinivas-1253170?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-form4-buy-SRRK-0da34e#trades",
-      "allowed_numbers": [
-        "$4.08M",
-        "2026-10-27",
-        "Oct 27, 2026",
-        "Oct 27",
-        "2026-10-26",
-        "Oct 26, 2026",
-        "Oct 26"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Srinivas Akkaraju (Director at Scholar Rock Holding Corporation) reported an open-market purchase of SRRK totaling $4.08M on a Form 4 filed 2026-10-27, traded 2026-10-26.",
-      "dedupe_key": "form4:0001253170-26-000014:SRRK",
-      "claim_phrases": [],
-      "company": "Scholar Rock Holding Corporation",
-      "side": "buy",
-      "accession": "0001253170-26-000014",
-      "rows": 1,
-      "figure_slug": "akkaraju-srinivas-1253170",
-      "amount_top_usd": 4075071.38,
-      "market_cap_usd": 5174656512.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$4.08M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/akkaraju-srinivas-1253170/opengraph-image",
-          "kind": "image",
-          "alt": "Srinivas Akkaraju (Director at Scholar Rock Holding Corporation) reported an open-market purchase of SRRK totaling $4.08M on a Form 4 filed 2026-10-27, traded 2026-10-26."
-        }
-      ],
-      "rank": 6.61,
-      "rank_why": "form4_buy 2; mid cap $5.17B +1; magnitude (top $4.08M) +2.61; filed 2026-10-27 (age 2) +1",
-      "pillar": "P3",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$5.2B",
-        "$491M",
-        "+$491M",
-        "$490.7M",
-        "+$490.7M",
-        "$2.8B",
-        "+$2.8B",
-        "$3B",
-        "+$3B",
-        "30"
-      ],
-      "context_tickers": [
-        "ACN"
-      ],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "SRRK"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$491M",
-            "+$491M",
-            "$490.7M",
-            "+$490.7M",
-            "$2.8B",
-            "+$2.8B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$5.2B",
-        "insiders_30d": {
-          "bought": "$491M",
-          "sold": "$2.8B",
-          "days": 30
-        }
-      },
-      "angles": [
-        "Scholar Rock Holding Corporation director Srinivas Akkaraju bought $4.08M of $SRRK on the open market (Form 4, filed Oct 27).",
-        "Srinivas Akkaraju, director at Scholar Rock Holding Corporation, bought $4.08M of $SRRK on the open market (Form 4, filed Oct 27).",
-        "An open-market purchase of $SRRK totaling $4.08M by Scholar Rock Holding Corporation director Srinivas Akkaraju was reported on a Form 4 filed Oct 27."
-      ],
-      "fact_phrases": [
-        "Scholar Rock Holding Corporation director Srinivas Akkaraju bought $4.08M of $SRRK on the open market (Form 4, filed Oct 27).",
-        "Srinivas Akkaraju, director at Scholar Rock Holding Corporation, bought $4.08M of $SRRK on the open market (Form 4, filed Oct 27).",
-        "An open-market purchase of $SRRK totaling $4.08M by Scholar Rock Holding Corporation director Srinivas Akkaraju was reported on a Form 4 filed Oct 27.",
-        "Scholar Rock Holding Corporation director Srinivas Akkaraju bought $4.08M of $SRRK on the open market.",
-        "Srinivas Akkaraju, director at Scholar Rock Holding Corporation, bought $4.08M of $SRRK on the open market.",
-        "On the open market, Scholar Rock Holding Corporation director Srinivas Akkaraju bought $4.08M of $SRRK.",
-        "Srinivas Akkaraju bought $4.08M of $SRRK on the open market.",
-        "On the open market, Srinivas Akkaraju bought $4.08M of $SRRK.",
-        "Srinivas Akkaraju made an open-market purchase of $SRRK: $4.08M.",
-        "Srinivas Akkaraju (Director at Scholar Rock Holding Corporation) reported an open-market purchase of $SRRK totaling $4.08M on a Form 4 filed Oct 27.",
-        "On a Form 4 filed Oct 27, Srinivas Akkaraju (Director at Scholar Rock Holding Corporation) reported an open-market purchase of $SRRK totaling $4.08M.",
-        "Srinivas Akkaraju's $SRRK purchase was traded Oct 26 and reported on a Form 4 filed Oct 27.",
-        "Traded Oct 26, Srinivas Akkaraju's $SRRK purchase was reported on a Form 4 filed Oct 27.",
-        "Officers and directors reported $491M of open-market buys and $2.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $2.8B of open-market sells and $491M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $491M of open-market buys and $2.8B of open-market sells."
-      ],
-      "phrasings": [
-        {
-          "id": "form4buy-3a6ae8.a",
-          "fact": "form4buy-3a6ae8",
-          "variant": "a",
-          "text": "Scholar Rock Holding Corporation director Srinivas Akkaraju bought $4.08M of $SRRK on the open market (Form 4, filed Oct 27).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-3a6ae8.h1",
-          "fact": "form4buy-3a6ae8",
-          "variant": "h1",
-          "text": "Srinivas Akkaraju, director at Scholar Rock Holding Corporation, bought $4.08M of $SRRK on the open market (Form 4, filed Oct 27).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-3a6ae8.h2",
-          "fact": "form4buy-3a6ae8",
-          "variant": "h2",
-          "text": "An open-market purchase of $SRRK totaling $4.08M by Scholar Rock Holding Corporation director Srinivas Akkaraju was reported on a Form 4 filed Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-736a9f.a",
-          "fact": "form4buy-736a9f",
-          "variant": "a",
-          "text": "Scholar Rock Holding Corporation director Srinivas Akkaraju bought $4.08M of $SRRK on the open market.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-736a9f.h1",
-          "fact": "form4buy-736a9f",
-          "variant": "h1",
-          "text": "Srinivas Akkaraju, director at Scholar Rock Holding Corporation, bought $4.08M of $SRRK on the open market.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-736a9f.h2",
-          "fact": "form4buy-736a9f",
-          "variant": "h2",
-          "text": "On the open market, Scholar Rock Holding Corporation director Srinivas Akkaraju bought $4.08M of $SRRK.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
-          "variant": "a",
-          "text": "Srinivas Akkaraju bought $4.08M of $SRRK on the open market.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
-          "variant": "h1",
-          "text": "On the open market, Srinivas Akkaraju bought $4.08M of $SRRK.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "Srinivas Akkaraju made an open-market purchase of $SRRK: $4.08M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-39fdef.a",
-          "fact": "form4buy-39fdef",
-          "variant": "a",
-          "text": "Srinivas Akkaraju (Director at Scholar Rock Holding Corporation) reported an open-market purchase of $SRRK totaling $4.08M on a Form 4 filed Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-39fdef.h1",
-          "fact": "form4buy-39fdef",
-          "variant": "h1",
-          "text": "On a Form 4 filed Oct 27, Srinivas Akkaraju (Director at Scholar Rock Holding Corporation) reported an open-market purchase of $SRRK totaling $4.08M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "Srinivas Akkaraju's $SRRK purchase was traded Oct 26 and reported on a Form 4 filed Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Oct 26, Srinivas Akkaraju's $SRRK purchase was reported on a Form 4 filed Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $491M of open-market buys and $2.8B of open-market sells over 30 days in our feed.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $2.8B of open-market sells and $491M of open-market buys.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $491M of open-market buys and $2.8B of open-market sells.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$491M": "+",
-          "$490.7M": "+",
-          "$2.8B": "+",
-          "$3B": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "SRRK": [
-          [
-            "$",
-            5.2,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": true,
-      "rotation": {
-        "x": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        }
-      }
-    },
-    {
       "item_id": "2026-10-29-ptr-summary-LIST-0ee4be",
       "type": "ptr_summary",
       "ticker": null,
@@ -3577,6 +2971,508 @@
           "posts": 0,
           "used_phrasing_ids": [],
           "used_hook_ids": []
+        },
+        "instagram": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        }
+      }
+    },
+    {
+      "item_id": "2026-10-29-earnings-upcoming-REGN-a6ecca",
+      "type": "earnings_upcoming",
+      "ticker": "REGN",
+      "tickers": [
+        "REGN"
+      ],
+      "name": "Regeneron Pharmaceuticals, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/REGN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-earnings-upcoming-REGN-a6ecca#earnings-history",
+      "allowed_numbers": [
+        "2026-10-30",
+        "Oct 30, 2026",
+        "Oct 30",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Regeneron Pharmaceuticals, Inc. (REGN) reports earnings on 2026-10-30, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:REGN:2026-10-30",
+      "claim_phrases": [],
+      "report_date": "2026-10-30",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 84021564250.22455,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/REGN/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for REGN: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_upcoming 1; large cap $84.02B +2.5; today 2026-10-29 (age 0) +2; same pillar as the newest own post (P5) -1",
+      "pillar": "P5",
+      "market_cap_feed_usd": 82947743744.0,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-10-28",
+        "Oct 28, 2026",
+        "Oct 28",
+        "$84.0B",
+        "−0.35%",
+        "0.35%",
+        "−0.3%",
+        "0.3%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "REGN"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "REGN": "Healthcare"
+      },
+      "ticker_names": {
+        "REGN": "Regeneron Pharmaceuticals, Inc."
+      },
+      "context": {
+        "market_cap": "$84.0B",
+        "market_cap_session": "2026-10-28",
+        "last_session_move": {
+          "pct": "−0.35%",
+          "session": "2026-10-28"
+        }
+      },
+      "angles": [
+        "Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings on Friday, Oct 30, before the open (confirmed date).",
+        "$REGN (Regeneron Pharmaceuticals, Inc.) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+        "On Friday, Oct 30, before the open, Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings (confirmed date)."
+      ],
+      "fact_phrases": [
+        "Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings on Friday, Oct 30, before the open (confirmed date).",
+        "$REGN (Regeneron Pharmaceuticals, Inc.) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+        "On Friday, Oct 30, before the open, Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings (confirmed date).",
+        "$REGN reports earnings on Friday, Oct 30, before the open (confirmed date).",
+        "$REGN is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+        "On Friday, Oct 30, before the open, $REGN reports earnings (confirmed date).",
+        "$REGN had a market value of $84.0B at the Oct 28 close.",
+        "$REGN's market value at the Oct 28 close was $84.0B.",
+        "At the Oct 28 close, $REGN had a market value of $84.0B.",
+        "$REGN moved −0.35% on Wednesday, Oct 28.",
+        "$REGN's move on Wednesday, Oct 28: −0.35%.",
+        "On Wednesday, Oct 28, $REGN moved −0.35%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsup-ff1625.a",
+          "fact": "earningsup-ff1625",
+          "variant": "a",
+          "text": "Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings on Friday, Oct 30, before the open (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-ff1625.h1",
+          "fact": "earningsup-ff1625",
+          "variant": "h1",
+          "text": "$REGN (Regeneron Pharmaceuticals, Inc.) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-ff1625.h2",
+          "fact": "earningsup-ff1625",
+          "variant": "h2",
+          "text": "On Friday, Oct 30, before the open, Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-9304b6.a",
+          "fact": "earningsup-9304b6",
+          "variant": "a",
+          "text": "$REGN reports earnings on Friday, Oct 30, before the open (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-9304b6.h1",
+          "fact": "earningsup-9304b6",
+          "variant": "h1",
+          "text": "$REGN is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-9304b6.h2",
+          "fact": "earningsup-9304b6",
+          "variant": "h2",
+          "text": "On Friday, Oct 30, before the open, $REGN reports earnings (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-426192.a",
+          "fact": "earningsup-426192",
+          "variant": "a",
+          "text": "$REGN had a market value of $84.0B at the Oct 28 close.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-426192.h1",
+          "fact": "earningsup-426192",
+          "variant": "h1",
+          "text": "$REGN's market value at the Oct 28 close was $84.0B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-426192.t",
+          "fact": "earningsup-426192",
+          "variant": "t",
+          "text": "At the Oct 28 close, $REGN had a market value of $84.0B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-061727.a",
+          "fact": "earningsup-061727",
+          "variant": "a",
+          "text": "$REGN moved −0.35% on Wednesday, Oct 28.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-061727.h1",
+          "fact": "earningsup-061727",
+          "variant": "h1",
+          "text": "$REGN's move on Wednesday, Oct 28: −0.35%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-061727.t",
+          "fact": "earningsup-061727",
+          "variant": "t",
+          "text": "On Wednesday, Oct 28, $REGN moved −0.35%.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.35%": "-",
+          "0.3%": "-"
+        },
+        "subjects": {
+          "REGN": "down"
+        }
+      },
+      "subject_numbers": {
+        "REGN": [
+          [
+            "%",
+            0.35,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            84.0,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": true,
+      "rotation": {
+        "x": {
+          "posts": 1,
+          "used_phrasing_ids": [],
+          "used_hook_ids": [
+            "H74"
+          ]
+        },
+        "instagram": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        }
+      }
+    },
+    {
+      "item_id": "2026-10-29-earnings-upcoming-CL-de96ca",
+      "type": "earnings_upcoming",
+      "ticker": "CL",
+      "tickers": [
+        "CL"
+      ],
+      "name": "Colgate-Palmolive Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-earnings-upcoming-CL-de96ca#earnings-history",
+      "allowed_numbers": [
+        "2026-10-30",
+        "Oct 30, 2026",
+        "Oct 30",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Colgate-Palmolive Company (CL) reports earnings on 2026-10-30, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:CL:2026-10-30",
+      "claim_phrases": [],
+      "report_date": "2026-10-30",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 73475415234.62204,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CL/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CL: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "earnings_upcoming 1; large cap $73.48B +2.5; today 2026-10-29 (age 0) +2; same pillar as the newest own post (P5) -1",
+      "pillar": "P5",
+      "market_cap_feed_usd": 77636657152.0,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-10-28",
+        "Oct 28, 2026",
+        "Oct 28",
+        "$73.5B",
+        "−0.52%",
+        "0.52%",
+        "−0.5%",
+        "0.5%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CL"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "CL": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "CL": "Colgate-Palmolive Company"
+      },
+      "context": {
+        "market_cap": "$73.5B",
+        "market_cap_session": "2026-10-28",
+        "last_session_move": {
+          "pct": "−0.52%",
+          "session": "2026-10-28"
+        }
+      },
+      "angles": [
+        "Colgate-Palmolive Company ($CL) reports earnings on Friday, Oct 30, before the open (confirmed date).",
+        "$CL (Colgate-Palmolive Company) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+        "On Friday, Oct 30, before the open, Colgate-Palmolive Company ($CL) reports earnings (confirmed date)."
+      ],
+      "fact_phrases": [
+        "Colgate-Palmolive Company ($CL) reports earnings on Friday, Oct 30, before the open (confirmed date).",
+        "$CL (Colgate-Palmolive Company) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+        "On Friday, Oct 30, before the open, Colgate-Palmolive Company ($CL) reports earnings (confirmed date).",
+        "$CL reports earnings on Friday, Oct 30, before the open (confirmed date).",
+        "$CL is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+        "On Friday, Oct 30, before the open, $CL reports earnings (confirmed date).",
+        "$CL had a market value of $73.5B at the Oct 28 close.",
+        "$CL's market value at the Oct 28 close was $73.5B.",
+        "At the Oct 28 close, $CL had a market value of $73.5B.",
+        "$CL moved −0.52% on Wednesday, Oct 28.",
+        "$CL's move on Wednesday, Oct 28: −0.52%.",
+        "On Wednesday, Oct 28, $CL moved −0.52%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsup-ff1625.a",
+          "fact": "earningsup-ff1625",
+          "variant": "a",
+          "text": "Colgate-Palmolive Company ($CL) reports earnings on Friday, Oct 30, before the open (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-ff1625.h1",
+          "fact": "earningsup-ff1625",
+          "variant": "h1",
+          "text": "$CL (Colgate-Palmolive Company) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-ff1625.h2",
+          "fact": "earningsup-ff1625",
+          "variant": "h2",
+          "text": "On Friday, Oct 30, before the open, Colgate-Palmolive Company ($CL) reports earnings (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-9304b6.a",
+          "fact": "earningsup-9304b6",
+          "variant": "a",
+          "text": "$CL reports earnings on Friday, Oct 30, before the open (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-9304b6.h1",
+          "fact": "earningsup-9304b6",
+          "variant": "h1",
+          "text": "$CL is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-9304b6.h2",
+          "fact": "earningsup-9304b6",
+          "variant": "h2",
+          "text": "On Friday, Oct 30, before the open, $CL reports earnings (confirmed date).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-426192.a",
+          "fact": "earningsup-426192",
+          "variant": "a",
+          "text": "$CL had a market value of $73.5B at the Oct 28 close.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-426192.h1",
+          "fact": "earningsup-426192",
+          "variant": "h1",
+          "text": "$CL's market value at the Oct 28 close was $73.5B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-426192.t",
+          "fact": "earningsup-426192",
+          "variant": "t",
+          "text": "At the Oct 28 close, $CL had a market value of $73.5B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-061727.a",
+          "fact": "earningsup-061727",
+          "variant": "a",
+          "text": "$CL moved −0.52% on Wednesday, Oct 28.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-061727.h1",
+          "fact": "earningsup-061727",
+          "variant": "h1",
+          "text": "$CL's move on Wednesday, Oct 28: −0.52%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsup-061727.t",
+          "fact": "earningsup-061727",
+          "variant": "t",
+          "text": "On Wednesday, Oct 28, $CL moved −0.52%.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.52%": "-",
+          "0.5%": "-"
+        },
+        "subjects": {
+          "CL": "down"
+        }
+      },
+      "subject_numbers": {
+        "CL": [
+          [
+            "%",
+            0.52,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            73.5,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": true,
+      "rotation": {
+        "x": {
+          "posts": 1,
+          "used_phrasing_ids": [],
+          "used_hook_ids": [
+            "H74"
+          ]
         },
         "instagram": {
           "posts": 0,
@@ -7620,1845 +7516,6 @@
             "H24",
             "H43"
           ]
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-29-earnings-result-OGE-fc65cf",
-      "type": "earnings_result",
-      "ticker": "OGE",
-      "tickers": [
-        "OGE"
-      ],
-      "name": "OGE Energy Corp.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-28",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1021635/000102163526000038/oge-ex99_01.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/OGE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-earnings-result-OGE-fc65cf#earnings-history",
-      "allowed_numbers": [
-        "$1.18B",
-        "$1.12B",
-        "$61.4M",
-        "$1.52",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-28",
-        "Oct 28, 2026",
-        "Oct 28"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "OGE Energy Corp. (OGE) published Q3 2026 results on 2026-10-28: Revenue beat. Revenue $1.18B vs $1.12B consensus (Beat by $61.4M). GAAP EPS $1.52.",
-      "dedupe_key": "report:oge-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $1.12B consensus.",
-        "$OGE beat the Q3 2026 revenue consensus: $1.18B vs $1.12B.",
-        "$OGE Q3 2026 revenue: $1.18B vs $1.12B consensus (beat by $61.4M).",
-        "$OGE Q3 2026 revenue $1.18B, beat by $61.4M.",
-        "revenue $1.18B vs $1.12B consensus (beat by $61.4M).",
-        "revenue $1.18B vs $1.12B (beat by $61.4M).",
-        "$OGE beat Q3 2026 revenue estimates by $61.4M.",
-        "$OGE beat the Q3 revenue consensus: $1.18B vs $1.12B.",
-        "$OGE Q3 revenue: $1.18B vs $1.12B consensus (beat by $61.4M).",
-        "$OGE Q3 revenue $1.18B, beat by $61.4M.",
-        "$OGE beat Q3 revenue estimates by $61.4M.",
-        "$OGE beat Q3 2026 estimates.",
-        "$OGE beat Q3 estimates."
-      ],
-      "report_id": "oge-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-28",
-      "published_at": "2026-10-28T10:03:22.094209+00:00",
-      "tile_label": "Revenue beat",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$1.18B",
-          "consensus": "$1.12B",
-          "label": "Beat by $61.4M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$1.52"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/OGE/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for OGE: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-10-28 (age 1) +1.5; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "OGE"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "OGE Energy Corp. ($OGE) published Q3 2026 results on Oct 28.",
-        "$OGE (OGE Energy Corp.) reported Q3 2026 results on Oct 28.",
-        "On Oct 28, OGE Energy Corp. ($OGE) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "OGE Energy Corp. ($OGE) published Q3 2026 results on Oct 28.",
-        "$OGE (OGE Energy Corp.) reported Q3 2026 results on Oct 28.",
-        "On Oct 28, OGE Energy Corp. ($OGE) published Q3 2026 results.",
-        "$OGE published Q3 2026 results on Oct 28.",
-        "Q3 2026 results from $OGE came out on Oct 28.",
-        "On Oct 28, $OGE published Q3 2026 results.",
-        "$OGE Q3 2026 revenue: $1.18B vs $1.12B consensus.",
-        "$OGE reported Q3 2026 revenue of $1.18B vs $1.12B consensus.",
-        "$OGE Q3 2026 revenue was $1.18B.",
-        "Q3 2026 revenue at $OGE was $1.18B.",
-        "$OGE Q3 2026 GAAP EPS: $1.52.",
-        "$OGE reported Q3 2026 GAAP EPS of $1.52.",
-        "$OGE Q3 2026 GAAP EPS was $1.52.",
-        "Q3 2026 GAAP EPS at $OGE was $1.52."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $1.12B consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$OGE beat the Q3 2026 revenue consensus: $1.18B vs $1.12B.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$OGE Q3 2026 revenue: $1.18B vs $1.12B consensus (beat by $61.4M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$OGE Q3 2026 revenue $1.18B, beat by $61.4M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $1.18B vs $1.12B consensus (beat by $61.4M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $1.18B vs $1.12B (beat by $61.4M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$OGE beat Q3 2026 revenue estimates by $61.4M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$OGE beat the Q3 revenue consensus: $1.18B vs $1.12B.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$OGE Q3 revenue: $1.18B vs $1.12B consensus (beat by $61.4M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$OGE Q3 revenue $1.18B, beat by $61.4M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$OGE beat Q3 revenue estimates by $61.4M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$OGE beat Q3 2026 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$OGE beat Q3 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "OGE Energy Corp. ($OGE) published Q3 2026 results on Oct 28.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$OGE (OGE Energy Corp.) reported Q3 2026 results on Oct 28.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Oct 28, OGE Energy Corp. ($OGE) published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$OGE published Q3 2026 results on Oct 28.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $OGE came out on Oct 28.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Oct 28, $OGE published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$OGE Q3 2026 revenue: $1.18B vs $1.12B consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$OGE reported Q3 2026 revenue of $1.18B vs $1.12B consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$OGE Q3 2026 revenue was $1.18B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $OGE was $1.18B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$OGE Q3 2026 GAAP EPS: $1.52.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$OGE reported Q3 2026 GAAP EPS of $1.52.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$OGE Q3 2026 GAAP EPS was $1.52.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $OGE was $1.52.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "OGE": [
-          [
-            "$",
-            1.18,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            1.12,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            61.4,
-            1,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "stale: the 2026-10-28 release posted on 2026-10-29: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": {
-        "x": {
-          "posts": 5,
-          "used_phrasing_ids": [
-            "earningsre-129e50.a",
-            "earningsre-14d721.a"
-          ],
-          "used_hook_ids": [
-            "H74",
-            "H71",
-            "H73",
-            "H81"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
-          "used_hook_ids": [
-            "H13",
-            "H27",
-            "H43",
-            "H16",
-            "H26",
-            "H41"
-          ]
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-29-earnings-result-MCRI-6e9a50",
-      "type": "earnings_result",
-      "ticker": "MCRI",
-      "tickers": [
-        "MCRI"
-      ],
-      "name": "Monarch Casino & Resort, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-28",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/907242/000117184326006863/exh_991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/MCRI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-earnings-result-MCRI-6e9a50#earnings-history",
-      "allowed_numbers": [
-        "$146M",
-        "$149M",
-        "$2.44M",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-27",
-        "Oct 27, 2026",
-        "Oct 27",
-        "2026-10-28",
-        "Oct 28, 2026",
-        "Oct 28"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Monarch Casino & Resort, Inc. (MCRI) published Q3 2026 results on 2026-10-27: Revenue miss. Revenue $146M vs $149M consensus (Missed by $2.44M).",
-      "dedupe_key": "report:mcri-2026-q3",
-      "claim_phrases": [
-        "revenue came in below the $149M consensus.",
-        "$MCRI missed the Q3 2026 revenue consensus: $146M vs $149M.",
-        "$MCRI Q3 2026 revenue: $146M vs $149M consensus (missed by $2.44M).",
-        "$MCRI Q3 2026 revenue $146M, missed by $2.44M.",
-        "revenue $146M vs $149M consensus (missed by $2.44M).",
-        "revenue $146M vs $149M (missed by $2.44M).",
-        "$MCRI missed Q3 2026 revenue estimates by $2.44M.",
-        "$MCRI missed the Q3 revenue consensus: $146M vs $149M.",
-        "$MCRI Q3 revenue: $146M vs $149M consensus (missed by $2.44M).",
-        "$MCRI Q3 revenue $146M, missed by $2.44M.",
-        "$MCRI missed Q3 revenue estimates by $2.44M.",
-        "$MCRI missed Q3 2026 estimates.",
-        "$MCRI missed Q3 estimates."
-      ],
-      "report_id": "mcri-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-27",
-      "published_at": "2026-10-28T10:03:23.327874+00:00",
-      "tile_label": "Revenue miss",
-      "tile_state": "miss",
-      "results": {
-        "revenue": {
-          "reported": "$146M",
-          "consensus": "$149M",
-          "label": "Missed by $2.44M",
-          "verdict": "miss"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/MCRI/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for MCRI: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-10-27 (age 2) +1; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "MCRI"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Monarch Casino & Resort, Inc. ($MCRI) published Q3 2026 results on Oct 27.",
-        "$MCRI (Monarch Casino & Resort, Inc.) reported Q3 2026 results on Oct 27.",
-        "On Oct 27, Monarch Casino & Resort, Inc. ($MCRI) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Monarch Casino & Resort, Inc. ($MCRI) published Q3 2026 results on Oct 27.",
-        "$MCRI (Monarch Casino & Resort, Inc.) reported Q3 2026 results on Oct 27.",
-        "On Oct 27, Monarch Casino & Resort, Inc. ($MCRI) published Q3 2026 results.",
-        "$MCRI published Q3 2026 results on Oct 27.",
-        "Q3 2026 results from $MCRI came out on Oct 27.",
-        "On Oct 27, $MCRI published Q3 2026 results.",
-        "$MCRI Q3 2026 revenue: $146M vs $149M consensus.",
-        "$MCRI reported Q3 2026 revenue of $146M vs $149M consensus.",
-        "$MCRI Q3 2026 revenue was $146M.",
-        "Q3 2026 revenue at $MCRI was $146M."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-d07e43.a",
-          "fact": "earningsre-d07e43",
-          "variant": "a",
-          "text": "revenue came in below the $149M consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-39974b.a",
-          "fact": "earningsre-39974b",
-          "variant": "a",
-          "text": "$MCRI missed the Q3 2026 revenue consensus: $146M vs $149M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-832d86.a",
-          "fact": "earningsre-832d86",
-          "variant": "a",
-          "text": "$MCRI Q3 2026 revenue: $146M vs $149M consensus (missed by $2.44M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1c6ba4.a",
-          "fact": "earningsre-1c6ba4",
-          "variant": "a",
-          "text": "$MCRI Q3 2026 revenue $146M, missed by $2.44M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-96a577.a",
-          "fact": "earningsre-96a577",
-          "variant": "a",
-          "text": "revenue $146M vs $149M consensus (missed by $2.44M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-7c4659.a",
-          "fact": "earningsre-7c4659",
-          "variant": "a",
-          "text": "revenue $146M vs $149M (missed by $2.44M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-3da506.a",
-          "fact": "earningsre-3da506",
-          "variant": "a",
-          "text": "$MCRI missed Q3 2026 revenue estimates by $2.44M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-b5f6a9.a",
-          "fact": "earningsre-b5f6a9",
-          "variant": "a",
-          "text": "$MCRI missed the Q3 revenue consensus: $146M vs $149M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-f542e8.a",
-          "fact": "earningsre-f542e8",
-          "variant": "a",
-          "text": "$MCRI Q3 revenue: $146M vs $149M consensus (missed by $2.44M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-90244e.a",
-          "fact": "earningsre-90244e",
-          "variant": "a",
-          "text": "$MCRI Q3 revenue $146M, missed by $2.44M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-01ded6.a",
-          "fact": "earningsre-01ded6",
-          "variant": "a",
-          "text": "$MCRI missed Q3 revenue estimates by $2.44M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-0bb625.a",
-          "fact": "earningsre-0bb625",
-          "variant": "a",
-          "text": "$MCRI missed Q3 2026 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-49ee3c.a",
-          "fact": "earningsre-49ee3c",
-          "variant": "a",
-          "text": "$MCRI missed Q3 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-aa39fc.a",
-          "fact": "earningsre-aa39fc",
-          "variant": "a",
-          "text": "Monarch Casino & Resort, Inc. ($MCRI) published Q3 2026 results on Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-aa39fc.h1",
-          "fact": "earningsre-aa39fc",
-          "variant": "h1",
-          "text": "$MCRI (Monarch Casino & Resort, Inc.) reported Q3 2026 results on Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-aa39fc.t",
-          "fact": "earningsre-aa39fc",
-          "variant": "t",
-          "text": "On Oct 27, Monarch Casino & Resort, Inc. ($MCRI) published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$MCRI published Q3 2026 results on Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $MCRI came out on Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Oct 27, $MCRI published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$MCRI Q3 2026 revenue: $146M vs $149M consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$MCRI reported Q3 2026 revenue of $146M vs $149M consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$MCRI Q3 2026 revenue was $146M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $MCRI was $146M.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "MCRI": [
-          [
-            "$",
-            146.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            149.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            2.44,
-            2,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "stale: the 2026-10-27 release (after the close: fresh through 2026-10-28) posted on 2026-10-29: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": {
-        "x": {
-          "posts": 5,
-          "used_phrasing_ids": [
-            "earningsre-129e50.a",
-            "earningsre-14d721.a"
-          ],
-          "used_hook_ids": [
-            "H74",
-            "H71",
-            "H73",
-            "H81"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
-          "used_hook_ids": [
-            "H13",
-            "H27",
-            "H43",
-            "H16",
-            "H26",
-            "H41"
-          ]
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-29-earnings-result-FCF-92235b",
-      "type": "earnings_result",
-      "ticker": "FCF",
-      "tickers": [
-        "FCF"
-      ],
-      "name": "First Commonwealth Financial Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-28",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/712537/000071253726000039/fcf-ex991_20261027x8k.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/FCF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-earnings-result-FCF-92235b#earnings-history",
-      "allowed_numbers": [
-        "$143M",
-        "$141M",
-        "$2.08M",
-        "$0.45",
-        "$0.46",
-        "$0.01",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-27",
-        "Oct 27, 2026",
-        "Oct 27",
-        "2026-10-28",
-        "Oct 28, 2026",
-        "Oct 28"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "First Commonwealth Financial Corporation (FCF) published Q3 2026 results on 2026-10-27: Mixed vs estimates. Revenue $143M vs $141M consensus (Beat by $2.08M). Core earnings per share $0.45 vs $0.46 consensus (Missed by $0.01).",
-      "dedupe_key": "report:fcf-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $141M consensus.",
-        "$FCF beat the Q3 2026 revenue consensus: $143M vs $141M.",
-        "$FCF Q3 2026 revenue: $143M vs $141M consensus (beat by $2.08M).",
-        "$FCF Q3 2026 revenue $143M, beat by $2.08M.",
-        "revenue $143M vs $141M consensus (beat by $2.08M).",
-        "revenue $143M vs $141M (beat by $2.08M).",
-        "$FCF beat Q3 2026 revenue estimates by $2.08M.",
-        "$FCF beat the Q3 revenue consensus: $143M vs $141M.",
-        "$FCF Q3 revenue: $143M vs $141M consensus (beat by $2.08M).",
-        "$FCF Q3 revenue $143M, beat by $2.08M.",
-        "$FCF beat Q3 revenue estimates by $2.08M.",
-        "EPS came in below the $0.46 consensus.",
-        "$FCF missed the Q3 2026 EPS consensus: $0.45 vs $0.46.",
-        "$FCF Q3 2026 EPS: $0.45 vs $0.46 consensus (missed by $0.01).",
-        "$FCF Q3 2026 EPS $0.45, missed by $0.01.",
-        "EPS $0.45 vs $0.46 consensus (missed by $0.01).",
-        "EPS $0.45 vs $0.46 (missed by $0.01).",
-        "$FCF missed Q3 2026 EPS estimates by $0.01.",
-        "Core earnings per share came in below the $0.46 consensus.",
-        "$FCF missed the Q3 2026 Core earnings per share consensus: $0.45 vs $0.46.",
-        "$FCF Q3 2026 Core earnings per share: $0.45 vs $0.46 consensus (missed by $0.01).",
-        "$FCF Q3 2026 Core earnings per share $0.45, missed by $0.01.",
-        "Core earnings per share $0.45 vs $0.46 consensus (missed by $0.01).",
-        "Core earnings per share $0.45 vs $0.46 (missed by $0.01).",
-        "$FCF missed Q3 2026 Core earnings per share estimates by $0.01.",
-        "$FCF missed the Q3 EPS consensus: $0.45 vs $0.46.",
-        "$FCF Q3 EPS: $0.45 vs $0.46 consensus (missed by $0.01).",
-        "$FCF Q3 EPS $0.45, missed by $0.01.",
-        "$FCF missed Q3 EPS estimates by $0.01.",
-        "$FCF missed the Q3 Core earnings per share consensus: $0.45 vs $0.46.",
-        "$FCF Q3 Core earnings per share: $0.45 vs $0.46 consensus (missed by $0.01).",
-        "$FCF Q3 Core earnings per share $0.45, missed by $0.01.",
-        "$FCF missed Q3 Core earnings per share estimates by $0.01."
-      ],
-      "report_id": "fcf-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-27",
-      "published_at": "2026-10-28T10:03:00.283450+00:00",
-      "tile_label": "Mixed vs estimates",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$143M",
-          "consensus": "$141M",
-          "label": "Beat by $2.08M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Core earnings per share",
-          "reported": "$0.45",
-          "consensus": "$0.46",
-          "label": "Missed by $0.01",
-          "verdict": "miss"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/FCF/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for FCF: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-10-27 (age 2) +1; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "FCF"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "$FCF published Q3 2026 results on Oct 27.",
-        "Q3 2026 results from $FCF came out on Oct 27.",
-        "On Oct 27, $FCF published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "$FCF published Q3 2026 results on Oct 27.",
-        "Q3 2026 results from $FCF came out on Oct 27.",
-        "On Oct 27, $FCF published Q3 2026 results.",
-        "$FCF Q3 2026 revenue: $143M vs $141M consensus.",
-        "$FCF reported Q3 2026 revenue of $143M vs $141M consensus.",
-        "$FCF Q3 2026 revenue was $143M.",
-        "Q3 2026 revenue at $FCF was $143M.",
-        "$FCF Q3 2026 Core earnings per share: $0.45 vs $0.46 consensus.",
-        "$FCF reported Q3 2026 Core earnings per share of $0.45 vs $0.46 consensus.",
-        "$FCF Q3 2026 Core earnings per share was $0.45.",
-        "Q3 2026 Core earnings per share at $FCF was $0.45."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $141M consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$FCF beat the Q3 2026 revenue consensus: $143M vs $141M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$FCF Q3 2026 revenue: $143M vs $141M consensus (beat by $2.08M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$FCF Q3 2026 revenue $143M, beat by $2.08M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $143M vs $141M consensus (beat by $2.08M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $143M vs $141M (beat by $2.08M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$FCF beat Q3 2026 revenue estimates by $2.08M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$FCF beat the Q3 revenue consensus: $143M vs $141M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$FCF Q3 revenue: $143M vs $141M consensus (beat by $2.08M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$FCF Q3 revenue $143M, beat by $2.08M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$FCF beat Q3 revenue estimates by $2.08M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-418b63.a",
-          "fact": "earningsre-418b63",
-          "variant": "a",
-          "text": "EPS came in below the $0.46 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-3982e5.a",
-          "fact": "earningsre-3982e5",
-          "variant": "a",
-          "text": "$FCF missed the Q3 2026 EPS consensus: $0.45 vs $0.46.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-cf8f92.a",
-          "fact": "earningsre-cf8f92",
-          "variant": "a",
-          "text": "$FCF Q3 2026 EPS: $0.45 vs $0.46 consensus (missed by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1ed72e.a",
-          "fact": "earningsre-1ed72e",
-          "variant": "a",
-          "text": "$FCF Q3 2026 EPS $0.45, missed by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-f18190.a",
-          "fact": "earningsre-f18190",
-          "variant": "a",
-          "text": "EPS $0.45 vs $0.46 consensus (missed by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-17abfe.a",
-          "fact": "earningsre-17abfe",
-          "variant": "a",
-          "text": "EPS $0.45 vs $0.46 (missed by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-54e1d8.a",
-          "fact": "earningsre-54e1d8",
-          "variant": "a",
-          "text": "$FCF missed Q3 2026 EPS estimates by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6b4526.a",
-          "fact": "earningsre-6b4526",
-          "variant": "a",
-          "text": "Core earnings per share came in below the $0.46 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-f9a006.a",
-          "fact": "earningsre-f9a006",
-          "variant": "a",
-          "text": "$FCF missed the Q3 2026 Core earnings per share consensus: $0.45 vs $0.46.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-b901f9.a",
-          "fact": "earningsre-b901f9",
-          "variant": "a",
-          "text": "$FCF Q3 2026 Core earnings per share: $0.45 vs $0.46 consensus (missed by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-c78ca8.a",
-          "fact": "earningsre-c78ca8",
-          "variant": "a",
-          "text": "$FCF Q3 2026 Core earnings per share $0.45, missed by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-39433e.a",
-          "fact": "earningsre-39433e",
-          "variant": "a",
-          "text": "Core earnings per share $0.45 vs $0.46 consensus (missed by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-9cbd77.a",
-          "fact": "earningsre-9cbd77",
-          "variant": "a",
-          "text": "Core earnings per share $0.45 vs $0.46 (missed by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-236fed.a",
-          "fact": "earningsre-236fed",
-          "variant": "a",
-          "text": "$FCF missed Q3 2026 Core earnings per share estimates by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-355c5f.a",
-          "fact": "earningsre-355c5f",
-          "variant": "a",
-          "text": "$FCF missed the Q3 EPS consensus: $0.45 vs $0.46.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-83f6a0.a",
-          "fact": "earningsre-83f6a0",
-          "variant": "a",
-          "text": "$FCF Q3 EPS: $0.45 vs $0.46 consensus (missed by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d4f8ff.a",
-          "fact": "earningsre-d4f8ff",
-          "variant": "a",
-          "text": "$FCF Q3 EPS $0.45, missed by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-4ffa7a.a",
-          "fact": "earningsre-4ffa7a",
-          "variant": "a",
-          "text": "$FCF missed Q3 EPS estimates by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-90877a.a",
-          "fact": "earningsre-90877a",
-          "variant": "a",
-          "text": "$FCF missed the Q3 Core earnings per share consensus: $0.45 vs $0.46.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-3df707.a",
-          "fact": "earningsre-3df707",
-          "variant": "a",
-          "text": "$FCF Q3 Core earnings per share: $0.45 vs $0.46 consensus (missed by $0.01).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-8af7a7.a",
-          "fact": "earningsre-8af7a7",
-          "variant": "a",
-          "text": "$FCF Q3 Core earnings per share $0.45, missed by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-2aecd2.a",
-          "fact": "earningsre-2aecd2",
-          "variant": "a",
-          "text": "$FCF missed Q3 Core earnings per share estimates by $0.01.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$FCF published Q3 2026 results on Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $FCF came out on Oct 27.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Oct 27, $FCF published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$FCF Q3 2026 revenue: $143M vs $141M consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$FCF reported Q3 2026 revenue of $143M vs $141M consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$FCF Q3 2026 revenue was $143M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $FCF was $143M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-999875.a",
-          "fact": "earningsre-999875",
-          "variant": "a",
-          "text": "$FCF Q3 2026 Core earnings per share: $0.45 vs $0.46 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-999875.h1",
-          "fact": "earningsre-999875",
-          "variant": "h1",
-          "text": "$FCF reported Q3 2026 Core earnings per share of $0.45 vs $0.46 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-05f933.a",
-          "fact": "earningsre-05f933",
-          "variant": "a",
-          "text": "$FCF Q3 2026 Core earnings per share was $0.45.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-05f933.h1",
-          "fact": "earningsre-05f933",
-          "variant": "h1",
-          "text": "Q3 2026 Core earnings per share at $FCF was $0.45.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "FCF": [
-          [
-            "$",
-            143.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            141.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            2.08,
-            2,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            0.45,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.46,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.01,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "stale: the 2026-10-27 release (after the close: fresh through 2026-10-28) posted on 2026-10-29: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": {
-        "x": {
-          "posts": 5,
-          "used_phrasing_ids": [
-            "earningsre-129e50.a",
-            "earningsre-14d721.a"
-          ],
-          "used_hook_ids": [
-            "H74",
-            "H71",
-            "H73",
-            "H81"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
-          "used_hook_ids": [
-            "H13",
-            "H27",
-            "H43",
-            "H16",
-            "H26",
-            "H41"
-          ]
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-29-earnings-upcoming-REGN-a6ecca",
-      "type": "earnings_upcoming",
-      "ticker": "REGN",
-      "tickers": [
-        "REGN"
-      ],
-      "name": "Regeneron Pharmaceuticals, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/REGN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-earnings-upcoming-REGN-a6ecca#earnings-history",
-      "allowed_numbers": [
-        "2026-10-30",
-        "Oct 30, 2026",
-        "Oct 30",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Regeneron Pharmaceuticals, Inc. (REGN) reports earnings on 2026-10-30, before the open (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:REGN:2026-10-30",
-      "claim_phrases": [],
-      "report_date": "2026-10-30",
-      "hour": "bmo",
-      "hour_text": "before the open",
-      "market_cap_usd": 84021564250.22455,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/REGN/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for REGN: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_upcoming 1; large cap $84.02B +2.5; today 2026-10-29 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "market_cap_feed_usd": 82947743744.0,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-10-28",
-        "Oct 28, 2026",
-        "Oct 28",
-        "$84.0B",
-        "−0.35%",
-        "0.35%",
-        "−0.3%",
-        "0.3%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "REGN"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "REGN": "Healthcare"
-      },
-      "ticker_names": {
-        "REGN": "Regeneron Pharmaceuticals, Inc."
-      },
-      "context": {
-        "market_cap": "$84.0B",
-        "market_cap_session": "2026-10-28",
-        "last_session_move": {
-          "pct": "−0.35%",
-          "session": "2026-10-28"
-        }
-      },
-      "angles": [
-        "Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings on Friday, Oct 30, before the open (confirmed date).",
-        "$REGN (Regeneron Pharmaceuticals, Inc.) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-        "On Friday, Oct 30, before the open, Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings (confirmed date)."
-      ],
-      "fact_phrases": [
-        "Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings on Friday, Oct 30, before the open (confirmed date).",
-        "$REGN (Regeneron Pharmaceuticals, Inc.) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-        "On Friday, Oct 30, before the open, Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings (confirmed date).",
-        "$REGN reports earnings on Friday, Oct 30, before the open (confirmed date).",
-        "$REGN is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-        "On Friday, Oct 30, before the open, $REGN reports earnings (confirmed date).",
-        "$REGN had a market value of $84.0B at the Oct 28 close.",
-        "$REGN's market value at the Oct 28 close was $84.0B.",
-        "At the Oct 28 close, $REGN had a market value of $84.0B.",
-        "$REGN moved −0.35% on Wednesday, Oct 28.",
-        "$REGN's move on Wednesday, Oct 28: −0.35%.",
-        "On Wednesday, Oct 28, $REGN moved −0.35%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsup-ff1625.a",
-          "fact": "earningsup-ff1625",
-          "variant": "a",
-          "text": "Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings on Friday, Oct 30, before the open (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-ff1625.h1",
-          "fact": "earningsup-ff1625",
-          "variant": "h1",
-          "text": "$REGN (Regeneron Pharmaceuticals, Inc.) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-ff1625.h2",
-          "fact": "earningsup-ff1625",
-          "variant": "h2",
-          "text": "On Friday, Oct 30, before the open, Regeneron Pharmaceuticals, Inc. ($REGN) reports earnings (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-9304b6.a",
-          "fact": "earningsup-9304b6",
-          "variant": "a",
-          "text": "$REGN reports earnings on Friday, Oct 30, before the open (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-9304b6.h1",
-          "fact": "earningsup-9304b6",
-          "variant": "h1",
-          "text": "$REGN is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-9304b6.h2",
-          "fact": "earningsup-9304b6",
-          "variant": "h2",
-          "text": "On Friday, Oct 30, before the open, $REGN reports earnings (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-426192.a",
-          "fact": "earningsup-426192",
-          "variant": "a",
-          "text": "$REGN had a market value of $84.0B at the Oct 28 close.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-426192.h1",
-          "fact": "earningsup-426192",
-          "variant": "h1",
-          "text": "$REGN's market value at the Oct 28 close was $84.0B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-426192.t",
-          "fact": "earningsup-426192",
-          "variant": "t",
-          "text": "At the Oct 28 close, $REGN had a market value of $84.0B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-061727.a",
-          "fact": "earningsup-061727",
-          "variant": "a",
-          "text": "$REGN moved −0.35% on Wednesday, Oct 28.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-061727.h1",
-          "fact": "earningsup-061727",
-          "variant": "h1",
-          "text": "$REGN's move on Wednesday, Oct 28: −0.35%.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-061727.t",
-          "fact": "earningsup-061727",
-          "variant": "t",
-          "text": "On Wednesday, Oct 28, $REGN moved −0.35%.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "0.35%": "-",
-          "0.3%": "-"
-        },
-        "subjects": {
-          "REGN": "down"
-        }
-      },
-      "subject_numbers": {
-        "REGN": [
-          [
-            "%",
-            0.35,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            84.0,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": {
-        "x": {
-          "posts": 1,
-          "used_phrasing_ids": [],
-          "used_hook_ids": [
-            "H74"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-29-earnings-upcoming-CL-de96ca",
-      "type": "earnings_upcoming",
-      "ticker": "CL",
-      "tickers": [
-        "CL"
-      ],
-      "name": "Colgate-Palmolive Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-29-earnings-upcoming-CL-de96ca#earnings-history",
-      "allowed_numbers": [
-        "2026-10-30",
-        "Oct 30, 2026",
-        "Oct 30",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Colgate-Palmolive Company (CL) reports earnings on 2026-10-30, before the open (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:CL:2026-10-30",
-      "claim_phrases": [],
-      "report_date": "2026-10-30",
-      "hour": "bmo",
-      "hour_text": "before the open",
-      "market_cap_usd": 73475415234.62204,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CL/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CL: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_upcoming 1; large cap $73.48B +2.5; today 2026-10-29 (age 0) +2; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "market_cap_feed_usd": 77636657152.0,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-10-28",
-        "Oct 28, 2026",
-        "Oct 28",
-        "$73.5B",
-        "−0.52%",
-        "0.52%",
-        "−0.5%",
-        "0.5%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CL"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "CL": "Consumer Defensive"
-      },
-      "ticker_names": {
-        "CL": "Colgate-Palmolive Company"
-      },
-      "context": {
-        "market_cap": "$73.5B",
-        "market_cap_session": "2026-10-28",
-        "last_session_move": {
-          "pct": "−0.52%",
-          "session": "2026-10-28"
-        }
-      },
-      "angles": [
-        "Colgate-Palmolive Company ($CL) reports earnings on Friday, Oct 30, before the open (confirmed date).",
-        "$CL (Colgate-Palmolive Company) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-        "On Friday, Oct 30, before the open, Colgate-Palmolive Company ($CL) reports earnings (confirmed date)."
-      ],
-      "fact_phrases": [
-        "Colgate-Palmolive Company ($CL) reports earnings on Friday, Oct 30, before the open (confirmed date).",
-        "$CL (Colgate-Palmolive Company) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-        "On Friday, Oct 30, before the open, Colgate-Palmolive Company ($CL) reports earnings (confirmed date).",
-        "$CL reports earnings on Friday, Oct 30, before the open (confirmed date).",
-        "$CL is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-        "On Friday, Oct 30, before the open, $CL reports earnings (confirmed date).",
-        "$CL had a market value of $73.5B at the Oct 28 close.",
-        "$CL's market value at the Oct 28 close was $73.5B.",
-        "At the Oct 28 close, $CL had a market value of $73.5B.",
-        "$CL moved −0.52% on Wednesday, Oct 28.",
-        "$CL's move on Wednesday, Oct 28: −0.52%.",
-        "On Wednesday, Oct 28, $CL moved −0.52%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsup-ff1625.a",
-          "fact": "earningsup-ff1625",
-          "variant": "a",
-          "text": "Colgate-Palmolive Company ($CL) reports earnings on Friday, Oct 30, before the open (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-ff1625.h1",
-          "fact": "earningsup-ff1625",
-          "variant": "h1",
-          "text": "$CL (Colgate-Palmolive Company) is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-ff1625.h2",
-          "fact": "earningsup-ff1625",
-          "variant": "h2",
-          "text": "On Friday, Oct 30, before the open, Colgate-Palmolive Company ($CL) reports earnings (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-9304b6.a",
-          "fact": "earningsup-9304b6",
-          "variant": "a",
-          "text": "$CL reports earnings on Friday, Oct 30, before the open (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-9304b6.h1",
-          "fact": "earningsup-9304b6",
-          "variant": "h1",
-          "text": "$CL is scheduled to report earnings on Friday, Oct 30, before the open (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-9304b6.h2",
-          "fact": "earningsup-9304b6",
-          "variant": "h2",
-          "text": "On Friday, Oct 30, before the open, $CL reports earnings (confirmed date).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-426192.a",
-          "fact": "earningsup-426192",
-          "variant": "a",
-          "text": "$CL had a market value of $73.5B at the Oct 28 close.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-426192.h1",
-          "fact": "earningsup-426192",
-          "variant": "h1",
-          "text": "$CL's market value at the Oct 28 close was $73.5B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-426192.t",
-          "fact": "earningsup-426192",
-          "variant": "t",
-          "text": "At the Oct 28 close, $CL had a market value of $73.5B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-061727.a",
-          "fact": "earningsup-061727",
-          "variant": "a",
-          "text": "$CL moved −0.52% on Wednesday, Oct 28.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-061727.h1",
-          "fact": "earningsup-061727",
-          "variant": "h1",
-          "text": "$CL's move on Wednesday, Oct 28: −0.52%.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsup-061727.t",
-          "fact": "earningsup-061727",
-          "variant": "t",
-          "text": "On Wednesday, Oct 28, $CL moved −0.52%.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "0.52%": "-",
-          "0.5%": "-"
-        },
-        "subjects": {
-          "CL": "down"
-        }
-      },
-      "subject_numbers": {
-        "CL": [
-          [
-            "%",
-            0.52,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            73.5,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": {
-        "x": {
-          "posts": 1,
-          "used_phrasing_ids": [],
-          "used_hook_ids": [
-            "H74"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
         }
       }
     },
