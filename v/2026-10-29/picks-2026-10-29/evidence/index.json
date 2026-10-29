@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-10-29",
+ "media_date": "2026-10-29",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-29/picks-2026-10-29/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-10-29",
+   "fetched_at_utc": "2026-10-29T18:45:56.857250+00:00",
+   "status": 200,
+   "sha256": "892af4a9f6149008702f57b934c8e07aed00974b4bf2d2e86ff98849e2f9dacc",
+   "bytes": 5975
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-29/picks-2026-10-29/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-10-29T18:45:57.244318+00:00",
+   "status": 200,
+   "sha256": "6bf1dbf6ed677b82ca9cd1696923cab78fabe30a87ff5f981e2a2f6da4450a46",
+   "bytes": 9984
+  },
+  {
+   "name": "search-GEV.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-29/picks-2026-10-29/evidence/search-GEV.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=GEV",
+   "fetched_at_utc": "2026-10-29T18:45:57.798436+00:00",
+   "status": 200,
+   "sha256": "774d188f6febf144d4792ba267a7753961dd1de58f28b94ae9d692b84041c7e8",
+   "bytes": 485
+  },
+  {
+   "name": "search-KGS.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-10-29/picks-2026-10-29/evidence/search-KGS.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=KGS",
+   "fetched_at_utc": "2026-10-29T18:45:58.354751+00:00",
+   "status": 200,
+   "sha256": "461f9ab719e845d9dee09d1ae86f3584f5f838d193fb45d265c8dd5066b2462b",
+   "bytes": 372
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
