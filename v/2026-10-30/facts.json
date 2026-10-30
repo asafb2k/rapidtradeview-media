@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-10-30",
-  "generated_at": "2026-10-30T14:30:12Z",
-  "as_of": "2026-10-30T14:30:12Z",
+  "generated_at": "2026-10-30T15:30:05Z",
+  "as_of": "2026-10-30T15:30:05Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -874,7 +874,7 @@
     "cards": "a market item's media is its pinned share card (card.url, a file on our Pages site, the same numbers the item states); never the live /market/card/ URL, never another day's card; no link in the main post: the UTM link goes in a self-reply"
   },
   "counts": {
-    "congress_trade": 0,
+    "congress_trade": 1,
     "form4_buy": 4,
     "earnings_result": 195,
     "earnings_upcoming": 92,
@@ -906,7 +906,7 @@
   "left_out": {
     "congress_trade": {
       "rows_read": 50,
-      "out_of_window": 16,
+      "out_of_window": 8,
       "not_congress": 0,
       "other_side": 0,
       "late_filing_over_90d": 0,
@@ -917,7 +917,7 @@
       "no_official_source": 0
     },
     "ptr_summary": {
-      "members_filing_dates": 2,
+      "members_filing_dates": 3,
       "single_item": 0
     },
     "ptr_summary_incomplete": {
@@ -927,10 +927,10 @@
       "reasons": []
     },
     "per_filer_cap": {
-      "dropped": 30,
-      "filers": 2,
-      "dropped_congress_trade": 30,
-      "dropped_ptr_summary": 0
+      "dropped": 36,
+      "filers": 3,
+      "dropped_congress_trade": 35,
+      "dropped_ptr_summary": 1
     },
     "form4_buy": {
       "rows_read": 20,
@@ -985,7 +985,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 288,
+      "tickers_in_items": 289,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -999,7 +999,7 @@
     "market": {
       "market_session": "2026-10-29",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-10-30T14:31:42.058622+00:00"
+      "flows_as_of": "2026-10-30T15:31:35.153736+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1010,7 +1010,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 536
+        "angles_dropped": 539
       },
       "top8": {
         "stale": 42,
@@ -1018,21 +1018,21 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 7,
-        "ranked_below": 254,
+        "ranked_below": 255,
         "pillars": 4
       }
     },
     "card_unpinned": {
       "dropped": 2,
       "reasons": [
-        "mega_mover GOOGL: share card not pinned (the card draws 2026-10-30T14:17:48.197354+00:00 (X-Card-Date), the item 2026-10-29)",
-        "sector_rotation 2026-10-30-sector-rotation-LIST-f4f7c4: share card not pinned (the card draws 2026-10-30T14:17:48.197354+00:00 (X-Card-Date), the item 2026-10-29)"
+        "mega_mover GOOGL: share card not pinned (the card draws 2026-10-30T15:17:54.651962+00:00 (X-Card-Date), the item 2026-10-29)",
+        "sector_rotation 2026-10-30-sector-rotation-LIST-f4f7c4: share card not pinned (the card draws 2026-10-30T15:17:54.651962+00:00 (X-Card-Date), the item 2026-10-29)"
       ]
     }
   },
   "errors": [
-    "not published: mega_mover GOOGL: share card not pinned (the card draws 2026-10-30T14:17:48.197354+00:00 (X-Card-Date), the item 2026-10-29)",
-    "not published: sector_rotation 2026-10-30-sector-rotation-LIST-f4f7c4: share card not pinned (the card draws 2026-10-30T14:17:48.197354+00:00 (X-Card-Date), the item 2026-10-29)"
+    "not published: mega_mover GOOGL: share card not pinned (the card draws 2026-10-30T15:17:54.651962+00:00 (X-Card-Date), the item 2026-10-29)",
+    "not published: sector_rotation 2026-10-30-sector-rotation-LIST-f4f7c4: share card not pinned (the card draws 2026-10-30T15:17:54.651962+00:00 (X-Card-Date), the item 2026-10-29)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1061,7 +1061,7 @@
   },
   "post_history": {
     "read": true,
-    "own_posts": 38
+    "own_posts": 39
   },
   "api_requests": 221,
   "items": [
@@ -2888,15 +2888,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -3502,15 +3508,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -4122,15 +4134,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -6120,15 +6138,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -6805,15 +6829,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -7525,15 +7555,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -8080,15 +8116,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -8800,15 +8842,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -9520,15 +9568,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -10240,15 +10294,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -10764,15 +10824,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -12435,735 +12501,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
-          "used_hook_ids": [
-            "H13",
-            "H27",
-            "H43",
-            "H16",
-            "H26",
-            "H41"
-          ]
-        }
-      }
-    },
-    {
-      "item_id": "2026-10-30-earnings-result-DASH-2b4f41",
-      "type": "earnings_result",
-      "ticker": "DASH",
-      "tickers": [
-        "DASH"
-      ],
-      "name": "DoorDash, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-10-29",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000062/proddashex991-pressrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/DASH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-30-earnings-result-DASH-2b4f41#earnings-history",
-      "allowed_numbers": [
-        "$4.62B",
-        "$4.56B",
-        "$57.2M",
-        "$1.06",
-        "$0.81",
-        "$0.25",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-10-29",
-        "Oct 29, 2026",
-        "Oct 29"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "DoorDash, Inc. (DASH) published Q3 2026 results on 2026-10-29: Beat estimates. Revenue $4.62B vs $4.56B consensus (Beat by $57.2M). Diluted EPS (GAAP, street basis) $1.06 vs $0.81 consensus (Beat by $0.25).",
-      "dedupe_key": "report:dash-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $4.56B consensus.",
-        "$DASH beat the Q3 2026 revenue consensus: $4.62B vs $4.56B.",
-        "$DASH Q3 2026 revenue: $4.62B vs $4.56B consensus (beat by $57.2M).",
-        "$DASH Q3 2026 revenue $4.62B, beat by $57.2M.",
-        "revenue $4.62B vs $4.56B consensus (beat by $57.2M).",
-        "revenue $4.62B vs $4.56B (beat by $57.2M).",
-        "$DASH beat Q3 2026 revenue estimates by $57.2M.",
-        "$DASH beat the Q3 revenue consensus: $4.62B vs $4.56B.",
-        "$DASH Q3 revenue: $4.62B vs $4.56B consensus (beat by $57.2M).",
-        "$DASH Q3 revenue $4.62B, beat by $57.2M.",
-        "$DASH beat Q3 revenue estimates by $57.2M.",
-        "EPS came in above the $0.81 consensus.",
-        "$DASH beat the Q3 2026 EPS consensus: $1.06 vs $0.81.",
-        "$DASH Q3 2026 EPS: $1.06 vs $0.81 consensus (beat by $0.25).",
-        "$DASH Q3 2026 EPS $1.06, beat by $0.25.",
-        "EPS $1.06 vs $0.81 consensus (beat by $0.25).",
-        "EPS $1.06 vs $0.81 (beat by $0.25).",
-        "$DASH beat Q3 2026 EPS estimates by $0.25.",
-        "Diluted EPS (GAAP, street basis) came in above the $0.81 consensus.",
-        "$DASH beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $1.06 vs $0.81.",
-        "$DASH Q3 2026 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus (beat by $0.25).",
-        "$DASH Q3 2026 Diluted EPS (GAAP, street basis) $1.06, beat by $0.25.",
-        "Diluted EPS (GAAP, street basis) $1.06 vs $0.81 consensus (beat by $0.25).",
-        "Diluted EPS (GAAP, street basis) $1.06 vs $0.81 (beat by $0.25).",
-        "$DASH beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.25.",
-        "$DASH beat the Q3 EPS consensus: $1.06 vs $0.81.",
-        "$DASH Q3 EPS: $1.06 vs $0.81 consensus (beat by $0.25).",
-        "$DASH Q3 EPS $1.06, beat by $0.25.",
-        "$DASH beat Q3 EPS estimates by $0.25.",
-        "$DASH beat the Q3 Diluted EPS (GAAP, street basis) consensus: $1.06 vs $0.81.",
-        "$DASH Q3 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus (beat by $0.25).",
-        "$DASH Q3 Diluted EPS (GAAP, street basis) $1.06, beat by $0.25.",
-        "$DASH beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.25.",
-        "$DASH beat Q3 2026 estimates.",
-        "$DASH beat Q3 estimates."
-      ],
-      "report_id": "dash-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-10-29",
-      "published_at": "2026-10-29T23:02:45.842528+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$4.62B",
-          "consensus": "$4.56B",
-          "label": "Beat by $57.2M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "$1.06",
-          "consensus": "$0.81",
-          "label": "Beat by $0.25",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/DASH/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for DASH: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 7.5,
-      "rank_why": "earnings_result 3; large cap $73.44B +2.5; magnitude (verdict) +1.5; release_date 2026-10-29 (age 1) +1.5; same pillar as the newest own post (P5) -1",
-      "pillar": "P5",
-      "market_cap_usd": 73439667774.39606,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-10-29",
-        "Oct 29, 2026",
-        "Oct 29",
-        "$73.4B",
-        "+5.61%",
-        "5.61%",
-        "+5.6%",
-        "5.6%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "DASH"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "DASH": "Consumer Cyclical"
-      },
-      "ticker_names": {
-        "DASH": "DoorDash, Inc."
-      },
-      "context": {
-        "market_cap": "$73.4B",
-        "market_cap_session": "2026-10-29",
-        "last_session_move": {
-          "pct": "+5.61%",
-          "session": "2026-10-29"
-        }
-      },
-      "angles": [
-        "DoorDash, Inc. ($DASH) published Q3 2026 results on Oct 29.",
-        "$DASH (DoorDash, Inc.) reported Q3 2026 results on Oct 29.",
-        "On Oct 29, DoorDash, Inc. ($DASH) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "DoorDash, Inc. ($DASH) published Q3 2026 results on Oct 29.",
-        "$DASH (DoorDash, Inc.) reported Q3 2026 results on Oct 29.",
-        "On Oct 29, DoorDash, Inc. ($DASH) published Q3 2026 results.",
-        "$DASH published Q3 2026 results on Oct 29.",
-        "Q3 2026 results from $DASH came out on Oct 29.",
-        "On Oct 29, $DASH published Q3 2026 results.",
-        "$DASH Q3 2026 revenue: $4.62B vs $4.56B consensus.",
-        "$DASH reported Q3 2026 revenue of $4.62B vs $4.56B consensus.",
-        "$DASH Q3 2026 revenue was $4.62B.",
-        "Q3 2026 revenue at $DASH was $4.62B.",
-        "$DASH Q3 2026 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus.",
-        "$DASH reported Q3 2026 Diluted EPS (GAAP, street basis) of $1.06 vs $0.81 consensus.",
-        "$DASH Q3 2026 Diluted EPS (GAAP, street basis) was $1.06.",
-        "Q3 2026 Diluted EPS (GAAP, street basis) at $DASH was $1.06.",
-        "$DASH had a market value of $73.4B at the Oct 29 close.",
-        "$DASH's market value at the Oct 29 close was $73.4B.",
-        "At the Oct 29 close, $DASH had a market value of $73.4B.",
-        "$DASH moved +5.61% on Thursday, Oct 29.",
-        "$DASH's move on Thursday, Oct 29: +5.61%.",
-        "On Thursday, Oct 29, $DASH moved +5.61%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $4.56B consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$DASH beat the Q3 2026 revenue consensus: $4.62B vs $4.56B.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$DASH Q3 2026 revenue: $4.62B vs $4.56B consensus (beat by $57.2M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$DASH Q3 2026 revenue $4.62B, beat by $57.2M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $4.62B vs $4.56B consensus (beat by $57.2M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $4.62B vs $4.56B (beat by $57.2M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$DASH beat Q3 2026 revenue estimates by $57.2M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$DASH beat the Q3 revenue consensus: $4.62B vs $4.56B.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$DASH Q3 revenue: $4.62B vs $4.56B consensus (beat by $57.2M).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$DASH Q3 revenue $4.62B, beat by $57.2M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$DASH beat Q3 revenue estimates by $57.2M.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $0.81 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$DASH beat the Q3 2026 EPS consensus: $1.06 vs $0.81.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$DASH Q3 2026 EPS: $1.06 vs $0.81 consensus (beat by $0.25).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$DASH Q3 2026 EPS $1.06, beat by $0.25.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.06 vs $0.81 consensus (beat by $0.25).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.06 vs $0.81 (beat by $0.25).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$DASH beat Q3 2026 EPS estimates by $0.25.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-12a211.a",
-          "fact": "earningsre-12a211",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) came in above the $0.81 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-b45d0c.a",
-          "fact": "earningsre-b45d0c",
-          "variant": "a",
-          "text": "$DASH beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $1.06 vs $0.81.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-365e1a.a",
-          "fact": "earningsre-365e1a",
-          "variant": "a",
-          "text": "$DASH Q3 2026 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus (beat by $0.25).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-4de0a3.a",
-          "fact": "earningsre-4de0a3",
-          "variant": "a",
-          "text": "$DASH Q3 2026 Diluted EPS (GAAP, street basis) $1.06, beat by $0.25.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-e854ec.a",
-          "fact": "earningsre-e854ec",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) $1.06 vs $0.81 consensus (beat by $0.25).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-0f9fa0.a",
-          "fact": "earningsre-0f9fa0",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) $1.06 vs $0.81 (beat by $0.25).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-54bca2.a",
-          "fact": "earningsre-54bca2",
-          "variant": "a",
-          "text": "$DASH beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.25.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$DASH beat the Q3 EPS consensus: $1.06 vs $0.81.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$DASH Q3 EPS: $1.06 vs $0.81 consensus (beat by $0.25).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$DASH Q3 EPS $1.06, beat by $0.25.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$DASH beat Q3 EPS estimates by $0.25.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-dc1c68.a",
-          "fact": "earningsre-dc1c68",
-          "variant": "a",
-          "text": "$DASH beat the Q3 Diluted EPS (GAAP, street basis) consensus: $1.06 vs $0.81.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e82b3.a",
-          "fact": "earningsre-1e82b3",
-          "variant": "a",
-          "text": "$DASH Q3 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus (beat by $0.25).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-b47e3e.a",
-          "fact": "earningsre-b47e3e",
-          "variant": "a",
-          "text": "$DASH Q3 Diluted EPS (GAAP, street basis) $1.06, beat by $0.25.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-161196.a",
-          "fact": "earningsre-161196",
-          "variant": "a",
-          "text": "$DASH beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.25.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$DASH beat Q3 2026 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$DASH beat Q3 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "DoorDash, Inc. ($DASH) published Q3 2026 results on Oct 29.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$DASH (DoorDash, Inc.) reported Q3 2026 results on Oct 29.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Oct 29, DoorDash, Inc. ($DASH) published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$DASH published Q3 2026 results on Oct 29.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $DASH came out on Oct 29.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Oct 29, $DASH published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$DASH Q3 2026 revenue: $4.62B vs $4.56B consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$DASH reported Q3 2026 revenue of $4.62B vs $4.56B consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$DASH Q3 2026 revenue was $4.62B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $DASH was $4.62B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-5e9f86.a",
-          "fact": "earningsre-5e9f86",
-          "variant": "a",
-          "text": "$DASH Q3 2026 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-5e9f86.h1",
-          "fact": "earningsre-5e9f86",
-          "variant": "h1",
-          "text": "$DASH reported Q3 2026 Diluted EPS (GAAP, street basis) of $1.06 vs $0.81 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1011ad.a",
-          "fact": "earningsre-1011ad",
-          "variant": "a",
-          "text": "$DASH Q3 2026 Diluted EPS (GAAP, street basis) was $1.06.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1011ad.h1",
-          "fact": "earningsre-1011ad",
-          "variant": "h1",
-          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $DASH was $1.06.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$DASH had a market value of $73.4B at the Oct 29 close.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$DASH's market value at the Oct 29 close was $73.4B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Oct 29 close, $DASH had a market value of $73.4B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$DASH moved +5.61% on Thursday, Oct 29.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$DASH's move on Thursday, Oct 29: +5.61%.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Thursday, Oct 29, $DASH moved +5.61%.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "5.61%": "+",
-          "5.6%": "+"
-        },
-        "subjects": {
-          "DASH": "up"
-        }
-      },
-      "subject_numbers": {
-        "DASH": [
-          [
-            "$",
-            4.62,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            4.56,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            57.2,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            1.06,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.81,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.25,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            5.61,
-            2,
-            1.0,
-            1
-          ],
-          [
-            "$",
-            73.4,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": {
-        "x": {
-          "posts": 5,
+          "posts": 3,
           "used_phrasing_ids": [
-            "earningsre-129e50.a",
-            "earningsre-14d721.a",
-            "earningsre-6008a9.a"
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
           ],
-          "used_hook_ids": [
-            "H71",
-            "H73",
-            "H81",
-            "H09",
-            "H24",
-            "H43"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -13769,15 +13121,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -14372,15 +13730,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -15092,15 +14456,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -15812,15 +15182,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -16367,15 +15743,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -16822,15 +16204,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -17542,15 +16930,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -18262,15 +17656,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -18786,15 +18186,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -19241,15 +18647,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -19856,15 +19268,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -20576,15 +19994,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -21179,15 +20603,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -21899,15 +21329,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -22520,15 +21956,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -23115,15 +22557,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -23817,15 +23265,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -24537,15 +23991,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -25257,15 +24717,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -25812,15 +25278,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -26532,15 +26004,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -27252,15 +26730,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -27847,15 +27331,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -28402,15 +27892,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -28978,15 +28474,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -29599,16 +29101,322 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
+        }
+      }
+    },
+    {
+      "item_id": "2026-10-30-congress-trade-PLD-aa0626",
+      "type": "congress_trade",
+      "ticker": "PLD",
+      "tickers": [
+        "PLD"
+      ],
+      "name": "David J. Taylor",
+      "office": "U.S. Representative (R-OH)",
+      "amount_text": "$1K–$15K; $1K–$15K",
+      "traded": [
+        "2026-10-15"
+      ],
+      "filed": "2026-10-29",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035727.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/david-j-taylor?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-30-congress-trade-PLD-aa0626#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-10-29",
+        "Oct 29, 2026",
+        "Oct 29",
+        "2026-10-15",
+        "Oct 15, 2026",
+        "Oct 15",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative David J. Taylor (R-OH) disclosed 2 purchases of PLD (Prologis, Inc.), $1K–$15K; $1K–$15K, traded 2026-10-15; filed 2026-10-29.",
+      "dedupe_key": "ptr:20035727:PLD:buy",
+      "claim_phrases": [],
+      "company": "Prologis, Inc.",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "david-j-taylor",
+      "amount_exact_text": "$1,001–$15,000; $1,001–$15,000",
+      "rows": 2,
+      "amount_top_usd": 30000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/david-j-taylor/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative David J. Taylor (R-OH) disclosed 2 purchases of PLD (Prologis, Inc.), $1K–$15K; $1K–$15K, traded 2026-10-15; filed 2026-10-29."
+        }
+      ],
+      "rank": 7.48,
+      "rank_why": "congress_trade 2; large cap $121.73B +2.5; magnitude (top $30K, buy +1) +1.48; filed 2026-10-29 (age 1) +1.5",
+      "pillar": "P3",
+      "market_cap_usd": 121725285363.44998,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-10-29",
+        "Oct 29, 2026",
+        "Oct 29",
+        "$121.7B",
+        "+2.24%",
+        "2.24%",
+        "+2.2%",
+        "2.2%",
+        "86",
+        "144",
+        "18",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "PLD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "PLD": "Real Estate"
+      },
+      "ticker_names": {
+        "PLD": "Prologis, Inc."
+      },
+      "context": {
+        "market_cap": "$121.7B",
+        "market_cap_session": "2026-10-29",
+        "last_session_move": {
+          "pct": "+2.24%",
+          "session": "2026-10-29"
+        },
+        "congress_30d": {
+          "buys": 86,
+          "sells": 144,
+          "members": 18,
+          "days": 30
+        }
+      },
+      "angles": [
+        "U.S. Representative David J. Taylor (R-OH) disclosed 2 purchases of $PLD, $1K–$15K, $1K–$15K (filed Oct 29).",
+        "2 purchases of $PLD, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative David J. Taylor (R-OH) (filed Oct 29).",
+        "David J. Taylor disclosed 2 purchases of $PLD, $1K–$15K, $1K–$15K."
+      ],
+      "fact_phrases": [
+        "U.S. Representative David J. Taylor (R-OH) disclosed 2 purchases of $PLD, $1K–$15K, $1K–$15K (filed Oct 29).",
+        "2 purchases of $PLD, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative David J. Taylor (R-OH) (filed Oct 29).",
+        "David J. Taylor disclosed 2 purchases of $PLD, $1K–$15K, $1K–$15K.",
+        "2 purchases of $PLD, $1K–$15K, $1K–$15K, were disclosed by David J. Taylor.",
+        "David J. Taylor's $PLD purchases were traded Oct 15 and disclosed on Oct 29.",
+        "Traded Oct 15, David J. Taylor's $PLD purchases were disclosed on Oct 29.",
+        "$PLD had a market value of $121.7B at the Oct 29 close.",
+        "$PLD's market value at the Oct 29 close was $121.7B.",
+        "At the Oct 29 close, $PLD had a market value of $121.7B.",
+        "$PLD moved +2.24% on Thursday, Oct 29.",
+        "$PLD's move on Thursday, Oct 29: +2.24%.",
+        "On Thursday, Oct 29, $PLD moved +2.24%.",
+        "Members of Congress disclosed 86 buys and 144 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 144 sells and 86 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 86 buys and 144 sells."
+      ],
+      "phrasings": [
+        {
+          "id": "congresstr-e58ca0.a",
+          "fact": "congresstr-e58ca0",
+          "variant": "a",
+          "text": "U.S. Representative David J. Taylor (R-OH) disclosed 2 purchases of $PLD, $1K–$15K, $1K–$15K (filed Oct 29).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-e58ca0.h1",
+          "fact": "congresstr-e58ca0",
+          "variant": "h1",
+          "text": "2 purchases of $PLD, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative David J. Taylor (R-OH) (filed Oct 29).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-858a2c.a",
+          "fact": "congresstr-858a2c",
+          "variant": "a",
+          "text": "David J. Taylor disclosed 2 purchases of $PLD, $1K–$15K, $1K–$15K.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-858a2c.h1",
+          "fact": "congresstr-858a2c",
+          "variant": "h1",
+          "text": "2 purchases of $PLD, $1K–$15K, $1K–$15K, were disclosed by David J. Taylor.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-2918d0.a",
+          "fact": "congresstr-2918d0",
+          "variant": "a",
+          "text": "David J. Taylor's $PLD purchases were traded Oct 15 and disclosed on Oct 29.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-2918d0.h1",
+          "fact": "congresstr-2918d0",
+          "variant": "h1",
+          "text": "Traded Oct 15, David J. Taylor's $PLD purchases were disclosed on Oct 29.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-426192.a",
+          "fact": "congresstr-426192",
+          "variant": "a",
+          "text": "$PLD had a market value of $121.7B at the Oct 29 close.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-426192.h1",
+          "fact": "congresstr-426192",
+          "variant": "h1",
+          "text": "$PLD's market value at the Oct 29 close was $121.7B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-426192.t",
+          "fact": "congresstr-426192",
+          "variant": "t",
+          "text": "At the Oct 29 close, $PLD had a market value of $121.7B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-061727.a",
+          "fact": "congresstr-061727",
+          "variant": "a",
+          "text": "$PLD moved +2.24% on Thursday, Oct 29.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-061727.h1",
+          "fact": "congresstr-061727",
+          "variant": "h1",
+          "text": "$PLD's move on Thursday, Oct 29: +2.24%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-061727.t",
+          "fact": "congresstr-061727",
+          "variant": "t",
+          "text": "On Thursday, Oct 29, $PLD moved +2.24%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-f8938e.a",
+          "fact": "congresstr-f8938e",
+          "variant": "a",
+          "text": "Members of Congress disclosed 86 buys and 144 sells over 30 days in our feed.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-f8938e.h1",
+          "fact": "congresstr-f8938e",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, members of Congress disclosed 144 sells and 86 buys.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "congresstr-f8938e.t",
+          "fact": "congresstr-f8938e",
+          "variant": "t",
+          "text": "Over 30 days in our feed, members of Congress disclosed 86 buys and 144 sells.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "2.24%": "+",
+          "2.2%": "+"
+        },
+        "subjects": {
+          "PLD": "up"
+        }
+      },
+      "subject_numbers": {
+        "PLD": [
+          [
+            "%",
+            2.24,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            121.7,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": {
+        "x": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "instagram": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
         }
       }
     },
@@ -30409,15 +30217,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -31129,15 +30943,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -31831,15 +31651,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -32101,15 +31927,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -32371,15 +32203,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -33091,15 +32929,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -35188,15 +35032,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -35548,15 +35398,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -36154,15 +36010,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -36772,15 +36634,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -37292,15 +37160,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -37898,15 +37772,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -38522,15 +38402,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -39128,15 +39014,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -39752,15 +39644,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -40376,15 +40274,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -40804,15 +40708,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -41204,15 +41114,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -41828,15 +41744,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -42335,15 +42257,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -42795,15 +42723,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -43254,15 +43188,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -43779,15 +43719,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -44502,15 +44448,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -45126,15 +45078,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -45644,15 +45602,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -45739,8 +45703,8 @@
       "cap_tier": "unknown",
       "in_500": null,
       "context_numbers": [
-        "81",
-        "141",
+        "86",
+        "144",
         "18",
         "30"
       ],
@@ -45770,8 +45734,8 @@
       },
       "context": {
         "congress_30d": {
-          "buys": 81,
-          "sells": 141,
+          "buys": 86,
+          "sells": 144,
           "members": 18,
           "days": 30
         }
@@ -45788,9 +45752,9 @@
         "On a report filed Oct 27, Pete Sessions disclosed 31 sales.",
         "The trades Pete Sessions disclosed on Oct 27 include $COST, $MSFT, $AAPL and $AMZN.",
         "$COST, $MSFT, $AAPL and $AMZN are among the trades Pete Sessions disclosed on Oct 27.",
-        "Members of Congress disclosed 81 buys and 141 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 141 sells and 81 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 81 buys and 141 sells."
+        "Members of Congress disclosed 86 buys and 144 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 144 sells and 86 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 86 buys and 144 sells."
       ],
       "phrasings": [
         {
@@ -45845,7 +45809,7 @@
           "id": "ptrsummary-f8938e.a",
           "fact": "ptrsummary-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 81 buys and 141 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 86 buys and 144 sells over 30 days in our feed.",
           "claim": false,
           "recent_on": []
         },
@@ -45853,7 +45817,7 @@
           "id": "ptrsummary-f8938e.h1",
           "fact": "ptrsummary-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 141 sells and 81 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 144 sells and 86 buys.",
           "claim": false,
           "recent_on": []
         },
@@ -45861,7 +45825,7 @@
           "id": "ptrsummary-f8938e.t",
           "fact": "ptrsummary-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 81 buys and 141 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 86 buys and 144 sells.",
           "claim": false,
           "recent_on": []
         }
@@ -46098,15 +46062,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -46351,15 +46321,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -46604,15 +46580,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -46857,15 +46839,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -47070,15 +47058,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -47325,15 +47319,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -47496,15 +47496,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -47898,15 +47904,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -48522,15 +48534,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -48881,15 +48899,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -49134,15 +49158,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -49387,15 +49417,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -49886,15 +49922,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -50385,15 +50427,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -50847,15 +50895,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -51471,15 +51525,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -52095,15 +52155,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -52495,15 +52561,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -53119,15 +53191,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -53725,15 +53803,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -54085,15 +54169,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -54544,15 +54634,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -55168,15 +55264,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -55792,15 +55894,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -56310,15 +56418,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -56771,15 +56885,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -57395,15 +57515,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -57823,15 +57949,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -58447,15 +58579,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -59071,15 +59209,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -59530,15 +59674,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -59930,15 +60080,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -60527,15 +60683,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -61151,15 +61313,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -61757,15 +61925,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -62381,15 +62555,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -62809,15 +62989,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -63268,15 +63454,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -63892,15 +64084,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -64498,15 +64696,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -65008,15 +65212,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -65632,15 +65842,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -66032,15 +66248,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -66754,15 +66976,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -67156,15 +67384,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -67556,15 +67790,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -67977,15 +68217,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -68583,15 +68829,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -69207,15 +69459,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -69470,15 +69728,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -69980,15 +70244,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -70199,15 +70469,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -70823,15 +71099,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -71343,15 +71625,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -71775,15 +72063,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -72399,15 +72693,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -72898,15 +73198,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -73522,15 +73828,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -74146,15 +74458,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -74770,15 +75088,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -75288,15 +75612,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -75912,15 +76242,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -76518,15 +76854,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -76969,15 +77311,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -77369,15 +77717,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -77877,15 +78231,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -78368,15 +78728,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -78830,15 +79196,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -79289,15 +79661,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -79895,15 +80273,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -80519,15 +80903,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -80878,15 +81268,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -81502,15 +81898,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -81993,15 +82395,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -82617,15 +83025,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -83145,15 +83559,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -83769,15 +84189,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -84281,15 +84707,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -84793,15 +85225,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -85417,15 +85855,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -85942,15 +86386,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -86566,15 +87016,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -87025,15 +87481,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -87550,15 +88012,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -88052,15 +88520,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -88392,15 +88866,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -88894,15 +89374,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -89404,15 +89890,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -90028,15 +90520,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -90652,15 +91150,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -91276,15 +91780,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -91900,15 +92410,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -92524,15 +93040,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -93130,15 +93652,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -93754,15 +94282,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -94360,15 +94894,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -94984,15 +95524,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -95384,15 +95930,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -95784,15 +96336,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -96393,15 +96951,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -96918,15 +97482,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -97173,15 +97743,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -97426,15 +98002,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -97641,15 +98223,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -97894,15 +98482,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -98148,15 +98742,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -98401,15 +99001,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -98654,15 +99260,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -98867,15 +99479,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -99080,15 +99698,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -99293,15 +99917,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -99546,15 +100176,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -99799,15 +100435,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -100054,15 +100696,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -100267,15 +100915,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -100520,15 +101174,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -100692,15 +101352,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -100947,15 +101613,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -101162,15 +101834,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -101374,15 +102052,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -101629,15 +102313,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -102064,15 +102754,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -102235,15 +102931,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -102859,15 +103561,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -103218,15 +103926,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -103842,15 +104556,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -104201,15 +104921,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -110846,8 +111572,8 @@
       "cap_tier": "unknown",
       "in_500": null,
       "context_numbers": [
-        "81",
-        "141",
+        "86",
+        "144",
         "18",
         "30"
       ],
@@ -110875,8 +111601,8 @@
       },
       "context": {
         "congress_30d": {
-          "buys": 81,
-          "sells": 141,
+          "buys": 86,
+          "sells": 144,
           "members": 18,
           "days": 30
         }
@@ -110893,9 +111619,9 @@
         "On a report filed Oct 28, Kevin Hern disclosed 3 sales.",
         "The trades Kevin Hern disclosed on Oct 28 include $TXN, $STX and $ASML.",
         "$TXN, $STX and $ASML are among the trades Kevin Hern disclosed on Oct 28.",
-        "Members of Congress disclosed 81 buys and 141 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 141 sells and 81 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 81 buys and 141 sells."
+        "Members of Congress disclosed 86 buys and 144 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 144 sells and 86 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 86 buys and 144 sells."
       ],
       "phrasings": [
         {
@@ -110950,7 +111676,7 @@
           "id": "ptrsummary-f8938e.a",
           "fact": "ptrsummary-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 81 buys and 141 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 86 buys and 144 sells over 30 days in our feed.",
           "claim": false,
           "recent_on": []
         },
@@ -110958,7 +111684,7 @@
           "id": "ptrsummary-f8938e.h1",
           "fact": "ptrsummary-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 141 sells and 81 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 144 sells and 86 buys.",
           "claim": false,
           "recent_on": []
         },
@@ -110966,7 +111692,7 @@
           "id": "ptrsummary-f8938e.t",
           "fact": "ptrsummary-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 81 buys and 141 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 86 buys and 144 sells.",
           "claim": false,
           "recent_on": []
         }
@@ -111612,15 +112338,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -112074,15 +112806,749 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
+          ]
+        }
+      }
+    },
+    {
+      "item_id": "2026-10-30-earnings-result-DASH-2b4f41",
+      "type": "earnings_result",
+      "ticker": "DASH",
+      "tickers": [
+        "DASH"
+      ],
+      "name": "DoorDash, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-10-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000062/proddashex991-pressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DASH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-10-30-earnings-result-DASH-2b4f41#earnings-history",
+      "allowed_numbers": [
+        "$4.62B",
+        "$4.56B",
+        "$57.2M",
+        "$1.06",
+        "$0.81",
+        "$0.25",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-10-29",
+        "Oct 29, 2026",
+        "Oct 29"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "DoorDash, Inc. (DASH) published Q3 2026 results on 2026-10-29: Beat estimates. Revenue $4.62B vs $4.56B consensus (Beat by $57.2M). Diluted EPS (GAAP, street basis) $1.06 vs $0.81 consensus (Beat by $0.25).",
+      "dedupe_key": "report:dash-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $4.56B consensus.",
+        "$DASH beat the Q3 2026 revenue consensus: $4.62B vs $4.56B.",
+        "$DASH Q3 2026 revenue: $4.62B vs $4.56B consensus (beat by $57.2M).",
+        "$DASH Q3 2026 revenue $4.62B, beat by $57.2M.",
+        "revenue $4.62B vs $4.56B consensus (beat by $57.2M).",
+        "revenue $4.62B vs $4.56B (beat by $57.2M).",
+        "$DASH beat Q3 2026 revenue estimates by $57.2M.",
+        "$DASH beat the Q3 revenue consensus: $4.62B vs $4.56B.",
+        "$DASH Q3 revenue: $4.62B vs $4.56B consensus (beat by $57.2M).",
+        "$DASH Q3 revenue $4.62B, beat by $57.2M.",
+        "$DASH beat Q3 revenue estimates by $57.2M.",
+        "EPS came in above the $0.81 consensus.",
+        "$DASH beat the Q3 2026 EPS consensus: $1.06 vs $0.81.",
+        "$DASH Q3 2026 EPS: $1.06 vs $0.81 consensus (beat by $0.25).",
+        "$DASH Q3 2026 EPS $1.06, beat by $0.25.",
+        "EPS $1.06 vs $0.81 consensus (beat by $0.25).",
+        "EPS $1.06 vs $0.81 (beat by $0.25).",
+        "$DASH beat Q3 2026 EPS estimates by $0.25.",
+        "Diluted EPS (GAAP, street basis) came in above the $0.81 consensus.",
+        "$DASH beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $1.06 vs $0.81.",
+        "$DASH Q3 2026 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus (beat by $0.25).",
+        "$DASH Q3 2026 Diluted EPS (GAAP, street basis) $1.06, beat by $0.25.",
+        "Diluted EPS (GAAP, street basis) $1.06 vs $0.81 consensus (beat by $0.25).",
+        "Diluted EPS (GAAP, street basis) $1.06 vs $0.81 (beat by $0.25).",
+        "$DASH beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.25.",
+        "$DASH beat the Q3 EPS consensus: $1.06 vs $0.81.",
+        "$DASH Q3 EPS: $1.06 vs $0.81 consensus (beat by $0.25).",
+        "$DASH Q3 EPS $1.06, beat by $0.25.",
+        "$DASH beat Q3 EPS estimates by $0.25.",
+        "$DASH beat the Q3 Diluted EPS (GAAP, street basis) consensus: $1.06 vs $0.81.",
+        "$DASH Q3 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus (beat by $0.25).",
+        "$DASH Q3 Diluted EPS (GAAP, street basis) $1.06, beat by $0.25.",
+        "$DASH beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.25.",
+        "$DASH beat Q3 2026 estimates.",
+        "$DASH beat Q3 estimates."
+      ],
+      "report_id": "dash-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-10-29",
+      "published_at": "2026-10-29T23:02:45.842528+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$4.62B",
+          "consensus": "$4.56B",
+          "label": "Beat by $57.2M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "$1.06",
+          "consensus": "$0.81",
+          "label": "Beat by $0.25",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/DASH/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for DASH: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 3.5,
+      "rank_why": "earnings_result 3; large cap $73.44B +2.5; magnitude (verdict) +1.5; release_date 2026-10-29 (age 1) +1.5; posted $DASH on 2026-10-30 -4; same pillar as the newest own post (P5) -1",
+      "pillar": "P5",
+      "market_cap_usd": 73439667774.39606,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-10-29",
+        "Oct 29, 2026",
+        "Oct 29",
+        "$73.4B",
+        "+5.61%",
+        "5.61%",
+        "+5.6%",
+        "5.6%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DASH"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "DASH": "Consumer Cyclical"
+      },
+      "ticker_names": {
+        "DASH": "DoorDash, Inc."
+      },
+      "context": {
+        "market_cap": "$73.4B",
+        "market_cap_session": "2026-10-29",
+        "last_session_move": {
+          "pct": "+5.61%",
+          "session": "2026-10-29"
+        }
+      },
+      "angles": [
+        "DoorDash, Inc. ($DASH) published Q3 2026 results on Oct 29.",
+        "$DASH (DoorDash, Inc.) reported Q3 2026 results on Oct 29.",
+        "On Oct 29, DoorDash, Inc. ($DASH) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "DoorDash, Inc. ($DASH) published Q3 2026 results on Oct 29.",
+        "$DASH (DoorDash, Inc.) reported Q3 2026 results on Oct 29.",
+        "On Oct 29, DoorDash, Inc. ($DASH) published Q3 2026 results.",
+        "$DASH published Q3 2026 results on Oct 29.",
+        "Q3 2026 results from $DASH came out on Oct 29.",
+        "On Oct 29, $DASH published Q3 2026 results.",
+        "$DASH Q3 2026 revenue: $4.62B vs $4.56B consensus.",
+        "$DASH reported Q3 2026 revenue of $4.62B vs $4.56B consensus.",
+        "$DASH Q3 2026 revenue was $4.62B.",
+        "Q3 2026 revenue at $DASH was $4.62B.",
+        "$DASH Q3 2026 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus.",
+        "$DASH reported Q3 2026 Diluted EPS (GAAP, street basis) of $1.06 vs $0.81 consensus.",
+        "$DASH Q3 2026 Diluted EPS (GAAP, street basis) was $1.06.",
+        "Q3 2026 Diluted EPS (GAAP, street basis) at $DASH was $1.06.",
+        "$DASH had a market value of $73.4B at the Oct 29 close.",
+        "$DASH's market value at the Oct 29 close was $73.4B.",
+        "At the Oct 29 close, $DASH had a market value of $73.4B.",
+        "$DASH moved +5.61% on Thursday, Oct 29.",
+        "$DASH's move on Thursday, Oct 29: +5.61%.",
+        "On Thursday, Oct 29, $DASH moved +5.61%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $4.56B consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$DASH beat the Q3 2026 revenue consensus: $4.62B vs $4.56B.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$DASH Q3 2026 revenue: $4.62B vs $4.56B consensus (beat by $57.2M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$DASH Q3 2026 revenue $4.62B, beat by $57.2M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $4.62B vs $4.56B consensus (beat by $57.2M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $4.62B vs $4.56B (beat by $57.2M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$DASH beat Q3 2026 revenue estimates by $57.2M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$DASH beat the Q3 revenue consensus: $4.62B vs $4.56B.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$DASH Q3 revenue: $4.62B vs $4.56B consensus (beat by $57.2M).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$DASH Q3 revenue $4.62B, beat by $57.2M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$DASH beat Q3 revenue estimates by $57.2M.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.81 consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$DASH beat the Q3 2026 EPS consensus: $1.06 vs $0.81.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$DASH Q3 2026 EPS: $1.06 vs $0.81 consensus (beat by $0.25).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$DASH Q3 2026 EPS $1.06, beat by $0.25.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.06 vs $0.81 consensus (beat by $0.25).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.06 vs $0.81 (beat by $0.25).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$DASH beat Q3 2026 EPS estimates by $0.25.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-12a211.a",
+          "fact": "earningsre-12a211",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in above the $0.81 consensus.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-b45d0c.a",
+          "fact": "earningsre-b45d0c",
+          "variant": "a",
+          "text": "$DASH beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $1.06 vs $0.81.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-365e1a.a",
+          "fact": "earningsre-365e1a",
+          "variant": "a",
+          "text": "$DASH Q3 2026 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus (beat by $0.25).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-4de0a3.a",
+          "fact": "earningsre-4de0a3",
+          "variant": "a",
+          "text": "$DASH Q3 2026 Diluted EPS (GAAP, street basis) $1.06, beat by $0.25.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-e854ec.a",
+          "fact": "earningsre-e854ec",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) $1.06 vs $0.81 consensus (beat by $0.25).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-0f9fa0.a",
+          "fact": "earningsre-0f9fa0",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) $1.06 vs $0.81 (beat by $0.25).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-54bca2.a",
+          "fact": "earningsre-54bca2",
+          "variant": "a",
+          "text": "$DASH beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.25.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$DASH beat the Q3 EPS consensus: $1.06 vs $0.81.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$DASH Q3 EPS: $1.06 vs $0.81 consensus (beat by $0.25).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$DASH Q3 EPS $1.06, beat by $0.25.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$DASH beat Q3 EPS estimates by $0.25.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-dc1c68.a",
+          "fact": "earningsre-dc1c68",
+          "variant": "a",
+          "text": "$DASH beat the Q3 Diluted EPS (GAAP, street basis) consensus: $1.06 vs $0.81.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e82b3.a",
+          "fact": "earningsre-1e82b3",
+          "variant": "a",
+          "text": "$DASH Q3 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus (beat by $0.25).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-b47e3e.a",
+          "fact": "earningsre-b47e3e",
+          "variant": "a",
+          "text": "$DASH Q3 Diluted EPS (GAAP, street basis) $1.06, beat by $0.25.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-161196.a",
+          "fact": "earningsre-161196",
+          "variant": "a",
+          "text": "$DASH beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.25.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$DASH beat Q3 2026 estimates.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$DASH beat Q3 estimates.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "DoorDash, Inc. ($DASH) published Q3 2026 results on Oct 29.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$DASH (DoorDash, Inc.) reported Q3 2026 results on Oct 29.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Oct 29, DoorDash, Inc. ($DASH) published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$DASH published Q3 2026 results on Oct 29.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $DASH came out on Oct 29.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Oct 29, $DASH published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$DASH Q3 2026 revenue: $4.62B vs $4.56B consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$DASH reported Q3 2026 revenue of $4.62B vs $4.56B consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$DASH Q3 2026 revenue was $4.62B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $DASH was $4.62B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
+          "variant": "a",
+          "text": "$DASH Q3 2026 Diluted EPS (GAAP, street basis): $1.06 vs $0.81 consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
+          "variant": "h1",
+          "text": "$DASH reported Q3 2026 Diluted EPS (GAAP, street basis) of $1.06 vs $0.81 consensus.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
+          "variant": "a",
+          "text": "$DASH Q3 2026 Diluted EPS (GAAP, street basis) was $1.06.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
+          "variant": "h1",
+          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $DASH was $1.06.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$DASH had a market value of $73.4B at the Oct 29 close.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$DASH's market value at the Oct 29 close was $73.4B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Oct 29 close, $DASH had a market value of $73.4B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$DASH moved +5.61% on Thursday, Oct 29.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$DASH's move on Thursday, Oct 29: +5.61%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Thursday, Oct 29, $DASH moved +5.61%.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "5.61%": "+",
+          "5.6%": "+"
+        },
+        "subjects": {
+          "DASH": "up"
+        }
+      },
+      "subject_numbers": {
+        "DASH": [
+          [
+            "$",
+            4.62,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            4.56,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            57.2,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.06,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.81,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.25,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            5.61,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            73.4,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [
+          "threads"
+        ],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": {
+        "x": {
+          "posts": 5,
+          "used_phrasing_ids": [
+            "earningsre-129e50.a",
+            "earningsre-14d721.a",
+            "earningsre-6008a9.a"
+          ],
+          "used_hook_ids": [
+            "H71",
+            "H73",
+            "H81",
+            "H09",
+            "H24",
+            "H43"
+          ]
+        },
+        "instagram": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
+          "used_hook_ids": [
+            "H13",
+            "H27",
+            "H43",
+            "H16",
+            "H26",
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
@@ -112330,15 +113796,21 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [],
+          "posts": 3,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
           "used_hook_ids": [
             "H13",
             "H27",
             "H43",
             "H16",
             "H26",
-            "H41"
+            "H41",
+            "H05",
+            "H20",
+            "H42"
           ]
         }
       }
