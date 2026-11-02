@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-11-02",
+ "media_date": "2026-11-02",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-02/picks-2026-11-02/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-11-02",
+   "fetched_at_utc": "2026-11-02T19:01:27.441414+00:00",
+   "status": 200,
+   "sha256": "78a7bf3cd2744f7ec75ed3b42f5df49917ea56b14dc6471a2d7f134d9cdae4ec",
+   "bytes": 8556
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-02/picks-2026-11-02/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-11-02T19:01:27.849090+00:00",
+   "status": 200,
+   "sha256": "89f42bd3f74d8d9d386937011e45e350cbc6cba38e7880dbd82e555870a58342",
+   "bytes": 10396
+  },
+  {
+   "name": "search-JAN.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-02/picks-2026-11-02/evidence/search-JAN.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=JAN",
+   "fetched_at_utc": "2026-11-02T19:01:28.365882+00:00",
+   "status": 200,
+   "sha256": "82deee8c9ec3286af38c2d646ed9c2a2cbf22ab8ac96ee978be7edeb65460e9c",
+   "bytes": 445
+  },
+  {
+   "name": "search-MSFT.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-02/picks-2026-11-02/evidence/search-MSFT.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=MSFT",
+   "fetched_at_utc": "2026-11-02T19:01:28.791038+00:00",
+   "status": 200,
+   "sha256": "3f32ec76c217bc726d00981628fdf6bccd036eca37358e3c02bfd41b356e80ff",
+   "bytes": 447
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
