@@ -1,0 +1,45 @@
+{
+ "schema": "rtv-evidence/1",
+ "id": "picks-2026-11-03",
+ "media_date": "2026-11-03",
+ "files": [
+  {
+   "name": "picks-api.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-03/picks-2026-11-03/evidence/picks-api.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/daily/2026-11-03",
+   "fetched_at_utc": "2026-11-03T19:03:01.350131+00:00",
+   "status": 200,
+   "sha256": "151af2da000c740fdb18721670b4e7b161ea97bb8307ab655276b855cc9decfc",
+   "bytes": 8619
+  },
+  {
+   "name": "scoreboard.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-03/picks-2026-11-03/evidence/scoreboard.json",
+   "request_url": "https://api.rapidtradeview.trade/tips/scoreboard?days=7",
+   "fetched_at_utc": "2026-11-03T19:03:01.748213+00:00",
+   "status": 200,
+   "sha256": "f4c8aae5ed0bbb603c546cf7aa8fcb53b4ef3a46c75550bbcddd2679664eece7",
+   "bytes": 10385
+  },
+  {
+   "name": "search-MT.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-03/picks-2026-11-03/evidence/search-MT.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=MT",
+   "fetched_at_utc": "2026-11-03T19:03:02.312085+00:00",
+   "status": 200,
+   "sha256": "8c365928edf04f1d3179bdee50f7d46719c4b2703cf6ec2a028c63bc91b872af",
+   "bytes": 484
+  },
+  {
+   "name": "search-Q.json",
+   "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-03/picks-2026-11-03/evidence/search-Q.json",
+   "request_url": "https://api.rapidtradeview.trade/search?q=Q",
+   "fetched_at_utc": "2026-11-03T19:03:02.790300+00:00",
+   "status": 200,
+   "sha256": "4478526f93886ededbd0bb01cf48fc46bbf1488b4feb2c45508a880b277f4feb",
+   "bytes": 463
+  }
+ ],
+ "pinned_sources": [],
+ "rule": "each file is the exact API response (sha256 of the served bytes); request_url is date-relative, fetched_at_utc says which day it answered for"
+}
