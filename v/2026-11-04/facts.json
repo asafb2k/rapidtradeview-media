@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-04",
-  "generated_at": "2026-11-04T14:30:05Z",
-  "as_of": "2026-11-04T14:30:05Z",
+  "generated_at": "2026-11-04T15:00:05Z",
+  "as_of": "2026-11-04T15:00:05Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -879,7 +879,7 @@
     "earnings_result": 171,
     "earnings_upcoming": 312,
     "picks_ready": 0,
-    "chart_pattern": 0,
+    "chart_pattern": 1,
     "moves_like": 3,
     "earnings_tomorrow_roundup": 2,
     "ptr_summary": 0,
@@ -897,7 +897,6 @@
   "reasons": {
     "ptr_summary": "3 member summary(ies) lost to a higher-ranked congress_trade of the same filer (left_out.per_filer_cap)",
     "picks_ready": "the published list (2026-11-03) expires 2026-11-04T19:00:00+00:00 before the 15:00 ET slot; today's list publishes at 2:00 PM ET",
-    "chart_pattern": "the chart pattern showcase did not load (/notable/pattern-showcase: unavailable (pattern_timeout))",
     "market_move": "|move| 0.39% < 0.75% (a quiet day: no market-day post)",
     "breadth_day": "advancers:decliners 1.18 < 2.0 and no divergence (cap-weighted +0.39%, median −0.43%)",
     "basket_week": "the session is not a Friday (the basket is a week-in-review item)",
@@ -972,7 +971,7 @@
       ]
     },
     "earnings_upcoming": {
-      "listed": 567,
+      "listed": 561,
       "confirmed_in_universe": 312
     },
     "earnings_tomorrow_roundup": {
@@ -980,7 +979,9 @@
       "amc": 167,
       "no_set_session": 0
     },
-    "chart_pattern": {},
+    "chart_pattern": {
+      "tiles": 1
+    },
     "moves_like": {
       "tickers_in_items": 487,
       "carried_over": 5,
@@ -996,7 +997,7 @@
     "market": {
       "market_session": "2026-11-03",
       "priced_cap_share": 0.9995561723111007,
-      "flows_as_of": "2026-11-04T14:31:43.903551+00:00"
+      "flows_as_of": "2026-11-04T15:01:39.848032+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1015,14 +1016,12 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 2,
-        "ranked_below": 486,
+        "ranked_below": 487,
         "pillars": 4
       }
     }
   },
-  "errors": [
-    "/notable/pattern-showcase: unavailable (pattern_timeout)"
-  ],
+  "errors": [],
   "partial_sources": [],
   "moves_like_checked": {
     "MU": "item",
@@ -8454,6 +8453,11 @@
           "url": "https://www.rapidtradeview.trade/dashboard/AMD/opengraph-image",
           "kind": "image",
           "alt": "RapidTradeView research card for AMD: recent price, trend, analyst and filing summary."
+        },
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-04/cards/2026-11-04-earnings-result-AMD-6ca9ba/reel_9x16.mp4",
+          "kind": "reel",
+          "alt": "Advanced Micro Devices, Inc. (AMD) published Q3 2026 results on 2026-11-03: Beat estimates. Revenue $13.38B vs $13.09B consensus (Beat by $285M). Non-GAAP diluted EPS $2.09 vs $1.94 consensus (Beat by $0.15)."
         }
       ],
       "rank": 10.0,
@@ -90468,6 +90472,328 @@
           "posts": 0,
           "used_phrasing_ids": [],
           "used_hook_ids": []
+        }
+      }
+    },
+    {
+      "item_id": "2026-11-04-chart-pattern-TER-90983c",
+      "type": "chart_pattern",
+      "ticker": "TER",
+      "tickers": [
+        "TER"
+      ],
+      "name": "Teradyne, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/dashboard/TER",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TER?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-04-chart-pattern-TER-90983c#pattern",
+      "allowed_numbers": [
+        "$308.75",
+        "$326.00",
+        "$444.17",
+        "$451.86",
+        "$261.01",
+        "Oct 22",
+        "Aug 17",
+        "Sep 3",
+        "Oct 2",
+        "Nov 2",
+        "2026-11-03",
+        "Nov 3, 2026",
+        "Nov 3",
+        "2026-08-17",
+        "Aug 17, 2026",
+        "2026-10-02",
+        "Oct 2, 2026",
+        "2026-10-22",
+        "Oct 22, 2026",
+        "2026-11-02",
+        "Nov 2, 2026",
+        "2026-09-03",
+        "Sep 3, 2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Automatic technical analysis flagged a double top on $TER (Teradyne, Inc.) (scan 2026-11-03): pattern 2026-08-17 to 2026-10-02. Confirmed Oct 22: closed $308.75, clearly below the $326.00 neckline.",
+      "dedupe_key": "pattern:TER:double_top:confirmed:2026-10-22",
+      "claim_phrases": [],
+      "scan_date": "2026-11-03",
+      "pattern": {
+        "type": "double_top",
+        "name": "Double top",
+        "status": "confirmed",
+        "direction": "down",
+        "start": "2026-08-17",
+        "end": "2026-10-02",
+        "start_text": "Aug 17, 2026",
+        "end_text": "Oct 2, 2026",
+        "confirmed_on": "2026-10-22",
+        "as_of": "2026-11-02"
+      },
+      "levels": {
+        "key_level_name": "neckline",
+        "key_level": "$326.00",
+        "breakout_close": "$308.75"
+      },
+      "page_text": {
+        "pill": "Double top · Confirmed Oct 22",
+        "chip": "Confirmed Oct 22",
+        "detail": "confirmed by the Oct 22 close of $308.75 · neckline $326.00",
+        "what": "Two peaks at about the same price, with a dip between them.",
+        "key": [
+          "Confirmed Oct 22: closed $308.75, clearly below the $326.00 neckline.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $326.00."
+        ],
+        "points": [
+          "Peak 1 $444.17 on Aug 17",
+          "Low between $326.00 on Sep 3",
+          "Peak 2 $451.86 on Oct 2",
+          "Oct 22 closed $308.75: confirmed · last close $261.01 (Nov 2)"
+        ]
+      },
+      "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
+      "banned_words": [
+        "will",
+        "going to"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TER/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for TER: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 4.5,
+      "rank_why": "chart_pattern 1; large cap $40.75B +2.5; magnitude (pattern) +0.5; scan_date 2026-11-03 (age 1) +1.5; same pillar as the newest own post (PX) -1",
+      "pillar": "PX",
+      "market_cap_usd": 40750122047.45112,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-03",
+        "Nov 3, 2026",
+        "Nov 3",
+        "$40.8B",
+        "+3.20%",
+        "3.20%",
+        "+3.2%",
+        "3.2%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "TER"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "TER": "Technology"
+      },
+      "ticker_names": {
+        "TER": "Teradyne, Inc."
+      },
+      "context": {
+        "market_cap": "$40.8B",
+        "market_cap_session": "2026-11-03",
+        "last_session_move": {
+          "pct": "+3.20%",
+          "session": "2026-11-03"
+        }
+      },
+      "angles": [
+        "Automatic technical analysis flagged a double top on $TER (scan Nov 3).",
+        "A double top on $TER was flagged by automatic technical analysis (scan Nov 3).",
+        "The $TER double top pattern ran from Aug 17 to Oct 2."
+      ],
+      "fact_phrases": [
+        "Automatic technical analysis flagged a double top on $TER (scan Nov 3).",
+        "A double top on $TER was flagged by automatic technical analysis (scan Nov 3).",
+        "The $TER double top pattern ran from Aug 17 to Oct 2.",
+        "From Aug 17 to Oct 2, $TER formed the double top pattern.",
+        "$TER closed at $308.75 on Oct 22, below the $326.00 neckline.",
+        "On Oct 22, $TER closed at $308.75, below the $326.00 neckline.",
+        "$TER had a market value of $40.8B at the Nov 3 close.",
+        "$TER's market value at the Nov 3 close was $40.8B.",
+        "At the Nov 3 close, $TER had a market value of $40.8B.",
+        "$TER moved +3.20% on Tuesday, Nov 3.",
+        "$TER's move on Tuesday, Nov 3: +3.20%.",
+        "On Tuesday, Nov 3, $TER moved +3.20%."
+      ],
+      "phrasings": [
+        {
+          "id": "chartpatte-35f5b7.a",
+          "fact": "chartpatte-35f5b7",
+          "variant": "a",
+          "text": "Automatic technical analysis flagged a double top on $TER (scan Nov 3).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-35f5b7.h1",
+          "fact": "chartpatte-35f5b7",
+          "variant": "h1",
+          "text": "A double top on $TER was flagged by automatic technical analysis (scan Nov 3).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-4b3265.a",
+          "fact": "chartpatte-4b3265",
+          "variant": "a",
+          "text": "The $TER double top pattern ran from Aug 17 to Oct 2.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-4b3265.h1",
+          "fact": "chartpatte-4b3265",
+          "variant": "h1",
+          "text": "From Aug 17 to Oct 2, $TER formed the double top pattern.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-c8953c.a",
+          "fact": "chartpatte-c8953c",
+          "variant": "a",
+          "text": "$TER closed at $308.75 on Oct 22, below the $326.00 neckline.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-c8953c.h1",
+          "fact": "chartpatte-c8953c",
+          "variant": "h1",
+          "text": "On Oct 22, $TER closed at $308.75, below the $326.00 neckline.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-426192.a",
+          "fact": "chartpatte-426192",
+          "variant": "a",
+          "text": "$TER had a market value of $40.8B at the Nov 3 close.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-426192.h1",
+          "fact": "chartpatte-426192",
+          "variant": "h1",
+          "text": "$TER's market value at the Nov 3 close was $40.8B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-426192.t",
+          "fact": "chartpatte-426192",
+          "variant": "t",
+          "text": "At the Nov 3 close, $TER had a market value of $40.8B.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-061727.a",
+          "fact": "chartpatte-061727",
+          "variant": "a",
+          "text": "$TER moved +3.20% on Tuesday, Nov 3.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-061727.h1",
+          "fact": "chartpatte-061727",
+          "variant": "h1",
+          "text": "$TER's move on Tuesday, Nov 3: +3.20%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "chartpatte-061727.t",
+          "fact": "chartpatte-061727",
+          "variant": "t",
+          "text": "On Tuesday, Nov 3, $TER moved +3.20%.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "3.20%": "+",
+          "3.2%": "+"
+        },
+        "subjects": {
+          "TER": "up"
+        }
+      },
+      "subject_numbers": {
+        "TER": [
+          [
+            "%",
+            3.2,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            40.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": {
+        "x": {
+          "posts": 4,
+          "used_phrasing_ids": [
+            "chartpatte-ffb640.a",
+            "chartpatte-a03c9e.h1",
+            "chartpatte-bfdf3b.a"
+          ],
+          "used_hook_ids": [
+            "H15",
+            "H29",
+            "H41",
+            "H08",
+            "H28",
+            "H42",
+            "H06",
+            "H27",
+            "H51"
+          ]
+        },
+        "instagram": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 1,
+          "used_phrasing_ids": [
+            "chartpatte-b3191c.h1",
+            "chartpatte-e4a0fa.h1"
+          ],
+          "used_hook_ids": [
+            "H15",
+            "H28",
+            "H41"
+          ]
         }
       }
     },
