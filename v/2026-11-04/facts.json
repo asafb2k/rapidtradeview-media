@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-04",
-  "generated_at": "2026-11-04T14:00:05Z",
-  "as_of": "2026-11-04T14:00:05Z",
+  "generated_at": "2026-11-04T14:30:05Z",
+  "as_of": "2026-11-04T14:30:05Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -879,24 +879,25 @@
     "earnings_result": 171,
     "earnings_upcoming": 312,
     "picks_ready": 0,
-    "chart_pattern": 1,
+    "chart_pattern": 0,
     "moves_like": 3,
     "earnings_tomorrow_roundup": 2,
     "ptr_summary": 0,
     "market_move": 0,
-    "mega_mover": 1,
+    "mega_mover": 2,
     "congress_flow": 0,
     "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 10,
-    "sector_rotation": 0,
+    "sector_rotation": 1,
     "breadth_day": 0,
     "basket_week": 0
   },
   "reasons": {
     "ptr_summary": "3 member summary(ies) lost to a higher-ranked congress_trade of the same filer (left_out.per_filer_cap)",
     "picks_ready": "the published list (2026-11-03) expires 2026-11-04T19:00:00+00:00 before the 15:00 ET slot; today's list publishes at 2:00 PM ET",
+    "chart_pattern": "the chart pattern showcase did not load (/notable/pattern-showcase: unavailable (pattern_timeout))",
     "market_move": "|move| 0.39% < 0.75% (a quiet day: no market-day post)",
     "breadth_day": "advancers:decliners 1.18 < 2.0 and no divergence (cap-weighted +0.39%, median −0.43%)",
     "basket_week": "the session is not a Friday (the basket is a week-in-review item)",
@@ -942,8 +943,8 @@
     },
     "earnings_result": {
       "archive_reports": 2693,
-      "recent_ready": 376,
-      "outside_24h": 195,
+      "recent_ready": 377,
+      "outside_24h": 196,
       "unreadable": 0,
       "not_compared": 8,
       "not_compared_metrics": [
@@ -971,7 +972,7 @@
       ]
     },
     "earnings_upcoming": {
-      "listed": 561,
+      "listed": 567,
       "confirmed_in_universe": 312
     },
     "earnings_tomorrow_roundup": {
@@ -979,9 +980,7 @@
       "amc": 167,
       "no_set_session": 0
     },
-    "chart_pattern": {
-      "tiles": 1
-    },
+    "chart_pattern": {},
     "moves_like": {
       "tickers_in_items": 487,
       "carried_over": 5,
@@ -997,7 +996,7 @@
     "market": {
       "market_session": "2026-11-03",
       "priced_cap_share": 0.9995561723111007,
-      "flows_as_of": "2026-11-04T14:01:38.770275+00:00"
+      "flows_as_of": "2026-11-04T14:31:43.903551+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1008,10 +1007,10 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 363
+        "angles_dropped": 361
       },
       "top8": {
-        "stale": 15,
+        "stale": 14,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
@@ -1019,18 +1018,10 @@
         "ranked_below": 486,
         "pillars": 4
       }
-    },
-    "card_unpinned": {
-      "dropped": 2,
-      "reasons": [
-        "mega_mover NVDA: share card not pinned (the card draws 2026-11-04T13:47:42.064833+00:00 (X-Card-Date), the item 2026-11-03)",
-        "sector_rotation 2026-11-04-sector-rotation-LIST-9fa788: share card not pinned (the card draws 2026-11-04T13:47:42.064833+00:00 (X-Card-Date), the item 2026-11-03)"
-      ]
     }
   },
   "errors": [
-    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-04T13:47:42.064833+00:00 (X-Card-Date), the item 2026-11-03)",
-    "not published: sector_rotation 2026-11-04-sector-rotation-LIST-9fa788: share card not pinned (the card draws 2026-11-04T13:47:42.064833+00:00 (X-Card-Date), the item 2026-11-03)"
+    "/notable/pattern-showcase: unavailable (pattern_timeout)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1059,9 +1050,9 @@
   },
   "post_history": {
     "read": true,
-    "own_posts": 48
+    "own_posts": 47
   },
-  "api_requests": 226,
+  "api_requests": 227,
   "items": [
     {
       "item_id": "2026-11-04-reddit-buzz-AMD-6fa1a3",
@@ -1579,8 +1570,8 @@
         "$9.9B",
         "$436M",
         "+$436M",
-        "$436.0M",
-        "+$436.0M",
+        "$436.2M",
+        "+$436.2M",
         "$3.0B",
         "+$3.0B",
         "$3B",
@@ -1604,8 +1595,8 @@
           "numbers": [
             "$436M",
             "+$436M",
-            "$436.0M",
-            "+$436.0M",
+            "$436.2M",
+            "+$436.2M",
             "$3.0B",
             "+$3.0B",
             "$3B",
@@ -1786,7 +1777,7 @@
       "moves": {
         "numbers": {
           "$436M": "+",
-          "$436.0M": "+",
+          "$436.2M": "+",
           "$3.0B": "+",
           "$3B": "+"
         },
@@ -2559,15 +2550,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -3011,15 +2999,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -3728,15 +3713,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -4445,15 +4427,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -5046,15 +5025,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -5720,6 +5696,2665 @@
           "posts": 0,
           "used_phrasing_ids": [],
           "used_hook_ids": []
+        }
+      }
+    },
+    {
+      "item_id": "2026-11-04-mega-mover-NVDA-33342e",
+      "type": "mega_mover",
+      "ticker": "NVDA",
+      "tickers": [
+        "NVDA",
+        "MSFT",
+        "SPCX"
+      ],
+      "name": "NVIDIA Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-04-mega-mover-NVDA-33342e#map",
+      "allowed_numbers": [
+        "+2.29%",
+        "2.29%",
+        "+2.3%",
+        "2.3%",
+        "$111.8B",
+        "+$111.8B",
+        "$112B",
+        "+$112B",
+        "500",
+        "2",
+        "#2",
+        "2026-11-03",
+        "Nov 3, 2026",
+        "Nov 3",
+        "+2.74%",
+        "2.74%",
+        "+2.7%",
+        "2.7%",
+        "$103.0B",
+        "+$103.0B",
+        "$103B",
+        "+$103B",
+        "+3.62%",
+        "3.62%",
+        "+3.6%",
+        "3.6%",
+        "$67.1B",
+        "+$67.1B",
+        "$67B",
+        "+$67B",
+        "1",
+        "#1",
+        "100",
+        "499"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "$NVDA (NVIDIA Corporation) added $111.8B of market value on Tuesday, +2.29%: the biggest dollar gain among the 500 largest US-listed companies (#2 by market cap). Next: $MSFT +$103.0B (+2.74%), $SPCX +$67.1B (+3.62%).",
+      "dedupe_key": "mega_mover:2026-11-03:NVDA",
+      "claim_phrases": [
+        "$NVDA had the biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$111.8B).",
+        "On Tuesday, $NVDA had the biggest dollar gain among the 500 largest US-listed companies (+$111.8B).",
+        "The biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$111.8B): $NVDA.",
+        "$MSFT had the second-biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$103.0B).",
+        "On Tuesday, $MSFT had the second-biggest dollar gain among the 500 largest US-listed companies (+$103.0B).",
+        "The second-biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$103.0B): $MSFT.",
+        "$SPCX had the third-biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$67.1B).",
+        "On Tuesday, $SPCX had the third-biggest dollar gain among the 500 largest US-listed companies (+$67.1B).",
+        "The third-biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$67.1B): $SPCX.",
+        "The biggest dollar gains among the 500 largest US-listed companies on Tuesday, in order: $NVDA (+$111.8B), $MSFT (+$103.0B).",
+        "On Tuesday, the biggest dollar gains among the 500 largest US-listed companies, in order: $NVDA (+$111.8B), $MSFT (+$103.0B).",
+        "$NVDA (+$111.8B) and $MSFT (+$103.0B) were the biggest dollar gains among the 500 largest US-listed companies on Tuesday, in that order.",
+        "The biggest dollar gains among the 500 largest US-listed companies on Tuesday, in order: $NVDA (+$111.8B), $MSFT (+$103.0B), $SPCX (+$67.1B).",
+        "On Tuesday, the biggest dollar gains among the 500 largest US-listed companies, in order: $NVDA (+$111.8B), $MSFT (+$103.0B), $SPCX (+$67.1B).",
+        "$NVDA (+$111.8B), $MSFT (+$103.0B) and $SPCX (+$67.1B) were the biggest dollar gains among the 500 largest US-listed companies on Tuesday, in that order.",
+        "$NVDA had the biggest dollar move among the 500 largest US-listed companies on Tuesday (+$111.8B).",
+        "On Tuesday, $NVDA had the biggest dollar move among the 500 largest US-listed companies (+$111.8B).",
+        "The biggest dollar move among the 500 largest US-listed companies on Tuesday (+$111.8B): $NVDA.",
+        "$NVDA was #2 by market cap among the 500 largest US-listed companies on Tuesday.",
+        "By market cap, $NVDA was #2 among the 500 largest US-listed companies on Tuesday.",
+        "$NVDA ranked #2 by market cap among the 500 largest US-listed companies on Tuesday.",
+        "$NVDA is one of the 100 largest US-listed companies by market cap (#2).",
+        "By market cap, $NVDA is one of the 100 largest US-listed companies (#2).",
+        "$NVDA ranks #2 by market cap, one of the 100 largest US-listed companies."
+      ],
+      "pillar": "P2",
+      "context_tickers": [
+        "APH"
+      ],
+      "context_mover": {
+        "ticker": "APH",
+        "name": "Amphenol Corporation",
+        "sector": "Technology",
+        "pct": 5.4483967935871735,
+        "usd": 10726955834.385952,
+        "cap": 196882793981.00586,
+        "pct_text": "+5.45%",
+        "usd_text": "+$10.7B"
+      },
+      "context_numbers": [
+        "+5.45%",
+        "5.45%",
+        "+5.4%",
+        "5.4%",
+        "$10.7B",
+        "+$10.7B",
+        "$11B",
+        "+$11B"
+      ],
+      "map_labelled": true,
+      "session_date": "2026-11-03",
+      "when": "on Tuesday",
+      "mover": {
+        "ticker": "NVDA",
+        "name": "NVIDIA Corporation",
+        "sector": "Technology",
+        "pct": 2.29139859447689,
+        "usd": 111800600564.79114,
+        "cap": 4879142408233.633,
+        "pct_text": "+2.29%",
+        "usd_text": "+$111.8B"
+      },
+      "rank_by_cap": 2,
+      "rank_by_usd": 1,
+      "next_movers": [
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "sector": "Technology",
+          "pct": 2.7350528474522795,
+          "usd": 103001308032.84125,
+          "cap": 3765971400837.3784,
+          "pct_text": "+2.74%",
+          "usd_text": "+$103.0B"
+        },
+        {
+          "ticker": "SPCX",
+          "name": "Space Exploration Technologies Corp.",
+          "sector": "Industrials",
+          "pct": 3.6224976167778866,
+          "usd": 67090454352.7801,
+          "cap": 1852049647791.22,
+          "pct_text": "+3.62%",
+          "usd_text": "+$67.1B"
+        }
+      ],
+      "angles": [
+        "$NVDA had the biggest dollar move among the 500 largest US-listed companies on Tuesday (+$111.8B).",
+        "The biggest dollar gains among the 500 largest US-listed companies on Tuesday, in order: $NVDA (+$111.8B), $MSFT (+$103.0B).",
+        "$NVDA gained $111.8B of market value on Tuesday (+2.29%)."
+      ],
+      "magnitude": 3.0,
+      "trigger": "|$ move| $111.8B >= $50.0B",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top",
+            "led"
+          ],
+          "subjects": [
+            "NVDA"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "$NVDA: the biggest dollar gain among the 500 largest US-listed companies on Tuesday"
+        },
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top"
+          ],
+          "subjects": [
+            "NVDA",
+            "MSFT",
+            "SPCX"
+          ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "the biggest dollar gains, in order: $NVDA, $MSFT, $SPCX"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "NVDA"
+        ],
+        "numbers": [
+          "$111.8B",
+          "2.29%",
+          "2.3%"
+        ]
+      },
+      "market_cap_usd": 4879142408233.633,
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "priced": 499,
+      "total": 500,
+      "card": {
+        "panel": "map",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-04/cards/market-map-2026-11-03-464be9e2.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/map",
+        "date": "2026-11-03",
+        "fingerprint": "464be9e2",
+        "file": "market-map-2026-11-03-464be9e2.png",
+        "sha256": "471184ca59b3682fb7ea9ad54f108829fcbb9f20b6da3ab1149d4d3e9c7756cb"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-04/cards/market-map-2026-11-03-464be9e2.png",
+          "kind": "image",
+          "alt": "$NVDA (NVIDIA Corporation) added $111.8B of market value on Tuesday, +2.29%: the biggest dollar gain among the 500 largest US-listed companies (#2 by market cap). Next: $MSFT +$103.0B (+2.74%), $SPCX +$67.1B (+3.62%)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "ticker_sectors": {
+        "NVDA": "Technology",
+        "MSFT": "Technology",
+        "SPCX": "Industrials",
+        "APH": "Technology"
+      },
+      "ticker_names": {
+        "NVDA": "NVIDIA Corporation",
+        "MSFT": "Microsoft Corporation",
+        "SPCX": "Space Exploration Technologies Corp.",
+        "APH": "Amphenol Corporation"
+      },
+      "fact_phrases": [
+        "$NVDA gained $111.8B of market value on Tuesday (+2.29%).",
+        "$NVDA's market value rose $111.8B on Tuesday (+2.29%).",
+        "On Tuesday, $NVDA gained $111.8B of market value (+2.29%).",
+        "$NVDA moved +2.29% on Tuesday.",
+        "$NVDA's move on Tuesday: +2.29%.",
+        "On Tuesday, $NVDA moved +2.29%.",
+        "$MSFT gained $103.0B of market value on Tuesday (+2.74%).",
+        "$MSFT's market value rose $103.0B on Tuesday (+2.74%).",
+        "On Tuesday, $MSFT gained $103.0B of market value (+2.74%).",
+        "$MSFT moved +2.74% on Tuesday.",
+        "$MSFT's move on Tuesday: +2.74%.",
+        "On Tuesday, $MSFT moved +2.74%.",
+        "$SPCX gained $67.1B of market value on Tuesday (+3.62%).",
+        "$SPCX's market value rose $67.1B on Tuesday (+3.62%).",
+        "On Tuesday, $SPCX gained $67.1B of market value (+3.62%).",
+        "$SPCX moved +3.62% on Tuesday.",
+        "$SPCX's move on Tuesday: +3.62%.",
+        "On Tuesday, $SPCX moved +3.62%.",
+        "NVIDIA Corporation ($NVDA) moved +2.29% on Tuesday.",
+        "$NVDA (NVIDIA Corporation) moved +2.29% on Tuesday.",
+        "On Tuesday, NVIDIA Corporation ($NVDA) moved +2.29%.",
+        "$APH gained $10.7B of market value on Tuesday (+5.45%).",
+        "$APH's market value rose $10.7B on Tuesday (+5.45%).",
+        "On Tuesday, $APH gained $10.7B of market value (+5.45%).",
+        "$APH moved +5.45% on Tuesday.",
+        "$APH's move on Tuesday: +5.45%.",
+        "On Tuesday, $APH moved +5.45%.",
+        "499 of the 500 largest US-listed stocks had a price on Tuesday, Nov 3.",
+        "On Tuesday, Nov 3, 499 of the 500 largest US-listed stocks had a price.",
+        "Of the 500 largest US-listed stocks, 499 had a price on Tuesday, Nov 3."
+      ],
+      "phrasings": [
+        {
+          "id": "megamover-05d738.a",
+          "fact": "megamover-05d738",
+          "variant": "a",
+          "text": "$NVDA had the biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$111.8B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-05d738.t",
+          "fact": "megamover-05d738",
+          "variant": "t",
+          "text": "On Tuesday, $NVDA had the biggest dollar gain among the 500 largest US-listed companies (+$111.8B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-05d738.o",
+          "fact": "megamover-05d738",
+          "variant": "o",
+          "text": "The biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$111.8B): $NVDA.",
+          "claim": true,
+          "recent_on": [
+            "instagram"
+          ]
+        },
+        {
+          "id": "megamover-25e8a9.a",
+          "fact": "megamover-25e8a9",
+          "variant": "a",
+          "text": "$MSFT had the second-biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$103.0B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-25e8a9.t",
+          "fact": "megamover-25e8a9",
+          "variant": "t",
+          "text": "On Tuesday, $MSFT had the second-biggest dollar gain among the 500 largest US-listed companies (+$103.0B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-25e8a9.o",
+          "fact": "megamover-25e8a9",
+          "variant": "o",
+          "text": "The second-biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$103.0B): $MSFT.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-be9b94.a",
+          "fact": "megamover-be9b94",
+          "variant": "a",
+          "text": "$SPCX had the third-biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$67.1B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-be9b94.t",
+          "fact": "megamover-be9b94",
+          "variant": "t",
+          "text": "On Tuesday, $SPCX had the third-biggest dollar gain among the 500 largest US-listed companies (+$67.1B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-be9b94.o",
+          "fact": "megamover-be9b94",
+          "variant": "o",
+          "text": "The third-biggest dollar gain among the 500 largest US-listed companies on Tuesday (+$67.1B): $SPCX.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-54915b.a",
+          "fact": "megamover-54915b",
+          "variant": "a",
+          "text": "The biggest dollar gains among the 500 largest US-listed companies on Tuesday, in order: $NVDA (+$111.8B), $MSFT (+$103.0B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-54915b.t",
+          "fact": "megamover-54915b",
+          "variant": "t",
+          "text": "On Tuesday, the biggest dollar gains among the 500 largest US-listed companies, in order: $NVDA (+$111.8B), $MSFT (+$103.0B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-54915b.l",
+          "fact": "megamover-54915b",
+          "variant": "l",
+          "text": "$NVDA (+$111.8B) and $MSFT (+$103.0B) were the biggest dollar gains among the 500 largest US-listed companies on Tuesday, in that order.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-520f2a.a",
+          "fact": "megamover-520f2a",
+          "variant": "a",
+          "text": "The biggest dollar gains among the 500 largest US-listed companies on Tuesday, in order: $NVDA (+$111.8B), $MSFT (+$103.0B), $SPCX (+$67.1B).",
+          "claim": true,
+          "recent_on": [
+            "threads"
+          ]
+        },
+        {
+          "id": "megamover-520f2a.t",
+          "fact": "megamover-520f2a",
+          "variant": "t",
+          "text": "On Tuesday, the biggest dollar gains among the 500 largest US-listed companies, in order: $NVDA (+$111.8B), $MSFT (+$103.0B), $SPCX (+$67.1B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-520f2a.l",
+          "fact": "megamover-520f2a",
+          "variant": "l",
+          "text": "$NVDA (+$111.8B), $MSFT (+$103.0B) and $SPCX (+$67.1B) were the biggest dollar gains among the 500 largest US-listed companies on Tuesday, in that order.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-ee5182.a",
+          "fact": "megamover-ee5182",
+          "variant": "a",
+          "text": "$NVDA had the biggest dollar move among the 500 largest US-listed companies on Tuesday (+$111.8B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-ee5182.t",
+          "fact": "megamover-ee5182",
+          "variant": "t",
+          "text": "On Tuesday, $NVDA had the biggest dollar move among the 500 largest US-listed companies (+$111.8B).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-ee5182.o",
+          "fact": "megamover-ee5182",
+          "variant": "o",
+          "text": "The biggest dollar move among the 500 largest US-listed companies on Tuesday (+$111.8B): $NVDA.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-9d26c5.a",
+          "fact": "megamover-9d26c5",
+          "variant": "a",
+          "text": "$NVDA was #2 by market cap among the 500 largest US-listed companies on Tuesday.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-9d26c5.h1",
+          "fact": "megamover-9d26c5",
+          "variant": "h1",
+          "text": "By market cap, $NVDA was #2 among the 500 largest US-listed companies on Tuesday.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-9d26c5.h2",
+          "fact": "megamover-9d26c5",
+          "variant": "h2",
+          "text": "$NVDA ranked #2 by market cap among the 500 largest US-listed companies on Tuesday.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-86965e.a",
+          "fact": "megamover-86965e",
+          "variant": "a",
+          "text": "$NVDA is one of the 100 largest US-listed companies by market cap (#2).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-86965e.h1",
+          "fact": "megamover-86965e",
+          "variant": "h1",
+          "text": "By market cap, $NVDA is one of the 100 largest US-listed companies (#2).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-86965e.h2",
+          "fact": "megamover-86965e",
+          "variant": "h2",
+          "text": "$NVDA ranks #2 by market cap, one of the 100 largest US-listed companies.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.a",
+          "fact": "megamover-70ed55",
+          "variant": "a",
+          "text": "$NVDA gained $111.8B of market value on Tuesday (+2.29%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.h1",
+          "fact": "megamover-70ed55",
+          "variant": "h1",
+          "text": "$NVDA's market value rose $111.8B on Tuesday (+2.29%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.t",
+          "fact": "megamover-70ed55",
+          "variant": "t",
+          "text": "On Tuesday, $NVDA gained $111.8B of market value (+2.29%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.a",
+          "fact": "megamover-061727",
+          "variant": "a",
+          "text": "$NVDA moved +2.29% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.h1",
+          "fact": "megamover-061727",
+          "variant": "h1",
+          "text": "$NVDA's move on Tuesday: +2.29%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.t",
+          "fact": "megamover-061727",
+          "variant": "t",
+          "text": "On Tuesday, $NVDA moved +2.29%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.a",
+          "fact": "megamover-70ed55",
+          "variant": "a",
+          "text": "$MSFT gained $103.0B of market value on Tuesday (+2.74%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.h1",
+          "fact": "megamover-70ed55",
+          "variant": "h1",
+          "text": "$MSFT's market value rose $103.0B on Tuesday (+2.74%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.t",
+          "fact": "megamover-70ed55",
+          "variant": "t",
+          "text": "On Tuesday, $MSFT gained $103.0B of market value (+2.74%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.a",
+          "fact": "megamover-061727",
+          "variant": "a",
+          "text": "$MSFT moved +2.74% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.h1",
+          "fact": "megamover-061727",
+          "variant": "h1",
+          "text": "$MSFT's move on Tuesday: +2.74%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.t",
+          "fact": "megamover-061727",
+          "variant": "t",
+          "text": "On Tuesday, $MSFT moved +2.74%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.a",
+          "fact": "megamover-70ed55",
+          "variant": "a",
+          "text": "$SPCX gained $67.1B of market value on Tuesday (+3.62%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.h1",
+          "fact": "megamover-70ed55",
+          "variant": "h1",
+          "text": "$SPCX's market value rose $67.1B on Tuesday (+3.62%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.t",
+          "fact": "megamover-70ed55",
+          "variant": "t",
+          "text": "On Tuesday, $SPCX gained $67.1B of market value (+3.62%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.a",
+          "fact": "megamover-061727",
+          "variant": "a",
+          "text": "$SPCX moved +3.62% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.h1",
+          "fact": "megamover-061727",
+          "variant": "h1",
+          "text": "$SPCX's move on Tuesday: +3.62%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.t",
+          "fact": "megamover-061727",
+          "variant": "t",
+          "text": "On Tuesday, $SPCX moved +3.62%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-92f028.a",
+          "fact": "megamover-92f028",
+          "variant": "a",
+          "text": "NVIDIA Corporation ($NVDA) moved +2.29% on Tuesday.",
+          "claim": false,
+          "recent_on": [
+            "threads"
+          ]
+        },
+        {
+          "id": "megamover-92f028.h1",
+          "fact": "megamover-92f028",
+          "variant": "h1",
+          "text": "$NVDA (NVIDIA Corporation) moved +2.29% on Tuesday.",
+          "claim": false,
+          "recent_on": [
+            "instagram"
+          ]
+        },
+        {
+          "id": "megamover-92f028.t",
+          "fact": "megamover-92f028",
+          "variant": "t",
+          "text": "On Tuesday, NVIDIA Corporation ($NVDA) moved +2.29%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.a",
+          "fact": "megamover-70ed55",
+          "variant": "a",
+          "text": "$APH gained $10.7B of market value on Tuesday (+5.45%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.h1",
+          "fact": "megamover-70ed55",
+          "variant": "h1",
+          "text": "$APH's market value rose $10.7B on Tuesday (+5.45%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-70ed55.t",
+          "fact": "megamover-70ed55",
+          "variant": "t",
+          "text": "On Tuesday, $APH gained $10.7B of market value (+5.45%).",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.a",
+          "fact": "megamover-061727",
+          "variant": "a",
+          "text": "$APH moved +5.45% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.h1",
+          "fact": "megamover-061727",
+          "variant": "h1",
+          "text": "$APH's move on Tuesday: +5.45%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-061727.t",
+          "fact": "megamover-061727",
+          "variant": "t",
+          "text": "On Tuesday, $APH moved +5.45%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-fc3644.a",
+          "fact": "megamover-fc3644",
+          "variant": "a",
+          "text": "499 of the 500 largest US-listed stocks had a price on Tuesday, Nov 3.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-fc3644.h1",
+          "fact": "megamover-fc3644",
+          "variant": "h1",
+          "text": "On Tuesday, Nov 3, 499 of the 500 largest US-listed stocks had a price.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "megamover-fc3644.f",
+          "fact": "megamover-fc3644",
+          "variant": "f",
+          "text": "Of the 500 largest US-listed stocks, 499 had a price on Tuesday, Nov 3.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "2.29%": "+",
+          "2.3%": "+",
+          "$111.8B": "+",
+          "$112B": "+",
+          "2.74%": "+",
+          "2.7%": "+",
+          "$103.0B": "+",
+          "$103B": "+",
+          "3.62%": "+",
+          "3.6%": "+",
+          "$67.1B": "+",
+          "$67B": "+",
+          "5.45%": "+",
+          "5.4%": "+",
+          "$10.7B": "+",
+          "$11B": "+"
+        },
+        "subjects": {
+          "NVDA": "up",
+          "MSFT": "up",
+          "SPCX": "up"
+        }
+      },
+      "subject_numbers": {
+        "NVDA": [
+          [
+            "$",
+            111.8,
+            1,
+            1000000000.0,
+            0
+          ],
+          [
+            "%",
+            2.29,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            111.8,
+            1,
+            1000000000.0,
+            1
+          ]
+        ],
+        "MSFT": [
+          [
+            "$",
+            103.0,
+            1,
+            1000000000.0,
+            1
+          ],
+          [
+            "%",
+            2.74,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "SPCX": [
+          [
+            "$",
+            67.1,
+            1,
+            1000000000.0,
+            1
+          ],
+          [
+            "%",
+            3.62,
+            2,
+            1.0,
+            1
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "rank": 12.5,
+      "rank_why": "mega_mover 4; mega cap $4879.14B +4; magnitude (market) +3; session_date 2026-11-03 (age 1) +1.5",
+      "top8": false,
+      "top8_out": "stale: a price move of the 2026-11-03 session posted on 2026-11-04: same session day only, after the close (owner 10-22) (#652)",
+      "rotation": {
+        "x": {
+          "posts": 3,
+          "used_phrasing_ids": [
+            "megamover-520f2a.l",
+            "megamover-061727.a"
+          ],
+          "used_hook_ids": [
+            "H03",
+            "H22",
+            "H42",
+            "H74",
+            "H86"
+          ]
+        },
+        "instagram": {
+          "posts": 1,
+          "used_phrasing_ids": [
+            "megamover-05d738.o",
+            "megamover-92f028.h1"
+          ],
+          "used_hook_ids": [
+            "H02",
+            "H25",
+            "H44"
+          ]
+        },
+        "threads": {
+          "posts": 1,
+          "used_phrasing_ids": [
+            "megamover-520f2a.a",
+            "megamover-92f028.a"
+          ],
+          "used_hook_ids": [
+            "H04",
+            "H23",
+            "H43"
+          ]
+        }
+      }
+    },
+    {
+      "item_id": "2026-11-04-sector-rotation-LIST-9fa788",
+      "type": "sector_rotation",
+      "ticker": null,
+      "tickers": [
+        "SPCX",
+        "NVDA",
+        "WMT",
+        "LIN"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-04-sector-rotation-LIST-9fa788#sectors",
+      "allowed_numbers": [
+        "+0.39%",
+        "0.39%",
+        "+0.4%",
+        "0.4%",
+        "500",
+        "2026-11-03",
+        "Nov 3, 2026",
+        "Nov 3",
+        "3.5",
+        "+1.56%",
+        "1.56%",
+        "+1.6%",
+        "1.6%",
+        "+1.31%",
+        "1.31%",
+        "+1.3%",
+        "1.3%",
+        "−1.91%",
+        "1.91%",
+        "−1.9%",
+        "1.9%",
+        "−1.88%",
+        "1.88%",
+        "+3.62%",
+        "3.62%",
+        "+3.6%",
+        "3.6%",
+        "+2.29%",
+        "2.29%",
+        "+2.3%",
+        "2.3%",
+        "−2.22%",
+        "2.22%",
+        "−2.2%",
+        "2.2%",
+        "−1.57%",
+        "1.57%",
+        "−1.6%",
+        "+9.05%",
+        "9.05%",
+        "+9.0%",
+        "9.0%",
+        "+7.78%",
+        "7.78%",
+        "+7.8%",
+        "7.8%",
+        "−9.33%",
+        "9.33%",
+        "−9.3%",
+        "9.3%",
+        "−3.26%",
+        "3.26%",
+        "−3.3%",
+        "3.3%",
+        "499"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "On Tuesday: the 500 largest US-listed stocks moved +0.4% (close of Nov 3). Up: Industrials +1.6%, Tech +1.3%. Down: Consumer Defensive −1.9%, Materials −1.9%. Best minus worst: 3.5 points. Best stock in each up sector: $BE +9.05% (Industrials), $CRDO +7.78% (Tech). Worst stock in each down sector: $SYY −9.33% (Consumer Defensive), $SHW −3.26% (Materials). By market value, the biggest names moving with their sector: $SPCX +3.62% (Industrials), $NVDA +2.29% (Tech), $WMT −2.22% (Consumer Defensive), $LIN −1.57% (Materials).",
+      "dedupe_key": "sector_rotation:2026-11-03:day",
+      "claim_phrases": [
+        "Industrials was the best sector on Tuesday (+1.6%).",
+        "On Tuesday, Industrials was the best sector (+1.6%).",
+        "Industrials was the best sector on Tuesday, a move of +1.6%.",
+        "Tech was the second-best sector on Tuesday (+1.3%).",
+        "On Tuesday, Tech was the second-best sector (+1.3%).",
+        "Tech was the second-best sector on Tuesday, a move of +1.3%.",
+        "The best sectors on Tuesday, in order: Industrials (+1.6%), Tech (+1.3%).",
+        "On Tuesday, the best sectors, in order: Industrials (+1.6%), Tech (+1.3%).",
+        "Industrials (+1.6%) and Tech (+1.3%) were the best sectors on Tuesday, in that order.",
+        "Consumer Defensive and Materials tied for the worst sector on Tuesday (−1.9% each).",
+        "On Tuesday, Consumer Defensive and Materials tied for the worst sector (−1.9% each).",
+        "$BE was the best Industrials stock among the 500 largest US-listed companies on Tuesday (+9.05%).",
+        "On Tuesday, $BE was the best Industrials stock among the 500 largest US-listed companies (+9.05%).",
+        "The best Industrials stock among the 500 largest US-listed companies on Tuesday (+9.05%): $BE.",
+        "$BE led Industrials among the 500 largest US-listed companies on Tuesday (+9.05%).",
+        "On Tuesday, $BE led Industrials among the 500 largest US-listed companies (+9.05%).",
+        "$BE led Industrials among the 500 largest US-listed companies on Tuesday, a move of +9.05%.",
+        "$CRDO was the best Tech stock among the 500 largest US-listed companies on Tuesday (+7.78%).",
+        "On Tuesday, $CRDO was the best Tech stock among the 500 largest US-listed companies (+7.78%).",
+        "The best Tech stock among the 500 largest US-listed companies on Tuesday (+7.78%): $CRDO.",
+        "$CRDO led Tech among the 500 largest US-listed companies on Tuesday (+7.78%).",
+        "On Tuesday, $CRDO led Tech among the 500 largest US-listed companies (+7.78%).",
+        "$CRDO led Tech among the 500 largest US-listed companies on Tuesday, a move of +7.78%.",
+        "$SYY was the worst Consumer Defensive stock among the 500 largest US-listed companies on Tuesday (−9.33%).",
+        "On Tuesday, $SYY was the worst Consumer Defensive stock among the 500 largest US-listed companies (−9.33%).",
+        "The worst Consumer Defensive stock among the 500 largest US-listed companies on Tuesday (−9.33%): $SYY.",
+        "$SHW was the worst Materials stock among the 500 largest US-listed companies on Tuesday (−3.26%).",
+        "On Tuesday, $SHW was the worst Materials stock among the 500 largest US-listed companies (−3.26%).",
+        "The worst Materials stock among the 500 largest US-listed companies on Tuesday (−3.26%): $SHW.",
+        "By market value, $SPCX was the biggest Industrials name moving with its sector on Tuesday (+3.62%).",
+        "$SPCX was the biggest Industrials name by market value moving with its sector on Tuesday (+3.62%).",
+        "On Tuesday, $SPCX was the biggest Industrials name moving with its sector, by market value (+3.62%).",
+        "By market value, $NVDA was the biggest Tech name moving with its sector on Tuesday (+2.29%).",
+        "$NVDA was the biggest Tech name by market value moving with its sector on Tuesday (+2.29%).",
+        "On Tuesday, $NVDA was the biggest Tech name moving with its sector, by market value (+2.29%).",
+        "By market value, $WMT was the biggest Consumer Defensive name moving with its sector on Tuesday (−2.22%).",
+        "$WMT was the biggest Consumer Defensive name by market value moving with its sector on Tuesday (−2.22%).",
+        "On Tuesday, $WMT was the biggest Consumer Defensive name moving with its sector, by market value (−2.22%).",
+        "By market value, $LIN was the biggest Materials name moving with its sector on Tuesday (−1.57%).",
+        "$LIN was the biggest Materials name by market value moving with its sector on Tuesday (−1.57%).",
+        "On Tuesday, $LIN was the biggest Materials name moving with its sector, by market value (−1.57%)."
+      ],
+      "pillar": "P6",
+      "session_date": "2026-11-03",
+      "window": "day",
+      "when": "on Tuesday",
+      "context_tickers": [
+        "BE",
+        "CRDO",
+        "SYY",
+        "SHW"
+      ],
+      "all_500": 0.38551575629429613,
+      "best": [
+        {
+          "sector": "Industrials",
+          "pct": 1.560586243770548
+        },
+        {
+          "sector": "Technology",
+          "pct": 1.3075469228359093
+        }
+      ],
+      "worst": [
+        {
+          "sector": "Consumer Defensive",
+          "pct": -1.912799958572418
+        },
+        {
+          "sector": "Basic Materials",
+          "pct": -1.8826475698827387
+        }
+      ],
+      "spread_pp": 3.47,
+      "sector_movers": {
+        "Industrials": {
+          "ticker": "SPCX",
+          "pct": 3.6224976167778866,
+          "pct_text": "+3.62%"
+        },
+        "Technology": {
+          "ticker": "NVDA",
+          "pct": 2.29139859447689,
+          "pct_text": "+2.29%"
+        },
+        "Consumer Defensive": {
+          "ticker": "WMT",
+          "pct": -2.2163051139478362,
+          "pct_text": "−2.22%"
+        },
+        "Basic Materials": {
+          "ticker": "LIN",
+          "pct": -1.572000307858079,
+          "pct_text": "−1.57%"
+        }
+      },
+      "sector_leaders": {
+        "Industrials": {
+          "ticker": "BE",
+          "name": "Bloom Energy Corporation",
+          "pct": 9.049681528662411,
+          "pct_text": "+9.05%"
+        },
+        "Technology": {
+          "ticker": "CRDO",
+          "name": "Credo Technology Group Holding Ltd",
+          "pct": 7.777460362805311,
+          "pct_text": "+7.78%"
+        },
+        "Consumer Defensive": {
+          "ticker": "SYY",
+          "name": "Sysco Corporation",
+          "pct": -9.334475165157807,
+          "pct_text": "−9.33%"
+        },
+        "Basic Materials": {
+          "ticker": "SHW",
+          "name": "The Sherwin-Williams Company",
+          "pct": -3.2636149501943934,
+          "pct_text": "−3.26%"
+        }
+      },
+      "angles": [
+        "Consumer Defensive −1.9%, Industrials +1.6% on Tuesday.",
+        "The 500 largest US-listed stocks moved +0.4% on Tuesday.",
+        "The 500 largest US-listed stocks' move on Tuesday: +0.4%."
+      ],
+      "claims": [
+        {
+          "words": [
+            "best",
+            "top",
+            "led",
+            "most",
+            "biggest"
+          ],
+          "subjects": [
+            "Industrials"
+          ],
+          "kind": "sector",
+          "polarity": "best",
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "Industrials was the best sector on Tuesday"
+        },
+        {
+          "words": [
+            "worst",
+            "top",
+            "led",
+            "most",
+            "biggest"
+          ],
+          "subjects": [
+            "Consumer Defensive"
+          ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "Consumer Defensive was the worst sector on Tuesday"
+        },
+        {
+          "words": [
+            "best",
+            "top",
+            "led",
+            "most",
+            "biggest"
+          ],
+          "subjects": [
+            "Industrials",
+            "Technology"
+          ],
+          "kind": "sector",
+          "polarity": "best",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "best 2 sectors on Tuesday, in order: Industrials, Tech"
+        },
+        {
+          "words": [
+            "worst",
+            "top",
+            "led",
+            "most",
+            "biggest"
+          ],
+          "subjects": [
+            "Consumer Defensive",
+            "Basic Materials"
+          ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "worst 2 sectors on Tuesday, in order: Consumer Defensive, Materials"
+        },
+        {
+          "words": [
+            "best",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "BE"
+          ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": 1,
+          "within": [
+            "Industrials"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "$BE was the best stock by % in Industrials"
+        },
+        {
+          "words": [
+            "best",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "CRDO"
+          ],
+          "kind": "stock",
+          "polarity": "best",
+          "rank": 1,
+          "within": [
+            "Technology"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": null,
+          "says": "$CRDO was the best stock by % in Tech"
+        },
+        {
+          "words": [
+            "worst",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "SYY"
+          ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [
+            "Consumer Defensive"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "$SYY was the worst stock by % in Consumer Defensive"
+        },
+        {
+          "words": [
+            "worst",
+            "led",
+            "top",
+            "biggest"
+          ],
+          "subjects": [
+            "SHW"
+          ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [
+            "Basic Materials"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "$SHW was the worst stock by % in Materials"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "SPCX"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Industrials"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $SPCX was the biggest Industrials name moving with its sector (+3.62%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "NVDA"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Technology"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "up",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $NVDA was the biggest Tech name moving with its sector (+2.29%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "WMT"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Consumer Defensive"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $WMT was the biggest Consumer Defensive name moving with its sector (−2.22%)"
+        },
+        {
+          "words": [
+            "biggest",
+            "top"
+          ],
+          "subjects": [
+            "LIN"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [
+            "Basic Materials"
+          ],
+          "scope": "\\b(?:its|their|each)\\s+(?:[a-z]+\\s+)?sectors?\\b",
+          "metric": "market_cap",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": "market (?:value|cap)",
+          "says": "by market value, $LIN was the biggest Materials name moving with its sector (−1.57%)"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "SPCX",
+          "WMT"
+        ],
+        "numbers": [
+          "0.4%",
+          "1.6%",
+          "1.9%"
+        ]
+      },
+      "magnitude": 1.736693101171483,
+      "trigger": "day: best minus worst 3.5 pp >= 3.0 pp",
+      "context_numbers": [],
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "priced": 499,
+      "total": 500,
+      "card": {
+        "panel": "sectors",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-04/cards/market-sectors-2026-11-03-ca7dba5b.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/sectors",
+        "date": "2026-11-03",
+        "fingerprint": "ca7dba5b",
+        "file": "market-sectors-2026-11-03-ca7dba5b.png",
+        "sha256": "9f7ddf1db05be229e392cc035af6e97903db9195eee71ee8a338aec620904ead"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-04/cards/market-sectors-2026-11-03-ca7dba5b.png",
+          "kind": "image",
+          "alt": "On Tuesday: the 500 largest US-listed stocks moved +0.4% (close of Nov 3). Up: Industrials +1.6%, Tech +1.3%. Down: Consumer Defensive −1.9%, Materials −1.9%. Best minus worst: 3.5 points. Best stock in each up sector: $BE +9.05% (Industrials), $CRDO +7.78% (Tech). Worst stock in each down sector: $SYY −9.33% (Consumer Defensive), $SHW −3.26% (Materials). By market value, the biggest names moving with their sector: $SPCX +3.62% (Industrials), $NVDA +2.29% (Tech), $WMT −2.22% (Consumer Defensive), $LIN −1.57% (Materials)."
+        }
+      ],
+      "cap_tier": "market",
+      "in_500": null,
+      "ticker_sectors": {
+        "SPCX": "Industrials",
+        "NVDA": "Technology",
+        "WMT": "Consumer Defensive",
+        "LIN": "Basic Materials",
+        "BE": "Industrials",
+        "CRDO": "Technology",
+        "SYY": "Consumer Defensive",
+        "SHW": "Basic Materials"
+      },
+      "ticker_names": {
+        "SPCX": "Space Exploration Technologies Corp.",
+        "NVDA": "NVIDIA Corporation",
+        "WMT": "Walmart Inc.",
+        "LIN": "Linde plc",
+        "BE": "Bloom Energy Corporation",
+        "CRDO": "Credo Technology Group Holding Ltd",
+        "SYY": "Sysco Corporation",
+        "SHW": "The Sherwin-Williams Company"
+      },
+      "fact_phrases": [
+        "The 500 largest US-listed stocks moved +0.4% on Tuesday.",
+        "The 500 largest US-listed stocks' move on Tuesday: +0.4%.",
+        "On Tuesday, the 500 largest US-listed stocks moved +0.4%.",
+        "Industrials moved +1.6% on Tuesday.",
+        "On Tuesday, Industrials moved +1.6%.",
+        "Industrials rose 1.6% on Tuesday.",
+        "Industrials stocks rose 1.6% on Tuesday.",
+        "On Tuesday, Industrials rose 1.6%.",
+        "Tech moved +1.3% on Tuesday.",
+        "On Tuesday, Tech moved +1.3%.",
+        "Tech rose 1.3% on Tuesday.",
+        "Tech stocks rose 1.3% on Tuesday.",
+        "On Tuesday, Tech rose 1.3%.",
+        "Consumer Defensive moved −1.9% on Tuesday.",
+        "On Tuesday, Consumer Defensive moved −1.9%.",
+        "Consumer Defensive fell 1.9% on Tuesday.",
+        "Consumer Defensive stocks fell 1.9% on Tuesday.",
+        "On Tuesday, Consumer Defensive fell 1.9%.",
+        "Materials moved −1.9% on Tuesday.",
+        "On Tuesday, Materials moved −1.9%.",
+        "Materials fell 1.9% on Tuesday.",
+        "Materials stocks fell 1.9% on Tuesday.",
+        "On Tuesday, Materials fell 1.9%.",
+        "Consumer Defensive −1.9%, Industrials +1.6% on Tuesday.",
+        "Industrials +1.6%, Consumer Defensive −1.9% on Tuesday.",
+        "On Tuesday, Consumer Defensive −1.9%, Industrials +1.6%.",
+        "Industrials and Consumer Defensive were 3.5 points apart on Tuesday.",
+        "On Tuesday, Industrials and Consumer Defensive finished 3.5 points apart.",
+        "On Tuesday, Industrials and Consumer Defensive were 3.5 points apart.",
+        "$SPCX moved +3.62% on Tuesday.",
+        "$SPCX's move on Tuesday: +3.62%.",
+        "On Tuesday, $SPCX moved +3.62%.",
+        "$SPCX (Industrials) moved +3.62% on Tuesday.",
+        "On Tuesday, $SPCX (Industrials) moved +3.62%.",
+        "$NVDA moved +2.29% on Tuesday.",
+        "$NVDA's move on Tuesday: +2.29%.",
+        "On Tuesday, $NVDA moved +2.29%.",
+        "$NVDA (Tech) moved +2.29% on Tuesday.",
+        "On Tuesday, $NVDA (Tech) moved +2.29%.",
+        "$WMT moved −2.22% on Tuesday.",
+        "$WMT's move on Tuesday: −2.22%.",
+        "On Tuesday, $WMT moved −2.22%.",
+        "$WMT (Consumer Defensive) moved −2.22% on Tuesday.",
+        "On Tuesday, $WMT (Consumer Defensive) moved −2.22%.",
+        "$LIN moved −1.57% on Tuesday.",
+        "$LIN's move on Tuesday: −1.57%.",
+        "On Tuesday, $LIN moved −1.57%.",
+        "$LIN (Materials) moved −1.57% on Tuesday.",
+        "On Tuesday, $LIN (Materials) moved −1.57%.",
+        "$BE moved +9.05% on Tuesday.",
+        "$BE's move on Tuesday: +9.05%.",
+        "On Tuesday, $BE moved +9.05%.",
+        "$BE (Industrials) moved +9.05% on Tuesday.",
+        "On Tuesday, $BE (Industrials) moved +9.05%.",
+        "$CRDO moved +7.78% on Tuesday.",
+        "$CRDO's move on Tuesday: +7.78%.",
+        "On Tuesday, $CRDO moved +7.78%.",
+        "$CRDO (Tech) moved +7.78% on Tuesday.",
+        "On Tuesday, $CRDO (Tech) moved +7.78%.",
+        "$SYY moved −9.33% on Tuesday.",
+        "$SYY's move on Tuesday: −9.33%.",
+        "On Tuesday, $SYY moved −9.33%.",
+        "$SYY (Consumer Defensive) moved −9.33% on Tuesday.",
+        "On Tuesday, $SYY (Consumer Defensive) moved −9.33%.",
+        "$SHW moved −3.26% on Tuesday.",
+        "$SHW's move on Tuesday: −3.26%.",
+        "On Tuesday, $SHW moved −3.26%.",
+        "$SHW (Materials) moved −3.26% on Tuesday.",
+        "On Tuesday, $SHW (Materials) moved −3.26%.",
+        "499 of the 500 largest US-listed stocks had a price on Tuesday, Nov 3.",
+        "On Tuesday, Nov 3, 499 of the 500 largest US-listed stocks had a price.",
+        "Of the 500 largest US-listed stocks, 499 had a price on Tuesday, Nov 3."
+      ],
+      "phrasings": [
+        {
+          "id": "sectorrota-2bcd1b.a",
+          "fact": "sectorrota-2bcd1b",
+          "variant": "a",
+          "text": "Industrials was the best sector on Tuesday (+1.6%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-2bcd1b.t",
+          "fact": "sectorrota-2bcd1b",
+          "variant": "t",
+          "text": "On Tuesday, Industrials was the best sector (+1.6%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-2bcd1b.m",
+          "fact": "sectorrota-2bcd1b",
+          "variant": "m",
+          "text": "Industrials was the best sector on Tuesday, a move of +1.6%.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-82459c.a",
+          "fact": "sectorrota-82459c",
+          "variant": "a",
+          "text": "Tech was the second-best sector on Tuesday (+1.3%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-82459c.t",
+          "fact": "sectorrota-82459c",
+          "variant": "t",
+          "text": "On Tuesday, Tech was the second-best sector (+1.3%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-82459c.m",
+          "fact": "sectorrota-82459c",
+          "variant": "m",
+          "text": "Tech was the second-best sector on Tuesday, a move of +1.3%.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-c5caf0.a",
+          "fact": "sectorrota-c5caf0",
+          "variant": "a",
+          "text": "The best sectors on Tuesday, in order: Industrials (+1.6%), Tech (+1.3%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-c5caf0.t",
+          "fact": "sectorrota-c5caf0",
+          "variant": "t",
+          "text": "On Tuesday, the best sectors, in order: Industrials (+1.6%), Tech (+1.3%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-c5caf0.l",
+          "fact": "sectorrota-c5caf0",
+          "variant": "l",
+          "text": "Industrials (+1.6%) and Tech (+1.3%) were the best sectors on Tuesday, in that order.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-81a749.a",
+          "fact": "sectorrota-81a749",
+          "variant": "a",
+          "text": "Consumer Defensive and Materials tied for the worst sector on Tuesday (−1.9% each).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-81a749.t",
+          "fact": "sectorrota-81a749",
+          "variant": "t",
+          "text": "On Tuesday, Consumer Defensive and Materials tied for the worst sector (−1.9% each).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-d485ca.a",
+          "fact": "sectorrota-d485ca",
+          "variant": "a",
+          "text": "$BE was the best Industrials stock among the 500 largest US-listed companies on Tuesday (+9.05%).",
+          "claim": true,
+          "recent_on": [
+            "x"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.t",
+          "fact": "sectorrota-d485ca",
+          "variant": "t",
+          "text": "On Tuesday, $BE was the best Industrials stock among the 500 largest US-listed companies (+9.05%).",
+          "claim": true,
+          "recent_on": [
+            "threads"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.o",
+          "fact": "sectorrota-d485ca",
+          "variant": "o",
+          "text": "The best Industrials stock among the 500 largest US-listed companies on Tuesday (+9.05%): $BE.",
+          "claim": true,
+          "recent_on": [
+            "instagram"
+          ]
+        },
+        {
+          "id": "sectorrota-8bd560.a",
+          "fact": "sectorrota-8bd560",
+          "variant": "a",
+          "text": "$BE led Industrials among the 500 largest US-listed companies on Tuesday (+9.05%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-8bd560.t",
+          "fact": "sectorrota-8bd560",
+          "variant": "t",
+          "text": "On Tuesday, $BE led Industrials among the 500 largest US-listed companies (+9.05%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-8bd560.m",
+          "fact": "sectorrota-8bd560",
+          "variant": "m",
+          "text": "$BE led Industrials among the 500 largest US-listed companies on Tuesday, a move of +9.05%.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-d485ca.a",
+          "fact": "sectorrota-d485ca",
+          "variant": "a",
+          "text": "$CRDO was the best Tech stock among the 500 largest US-listed companies on Tuesday (+7.78%).",
+          "claim": true,
+          "recent_on": [
+            "x"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.t",
+          "fact": "sectorrota-d485ca",
+          "variant": "t",
+          "text": "On Tuesday, $CRDO was the best Tech stock among the 500 largest US-listed companies (+7.78%).",
+          "claim": true,
+          "recent_on": [
+            "threads"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.o",
+          "fact": "sectorrota-d485ca",
+          "variant": "o",
+          "text": "The best Tech stock among the 500 largest US-listed companies on Tuesday (+7.78%): $CRDO.",
+          "claim": true,
+          "recent_on": [
+            "instagram"
+          ]
+        },
+        {
+          "id": "sectorrota-8bd560.a",
+          "fact": "sectorrota-8bd560",
+          "variant": "a",
+          "text": "$CRDO led Tech among the 500 largest US-listed companies on Tuesday (+7.78%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-8bd560.t",
+          "fact": "sectorrota-8bd560",
+          "variant": "t",
+          "text": "On Tuesday, $CRDO led Tech among the 500 largest US-listed companies (+7.78%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-8bd560.m",
+          "fact": "sectorrota-8bd560",
+          "variant": "m",
+          "text": "$CRDO led Tech among the 500 largest US-listed companies on Tuesday, a move of +7.78%.",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-d485ca.a",
+          "fact": "sectorrota-d485ca",
+          "variant": "a",
+          "text": "$SYY was the worst Consumer Defensive stock among the 500 largest US-listed companies on Tuesday (−9.33%).",
+          "claim": true,
+          "recent_on": [
+            "x"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.t",
+          "fact": "sectorrota-d485ca",
+          "variant": "t",
+          "text": "On Tuesday, $SYY was the worst Consumer Defensive stock among the 500 largest US-listed companies (−9.33%).",
+          "claim": true,
+          "recent_on": [
+            "threads"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.o",
+          "fact": "sectorrota-d485ca",
+          "variant": "o",
+          "text": "The worst Consumer Defensive stock among the 500 largest US-listed companies on Tuesday (−9.33%): $SYY.",
+          "claim": true,
+          "recent_on": [
+            "instagram"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.a",
+          "fact": "sectorrota-d485ca",
+          "variant": "a",
+          "text": "$SHW was the worst Materials stock among the 500 largest US-listed companies on Tuesday (−3.26%).",
+          "claim": true,
+          "recent_on": [
+            "x"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.t",
+          "fact": "sectorrota-d485ca",
+          "variant": "t",
+          "text": "On Tuesday, $SHW was the worst Materials stock among the 500 largest US-listed companies (−3.26%).",
+          "claim": true,
+          "recent_on": [
+            "threads"
+          ]
+        },
+        {
+          "id": "sectorrota-d485ca.o",
+          "fact": "sectorrota-d485ca",
+          "variant": "o",
+          "text": "The worst Materials stock among the 500 largest US-listed companies on Tuesday (−3.26%): $SHW.",
+          "claim": true,
+          "recent_on": [
+            "instagram"
+          ]
+        },
+        {
+          "id": "sectorrota-0c6b6f.a",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "a",
+          "text": "By market value, $SPCX was the biggest Industrials name moving with its sector on Tuesday (+3.62%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.h1",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "h1",
+          "text": "$SPCX was the biggest Industrials name by market value moving with its sector on Tuesday (+3.62%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.h2",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "h2",
+          "text": "On Tuesday, $SPCX was the biggest Industrials name moving with its sector, by market value (+3.62%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.a",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "a",
+          "text": "By market value, $NVDA was the biggest Tech name moving with its sector on Tuesday (+2.29%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.h1",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "h1",
+          "text": "$NVDA was the biggest Tech name by market value moving with its sector on Tuesday (+2.29%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.h2",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "h2",
+          "text": "On Tuesday, $NVDA was the biggest Tech name moving with its sector, by market value (+2.29%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.a",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "a",
+          "text": "By market value, $WMT was the biggest Consumer Defensive name moving with its sector on Tuesday (−2.22%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.h1",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "h1",
+          "text": "$WMT was the biggest Consumer Defensive name by market value moving with its sector on Tuesday (−2.22%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.h2",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "h2",
+          "text": "On Tuesday, $WMT was the biggest Consumer Defensive name moving with its sector, by market value (−2.22%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.a",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "a",
+          "text": "By market value, $LIN was the biggest Materials name moving with its sector on Tuesday (−1.57%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.h1",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "h1",
+          "text": "$LIN was the biggest Materials name by market value moving with its sector on Tuesday (−1.57%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-0c6b6f.h2",
+          "fact": "sectorrota-0c6b6f",
+          "variant": "h2",
+          "text": "On Tuesday, $LIN was the biggest Materials name moving with its sector, by market value (−1.57%).",
+          "claim": true,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-41ae24.a",
+          "fact": "sectorrota-41ae24",
+          "variant": "a",
+          "text": "The 500 largest US-listed stocks moved +0.4% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-41ae24.h1",
+          "fact": "sectorrota-41ae24",
+          "variant": "h1",
+          "text": "The 500 largest US-listed stocks' move on Tuesday: +0.4%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-41ae24.t",
+          "fact": "sectorrota-41ae24",
+          "variant": "t",
+          "text": "On Tuesday, the 500 largest US-listed stocks moved +0.4%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-66368f.a",
+          "fact": "sectorrota-66368f",
+          "variant": "a",
+          "text": "Industrials moved +1.6% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-66368f.t",
+          "fact": "sectorrota-66368f",
+          "variant": "t",
+          "text": "On Tuesday, Industrials moved +1.6%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.a",
+          "fact": "sectorrota-f3f36a",
+          "variant": "a",
+          "text": "Industrials rose 1.6% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.h1",
+          "fact": "sectorrota-f3f36a",
+          "variant": "h1",
+          "text": "Industrials stocks rose 1.6% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.t",
+          "fact": "sectorrota-f3f36a",
+          "variant": "t",
+          "text": "On Tuesday, Industrials rose 1.6%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-66368f.a",
+          "fact": "sectorrota-66368f",
+          "variant": "a",
+          "text": "Tech moved +1.3% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-66368f.t",
+          "fact": "sectorrota-66368f",
+          "variant": "t",
+          "text": "On Tuesday, Tech moved +1.3%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.a",
+          "fact": "sectorrota-f3f36a",
+          "variant": "a",
+          "text": "Tech rose 1.3% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.h1",
+          "fact": "sectorrota-f3f36a",
+          "variant": "h1",
+          "text": "Tech stocks rose 1.3% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.t",
+          "fact": "sectorrota-f3f36a",
+          "variant": "t",
+          "text": "On Tuesday, Tech rose 1.3%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-66368f.a",
+          "fact": "sectorrota-66368f",
+          "variant": "a",
+          "text": "Consumer Defensive moved −1.9% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-66368f.t",
+          "fact": "sectorrota-66368f",
+          "variant": "t",
+          "text": "On Tuesday, Consumer Defensive moved −1.9%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.a",
+          "fact": "sectorrota-f3f36a",
+          "variant": "a",
+          "text": "Consumer Defensive fell 1.9% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.h1",
+          "fact": "sectorrota-f3f36a",
+          "variant": "h1",
+          "text": "Consumer Defensive stocks fell 1.9% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.t",
+          "fact": "sectorrota-f3f36a",
+          "variant": "t",
+          "text": "On Tuesday, Consumer Defensive fell 1.9%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-66368f.a",
+          "fact": "sectorrota-66368f",
+          "variant": "a",
+          "text": "Materials moved −1.9% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-66368f.t",
+          "fact": "sectorrota-66368f",
+          "variant": "t",
+          "text": "On Tuesday, Materials moved −1.9%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.a",
+          "fact": "sectorrota-f3f36a",
+          "variant": "a",
+          "text": "Materials fell 1.9% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.h1",
+          "fact": "sectorrota-f3f36a",
+          "variant": "h1",
+          "text": "Materials stocks fell 1.9% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-f3f36a.t",
+          "fact": "sectorrota-f3f36a",
+          "variant": "t",
+          "text": "On Tuesday, Materials fell 1.9%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-53e9c4.a",
+          "fact": "sectorrota-53e9c4",
+          "variant": "a",
+          "text": "Consumer Defensive −1.9%, Industrials +1.6% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-53e9c4.h1",
+          "fact": "sectorrota-53e9c4",
+          "variant": "h1",
+          "text": "Industrials +1.6%, Consumer Defensive −1.9% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-53e9c4.t",
+          "fact": "sectorrota-53e9c4",
+          "variant": "t",
+          "text": "On Tuesday, Consumer Defensive −1.9%, Industrials +1.6%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-d9b556.a",
+          "fact": "sectorrota-d9b556",
+          "variant": "a",
+          "text": "Industrials and Consumer Defensive were 3.5 points apart on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-d9b556.h1",
+          "fact": "sectorrota-d9b556",
+          "variant": "h1",
+          "text": "On Tuesday, Industrials and Consumer Defensive finished 3.5 points apart.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-d9b556.t",
+          "fact": "sectorrota-d9b556",
+          "variant": "t",
+          "text": "On Tuesday, Industrials and Consumer Defensive were 3.5 points apart.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.a",
+          "fact": "sectorrota-061727",
+          "variant": "a",
+          "text": "$SPCX moved +3.62% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.h1",
+          "fact": "sectorrota-061727",
+          "variant": "h1",
+          "text": "$SPCX's move on Tuesday: +3.62%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.t",
+          "fact": "sectorrota-061727",
+          "variant": "t",
+          "text": "On Tuesday, $SPCX moved +3.62%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.a",
+          "fact": "sectorrota-582ce4",
+          "variant": "a",
+          "text": "$SPCX (Industrials) moved +3.62% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.t",
+          "fact": "sectorrota-582ce4",
+          "variant": "t",
+          "text": "On Tuesday, $SPCX (Industrials) moved +3.62%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.a",
+          "fact": "sectorrota-061727",
+          "variant": "a",
+          "text": "$NVDA moved +2.29% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.h1",
+          "fact": "sectorrota-061727",
+          "variant": "h1",
+          "text": "$NVDA's move on Tuesday: +2.29%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.t",
+          "fact": "sectorrota-061727",
+          "variant": "t",
+          "text": "On Tuesday, $NVDA moved +2.29%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.a",
+          "fact": "sectorrota-582ce4",
+          "variant": "a",
+          "text": "$NVDA (Tech) moved +2.29% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.t",
+          "fact": "sectorrota-582ce4",
+          "variant": "t",
+          "text": "On Tuesday, $NVDA (Tech) moved +2.29%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.a",
+          "fact": "sectorrota-061727",
+          "variant": "a",
+          "text": "$WMT moved −2.22% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.h1",
+          "fact": "sectorrota-061727",
+          "variant": "h1",
+          "text": "$WMT's move on Tuesday: −2.22%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.t",
+          "fact": "sectorrota-061727",
+          "variant": "t",
+          "text": "On Tuesday, $WMT moved −2.22%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.a",
+          "fact": "sectorrota-582ce4",
+          "variant": "a",
+          "text": "$WMT (Consumer Defensive) moved −2.22% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.t",
+          "fact": "sectorrota-582ce4",
+          "variant": "t",
+          "text": "On Tuesday, $WMT (Consumer Defensive) moved −2.22%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.a",
+          "fact": "sectorrota-061727",
+          "variant": "a",
+          "text": "$LIN moved −1.57% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.h1",
+          "fact": "sectorrota-061727",
+          "variant": "h1",
+          "text": "$LIN's move on Tuesday: −1.57%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.t",
+          "fact": "sectorrota-061727",
+          "variant": "t",
+          "text": "On Tuesday, $LIN moved −1.57%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.a",
+          "fact": "sectorrota-582ce4",
+          "variant": "a",
+          "text": "$LIN (Materials) moved −1.57% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.t",
+          "fact": "sectorrota-582ce4",
+          "variant": "t",
+          "text": "On Tuesday, $LIN (Materials) moved −1.57%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.a",
+          "fact": "sectorrota-061727",
+          "variant": "a",
+          "text": "$BE moved +9.05% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.h1",
+          "fact": "sectorrota-061727",
+          "variant": "h1",
+          "text": "$BE's move on Tuesday: +9.05%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.t",
+          "fact": "sectorrota-061727",
+          "variant": "t",
+          "text": "On Tuesday, $BE moved +9.05%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.a",
+          "fact": "sectorrota-582ce4",
+          "variant": "a",
+          "text": "$BE (Industrials) moved +9.05% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.t",
+          "fact": "sectorrota-582ce4",
+          "variant": "t",
+          "text": "On Tuesday, $BE (Industrials) moved +9.05%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.a",
+          "fact": "sectorrota-061727",
+          "variant": "a",
+          "text": "$CRDO moved +7.78% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.h1",
+          "fact": "sectorrota-061727",
+          "variant": "h1",
+          "text": "$CRDO's move on Tuesday: +7.78%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.t",
+          "fact": "sectorrota-061727",
+          "variant": "t",
+          "text": "On Tuesday, $CRDO moved +7.78%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.a",
+          "fact": "sectorrota-582ce4",
+          "variant": "a",
+          "text": "$CRDO (Tech) moved +7.78% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.t",
+          "fact": "sectorrota-582ce4",
+          "variant": "t",
+          "text": "On Tuesday, $CRDO (Tech) moved +7.78%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.a",
+          "fact": "sectorrota-061727",
+          "variant": "a",
+          "text": "$SYY moved −9.33% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.h1",
+          "fact": "sectorrota-061727",
+          "variant": "h1",
+          "text": "$SYY's move on Tuesday: −9.33%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.t",
+          "fact": "sectorrota-061727",
+          "variant": "t",
+          "text": "On Tuesday, $SYY moved −9.33%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.a",
+          "fact": "sectorrota-582ce4",
+          "variant": "a",
+          "text": "$SYY (Consumer Defensive) moved −9.33% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.t",
+          "fact": "sectorrota-582ce4",
+          "variant": "t",
+          "text": "On Tuesday, $SYY (Consumer Defensive) moved −9.33%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.a",
+          "fact": "sectorrota-061727",
+          "variant": "a",
+          "text": "$SHW moved −3.26% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.h1",
+          "fact": "sectorrota-061727",
+          "variant": "h1",
+          "text": "$SHW's move on Tuesday: −3.26%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-061727.t",
+          "fact": "sectorrota-061727",
+          "variant": "t",
+          "text": "On Tuesday, $SHW moved −3.26%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.a",
+          "fact": "sectorrota-582ce4",
+          "variant": "a",
+          "text": "$SHW (Materials) moved −3.26% on Tuesday.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-582ce4.t",
+          "fact": "sectorrota-582ce4",
+          "variant": "t",
+          "text": "On Tuesday, $SHW (Materials) moved −3.26%.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-fc3644.a",
+          "fact": "sectorrota-fc3644",
+          "variant": "a",
+          "text": "499 of the 500 largest US-listed stocks had a price on Tuesday, Nov 3.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-fc3644.h1",
+          "fact": "sectorrota-fc3644",
+          "variant": "h1",
+          "text": "On Tuesday, Nov 3, 499 of the 500 largest US-listed stocks had a price.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "sectorrota-fc3644.f",
+          "fact": "sectorrota-fc3644",
+          "variant": "f",
+          "text": "Of the 500 largest US-listed stocks, 499 had a price on Tuesday, Nov 3.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.39%": "+",
+          "0.4%": "+",
+          "1.56%": "+",
+          "1.31%": "+",
+          "1.3%": "+",
+          "1.91%": "-",
+          "1.9%": "-",
+          "1.88%": "-",
+          "3.62%": "+",
+          "3.6%": "+",
+          "2.29%": "+",
+          "2.3%": "+",
+          "2.22%": "-",
+          "2.2%": "-",
+          "1.57%": "-",
+          "9.05%": "+",
+          "9.0%": "+",
+          "7.78%": "+",
+          "7.8%": "+",
+          "9.33%": "-",
+          "9.3%": "-",
+          "3.26%": "-",
+          "3.3%": "-"
+        },
+        "subjects": {
+          "Industrials": "up",
+          "Technology": "up",
+          "Consumer Defensive": "down",
+          "Basic Materials": "down",
+          "BE": "up",
+          "CRDO": "up",
+          "SYY": "down",
+          "SHW": "down",
+          "SPCX": "up",
+          "NVDA": "up",
+          "WMT": "down",
+          "LIN": "down"
+        }
+      },
+      "subject_numbers": {
+        "#U500": [
+          [
+            "%",
+            0.4,
+            1,
+            1.0,
+            1
+          ]
+        ],
+        "Industrials": [
+          [
+            "%",
+            1.6,
+            1,
+            1.0,
+            1
+          ],
+          [
+            "%",
+            9.05,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "Technology": [
+          [
+            "%",
+            1.3,
+            1,
+            1.0,
+            1
+          ],
+          [
+            "%",
+            7.78,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "Consumer Defensive": [
+          [
+            "%",
+            1.9,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "Basic Materials": [
+          [
+            "%",
+            1.9,
+            1,
+            1.0,
+            -1
+          ]
+        ],
+        "BE": [
+          [
+            "%",
+            9.05,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "CRDO": [
+          [
+            "%",
+            7.78,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "SYY": [
+          [
+            "%",
+            9.33,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "SHW": [
+          [
+            "%",
+            3.26,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "SPCX": [
+          [
+            "%",
+            3.62,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "NVDA": [
+          [
+            "%",
+            2.29,
+            2,
+            1.0,
+            1
+          ]
+        ],
+        "WMT": [
+          [
+            "%",
+            2.22,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "LIN": [
+          [
+            "%",
+            1.57,
+            2,
+            1.0,
+            -1
+          ]
+        ]
+      },
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "rank": 11.24,
+      "rank_why": "sector_rotation 4; market-level +4; magnitude (market) +1.74; session_date 2026-11-03 (age 1) +1.5",
+      "top8": false,
+      "top8_out": "stale: a price move of the 2026-11-03 session posted on 2026-11-04: same session day only, after the close (owner 10-22) (#652)",
+      "rotation": {
+        "x": {
+          "posts": 2,
+          "used_phrasing_ids": [
+            "sectorrota-d485ca.a"
+          ],
+          "used_hook_ids": [
+            "H05",
+            "H28",
+            "H40",
+            "H71"
+          ]
+        },
+        "instagram": {
+          "posts": 1,
+          "used_phrasing_ids": [
+            "sectorrota-d485ca.o"
+          ],
+          "used_hook_ids": [
+            "H01",
+            "H23",
+            "H45"
+          ]
+        },
+        "threads": {
+          "posts": 1,
+          "used_phrasing_ids": [
+            "sectorrota-d485ca.t"
+          ],
+          "used_hook_ids": [
+            "H08",
+            "H31",
+            "H40"
+          ]
         }
       }
     },
@@ -6426,15 +9061,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -7144,15 +9776,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -7756,15 +10385,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -8210,15 +10836,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -8910,15 +11533,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -9512,15 +12132,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -10212,15 +12829,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -10930,15 +13544,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -12327,15 +14938,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -12853,15 +15461,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -13571,15 +16176,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -14273,15 +16875,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -14973,15 +17572,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -15691,15 +18287,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -16409,15 +19002,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -18169,15 +20759,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -18926,8 +21513,8 @@
         "$7.6B",
         "$436M",
         "+$436M",
-        "$436.0M",
-        "+$436.0M",
+        "$436.2M",
+        "+$436.2M",
         "$3.0B",
         "+$3.0B",
         "$3B",
@@ -18951,8 +21538,8 @@
           "numbers": [
             "$436M",
             "+$436M",
-            "$436.0M",
-            "+$436.0M",
+            "$436.2M",
+            "+$436.2M",
             "$3.0B",
             "+$3.0B",
             "$3B",
@@ -19133,7 +21720,7 @@
       "moves": {
         "numbers": {
           "$436M": "+",
-          "$436.0M": "+",
+          "$436.2M": "+",
           "$3.0B": "+",
           "$3B": "+"
         },
@@ -19723,8 +22310,8 @@
         "$3.5B",
         "$436M",
         "+$436M",
-        "$436.0M",
-        "+$436.0M",
+        "$436.2M",
+        "+$436.2M",
         "$3.0B",
         "+$3.0B",
         "$3B",
@@ -19748,8 +22335,8 @@
           "numbers": [
             "$436M",
             "+$436M",
-            "$436.0M",
-            "+$436.0M",
+            "$436.2M",
+            "+$436.2M",
             "$3.0B",
             "+$3.0B",
             "$3B",
@@ -19930,7 +22517,7 @@
       "moves": {
         "numbers": {
           "$436M": "+",
-          "$436.0M": "+",
+          "$436.2M": "+",
           "$3.0B": "+",
           "$3B": "+"
         },
@@ -20045,8 +22632,8 @@
         "$796M",
         "$436M",
         "+$436M",
-        "$436.0M",
-        "+$436.0M",
+        "$436.2M",
+        "+$436.2M",
         "$3.0B",
         "+$3.0B",
         "$3B",
@@ -20070,8 +22657,8 @@
           "numbers": [
             "$436M",
             "+$436M",
-            "$436.0M",
-            "+$436.0M",
+            "$436.2M",
+            "+$436.2M",
             "$3.0B",
             "+$3.0B",
             "$3B",
@@ -20252,7 +22839,7 @@
       "moves": {
         "numbers": {
           "$436M": "+",
-          "$436.0M": "+",
+          "$436.2M": "+",
           "$3.0B": "+",
           "$3B": "+"
         },
@@ -20691,15 +23278,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -21089,15 +23673,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -21546,15 +24127,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -21946,15 +24524,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -22346,15 +24921,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -22703,15 +25275,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -23208,15 +25777,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -23830,15 +26396,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -24452,15 +27015,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -25074,15 +27634,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -25590,15 +28147,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -26214,15 +28768,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -26836,15 +29387,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -27174,15 +29722,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -27796,15 +30341,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -28302,15 +30844,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -28924,15 +31463,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -29381,15 +31917,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -29798,15 +32331,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -30196,15 +32726,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -30622,15 +33149,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -31130,15 +33654,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -31528,15 +34049,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -32132,15 +34650,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -32530,15 +35045,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -33152,15 +35664,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -33774,15 +36283,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -34132,15 +36638,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -34530,15 +37033,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -35152,15 +37652,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -35550,15 +38047,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -35844,15 +38338,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -36466,15 +38957,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -37088,15 +39576,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -37710,15 +40195,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -37914,6 +40396,254 @@
           "posts": 0,
           "used_phrasing_ids": [],
           "used_hook_ids": []
+        }
+      }
+    },
+    {
+      "item_id": "2026-11-04-earnings-result-UWMC-ddecf1",
+      "type": "earnings_result",
+      "ticker": "UWMC",
+      "tickers": [
+        "UWMC"
+      ],
+      "name": "UWM Holdings Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1783398/000178339826000134/q32026ex-991pressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/UWMC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-04-earnings-result-UWMC-ddecf1#earnings-history",
+      "allowed_numbers": [
+        "$811M",
+        "$0.10",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-04",
+        "Nov 4, 2026",
+        "Nov 4"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "UWM Holdings Corporation (UWMC) published Q3 2026 results on 2026-11-04: Published. Revenue $811M. Adjusted Diluted EPS $0.10.",
+      "dedupe_key": "report:uwmc-2026-q3",
+      "claim_phrases": [],
+      "report_id": "uwmc-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-04",
+      "published_at": "2026-11-04T14:18:05.508314+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$811M"
+        },
+        "eps": {
+          "basis": "Adjusted Diluted EPS",
+          "reported": "$0.10"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/UWMC/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for UWMC: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-04 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "UWMC"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "UWM Holdings Corporation ($UWMC) published Q3 2026 results on Nov 4.",
+        "$UWMC (UWM Holdings Corporation) reported Q3 2026 results on Nov 4.",
+        "On Nov 4, UWM Holdings Corporation ($UWMC) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "UWM Holdings Corporation ($UWMC) published Q3 2026 results on Nov 4.",
+        "$UWMC (UWM Holdings Corporation) reported Q3 2026 results on Nov 4.",
+        "On Nov 4, UWM Holdings Corporation ($UWMC) published Q3 2026 results.",
+        "$UWMC published Q3 2026 results on Nov 4.",
+        "Q3 2026 results from $UWMC came out on Nov 4.",
+        "On Nov 4, $UWMC published Q3 2026 results.",
+        "$UWMC Q3 2026 revenue: $811M.",
+        "$UWMC reported Q3 2026 revenue of $811M.",
+        "$UWMC Q3 2026 revenue was $811M.",
+        "Q3 2026 revenue at $UWMC was $811M.",
+        "$UWMC Q3 2026 Adjusted Diluted EPS: $0.10.",
+        "$UWMC reported Q3 2026 Adjusted Diluted EPS of $0.10.",
+        "$UWMC Q3 2026 Adjusted Diluted EPS was $0.10.",
+        "Q3 2026 Adjusted Diluted EPS at $UWMC was $0.10."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "UWM Holdings Corporation ($UWMC) published Q3 2026 results on Nov 4.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$UWMC (UWM Holdings Corporation) reported Q3 2026 results on Nov 4.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 4, UWM Holdings Corporation ($UWMC) published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$UWMC published Q3 2026 results on Nov 4.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $UWMC came out on Nov 4.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 4, $UWMC published Q3 2026 results.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$UWMC Q3 2026 revenue: $811M.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$UWMC reported Q3 2026 revenue of $811M.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$UWMC Q3 2026 revenue was $811M.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $UWMC was $811M.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$UWMC Q3 2026 Adjusted Diluted EPS: $0.10.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$UWMC reported Q3 2026 Adjusted Diluted EPS of $0.10.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$UWMC Q3 2026 Adjusted Diluted EPS was $0.10.",
+          "claim": false,
+          "recent_on": []
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted Diluted EPS at $UWMC was $0.10.",
+          "claim": false,
+          "recent_on": []
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": {
+        "same_item_posted_on": [],
+        "ticker_last_posted": {},
+        "filer_last_posted": null
+      },
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": {
+        "x": {
+          "posts": 2,
+          "used_phrasing_ids": [
+            "earningsre-14d721.a"
+          ],
+          "used_hook_ids": [
+            "H09",
+            "H24",
+            "H43"
+          ]
+        },
+        "instagram": {
+          "posts": 0,
+          "used_phrasing_ids": [],
+          "used_hook_ids": []
+        },
+        "threads": {
+          "posts": 1,
+          "used_phrasing_ids": [
+            "earningsre-645f64.a",
+            "earningsre-1f3fc1.a"
+          ],
+          "used_hook_ids": [
+            "H05",
+            "H20",
+            "H42"
+          ]
         }
       }
     },
@@ -38114,15 +40844,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -38368,15 +41095,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -38621,15 +41345,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -38831,15 +41552,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -39082,15 +41800,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -39333,15 +42048,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -39584,15 +42296,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -39835,15 +42544,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -40086,15 +42792,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -40300,15 +43003,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -40553,15 +43253,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -40804,15 +43501,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -41055,15 +43749,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -41224,15 +43915,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -41437,15 +44125,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -41688,15 +44373,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -41901,15 +44583,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -42152,15 +44831,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -42365,15 +45041,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -42616,15 +45289,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -42869,15 +45539,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -43080,15 +45747,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -43333,15 +45997,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -43546,15 +46207,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -43759,15 +46417,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -43969,15 +46624,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -44220,15 +46872,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -44471,15 +47120,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -44722,15 +47368,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -44973,15 +47616,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -45224,15 +47864,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -45475,15 +48112,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -45726,15 +48360,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -45977,15 +48608,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -46228,15 +48856,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -46479,15 +49104,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -46690,15 +49312,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -46941,15 +49560,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -47192,15 +49808,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -47590,15 +50203,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -47948,15 +50558,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -48346,15 +50953,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -48968,15 +51572,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -49590,15 +52191,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -50197,15 +52795,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -50595,15 +53190,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -51199,15 +53791,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -51704,15 +54293,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -52102,15 +54688,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -52532,15 +55115,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -52989,15 +55569,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -53349,15 +55926,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -53971,15 +56545,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -54691,15 +57262,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -55089,15 +57657,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -55612,15 +58177,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -56216,15 +58778,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -56838,15 +59397,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -57559,15 +60115,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -57957,15 +60510,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -58355,15 +60905,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -58812,15 +61359,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -59434,15 +61978,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -59851,15 +62392,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -60357,15 +62895,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -60755,15 +63290,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -61155,15 +63687,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -61777,15 +64306,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -62177,15 +64703,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -62577,15 +65100,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -63037,15 +65557,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -63659,15 +66176,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -64210,15 +66724,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -64474,15 +66985,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -64725,15 +67233,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -64976,15 +67481,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -65227,15 +67729,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -65438,15 +67937,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -65689,15 +68185,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -65940,15 +68433,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -66193,15 +68683,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -66444,15 +68931,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -66695,15 +69179,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -66946,15 +69427,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -67197,15 +69675,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -67448,15 +69923,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -67701,15 +70173,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -67952,15 +70421,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -68203,15 +70669,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -68454,15 +70917,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -68707,15 +71167,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -68958,15 +71415,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -69209,15 +71663,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -69460,15 +71911,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -69629,15 +72077,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -69880,15 +72325,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -70133,15 +72575,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -70384,15 +72823,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -70635,15 +73071,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -70886,15 +73319,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -71137,15 +73567,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -71388,15 +73815,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -71641,15 +74065,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -71892,15 +74313,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -72145,15 +74563,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -72398,15 +74813,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -72649,15 +75061,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -72902,15 +75311,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -73153,15 +75559,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -73404,15 +75807,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -73655,15 +76055,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -73906,15 +76303,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -74157,515 +76551,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
-            "H05",
-            "H20",
-            "H42"
-          ]
-        }
-      }
-    },
-    {
-      "item_id": "2026-11-04-earnings-result-OTTR-6e6654",
-      "type": "earnings_result",
-      "ticker": "OTTR",
-      "tickers": [
-        "OTTR"
-      ],
-      "name": "Otter Tail Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-03",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1466593/000146659326000078/a2026q3earningsreleaseex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/OTTR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-04-earnings-result-OTTR-6e6654#earnings-history",
-      "allowed_numbers": [
-        "$321M",
-        "$1.41",
-        "$1.54",
-        "$0.14",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-02",
-        "Nov 2, 2026",
-        "Nov 2",
-        "2026-11-03",
-        "Nov 3, 2026",
-        "Nov 3"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Otter Tail Corporation (OTTR) published Q3 2026 results on 2026-11-02: EPS miss. Revenue $321M. Diluted EPS (GAAP, street basis) $1.41 vs $1.54 consensus (Missed by $0.14).",
-      "dedupe_key": "report:ottr-2026-q3",
-      "claim_phrases": [
-        "EPS came in below the $1.54 consensus.",
-        "$OTTR missed the Q3 2026 EPS consensus: $1.41 vs $1.54.",
-        "$OTTR Q3 2026 EPS: $1.41 vs $1.54 consensus (missed by $0.14).",
-        "$OTTR Q3 2026 EPS $1.41, missed by $0.14.",
-        "EPS $1.41 vs $1.54 consensus (missed by $0.14).",
-        "EPS $1.41 vs $1.54 (missed by $0.14).",
-        "$OTTR missed Q3 2026 EPS estimates by $0.14.",
-        "Diluted EPS (GAAP, street basis) came in below the $1.54 consensus.",
-        "$OTTR missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $1.41 vs $1.54.",
-        "$OTTR Q3 2026 Diluted EPS (GAAP, street basis): $1.41 vs $1.54 consensus (missed by $0.14).",
-        "$OTTR Q3 2026 Diluted EPS (GAAP, street basis) $1.41, missed by $0.14.",
-        "Diluted EPS (GAAP, street basis) $1.41 vs $1.54 consensus (missed by $0.14).",
-        "Diluted EPS (GAAP, street basis) $1.41 vs $1.54 (missed by $0.14).",
-        "$OTTR missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.14.",
-        "$OTTR missed the Q3 EPS consensus: $1.41 vs $1.54.",
-        "$OTTR Q3 EPS: $1.41 vs $1.54 consensus (missed by $0.14).",
-        "$OTTR Q3 EPS $1.41, missed by $0.14.",
-        "$OTTR missed Q3 EPS estimates by $0.14.",
-        "$OTTR missed the Q3 Diluted EPS (GAAP, street basis) consensus: $1.41 vs $1.54.",
-        "$OTTR Q3 Diluted EPS (GAAP, street basis): $1.41 vs $1.54 consensus (missed by $0.14).",
-        "$OTTR Q3 Diluted EPS (GAAP, street basis) $1.41, missed by $0.14.",
-        "$OTTR missed Q3 Diluted EPS (GAAP, street basis) estimates by $0.14.",
-        "$OTTR missed Q3 2026 estimates.",
-        "$OTTR missed Q3 estimates."
-      ],
-      "report_id": "ottr-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-02",
-      "published_at": "2026-11-03T14:20:19.232969+00:00",
-      "tile_label": "EPS miss",
-      "tile_state": "miss",
-      "results": {
-        "revenue": {
-          "reported": "$321M"
-        },
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "$1.41",
-          "consensus": "$1.54",
-          "label": "Missed by $0.14",
-          "verdict": "miss"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/OTTR/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for OTTR: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-02 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "OTTR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Otter Tail Corporation ($OTTR) published Q3 2026 results on Nov 2.",
-        "$OTTR (Otter Tail Corporation) reported Q3 2026 results on Nov 2.",
-        "On Nov 2, Otter Tail Corporation ($OTTR) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Otter Tail Corporation ($OTTR) published Q3 2026 results on Nov 2.",
-        "$OTTR (Otter Tail Corporation) reported Q3 2026 results on Nov 2.",
-        "On Nov 2, Otter Tail Corporation ($OTTR) published Q3 2026 results.",
-        "$OTTR published Q3 2026 results on Nov 2.",
-        "Q3 2026 results from $OTTR came out on Nov 2.",
-        "On Nov 2, $OTTR published Q3 2026 results.",
-        "$OTTR Q3 2026 revenue: $321M.",
-        "$OTTR reported Q3 2026 revenue of $321M.",
-        "$OTTR Q3 2026 revenue was $321M.",
-        "Q3 2026 revenue at $OTTR was $321M.",
-        "$OTTR Q3 2026 Diluted EPS (GAAP, street basis): $1.41 vs $1.54 consensus.",
-        "$OTTR reported Q3 2026 Diluted EPS (GAAP, street basis) of $1.41 vs $1.54 consensus.",
-        "$OTTR Q3 2026 Diluted EPS (GAAP, street basis) was $1.41.",
-        "Q3 2026 Diluted EPS (GAAP, street basis) at $OTTR was $1.41."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-418b63.a",
-          "fact": "earningsre-418b63",
-          "variant": "a",
-          "text": "EPS came in below the $1.54 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-3982e5.a",
-          "fact": "earningsre-3982e5",
-          "variant": "a",
-          "text": "$OTTR missed the Q3 2026 EPS consensus: $1.41 vs $1.54.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-cf8f92.a",
-          "fact": "earningsre-cf8f92",
-          "variant": "a",
-          "text": "$OTTR Q3 2026 EPS: $1.41 vs $1.54 consensus (missed by $0.14).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1ed72e.a",
-          "fact": "earningsre-1ed72e",
-          "variant": "a",
-          "text": "$OTTR Q3 2026 EPS $1.41, missed by $0.14.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-f18190.a",
-          "fact": "earningsre-f18190",
-          "variant": "a",
-          "text": "EPS $1.41 vs $1.54 consensus (missed by $0.14).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-17abfe.a",
-          "fact": "earningsre-17abfe",
-          "variant": "a",
-          "text": "EPS $1.41 vs $1.54 (missed by $0.14).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-54e1d8.a",
-          "fact": "earningsre-54e1d8",
-          "variant": "a",
-          "text": "$OTTR missed Q3 2026 EPS estimates by $0.14.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-6eb967.a",
-          "fact": "earningsre-6eb967",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) came in below the $1.54 consensus.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-e07081.a",
-          "fact": "earningsre-e07081",
-          "variant": "a",
-          "text": "$OTTR missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $1.41 vs $1.54.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-9bd402.a",
-          "fact": "earningsre-9bd402",
-          "variant": "a",
-          "text": "$OTTR Q3 2026 Diluted EPS (GAAP, street basis): $1.41 vs $1.54 consensus (missed by $0.14).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-cdde1d.a",
-          "fact": "earningsre-cdde1d",
-          "variant": "a",
-          "text": "$OTTR Q3 2026 Diluted EPS (GAAP, street basis) $1.41, missed by $0.14.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-193d52.a",
-          "fact": "earningsre-193d52",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) $1.41 vs $1.54 consensus (missed by $0.14).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-03e5ea.a",
-          "fact": "earningsre-03e5ea",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) $1.41 vs $1.54 (missed by $0.14).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-24d3f0.a",
-          "fact": "earningsre-24d3f0",
-          "variant": "a",
-          "text": "$OTTR missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.14.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-355c5f.a",
-          "fact": "earningsre-355c5f",
-          "variant": "a",
-          "text": "$OTTR missed the Q3 EPS consensus: $1.41 vs $1.54.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-83f6a0.a",
-          "fact": "earningsre-83f6a0",
-          "variant": "a",
-          "text": "$OTTR Q3 EPS: $1.41 vs $1.54 consensus (missed by $0.14).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d4f8ff.a",
-          "fact": "earningsre-d4f8ff",
-          "variant": "a",
-          "text": "$OTTR Q3 EPS $1.41, missed by $0.14.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-4ffa7a.a",
-          "fact": "earningsre-4ffa7a",
-          "variant": "a",
-          "text": "$OTTR missed Q3 EPS estimates by $0.14.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-8be676.a",
-          "fact": "earningsre-8be676",
-          "variant": "a",
-          "text": "$OTTR missed the Q3 Diluted EPS (GAAP, street basis) consensus: $1.41 vs $1.54.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d57ced.a",
-          "fact": "earningsre-d57ced",
-          "variant": "a",
-          "text": "$OTTR Q3 Diluted EPS (GAAP, street basis): $1.41 vs $1.54 consensus (missed by $0.14).",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-239353.a",
-          "fact": "earningsre-239353",
-          "variant": "a",
-          "text": "$OTTR Q3 Diluted EPS (GAAP, street basis) $1.41, missed by $0.14.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-cd2ae1.a",
-          "fact": "earningsre-cd2ae1",
-          "variant": "a",
-          "text": "$OTTR missed Q3 Diluted EPS (GAAP, street basis) estimates by $0.14.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-0bb625.a",
-          "fact": "earningsre-0bb625",
-          "variant": "a",
-          "text": "$OTTR missed Q3 2026 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-49ee3c.a",
-          "fact": "earningsre-49ee3c",
-          "variant": "a",
-          "text": "$OTTR missed Q3 estimates.",
-          "claim": true,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Otter Tail Corporation ($OTTR) published Q3 2026 results on Nov 2.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$OTTR (Otter Tail Corporation) reported Q3 2026 results on Nov 2.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 2, Otter Tail Corporation ($OTTR) published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$OTTR published Q3 2026 results on Nov 2.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $OTTR came out on Nov 2.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 2, $OTTR published Q3 2026 results.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$OTTR Q3 2026 revenue: $321M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$OTTR reported Q3 2026 revenue of $321M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$OTTR Q3 2026 revenue was $321M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $OTTR was $321M.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-5e9f86.a",
-          "fact": "earningsre-5e9f86",
-          "variant": "a",
-          "text": "$OTTR Q3 2026 Diluted EPS (GAAP, street basis): $1.41 vs $1.54 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-5e9f86.h1",
-          "fact": "earningsre-5e9f86",
-          "variant": "h1",
-          "text": "$OTTR reported Q3 2026 Diluted EPS (GAAP, street basis) of $1.41 vs $1.54 consensus.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1011ad.a",
-          "fact": "earningsre-1011ad",
-          "variant": "a",
-          "text": "$OTTR Q3 2026 Diluted EPS (GAAP, street basis) was $1.41.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "earningsre-1011ad.h1",
-          "fact": "earningsre-1011ad",
-          "variant": "h1",
-          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $OTTR was $1.41.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "OTTR": [
-          [
-            "$",
-            1.41,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.54,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.14,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "stale: the 2026-11-02 release (after the close: fresh through 2026-11-03) posted on 2026-11-04: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": {
-        "x": {
-          "posts": 2,
-          "used_phrasing_ids": [
-            "earningsre-14d721.a"
-          ],
-          "used_hook_ids": [
-            "H09",
-            "H24",
-            "H43"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 2,
-          "used_phrasing_ids": [
-            "earningsre-645f64.a",
-            "earningsre-1f3fc1.a"
-          ],
-          "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -88273,15 +90164,12 @@
           "used_hook_ids": []
         },
         "threads": {
-          "posts": 2,
+          "posts": 1,
           "used_phrasing_ids": [
             "earningsre-645f64.a",
             "earningsre-1f3fc1.a"
           ],
           "used_hook_ids": [
-            "H16",
-            "H26",
-            "H41",
             "H05",
             "H20",
             "H42"
@@ -88580,328 +90468,6 @@
           "posts": 0,
           "used_phrasing_ids": [],
           "used_hook_ids": []
-        }
-      }
-    },
-    {
-      "item_id": "2026-11-04-chart-pattern-TER-90983c",
-      "type": "chart_pattern",
-      "ticker": "TER",
-      "tickers": [
-        "TER"
-      ],
-      "name": "Teradyne, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/dashboard/TER",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/TER?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-04-chart-pattern-TER-90983c#pattern",
-      "allowed_numbers": [
-        "$308.75",
-        "$326.00",
-        "$444.17",
-        "$451.86",
-        "$261.01",
-        "Oct 22",
-        "Aug 17",
-        "Sep 3",
-        "Oct 2",
-        "Nov 2",
-        "2026-11-03",
-        "Nov 3, 2026",
-        "Nov 3",
-        "2026-08-17",
-        "Aug 17, 2026",
-        "2026-10-02",
-        "Oct 2, 2026",
-        "2026-10-22",
-        "Oct 22, 2026",
-        "2026-11-02",
-        "Nov 2, 2026",
-        "2026-09-03",
-        "Sep 3, 2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Automatic technical analysis flagged a double top on $TER (Teradyne, Inc.) (scan 2026-11-03): pattern 2026-08-17 to 2026-10-02. Confirmed Oct 22: closed $308.75, clearly below the $326.00 neckline.",
-      "dedupe_key": "pattern:TER:double_top:confirmed:2026-10-22",
-      "claim_phrases": [],
-      "scan_date": "2026-11-03",
-      "pattern": {
-        "type": "double_top",
-        "name": "Double top",
-        "status": "confirmed",
-        "direction": "down",
-        "start": "2026-08-17",
-        "end": "2026-10-02",
-        "start_text": "Aug 17, 2026",
-        "end_text": "Oct 2, 2026",
-        "confirmed_on": "2026-10-22",
-        "as_of": "2026-11-02"
-      },
-      "levels": {
-        "key_level_name": "neckline",
-        "key_level": "$326.00",
-        "breakout_close": "$308.75"
-      },
-      "page_text": {
-        "pill": "Double top · Confirmed Oct 22",
-        "chip": "Confirmed Oct 22",
-        "detail": "confirmed by the Oct 22 close of $308.75 · neckline $326.00",
-        "what": "Two peaks at about the same price, with a dip between them.",
-        "key": [
-          "Confirmed Oct 22: closed $308.75, clearly below the $326.00 neckline.",
-          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $326.00."
-        ],
-        "points": [
-          "Peak 1 $444.17 on Aug 17",
-          "Low between $326.00 on Sep 3",
-          "Peak 2 $451.86 on Oct 2",
-          "Oct 22 closed $308.75: confirmed · last close $261.01 (Nov 2)"
-        ]
-      },
-      "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
-      "banned_words": [
-        "will",
-        "going to"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/TER/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for TER: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "chart_pattern 1; large cap $40.75B +2.5; magnitude (pattern) +0.5; scan_date 2026-11-03 (age 1) +1.5; same pillar as the newest own post (PX) -1",
-      "pillar": "PX",
-      "market_cap_usd": 40750122047.45112,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-03",
-        "Nov 3, 2026",
-        "Nov 3",
-        "$40.8B",
-        "+3.20%",
-        "3.20%",
-        "+3.2%",
-        "3.2%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "TER"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "TER": "Technology"
-      },
-      "ticker_names": {
-        "TER": "Teradyne, Inc."
-      },
-      "context": {
-        "market_cap": "$40.8B",
-        "market_cap_session": "2026-11-03",
-        "last_session_move": {
-          "pct": "+3.20%",
-          "session": "2026-11-03"
-        }
-      },
-      "angles": [
-        "Automatic technical analysis flagged a double top on $TER (scan Nov 3).",
-        "A double top on $TER was flagged by automatic technical analysis (scan Nov 3).",
-        "The $TER double top pattern ran from Aug 17 to Oct 2."
-      ],
-      "fact_phrases": [
-        "Automatic technical analysis flagged a double top on $TER (scan Nov 3).",
-        "A double top on $TER was flagged by automatic technical analysis (scan Nov 3).",
-        "The $TER double top pattern ran from Aug 17 to Oct 2.",
-        "From Aug 17 to Oct 2, $TER formed the double top pattern.",
-        "$TER closed at $308.75 on Oct 22, below the $326.00 neckline.",
-        "On Oct 22, $TER closed at $308.75, below the $326.00 neckline.",
-        "$TER had a market value of $40.8B at the Nov 3 close.",
-        "$TER's market value at the Nov 3 close was $40.8B.",
-        "At the Nov 3 close, $TER had a market value of $40.8B.",
-        "$TER moved +3.20% on Tuesday, Nov 3.",
-        "$TER's move on Tuesday, Nov 3: +3.20%.",
-        "On Tuesday, Nov 3, $TER moved +3.20%."
-      ],
-      "phrasings": [
-        {
-          "id": "chartpatte-35f5b7.a",
-          "fact": "chartpatte-35f5b7",
-          "variant": "a",
-          "text": "Automatic technical analysis flagged a double top on $TER (scan Nov 3).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-35f5b7.h1",
-          "fact": "chartpatte-35f5b7",
-          "variant": "h1",
-          "text": "A double top on $TER was flagged by automatic technical analysis (scan Nov 3).",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-4b3265.a",
-          "fact": "chartpatte-4b3265",
-          "variant": "a",
-          "text": "The $TER double top pattern ran from Aug 17 to Oct 2.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-4b3265.h1",
-          "fact": "chartpatte-4b3265",
-          "variant": "h1",
-          "text": "From Aug 17 to Oct 2, $TER formed the double top pattern.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-c8953c.a",
-          "fact": "chartpatte-c8953c",
-          "variant": "a",
-          "text": "$TER closed at $308.75 on Oct 22, below the $326.00 neckline.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-c8953c.h1",
-          "fact": "chartpatte-c8953c",
-          "variant": "h1",
-          "text": "On Oct 22, $TER closed at $308.75, below the $326.00 neckline.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-426192.a",
-          "fact": "chartpatte-426192",
-          "variant": "a",
-          "text": "$TER had a market value of $40.8B at the Nov 3 close.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-426192.h1",
-          "fact": "chartpatte-426192",
-          "variant": "h1",
-          "text": "$TER's market value at the Nov 3 close was $40.8B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-426192.t",
-          "fact": "chartpatte-426192",
-          "variant": "t",
-          "text": "At the Nov 3 close, $TER had a market value of $40.8B.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-061727.a",
-          "fact": "chartpatte-061727",
-          "variant": "a",
-          "text": "$TER moved +3.20% on Tuesday, Nov 3.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-061727.h1",
-          "fact": "chartpatte-061727",
-          "variant": "h1",
-          "text": "$TER's move on Tuesday, Nov 3: +3.20%.",
-          "claim": false,
-          "recent_on": []
-        },
-        {
-          "id": "chartpatte-061727.t",
-          "fact": "chartpatte-061727",
-          "variant": "t",
-          "text": "On Tuesday, Nov 3, $TER moved +3.20%.",
-          "claim": false,
-          "recent_on": []
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "3.20%": "+",
-          "3.2%": "+"
-        },
-        "subjects": {
-          "TER": "up"
-        }
-      },
-      "subject_numbers": {
-        "TER": [
-          [
-            "%",
-            3.2,
-            2,
-            1.0,
-            1
-          ],
-          [
-            "$",
-            40.8,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": {
-        "same_item_posted_on": [],
-        "ticker_last_posted": {},
-        "filer_last_posted": null
-      },
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": {
-        "x": {
-          "posts": 4,
-          "used_phrasing_ids": [
-            "chartpatte-ffb640.a",
-            "chartpatte-a03c9e.h1",
-            "chartpatte-bfdf3b.a"
-          ],
-          "used_hook_ids": [
-            "H15",
-            "H29",
-            "H41",
-            "H08",
-            "H28",
-            "H42",
-            "H06",
-            "H27",
-            "H51"
-          ]
-        },
-        "instagram": {
-          "posts": 0,
-          "used_phrasing_ids": [],
-          "used_hook_ids": []
-        },
-        "threads": {
-          "posts": 1,
-          "used_phrasing_ids": [
-            "chartpatte-b3191c.h1",
-            "chartpatte-e4a0fa.h1"
-          ],
-          "used_hook_ids": [
-            "H15",
-            "H28",
-            "H41"
-          ]
         }
       }
     },
