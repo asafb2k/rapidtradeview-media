@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T19:30:01Z",
-  "as_of": "2026-11-06T19:30:01Z",
+  "generated_at": "2026-11-06T20:30:01Z",
+  "as_of": "2026-11-06T20:30:01Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -938,9 +938,9 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3237,
-      "recent_ready": 853,
-      "outside_24h": 662,
+      "archive_reports": 3242,
+      "recent_ready": 857,
+      "outside_24h": 667,
       "unreadable": 0,
       "not_compared": 12,
       "not_compared_metrics": [
@@ -950,14 +950,14 @@
         "WULF: revenue (basis_mismatch)",
         "BILL: revenue (basis_mismatch)",
         "BLNK: revenue (basis_mismatch)",
+        "DVN: revenue (sec_disagrees)",
         "EOG: revenue (basis_mismatch)",
         "MC: revenue (basis_mismatch)",
         "MP: revenue (basis_mismatch)",
         "QSI: revenue (basis_mismatch)",
-        "STEP: revenue (basis_mismatch)",
-        "WBX: revenue (unverified)"
+        "STEP: revenue (basis_mismatch)"
       ],
-      "consensus_mismatch_hold": 15,
+      "consensus_mismatch_hold": 14,
       "held": [
         "BIP: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "CLMT: revenue (basis_mismatch) and nothing else compared (report data to check)",
@@ -972,8 +972,7 @@
         "IONQ: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
         "QSI: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "REG: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
-        "WYNN: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
-        "WBX: revenue (unverified) and nothing else compared (report data to check)"
+        "WYNN: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)"
       ]
     },
     "earnings_upcoming": {
@@ -1003,7 +1002,7 @@
     "market": {
       "market_session": "2026-11-05",
       "priced_cap_share": 0.9986517031326824,
-      "flows_as_of": "2026-11-06T19:31:51.211171+00:00"
+      "flows_as_of": "2026-11-06T20:31:49.251828+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1012,15 +1011,15 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 368
+        "angles_dropped": 370
       },
       "top8": {
-        "stale": 26,
+        "stale": 22,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 3,
-        "ranked_below": 282,
+        "ranked_below": 286,
         "pillars": 4
       }
     },
@@ -1057,7 +1056,7 @@
       "DELL",
       "SNOW",
       "UTHR",
-      "P"
+      "CRWD"
     ]
   },
   "post_history": {
@@ -14281,9 +14280,6 @@
       "source_url": "https://www.sec.gov/Archives/edgar/data/1090012/000119312526449884/d120646dex991.htm",
       "page_url": "https://www.rapidtradeview.trade/dashboard/DVN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-DVN-a92550#earnings-history",
       "allowed_numbers": [
-        "$5.9B",
-        "$6.85B",
-        "$953M",
         "$1.42",
         "$1.31",
         "$0.11",
@@ -14297,20 +14293,9 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Devon Energy Corporation (DVN) published Q3 2026 results on 2026-11-05: Mixed vs estimates. Revenue $5.9B vs $6.85B consensus (Missed by $953M). core earnings $1.42 vs $1.31 consensus (Beat by $0.11).",
+      "facts_text": "Devon Energy Corporation (DVN) published Q3 2026 results on 2026-11-05. core earnings $1.42 vs $1.31 consensus (Beat by $0.11).",
       "dedupe_key": "report:dvn-2026-q3",
       "claim_phrases": [
-        "revenue came in below the $6.85B consensus.",
-        "$DVN missed the Q3 2026 revenue consensus: $5.9B vs $6.85B.",
-        "$DVN Q3 2026 revenue: $5.9B vs $6.85B consensus (missed by $953M).",
-        "$DVN Q3 2026 revenue $5.9B, missed by $953M.",
-        "revenue $5.9B vs $6.85B consensus (missed by $953M).",
-        "revenue $5.9B vs $6.85B (missed by $953M).",
-        "$DVN missed Q3 2026 revenue estimates by $953M.",
-        "$DVN missed the Q3 revenue consensus: $5.9B vs $6.85B.",
-        "$DVN Q3 revenue: $5.9B vs $6.85B consensus (missed by $953M).",
-        "$DVN Q3 revenue $5.9B, missed by $953M.",
-        "$DVN missed Q3 revenue estimates by $953M.",
         "EPS came in above the $1.31 consensus.",
         "$DVN beat the Q3 2026 EPS consensus: $1.42 vs $1.31.",
         "$DVN Q3 2026 EPS: $1.42 vs $1.31 consensus (beat by $0.11).",
@@ -14332,21 +14317,17 @@
         "$DVN beat the Q3 core earnings consensus: $1.42 vs $1.31.",
         "$DVN Q3 core earnings: $1.42 vs $1.31 consensus (beat by $0.11).",
         "$DVN Q3 core earnings $1.42, beat by $0.11.",
-        "$DVN beat Q3 core earnings estimates by $0.11."
+        "$DVN beat Q3 core earnings estimates by $0.11.",
+        "$DVN beat Q3 2026 estimates.",
+        "$DVN beat Q3 estimates."
       ],
       "report_id": "dvn-2026-q3",
       "fiscal_label": "Q3 2026",
       "release_date": "2026-11-05",
       "published_at": "2026-11-05T21:18:26.660497+00:00",
-      "tile_label": "Mixed vs estimates",
-      "tile_state": "neutral",
+      "tile_label": null,
+      "tile_state": null,
       "results": {
-        "revenue": {
-          "reported": "$5.9B",
-          "consensus": "$6.85B",
-          "label": "Missed by $953M",
-          "verdict": "miss"
-        },
         "eps": {
           "basis": "core earnings",
           "reported": "$1.42",
@@ -14415,10 +14396,6 @@
         "$DVN published Q3 2026 results on Nov 5.",
         "Q3 2026 results from $DVN came out on Nov 5.",
         "On Nov 5, $DVN published Q3 2026 results.",
-        "$DVN Q3 2026 revenue: $5.9B vs $6.85B consensus.",
-        "$DVN reported Q3 2026 revenue of $5.9B vs $6.85B consensus.",
-        "$DVN Q3 2026 revenue was $5.9B.",
-        "Q3 2026 revenue at $DVN was $5.9B.",
         "$DVN Q3 2026 core earnings: $1.42 vs $1.31 consensus.",
         "$DVN reported Q3 2026 core earnings of $1.42 vs $1.31 consensus.",
         "$DVN Q3 2026 core earnings was $1.42.",
@@ -14431,83 +14408,6 @@
         "On Thursday, Nov 5, $DVN moved −2.81%."
       ],
       "phrasings": [
-        {
-          "id": "earningsre-d07e43.a",
-          "fact": "earningsre-d07e43",
-          "variant": "a",
-          "text": "revenue came in below the $6.85B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-39974b.a",
-          "fact": "earningsre-39974b",
-          "variant": "a",
-          "text": "$DVN missed the Q3 2026 revenue consensus: $5.9B vs $6.85B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-832d86.a",
-          "fact": "earningsre-832d86",
-          "variant": "a",
-          "text": "$DVN Q3 2026 revenue: $5.9B vs $6.85B consensus (missed by $953M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1c6ba4.a",
-          "fact": "earningsre-1c6ba4",
-          "variant": "a",
-          "text": "$DVN Q3 2026 revenue $5.9B, missed by $953M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-96a577.a",
-          "fact": "earningsre-96a577",
-          "variant": "a",
-          "text": "revenue $5.9B vs $6.85B consensus (missed by $953M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7c4659.a",
-          "fact": "earningsre-7c4659",
-          "variant": "a",
-          "text": "revenue $5.9B vs $6.85B (missed by $953M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3da506.a",
-          "fact": "earningsre-3da506",
-          "variant": "a",
-          "text": "$DVN missed Q3 2026 revenue estimates by $953M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b5f6a9.a",
-          "fact": "earningsre-b5f6a9",
-          "variant": "a",
-          "text": "$DVN missed the Q3 revenue consensus: $5.9B vs $6.85B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f542e8.a",
-          "fact": "earningsre-f542e8",
-          "variant": "a",
-          "text": "$DVN Q3 revenue: $5.9B vs $6.85B consensus (missed by $953M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-90244e.a",
-          "fact": "earningsre-90244e",
-          "variant": "a",
-          "text": "$DVN Q3 revenue $5.9B, missed by $953M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-01ded6.a",
-          "fact": "earningsre-01ded6",
-          "variant": "a",
-          "text": "$DVN missed Q3 revenue estimates by $953M.",
-          "claim": true
-        },
         {
           "id": "earningsre-3ee1d9.a",
           "fact": "earningsre-3ee1d9",
@@ -14663,6 +14563,20 @@
           "claim": true
         },
         {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$DVN beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$DVN beat Q3 estimates.",
+          "claim": true
+        },
+        {
           "id": "earningsre-413af8.a",
           "fact": "earningsre-413af8",
           "variant": "a",
@@ -14702,34 +14616,6 @@
           "fact": "earningsre-d0ab88",
           "variant": "t",
           "text": "On Nov 5, $DVN published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$DVN Q3 2026 revenue: $5.9B vs $6.85B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$DVN reported Q3 2026 revenue of $5.9B vs $6.85B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$DVN Q3 2026 revenue was $5.9B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $DVN was $5.9B.",
           "claim": false
         },
         {
@@ -14814,27 +14700,6 @@
       },
       "subject_numbers": {
         "DVN": [
-          [
-            "$",
-            5.9,
-            1,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            6.85,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            953.0,
-            0,
-            1000000.0,
-            0
-          ],
           [
             "$",
             1.42,
@@ -16316,617 +16181,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-SRE-857121",
-      "type": "earnings_result",
-      "ticker": "SRE",
-      "tickers": [
-        "SRE"
-      ],
-      "name": "Sempra",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220826000051/ex99_1x20260930xearningsta.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/SRE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-SRE-857121#earnings-history",
-      "allowed_numbers": [
-        "$3.19B",
-        "$3.31B",
-        "$122M",
-        "$1.40",
-        "$1.21",
-        "$0.19",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Sempra (SRE) published Q3 2026 results on 2026-11-05: Mixed vs estimates. Revenue $3.19B vs $3.31B consensus (Missed by $122M). Adjusted EPS $1.40 vs $1.21 consensus (Beat by $0.19).",
-      "dedupe_key": "report:sre-2026-q3",
-      "claim_phrases": [
-        "revenue came in below the $3.31B consensus.",
-        "$SRE missed the Q3 2026 revenue consensus: $3.19B vs $3.31B.",
-        "$SRE Q3 2026 revenue: $3.19B vs $3.31B consensus (missed by $122M).",
-        "$SRE Q3 2026 revenue $3.19B, missed by $122M.",
-        "revenue $3.19B vs $3.31B consensus (missed by $122M).",
-        "revenue $3.19B vs $3.31B (missed by $122M).",
-        "$SRE missed Q3 2026 revenue estimates by $122M.",
-        "$SRE missed the Q3 revenue consensus: $3.19B vs $3.31B.",
-        "$SRE Q3 revenue: $3.19B vs $3.31B consensus (missed by $122M).",
-        "$SRE Q3 revenue $3.19B, missed by $122M.",
-        "$SRE missed Q3 revenue estimates by $122M.",
-        "EPS came in above the $1.21 consensus.",
-        "$SRE beat the Q3 2026 EPS consensus: $1.40 vs $1.21.",
-        "$SRE Q3 2026 EPS: $1.40 vs $1.21 consensus (beat by $0.19).",
-        "$SRE Q3 2026 EPS $1.40, beat by $0.19.",
-        "EPS $1.40 vs $1.21 consensus (beat by $0.19).",
-        "EPS $1.40 vs $1.21 (beat by $0.19).",
-        "$SRE beat Q3 2026 EPS estimates by $0.19.",
-        "Adjusted EPS came in above the $1.21 consensus.",
-        "$SRE beat the Q3 2026 Adjusted EPS consensus: $1.40 vs $1.21.",
-        "$SRE Q3 2026 Adjusted EPS: $1.40 vs $1.21 consensus (beat by $0.19).",
-        "$SRE Q3 2026 Adjusted EPS $1.40, beat by $0.19.",
-        "Adjusted EPS $1.40 vs $1.21 consensus (beat by $0.19).",
-        "Adjusted EPS $1.40 vs $1.21 (beat by $0.19).",
-        "$SRE beat Q3 2026 Adjusted EPS estimates by $0.19.",
-        "$SRE beat the Q3 EPS consensus: $1.40 vs $1.21.",
-        "$SRE Q3 EPS: $1.40 vs $1.21 consensus (beat by $0.19).",
-        "$SRE Q3 EPS $1.40, beat by $0.19.",
-        "$SRE beat Q3 EPS estimates by $0.19.",
-        "$SRE beat the Q3 Adjusted EPS consensus: $1.40 vs $1.21.",
-        "$SRE Q3 Adjusted EPS: $1.40 vs $1.21 consensus (beat by $0.19).",
-        "$SRE Q3 Adjusted EPS $1.40, beat by $0.19.",
-        "$SRE beat Q3 Adjusted EPS estimates by $0.19."
-      ],
-      "report_id": "sre-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T20:04:25.812723+00:00",
-      "tile_label": "Mixed vs estimates",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$3.19B",
-          "consensus": "$3.31B",
-          "label": "Missed by $122M",
-          "verdict": "miss"
-        },
-        "eps": {
-          "basis": "Adjusted EPS",
-          "reported": "$1.40",
-          "consensus": "$1.21",
-          "label": "Beat by $0.19",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/SRE/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for SRE: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 8.5,
-      "rank_why": "earnings_result 3; large cap $54.21B +2.5; magnitude (verdict) +1.5; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 54208338529.40956,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5",
-        "$54.2B",
-        "−3.70%",
-        "3.70%",
-        "−3.7%",
-        "3.7%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "SRE"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "SRE": "Utilities"
-      },
-      "ticker_names": {
-        "SRE": "Sempra"
-      },
-      "context": {
-        "market_cap": "$54.2B",
-        "market_cap_session": "2026-11-05",
-        "last_session_move": {
-          "pct": "−3.70%",
-          "session": "2026-11-05"
-        }
-      },
-      "angles": [
-        "Sempra ($SRE) published Q3 2026 results on Nov 5.",
-        "$SRE (Sempra) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Sempra ($SRE) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Sempra ($SRE) published Q3 2026 results on Nov 5.",
-        "$SRE (Sempra) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Sempra ($SRE) published Q3 2026 results.",
-        "$SRE published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $SRE came out on Nov 5.",
-        "On Nov 5, $SRE published Q3 2026 results.",
-        "$SRE Q3 2026 revenue: $3.19B vs $3.31B consensus.",
-        "$SRE reported Q3 2026 revenue of $3.19B vs $3.31B consensus.",
-        "$SRE Q3 2026 revenue was $3.19B.",
-        "Q3 2026 revenue at $SRE was $3.19B.",
-        "$SRE Q3 2026 Adjusted EPS: $1.40 vs $1.21 consensus.",
-        "$SRE reported Q3 2026 Adjusted EPS of $1.40 vs $1.21 consensus.",
-        "$SRE Q3 2026 Adjusted EPS was $1.40.",
-        "Q3 2026 Adjusted EPS at $SRE was $1.40.",
-        "$SRE had a market value of $54.2B at the Nov 5 close.",
-        "$SRE's market value at the Nov 5 close was $54.2B.",
-        "At the Nov 5 close, $SRE had a market value of $54.2B.",
-        "$SRE moved −3.70% on Thursday, Nov 5.",
-        "$SRE's move on Thursday, Nov 5: −3.70%.",
-        "On Thursday, Nov 5, $SRE moved −3.70%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-d07e43.a",
-          "fact": "earningsre-d07e43",
-          "variant": "a",
-          "text": "revenue came in below the $3.31B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-39974b.a",
-          "fact": "earningsre-39974b",
-          "variant": "a",
-          "text": "$SRE missed the Q3 2026 revenue consensus: $3.19B vs $3.31B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-832d86.a",
-          "fact": "earningsre-832d86",
-          "variant": "a",
-          "text": "$SRE Q3 2026 revenue: $3.19B vs $3.31B consensus (missed by $122M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1c6ba4.a",
-          "fact": "earningsre-1c6ba4",
-          "variant": "a",
-          "text": "$SRE Q3 2026 revenue $3.19B, missed by $122M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-96a577.a",
-          "fact": "earningsre-96a577",
-          "variant": "a",
-          "text": "revenue $3.19B vs $3.31B consensus (missed by $122M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7c4659.a",
-          "fact": "earningsre-7c4659",
-          "variant": "a",
-          "text": "revenue $3.19B vs $3.31B (missed by $122M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3da506.a",
-          "fact": "earningsre-3da506",
-          "variant": "a",
-          "text": "$SRE missed Q3 2026 revenue estimates by $122M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b5f6a9.a",
-          "fact": "earningsre-b5f6a9",
-          "variant": "a",
-          "text": "$SRE missed the Q3 revenue consensus: $3.19B vs $3.31B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f542e8.a",
-          "fact": "earningsre-f542e8",
-          "variant": "a",
-          "text": "$SRE Q3 revenue: $3.19B vs $3.31B consensus (missed by $122M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-90244e.a",
-          "fact": "earningsre-90244e",
-          "variant": "a",
-          "text": "$SRE Q3 revenue $3.19B, missed by $122M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-01ded6.a",
-          "fact": "earningsre-01ded6",
-          "variant": "a",
-          "text": "$SRE missed Q3 revenue estimates by $122M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.21 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$SRE beat the Q3 2026 EPS consensus: $1.40 vs $1.21.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$SRE Q3 2026 EPS: $1.40 vs $1.21 consensus (beat by $0.19).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$SRE Q3 2026 EPS $1.40, beat by $0.19.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.40 vs $1.21 consensus (beat by $0.19).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.40 vs $1.21 (beat by $0.19).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$SRE beat Q3 2026 EPS estimates by $0.19.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "Adjusted EPS came in above the $1.21 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$SRE beat the Q3 2026 Adjusted EPS consensus: $1.40 vs $1.21.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$SRE Q3 2026 Adjusted EPS: $1.40 vs $1.21 consensus (beat by $0.19).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$SRE Q3 2026 Adjusted EPS $1.40, beat by $0.19.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "Adjusted EPS $1.40 vs $1.21 consensus (beat by $0.19).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "Adjusted EPS $1.40 vs $1.21 (beat by $0.19).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$SRE beat Q3 2026 Adjusted EPS estimates by $0.19.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$SRE beat the Q3 EPS consensus: $1.40 vs $1.21.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$SRE Q3 EPS: $1.40 vs $1.21 consensus (beat by $0.19).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$SRE Q3 EPS $1.40, beat by $0.19.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$SRE beat Q3 EPS estimates by $0.19.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$SRE beat the Q3 Adjusted EPS consensus: $1.40 vs $1.21.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$SRE Q3 Adjusted EPS: $1.40 vs $1.21 consensus (beat by $0.19).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$SRE Q3 Adjusted EPS $1.40, beat by $0.19.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$SRE beat Q3 Adjusted EPS estimates by $0.19.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Sempra ($SRE) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$SRE (Sempra) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Sempra ($SRE) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$SRE published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $SRE came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $SRE published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$SRE Q3 2026 revenue: $3.19B vs $3.31B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$SRE reported Q3 2026 revenue of $3.19B vs $3.31B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$SRE Q3 2026 revenue was $3.19B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $SRE was $3.19B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-938394.a",
-          "fact": "earningsre-938394",
-          "variant": "a",
-          "text": "$SRE Q3 2026 Adjusted EPS: $1.40 vs $1.21 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-938394.h1",
-          "fact": "earningsre-938394",
-          "variant": "h1",
-          "text": "$SRE reported Q3 2026 Adjusted EPS of $1.40 vs $1.21 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$SRE Q3 2026 Adjusted EPS was $1.40.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted EPS at $SRE was $1.40.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$SRE had a market value of $54.2B at the Nov 5 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$SRE's market value at the Nov 5 close was $54.2B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 5 close, $SRE had a market value of $54.2B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$SRE moved −3.70% on Thursday, Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$SRE's move on Thursday, Nov 5: −3.70%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Thursday, Nov 5, $SRE moved −3.70%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "3.70%": "-",
-          "3.7%": "-"
-        },
-        "subjects": {
-          "SRE": "down"
-        }
-      },
-      "subject_numbers": {
-        "SRE": [
-          [
-            "$",
-            3.19,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            3.31,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            122.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            1.4,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.21,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.19,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            3.7,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            54.2,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-05 release posted on 2026-11-06: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
@@ -42889,6 +42143,393 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-06-earnings-result-CENX-4155dc",
+      "type": "earnings_result",
+      "ticker": "CENX",
+      "tickers": [
+        "CENX"
+      ],
+      "name": "Century Aluminum Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/949157/000162828026071024/a20260930q3ex991earningsre.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CENX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-CENX-4155dc#earnings-history",
+      "allowed_numbers": [
+        "$2.58",
+        "$2.75",
+        "$0.17",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Century Aluminum Company (CENX) published Q3 2026 results on 2026-11-05: EPS miss. Adjusted earnings per common share $2.58 vs $2.75 consensus (Missed by $0.17).",
+      "dedupe_key": "report:cenx-2026-q3",
+      "claim_phrases": [
+        "EPS came in below the $2.75 consensus.",
+        "$CENX missed the Q3 2026 EPS consensus: $2.58 vs $2.75.",
+        "$CENX Q3 2026 EPS: $2.58 vs $2.75 consensus (missed by $0.17).",
+        "$CENX Q3 2026 EPS $2.58, missed by $0.17.",
+        "EPS $2.58 vs $2.75 consensus (missed by $0.17).",
+        "EPS $2.58 vs $2.75 (missed by $0.17).",
+        "$CENX missed Q3 2026 EPS estimates by $0.17.",
+        "Adjusted earnings per common share came in below the $2.75 consensus.",
+        "$CENX missed the Q3 2026 Adjusted earnings per common share consensus: $2.58 vs $2.75.",
+        "$CENX Q3 2026 Adjusted earnings per common share: $2.58 vs $2.75 consensus (missed by $0.17).",
+        "$CENX Q3 2026 Adjusted earnings per common share $2.58, missed by $0.17.",
+        "Adjusted earnings per common share $2.58 vs $2.75 consensus (missed by $0.17).",
+        "Adjusted earnings per common share $2.58 vs $2.75 (missed by $0.17).",
+        "$CENX missed Q3 2026 Adjusted earnings per common share estimates by $0.17.",
+        "$CENX missed the Q3 EPS consensus: $2.58 vs $2.75.",
+        "$CENX Q3 EPS: $2.58 vs $2.75 consensus (missed by $0.17).",
+        "$CENX Q3 EPS $2.58, missed by $0.17.",
+        "$CENX missed Q3 EPS estimates by $0.17.",
+        "$CENX missed the Q3 Adjusted earnings per common share consensus: $2.58 vs $2.75.",
+        "$CENX Q3 Adjusted earnings per common share: $2.58 vs $2.75 consensus (missed by $0.17).",
+        "$CENX Q3 Adjusted earnings per common share $2.58, missed by $0.17.",
+        "$CENX missed Q3 Adjusted earnings per common share estimates by $0.17.",
+        "$CENX missed Q3 2026 estimates.",
+        "$CENX missed Q3 estimates."
+      ],
+      "report_id": "cenx-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-05T21:08:53.549297+00:00",
+      "tile_label": "EPS miss",
+      "tile_state": "miss",
+      "results": {
+        "eps": {
+          "basis": "Adjusted earnings per common share",
+          "reported": "$2.58",
+          "consensus": "$2.75",
+          "label": "Missed by $0.17",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CENX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CENX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CENX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Century Aluminum Company ($CENX) published Q3 2026 results on Nov 5.",
+        "$CENX (Century Aluminum Company) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Century Aluminum Company ($CENX) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Century Aluminum Company ($CENX) published Q3 2026 results on Nov 5.",
+        "$CENX (Century Aluminum Company) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Century Aluminum Company ($CENX) published Q3 2026 results.",
+        "$CENX published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $CENX came out on Nov 5.",
+        "On Nov 5, $CENX published Q3 2026 results.",
+        "$CENX Q3 2026 Adjusted earnings per common share: $2.58 vs $2.75 consensus.",
+        "$CENX reported Q3 2026 Adjusted earnings per common share of $2.58 vs $2.75 consensus.",
+        "$CENX Q3 2026 Adjusted earnings per common share was $2.58.",
+        "Q3 2026 Adjusted earnings per common share at $CENX was $2.58."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the $2.75 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3982e5.a",
+          "fact": "earningsre-3982e5",
+          "variant": "a",
+          "text": "$CENX missed the Q3 2026 EPS consensus: $2.58 vs $2.75.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cf8f92.a",
+          "fact": "earningsre-cf8f92",
+          "variant": "a",
+          "text": "$CENX Q3 2026 EPS: $2.58 vs $2.75 consensus (missed by $0.17).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1ed72e.a",
+          "fact": "earningsre-1ed72e",
+          "variant": "a",
+          "text": "$CENX Q3 2026 EPS $2.58, missed by $0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS $2.58 vs $2.75 consensus (missed by $0.17).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS $2.58 vs $2.75 (missed by $0.17).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54e1d8.a",
+          "fact": "earningsre-54e1d8",
+          "variant": "a",
+          "text": "$CENX missed Q3 2026 EPS estimates by $0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f1f5f1.a",
+          "fact": "earningsre-f1f5f1",
+          "variant": "a",
+          "text": "Adjusted earnings per common share came in below the $2.75 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-a3d360.a",
+          "fact": "earningsre-a3d360",
+          "variant": "a",
+          "text": "$CENX missed the Q3 2026 Adjusted earnings per common share consensus: $2.58 vs $2.75.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3d93db.a",
+          "fact": "earningsre-3d93db",
+          "variant": "a",
+          "text": "$CENX Q3 2026 Adjusted earnings per common share: $2.58 vs $2.75 consensus (missed by $0.17).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0f855e.a",
+          "fact": "earningsre-0f855e",
+          "variant": "a",
+          "text": "$CENX Q3 2026 Adjusted earnings per common share $2.58, missed by $0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-5b0b60.a",
+          "fact": "earningsre-5b0b60",
+          "variant": "a",
+          "text": "Adjusted earnings per common share $2.58 vs $2.75 consensus (missed by $0.17).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-259332.a",
+          "fact": "earningsre-259332",
+          "variant": "a",
+          "text": "Adjusted earnings per common share $2.58 vs $2.75 (missed by $0.17).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-aaa5b7.a",
+          "fact": "earningsre-aaa5b7",
+          "variant": "a",
+          "text": "$CENX missed Q3 2026 Adjusted earnings per common share estimates by $0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-355c5f.a",
+          "fact": "earningsre-355c5f",
+          "variant": "a",
+          "text": "$CENX missed the Q3 EPS consensus: $2.58 vs $2.75.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-83f6a0.a",
+          "fact": "earningsre-83f6a0",
+          "variant": "a",
+          "text": "$CENX Q3 EPS: $2.58 vs $2.75 consensus (missed by $0.17).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d4f8ff.a",
+          "fact": "earningsre-d4f8ff",
+          "variant": "a",
+          "text": "$CENX Q3 EPS $2.58, missed by $0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4ffa7a.a",
+          "fact": "earningsre-4ffa7a",
+          "variant": "a",
+          "text": "$CENX missed Q3 EPS estimates by $0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e31bb2.a",
+          "fact": "earningsre-e31bb2",
+          "variant": "a",
+          "text": "$CENX missed the Q3 Adjusted earnings per common share consensus: $2.58 vs $2.75.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-47a549.a",
+          "fact": "earningsre-47a549",
+          "variant": "a",
+          "text": "$CENX Q3 Adjusted earnings per common share: $2.58 vs $2.75 consensus (missed by $0.17).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c4f8ef.a",
+          "fact": "earningsre-c4f8ef",
+          "variant": "a",
+          "text": "$CENX Q3 Adjusted earnings per common share $2.58, missed by $0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8229e6.a",
+          "fact": "earningsre-8229e6",
+          "variant": "a",
+          "text": "$CENX missed Q3 Adjusted earnings per common share estimates by $0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$CENX missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$CENX missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Century Aluminum Company ($CENX) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$CENX (Century Aluminum Company) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, Century Aluminum Company ($CENX) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$CENX published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $CENX came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $CENX published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-36189b.a",
+          "fact": "earningsre-36189b",
+          "variant": "a",
+          "text": "$CENX Q3 2026 Adjusted earnings per common share: $2.58 vs $2.75 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-36189b.h1",
+          "fact": "earningsre-36189b",
+          "variant": "h1",
+          "text": "$CENX reported Q3 2026 Adjusted earnings per common share of $2.58 vs $2.75 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-08c194.a",
+          "fact": "earningsre-08c194",
+          "variant": "a",
+          "text": "$CENX Q3 2026 Adjusted earnings per common share was $2.58.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-08c194.h1",
+          "fact": "earningsre-08c194",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted earnings per common share at $CENX was $2.58.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CENX": [
+          [
+            "$",
+            2.58,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            2.75,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.17,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-06-earnings-result-COMP-e3f27c",
       "type": "earnings_result",
       "ticker": "COMP",
@@ -47340,6 +46981,1242 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-06-earnings-result-PRDO-5f8ce7",
+      "type": "earnings_result",
+      "ticker": "PRDO",
+      "tickers": [
+        "PRDO"
+      ],
+      "name": "Perdoceo Education Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046568/000119312526449720/prdo-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PRDO?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-PRDO-5f8ce7#earnings-history",
+      "allowed_numbers": [
+        "$216M",
+        "$0.77",
+        "$0.74",
+        "$0.03",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Perdoceo Education Corporation (PRDO) published Q3 2026 results on 2026-11-05: EPS beat. Revenue $216M. Adjusted earnings per diluted share $0.77 vs $0.74 consensus (Beat by $0.03).",
+      "dedupe_key": "report:prdo-2026-q3",
+      "claim_phrases": [
+        "EPS came in above the $0.74 consensus.",
+        "$PRDO beat the Q3 2026 EPS consensus: $0.77 vs $0.74.",
+        "$PRDO Q3 2026 EPS: $0.77 vs $0.74 consensus (beat by $0.03).",
+        "$PRDO Q3 2026 EPS $0.77, beat by $0.03.",
+        "EPS $0.77 vs $0.74 consensus (beat by $0.03).",
+        "EPS $0.77 vs $0.74 (beat by $0.03).",
+        "$PRDO beat Q3 2026 EPS estimates by $0.03.",
+        "Adjusted earnings per diluted share came in above the $0.74 consensus.",
+        "$PRDO beat the Q3 2026 Adjusted earnings per diluted share consensus: $0.77 vs $0.74.",
+        "$PRDO Q3 2026 Adjusted earnings per diluted share: $0.77 vs $0.74 consensus (beat by $0.03).",
+        "$PRDO Q3 2026 Adjusted earnings per diluted share $0.77, beat by $0.03.",
+        "Adjusted earnings per diluted share $0.77 vs $0.74 consensus (beat by $0.03).",
+        "Adjusted earnings per diluted share $0.77 vs $0.74 (beat by $0.03).",
+        "$PRDO beat Q3 2026 Adjusted earnings per diluted share estimates by $0.03.",
+        "$PRDO beat the Q3 EPS consensus: $0.77 vs $0.74.",
+        "$PRDO Q3 EPS: $0.77 vs $0.74 consensus (beat by $0.03).",
+        "$PRDO Q3 EPS $0.77, beat by $0.03.",
+        "$PRDO beat Q3 EPS estimates by $0.03.",
+        "$PRDO beat the Q3 Adjusted earnings per diluted share consensus: $0.77 vs $0.74.",
+        "$PRDO Q3 Adjusted earnings per diluted share: $0.77 vs $0.74 consensus (beat by $0.03).",
+        "$PRDO Q3 Adjusted earnings per diluted share $0.77, beat by $0.03.",
+        "$PRDO beat Q3 Adjusted earnings per diluted share estimates by $0.03.",
+        "$PRDO beat Q3 2026 estimates.",
+        "$PRDO beat Q3 estimates."
+      ],
+      "report_id": "prdo-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-05T21:04:47.273797+00:00",
+      "tile_label": "EPS beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$216M"
+        },
+        "eps": {
+          "basis": "Adjusted earnings per diluted share",
+          "reported": "$0.77",
+          "consensus": "$0.74",
+          "label": "Beat by $0.03",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PRDO/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for PRDO: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "PRDO"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Perdoceo Education Corporation ($PRDO) published Q3 2026 results on Nov 5.",
+        "$PRDO (Perdoceo Education Corporation) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Perdoceo Education Corporation ($PRDO) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Perdoceo Education Corporation ($PRDO) published Q3 2026 results on Nov 5.",
+        "$PRDO (Perdoceo Education Corporation) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Perdoceo Education Corporation ($PRDO) published Q3 2026 results.",
+        "$PRDO published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $PRDO came out on Nov 5.",
+        "On Nov 5, $PRDO published Q3 2026 results.",
+        "$PRDO Q3 2026 revenue: $216M.",
+        "$PRDO reported Q3 2026 revenue of $216M.",
+        "$PRDO Q3 2026 revenue was $216M.",
+        "Q3 2026 revenue at $PRDO was $216M.",
+        "$PRDO Q3 2026 Adjusted earnings per diluted share: $0.77 vs $0.74 consensus.",
+        "$PRDO reported Q3 2026 Adjusted earnings per diluted share of $0.77 vs $0.74 consensus.",
+        "$PRDO Q3 2026 Adjusted earnings per diluted share was $0.77.",
+        "Q3 2026 Adjusted earnings per diluted share at $PRDO was $0.77."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.74 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$PRDO beat the Q3 2026 EPS consensus: $0.77 vs $0.74.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$PRDO Q3 2026 EPS: $0.77 vs $0.74 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$PRDO Q3 2026 EPS $0.77, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.77 vs $0.74 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.77 vs $0.74 (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$PRDO beat Q3 2026 EPS estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3750f5.a",
+          "fact": "earningsre-3750f5",
+          "variant": "a",
+          "text": "Adjusted earnings per diluted share came in above the $0.74 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-a3c929.a",
+          "fact": "earningsre-a3c929",
+          "variant": "a",
+          "text": "$PRDO beat the Q3 2026 Adjusted earnings per diluted share consensus: $0.77 vs $0.74.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9bbbf9.a",
+          "fact": "earningsre-9bbbf9",
+          "variant": "a",
+          "text": "$PRDO Q3 2026 Adjusted earnings per diluted share: $0.77 vs $0.74 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8c5c7f.a",
+          "fact": "earningsre-8c5c7f",
+          "variant": "a",
+          "text": "$PRDO Q3 2026 Adjusted earnings per diluted share $0.77, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-994364.a",
+          "fact": "earningsre-994364",
+          "variant": "a",
+          "text": "Adjusted earnings per diluted share $0.77 vs $0.74 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d219c5.a",
+          "fact": "earningsre-d219c5",
+          "variant": "a",
+          "text": "Adjusted earnings per diluted share $0.77 vs $0.74 (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-683b6e.a",
+          "fact": "earningsre-683b6e",
+          "variant": "a",
+          "text": "$PRDO beat Q3 2026 Adjusted earnings per diluted share estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$PRDO beat the Q3 EPS consensus: $0.77 vs $0.74.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$PRDO Q3 EPS: $0.77 vs $0.74 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$PRDO Q3 EPS $0.77, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$PRDO beat Q3 EPS estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-a289a0.a",
+          "fact": "earningsre-a289a0",
+          "variant": "a",
+          "text": "$PRDO beat the Q3 Adjusted earnings per diluted share consensus: $0.77 vs $0.74.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-2af0df.a",
+          "fact": "earningsre-2af0df",
+          "variant": "a",
+          "text": "$PRDO Q3 Adjusted earnings per diluted share: $0.77 vs $0.74 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-22d364.a",
+          "fact": "earningsre-22d364",
+          "variant": "a",
+          "text": "$PRDO Q3 Adjusted earnings per diluted share $0.77, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-ee068a.a",
+          "fact": "earningsre-ee068a",
+          "variant": "a",
+          "text": "$PRDO beat Q3 Adjusted earnings per diluted share estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$PRDO beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$PRDO beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Perdoceo Education Corporation ($PRDO) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$PRDO (Perdoceo Education Corporation) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, Perdoceo Education Corporation ($PRDO) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$PRDO published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $PRDO came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $PRDO published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$PRDO Q3 2026 revenue: $216M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$PRDO reported Q3 2026 revenue of $216M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$PRDO Q3 2026 revenue was $216M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $PRDO was $216M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6a8bae.a",
+          "fact": "earningsre-6a8bae",
+          "variant": "a",
+          "text": "$PRDO Q3 2026 Adjusted earnings per diluted share: $0.77 vs $0.74 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6a8bae.h1",
+          "fact": "earningsre-6a8bae",
+          "variant": "h1",
+          "text": "$PRDO reported Q3 2026 Adjusted earnings per diluted share of $0.77 vs $0.74 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b7d023.a",
+          "fact": "earningsre-b7d023",
+          "variant": "a",
+          "text": "$PRDO Q3 2026 Adjusted earnings per diluted share was $0.77.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b7d023.h1",
+          "fact": "earningsre-b7d023",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted earnings per diluted share at $PRDO was $0.77.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "PRDO": [
+          [
+            "$",
+            0.77,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.74,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.03,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-06-earnings-result-CLDX-12c093",
+      "type": "earnings_result",
+      "ticker": "CLDX",
+      "tickers": [
+        "CLDX"
+      ],
+      "name": "Celldex Therapeutics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/744218/000117184326007174/exh_991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CLDX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-CLDX-12c093#earnings-history",
+      "allowed_numbers": [
+        "−$0.96",
+        "−$1.01",
+        "$0.05",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Celldex Therapeutics, Inc. (CLDX) published Q3 2026 results on 2026-11-05: EPS beat. Diluted EPS (GAAP, street basis) −$0.96 vs −$1.01 consensus (Beat by $0.05).",
+      "dedupe_key": "report:cldx-2026-q3",
+      "claim_phrases": [
+        "EPS came in above the −$1.01 consensus.",
+        "$CLDX beat the Q3 2026 EPS consensus: −$0.96 vs −$1.01.",
+        "$CLDX Q3 2026 EPS: −$0.96 vs −$1.01 consensus (beat by $0.05).",
+        "$CLDX Q3 2026 EPS −$0.96, beat by $0.05.",
+        "EPS −$0.96 vs −$1.01 consensus (beat by $0.05).",
+        "EPS −$0.96 vs −$1.01 (beat by $0.05).",
+        "$CLDX beat Q3 2026 EPS estimates by $0.05.",
+        "Diluted EPS (GAAP, street basis) came in above the −$1.01 consensus.",
+        "$CLDX beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$0.96 vs −$1.01.",
+        "$CLDX Q3 2026 Diluted EPS (GAAP, street basis): −$0.96 vs −$1.01 consensus (beat by $0.05).",
+        "$CLDX Q3 2026 Diluted EPS (GAAP, street basis) −$0.96, beat by $0.05.",
+        "Diluted EPS (GAAP, street basis) −$0.96 vs −$1.01 consensus (beat by $0.05).",
+        "Diluted EPS (GAAP, street basis) −$0.96 vs −$1.01 (beat by $0.05).",
+        "$CLDX beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.05.",
+        "$CLDX beat the Q3 EPS consensus: −$0.96 vs −$1.01.",
+        "$CLDX Q3 EPS: −$0.96 vs −$1.01 consensus (beat by $0.05).",
+        "$CLDX Q3 EPS −$0.96, beat by $0.05.",
+        "$CLDX beat Q3 EPS estimates by $0.05.",
+        "$CLDX beat the Q3 Diluted EPS (GAAP, street basis) consensus: −$0.96 vs −$1.01.",
+        "$CLDX Q3 Diluted EPS (GAAP, street basis): −$0.96 vs −$1.01 consensus (beat by $0.05).",
+        "$CLDX Q3 Diluted EPS (GAAP, street basis) −$0.96, beat by $0.05.",
+        "$CLDX beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.05.",
+        "$CLDX beat Q3 2026 estimates.",
+        "$CLDX beat Q3 estimates."
+      ],
+      "report_id": "cldx-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-05T21:04:39.992158+00:00",
+      "tile_label": "EPS beat",
+      "tile_state": "beat",
+      "results": {
+        "eps": {
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "−$0.96",
+          "consensus": "−$1.01",
+          "label": "Beat by $0.05",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CLDX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CLDX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CLDX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results on Nov 5.",
+        "$CLDX (Celldex Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results on Nov 5.",
+        "$CLDX (Celldex Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results.",
+        "$CLDX published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $CLDX came out on Nov 5.",
+        "On Nov 5, $CLDX published Q3 2026 results.",
+        "$CLDX Q3 2026 Diluted EPS (GAAP, street basis): −$0.96 vs −$1.01 consensus.",
+        "$CLDX reported Q3 2026 Diluted EPS (GAAP, street basis) of −$0.96 vs −$1.01 consensus.",
+        "$CLDX Q3 2026 Diluted EPS (GAAP, street basis) was −$0.96.",
+        "Q3 2026 Diluted EPS (GAAP, street basis) at $CLDX was −$0.96."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the −$1.01 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$CLDX beat the Q3 2026 EPS consensus: −$0.96 vs −$1.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$CLDX Q3 2026 EPS: −$0.96 vs −$1.01 consensus (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$CLDX Q3 2026 EPS −$0.96, beat by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS −$0.96 vs −$1.01 consensus (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS −$0.96 vs −$1.01 (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$CLDX beat Q3 2026 EPS estimates by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-12a211.a",
+          "fact": "earningsre-12a211",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in above the −$1.01 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b45d0c.a",
+          "fact": "earningsre-b45d0c",
+          "variant": "a",
+          "text": "$CLDX beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$0.96 vs −$1.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-365e1a.a",
+          "fact": "earningsre-365e1a",
+          "variant": "a",
+          "text": "$CLDX Q3 2026 Diluted EPS (GAAP, street basis): −$0.96 vs −$1.01 consensus (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4de0a3.a",
+          "fact": "earningsre-4de0a3",
+          "variant": "a",
+          "text": "$CLDX Q3 2026 Diluted EPS (GAAP, street basis) −$0.96, beat by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e854ec.a",
+          "fact": "earningsre-e854ec",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$0.96 vs −$1.01 consensus (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0f9fa0.a",
+          "fact": "earningsre-0f9fa0",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$0.96 vs −$1.01 (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54bca2.a",
+          "fact": "earningsre-54bca2",
+          "variant": "a",
+          "text": "$CLDX beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$CLDX beat the Q3 EPS consensus: −$0.96 vs −$1.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$CLDX Q3 EPS: −$0.96 vs −$1.01 consensus (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$CLDX Q3 EPS −$0.96, beat by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$CLDX beat Q3 EPS estimates by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-dc1c68.a",
+          "fact": "earningsre-dc1c68",
+          "variant": "a",
+          "text": "$CLDX beat the Q3 Diluted EPS (GAAP, street basis) consensus: −$0.96 vs −$1.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1e82b3.a",
+          "fact": "earningsre-1e82b3",
+          "variant": "a",
+          "text": "$CLDX Q3 Diluted EPS (GAAP, street basis): −$0.96 vs −$1.01 consensus (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b47e3e.a",
+          "fact": "earningsre-b47e3e",
+          "variant": "a",
+          "text": "$CLDX Q3 Diluted EPS (GAAP, street basis) −$0.96, beat by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-161196.a",
+          "fact": "earningsre-161196",
+          "variant": "a",
+          "text": "$CLDX beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$CLDX beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$CLDX beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$CLDX (Celldex Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$CLDX published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $CLDX came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $CLDX published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
+          "variant": "a",
+          "text": "$CLDX Q3 2026 Diluted EPS (GAAP, street basis): −$0.96 vs −$1.01 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
+          "variant": "h1",
+          "text": "$CLDX reported Q3 2026 Diluted EPS (GAAP, street basis) of −$0.96 vs −$1.01 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
+          "variant": "a",
+          "text": "$CLDX Q3 2026 Diluted EPS (GAAP, street basis) was −$0.96.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
+          "variant": "h1",
+          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $CLDX was −$0.96.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.96": "-",
+          "$1.01": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CLDX": [
+          [
+            "$",
+            0.96,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            1.01,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.05,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-06-earnings-result-TMDX-69d820",
+      "type": "earnings_result",
+      "ticker": "TMDX",
+      "tickers": [
+        "TMDX"
+      ],
+      "name": "TransMedics Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1756262/000119312526449729/tmdx-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TMDX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-TMDX-69d820#earnings-history",
+      "allowed_numbers": [
+        "$203M",
+        "$0.51",
+        "$0.29",
+        "$0.22",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "TransMedics Group, Inc. (TMDX) published Q3 2026 results on 2026-11-05: EPS beat. Revenue $203M. Adjusted net income* $0.51 vs $0.29 consensus (Beat by $0.22).",
+      "dedupe_key": "report:tmdx-2026-q3",
+      "claim_phrases": [
+        "EPS came in above the $0.29 consensus.",
+        "$TMDX beat the Q3 2026 EPS consensus: $0.51 vs $0.29.",
+        "$TMDX Q3 2026 EPS: $0.51 vs $0.29 consensus (beat by $0.22).",
+        "$TMDX Q3 2026 EPS $0.51, beat by $0.22.",
+        "EPS $0.51 vs $0.29 consensus (beat by $0.22).",
+        "EPS $0.51 vs $0.29 (beat by $0.22).",
+        "$TMDX beat Q3 2026 EPS estimates by $0.22.",
+        "Adjusted net income* came in above the $0.29 consensus.",
+        "$TMDX beat the Q3 2026 Adjusted net income* consensus: $0.51 vs $0.29.",
+        "$TMDX Q3 2026 Adjusted net income*: $0.51 vs $0.29 consensus (beat by $0.22).",
+        "$TMDX Q3 2026 Adjusted net income* $0.51, beat by $0.22.",
+        "Adjusted net income* $0.51 vs $0.29 consensus (beat by $0.22).",
+        "Adjusted net income* $0.51 vs $0.29 (beat by $0.22).",
+        "$TMDX beat Q3 2026 Adjusted net income* estimates by $0.22.",
+        "$TMDX beat the Q3 EPS consensus: $0.51 vs $0.29.",
+        "$TMDX Q3 EPS: $0.51 vs $0.29 consensus (beat by $0.22).",
+        "$TMDX Q3 EPS $0.51, beat by $0.22.",
+        "$TMDX beat Q3 EPS estimates by $0.22.",
+        "$TMDX beat the Q3 Adjusted net income* consensus: $0.51 vs $0.29.",
+        "$TMDX Q3 Adjusted net income*: $0.51 vs $0.29 consensus (beat by $0.22).",
+        "$TMDX Q3 Adjusted net income* $0.51, beat by $0.22.",
+        "$TMDX beat Q3 Adjusted net income* estimates by $0.22.",
+        "$TMDX beat Q3 2026 estimates.",
+        "$TMDX beat Q3 estimates."
+      ],
+      "report_id": "tmdx-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-05T21:04:37.526574+00:00",
+      "tile_label": "EPS beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$203M"
+        },
+        "eps": {
+          "basis": "Adjusted net income*",
+          "reported": "$0.51",
+          "consensus": "$0.29",
+          "label": "Beat by $0.22",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TMDX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for TMDX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "TMDX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "TransMedics Group, Inc. ($TMDX) published Q3 2026 results on Nov 5.",
+        "$TMDX (TransMedics Group, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, TransMedics Group, Inc. ($TMDX) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "TransMedics Group, Inc. ($TMDX) published Q3 2026 results on Nov 5.",
+        "$TMDX (TransMedics Group, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, TransMedics Group, Inc. ($TMDX) published Q3 2026 results.",
+        "$TMDX published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $TMDX came out on Nov 5.",
+        "On Nov 5, $TMDX published Q3 2026 results.",
+        "$TMDX Q3 2026 revenue: $203M.",
+        "$TMDX reported Q3 2026 revenue of $203M.",
+        "$TMDX Q3 2026 revenue was $203M.",
+        "Q3 2026 revenue at $TMDX was $203M.",
+        "$TMDX Q3 2026 Adjusted net income*: $0.51 vs $0.29 consensus.",
+        "$TMDX reported Q3 2026 Adjusted net income* of $0.51 vs $0.29 consensus.",
+        "$TMDX Q3 2026 Adjusted net income* was $0.51.",
+        "Q3 2026 Adjusted net income* at $TMDX was $0.51."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.29 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$TMDX beat the Q3 2026 EPS consensus: $0.51 vs $0.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$TMDX Q3 2026 EPS: $0.51 vs $0.29 consensus (beat by $0.22).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$TMDX Q3 2026 EPS $0.51, beat by $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.51 vs $0.29 consensus (beat by $0.22).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.51 vs $0.29 (beat by $0.22).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$TMDX beat Q3 2026 EPS estimates by $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-917f39.a",
+          "fact": "earningsre-917f39",
+          "variant": "a",
+          "text": "Adjusted net income* came in above the $0.29 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-348f0d.a",
+          "fact": "earningsre-348f0d",
+          "variant": "a",
+          "text": "$TMDX beat the Q3 2026 Adjusted net income* consensus: $0.51 vs $0.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fc206a.a",
+          "fact": "earningsre-fc206a",
+          "variant": "a",
+          "text": "$TMDX Q3 2026 Adjusted net income*: $0.51 vs $0.29 consensus (beat by $0.22).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-33871b.a",
+          "fact": "earningsre-33871b",
+          "variant": "a",
+          "text": "$TMDX Q3 2026 Adjusted net income* $0.51, beat by $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-72cd5f.a",
+          "fact": "earningsre-72cd5f",
+          "variant": "a",
+          "text": "Adjusted net income* $0.51 vs $0.29 consensus (beat by $0.22).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e610cf.a",
+          "fact": "earningsre-e610cf",
+          "variant": "a",
+          "text": "Adjusted net income* $0.51 vs $0.29 (beat by $0.22).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3489a3.a",
+          "fact": "earningsre-3489a3",
+          "variant": "a",
+          "text": "$TMDX beat Q3 2026 Adjusted net income* estimates by $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$TMDX beat the Q3 EPS consensus: $0.51 vs $0.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$TMDX Q3 EPS: $0.51 vs $0.29 consensus (beat by $0.22).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$TMDX Q3 EPS $0.51, beat by $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$TMDX beat Q3 EPS estimates by $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-ccdd7d.a",
+          "fact": "earningsre-ccdd7d",
+          "variant": "a",
+          "text": "$TMDX beat the Q3 Adjusted net income* consensus: $0.51 vs $0.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b8e005.a",
+          "fact": "earningsre-b8e005",
+          "variant": "a",
+          "text": "$TMDX Q3 Adjusted net income*: $0.51 vs $0.29 consensus (beat by $0.22).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-675cf9.a",
+          "fact": "earningsre-675cf9",
+          "variant": "a",
+          "text": "$TMDX Q3 Adjusted net income* $0.51, beat by $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6636d4.a",
+          "fact": "earningsre-6636d4",
+          "variant": "a",
+          "text": "$TMDX beat Q3 Adjusted net income* estimates by $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$TMDX beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$TMDX beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "TransMedics Group, Inc. ($TMDX) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$TMDX (TransMedics Group, Inc.) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, TransMedics Group, Inc. ($TMDX) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$TMDX published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $TMDX came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $TMDX published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$TMDX Q3 2026 revenue: $203M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$TMDX reported Q3 2026 revenue of $203M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$TMDX Q3 2026 revenue was $203M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $TMDX was $203M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1fc2bd.a",
+          "fact": "earningsre-1fc2bd",
+          "variant": "a",
+          "text": "$TMDX Q3 2026 Adjusted net income*: $0.51 vs $0.29 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1fc2bd.h1",
+          "fact": "earningsre-1fc2bd",
+          "variant": "h1",
+          "text": "$TMDX reported Q3 2026 Adjusted net income* of $0.51 vs $0.29 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-7f6cdc.a",
+          "fact": "earningsre-7f6cdc",
+          "variant": "a",
+          "text": "$TMDX Q3 2026 Adjusted net income* was $0.51.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-7f6cdc.h1",
+          "fact": "earningsre-7f6cdc",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted net income* at $TMDX was $0.51.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "TMDX": [
+          [
+            "$",
+            0.51,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.29,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.22,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-06-earnings-result-IBOC-1633cd",
       "type": "earnings_result",
       "ticker": "IBOC",
@@ -48312,6 +49189,814 @@
       "top8": false,
       "rotation": null,
       "top8_out": "repeat: leads with $PG like 2026-11-06-congress-trade-PG-bcfead"
+    },
+    {
+      "item_id": "2026-11-06-earnings-result-YELP-a66bba",
+      "type": "earnings_result",
+      "ticker": "YELP",
+      "tickers": [
+        "YELP"
+      ],
+      "name": "Yelp Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1345016/000134501626000072/yelpq3-26ex991pressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/YELP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-YELP-a66bba#earnings-history",
+      "allowed_numbers": [
+        "$371M",
+        "$0.63",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Yelp Inc. (YELP) published Q3 2026 results on 2026-11-05: Published. Revenue $371M. GAAP EPS $0.63.",
+      "dedupe_key": "report:yelp-2026-q3",
+      "claim_phrases": [],
+      "report_id": "yelp-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-06T20:20:30.278453+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$371M"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.63"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/YELP/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for YELP: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.5,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "YELP"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Yelp Inc. ($YELP) published Q3 2026 results on Nov 5.",
+        "$YELP (Yelp Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Yelp Inc. ($YELP) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Yelp Inc. ($YELP) published Q3 2026 results on Nov 5.",
+        "$YELP (Yelp Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Yelp Inc. ($YELP) published Q3 2026 results.",
+        "$YELP published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $YELP came out on Nov 5.",
+        "On Nov 5, $YELP published Q3 2026 results.",
+        "$YELP Q3 2026 revenue: $371M.",
+        "$YELP reported Q3 2026 revenue of $371M.",
+        "$YELP Q3 2026 revenue was $371M.",
+        "Q3 2026 revenue at $YELP was $371M.",
+        "$YELP Q3 2026 GAAP EPS: $0.63.",
+        "$YELP reported Q3 2026 GAAP EPS of $0.63.",
+        "$YELP Q3 2026 GAAP EPS was $0.63.",
+        "Q3 2026 GAAP EPS at $YELP was $0.63."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Yelp Inc. ($YELP) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$YELP (Yelp Inc.) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, Yelp Inc. ($YELP) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$YELP published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $YELP came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $YELP published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$YELP Q3 2026 revenue: $371M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$YELP reported Q3 2026 revenue of $371M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$YELP Q3 2026 revenue was $371M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $YELP was $371M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$YELP Q3 2026 GAAP EPS: $0.63.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$YELP reported Q3 2026 GAAP EPS of $0.63.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$YELP Q3 2026 GAAP EPS was $0.63.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $YELP was $0.63.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-06-earnings-result-VERA-3e6729",
+      "type": "earnings_result",
+      "ticker": "VERA",
+      "tickers": [
+        "VERA"
+      ],
+      "name": "Vera Therapeutics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1831828/000119312526449780/vera-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/VERA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-VERA-3e6729#earnings-history",
+      "allowed_numbers": [
+        "$10.3M",
+        "−$1.30",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Vera Therapeutics, Inc. (VERA) published Q3 2026 results on 2026-11-05: Published. Revenue $10.3M. GAAP EPS −$1.30.",
+      "dedupe_key": "report:vera-2026-q3",
+      "claim_phrases": [],
+      "report_id": "vera-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-06T20:20:21.320565+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$10.3M"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$1.30"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/VERA/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for VERA: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.5,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "VERA"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Vera Therapeutics, Inc. ($VERA) published Q3 2026 results on Nov 5.",
+        "$VERA (Vera Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Vera Therapeutics, Inc. ($VERA) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Vera Therapeutics, Inc. ($VERA) published Q3 2026 results on Nov 5.",
+        "$VERA (Vera Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Vera Therapeutics, Inc. ($VERA) published Q3 2026 results.",
+        "$VERA published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $VERA came out on Nov 5.",
+        "On Nov 5, $VERA published Q3 2026 results.",
+        "$VERA Q3 2026 revenue: $10.3M.",
+        "$VERA reported Q3 2026 revenue of $10.3M.",
+        "$VERA Q3 2026 revenue was $10.3M.",
+        "Q3 2026 revenue at $VERA was $10.3M.",
+        "$VERA Q3 2026 GAAP EPS: −$1.30.",
+        "$VERA reported Q3 2026 GAAP EPS of −$1.30.",
+        "$VERA Q3 2026 GAAP EPS was −$1.30.",
+        "Q3 2026 GAAP EPS at $VERA was −$1.30."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Vera Therapeutics, Inc. ($VERA) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$VERA (Vera Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, Vera Therapeutics, Inc. ($VERA) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$VERA published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $VERA came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $VERA published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$VERA Q3 2026 revenue: $10.3M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$VERA reported Q3 2026 revenue of $10.3M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$VERA Q3 2026 revenue was $10.3M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $VERA was $10.3M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$VERA Q3 2026 GAAP EPS: −$1.30.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$VERA reported Q3 2026 GAAP EPS of −$1.30.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$VERA Q3 2026 GAAP EPS was −$1.30.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $VERA was −$1.30.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$1.30": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-06-earnings-result-TNDM-a79372",
+      "type": "earnings_result",
+      "ticker": "TNDM",
+      "tickers": [
+        "TNDM"
+      ],
+      "name": "Tandem Diabetes Care, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1438133/000143813326000143/ex991-q3earningsrelease2026.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TNDM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-TNDM-a79372#earnings-history",
+      "allowed_numbers": [
+        "$284M",
+        "−$0.10",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tandem Diabetes Care, Inc. (TNDM) published Q3 2026 results on 2026-11-05: Published. Revenue $284M. GAAP EPS −$0.10.",
+      "dedupe_key": "report:tndm-2026-q3",
+      "claim_phrases": [],
+      "report_id": "tndm-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-06T20:20:16.210614+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$284M"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.10"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TNDM/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for TNDM: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.5,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "TNDM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Tandem Diabetes Care, Inc. ($TNDM) published Q3 2026 results on Nov 5.",
+        "$TNDM (Tandem Diabetes Care, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Tandem Diabetes Care, Inc. ($TNDM) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Tandem Diabetes Care, Inc. ($TNDM) published Q3 2026 results on Nov 5.",
+        "$TNDM (Tandem Diabetes Care, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Tandem Diabetes Care, Inc. ($TNDM) published Q3 2026 results.",
+        "$TNDM published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $TNDM came out on Nov 5.",
+        "On Nov 5, $TNDM published Q3 2026 results.",
+        "$TNDM Q3 2026 revenue: $284M.",
+        "$TNDM reported Q3 2026 revenue of $284M.",
+        "$TNDM Q3 2026 revenue was $284M.",
+        "Q3 2026 revenue at $TNDM was $284M.",
+        "$TNDM Q3 2026 GAAP EPS: −$0.10.",
+        "$TNDM reported Q3 2026 GAAP EPS of −$0.10.",
+        "$TNDM Q3 2026 GAAP EPS was −$0.10.",
+        "Q3 2026 GAAP EPS at $TNDM was −$0.10."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Tandem Diabetes Care, Inc. ($TNDM) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$TNDM (Tandem Diabetes Care, Inc.) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, Tandem Diabetes Care, Inc. ($TNDM) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$TNDM published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $TNDM came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $TNDM published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$TNDM Q3 2026 revenue: $284M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$TNDM reported Q3 2026 revenue of $284M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$TNDM Q3 2026 revenue was $284M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $TNDM was $284M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$TNDM Q3 2026 GAAP EPS: −$0.10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$TNDM reported Q3 2026 GAAP EPS of −$0.10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$TNDM Q3 2026 GAAP EPS was −$0.10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $TNDM was −$0.10.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.10": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-06-earnings-result-SVV-e39578",
+      "type": "earnings_result",
+      "ticker": "SVV",
+      "tickers": [
+        "SVV"
+      ],
+      "name": "Savers Value Village, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-05",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1883313/000188331326000072/pressreleaseex991_q3fy26xn.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SVV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-SVV-e39578#earnings-history",
+      "allowed_numbers": [
+        "$463M",
+        "$0.16",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Savers Value Village, Inc. (SVV) published Q3 2026 results on 2026-11-05: Published. Revenue $463M. Adjusted net income per diluted share $0.16.",
+      "dedupe_key": "report:svv-2026-q3",
+      "claim_phrases": [],
+      "report_id": "svv-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-06T20:20:01.835787+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$463M"
+        },
+        "eps": {
+          "basis": "Adjusted net income per diluted share",
+          "reported": "$0.16"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SVV/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SVV: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.5,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SVV"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Savers Value Village, Inc. ($SVV) published Q3 2026 results on Nov 5.",
+        "$SVV (Savers Value Village, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Savers Value Village, Inc. ($SVV) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Savers Value Village, Inc. ($SVV) published Q3 2026 results on Nov 5.",
+        "$SVV (Savers Value Village, Inc.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Savers Value Village, Inc. ($SVV) published Q3 2026 results.",
+        "$SVV published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $SVV came out on Nov 5.",
+        "On Nov 5, $SVV published Q3 2026 results.",
+        "$SVV Q3 2026 revenue: $463M.",
+        "$SVV reported Q3 2026 revenue of $463M.",
+        "$SVV Q3 2026 revenue was $463M.",
+        "Q3 2026 revenue at $SVV was $463M.",
+        "$SVV Q3 2026 Adjusted net income per diluted share: $0.16.",
+        "$SVV reported Q3 2026 Adjusted net income per diluted share of $0.16.",
+        "$SVV Q3 2026 Adjusted net income per diluted share was $0.16.",
+        "Q3 2026 Adjusted net income per diluted share at $SVV was $0.16."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Savers Value Village, Inc. ($SVV) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$SVV (Savers Value Village, Inc.) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, Savers Value Village, Inc. ($SVV) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$SVV published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $SVV came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $SVV published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$SVV Q3 2026 revenue: $463M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$SVV reported Q3 2026 revenue of $463M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$SVV Q3 2026 revenue was $463M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $SVV was $463M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d920ab.a",
+          "fact": "earningsre-d920ab",
+          "variant": "a",
+          "text": "$SVV Q3 2026 Adjusted net income per diluted share: $0.16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d920ab.h1",
+          "fact": "earningsre-d920ab",
+          "variant": "h1",
+          "text": "$SVV reported Q3 2026 Adjusted net income per diluted share of $0.16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8838a4.a",
+          "fact": "earningsre-8838a4",
+          "variant": "a",
+          "text": "$SVV Q3 2026 Adjusted net income per diluted share was $0.16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8838a4.h1",
+          "fact": "earningsre-8838a4",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted net income per diluted share at $SVV was $0.16.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
     },
     {
       "item_id": "2026-11-06-earnings-result-PRTA-729e41",
@@ -59863,171 +61548,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-06-earnings-result-CENX-4155dc",
-      "type": "earnings_result",
-      "ticker": "CENX",
-      "tickers": [
-        "CENX"
-      ],
-      "name": "Century Aluminum Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/949157/000162828026071024/a20260930q3ex991earningsre.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CENX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-CENX-4155dc#earnings-history",
-      "allowed_numbers": [
-        "$2.58",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Century Aluminum Company (CENX) published Q3 2026 results on 2026-11-05: Published. Adjusted earnings per common share $2.58.",
-      "dedupe_key": "report:cenx-2026-q3",
-      "claim_phrases": [],
-      "report_id": "cenx-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T21:08:53.549297+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "eps": {
-          "basis": "Adjusted earnings per common share",
-          "reported": "$2.58"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CENX/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CENX: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CENX"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Century Aluminum Company ($CENX) published Q3 2026 results on Nov 5.",
-        "$CENX (Century Aluminum Company) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Century Aluminum Company ($CENX) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Century Aluminum Company ($CENX) published Q3 2026 results on Nov 5.",
-        "$CENX (Century Aluminum Company) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Century Aluminum Company ($CENX) published Q3 2026 results.",
-        "$CENX published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $CENX came out on Nov 5.",
-        "On Nov 5, $CENX published Q3 2026 results.",
-        "$CENX Q3 2026 Adjusted earnings per common share: $2.58.",
-        "$CENX reported Q3 2026 Adjusted earnings per common share of $2.58.",
-        "$CENX Q3 2026 Adjusted earnings per common share was $2.58.",
-        "Q3 2026 Adjusted earnings per common share at $CENX was $2.58."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Century Aluminum Company ($CENX) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$CENX (Century Aluminum Company) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Century Aluminum Company ($CENX) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$CENX published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $CENX came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $CENX published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-fa5543.a",
-          "fact": "earningsre-fa5543",
-          "variant": "a",
-          "text": "$CENX Q3 2026 Adjusted earnings per common share: $2.58.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-fa5543.h1",
-          "fact": "earningsre-fa5543",
-          "variant": "h1",
-          "text": "$CENX reported Q3 2026 Adjusted earnings per common share of $2.58.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-08c194.a",
-          "fact": "earningsre-08c194",
-          "variant": "a",
-          "text": "$CENX Q3 2026 Adjusted earnings per common share was $2.58.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-08c194.h1",
-          "fact": "earningsre-08c194",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted earnings per common share at $CENX was $2.58.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-06-earnings-result-NUTX-f9a2fc",
       "type": "earnings_result",
       "ticker": "NUTX",
@@ -60757,575 +62277,6 @@
         "numbers": {
           "$0.22": "-"
         },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-PRDO-5f8ce7",
-      "type": "earnings_result",
-      "ticker": "PRDO",
-      "tickers": [
-        "PRDO"
-      ],
-      "name": "Perdoceo Education Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1046568/000119312526449720/prdo-ex99_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/PRDO?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-PRDO-5f8ce7#earnings-history",
-      "allowed_numbers": [
-        "$216M",
-        "$0.77",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Perdoceo Education Corporation (PRDO) published Q3 2026 results on 2026-11-05: Published. Revenue $216M. Adjusted earnings per diluted share $0.77.",
-      "dedupe_key": "report:prdo-2026-q3",
-      "claim_phrases": [],
-      "report_id": "prdo-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T21:04:47.273797+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$216M"
-        },
-        "eps": {
-          "basis": "Adjusted earnings per diluted share",
-          "reported": "$0.77"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/PRDO/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for PRDO: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "PRDO"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Perdoceo Education Corporation ($PRDO) published Q3 2026 results on Nov 5.",
-        "$PRDO (Perdoceo Education Corporation) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Perdoceo Education Corporation ($PRDO) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Perdoceo Education Corporation ($PRDO) published Q3 2026 results on Nov 5.",
-        "$PRDO (Perdoceo Education Corporation) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Perdoceo Education Corporation ($PRDO) published Q3 2026 results.",
-        "$PRDO published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $PRDO came out on Nov 5.",
-        "On Nov 5, $PRDO published Q3 2026 results.",
-        "$PRDO Q3 2026 revenue: $216M.",
-        "$PRDO reported Q3 2026 revenue of $216M.",
-        "$PRDO Q3 2026 revenue was $216M.",
-        "Q3 2026 revenue at $PRDO was $216M.",
-        "$PRDO Q3 2026 Adjusted earnings per diluted share: $0.77.",
-        "$PRDO reported Q3 2026 Adjusted earnings per diluted share of $0.77.",
-        "$PRDO Q3 2026 Adjusted earnings per diluted share was $0.77.",
-        "Q3 2026 Adjusted earnings per diluted share at $PRDO was $0.77."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Perdoceo Education Corporation ($PRDO) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$PRDO (Perdoceo Education Corporation) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Perdoceo Education Corporation ($PRDO) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$PRDO published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $PRDO came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $PRDO published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$PRDO Q3 2026 revenue: $216M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$PRDO reported Q3 2026 revenue of $216M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$PRDO Q3 2026 revenue was $216M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $PRDO was $216M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-202ce5.a",
-          "fact": "earningsre-202ce5",
-          "variant": "a",
-          "text": "$PRDO Q3 2026 Adjusted earnings per diluted share: $0.77.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-202ce5.h1",
-          "fact": "earningsre-202ce5",
-          "variant": "h1",
-          "text": "$PRDO reported Q3 2026 Adjusted earnings per diluted share of $0.77.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b7d023.a",
-          "fact": "earningsre-b7d023",
-          "variant": "a",
-          "text": "$PRDO Q3 2026 Adjusted earnings per diluted share was $0.77.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b7d023.h1",
-          "fact": "earningsre-b7d023",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted earnings per diluted share at $PRDO was $0.77.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-CLDX-12c093",
-      "type": "earnings_result",
-      "ticker": "CLDX",
-      "tickers": [
-        "CLDX"
-      ],
-      "name": "Celldex Therapeutics, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/744218/000117184326007174/exh_991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CLDX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-CLDX-12c093#earnings-history",
-      "allowed_numbers": [
-        "−$0.96",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Celldex Therapeutics, Inc. (CLDX) published Q3 2026 results on 2026-11-05: Published. GAAP EPS −$0.96.",
-      "dedupe_key": "report:cldx-2026-q3",
-      "claim_phrases": [],
-      "report_id": "cldx-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T21:04:39.992158+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.96"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CLDX/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CLDX: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CLDX"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results on Nov 5.",
-        "$CLDX (Celldex Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results on Nov 5.",
-        "$CLDX (Celldex Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results.",
-        "$CLDX published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $CLDX came out on Nov 5.",
-        "On Nov 5, $CLDX published Q3 2026 results.",
-        "$CLDX Q3 2026 GAAP EPS: −$0.96.",
-        "$CLDX reported Q3 2026 GAAP EPS of −$0.96.",
-        "$CLDX Q3 2026 GAAP EPS was −$0.96.",
-        "Q3 2026 GAAP EPS at $CLDX was −$0.96."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$CLDX (Celldex Therapeutics, Inc.) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Celldex Therapeutics, Inc. ($CLDX) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$CLDX published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $CLDX came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $CLDX published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$CLDX Q3 2026 GAAP EPS: −$0.96.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$CLDX reported Q3 2026 GAAP EPS of −$0.96.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$CLDX Q3 2026 GAAP EPS was −$0.96.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $CLDX was −$0.96.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.96": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-TMDX-69d820",
-      "type": "earnings_result",
-      "ticker": "TMDX",
-      "tickers": [
-        "TMDX"
-      ],
-      "name": "TransMedics Group, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1756262/000119312526449729/tmdx-ex99_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/TMDX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-TMDX-69d820#earnings-history",
-      "allowed_numbers": [
-        "$203M",
-        "$0.51",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "TransMedics Group, Inc. (TMDX) published Q3 2026 results on 2026-11-05: Published. Revenue $203M. Adjusted net income* $0.51.",
-      "dedupe_key": "report:tmdx-2026-q3",
-      "claim_phrases": [],
-      "report_id": "tmdx-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T21:04:37.526574+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$203M"
-        },
-        "eps": {
-          "basis": "Adjusted net income*",
-          "reported": "$0.51"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/TMDX/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for TMDX: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "TMDX"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "TransMedics Group, Inc. ($TMDX) published Q3 2026 results on Nov 5.",
-        "$TMDX (TransMedics Group, Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, TransMedics Group, Inc. ($TMDX) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "TransMedics Group, Inc. ($TMDX) published Q3 2026 results on Nov 5.",
-        "$TMDX (TransMedics Group, Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, TransMedics Group, Inc. ($TMDX) published Q3 2026 results.",
-        "$TMDX published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $TMDX came out on Nov 5.",
-        "On Nov 5, $TMDX published Q3 2026 results.",
-        "$TMDX Q3 2026 revenue: $203M.",
-        "$TMDX reported Q3 2026 revenue of $203M.",
-        "$TMDX Q3 2026 revenue was $203M.",
-        "Q3 2026 revenue at $TMDX was $203M.",
-        "$TMDX Q3 2026 Adjusted net income*: $0.51.",
-        "$TMDX reported Q3 2026 Adjusted net income* of $0.51.",
-        "$TMDX Q3 2026 Adjusted net income* was $0.51.",
-        "Q3 2026 Adjusted net income* at $TMDX was $0.51."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "TransMedics Group, Inc. ($TMDX) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$TMDX (TransMedics Group, Inc.) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, TransMedics Group, Inc. ($TMDX) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$TMDX published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $TMDX came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $TMDX published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$TMDX Q3 2026 revenue: $203M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$TMDX reported Q3 2026 revenue of $203M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$TMDX Q3 2026 revenue was $203M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $TMDX was $203M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e00bed.a",
-          "fact": "earningsre-e00bed",
-          "variant": "a",
-          "text": "$TMDX Q3 2026 Adjusted net income*: $0.51.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e00bed.h1",
-          "fact": "earningsre-e00bed",
-          "variant": "h1",
-          "text": "$TMDX reported Q3 2026 Adjusted net income* of $0.51.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-7f6cdc.a",
-          "fact": "earningsre-7f6cdc",
-          "variant": "a",
-          "text": "$TMDX Q3 2026 Adjusted net income* was $0.51.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-7f6cdc.h1",
-          "fact": "earningsre-7f6cdc",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted net income* at $TMDX was $0.51.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
         "subjects": {}
       },
       "subject_numbers": {},
@@ -62664,983 +63615,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "stale: the 2026-11-04 release (after the close: fresh through 2026-11-05) posted on 2026-11-06: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-WU-839f2b",
-      "type": "earnings_result",
-      "ticker": "WU",
-      "tickers": [
-        "WU"
-      ],
-      "name": "The Western Union Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-04",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1365135/000119312526447234/wu-ex99_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/WU?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-WU-839f2b#earnings-history",
-      "allowed_numbers": [
-        "$1.01B",
-        "$0.42",
-        "$0.34",
-        "$0.08",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-04",
-        "Nov 4, 2026",
-        "Nov 4"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The Western Union Company (WU) published Q3 2026 results on 2026-11-04: EPS beat. Revenue $1.01B. adjusted EPS $0.42 vs $0.34 consensus (Beat by $0.08).",
-      "dedupe_key": "report:wu-2026-q3",
-      "claim_phrases": [
-        "EPS came in above the $0.34 consensus.",
-        "$WU beat the Q3 2026 EPS consensus: $0.42 vs $0.34.",
-        "$WU Q3 2026 EPS: $0.42 vs $0.34 consensus (beat by $0.08).",
-        "$WU Q3 2026 EPS $0.42, beat by $0.08.",
-        "EPS $0.42 vs $0.34 consensus (beat by $0.08).",
-        "EPS $0.42 vs $0.34 (beat by $0.08).",
-        "$WU beat Q3 2026 EPS estimates by $0.08.",
-        "adjusted EPS came in above the $0.34 consensus.",
-        "$WU beat the Q3 2026 adjusted EPS consensus: $0.42 vs $0.34.",
-        "$WU Q3 2026 adjusted EPS: $0.42 vs $0.34 consensus (beat by $0.08).",
-        "$WU Q3 2026 adjusted EPS $0.42, beat by $0.08.",
-        "adjusted EPS $0.42 vs $0.34 consensus (beat by $0.08).",
-        "adjusted EPS $0.42 vs $0.34 (beat by $0.08).",
-        "$WU beat Q3 2026 adjusted EPS estimates by $0.08.",
-        "$WU beat the Q3 EPS consensus: $0.42 vs $0.34.",
-        "$WU Q3 EPS: $0.42 vs $0.34 consensus (beat by $0.08).",
-        "$WU Q3 EPS $0.42, beat by $0.08.",
-        "$WU beat Q3 EPS estimates by $0.08.",
-        "$WU beat the Q3 adjusted EPS consensus: $0.42 vs $0.34.",
-        "$WU Q3 adjusted EPS: $0.42 vs $0.34 consensus (beat by $0.08).",
-        "$WU Q3 adjusted EPS $0.42, beat by $0.08.",
-        "$WU beat Q3 adjusted EPS estimates by $0.08.",
-        "$WU beat Q3 2026 estimates.",
-        "$WU beat Q3 estimates."
-      ],
-      "report_id": "wu-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-04",
-      "published_at": "2026-11-05T20:20:38.005927+00:00",
-      "tile_label": "EPS beat",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$1.01B"
-        },
-        "eps": {
-          "basis": "adjusted EPS",
-          "reported": "$0.42",
-          "consensus": "$0.34",
-          "label": "Beat by $0.08",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/WU/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for WU: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-04 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "WU"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "The Western Union Company ($WU) published Q3 2026 results on Nov 4.",
-        "$WU (The Western Union Company) reported Q3 2026 results on Nov 4.",
-        "On Nov 4, the Western Union Company ($WU) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "The Western Union Company ($WU) published Q3 2026 results on Nov 4.",
-        "$WU (The Western Union Company) reported Q3 2026 results on Nov 4.",
-        "On Nov 4, the Western Union Company ($WU) published Q3 2026 results.",
-        "$WU published Q3 2026 results on Nov 4.",
-        "Q3 2026 results from $WU came out on Nov 4.",
-        "On Nov 4, $WU published Q3 2026 results.",
-        "$WU Q3 2026 revenue: $1.01B.",
-        "$WU reported Q3 2026 revenue of $1.01B.",
-        "$WU Q3 2026 revenue was $1.01B.",
-        "Q3 2026 revenue at $WU was $1.01B.",
-        "$WU Q3 2026 adjusted EPS: $0.42 vs $0.34 consensus.",
-        "$WU reported Q3 2026 adjusted EPS of $0.42 vs $0.34 consensus.",
-        "$WU Q3 2026 adjusted EPS was $0.42.",
-        "Q3 2026 adjusted EPS at $WU was $0.42."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $0.34 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$WU beat the Q3 2026 EPS consensus: $0.42 vs $0.34.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$WU Q3 2026 EPS: $0.42 vs $0.34 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$WU Q3 2026 EPS $0.42, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $0.42 vs $0.34 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $0.42 vs $0.34 (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$WU beat Q3 2026 EPS estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-53d73c.a",
-          "fact": "earningsre-53d73c",
-          "variant": "a",
-          "text": "adjusted EPS came in above the $0.34 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-749b2d.a",
-          "fact": "earningsre-749b2d",
-          "variant": "a",
-          "text": "$WU beat the Q3 2026 adjusted EPS consensus: $0.42 vs $0.34.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-eb975f.a",
-          "fact": "earningsre-eb975f",
-          "variant": "a",
-          "text": "$WU Q3 2026 adjusted EPS: $0.42 vs $0.34 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c35388.a",
-          "fact": "earningsre-c35388",
-          "variant": "a",
-          "text": "$WU Q3 2026 adjusted EPS $0.42, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-402131.a",
-          "fact": "earningsre-402131",
-          "variant": "a",
-          "text": "adjusted EPS $0.42 vs $0.34 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-529053.a",
-          "fact": "earningsre-529053",
-          "variant": "a",
-          "text": "adjusted EPS $0.42 vs $0.34 (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e8ee30.a",
-          "fact": "earningsre-e8ee30",
-          "variant": "a",
-          "text": "$WU beat Q3 2026 adjusted EPS estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$WU beat the Q3 EPS consensus: $0.42 vs $0.34.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$WU Q3 EPS: $0.42 vs $0.34 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$WU Q3 EPS $0.42, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$WU beat Q3 EPS estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e484b8.a",
-          "fact": "earningsre-e484b8",
-          "variant": "a",
-          "text": "$WU beat the Q3 adjusted EPS consensus: $0.42 vs $0.34.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d1223f.a",
-          "fact": "earningsre-d1223f",
-          "variant": "a",
-          "text": "$WU Q3 adjusted EPS: $0.42 vs $0.34 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9aeb6a.a",
-          "fact": "earningsre-9aeb6a",
-          "variant": "a",
-          "text": "$WU Q3 adjusted EPS $0.42, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8ed65e.a",
-          "fact": "earningsre-8ed65e",
-          "variant": "a",
-          "text": "$WU beat Q3 adjusted EPS estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$WU beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$WU beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b384b8.a",
-          "fact": "earningsre-b384b8",
-          "variant": "a",
-          "text": "The Western Union Company ($WU) published Q3 2026 results on Nov 4.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.h1",
-          "fact": "earningsre-b384b8",
-          "variant": "h1",
-          "text": "$WU (The Western Union Company) reported Q3 2026 results on Nov 4.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.t",
-          "fact": "earningsre-b384b8",
-          "variant": "t",
-          "text": "On Nov 4, the Western Union Company ($WU) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$WU published Q3 2026 results on Nov 4.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $WU came out on Nov 4.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 4, $WU published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$WU Q3 2026 revenue: $1.01B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$WU reported Q3 2026 revenue of $1.01B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$WU Q3 2026 revenue was $1.01B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $WU was $1.01B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ee8334.a",
-          "fact": "earningsre-ee8334",
-          "variant": "a",
-          "text": "$WU Q3 2026 adjusted EPS: $0.42 vs $0.34 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ee8334.h1",
-          "fact": "earningsre-ee8334",
-          "variant": "h1",
-          "text": "$WU reported Q3 2026 adjusted EPS of $0.42 vs $0.34 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-98eb6d.a",
-          "fact": "earningsre-98eb6d",
-          "variant": "a",
-          "text": "$WU Q3 2026 adjusted EPS was $0.42.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-98eb6d.h1",
-          "fact": "earningsre-98eb6d",
-          "variant": "h1",
-          "text": "Q3 2026 adjusted EPS at $WU was $0.42.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "WU": [
-          [
-            "$",
-            0.42,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.34,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.08,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-04 release (after the close: fresh through 2026-11-05) posted on 2026-11-06: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-VIR-033975",
-      "type": "earnings_result",
-      "ticker": "VIR",
-      "tickers": [
-        "VIR"
-      ],
-      "name": "Vir Biotechnology, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-04",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1706431/000162828026070148/a20261104-q3ex991earningsr.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/VIR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-VIR-033975#earnings-history",
-      "allowed_numbers": [
-        "−$0.57",
-        "−$0.75",
-        "$0.18",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-04",
-        "Nov 4, 2026",
-        "Nov 4"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Vir Biotechnology, Inc. (VIR) published Q3 2026 results on 2026-11-04: EPS beat. Diluted EPS (GAAP, street basis) −$0.57 vs −$0.75 consensus (Beat by $0.18).",
-      "dedupe_key": "report:vir-2026-q3",
-      "claim_phrases": [
-        "EPS came in above the −$0.75 consensus.",
-        "$VIR beat the Q3 2026 EPS consensus: −$0.57 vs −$0.75.",
-        "$VIR Q3 2026 EPS: −$0.57 vs −$0.75 consensus (beat by $0.18).",
-        "$VIR Q3 2026 EPS −$0.57, beat by $0.18.",
-        "EPS −$0.57 vs −$0.75 consensus (beat by $0.18).",
-        "EPS −$0.57 vs −$0.75 (beat by $0.18).",
-        "$VIR beat Q3 2026 EPS estimates by $0.18.",
-        "Diluted EPS (GAAP, street basis) came in above the −$0.75 consensus.",
-        "$VIR beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$0.57 vs −$0.75.",
-        "$VIR Q3 2026 Diluted EPS (GAAP, street basis): −$0.57 vs −$0.75 consensus (beat by $0.18).",
-        "$VIR Q3 2026 Diluted EPS (GAAP, street basis) −$0.57, beat by $0.18.",
-        "Diluted EPS (GAAP, street basis) −$0.57 vs −$0.75 consensus (beat by $0.18).",
-        "Diluted EPS (GAAP, street basis) −$0.57 vs −$0.75 (beat by $0.18).",
-        "$VIR beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.18.",
-        "$VIR beat the Q3 EPS consensus: −$0.57 vs −$0.75.",
-        "$VIR Q3 EPS: −$0.57 vs −$0.75 consensus (beat by $0.18).",
-        "$VIR Q3 EPS −$0.57, beat by $0.18.",
-        "$VIR beat Q3 EPS estimates by $0.18.",
-        "$VIR beat the Q3 Diluted EPS (GAAP, street basis) consensus: −$0.57 vs −$0.75.",
-        "$VIR Q3 Diluted EPS (GAAP, street basis): −$0.57 vs −$0.75 consensus (beat by $0.18).",
-        "$VIR Q3 Diluted EPS (GAAP, street basis) −$0.57, beat by $0.18.",
-        "$VIR beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.18.",
-        "$VIR beat Q3 2026 estimates.",
-        "$VIR beat Q3 estimates."
-      ],
-      "report_id": "vir-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-04",
-      "published_at": "2026-11-05T20:20:07.343373+00:00",
-      "tile_label": "EPS beat",
-      "tile_state": "beat",
-      "results": {
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "−$0.57",
-          "consensus": "−$0.75",
-          "label": "Beat by $0.18",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/VIR/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for VIR: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-04 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "VIR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Vir Biotechnology, Inc. ($VIR) published Q3 2026 results on Nov 4.",
-        "$VIR (Vir Biotechnology, Inc.) reported Q3 2026 results on Nov 4.",
-        "On Nov 4, Vir Biotechnology, Inc. ($VIR) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Vir Biotechnology, Inc. ($VIR) published Q3 2026 results on Nov 4.",
-        "$VIR (Vir Biotechnology, Inc.) reported Q3 2026 results on Nov 4.",
-        "On Nov 4, Vir Biotechnology, Inc. ($VIR) published Q3 2026 results.",
-        "$VIR published Q3 2026 results on Nov 4.",
-        "Q3 2026 results from $VIR came out on Nov 4.",
-        "On Nov 4, $VIR published Q3 2026 results.",
-        "$VIR Q3 2026 Diluted EPS (GAAP, street basis): −$0.57 vs −$0.75 consensus.",
-        "$VIR reported Q3 2026 Diluted EPS (GAAP, street basis) of −$0.57 vs −$0.75 consensus.",
-        "$VIR Q3 2026 Diluted EPS (GAAP, street basis) was −$0.57.",
-        "Q3 2026 Diluted EPS (GAAP, street basis) at $VIR was −$0.57."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the −$0.75 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$VIR beat the Q3 2026 EPS consensus: −$0.57 vs −$0.75.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$VIR Q3 2026 EPS: −$0.57 vs −$0.75 consensus (beat by $0.18).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$VIR Q3 2026 EPS −$0.57, beat by $0.18.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS −$0.57 vs −$0.75 consensus (beat by $0.18).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS −$0.57 vs −$0.75 (beat by $0.18).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$VIR beat Q3 2026 EPS estimates by $0.18.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-12a211.a",
-          "fact": "earningsre-12a211",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) came in above the −$0.75 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b45d0c.a",
-          "fact": "earningsre-b45d0c",
-          "variant": "a",
-          "text": "$VIR beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$0.57 vs −$0.75.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-365e1a.a",
-          "fact": "earningsre-365e1a",
-          "variant": "a",
-          "text": "$VIR Q3 2026 Diluted EPS (GAAP, street basis): −$0.57 vs −$0.75 consensus (beat by $0.18).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4de0a3.a",
-          "fact": "earningsre-4de0a3",
-          "variant": "a",
-          "text": "$VIR Q3 2026 Diluted EPS (GAAP, street basis) −$0.57, beat by $0.18.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e854ec.a",
-          "fact": "earningsre-e854ec",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) −$0.57 vs −$0.75 consensus (beat by $0.18).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-0f9fa0.a",
-          "fact": "earningsre-0f9fa0",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) −$0.57 vs −$0.75 (beat by $0.18).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-54bca2.a",
-          "fact": "earningsre-54bca2",
-          "variant": "a",
-          "text": "$VIR beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.18.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$VIR beat the Q3 EPS consensus: −$0.57 vs −$0.75.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$VIR Q3 EPS: −$0.57 vs −$0.75 consensus (beat by $0.18).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$VIR Q3 EPS −$0.57, beat by $0.18.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$VIR beat Q3 EPS estimates by $0.18.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-dc1c68.a",
-          "fact": "earningsre-dc1c68",
-          "variant": "a",
-          "text": "$VIR beat the Q3 Diluted EPS (GAAP, street basis) consensus: −$0.57 vs −$0.75.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1e82b3.a",
-          "fact": "earningsre-1e82b3",
-          "variant": "a",
-          "text": "$VIR Q3 Diluted EPS (GAAP, street basis): −$0.57 vs −$0.75 consensus (beat by $0.18).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b47e3e.a",
-          "fact": "earningsre-b47e3e",
-          "variant": "a",
-          "text": "$VIR Q3 Diluted EPS (GAAP, street basis) −$0.57, beat by $0.18.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-161196.a",
-          "fact": "earningsre-161196",
-          "variant": "a",
-          "text": "$VIR beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.18.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$VIR beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$VIR beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Vir Biotechnology, Inc. ($VIR) published Q3 2026 results on Nov 4.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$VIR (Vir Biotechnology, Inc.) reported Q3 2026 results on Nov 4.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 4, Vir Biotechnology, Inc. ($VIR) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$VIR published Q3 2026 results on Nov 4.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $VIR came out on Nov 4.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 4, $VIR published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-5e9f86.a",
-          "fact": "earningsre-5e9f86",
-          "variant": "a",
-          "text": "$VIR Q3 2026 Diluted EPS (GAAP, street basis): −$0.57 vs −$0.75 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-5e9f86.h1",
-          "fact": "earningsre-5e9f86",
-          "variant": "h1",
-          "text": "$VIR reported Q3 2026 Diluted EPS (GAAP, street basis) of −$0.57 vs −$0.75 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1011ad.a",
-          "fact": "earningsre-1011ad",
-          "variant": "a",
-          "text": "$VIR Q3 2026 Diluted EPS (GAAP, street basis) was −$0.57.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1011ad.h1",
-          "fact": "earningsre-1011ad",
-          "variant": "h1",
-          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $VIR was −$0.57.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.57": "-",
-          "$0.75": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "VIR": [
-          [
-            "$",
-            0.57,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            0.75,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            0.18,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-04 release (after the close: fresh through 2026-11-05) posted on 2026-11-06: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-ACB-3c11a7",
-      "type": "earnings_result",
-      "ticker": "ACB",
-      "tickers": [
-        "ACB"
-      ],
-      "name": "Aurora Cannabis Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1683541/000110465926123048/tm2629080d1_ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ACB?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-ACB-3c11a7#earnings-history",
-      "allowed_numbers": [
-        "$86.0M",
-        "Q2 2027",
-        "Q2",
-        "FY2027",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Aurora Cannabis Inc. (ACB) published Q2 2027 results on 2026-11-05: Published. Revenue $86.0M.",
-      "dedupe_key": "report:acb-2027-q2",
-      "claim_phrases": [],
-      "report_id": "acb-2027-q2",
-      "fiscal_label": "Q2 2027",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T20:16:57.306727+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$86.0M"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/ACB/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for ACB: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ACB"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Aurora Cannabis Inc. ($ACB) published Q2 2027 results on Nov 5.",
-        "$ACB (Aurora Cannabis Inc.) reported Q2 2027 results on Nov 5.",
-        "On Nov 5, Aurora Cannabis Inc. ($ACB) published Q2 2027 results."
-      ],
-      "fact_phrases": [
-        "Aurora Cannabis Inc. ($ACB) published Q2 2027 results on Nov 5.",
-        "$ACB (Aurora Cannabis Inc.) reported Q2 2027 results on Nov 5.",
-        "On Nov 5, Aurora Cannabis Inc. ($ACB) published Q2 2027 results.",
-        "$ACB published Q2 2027 results on Nov 5.",
-        "Q2 2027 results from $ACB came out on Nov 5.",
-        "On Nov 5, $ACB published Q2 2027 results.",
-        "$ACB Q2 2027 revenue: $86.0M.",
-        "$ACB reported Q2 2027 revenue of $86.0M.",
-        "$ACB Q2 2027 revenue was $86.0M.",
-        "Q2 2027 revenue at $ACB was $86.0M."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Aurora Cannabis Inc. ($ACB) published Q2 2027 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$ACB (Aurora Cannabis Inc.) reported Q2 2027 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Aurora Cannabis Inc. ($ACB) published Q2 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$ACB published Q2 2027 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q2 2027 results from $ACB came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $ACB published Q2 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$ACB Q2 2027 revenue: $86.0M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$ACB reported Q2 2027 revenue of $86.0M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$ACB Q2 2027 revenue was $86.0M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q2 2027 revenue at $ACB was $86.0M.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-05 release posted on 2026-11-06: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
