@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T17:00:01Z",
-  "as_of": "2026-11-06T17:00:01Z",
+  "generated_at": "2026-11-06T18:00:01Z",
+  "as_of": "2026-11-06T18:00:01Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 0,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 16,
@@ -1004,7 +1004,7 @@
     "market": {
       "market_session": "2026-11-05",
       "priced_cap_share": 0.9986517031326824,
-      "flows_as_of": "2026-11-06T17:01:51.086664+00:00"
+      "flows_as_of": "2026-11-06T18:01:49.417892+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1024,10 +1024,17 @@
         "ranked_below": 281,
         "pillars": 4
       }
+    },
+    "card_unpinned": {
+      "dropped": 1,
+      "reasons": [
+        "insider_flow ANET: share card not pinned (not served by Pages yet)"
+      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError"
+    "post history: FileNotFoundError",
+    "not published: insider_flow ANET: share card not pinned (not served by Pages yet)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1060,558 +1067,6 @@
   },
   "api_requests": 265,
   "items": [
-    {
-      "item_id": "2026-11-06-insider-flow-ANET-ec15ab",
-      "type": "insider_flow",
-      "ticker": "ANET",
-      "tickers": [
-        "ANET",
-        "DELL",
-        "SNOW"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ANET?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-insider-flow-ANET-ec15ab",
-      "allowed_numbers": [
-        "$454M",
-        "+$454M",
-        "$453.8M",
-        "+$453.8M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30",
-        "223",
-        "510",
-        "500",
-        "2026-10-07",
-        "Oct 7, 2026",
-        "Oct 7",
-        "2026-11-06",
-        "Nov 6, 2026",
-        "Nov 6",
-        "$162M",
-        "+$162M",
-        "$162.1M",
-        "+$162.1M",
-        "$146M",
-        "+$146M",
-        "$145.9M",
-        "+$145.9M",
-        "$145M",
-        "+$145M",
-        "$145.4M",
-        "+$145.4M",
-        "4",
-        "6",
-        "3",
-        "7.1",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 7 to Nov 6; 223 companies with buys, 510 with sells). Largest sellers among the 500 largest US-listed companies: $ANET $162M (4 insiders), $DELL $146M (6 insiders), $SNOW $145M (3 insiders).",
-      "dedupe_key": "insider_flow:2026-11-06:ANET",
-      "claim_phrases": [
-        "$ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M).",
-        "Over 30 days in our feed, $ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($162M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M): $ANET.",
-        "$DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M).",
-        "Over 30 days in our feed, $DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($146M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M): $DELL.",
-        "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M).",
-        "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($145M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M): $SNOW.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M).",
-        "$ANET ($162M) and $DELL ($146M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-        "$ANET ($162M), $DELL ($146M) and $SNOW ($145M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.1.",
-        "Officers and directors sold $7.1 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $7.1 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "ANET",
-            "DELL",
-            "SNOW"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $ANET, $DELL, $SNOW"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$454M",
-            "+$454M",
-            "$453.8M",
-            "+$453.8M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($454M bought, $3.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "ANET",
-          "DELL",
-          "SNOW"
-        ],
-        "numbers": [
-          "$3.2B",
-          "$454M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-07",
-        "to": "2026-11-06",
-        "days": 30
-      },
-      "bought_usd": 453783711.45,
-      "sold_usd": 3239468119.69,
-      "buy_companies": 223,
-      "sell_companies": 510,
-      "top_sellers_500": [
-        {
-          "ticker": "ANET",
-          "name": "Arista Networks, Inc.",
-          "sector": "Technology",
-          "total_usd": 162053136.2,
-          "insider_count": 4,
-          "roles": {
-            "officer": 3,
-            "director": 1
-          },
-          "row_count": 42,
-          "first_trade": "2026-10-06",
-          "last_trade": "2026-11-02"
-        },
-        {
-          "ticker": "DELL",
-          "name": "Dell Technologies Inc.",
-          "sector": "Technology",
-          "total_usd": 145853445.96,
-          "insider_count": 6,
-          "roles": {
-            "officer": 0,
-            "director": 6
-          },
-          "row_count": 143,
-          "first_trade": "2026-10-06",
-          "last_trade": "2026-10-22"
-        },
-        {
-          "ticker": "SNOW",
-          "name": "Snowflake Inc.",
-          "sector": "Technology",
-          "total_usd": 145365776.01,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 14,
-          "first_trade": "2026-10-07",
-          "last_trade": "2026-11-04"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $3.2B and bought $454M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $454M of open-market buys."
-      ],
-      "market_cap_usd": 225103387675.5314,
-      "magnitude": 2.2657105654739516,
-      "trigger": "$P entered the top 5",
-      "top5": [
-        "ANET",
-        "DELL",
-        "SNOW",
-        "UTHR",
-        "P"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-06/cards/market-insiders-2026-11-06-f6a0b759.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-06",
-        "fingerprint": "f6a0b759",
-        "file": "market-insiders-2026-11-06-f6a0b759.png",
-        "sha256": "da06c17da03e5236982c72dafeee4efd11cece22b96c01d8f6b5b301e91b9e35"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-06/cards/market-insiders-2026-11-06-f6a0b759.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 7 to Nov 6; 223 companies with buys, 510 with sells). Largest sellers among the 500 largest US-listed companies: $ANET $162M (4 insiders), $DELL $146M (6 insiders), $SNOW $145M (3 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "ticker_sectors": {
-        "ANET": "Technology",
-        "DELL": "Technology",
-        "SNOW": "Technology"
-      },
-      "ticker_names": {
-        "ANET": "Arista Networks, Inc.",
-        "DELL": "Dell Technologies Inc.",
-        "SNOW": "Snowflake Inc."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $454M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $454M of open-market buys and $3.2B of open-market sells.",
-        "Officers and directors sold $3.2B and bought $454M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $3.2B and bought $454M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 223 companies had open-market buys by officers and directors and 510 had open-market sells.",
-        "510 companies had open-market sells by officers and directors and 223 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $ANET sold $162M on the open market over 30 days in our feed (4 insiders).",
-        "4 insiders at $ANET sold $162M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $ANET sold $162M on the open market (4 insiders).",
-        "Officers and directors of $DELL sold $146M on the open market over 30 days in our feed (6 insiders).",
-        "6 insiders at $DELL sold $146M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $DELL sold $146M on the open market (6 insiders).",
-        "Officers and directors of $SNOW sold $145M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $SNOW sold $145M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SNOW sold $145M on the open market (3 insiders)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($162M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M): $ANET.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M): $DELL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M): $SNOW.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$ANET ($162M) and $DELL ($146M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$ANET ($162M), $DELL ($146M) and $SNOW ($145M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.1.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $7.1 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $7.1 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $454M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $454M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $3.2B and bought $454M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $3.2B and bought $454M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 223 companies had open-market buys by officers and directors and 510 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "510 companies had open-market sells by officers and directors and 223 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $ANET sold $162M on the open market over 30 days in our feed (4 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "4 insiders at $ANET sold $162M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $ANET sold $162M on the open market (4 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $DELL sold $146M on the open market over 30 days in our feed (6 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "6 insiders at $DELL sold $146M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $DELL sold $146M on the open market (6 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $SNOW sold $145M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $SNOW sold $145M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SNOW sold $145M on the open market (3 insiders).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$454M": "+",
-          "$453.8M": "+",
-          "$3.2B": "+",
-          "$3B": "+",
-          "$162M": "+",
-          "$162.1M": "+",
-          "$146M": "+",
-          "$145.9M": "+",
-          "$145M": "+",
-          "$145.4M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "ANET": [
-          [
-            "$",
-            162.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            7.1,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "DELL": [
-          [
-            "$",
-            146.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "SNOW": [
-          [
-            "$",
-            145.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 12.27,
-      "rank_why": "insider_flow 4; mega cap $225.1B +4; magnitude (market) +2.27; today 2026-11-06 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
     {
       "item_id": "2026-11-06-earnings-result-PPL-c77330",
       "type": "earnings_result",
@@ -10095,8 +9550,8 @@
         "$2.1B",
         "$454M",
         "+$454M",
-        "$453.8M",
-        "+$453.8M",
+        "$453.9M",
+        "+$453.9M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -10120,8 +9575,8 @@
           "numbers": [
             "$454M",
             "+$454M",
-            "$453.8M",
-            "+$453.8M",
+            "$453.9M",
+            "+$453.9M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -10282,7 +9737,7 @@
       "moves": {
         "numbers": {
           "$454M": "+",
-          "$453.8M": "+",
+          "$453.9M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -19412,8 +18867,8 @@
         "$3.9B",
         "$454M",
         "+$454M",
-        "$453.8M",
-        "+$453.8M",
+        "$453.9M",
+        "+$453.9M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -19437,8 +18892,8 @@
           "numbers": [
             "$454M",
             "+$454M",
-            "$453.8M",
-            "+$453.8M",
+            "$453.9M",
+            "+$453.9M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -19599,7 +19054,7 @@
       "moves": {
         "numbers": {
           "$454M": "+",
-          "$453.8M": "+",
+          "$453.9M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
