@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T22:00:03Z",
-  "as_of": "2026-11-06T22:00:03Z",
+  "generated_at": "2026-11-06T22:30:01Z",
+  "as_of": "2026-11-06T22:30:01Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,8 +875,8 @@
   },
   "counts": {
     "congress_trade": 4,
-    "form4_buy": 2,
-    "earnings_result": 62,
+    "form4_buy": 3,
+    "earnings_result": 58,
     "earnings_upcoming": 107,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -886,7 +886,7 @@
     "market_move": 0,
     "mega_mover": 2,
     "congress_flow": 0,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 12,
@@ -932,14 +932,14 @@
     "form4_buy": {
       "rows_read": 20,
       "filings_passing_filters": 16,
-      "below_minimum": 14,
+      "below_minimum": 13,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3248,
-      "recent_ready": 863,
-      "outside_24h": 791,
+      "archive_reports": 3250,
+      "recent_ready": 865,
+      "outside_24h": 798,
       "unreadable": 0,
       "not_compared": 5,
       "not_compared_metrics": [
@@ -949,7 +949,7 @@
         "MRNA: revenue (basis_mismatch)",
         "WULF: revenue (basis_mismatch)"
       ],
-      "consensus_mismatch_hold": 10,
+      "consensus_mismatch_hold": 9,
       "held": [
         "BIP: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "CLMT: revenue (basis_mismatch) and nothing else compared (report data to check)",
@@ -959,8 +959,7 @@
         "MRNA: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "PAA: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
         "PAGP: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
-        "WULF: revenue (basis_mismatch) and nothing else compared (report data to check)",
-        "REG: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)"
+        "WULF: revenue (basis_mismatch) and nothing else compared (report data to check)"
       ]
     },
     "earnings_upcoming": {
@@ -976,7 +975,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 171,
+      "tickers_in_items": 169,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -990,7 +989,7 @@
     "market": {
       "market_session": "2026-11-06",
       "priced_cap_share": 0.9993837295038691,
-      "flows_as_of": "2026-11-06T22:01:07.053151+00:00"
+      "flows_as_of": "2026-11-06T22:31:03.928092+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -999,7 +998,7 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 156
+        "angles_dropped": 155
       },
       "top8": {
         "stale": 0,
@@ -1007,13 +1006,20 @@
         "small_cap": 0,
         "session_map": 3,
         "repeat": 0,
-        "ranked_below": 191,
+        "ranked_below": 188,
         "pillars": 4
       }
+    },
+    "card_unpinned": {
+      "dropped": 1,
+      "reasons": [
+        "insider_flow ANET: share card not pinned (the card's data changed since the facts read (after the GET))"
+      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError"
+    "post history: FileNotFoundError",
+    "not published: insider_flow ANET: share card not pinned (the card's data changed since the facts read (after the GET))"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1044,7 +1050,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 153,
+  "api_requests": 149,
   "items": [
     {
       "item_id": "2026-11-06-mega-mover-SPCX-85159d",
@@ -2491,558 +2497,6 @@
       "cooldown": null,
       "rank": 13.0,
       "rank_why": "mega_mover 4; mega cap $660.17B +4; magnitude (market) +3; session_date 2026-11-06 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-insider-flow-ANET-ec15ab",
-      "type": "insider_flow",
-      "ticker": "ANET",
-      "tickers": [
-        "ANET",
-        "DELL",
-        "SNOW"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ANET?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-insider-flow-ANET-ec15ab",
-      "allowed_numbers": [
-        "$479M",
-        "+$479M",
-        "$478.7M",
-        "+$478.7M",
-        "$3.5B",
-        "+$3.5B",
-        "$3B",
-        "+$3B",
-        "30",
-        "227",
-        "520",
-        "500",
-        "2026-10-07",
-        "Oct 7, 2026",
-        "Oct 7",
-        "2026-11-06",
-        "Nov 6, 2026",
-        "Nov 6",
-        "$162M",
-        "+$162M",
-        "$162.1M",
-        "+$162.1M",
-        "$146M",
-        "+$146M",
-        "$145.9M",
-        "+$145.9M",
-        "$145M",
-        "+$145M",
-        "$145.4M",
-        "+$145.4M",
-        "4",
-        "6",
-        "3",
-        "7.3",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $479M of open-market buys and $3.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 7 to Nov 6; 227 companies with buys, 520 with sells). Largest sellers among the 500 largest US-listed companies: $ANET $162M (4 insiders), $DELL $146M (6 insiders), $SNOW $145M (3 insiders).",
-      "dedupe_key": "insider_flow:2026-11-06:ANET",
-      "claim_phrases": [
-        "$ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M).",
-        "Over 30 days in our feed, $ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($162M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M): $ANET.",
-        "$DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M).",
-        "Over 30 days in our feed, $DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($146M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M): $DELL.",
-        "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M).",
-        "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($145M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M): $SNOW.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M).",
-        "$ANET ($162M) and $DELL ($146M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-        "$ANET ($162M), $DELL ($146M) and $SNOW ($145M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.3.",
-        "Officers and directors sold $7.3 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $7.3 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "ANET",
-            "DELL",
-            "SNOW"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $ANET, $DELL, $SNOW"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$479M",
-            "+$479M",
-            "$478.7M",
-            "+$478.7M",
-            "$3.5B",
-            "+$3.5B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($479M bought, $3.5B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "ANET",
-          "DELL",
-          "SNOW"
-        ],
-        "numbers": [
-          "$3.5B",
-          "$479M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-07",
-        "to": "2026-11-06",
-        "days": 30
-      },
-      "bought_usd": 478739780.35,
-      "sold_usd": 3497816973.34,
-      "buy_companies": 227,
-      "sell_companies": 520,
-      "top_sellers_500": [
-        {
-          "ticker": "ANET",
-          "name": "Arista Networks, Inc.",
-          "sector": "Technology",
-          "total_usd": 162053136.2,
-          "insider_count": 4,
-          "roles": {
-            "officer": 3,
-            "director": 1
-          },
-          "row_count": 42,
-          "first_trade": "2026-10-06",
-          "last_trade": "2026-11-02"
-        },
-        {
-          "ticker": "DELL",
-          "name": "Dell Technologies Inc.",
-          "sector": "Technology",
-          "total_usd": 145853445.96,
-          "insider_count": 6,
-          "roles": {
-            "officer": 0,
-            "director": 6
-          },
-          "row_count": 143,
-          "first_trade": "2026-10-06",
-          "last_trade": "2026-10-22"
-        },
-        {
-          "ticker": "SNOW",
-          "name": "Snowflake Inc.",
-          "sector": "Technology",
-          "total_usd": 145365776.01,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 14,
-          "first_trade": "2026-10-07",
-          "last_trade": "2026-11-04"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $3.5B and bought $479M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $479M of open-market buys and $3.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.5B of open-market sells and $479M of open-market buys."
-      ],
-      "market_cap_usd": 200736526123.02542,
-      "magnitude": 2.3156956212868542,
-      "trigger": "$AXP, $TRV entered the top 5",
-      "top5": [
-        "ANET",
-        "DELL",
-        "SNOW",
-        "AXP",
-        "TRV"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-06/cards/market-insiders-2026-11-06-857c1f99.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-06",
-        "fingerprint": "857c1f99",
-        "file": "market-insiders-2026-11-06-857c1f99.png",
-        "sha256": "c70cad5158e40ee3aace8a34b2c2bc798bb6154ac122b35b5a24385ae477f492"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-06/cards/market-insiders-2026-11-06-857c1f99.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $479M of open-market buys and $3.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 7 to Nov 6; 227 companies with buys, 520 with sells). Largest sellers among the 500 largest US-listed companies: $ANET $162M (4 insiders), $DELL $146M (6 insiders), $SNOW $145M (3 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "ticker_sectors": {
-        "ANET": "Technology",
-        "DELL": "Technology",
-        "SNOW": "Technology"
-      },
-      "ticker_names": {
-        "ANET": "Arista Networks, Inc.",
-        "DELL": "Dell Technologies Inc.",
-        "SNOW": "Snowflake Inc."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $479M of open-market buys and $3.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.5B of open-market sells and $479M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $479M of open-market buys and $3.5B of open-market sells.",
-        "Officers and directors sold $3.5B and bought $479M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $3.5B and bought $479M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 227 companies had open-market buys by officers and directors and 520 had open-market sells.",
-        "520 companies had open-market sells by officers and directors and 227 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $ANET sold $162M on the open market over 30 days in our feed (4 insiders).",
-        "4 insiders at $ANET sold $162M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $ANET sold $162M on the open market (4 insiders).",
-        "Officers and directors of $DELL sold $146M on the open market over 30 days in our feed (6 insiders).",
-        "6 insiders at $DELL sold $146M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $DELL sold $146M on the open market (6 insiders).",
-        "Officers and directors of $SNOW sold $145M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $SNOW sold $145M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SNOW sold $145M on the open market (3 insiders)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($162M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M): $ANET.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M): $DELL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M): $SNOW.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$ANET ($162M) and $DELL ($146M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$ANET ($162M), $DELL ($146M) and $SNOW ($145M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.3.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $7.3 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $7.3 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $479M of open-market buys and $3.5B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.5B of open-market sells and $479M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $479M of open-market buys and $3.5B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $3.5B and bought $479M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $3.5B and bought $479M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 227 companies had open-market buys by officers and directors and 520 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "520 companies had open-market sells by officers and directors and 227 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $ANET sold $162M on the open market over 30 days in our feed (4 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "4 insiders at $ANET sold $162M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $ANET sold $162M on the open market (4 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $DELL sold $146M on the open market over 30 days in our feed (6 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "6 insiders at $DELL sold $146M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $DELL sold $146M on the open market (6 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $SNOW sold $145M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $SNOW sold $145M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SNOW sold $145M on the open market (3 insiders).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$479M": "+",
-          "$478.7M": "+",
-          "$3.5B": "+",
-          "$3B": "+",
-          "$162M": "+",
-          "$162.1M": "+",
-          "$146M": "+",
-          "$145.9M": "+",
-          "$145M": "+",
-          "$145.4M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "ANET": [
-          [
-            "$",
-            162.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            7.3,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "DELL": [
-          [
-            "$",
-            146.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "SNOW": [
-          [
-            "$",
-            145.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 12.32,
-      "rank_why": "insider_flow 4; mega cap $200.74B +4; magnitude (market) +2.32; today 2026-11-06 (age 0) +2",
       "top8": true,
       "rotation": null
     },
@@ -12583,8 +12037,8 @@
         "+$478.7M",
         "$3.5B",
         "+$3.5B",
-        "$3B",
-        "+$3B",
+        "$4B",
+        "+$4B",
         "30"
       ],
       "context_tickers": [],
@@ -12608,8 +12062,8 @@
             "+$478.7M",
             "$3.5B",
             "+$3.5B",
-            "$3B",
-            "+$3B"
+            "$4B",
+            "+$4B"
           ],
           "require": [
             "officers?\\s+and\\s+directors?",
@@ -12768,7 +12222,7 @@
           "$479M": "+",
           "$478.7M": "+",
           "$3.5B": "+",
-          "$3B": "+"
+          "$4B": "+"
         },
         "subjects": {}
       },
@@ -13207,6 +12661,273 @@
       "cooldown": null,
       "rank": 8.16,
       "rank_why": "earnings_reaction 2; large cap $42.22B +2.5; magnitude (market) +1.66; session_date 2026-11-06 (age 0) +2",
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-06-form4-buy-KOD-16bf7e",
+      "type": "form4_buy",
+      "ticker": "KOD",
+      "tickers": [
+        "KOD"
+      ],
+      "name": "Baker Bros. Advisors Lp",
+      "office": "Director at Kodiak Sciences Inc.",
+      "amount_text": "$14.97M",
+      "traded": [
+        "2026-11-04"
+      ],
+      "filed": "2026-11-06",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1468748/000119312526451994/0001193125-26-451994-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/baker-bros-advisors-lp-1263508?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-form4-buy-KOD-16bf7e#trades",
+      "allowed_numbers": [
+        "$14.97M",
+        "2026-11-06",
+        "Nov 6, 2026",
+        "Nov 6",
+        "2026-11-04",
+        "Nov 4, 2026",
+        "Nov 4"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Baker Bros. Advisors Lp (Director at Kodiak Sciences Inc.) reported an open-market purchase of KOD totaling $14.97M on a Form 4 filed 2026-11-06, traded 2026-11-04.",
+      "dedupe_key": "form4:0001193125-26-451994:KOD",
+      "claim_phrases": [],
+      "company": "Kodiak Sciences Inc.",
+      "side": "buy",
+      "accession": "0001193125-26-451994",
+      "rows": 1,
+      "figure_slug": "baker-bros-advisors-lp-1263508",
+      "amount_top_usd": 14965245.16,
+      "market_cap_usd": 6233409024.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$14.97M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/baker-bros-advisors-lp-1263508/opengraph-image",
+          "kind": "image",
+          "alt": "Baker Bros. Advisors Lp (Director at Kodiak Sciences Inc.) reported an open-market purchase of KOD totaling $14.97M on a Form 4 filed 2026-11-06, traded 2026-11-04."
+        }
+      ],
+      "rank": 8.0,
+      "rank_why": "form4_buy 2; mid cap $6.23B +1; magnitude (top $14.97M) +3; filed 2026-11-06 (age 0) +2",
+      "pillar": "P3",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$6.2B",
+        "$479M",
+        "+$479M",
+        "$478.7M",
+        "+$478.7M",
+        "$3.5B",
+        "+$3.5B",
+        "$4B",
+        "+$4B",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "KOD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$479M",
+            "+$479M",
+            "$478.7M",
+            "+$478.7M",
+            "$3.5B",
+            "+$3.5B",
+            "$4B",
+            "+$4B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "context": {
+        "market_cap": "$6.2B",
+        "insiders_30d": {
+          "bought": "$479M",
+          "sold": "$3.5B",
+          "days": 30
+        }
+      },
+      "angles": [
+        "Kodiak Sciences Inc. director Baker Bros. Advisors Lp bought $14.97M of $KOD on the open market (Form 4, filed Nov 6).",
+        "Baker Bros. Advisors Lp, director at Kodiak Sciences Inc., bought $14.97M of $KOD on the open market (Form 4, filed Nov 6).",
+        "An open-market purchase of $KOD totaling $14.97M by Kodiak Sciences Inc. director Baker Bros. Advisors Lp was reported on a Form 4 filed Nov 6."
+      ],
+      "fact_phrases": [
+        "Kodiak Sciences Inc. director Baker Bros. Advisors Lp bought $14.97M of $KOD on the open market (Form 4, filed Nov 6).",
+        "Baker Bros. Advisors Lp, director at Kodiak Sciences Inc., bought $14.97M of $KOD on the open market (Form 4, filed Nov 6).",
+        "An open-market purchase of $KOD totaling $14.97M by Kodiak Sciences Inc. director Baker Bros. Advisors Lp was reported on a Form 4 filed Nov 6.",
+        "Kodiak Sciences Inc. director Baker Bros. Advisors Lp bought $14.97M of $KOD on the open market.",
+        "Baker Bros. Advisors Lp, director at Kodiak Sciences Inc., bought $14.97M of $KOD on the open market.",
+        "On the open market, Kodiak Sciences Inc. director Baker Bros. Advisors Lp bought $14.97M of $KOD.",
+        "Baker Bros. Advisors Lp bought $14.97M of $KOD on the open market.",
+        "On the open market, Baker Bros. Advisors Lp bought $14.97M of $KOD.",
+        "Baker Bros. Advisors Lp made an open-market purchase of $KOD: $14.97M.",
+        "Baker Bros. Advisors Lp (Director at Kodiak Sciences Inc.) reported an open-market purchase of $KOD totaling $14.97M on a Form 4 filed Nov 6.",
+        "On a Form 4 filed Nov 6, Baker Bros. Advisors Lp (Director at Kodiak Sciences Inc.) reported an open-market purchase of $KOD totaling $14.97M.",
+        "Baker Bros. Advisors Lp's $KOD purchase was traded Nov 4 and reported on a Form 4 filed Nov 6.",
+        "Traded Nov 4, Baker Bros. Advisors Lp's $KOD purchase was reported on a Form 4 filed Nov 6.",
+        "Officers and directors reported $479M of open-market buys and $3.5B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.5B of open-market sells and $479M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $479M of open-market buys and $3.5B of open-market sells."
+      ],
+      "phrasings": [
+        {
+          "id": "form4buy-3a6ae8.a",
+          "fact": "form4buy-3a6ae8",
+          "variant": "a",
+          "text": "Kodiak Sciences Inc. director Baker Bros. Advisors Lp bought $14.97M of $KOD on the open market (Form 4, filed Nov 6).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-3a6ae8.h1",
+          "fact": "form4buy-3a6ae8",
+          "variant": "h1",
+          "text": "Baker Bros. Advisors Lp, director at Kodiak Sciences Inc., bought $14.97M of $KOD on the open market (Form 4, filed Nov 6).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-3a6ae8.h2",
+          "fact": "form4buy-3a6ae8",
+          "variant": "h2",
+          "text": "An open-market purchase of $KOD totaling $14.97M by Kodiak Sciences Inc. director Baker Bros. Advisors Lp was reported on a Form 4 filed Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-736a9f.a",
+          "fact": "form4buy-736a9f",
+          "variant": "a",
+          "text": "Kodiak Sciences Inc. director Baker Bros. Advisors Lp bought $14.97M of $KOD on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-736a9f.h1",
+          "fact": "form4buy-736a9f",
+          "variant": "h1",
+          "text": "Baker Bros. Advisors Lp, director at Kodiak Sciences Inc., bought $14.97M of $KOD on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-736a9f.h2",
+          "fact": "form4buy-736a9f",
+          "variant": "h2",
+          "text": "On the open market, Kodiak Sciences Inc. director Baker Bros. Advisors Lp bought $14.97M of $KOD.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.a",
+          "fact": "form4buy-1bee24",
+          "variant": "a",
+          "text": "Baker Bros. Advisors Lp bought $14.97M of $KOD on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h1",
+          "fact": "form4buy-1bee24",
+          "variant": "h1",
+          "text": "On the open market, Baker Bros. Advisors Lp bought $14.97M of $KOD.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h2",
+          "fact": "form4buy-1bee24",
+          "variant": "h2",
+          "text": "Baker Bros. Advisors Lp made an open-market purchase of $KOD: $14.97M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-39fdef.a",
+          "fact": "form4buy-39fdef",
+          "variant": "a",
+          "text": "Baker Bros. Advisors Lp (Director at Kodiak Sciences Inc.) reported an open-market purchase of $KOD totaling $14.97M on a Form 4 filed Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-39fdef.h1",
+          "fact": "form4buy-39fdef",
+          "variant": "h1",
+          "text": "On a Form 4 filed Nov 6, Baker Bros. Advisors Lp (Director at Kodiak Sciences Inc.) reported an open-market purchase of $KOD totaling $14.97M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.a",
+          "fact": "form4buy-bfe464",
+          "variant": "a",
+          "text": "Baker Bros. Advisors Lp's $KOD purchase was traded Nov 4 and reported on a Form 4 filed Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.h1",
+          "fact": "form4buy-bfe464",
+          "variant": "h1",
+          "text": "Traded Nov 4, Baker Bros. Advisors Lp's $KOD purchase was reported on a Form 4 filed Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.a",
+          "fact": "form4buy-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $479M of open-market buys and $3.5B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.h1",
+          "fact": "form4buy-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $3.5B of open-market sells and $479M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.t",
+          "fact": "form4buy-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $479M of open-market buys and $3.5B of open-market sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$479M": "+",
+          "$478.7M": "+",
+          "$3.5B": "+",
+          "$4B": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "KOD": [
+          [
+            "$",
+            6.2,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
       "rotation": null
@@ -14336,8 +14057,8 @@
         "+$478.7M",
         "$3.5B",
         "+$3.5B",
-        "$3B",
-        "+$3B",
+        "$4B",
+        "+$4B",
         "30"
       ],
       "context_tickers": [],
@@ -14361,8 +14082,8 @@
             "+$478.7M",
             "$3.5B",
             "+$3.5B",
-            "$3B",
-            "+$3B"
+            "$4B",
+            "+$4B"
           ],
           "require": [
             "officers?\\s+and\\s+directors?",
@@ -14521,7 +14242,7 @@
           "$479M": "+",
           "$478.7M": "+",
           "$3.5B": "+",
-          "$3B": "+"
+          "$4B": "+"
         },
         "subjects": {}
       },
@@ -14532,6 +14253,376 @@
             3.9,
             1,
             1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-06-earnings-result-GEF-a6673d",
+      "type": "earnings_result",
+      "ticker": "GEF",
+      "tickers": [
+        "GEF"
+      ],
+      "name": "Greif, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-06",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/43920/000162828026071783/gef2026q48-kerex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/GEF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-GEF-a6673d#earnings-history",
+      "allowed_numbers": [
+        "$1.14B",
+        "$1.11B",
+        "$34.4M",
+        "$0.87",
+        "$1.16",
+        "$0.29",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-06",
+        "Nov 6, 2026",
+        "Nov 6"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Greif, Inc. (GEF) published FY2026 (Q4) results on 2026-11-06: Mixed vs estimates. Revenue $1.14B vs $1.11B consensus (Beat by $34.4M). net income, excluding the impact of adjustments $0.87 vs $1.16 consensus (Missed by $0.29).",
+      "dedupe_key": "report:gef-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $1.11B consensus.",
+        "$GEF beat the FY2026 (Q4) revenue consensus: $1.14B vs $1.11B.",
+        "$GEF FY2026 (Q4) revenue: $1.14B vs $1.11B consensus (beat by $34.4M).",
+        "$GEF FY2026 (Q4) revenue $1.14B, beat by $34.4M.",
+        "revenue $1.14B vs $1.11B consensus (beat by $34.4M).",
+        "revenue $1.14B vs $1.11B (beat by $34.4M).",
+        "$GEF beat FY2026 (Q4) revenue estimates by $34.4M.",
+        "EPS came in below the $1.16 consensus.",
+        "$GEF missed the FY2026 (Q4) EPS consensus: $0.87 vs $1.16.",
+        "$GEF FY2026 (Q4) EPS: $0.87 vs $1.16 consensus (missed by $0.29).",
+        "$GEF FY2026 (Q4) EPS $0.87, missed by $0.29.",
+        "EPS $0.87 vs $1.16 consensus (missed by $0.29).",
+        "EPS $0.87 vs $1.16 (missed by $0.29).",
+        "$GEF missed FY2026 (Q4) EPS estimates by $0.29."
+      ],
+      "report_id": "gef-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-06",
+      "published_at": "2026-11-06T22:16:30.185118+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$1.14B",
+          "consensus": "$1.11B",
+          "label": "Beat by $34.4M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "net income, excluding the impact of adjustments",
+          "reported": "$0.87",
+          "consensus": "$1.16",
+          "label": "Missed by $0.29",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/GEF/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for GEF: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-06 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "GEF"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Greif, Inc. ($GEF) published FY2026 (Q4) results on Nov 6.",
+        "$GEF (Greif, Inc.) reported FY2026 (Q4) results on Nov 6.",
+        "On Nov 6, Greif, Inc. ($GEF) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Greif, Inc. ($GEF) published FY2026 (Q4) results on Nov 6.",
+        "$GEF (Greif, Inc.) reported FY2026 (Q4) results on Nov 6.",
+        "On Nov 6, Greif, Inc. ($GEF) published FY2026 (Q4) results.",
+        "$GEF published FY2026 (Q4) results on Nov 6.",
+        "FY2026 (Q4) results from $GEF came out on Nov 6.",
+        "On Nov 6, $GEF published FY2026 (Q4) results.",
+        "$GEF FY2026 (Q4) revenue: $1.14B vs $1.11B consensus.",
+        "$GEF reported FY2026 (Q4) revenue of $1.14B vs $1.11B consensus.",
+        "$GEF FY2026 (Q4) revenue was $1.14B.",
+        "FY2026 (Q4) revenue at $GEF was $1.14B.",
+        "$GEF FY2026 (Q4) net income, excluding the impact of adjustments: $0.87 vs $1.16 consensus.",
+        "$GEF reported FY2026 (Q4) net income, excluding the impact of adjustments of $0.87 vs $1.16 consensus.",
+        "$GEF FY2026 (Q4) net income, excluding the impact of adjustments was $0.87.",
+        "FY2026 (Q4) net income, excluding the impact of adjustments at $GEF was $0.87."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $1.11B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$GEF beat the FY2026 (Q4) revenue consensus: $1.14B vs $1.11B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$GEF FY2026 (Q4) revenue: $1.14B vs $1.11B consensus (beat by $34.4M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$GEF FY2026 (Q4) revenue $1.14B, beat by $34.4M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $1.14B vs $1.11B consensus (beat by $34.4M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $1.14B vs $1.11B (beat by $34.4M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$GEF beat FY2026 (Q4) revenue estimates by $34.4M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the $1.16 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-91527d.a",
+          "fact": "earningsre-91527d",
+          "variant": "a",
+          "text": "$GEF missed the FY2026 (Q4) EPS consensus: $0.87 vs $1.16.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f04ffc.a",
+          "fact": "earningsre-f04ffc",
+          "variant": "a",
+          "text": "$GEF FY2026 (Q4) EPS: $0.87 vs $1.16 consensus (missed by $0.29).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe93e9.a",
+          "fact": "earningsre-fe93e9",
+          "variant": "a",
+          "text": "$GEF FY2026 (Q4) EPS $0.87, missed by $0.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS $0.87 vs $1.16 consensus (missed by $0.29).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS $0.87 vs $1.16 (missed by $0.29).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b36953.a",
+          "fact": "earningsre-b36953",
+          "variant": "a",
+          "text": "$GEF missed FY2026 (Q4) EPS estimates by $0.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Greif, Inc. ($GEF) published FY2026 (Q4) results on Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$GEF (Greif, Inc.) reported FY2026 (Q4) results on Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 6, Greif, Inc. ($GEF) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$GEF published FY2026 (Q4) results on Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $GEF came out on Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 6, $GEF published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$GEF FY2026 (Q4) revenue: $1.14B vs $1.11B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$GEF reported FY2026 (Q4) revenue of $1.14B vs $1.11B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$GEF FY2026 (Q4) revenue was $1.14B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $GEF was $1.14B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-0d83df.a",
+          "fact": "earningsre-0d83df",
+          "variant": "a",
+          "text": "$GEF FY2026 (Q4) net income, excluding the impact of adjustments: $0.87 vs $1.16 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-0d83df.h1",
+          "fact": "earningsre-0d83df",
+          "variant": "h1",
+          "text": "$GEF reported FY2026 (Q4) net income, excluding the impact of adjustments of $0.87 vs $1.16 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-a49efa.a",
+          "fact": "earningsre-a49efa",
+          "variant": "a",
+          "text": "$GEF FY2026 (Q4) net income, excluding the impact of adjustments was $0.87.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-a49efa.h1",
+          "fact": "earningsre-a49efa",
+          "variant": "h1",
+          "text": "FY2026 (Q4) net income, excluding the impact of adjustments at $GEF was $0.87.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "GEF": [
+          [
+            "$",
+            1.14,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            1.11,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            34.4,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.87,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.16,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.29,
+            2,
+            1.0,
             0
           ]
         ]
@@ -25113,396 +25204,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-06-earnings-result-RC-ad9608",
-      "type": "earnings_result",
-      "ticker": "RC",
-      "tickers": [
-        "RC"
-      ],
-      "name": "Ready Capital Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1527590/000162828026071156/readycapital-exhibit991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-RC-ad9608#earnings-history",
-      "allowed_numbers": [
-        "−$0.53",
-        "−$0.47",
-        "$0.06",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Ready Capital Corporation (RC) published Q3 2026 results on 2026-11-05: EPS miss. Distributable loss per common share −$0.53 vs −$0.47 consensus (Missed by $0.06).",
-      "dedupe_key": "report:rc-2026-q3",
-      "claim_phrases": [
-        "EPS came in below the −$0.47 consensus.",
-        "$RC missed the Q3 2026 EPS consensus: −$0.53 vs −$0.47.",
-        "$RC Q3 2026 EPS: −$0.53 vs −$0.47 consensus (missed by $0.06).",
-        "$RC Q3 2026 EPS −$0.53, missed by $0.06.",
-        "EPS −$0.53 vs −$0.47 consensus (missed by $0.06).",
-        "EPS −$0.53 vs −$0.47 (missed by $0.06).",
-        "$RC missed Q3 2026 EPS estimates by $0.06.",
-        "Distributable loss per common share came in below the −$0.47 consensus.",
-        "$RC missed the Q3 2026 Distributable loss per common share consensus: −$0.53 vs −$0.47.",
-        "$RC Q3 2026 Distributable loss per common share: −$0.53 vs −$0.47 consensus (missed by $0.06).",
-        "$RC Q3 2026 Distributable loss per common share −$0.53, missed by $0.06.",
-        "Distributable loss per common share −$0.53 vs −$0.47 consensus (missed by $0.06).",
-        "Distributable loss per common share −$0.53 vs −$0.47 (missed by $0.06).",
-        "$RC missed Q3 2026 Distributable loss per common share estimates by $0.06.",
-        "$RC missed the Q3 EPS consensus: −$0.53 vs −$0.47.",
-        "$RC Q3 EPS: −$0.53 vs −$0.47 consensus (missed by $0.06).",
-        "$RC Q3 EPS −$0.53, missed by $0.06.",
-        "$RC missed Q3 EPS estimates by $0.06.",
-        "$RC missed the Q3 Distributable loss per common share consensus: −$0.53 vs −$0.47.",
-        "$RC Q3 Distributable loss per common share: −$0.53 vs −$0.47 consensus (missed by $0.06).",
-        "$RC Q3 Distributable loss per common share −$0.53, missed by $0.06.",
-        "$RC missed Q3 Distributable loss per common share estimates by $0.06.",
-        "$RC missed Q3 2026 estimates.",
-        "$RC missed Q3 estimates."
-      ],
-      "report_id": "rc-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T22:06:33.935375+00:00",
-      "tile_label": "EPS miss",
-      "tile_state": "miss",
-      "results": {
-        "eps": {
-          "basis": "Distributable loss per common share",
-          "reported": "−$0.53",
-          "consensus": "−$0.47",
-          "label": "Missed by $0.06",
-          "verdict": "miss"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/RC/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for RC: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "RC"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Ready Capital Corporation ($RC) published Q3 2026 results on Nov 5.",
-        "$RC (Ready Capital Corporation) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Ready Capital Corporation ($RC) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Ready Capital Corporation ($RC) published Q3 2026 results on Nov 5.",
-        "$RC (Ready Capital Corporation) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Ready Capital Corporation ($RC) published Q3 2026 results.",
-        "$RC published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $RC came out on Nov 5.",
-        "On Nov 5, $RC published Q3 2026 results.",
-        "$RC Q3 2026 Distributable loss per common share: −$0.53 vs −$0.47 consensus.",
-        "$RC reported Q3 2026 Distributable loss per common share of −$0.53 vs −$0.47 consensus.",
-        "$RC Q3 2026 Distributable loss per common share was −$0.53.",
-        "Q3 2026 Distributable loss per common share at $RC was −$0.53."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-418b63.a",
-          "fact": "earningsre-418b63",
-          "variant": "a",
-          "text": "EPS came in below the −$0.47 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3982e5.a",
-          "fact": "earningsre-3982e5",
-          "variant": "a",
-          "text": "$RC missed the Q3 2026 EPS consensus: −$0.53 vs −$0.47.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cf8f92.a",
-          "fact": "earningsre-cf8f92",
-          "variant": "a",
-          "text": "$RC Q3 2026 EPS: −$0.53 vs −$0.47 consensus (missed by $0.06).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1ed72e.a",
-          "fact": "earningsre-1ed72e",
-          "variant": "a",
-          "text": "$RC Q3 2026 EPS −$0.53, missed by $0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f18190.a",
-          "fact": "earningsre-f18190",
-          "variant": "a",
-          "text": "EPS −$0.53 vs −$0.47 consensus (missed by $0.06).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-17abfe.a",
-          "fact": "earningsre-17abfe",
-          "variant": "a",
-          "text": "EPS −$0.53 vs −$0.47 (missed by $0.06).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-54e1d8.a",
-          "fact": "earningsre-54e1d8",
-          "variant": "a",
-          "text": "$RC missed Q3 2026 EPS estimates by $0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-aa3ef3.a",
-          "fact": "earningsre-aa3ef3",
-          "variant": "a",
-          "text": "Distributable loss per common share came in below the −$0.47 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-5deba0.a",
-          "fact": "earningsre-5deba0",
-          "variant": "a",
-          "text": "$RC missed the Q3 2026 Distributable loss per common share consensus: −$0.53 vs −$0.47.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e81772.a",
-          "fact": "earningsre-e81772",
-          "variant": "a",
-          "text": "$RC Q3 2026 Distributable loss per common share: −$0.53 vs −$0.47 consensus (missed by $0.06).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1718d4.a",
-          "fact": "earningsre-1718d4",
-          "variant": "a",
-          "text": "$RC Q3 2026 Distributable loss per common share −$0.53, missed by $0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-077303.a",
-          "fact": "earningsre-077303",
-          "variant": "a",
-          "text": "Distributable loss per common share −$0.53 vs −$0.47 consensus (missed by $0.06).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d866e2.a",
-          "fact": "earningsre-d866e2",
-          "variant": "a",
-          "text": "Distributable loss per common share −$0.53 vs −$0.47 (missed by $0.06).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-2fe16b.a",
-          "fact": "earningsre-2fe16b",
-          "variant": "a",
-          "text": "$RC missed Q3 2026 Distributable loss per common share estimates by $0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-355c5f.a",
-          "fact": "earningsre-355c5f",
-          "variant": "a",
-          "text": "$RC missed the Q3 EPS consensus: −$0.53 vs −$0.47.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-83f6a0.a",
-          "fact": "earningsre-83f6a0",
-          "variant": "a",
-          "text": "$RC Q3 EPS: −$0.53 vs −$0.47 consensus (missed by $0.06).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d4f8ff.a",
-          "fact": "earningsre-d4f8ff",
-          "variant": "a",
-          "text": "$RC Q3 EPS −$0.53, missed by $0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4ffa7a.a",
-          "fact": "earningsre-4ffa7a",
-          "variant": "a",
-          "text": "$RC missed Q3 EPS estimates by $0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d36202.a",
-          "fact": "earningsre-d36202",
-          "variant": "a",
-          "text": "$RC missed the Q3 Distributable loss per common share consensus: −$0.53 vs −$0.47.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-962623.a",
-          "fact": "earningsre-962623",
-          "variant": "a",
-          "text": "$RC Q3 Distributable loss per common share: −$0.53 vs −$0.47 consensus (missed by $0.06).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7d1c5b.a",
-          "fact": "earningsre-7d1c5b",
-          "variant": "a",
-          "text": "$RC Q3 Distributable loss per common share −$0.53, missed by $0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-146552.a",
-          "fact": "earningsre-146552",
-          "variant": "a",
-          "text": "$RC missed Q3 Distributable loss per common share estimates by $0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-0bb625.a",
-          "fact": "earningsre-0bb625",
-          "variant": "a",
-          "text": "$RC missed Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-49ee3c.a",
-          "fact": "earningsre-49ee3c",
-          "variant": "a",
-          "text": "$RC missed Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Ready Capital Corporation ($RC) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$RC (Ready Capital Corporation) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Ready Capital Corporation ($RC) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$RC published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $RC came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $RC published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-5e4f04.a",
-          "fact": "earningsre-5e4f04",
-          "variant": "a",
-          "text": "$RC Q3 2026 Distributable loss per common share: −$0.53 vs −$0.47 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-5e4f04.h1",
-          "fact": "earningsre-5e4f04",
-          "variant": "h1",
-          "text": "$RC reported Q3 2026 Distributable loss per common share of −$0.53 vs −$0.47 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1f7ea6.a",
-          "fact": "earningsre-1f7ea6",
-          "variant": "a",
-          "text": "$RC Q3 2026 Distributable loss per common share was −$0.53.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1f7ea6.h1",
-          "fact": "earningsre-1f7ea6",
-          "variant": "h1",
-          "text": "Q3 2026 Distributable loss per common share at $RC was −$0.53.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.53": "-",
-          "$0.47": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "RC": [
-          [
-            "$",
-            0.53,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            0.47,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            0.06,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-06-moves-like-PG-7e9e65",
       "type": "moves_like",
       "ticker": "PG",
@@ -26098,6 +25799,176 @@
       "top8": false,
       "rotation": null,
       "top8_out": "ranked below the top 8"
+    },
+    {
+      "item_id": "2026-11-06-earnings-result-QNRX-2b9caf",
+      "type": "earnings_result",
+      "ticker": "QNRX",
+      "tickers": [
+        "QNRX"
+      ],
+      "name": "Quoin Pharmaceuticals, Ltd.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-06",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1671502/000110465926123960/tm2629259d1_ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/QNRX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-QNRX-2b9caf#earnings-history",
+      "allowed_numbers": [
+        "−$0.97",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5",
+        "2026-11-06",
+        "Nov 6, 2026",
+        "Nov 6"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Quoin Pharmaceuticals, Ltd. (QNRX) published Q3 2026 results on 2026-11-05: Published. GAAP EPS −$0.97.",
+      "dedupe_key": "report:qnrx-2026-q3",
+      "claim_phrases": [],
+      "report_id": "qnrx-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-05",
+      "published_at": "2026-11-06T22:20:30.562599+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.97"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/QNRX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for QNRX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.5,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "QNRX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Quoin Pharmaceuticals, Ltd. ($QNRX) published Q3 2026 results on Nov 5.",
+        "$QNRX (Quoin Pharmaceuticals, Ltd.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Quoin Pharmaceuticals, Ltd. ($QNRX) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Quoin Pharmaceuticals, Ltd. ($QNRX) published Q3 2026 results on Nov 5.",
+        "$QNRX (Quoin Pharmaceuticals, Ltd.) reported Q3 2026 results on Nov 5.",
+        "On Nov 5, Quoin Pharmaceuticals, Ltd. ($QNRX) published Q3 2026 results.",
+        "$QNRX published Q3 2026 results on Nov 5.",
+        "Q3 2026 results from $QNRX came out on Nov 5.",
+        "On Nov 5, $QNRX published Q3 2026 results.",
+        "$QNRX Q3 2026 GAAP EPS: −$0.97.",
+        "$QNRX reported Q3 2026 GAAP EPS of −$0.97.",
+        "$QNRX Q3 2026 GAAP EPS was −$0.97.",
+        "Q3 2026 GAAP EPS at $QNRX was −$0.97."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Quoin Pharmaceuticals, Ltd. ($QNRX) published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$QNRX (Quoin Pharmaceuticals, Ltd.) reported Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 5, Quoin Pharmaceuticals, Ltd. ($QNRX) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$QNRX published Q3 2026 results on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $QNRX came out on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 5, $QNRX published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$QNRX Q3 2026 GAAP EPS: −$0.97.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$QNRX reported Q3 2026 GAAP EPS of −$0.97.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$QNRX Q3 2026 GAAP EPS was −$0.97.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $QNRX was −$0.97.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.97": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
     },
     {
       "item_id": "2026-11-06-earnings-result-USPH-a9024c",
@@ -28434,993 +28305,6 @@
           "fact": "earningsre-1e5f24",
           "variant": "h1",
           "text": "Q3 2026 revenue at $GTE was $168M.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-MLCI-e806d5",
-      "type": "earnings_result",
-      "ticker": "MLCI",
-      "tickers": [
-        "MLCI"
-      ],
-      "name": "Mount Logan Capital Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2051820/000162828026071185/a20260930-mountlogancapita.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/MLCI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-MLCI-e806d5#earnings-history",
-      "allowed_numbers": [
-        "$12.9M",
-        "−$0.33",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Mount Logan Capital Inc. (MLCI) published Q3 2026 results on 2026-11-05: Published. Revenue $12.9M. GAAP EPS −$0.33.",
-      "dedupe_key": "report:mlci-2026-q3",
-      "claim_phrases": [],
-      "report_id": "mlci-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T22:28:24.256986+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$12.9M"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.33"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/MLCI/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for MLCI: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "MLCI"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Mount Logan Capital Inc. ($MLCI) published Q3 2026 results on Nov 5.",
-        "$MLCI (Mount Logan Capital Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Mount Logan Capital Inc. ($MLCI) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Mount Logan Capital Inc. ($MLCI) published Q3 2026 results on Nov 5.",
-        "$MLCI (Mount Logan Capital Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Mount Logan Capital Inc. ($MLCI) published Q3 2026 results.",
-        "$MLCI published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $MLCI came out on Nov 5.",
-        "On Nov 5, $MLCI published Q3 2026 results.",
-        "$MLCI Q3 2026 revenue: $12.9M.",
-        "$MLCI reported Q3 2026 revenue of $12.9M.",
-        "$MLCI Q3 2026 revenue was $12.9M.",
-        "Q3 2026 revenue at $MLCI was $12.9M.",
-        "$MLCI Q3 2026 GAAP EPS: −$0.33.",
-        "$MLCI reported Q3 2026 GAAP EPS of −$0.33.",
-        "$MLCI Q3 2026 GAAP EPS was −$0.33.",
-        "Q3 2026 GAAP EPS at $MLCI was −$0.33."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Mount Logan Capital Inc. ($MLCI) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$MLCI (Mount Logan Capital Inc.) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Mount Logan Capital Inc. ($MLCI) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$MLCI published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $MLCI came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $MLCI published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$MLCI Q3 2026 revenue: $12.9M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$MLCI reported Q3 2026 revenue of $12.9M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$MLCI Q3 2026 revenue was $12.9M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $MLCI was $12.9M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$MLCI Q3 2026 GAAP EPS: −$0.33.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$MLCI reported Q3 2026 GAAP EPS of −$0.33.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$MLCI Q3 2026 GAAP EPS was −$0.33.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $MLCI was −$0.33.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.33": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-MYPS-f0f15b",
-      "type": "earnings_result",
-      "ticker": "MYPS",
-      "tickers": [
-        "MYPS"
-      ],
-      "name": "PLAYSTUDIOS, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1823878/000182387826000071/myps-q32026xex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/MYPS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-MYPS-f0f15b#earnings-history",
-      "allowed_numbers": [
-        "$48.9M",
-        "−$0.92",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "PLAYSTUDIOS, Inc. (MYPS) published Q3 2026 results on 2026-11-05: Published. Revenue $48.9M. GAAP EPS −$0.92.",
-      "dedupe_key": "report:myps-2026-q3",
-      "claim_phrases": [],
-      "report_id": "myps-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T22:06:42.401082+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$48.9M"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.92"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/MYPS/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for MYPS: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "MYPS"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "PLAYSTUDIOS, Inc. ($MYPS) published Q3 2026 results on Nov 5.",
-        "$MYPS (PLAYSTUDIOS, Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, PLAYSTUDIOS, Inc. ($MYPS) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "PLAYSTUDIOS, Inc. ($MYPS) published Q3 2026 results on Nov 5.",
-        "$MYPS (PLAYSTUDIOS, Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, PLAYSTUDIOS, Inc. ($MYPS) published Q3 2026 results.",
-        "$MYPS published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $MYPS came out on Nov 5.",
-        "On Nov 5, $MYPS published Q3 2026 results.",
-        "$MYPS Q3 2026 revenue: $48.9M.",
-        "$MYPS reported Q3 2026 revenue of $48.9M.",
-        "$MYPS Q3 2026 revenue was $48.9M.",
-        "Q3 2026 revenue at $MYPS was $48.9M.",
-        "$MYPS Q3 2026 GAAP EPS: −$0.92.",
-        "$MYPS reported Q3 2026 GAAP EPS of −$0.92.",
-        "$MYPS Q3 2026 GAAP EPS was −$0.92.",
-        "Q3 2026 GAAP EPS at $MYPS was −$0.92."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "PLAYSTUDIOS, Inc. ($MYPS) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$MYPS (PLAYSTUDIOS, Inc.) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, PLAYSTUDIOS, Inc. ($MYPS) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$MYPS published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $MYPS came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $MYPS published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$MYPS Q3 2026 revenue: $48.9M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$MYPS reported Q3 2026 revenue of $48.9M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$MYPS Q3 2026 revenue was $48.9M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $MYPS was $48.9M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$MYPS Q3 2026 GAAP EPS: −$0.92.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$MYPS reported Q3 2026 GAAP EPS of −$0.92.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$MYPS Q3 2026 GAAP EPS was −$0.92.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $MYPS was −$0.92.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.92": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-TCX-2aea52",
-      "type": "earnings_result",
-      "ticker": "TCX",
-      "tickers": [
-        "TCX"
-      ],
-      "name": "Tucows Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/909494/000090949426000014/a2026-q3xtcxxresultsxpress.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/TCX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-TCX-2aea52#earnings-history",
-      "allowed_numbers": [
-        "$100.0M",
-        "−$0.52",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Tucows Inc. (TCX) published Q3 2026 results on 2026-11-05: Published. Revenue $100.0M. Adjusted Basic earnings (Loss) per common share −$0.52.",
-      "dedupe_key": "report:tcx-2026-q3",
-      "claim_phrases": [],
-      "report_id": "tcx-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T22:06:38.773949+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$100.0M"
-        },
-        "eps": {
-          "basis": "Adjusted Basic earnings (Loss) per common share",
-          "reported": "−$0.52"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/TCX/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for TCX: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "TCX"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Tucows Inc. ($TCX) published Q3 2026 results on Nov 5.",
-        "$TCX (Tucows Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Tucows Inc. ($TCX) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Tucows Inc. ($TCX) published Q3 2026 results on Nov 5.",
-        "$TCX (Tucows Inc.) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Tucows Inc. ($TCX) published Q3 2026 results.",
-        "$TCX published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $TCX came out on Nov 5.",
-        "On Nov 5, $TCX published Q3 2026 results.",
-        "$TCX Q3 2026 revenue: $100.0M.",
-        "$TCX reported Q3 2026 revenue of $100.0M.",
-        "$TCX Q3 2026 revenue was $100.0M.",
-        "Q3 2026 revenue at $TCX was $100.0M.",
-        "$TCX Q3 2026 Adjusted Basic earnings (Loss) per common share: −$0.52.",
-        "$TCX reported Q3 2026 Adjusted Basic earnings (Loss) per common share of −$0.52.",
-        "$TCX Q3 2026 Adjusted Basic earnings (Loss) per common share was −$0.52.",
-        "Q3 2026 Adjusted Basic earnings (Loss) per common share at $TCX was −$0.52."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Tucows Inc. ($TCX) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$TCX (Tucows Inc.) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Tucows Inc. ($TCX) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$TCX published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $TCX came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $TCX published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$TCX Q3 2026 revenue: $100.0M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$TCX reported Q3 2026 revenue of $100.0M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$TCX Q3 2026 revenue was $100.0M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $TCX was $100.0M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-089a51.a",
-          "fact": "earningsre-089a51",
-          "variant": "a",
-          "text": "$TCX Q3 2026 Adjusted Basic earnings (Loss) per common share: −$0.52.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-089a51.h1",
-          "fact": "earningsre-089a51",
-          "variant": "h1",
-          "text": "$TCX reported Q3 2026 Adjusted Basic earnings (Loss) per common share of −$0.52.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e686f.a",
-          "fact": "earningsre-1e686f",
-          "variant": "a",
-          "text": "$TCX Q3 2026 Adjusted Basic earnings (Loss) per common share was −$0.52.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e686f.h1",
-          "fact": "earningsre-1e686f",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted Basic earnings (Loss) per common share at $TCX was −$0.52.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.52": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-DIOD-791fbc",
-      "type": "earnings_result",
-      "ticker": "DIOD",
-      "tickers": [
-        "DIOD"
-      ],
-      "name": "Diodes Incorporated",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/29002/000119312526450100/diod-ex99_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/DIOD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-DIOD-791fbc#earnings-history",
-      "allowed_numbers": [
-        "$533M",
-        "$1.18",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Diodes Incorporated (DIOD) published Q3 2026 results on 2026-11-05: Published. Revenue $533M. Non-GAAP diluted earnings per share $1.18.",
-      "dedupe_key": "report:diod-2026-q3",
-      "claim_phrases": [],
-      "report_id": "diod-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T22:06:29.022449+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$533M"
-        },
-        "eps": {
-          "basis": "Non-GAAP diluted earnings per share",
-          "reported": "$1.18"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/DIOD/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for DIOD: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "DIOD"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Diodes Incorporated ($DIOD) published Q3 2026 results on Nov 5.",
-        "$DIOD (Diodes Incorporated) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Diodes Incorporated ($DIOD) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Diodes Incorporated ($DIOD) published Q3 2026 results on Nov 5.",
-        "$DIOD (Diodes Incorporated) reported Q3 2026 results on Nov 5.",
-        "On Nov 5, Diodes Incorporated ($DIOD) published Q3 2026 results.",
-        "$DIOD published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $DIOD came out on Nov 5.",
-        "On Nov 5, $DIOD published Q3 2026 results.",
-        "$DIOD Q3 2026 revenue: $533M.",
-        "$DIOD reported Q3 2026 revenue of $533M.",
-        "$DIOD Q3 2026 revenue was $533M.",
-        "Q3 2026 revenue at $DIOD was $533M.",
-        "$DIOD Q3 2026 Non-GAAP diluted earnings per share: $1.18.",
-        "$DIOD reported Q3 2026 Non-GAAP diluted earnings per share of $1.18.",
-        "$DIOD Q3 2026 Non-GAAP diluted earnings per share was $1.18.",
-        "Q3 2026 Non-GAAP diluted earnings per share at $DIOD was $1.18."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Diodes Incorporated ($DIOD) published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$DIOD (Diodes Incorporated) reported Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 5, Diodes Incorporated ($DIOD) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$DIOD published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $DIOD came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $DIOD published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$DIOD Q3 2026 revenue: $533M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$DIOD reported Q3 2026 revenue of $533M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$DIOD Q3 2026 revenue was $533M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $DIOD was $533M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f0d66a.a",
-          "fact": "earningsre-f0d66a",
-          "variant": "a",
-          "text": "$DIOD Q3 2026 Non-GAAP diluted earnings per share: $1.18.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f0d66a.h1",
-          "fact": "earningsre-f0d66a",
-          "variant": "h1",
-          "text": "$DIOD reported Q3 2026 Non-GAAP diluted earnings per share of $1.18.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-6bdf7c.a",
-          "fact": "earningsre-6bdf7c",
-          "variant": "a",
-          "text": "$DIOD Q3 2026 Non-GAAP diluted earnings per share was $1.18.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-6bdf7c.h1",
-          "fact": "earningsre-6bdf7c",
-          "variant": "h1",
-          "text": "Q3 2026 Non-GAAP diluted earnings per share at $DIOD was $1.18.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-earnings-result-BHF-e3d3d8",
-      "type": "earnings_result",
-      "ticker": "BHF",
-      "tickers": [
-        "BHF"
-      ],
-      "name": "Brighthouse Financial, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1685040/000168504026000035/q32026bhfearningspressrele.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/BHF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-earnings-result-BHF-e3d3d8#earnings-history",
-      "allowed_numbers": [
-        "$853M",
-        "$9.12",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Brighthouse Financial, Inc. (BHF) published Q3 2026 results on 2026-11-05: Published. Revenue $853M. Adjusted earnings $9.12.",
-      "dedupe_key": "report:bhf-2026-q3",
-      "claim_phrases": [],
-      "report_id": "bhf-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-05",
-      "published_at": "2026-11-05T22:06:25.431891+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$853M"
-        },
-        "eps": {
-          "basis": "Adjusted earnings",
-          "reported": "$9.12"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/BHF/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for BHF: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-05 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "BHF"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "$BHF published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $BHF came out on Nov 5.",
-        "On Nov 5, $BHF published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "$BHF published Q3 2026 results on Nov 5.",
-        "Q3 2026 results from $BHF came out on Nov 5.",
-        "On Nov 5, $BHF published Q3 2026 results.",
-        "$BHF Q3 2026 revenue: $853M.",
-        "$BHF reported Q3 2026 revenue of $853M.",
-        "$BHF Q3 2026 revenue was $853M.",
-        "Q3 2026 revenue at $BHF was $853M.",
-        "$BHF Q3 2026 Adjusted earnings: $9.12.",
-        "$BHF reported Q3 2026 Adjusted earnings of $9.12.",
-        "$BHF Q3 2026 Adjusted earnings was $9.12.",
-        "Q3 2026 Adjusted earnings at $BHF was $9.12."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$BHF published Q3 2026 results on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $BHF came out on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 5, $BHF published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$BHF Q3 2026 revenue: $853M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$BHF reported Q3 2026 revenue of $853M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$BHF Q3 2026 revenue was $853M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $BHF was $853M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-2aabae.a",
-          "fact": "earningsre-2aabae",
-          "variant": "a",
-          "text": "$BHF Q3 2026 Adjusted earnings: $9.12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-2aabae.h1",
-          "fact": "earningsre-2aabae",
-          "variant": "h1",
-          "text": "$BHF reported Q3 2026 Adjusted earnings of $9.12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f2dd6b.a",
-          "fact": "earningsre-f2dd6b",
-          "variant": "a",
-          "text": "$BHF Q3 2026 Adjusted earnings was $9.12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f2dd6b.h1",
-          "fact": "earningsre-f2dd6b",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted earnings at $BHF was $9.12.",
           "claim": false
         }
       ],
