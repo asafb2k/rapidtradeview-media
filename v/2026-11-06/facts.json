@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-06",
-  "generated_at": "2026-11-06T15:00:01Z",
-  "as_of": "2026-11-06T15:00:01Z",
+  "generated_at": "2026-11-06T16:00:02Z",
+  "as_of": "2026-11-06T16:00:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -874,8 +874,8 @@
     "cards": "a market item's media is its pinned share card (card.url, a file on our Pages site, the same numbers the item states); never the live /market/card/ URL, never another day's card; no link in the main post: the UTM link goes in a self-reply"
   },
   "counts": {
-    "congress_trade": 3,
-    "form4_buy": 4,
+    "congress_trade": 4,
+    "form4_buy": 2,
     "earnings_result": 176,
     "earnings_upcoming": 107,
     "picks_ready": 0,
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 0,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 16,
@@ -895,7 +895,7 @@
     "basket_week": 0
   },
   "reasons": {
-    "ptr_summary": "1 member summary(ies) lost to a higher-ranked congress_trade of the same filer (left_out.per_filer_cap)",
+    "ptr_summary": "2 member summary(ies) lost to a higher-ranked congress_trade of the same filer (left_out.per_filer_cap)",
     "picks_ready": "the published list (2026-11-05) expires 2026-11-06T19:00:00+00:00 before the 15:00 ET slot; today's list publishes at 2:00 PM ET",
     "sector_rotation": "day: no sector up 1.0%+ and one down 1.0%+; week: the session is not a Friday",
     "basket_week": "the session is not a Friday (the basket is a week-in-review item)",
@@ -905,7 +905,7 @@
   "left_out": {
     "congress_trade": {
       "rows_read": 50,
-      "out_of_window": 43,
+      "out_of_window": 40,
       "not_congress": 0,
       "other_side": 0,
       "late_filing_over_90d": 0,
@@ -916,7 +916,7 @@
       "no_official_source": 0
     },
     "ptr_summary": {
-      "members_filing_dates": 3,
+      "members_filing_dates": 4,
       "single_item": 2
     },
     "ptr_summary_incomplete": {
@@ -926,15 +926,15 @@
       "reasons": []
     },
     "per_filer_cap": {
-      "dropped": 3,
-      "filers": 3,
-      "dropped_congress_trade": 2,
-      "dropped_ptr_summary": 1
+      "dropped": 6,
+      "filers": 4,
+      "dropped_congress_trade": 4,
+      "dropped_ptr_summary": 2
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 18,
-      "below_minimum": 14,
+      "filings_passing_filters": 17,
+      "below_minimum": 15,
       "not_open_market": 0,
       "no_sec_index": 0
     },
@@ -990,7 +990,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 286,
+      "tickers_in_items": 285,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -1004,7 +1004,7 @@
     "market": {
       "market_session": "2026-11-05",
       "priced_cap_share": 0.9986517031326824,
-      "flows_as_of": "2026-11-06T15:01:54.647177+00:00"
+      "flows_as_of": "2026-11-06T16:01:51.462428+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1013,21 +1013,28 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 371
+        "angles_dropped": 368
       },
       "top8": {
         "stale": 26,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 2,
-        "ranked_below": 283,
+        "repeat": 3,
+        "ranked_below": 281,
         "pillars": 4
       }
+    },
+    "card_unpinned": {
+      "dropped": 1,
+      "reasons": [
+        "insider_flow ANET: share card not pinned (not served by Pages yet)"
+      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError"
+    "post history: FileNotFoundError",
+    "not published: insider_flow ANET: share card not pinned (not served by Pages yet)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1058,823 +1065,8 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 267,
+  "api_requests": 265,
   "items": [
-    {
-      "item_id": "2026-11-06-insider-flow-ANET-ec15ab",
-      "type": "insider_flow",
-      "ticker": "ANET",
-      "tickers": [
-        "ANET",
-        "DELL",
-        "SNOW"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ANET?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-insider-flow-ANET-ec15ab",
-      "allowed_numbers": [
-        "$453M",
-        "+$453M",
-        "$453.0M",
-        "+$453.0M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30",
-        "220",
-        "505",
-        "500",
-        "2026-10-07",
-        "Oct 7, 2026",
-        "Oct 7",
-        "2026-11-06",
-        "Nov 6, 2026",
-        "Nov 6",
-        "$162M",
-        "+$162M",
-        "$162.1M",
-        "+$162.1M",
-        "$146M",
-        "+$146M",
-        "$145.9M",
-        "+$145.9M",
-        "$145M",
-        "+$145M",
-        "$145.4M",
-        "+$145.4M",
-        "4",
-        "6",
-        "3",
-        "7.1",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 7 to Nov 6; 220 companies with buys, 505 with sells). Largest sellers among the 500 largest US-listed companies: $ANET $162M (4 insiders), $DELL $146M (6 insiders), $SNOW $145M (3 insiders).",
-      "dedupe_key": "insider_flow:2026-11-06:ANET",
-      "claim_phrases": [
-        "$ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M).",
-        "Over 30 days in our feed, $ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($162M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M): $ANET.",
-        "$DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M).",
-        "Over 30 days in our feed, $DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($146M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M): $DELL.",
-        "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M).",
-        "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($145M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M): $SNOW.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M).",
-        "$ANET ($162M) and $DELL ($146M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-        "$ANET ($162M), $DELL ($146M) and $SNOW ($145M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.1.",
-        "Officers and directors sold $7.1 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $7.1 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "ANET",
-            "DELL",
-            "SNOW"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $ANET, $DELL, $SNOW"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$453M",
-            "+$453M",
-            "$453.0M",
-            "+$453.0M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($453M bought, $3.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "ANET",
-          "DELL",
-          "SNOW"
-        ],
-        "numbers": [
-          "$3.2B",
-          "$453M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-07",
-        "to": "2026-11-06",
-        "days": 30
-      },
-      "bought_usd": 453001306.28,
-      "sold_usd": 3238204424.32,
-      "buy_companies": 220,
-      "sell_companies": 505,
-      "top_sellers_500": [
-        {
-          "ticker": "ANET",
-          "name": "Arista Networks, Inc.",
-          "sector": "Technology",
-          "total_usd": 162053136.2,
-          "insider_count": 4,
-          "roles": {
-            "officer": 3,
-            "director": 1
-          },
-          "row_count": 42,
-          "first_trade": "2026-10-06",
-          "last_trade": "2026-11-02"
-        },
-        {
-          "ticker": "DELL",
-          "name": "Dell Technologies Inc.",
-          "sector": "Technology",
-          "total_usd": 145853445.96,
-          "insider_count": 6,
-          "roles": {
-            "officer": 0,
-            "director": 6
-          },
-          "row_count": 143,
-          "first_trade": "2026-10-06",
-          "last_trade": "2026-10-22"
-        },
-        {
-          "ticker": "SNOW",
-          "name": "Snowflake Inc.",
-          "sector": "Technology",
-          "total_usd": 145365776.01,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 14,
-          "first_trade": "2026-10-07",
-          "last_trade": "2026-11-04"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $3.2B and bought $453M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys."
-      ],
-      "market_cap_usd": 225103387675.5314,
-      "magnitude": 2.2654563927309335,
-      "trigger": "$P entered the top 5",
-      "top5": [
-        "ANET",
-        "DELL",
-        "SNOW",
-        "UTHR",
-        "P"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-06/cards/market-insiders-2026-11-06-da5aa1ae.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-06",
-        "fingerprint": "da5aa1ae",
-        "file": "market-insiders-2026-11-06-da5aa1ae.png",
-        "sha256": "c32763a9b170a72fcca823bb1d8c4c0d2977cba1d887837ad474efa9e1e74baa"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-06/cards/market-insiders-2026-11-06-da5aa1ae.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 7 to Nov 6; 220 companies with buys, 505 with sells). Largest sellers among the 500 largest US-listed companies: $ANET $162M (4 insiders), $DELL $146M (6 insiders), $SNOW $145M (3 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "ticker_sectors": {
-        "ANET": "Technology",
-        "DELL": "Technology",
-        "SNOW": "Technology"
-      },
-      "ticker_names": {
-        "ANET": "Arista Networks, Inc.",
-        "DELL": "Dell Technologies Inc.",
-        "SNOW": "Snowflake Inc."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells.",
-        "Officers and directors sold $3.2B and bought $453M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $3.2B and bought $453M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 220 companies had open-market buys by officers and directors and 505 had open-market sells.",
-        "505 companies had open-market sells by officers and directors and 220 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $ANET sold $162M on the open market over 30 days in our feed (4 insiders).",
-        "4 insiders at $ANET sold $162M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $ANET sold $162M on the open market (4 insiders).",
-        "Officers and directors of $DELL sold $146M on the open market over 30 days in our feed (6 insiders).",
-        "6 insiders at $DELL sold $146M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $DELL sold $146M on the open market (6 insiders).",
-        "Officers and directors of $SNOW sold $145M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $SNOW sold $145M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SNOW sold $145M on the open market (3 insiders)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $ANET had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($162M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($162M): $ANET.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $DELL had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($146M): $DELL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($145M): $SNOW.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$ANET ($162M) and $DELL ($146M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $ANET ($162M), $DELL ($146M), $SNOW ($145M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$ANET ($162M), $DELL ($146M) and $SNOW ($145M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.1.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $7.1 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $7.1 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $3.2B and bought $453M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $3.2B and bought $453M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 220 companies had open-market buys by officers and directors and 505 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "505 companies had open-market sells by officers and directors and 220 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $ANET sold $162M on the open market over 30 days in our feed (4 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "4 insiders at $ANET sold $162M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $ANET sold $162M on the open market (4 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $DELL sold $146M on the open market over 30 days in our feed (6 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "6 insiders at $DELL sold $146M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $DELL sold $146M on the open market (6 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $SNOW sold $145M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $SNOW sold $145M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SNOW sold $145M on the open market (3 insiders).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$453M": "+",
-          "$453.0M": "+",
-          "$3.2B": "+",
-          "$3B": "+",
-          "$162M": "+",
-          "$162.1M": "+",
-          "$146M": "+",
-          "$145.9M": "+",
-          "$145M": "+",
-          "$145.4M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "ANET": [
-          [
-            "$",
-            162.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            7.1,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "DELL": [
-          [
-            "$",
-            146.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "SNOW": [
-          [
-            "$",
-            145.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 12.27,
-      "rank_why": "insider_flow 4; mega cap $225.1B +4; magnitude (market) +2.27; today 2026-11-06 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-form4-buy-GLXY-9d2f4f",
-      "type": "form4_buy",
-      "ticker": "GLXY",
-      "tickers": [
-        "GLXY"
-      ],
-      "name": "Michael Novogratz",
-      "office": "Chief Executive Officer at Galaxy Digital",
-      "amount_text": "$6.71M",
-      "traded": [
-        "2026-11-05"
-      ],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1859392/000138061526000013/0001380615-26-000013-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/novogratz-michael-1380615?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-form4-buy-GLXY-9d2f4f#trades",
-      "allowed_numbers": [
-        "$6.71M",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of GLXY totaling $6.71M on a Form 4 filed 2026-11-05, traded 2026-11-05.",
-      "dedupe_key": "form4:0001380615-26-000013:GLXY",
-      "claim_phrases": [],
-      "company": "Galaxy Digital",
-      "side": "buy",
-      "accession": "0001380615-26-000013",
-      "rows": 1,
-      "figure_slug": "novogratz-michael-1380615",
-      "amount_top_usd": 6712041.36,
-      "market_cap_usd": 15516198912.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$6.71M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/novogratz-michael-1380615/opengraph-image",
-          "kind": "image",
-          "alt": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of GLXY totaling $6.71M on a Form 4 filed 2026-11-05, traded 2026-11-05."
-        }
-      ],
-      "rank": 10.83,
-      "rank_why": "form4_buy 2; large cap $15.52B +2.5; known name Chief Executive (title) +2; magnitude (top $6.71M) +2.83; filed 2026-11-05 (age 1) +1.5",
-      "pillar": "P3",
-      "cap_tier": "large",
-      "in_500": false,
-      "context_numbers": [
-        "$15.5B",
-        "$453M",
-        "+$453M",
-        "$453.0M",
-        "+$453.0M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "GLXY"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$453M",
-            "+$453M",
-            "$453.0M",
-            "+$453.0M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$15.5B",
-        "insiders_30d": {
-          "bought": "$453M",
-          "sold": "$3.2B",
-          "days": 30
-        }
-      },
-      "angles": [
-        "Galaxy Digital chief executive officer Michael Novogratz bought $6.71M of $GLXY on the open market (Form 4, filed Nov 5).",
-        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $6.71M of $GLXY on the open market (Form 4, filed Nov 5).",
-        "An open-market purchase of $GLXY totaling $6.71M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 5."
-      ],
-      "fact_phrases": [
-        "Galaxy Digital chief executive officer Michael Novogratz bought $6.71M of $GLXY on the open market (Form 4, filed Nov 5).",
-        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $6.71M of $GLXY on the open market (Form 4, filed Nov 5).",
-        "An open-market purchase of $GLXY totaling $6.71M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 5.",
-        "Galaxy Digital chief executive officer Michael Novogratz bought $6.71M of $GLXY on the open market.",
-        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $6.71M of $GLXY on the open market.",
-        "On the open market, Galaxy Digital chief executive officer Michael Novogratz bought $6.71M of $GLXY.",
-        "Michael Novogratz bought $6.71M of $GLXY on the open market.",
-        "On the open market, Michael Novogratz bought $6.71M of $GLXY.",
-        "Michael Novogratz made an open-market purchase of $GLXY: $6.71M.",
-        "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $6.71M on a Form 4 filed Nov 5.",
-        "On a Form 4 filed Nov 5, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $6.71M.",
-        "Michael Novogratz's $GLXY purchase was traded Nov 5 and reported on a Form 4 filed Nov 5.",
-        "Traded Nov 5, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 5.",
-        "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells."
-      ],
-      "phrasings": [
-        {
-          "id": "form4buy-32f205.a",
-          "fact": "form4buy-32f205",
-          "variant": "a",
-          "text": "Galaxy Digital chief executive officer Michael Novogratz bought $6.71M of $GLXY on the open market (Form 4, filed Nov 5).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-32f205.h1",
-          "fact": "form4buy-32f205",
-          "variant": "h1",
-          "text": "Michael Novogratz, chief executive officer at Galaxy Digital, bought $6.71M of $GLXY on the open market (Form 4, filed Nov 5).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-32f205.h2",
-          "fact": "form4buy-32f205",
-          "variant": "h2",
-          "text": "An open-market purchase of $GLXY totaling $6.71M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-f88823.a",
-          "fact": "form4buy-f88823",
-          "variant": "a",
-          "text": "Galaxy Digital chief executive officer Michael Novogratz bought $6.71M of $GLXY on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-f88823.h1",
-          "fact": "form4buy-f88823",
-          "variant": "h1",
-          "text": "Michael Novogratz, chief executive officer at Galaxy Digital, bought $6.71M of $GLXY on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-f88823.h2",
-          "fact": "form4buy-f88823",
-          "variant": "h2",
-          "text": "On the open market, Galaxy Digital chief executive officer Michael Novogratz bought $6.71M of $GLXY.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
-          "variant": "a",
-          "text": "Michael Novogratz bought $6.71M of $GLXY on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
-          "variant": "h1",
-          "text": "On the open market, Michael Novogratz bought $6.71M of $GLXY.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "Michael Novogratz made an open-market purchase of $GLXY: $6.71M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.a",
-          "fact": "form4buy-39fdef",
-          "variant": "a",
-          "text": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $6.71M on a Form 4 filed Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.h1",
-          "fact": "form4buy-39fdef",
-          "variant": "h1",
-          "text": "On a Form 4 filed Nov 5, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $6.71M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "Michael Novogratz's $GLXY purchase was traded Nov 5 and reported on a Form 4 filed Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Nov 5, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$453M": "+",
-          "$453.0M": "+",
-          "$3.2B": "+",
-          "$3B": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "GLXY": [
-          [
-            "$",
-            15.5,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
     {
       "item_id": "2026-11-06-earnings-result-PPL-c77330",
       "type": "earnings_result",
@@ -4462,6 +3654,295 @@
       "cooldown": null,
       "rank": 9.0,
       "rank_why": "reddit_buzz 4; magnitude (market) +3; capture_date 2026-11-06 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-06-congress-trade-PG-bcfead",
+      "type": "congress_trade",
+      "ticker": "PG",
+      "tickers": [
+        "PG"
+      ],
+      "name": "Maria Elvira Salazar",
+      "office": "U.S. Representative (R-FL)",
+      "amount_text": "$1K–$15K; $1K–$15K",
+      "traded": [
+        "2026-10-23"
+      ],
+      "filed": "2026-11-05",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035778.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-congress-trade-PG-bcfead#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5",
+        "2026-10-23",
+        "Oct 23, 2026",
+        "Oct 23",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of PG (The Procter & Gamble Company), $1K–$15K; $1K–$15K, traded 2026-10-23; filed 2026-11-05.",
+      "dedupe_key": "ptr:20035778:PG:buy",
+      "claim_phrases": [],
+      "company": "The Procter & Gamble Company",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "maria-elvira-salazar",
+      "amount_exact_text": "$1,001–$15,000; $1,001–$15,000",
+      "rows": 2,
+      "amount_top_usd": 30000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of PG (The Procter & Gamble Company), $1K–$15K; $1K–$15K, traded 2026-10-23; filed 2026-11-05."
+        }
+      ],
+      "rank": 8.98,
+      "rank_why": "congress_trade 2; mega cap $387.81B +4; magnitude (top $30K, buy +1) +1.48; filed 2026-11-05 (age 1) +1.5",
+      "pillar": "P3",
+      "market_cap_usd": 387811491974.8686,
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5",
+        "$388B",
+        "−0.13%",
+        "0.13%",
+        "−0.1%",
+        "0.1%",
+        "85",
+        "144",
+        "20",
+        "30",
+        "4",
+        "3",
+        "2"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "PG"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "PG": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "PG": "The Procter & Gamble Company"
+      },
+      "context": {
+        "market_cap": "$388B",
+        "market_cap_session": "2026-11-05",
+        "last_session_move": {
+          "pct": "−0.13%",
+          "session": "2026-11-05"
+        },
+        "congress_30d": {
+          "buys": 85,
+          "sells": 144,
+          "members": 20,
+          "days": 30
+        },
+        "ticker_congress_30d": {
+          "trades": 4,
+          "members": 3,
+          "buys": 2,
+          "sells": 2
+        }
+      },
+      "angles": [
+        "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K (filed Nov 5).",
+        "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative Maria Elvira Salazar (R-FL) (filed Nov 5).",
+        "Maria Elvira Salazar disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K."
+      ],
+      "fact_phrases": [
+        "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K (filed Nov 5).",
+        "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative Maria Elvira Salazar (R-FL) (filed Nov 5).",
+        "Maria Elvira Salazar disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K.",
+        "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by Maria Elvira Salazar.",
+        "Maria Elvira Salazar's $PG purchases were traded Oct 23 and disclosed on Nov 5.",
+        "Traded Oct 23, Maria Elvira Salazar's $PG purchases were disclosed on Nov 5.",
+        "$PG had a market value of $388B at the Nov 5 close.",
+        "$PG's market value at the Nov 5 close was $388B.",
+        "At the Nov 5 close, $PG had a market value of $388B.",
+        "$PG moved −0.13% on Thursday, Nov 5.",
+        "$PG's move on Thursday, Nov 5: −0.13%.",
+        "On Thursday, Nov 5, $PG moved −0.13%.",
+        "Members of Congress disclosed 85 buys and 144 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 144 sells and 85 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 85 buys and 144 sells.",
+        "Members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells by 3 members.",
+        "3 members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells."
+      ],
+      "phrasings": [
+        {
+          "id": "congresstr-e58ca0.a",
+          "fact": "congresstr-e58ca0",
+          "variant": "a",
+          "text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K (filed Nov 5).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-e58ca0.h1",
+          "fact": "congresstr-e58ca0",
+          "variant": "h1",
+          "text": "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative Maria Elvira Salazar (R-FL) (filed Nov 5).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-858a2c.a",
+          "fact": "congresstr-858a2c",
+          "variant": "a",
+          "text": "Maria Elvira Salazar disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-858a2c.h1",
+          "fact": "congresstr-858a2c",
+          "variant": "h1",
+          "text": "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by Maria Elvira Salazar.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-2918d0.a",
+          "fact": "congresstr-2918d0",
+          "variant": "a",
+          "text": "Maria Elvira Salazar's $PG purchases were traded Oct 23 and disclosed on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-2918d0.h1",
+          "fact": "congresstr-2918d0",
+          "variant": "h1",
+          "text": "Traded Oct 23, Maria Elvira Salazar's $PG purchases were disclosed on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.a",
+          "fact": "congresstr-426192",
+          "variant": "a",
+          "text": "$PG had a market value of $388B at the Nov 5 close.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.h1",
+          "fact": "congresstr-426192",
+          "variant": "h1",
+          "text": "$PG's market value at the Nov 5 close was $388B.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.t",
+          "fact": "congresstr-426192",
+          "variant": "t",
+          "text": "At the Nov 5 close, $PG had a market value of $388B.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.a",
+          "fact": "congresstr-061727",
+          "variant": "a",
+          "text": "$PG moved −0.13% on Thursday, Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.h1",
+          "fact": "congresstr-061727",
+          "variant": "h1",
+          "text": "$PG's move on Thursday, Nov 5: −0.13%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.t",
+          "fact": "congresstr-061727",
+          "variant": "t",
+          "text": "On Thursday, Nov 5, $PG moved −0.13%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.a",
+          "fact": "congresstr-f8938e",
+          "variant": "a",
+          "text": "Members of Congress disclosed 85 buys and 144 sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.h1",
+          "fact": "congresstr-f8938e",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, members of Congress disclosed 144 sells and 85 buys.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.t",
+          "fact": "congresstr-f8938e",
+          "variant": "t",
+          "text": "Over 30 days in our feed, members of Congress disclosed 85 buys and 144 sells.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-10cf3f.a",
+          "fact": "congresstr-10cf3f",
+          "variant": "a",
+          "text": "Members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells by 3 members.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-10cf3f.h1",
+          "fact": "congresstr-10cf3f",
+          "variant": "h1",
+          "text": "3 members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.13%": "-",
+          "0.1%": "-"
+        },
+        "subjects": {
+          "PG": "down"
+        }
+      },
+      "subject_numbers": {
+        "PG": [
+          [
+            "%",
+            0.13,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            388.0,
+            0,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
       "top8": true,
       "rotation": null
     },
@@ -10012,296 +9493,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-06-congress-trade-PG-bcfead",
-      "type": "congress_trade",
-      "ticker": "PG",
-      "tickers": [
-        "PG"
-      ],
-      "name": "Maria Elvira Salazar",
-      "office": "U.S. Representative (R-FL)",
-      "amount_text": "$1K–$15K; $1K–$15K",
-      "traded": [
-        "2026-10-23"
-      ],
-      "filed": "2026-11-05",
-      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035778.pdf",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-congress-trade-PG-bcfead#trades",
-      "allowed_numbers": [
-        "$1K–$15K",
-        "$1K",
-        "$15K",
-        "$1,001–$15,000",
-        "$1,001",
-        "$15,000",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5",
-        "2026-10-23",
-        "Oct 23, 2026",
-        "Oct 23",
-        "2"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of PG (The Procter & Gamble Company), $1K–$15K; $1K–$15K, traded 2026-10-23; filed 2026-11-05.",
-      "dedupe_key": "ptr:20035778:PG:buy",
-      "claim_phrases": [],
-      "company": "The Procter & Gamble Company",
-      "side": "buy",
-      "owner": [
-        "self"
-      ],
-      "figure_slug": "maria-elvira-salazar",
-      "amount_exact_text": "$1,001–$15,000; $1,001–$15,000",
-      "rows": 2,
-      "amount_top_usd": 30000.0,
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar/opengraph-image",
-          "kind": "image",
-          "alt": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of PG (The Procter & Gamble Company), $1K–$15K; $1K–$15K, traded 2026-10-23; filed 2026-11-05."
-        }
-      ],
-      "rank": 8.98,
-      "rank_why": "congress_trade 2; mega cap $387.81B +4; magnitude (top $30K, buy +1) +1.48; filed 2026-11-05 (age 1) +1.5",
-      "pillar": "P3",
-      "market_cap_usd": 387811491974.8686,
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5",
-        "$388B",
-        "−0.13%",
-        "0.13%",
-        "−0.1%",
-        "0.1%",
-        "83",
-        "143",
-        "20",
-        "30",
-        "4",
-        "3",
-        "2"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "PG"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "PG": "Consumer Defensive"
-      },
-      "ticker_names": {
-        "PG": "The Procter & Gamble Company"
-      },
-      "context": {
-        "market_cap": "$388B",
-        "market_cap_session": "2026-11-05",
-        "last_session_move": {
-          "pct": "−0.13%",
-          "session": "2026-11-05"
-        },
-        "congress_30d": {
-          "buys": 83,
-          "sells": 143,
-          "members": 20,
-          "days": 30
-        },
-        "ticker_congress_30d": {
-          "trades": 4,
-          "members": 3,
-          "buys": 2,
-          "sells": 2
-        }
-      },
-      "angles": [
-        "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K (filed Nov 5).",
-        "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative Maria Elvira Salazar (R-FL) (filed Nov 5).",
-        "Maria Elvira Salazar disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K."
-      ],
-      "fact_phrases": [
-        "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K (filed Nov 5).",
-        "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative Maria Elvira Salazar (R-FL) (filed Nov 5).",
-        "Maria Elvira Salazar disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K.",
-        "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by Maria Elvira Salazar.",
-        "Maria Elvira Salazar's $PG purchases were traded Oct 23 and disclosed on Nov 5.",
-        "Traded Oct 23, Maria Elvira Salazar's $PG purchases were disclosed on Nov 5.",
-        "$PG had a market value of $388B at the Nov 5 close.",
-        "$PG's market value at the Nov 5 close was $388B.",
-        "At the Nov 5 close, $PG had a market value of $388B.",
-        "$PG moved −0.13% on Thursday, Nov 5.",
-        "$PG's move on Thursday, Nov 5: −0.13%.",
-        "On Thursday, Nov 5, $PG moved −0.13%.",
-        "Members of Congress disclosed 83 buys and 143 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 143 sells and 83 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 83 buys and 143 sells.",
-        "Members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells by 3 members.",
-        "3 members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells."
-      ],
-      "phrasings": [
-        {
-          "id": "congresstr-e58ca0.a",
-          "fact": "congresstr-e58ca0",
-          "variant": "a",
-          "text": "U.S. Representative Maria Elvira Salazar (R-FL) disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K (filed Nov 5).",
-          "claim": false
-        },
-        {
-          "id": "congresstr-e58ca0.h1",
-          "fact": "congresstr-e58ca0",
-          "variant": "h1",
-          "text": "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by U.S. Representative Maria Elvira Salazar (R-FL) (filed Nov 5).",
-          "claim": false
-        },
-        {
-          "id": "congresstr-858a2c.a",
-          "fact": "congresstr-858a2c",
-          "variant": "a",
-          "text": "Maria Elvira Salazar disclosed 2 purchases of $PG, $1K–$15K, $1K–$15K.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-858a2c.h1",
-          "fact": "congresstr-858a2c",
-          "variant": "h1",
-          "text": "2 purchases of $PG, $1K–$15K, $1K–$15K, were disclosed by Maria Elvira Salazar.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-2918d0.a",
-          "fact": "congresstr-2918d0",
-          "variant": "a",
-          "text": "Maria Elvira Salazar's $PG purchases were traded Oct 23 and disclosed on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-2918d0.h1",
-          "fact": "congresstr-2918d0",
-          "variant": "h1",
-          "text": "Traded Oct 23, Maria Elvira Salazar's $PG purchases were disclosed on Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.a",
-          "fact": "congresstr-426192",
-          "variant": "a",
-          "text": "$PG had a market value of $388B at the Nov 5 close.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.h1",
-          "fact": "congresstr-426192",
-          "variant": "h1",
-          "text": "$PG's market value at the Nov 5 close was $388B.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.t",
-          "fact": "congresstr-426192",
-          "variant": "t",
-          "text": "At the Nov 5 close, $PG had a market value of $388B.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.a",
-          "fact": "congresstr-061727",
-          "variant": "a",
-          "text": "$PG moved −0.13% on Thursday, Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.h1",
-          "fact": "congresstr-061727",
-          "variant": "h1",
-          "text": "$PG's move on Thursday, Nov 5: −0.13%.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.t",
-          "fact": "congresstr-061727",
-          "variant": "t",
-          "text": "On Thursday, Nov 5, $PG moved −0.13%.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.a",
-          "fact": "congresstr-f8938e",
-          "variant": "a",
-          "text": "Members of Congress disclosed 83 buys and 143 sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.h1",
-          "fact": "congresstr-f8938e",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 143 sells and 83 buys.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.t",
-          "fact": "congresstr-f8938e",
-          "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 143 sells.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-10cf3f.a",
-          "fact": "congresstr-10cf3f",
-          "variant": "a",
-          "text": "Members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells by 3 members.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-10cf3f.h1",
-          "fact": "congresstr-10cf3f",
-          "variant": "h1",
-          "text": "3 members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "0.13%": "-",
-          "0.1%": "-"
-        },
-        "subjects": {
-          "PG": "down"
-        }
-      },
-      "subject_numbers": {
-        "PG": [
-          [
-            "%",
-            0.13,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            388.0,
-            0,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-06-form4-buy-BXMT-b7974b",
       "type": "form4_buy",
       "ticker": "BXMT",
@@ -10357,10 +9548,10 @@
       "in_500": false,
       "context_numbers": [
         "$2.1B",
-        "$453M",
-        "+$453M",
-        "$453.0M",
-        "+$453.0M",
+        "$454M",
+        "+$454M",
+        "$453.8M",
+        "+$453.8M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -10382,10 +9573,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$453M",
-            "+$453M",
-            "$453.0M",
-            "+$453.0M",
+            "$454M",
+            "+$454M",
+            "$453.8M",
+            "+$453.8M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -10401,7 +9592,7 @@
       "context": {
         "market_cap": "$2.1B",
         "insiders_30d": {
-          "bought": "$453M",
+          "bought": "$454M",
           "sold": "$3.2B",
           "days": 30
         }
@@ -10425,9 +9616,9 @@
         "On a Form 4 filed Nov 5, Timothy Steven Johnson (Chief Executive Officer at Blackstone Mortgage Trust, Inc.) reported an open-market purchase of $BXMT totaling $1.04M.",
         "Timothy Steven Johnson's $BXMT purchase was traded Nov 4 and reported on a Form 4 filed Nov 5.",
         "Traded Nov 4, Timothy Steven Johnson's $BXMT purchase was reported on a Form 4 filed Nov 5.",
-        "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells."
+        "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $454M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $454M of open-market buys and $3.2B of open-market sells."
       ],
       "phrasings": [
         {
@@ -10525,28 +9716,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $454M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $454M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$453M": "+",
-          "$453.0M": "+",
+          "$454M": "+",
+          "$453.8M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -18459,8 +17650,8 @@
         "9.26%",
         "−9.3%",
         "9.3%",
-        "83",
-        "143",
+        "85",
+        "144",
         "20",
         "30",
         "8",
@@ -18492,8 +17683,8 @@
           "session": "2026-11-05"
         },
         "congress_30d": {
-          "buys": 83,
-          "sells": 143,
+          "buys": 85,
+          "sells": 144,
           "members": 20,
           "days": 30
         },
@@ -18522,9 +17713,9 @@
         "$NVDA moved −9.26% on Thursday, Nov 5.",
         "$NVDA's move on Thursday, Nov 5: −9.26%.",
         "On Thursday, Nov 5, $NVDA moved −9.26%.",
-        "Members of Congress disclosed 83 buys and 143 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 143 sells and 83 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 83 buys and 143 sells.",
+        "Members of Congress disclosed 85 buys and 144 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 144 sells and 85 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 85 buys and 144 sells.",
         "Members of Congress disclosed 8 trades in $NVDA over 30 days in our feed: 5 buys and 3 sells by 4 members.",
         "4 members of Congress disclosed 8 trades in $NVDA over 30 days in our feed: 5 buys and 3 sells."
       ],
@@ -18617,21 +17808,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 83 buys and 143 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 85 buys and 144 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 143 sells and 83 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 144 sells and 85 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 143 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 85 buys and 144 sells.",
           "claim": false
         },
         {
@@ -19445,6 +18636,180 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-06-congress-trade-BHE-25f283",
+      "type": "congress_trade",
+      "ticker": "BHE",
+      "tickers": [
+        "BHE"
+      ],
+      "name": "Josh Gottheimer",
+      "office": "U.S. Representative (D-NJ)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-10-12"
+      ],
+      "filed": "2026-11-05",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035770.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-congress-trade-BHE-25f283#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a purchase of BHE (Benchmark Electronics, Inc.), $1K–$15K, traded 2026-10-12; filed 2026-11-05 (owner: joint).",
+      "dedupe_key": "ptr:20035770:BHE:buy",
+      "claim_phrases": [],
+      "company": "Benchmark Electronics, Inc.",
+      "side": "buy",
+      "owner": [
+        "joint"
+      ],
+      "figure_slug": "josh-gottheimer",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/josh-gottheimer/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a purchase of BHE (Benchmark Electronics, Inc.), $1K–$15K, traded 2026-10-12; filed 2026-11-05 (owner: joint)."
+        }
+      ],
+      "rank": 6.68,
+      "rank_why": "congress_trade 2; known name Josh Gottheimer (fame) +2; magnitude (top $15K, buy +1) +1.18; filed 2026-11-05 (age 1) +1.5",
+      "pillar": "P3",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [
+        "85",
+        "144",
+        "20",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "BHE"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "congress_30d": {
+          "buys": 85,
+          "sells": 144,
+          "members": 20,
+          "days": 30
+        }
+      },
+      "angles": [
+        "U.S. Representative Josh Gottheimer (D-NJ) disclosed a purchase of $BHE (owner: joint), $1K–$15K (filed Nov 5).",
+        "A purchase of $BHE (owner: joint), $1K–$15K, was disclosed by U.S. Representative Josh Gottheimer (D-NJ) (filed Nov 5).",
+        "Josh Gottheimer disclosed a purchase of $BHE (owner: joint), $1K–$15K."
+      ],
+      "fact_phrases": [
+        "U.S. Representative Josh Gottheimer (D-NJ) disclosed a purchase of $BHE (owner: joint), $1K–$15K (filed Nov 5).",
+        "A purchase of $BHE (owner: joint), $1K–$15K, was disclosed by U.S. Representative Josh Gottheimer (D-NJ) (filed Nov 5).",
+        "Josh Gottheimer disclosed a purchase of $BHE (owner: joint), $1K–$15K.",
+        "A purchase of $BHE (owner: joint), $1K–$15K, was disclosed by Josh Gottheimer.",
+        "Josh Gottheimer's $BHE purchase was traded Oct 12 and disclosed on Nov 5.",
+        "Traded Oct 12, Josh Gottheimer's $BHE purchase was disclosed on Nov 5.",
+        "Members of Congress disclosed 85 buys and 144 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 144 sells and 85 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 85 buys and 144 sells."
+      ],
+      "phrasings": [
+        {
+          "id": "congresstr-382cff.a",
+          "fact": "congresstr-382cff",
+          "variant": "a",
+          "text": "U.S. Representative Josh Gottheimer (D-NJ) disclosed a purchase of $BHE (owner: joint), $1K–$15K (filed Nov 5).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-382cff.h1",
+          "fact": "congresstr-382cff",
+          "variant": "h1",
+          "text": "A purchase of $BHE (owner: joint), $1K–$15K, was disclosed by U.S. Representative Josh Gottheimer (D-NJ) (filed Nov 5).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-6884cf.a",
+          "fact": "congresstr-6884cf",
+          "variant": "a",
+          "text": "Josh Gottheimer disclosed a purchase of $BHE (owner: joint), $1K–$15K.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-6884cf.h1",
+          "fact": "congresstr-6884cf",
+          "variant": "h1",
+          "text": "A purchase of $BHE (owner: joint), $1K–$15K, was disclosed by Josh Gottheimer.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.a",
+          "fact": "congresstr-190851",
+          "variant": "a",
+          "text": "Josh Gottheimer's $BHE purchase was traded Oct 12 and disclosed on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.h1",
+          "fact": "congresstr-190851",
+          "variant": "h1",
+          "text": "Traded Oct 12, Josh Gottheimer's $BHE purchase was disclosed on Nov 5.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.a",
+          "fact": "congresstr-f8938e",
+          "variant": "a",
+          "text": "Members of Congress disclosed 85 buys and 144 sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.h1",
+          "fact": "congresstr-f8938e",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, members of Congress disclosed 144 sells and 85 buys.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.t",
+          "fact": "congresstr-f8938e",
+          "variant": "t",
+          "text": "Over 30 days in our feed, members of Congress disclosed 85 buys and 144 sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-06-form4-buy-PAM-bb7e56",
       "type": "form4_buy",
       "ticker": "PAM",
@@ -19500,10 +18865,10 @@
       "in_500": false,
       "context_numbers": [
         "$3.9B",
-        "$453M",
-        "+$453M",
-        "$453.0M",
-        "+$453.0M",
+        "$454M",
+        "+$454M",
+        "$453.8M",
+        "+$453.8M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -19525,10 +18890,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$453M",
-            "+$453M",
-            "$453.0M",
-            "+$453.0M",
+            "$454M",
+            "+$454M",
+            "$453.8M",
+            "+$453.8M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -19544,7 +18909,7 @@
       "context": {
         "market_cap": "$3.9B",
         "insiders_30d": {
-          "bought": "$453M",
+          "bought": "$454M",
           "sold": "$3.2B",
           "days": 30
         }
@@ -19568,9 +18933,9 @@
         "On a Form 4 filed Nov 5, Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.33M.",
         "Damian Miguel Mindlin's $PAM purchase was traded Nov 3 and reported on a Form 4 filed Nov 5.",
         "Traded Nov 3, Damian Miguel Mindlin's $PAM purchase was reported on a Form 4 filed Nov 5.",
-        "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells."
+        "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $454M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $454M of open-market buys and $3.2B of open-market sells."
       ],
       "phrasings": [
         {
@@ -19668,28 +19033,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $454M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $454M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $454M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$453M": "+",
-          "$453.0M": "+",
+          "$454M": "+",
+          "$453.8M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -19702,271 +19067,6 @@
             3.9,
             1,
             1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-06-form4-buy-COUR-7ac4f7",
-      "type": "form4_buy",
-      "ticker": "COUR",
-      "tickers": [
-        "COUR"
-      ],
-      "name": "Pale Fire Capital Se",
-      "office": "10% owner at Coursera, Inc.",
-      "amount_text": "$11.65M",
-      "traded": [
-        "2026-11-05"
-      ],
-      "filed": "2026-11-05",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1651562/000092189526002941/0000921895-26-002941-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/pale-fire-capital-se-1922318?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-06-form4-buy-COUR-7ac4f7#trades",
-      "allowed_numbers": [
-        "$11.65M",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "Nov 5",
-        "10%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Pale Fire Capital Se (10% owner at Coursera, Inc.) reported an open-market purchase of COUR totaling $11.65M on a Form 4 filed 2026-11-05, traded 2026-11-05.",
-      "dedupe_key": "form4:0000921895-26-002941:COUR",
-      "claim_phrases": [],
-      "company": "Coursera, Inc.",
-      "side": "buy",
-      "accession": "0000921895-26-002941",
-      "rows": 1,
-      "figure_slug": "pale-fire-capital-se-1922318",
-      "amount_top_usd": 11650414.58,
-      "market_cap_usd": 917468032.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$11.65M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/pale-fire-capital-se-1922318/opengraph-image",
-          "kind": "image",
-          "alt": "Pale Fire Capital Se (10% owner at Coursera, Inc.) reported an open-market purchase of COUR totaling $11.65M on a Form 4 filed 2026-11-05, traded 2026-11-05."
-        }
-      ],
-      "rank": 6.5,
-      "rank_why": "form4_buy 2; small cap $917.47M +0; magnitude (top $11.65M) +3; filed 2026-11-05 (age 1) +1.5",
-      "pillar": "P3",
-      "cap_tier": "small",
-      "in_500": false,
-      "context_numbers": [
-        "$917M",
-        "$453M",
-        "+$453M",
-        "$453.0M",
-        "+$453.0M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "COUR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$453M",
-            "+$453M",
-            "$453.0M",
-            "+$453.0M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$917M",
-        "insiders_30d": {
-          "bought": "$453M",
-          "sold": "$3.2B",
-          "days": 30
-        }
-      },
-      "angles": [
-        "Coursera, Inc. 10% owner Pale Fire Capital Se bought $11.65M of $COUR on the open market (Form 4, filed Nov 5).",
-        "Pale Fire Capital Se, 10% owner at Coursera, Inc., bought $11.65M of $COUR on the open market (Form 4, filed Nov 5).",
-        "An open-market purchase of $COUR totaling $11.65M by Coursera, Inc. 10% owner Pale Fire Capital Se was reported on a Form 4 filed Nov 5."
-      ],
-      "fact_phrases": [
-        "Coursera, Inc. 10% owner Pale Fire Capital Se bought $11.65M of $COUR on the open market (Form 4, filed Nov 5).",
-        "Pale Fire Capital Se, 10% owner at Coursera, Inc., bought $11.65M of $COUR on the open market (Form 4, filed Nov 5).",
-        "An open-market purchase of $COUR totaling $11.65M by Coursera, Inc. 10% owner Pale Fire Capital Se was reported on a Form 4 filed Nov 5.",
-        "Coursera, Inc. 10% owner Pale Fire Capital Se bought $11.65M of $COUR on the open market.",
-        "Pale Fire Capital Se, 10% owner at Coursera, Inc., bought $11.65M of $COUR on the open market.",
-        "On the open market, Coursera, Inc. 10% owner Pale Fire Capital Se bought $11.65M of $COUR.",
-        "Pale Fire Capital Se bought $11.65M of $COUR on the open market.",
-        "On the open market, Pale Fire Capital Se bought $11.65M of $COUR.",
-        "Pale Fire Capital Se made an open-market purchase of $COUR: $11.65M.",
-        "Pale Fire Capital Se (10% owner at Coursera, Inc.) reported an open-market purchase of $COUR totaling $11.65M on a Form 4 filed Nov 5.",
-        "On a Form 4 filed Nov 5, Pale Fire Capital Se (10% owner at Coursera, Inc.) reported an open-market purchase of $COUR totaling $11.65M.",
-        "Pale Fire Capital Se's $COUR purchase was traded Nov 5 and reported on a Form 4 filed Nov 5.",
-        "Traded Nov 5, Pale Fire Capital Se's $COUR purchase was reported on a Form 4 filed Nov 5.",
-        "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells."
-      ],
-      "phrasings": [
-        {
-          "id": "form4buy-9c4193.a",
-          "fact": "form4buy-9c4193",
-          "variant": "a",
-          "text": "Coursera, Inc. 10% owner Pale Fire Capital Se bought $11.65M of $COUR on the open market (Form 4, filed Nov 5).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-9c4193.h1",
-          "fact": "form4buy-9c4193",
-          "variant": "h1",
-          "text": "Pale Fire Capital Se, 10% owner at Coursera, Inc., bought $11.65M of $COUR on the open market (Form 4, filed Nov 5).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-9c4193.h2",
-          "fact": "form4buy-9c4193",
-          "variant": "h2",
-          "text": "An open-market purchase of $COUR totaling $11.65M by Coursera, Inc. 10% owner Pale Fire Capital Se was reported on a Form 4 filed Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-50ec4c.a",
-          "fact": "form4buy-50ec4c",
-          "variant": "a",
-          "text": "Coursera, Inc. 10% owner Pale Fire Capital Se bought $11.65M of $COUR on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-50ec4c.h1",
-          "fact": "form4buy-50ec4c",
-          "variant": "h1",
-          "text": "Pale Fire Capital Se, 10% owner at Coursera, Inc., bought $11.65M of $COUR on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-50ec4c.h2",
-          "fact": "form4buy-50ec4c",
-          "variant": "h2",
-          "text": "On the open market, Coursera, Inc. 10% owner Pale Fire Capital Se bought $11.65M of $COUR.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
-          "variant": "a",
-          "text": "Pale Fire Capital Se bought $11.65M of $COUR on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
-          "variant": "h1",
-          "text": "On the open market, Pale Fire Capital Se bought $11.65M of $COUR.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "Pale Fire Capital Se made an open-market purchase of $COUR: $11.65M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-226ef7.a",
-          "fact": "form4buy-226ef7",
-          "variant": "a",
-          "text": "Pale Fire Capital Se (10% owner at Coursera, Inc.) reported an open-market purchase of $COUR totaling $11.65M on a Form 4 filed Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-226ef7.h1",
-          "fact": "form4buy-226ef7",
-          "variant": "h1",
-          "text": "On a Form 4 filed Nov 5, Pale Fire Capital Se (10% owner at Coursera, Inc.) reported an open-market purchase of $COUR totaling $11.65M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "Pale Fire Capital Se's $COUR purchase was traded Nov 5 and reported on a Form 4 filed Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Nov 5, Pale Fire Capital Se's $COUR purchase was reported on a Form 4 filed Nov 5.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $453M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $453M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $453M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$453M": "+",
-          "$453.0M": "+",
-          "$3.2B": "+",
-          "$3B": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "COUR": [
-          [
-            "$",
-            917.0,
-            0,
-            1000000.0,
             0
           ]
         ]
@@ -49212,7 +48312,7 @@
       "rank_why": "moves_like 0.5; mega cap $387.81B +4; session 2026-11-05 (age 1) +1.5",
       "top8": false,
       "rotation": null,
-      "top8_out": "ranked below the top 8"
+      "top8_out": "repeat: leads with $PG like 2026-11-06-congress-trade-PG-bcfead"
     },
     {
       "item_id": "2026-11-06-earnings-result-PRTA-729e41",
@@ -73361,8 +72461,8 @@
       "cap_tier": "unknown",
       "in_500": false,
       "context_numbers": [
-        "83",
-        "143",
+        "85",
+        "144",
         "20",
         "30"
       ],
@@ -73380,8 +72480,8 @@
       "ticker_names": {},
       "context": {
         "congress_30d": {
-          "buys": 83,
-          "sells": 143,
+          "buys": 85,
+          "sells": 144,
           "members": 20,
           "days": 30
         }
@@ -73398,9 +72498,9 @@
         "A purchase of $FMAO (owner: spouse), $1K–$15K, was disclosed by Robert E. Latta.",
         "Robert E. Latta's $FMAO purchase was traded Oct 20 and disclosed on Nov 3.",
         "Traded Oct 20, Robert E. Latta's $FMAO purchase was disclosed on Nov 3.",
-        "Members of Congress disclosed 83 buys and 143 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 143 sells and 83 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 83 buys and 143 sells."
+        "Members of Congress disclosed 85 buys and 144 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 144 sells and 85 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 85 buys and 144 sells."
       ],
       "phrasings": [
         {
@@ -73449,21 +72549,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 83 buys and 143 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 85 buys and 144 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 143 sells and 83 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 144 sells and 85 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 143 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 85 buys and 144 sells.",
           "claim": false
         }
       ],
