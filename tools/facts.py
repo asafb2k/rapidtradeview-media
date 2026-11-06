@@ -1419,10 +1419,23 @@ def card_file(spec: dict) -> str:
     return f"market-{spec['panel']}-{spec.get('card_date') or 'nodate'}-{spec.get('fingerprint') or 'x'}.png"
 
 
+def first_paint_path(kind: str, ticker: str | None) -> str | None:
+    """A page that shows the item at once on a phone, for the home-page panels that do not (Growth 2026-11-06).
+    On a fresh open of /#congress, /#insiders and /#buzz the home page only starts the chart import for the #map tile,
+    so those panels sit on "Loading the chart..." and the visitor sees no chart (social-landing study, render2/)."""
+    if kind == "congress_flow":
+        return "/congress-trades"
+    if kind in ("insider_flow", "reddit_buzz") and ticker:
+        return f"/dashboard/{ticker}"
+    return None
+
+
 def market_item(target: dt.date, spec: dict) -> dict:
     """A market_facts spec as a facts item. Items with a share card start with media [] and card.url null: the runner
     pins the card (tools/pin_cards.py) and fills both, or drops the item (No Fallbacks: no post without its own card)."""
     path = spec.get("path") or "/"
+    if path == "/":
+        path = first_paint_path(spec["type"], spec.get("ticker")) or path
     skip = ("type", "key", "path", "panel", "fingerprint", "card_date", "ticker")
     fields = {k: v for k, v in spec.items() if k not in skip}
     fields["source_url"] = f"{SITE}/earnings" if spec["type"] == "earnings_week_preview" else None
