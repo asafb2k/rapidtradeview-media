@@ -366,6 +366,35 @@ def test_a_draft_that_supersedes_its_own_pending_approval_is_reviewed_without_it
     assert [e["msg_id"] for e in entries] == [912]                            # 910 withdrawn, 912 now pending
 
 
+def test_ranker_v1_variants_of_one_slot_are_alternatives(tmp_path):
+    """RANKER v1 (Growth 2026-11-07): variants a / b of one slot (same platform, slot and planned_at) are alternatives
+    Grok posts one of. b is never rejected for repeating its own sibling (rotation, duplicate, a variety warning the
+    sibling recorded); another slot, or a draft with no slot, still rotates against both pending approvals."""
+    from test_grok_review import INSTINCT, FakeRest  # noqa: PLC0415
+    a = [i for i in VDOC["items"] if i["type"] == "mega_mover"][0]
+    vdir = tmp_path / "v" / "2026-10-18"
+    vdir.mkdir(parents=True)
+    (vdir / "facts.json").write_text(json.dumps(VDOC), encoding="utf-8")
+    lead = next(p["text"] for p in a["phrasings"] if f"${a['ticker']}" in p["text"])
+    at = lambda h: (NOW + dt.timedelta(hours=h)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    base = tg.draft(a, f"Here is the map. {lead} {NIA}", platform="threads", planned_at=at(1), slot="T1")
+    led, vs = tmp_path / "ledger.json", tmp_path / "variety.json"
+    row = lambda i, d: {"id": i, "created_at": "2026-10-18T15:00:00Z", "kind": "draft", "platform": "threads",
+                        "item_id": d["item_id"], "body": "DRAFT " + json.dumps(d)}
+    run = lambda rows, minutes: gr.run_inbox(FakeRest(rows), INSTINCT, "prod", str(tmp_path / "v"), False,
+                                            lambda p, x: True, now=NOW + dt.timedelta(minutes=minutes), history=[],
+                                            need_history=True, variety=True, variety_state=vs, approved_ledger=led)
+    stats = run([row(920, dict(base, variant="a")), row(921, dict(base, variant="b"))], 0)
+    assert (stats["approved"], stats["rejected"]) == (2, 0), stats
+    assert [e.get("slot") for e in json.loads(led.read_text(encoding="utf-8"))["approved"]] == ["T1", "T1"]
+    assert run([row(922, dict(base, slot="T2", planned_at=at(3), variant="a"))], 15)["rejected"] == 1
+    assert run([row(923, {k: v for k, v in base.items() if k != "slot"})], 30)["rejected"] == 1
+    assert run([row(924, dict(base, slot="T1", planned_at=at(2)))], 45)["rejected"] == 1   # a new time: not a sibling
+    view, sibs = gr.split_alternatives([{"pending": True, "msg_id": 7, "slot": "T1", "platform": "threads",
+                                         "planned_at": gr._planned_iso(base)}, {"msg_id": 8, "platform": "threads"}], base)
+    assert sibs == {7} and [r["msg_id"] for r in view] == [8]               # posted rows always count
+
+
 def test_inbox_rejects_a_repeat_and_defers_posts_without_history(tmp_path):
     from test_grok_review import INSTINCT, FakeRest  # noqa: PLC0415
     mm = vitem("market_move")

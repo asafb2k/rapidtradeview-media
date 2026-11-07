@@ -1090,8 +1090,11 @@ class VarietyState:
             except (OSError, ValueError, AttributeError) as e:
                 raise StateUnreadable(f"{self.path}: {type(e).__name__}") from None
 
-    def seen(self, day: str, platform: str, rule: str) -> bool:
-        return any(w.get("date") == day and w.get("platform") == platform and w.get("rule") == rule for w in self.warned)
+    def seen(self, day: str, platform: str, rule: str, ignore: set | None = None) -> bool:
+        """A warning of this rule today; `ignore` = msg ids whose warnings do not count (RANKER v1: the draft's own
+        slot alternatives)."""
+        return any(w.get("date") == day and w.get("platform") == platform and w.get("rule") == rule
+                   and not (ignore and w.get("msg_id") in ignore) for w in self.warned)
 
     def add(self, day: str, platform: str, rule: str, msg_id) -> None:
         self.warned.append({"date": day, "platform": platform, "rule": rule, "msg_id": msg_id})
@@ -1105,8 +1108,9 @@ class VarietyState:
 
 
 def apply_variety(draft: dict, facts: dict | None, history: list[dict] | None, state: "VarietyState | None",
-                  now: dt.datetime) -> tuple[list[str], list[str], list[str]]:
-    """(reject reasons, NOTES lines, rules to record as warned once the answer is sent) for a post draft."""
+                  now: dt.datetime, ignore: set | None = None) -> tuple[list[str], list[str], list[str]]:
+    """(reject reasons, NOTES lines, rules to record as warned once the answer is sent) for a post draft. `ignore`:
+    msg ids whose warnings today do not make this one a repeat (split_alternatives)."""
     if history is None or facts is None:
         return [], [], []
     item = next((i for i in facts.get("items") or [] if i.get("item_id") == draft.get("item_id")), None)
@@ -1115,7 +1119,7 @@ def apply_variety(draft: dict, facts: dict | None, history: list[dict] | None, s
     day = (now.astimezone(ss.NY) if ss.NY else now).date().isoformat()
     rejects, notes, record = [], [], []
     for rule, why in variety_breaches(draft, item, history, now):
-        if state is not None and state.seen(day, draft.get("platform"), rule):
+        if state is not None and state.seen(day, draft.get("platform"), rule, ignore):
             rejects.append(f"variety {rule} (a repeat today): {why}")
         else:
             notes.append(f"- VARIETY WARN {rule}: {why} (a second {rule} on {draft.get('platform')} today is rejected)")
@@ -1277,16 +1281,46 @@ def _ts(s) -> dt.datetime | None:
     return t if t.tzinfo else t.replace(tzinfo=dt.timezone.utc)
 
 
-def ledger_entry(draft: dict, msg_id, now: dt.datetime) -> dict:
-    out = {"msg_id": msg_id, "at": now.astimezone(dt.timezone.utc).isoformat(), "platform": draft.get("platform"),
-           "item_id": draft.get("item_id"),
-           "text": "\n".join([str(draft.get("text") or ""), str(draft.get("reply_text") or "")])}
+def _planned_iso(draft: dict) -> str | None:
     try:   # untrusted draft field: a time it cannot read (or out of range) is simply not kept
         planned = vc.as_time(draft.get("planned_at")) if isinstance(draft.get("planned_at"), str) else None
     except Exception:  # noqa: BLE001
         planned = None
+    return planned.isoformat() if planned is not None else None
+
+
+# RANKER v1 (Growth 2026-11-07, owner): Grok sends 2 variants of one X slot ("slot": "X1", "variant": "a" | "b") and
+# posts only the one the ranker names. The variants are alternatives, not two posts: a variant is never compared with an
+# approved, not yet logged sibling of its own slot (same platform, slot and planned_at) - rotation, duplicate, variety
+# (and a variety warning a sibling recorded today) and M6. Posted rows and every other slot's approvals still count.
+SLOT_ID = re.compile(r"^[A-Za-z]{1,3}\d{1,2}$")
+
+
+def slot_of(row: dict) -> str | None:
+    v = row.get("slot")
+    return v if isinstance(v, str) and SLOT_ID.match(v) else None
+
+
+def split_alternatives(work: list[dict] | None, draft: dict) -> tuple[list[dict] | None, set]:
+    """(work without the draft's pending slot siblings, their msg ids)."""
+    slot, planned = slot_of(draft), _planned_iso(draft)
+    if work is None or slot is None or planned is None:
+        return work, set()
+    sib = lambda r: (r.get("pending") and r.get("slot") == slot and r.get("platform") == draft.get("platform")
+                     and r.get("planned_at") == planned)
+    ids = {r.get("msg_id") for r in work if sib(r)}
+    return ([r for r in work if not sib(r)], ids) if ids else (work, set())
+
+
+def ledger_entry(draft: dict, msg_id, now: dt.datetime) -> dict:
+    out = {"msg_id": msg_id, "at": now.astimezone(dt.timezone.utc).isoformat(), "platform": draft.get("platform"),
+           "item_id": draft.get("item_id"),
+           "text": "\n".join([str(draft.get("text") or ""), str(draft.get("reply_text") or "")])}
+    planned = _planned_iso(draft)
     if planned is not None:   # VIRAL CHECK M6: an approved post with a planned time counts in the 60 min spacing
-        out["planned_at"] = planned.isoformat()
+        out["planned_at"] = planned
+    if slot_of(draft):        # RANKER v1: siblings of one slot are alternatives (split_alternatives)
+        out["slot"] = slot_of(draft)
     return out
 
 
@@ -1366,6 +1400,8 @@ def pending_records(entries: list[dict], facts_for_date) -> list[dict]:
         r["msg_id"] = e.get("msg_id")
         if e.get("planned_at"):
             r["planned_at"] = e["planned_at"]
+        if slot_of(e):
+            r["slot"] = e["slot"]
     return out
 
 
@@ -1460,6 +1496,38 @@ def draft_kind(draft: dict) -> tuple[str | None, str | None]:
     return None, f"kind must be post or comment (got {short(kind)!r})"
 
 
+def post_gate(draft: dict, facts: dict | None, work: list[dict] | None, vstate: "VarietyState | None",
+              clock: dt.datetime, variety: bool = True, viral: bool = True,
+              notes_in: list[str] | None = None) -> tuple[str, list[str], list[str], list[str]]:
+    """The inbox's whole verdict on one post draft: review(), playbook notes, duplicate + rotation against the working
+    history (own posts + approved, not yet logged), the variety lint and VIRAL CHECK v1. Returns (verdict, reasons,
+    notes, variety rules to record once the answer is sent). Growth's content builder calls this same function (read
+    only: it never saves state), so a pre-check cannot miss a rule the inbox applies (2026-11-07: a pre-check that ran
+    review() alone passed 9 drafts the inbox then rejected for rotation and M8)."""
+    notes = list(notes_in or [])
+    record: list[str] = []
+    verdict, reasons = review(draft, facts, clock)
+    notes = notes + playbook_notes(draft, facts, clock)
+    iid = draft.get("item_id")
+    item = next((i for i in (facts or {}).get("items") or [] if i.get("item_id") == iid), None)
+    view, sibs = split_alternatives(work, draft)   # RANKER v1: never against its own slot's siblings
+    if view is not None and item is not None:
+        rrej = duplicate_reasons(draft, view, clock) + rotation_reasons(draft, item, view)
+        if rrej:
+            verdict, reasons = "REJECT", reasons + rrej
+    if variety:
+        vrej, vnotes, record = apply_variety(draft, facts, view, vstate, clock, sibs)
+        if vrej:
+            verdict, reasons = "REJECT", reasons + vrej
+        notes += vnotes
+    if viral:
+        xrej, xnotes, _ = apply_viral(draft, facts, "post", view, clock)
+        if xrej:
+            verdict, reasons = "REJECT", reasons + xrej
+        notes = xnotes + notes
+    return verdict, reasons, notes, record
+
+
 def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, limit: int = 200,
               comment_state: Path | None = None, now: dt.datetime | None = None, history=None,
               variety_state: Path | None = None, need_history: bool = False, variety: bool = True,
@@ -1551,23 +1619,7 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
                         notes.append(f"supersedes #{dropped}: that approval is withdrawn and no longer counts")
                         if ledger is not None and not dry_run:
                             ledger.save(history, clock)
-                    verdict, reasons = review(draft, facts, clock)
-                    notes = notes + playbook_notes(draft, facts, clock)
-                    item = next((i for i in (facts or {}).get("items") or [] if i.get("item_id") == iid), None)
-                    if work is not None and item is not None:
-                        rrej = duplicate_reasons(draft, work, clock) + rotation_reasons(draft, item, work)
-                        if rrej:
-                            verdict, reasons = "REJECT", reasons + rrej
-                    if variety:
-                        vrej, vnotes, record = apply_variety(draft, facts, work, vstate, clock)
-                        if vrej:
-                            verdict, reasons = "REJECT", reasons + vrej
-                        notes += vnotes
-                    if viral:
-                        xrej, xnotes, _ = apply_viral(draft, facts, "post", work, clock)
-                        if xrej:
-                            verdict, reasons = "REJECT", reasons + xrej
-                        notes = xnotes + notes
+                    verdict, reasons, notes, record = post_gate(draft, facts, work, vstate, clock, variety, viral, notes)
                 else:
                     if state is None:
                         try:
