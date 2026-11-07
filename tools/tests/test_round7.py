@@ -395,6 +395,26 @@ def test_ranker_v1_variants_of_one_slot_are_alternatives(tmp_path):
     assert sibs == {7} and [r["msg_id"] for r in view] == [8]               # posted rows always count
 
 
+def test_text_only_hold_waives_media_only_on_a_listed_platform(monkeypatch):
+    """Growth 2026-11-07: Grok's X connector lost the public media upload (#1387). A platform listed in
+    GROK_TEXT_ONLY_PLATFORMS takes a post without media_url (no media rule, M7 n/a); a post that carries media_url is
+    still checked in full, and every other platform still needs media."""
+    a = [i for i in VDOC["items"] if i["type"] == "mega_mover"][0]
+    lead = next(p["text"] for p in a["phrasings"] if f"${a['ticker']}" in p["text"])
+    d = tg.draft(a, f"Here is the map. {lead} {NIA}", platform="x", media_url="")
+    media_rule = lambda reasons: [r for r in reasons if r.startswith("media_url")]
+    monkeypatch.delenv(gr.TEXT_ONLY_ENV, raising=False)
+    assert media_rule(gr.review(d, VDOC, NOW)[1])
+    assert any(r.startswith("viral: M7") for r in gr.apply_viral(d, VDOC, "post", [], NOW)[0])
+    monkeypatch.setenv(gr.TEXT_ONLY_ENV, "x")
+    assert not media_rule(gr.review(d, VDOC, NOW)[1])
+    rej, _, res = gr.apply_viral(d, VDOC, "post", [], NOW)
+    assert not any(r.startswith("viral: M7") for r in rej) and res["must"]["M7"].get("na") is True
+    assert media_rule(gr.review(dict(d, media_url="https://example.com/x.png"), VDOC, NOW)[1])   # media still checked
+    assert media_rule(gr.review(dict(d, platform="threads", link=d["link"].replace("utm_source=x", "utm_source=threads")),
+                                VDOC, NOW)[1])                                              # other platforms unchanged
+
+
 def test_inbox_rejects_a_repeat_and_defers_posts_without_history(tmp_path):
     from test_grok_review import INSTINCT, FakeRest  # noqa: PLC0415
     mm = vitem("market_move")

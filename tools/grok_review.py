@@ -650,8 +650,9 @@ def review(draft: dict, facts: dict | None, now: dt.datetime | None = None) -> t
     elif platform == "instagram" and item.get("type") in SOURCE_TYPES and srcs and not any(u in raw_both for u in srcs):
         reasons.append("Instagram: the caption must carry the official source link")
 
-    # Media
-    reasons += media_reasons(draft, item)
+    # Media (none on a text-only platform: text_only)
+    if not text_only(draft):
+        reasons += media_reasons(draft, item)
 
     # Length
     if platform == "x":
@@ -682,6 +683,25 @@ def item_sources(item: dict) -> list[str]:
     if item.get("type") == "ptr_summary":
         urls = [u for u in urls if fx.official(u, fx.OFFICIAL_PTR_HOSTS)]
     return list(dict.fromkeys(urls))
+
+
+# Text-only hold (Growth 2026-11-07; owner 10-12 "a simpler post instead of a skip"): Grok #1387 reported that its X
+# connector lost the public media upload (create_posts takes media_ids only, nothing returns one), so every X image post
+# was skipped. While a platform is listed in GROK_TEXT_ONLY_PLATFORMS (run-validator.cmd), a post on it may go without
+# media_url (no media rule, M7 n/a); a post that carries media_url is still checked in full. Remove the platform from
+# the list as soon as media works again.
+TEXT_ONLY_ENV = "GROK_TEXT_ONLY_PLATFORMS"
+
+
+def text_only_platforms() -> set[str]:
+    import os
+    return {p.strip().lower() for p in (os.environ.get(TEXT_ONLY_ENV) or "").split(",") if p.strip()}
+
+
+def text_only(draft: dict) -> bool:
+    media = draft.get("media_url")
+    return (str(draft.get("platform") or "").strip().lower() in text_only_platforms()
+            and not (isinstance(media, str) and media.strip()))
 
 
 def media_reasons(draft: dict, item: dict) -> list[str]:
@@ -1140,7 +1160,7 @@ def apply_viral(draft: dict, facts: dict | None, kind: str, history: list[dict] 
     try:
         if kind == "post" and vc.find_item(facts, draft.get("item_id")) is None:
             return [], [], None
-        res = vc.score_draft(draft, facts, kind, history, now)
+        res = vc.score_draft(draft, facts, kind, history, now, text_only=kind == "post" and text_only(draft))
         return vc.reject_reasons(res), vc.note_lines(res), res
     except Exception as e:  # noqa: BLE001 - the viral check never blocks an answer
         return [], [f"viral-error: VIRAL CHECK failed on this draft ({type(e).__name__}); verdict unchanged"], None

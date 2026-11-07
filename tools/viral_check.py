@@ -779,9 +779,11 @@ def reachable(item: dict | None, kind: str, caps: Caps, buzz: dict | None, b4: d
 
 def score(text: str, item: dict | None, platform: str, kind: str = "post", facts: dict | None = None,
           prev_own_post_at=None, now=None, media=None, *, reply_text: str | None = None, post_at=None,
-          target_followers=None, target_posted_at=None, own_posts=None) -> dict:
+          target_followers=None, target_posted_at=None, own_posts=None, text_only: bool = False) -> dict:
     """The VIRAL CHECK v1 score of one post, Reel or comment (see the module doc). own_posts = [(time, pending)] of our
-    own posts on the platform (M6 both ways); without it prev_own_post_at (one earlier posted time) is used."""
+    own posts on the platform (M6 both ways); without it prev_own_post_at (one earlier posted time) is used.
+    text_only: the platform's posting tool cannot attach media (grok_review.text_only), so M7 is n/a for a post
+    without media."""
     text = fold(text)
     reply_text = fold(reply_text) if isinstance(reply_text, str) else None
     platform = str(platform or "").strip().lower()
@@ -874,7 +876,11 @@ def score(text: str, item: dict | None, platform: str, kind: str = "post", facts
         must["M6"] = _m6(t_post, exact, platform, _t(prev_own_post_at), own_posts)
         # M7
         attached, _, mwhy = media_kind(media, item, kind)
-        must["M7"] = _rule(attached, mwhy if attached is not False else "no own image or video attached")
+        if text_only and not media:
+            must["M7"] = _rule(True, "n/a: text-only hold on this platform (its posting tool cannot attach media now)",
+                               na=True)
+        else:
+            must["M7"] = _rule(attached, mwhy if attached is not False else "no own image or video attached")
         # M8 (+ the M8.3h note)
         must["M8"], x3 = _m8(item, text, t_post, exact, caps)
         if x3 is not None:
@@ -1002,7 +1008,8 @@ def find_item(facts: dict | None, item_id) -> dict | None:
     return next((i for i in (facts or {}).get("items") or [] if isinstance(i, dict) and i.get("item_id") == item_id), None)
 
 
-def score_draft(draft: dict, facts: dict | None, kind: str, history: list[dict] | None = None, now=None) -> dict:
+def score_draft(draft: dict, facts: dict | None, kind: str, history: list[dict] | None = None, now=None,
+                text_only: bool = False) -> dict:
     """score() of a validator draft: a post {item_id, platform, text, reply_text, media_url, planned_at?, format?} or a
     comment {kind: comment, platform, text, item_id?, target_followers?, target_posted_at?, planned_at?}. history = our
     own posts (post_history records, approved-not-logged ones included and marked pending) for M6."""
@@ -1022,7 +1029,7 @@ def score_draft(draft: dict, facts: dict | None, kind: str, history: list[dict] 
     own = own_post_times(history, platform) if history is not None else None
     return score(text, item, platform, vkind, facts, None, now_t, media,
                  reply_text=draft.get("reply_text") if isinstance(draft.get("reply_text"), str) else None, post_at=post_at,
-                 own_posts=own)
+                 own_posts=own, text_only=text_only)
 
 
 def _label(res: dict, code: str) -> str:
