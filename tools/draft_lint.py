@@ -11,8 +11,12 @@ History (optional): our OWN recent posts, a JSON list (or {"posts": [...]}) of
   {"platform", "posted_at" (ISO time; "at" / "created_at" also read), "text", "kind"?}
   kind "reply" / "comment" / "self_reply" rows are skipped (a deliberate self-thread does not count for spacing).
 
-Every finding names its evidence level from playbook v2 (owner approved 2026-10-15):
+Every finding names its evidence level from playbook v2 (owner approved 2026-10-15), updated by the preregistered
+replication on posts created after 2026-10-15 (2026-11-06; author fixed effects, c_ladj, BH q<0.05):
   [real]   TIER 1, measured within author;  [likely]  TIER 2, adopt and log;  [stop]  no reach effect.
+  Replication: cashtags, video and spacing replicated; numbers replicated but much smaller (+3%);
+  macro-only and body links did NOT replicate on reach (powered nulls) and are downgraded to [stop] notes;
+  hashtags (was "no effect") came out -9% and is now a [likely] note. Rules not in the 12 were not re-tested.
 A WARN is a playbook rule the draft breaks; a NOTE is information (an experiment arm, a rule the compliance
 check overrides today, a freshness the lint cannot verify). score = the number of [real] + [likely] WARNs.
 Compliance (numbers, cashtags per item, links, disclaimer, banned words) is grok_review.py's job and stays hard;
@@ -20,24 +24,25 @@ this lint never approves or rejects. No network except reading the facts URL; pr
 fragments.
 
 Rules (playbook v2 section in brackets):
-  cashtags   [real]   2-5 distinct cashtags; not only mega-caps / index-ETFs; each supported by the facts (the item's
+  cashtags   [real]   replicated (>=1 vs 0 +21%, under 1k +38%); 2-5 distinct cashtags; not only mega-caps / index-ETFs; each supported by the facts (the item's
                       tickers, any other item's tickers in the same facts, moves_like peers)            [TIER 1.1]
-  numbers    [real]   >= 2 concrete figures in the text, one in the first line                            [TIER 1.2]
-  macro      [real]   macro words (Fed, FOMC, CPI, PPI, yields, Treasury, oil, jobs report, GDP, inflation)
+  numbers    [real]   replicated but small (+3%); >= 2 concrete figures in the text, one in the first line   [TIER 1.2]
+  macro      [stop]   NOT replicated (+1% [-5, +6]): NOTE only; macro words (Fed, FOMC, CPI, PPI, yields, Treasury, oil, jobs report, GDP, inflation)
                       with no stock cashtag; predictive framing (will, expect, likely, set to, poised)
                       in a macro post                                                                     [TIER 1.3]
-  spacing    [real]   (--history) the last own post on that platform < 2 h before the planned time        [TIER 1.4]
+  spacing    [real]   replicated (-8% within 1 h); (--history) the last own post on that platform < 2 h before the planned time        [TIER 1.4]
   length     [likely] < 25 words; > 60 words on niche items (congress, Form 4, earnings)                  [TIER 2.8]
-  link       [likely] an outside link in the body: NOTE "E2 arm?"; WARN when (--history) another body-link
-                      post on that platform went out in the last 24 h                                    [TIER 2.7]
+  link       [stop]   NOT replicated on reach (-1% [-5, +4]): an outside link in the body is a NOTE only
+                      (engagement cost not re-tested; conversion vs a self-reply link still unknown)    [TIER 2.7]
   mention    [likely] an @mention in an own post (text or self-reply)                                     [TIER 2.11]
   question   [likely] (--history) a question when one of the last 2 own posts was a question             [TIER 2.12]
   breaking   [likely] BREAKING / JUST IN unless the item's event time is < 60 min old                     [TIER 2.13]
-  video      [likely] X: the item has a Reel but the draft's media is not video: NOTE "E1 arm?"           [TIER 2.6]
+  video      [real]   replicated (+22% [+7, +39]); X: the item has a Reel but the draft's media is not video: NOTE "E1 arm?"           [TIER 2.6]
   earnings_speed [likely] earnings_result first seen > 60 min before the planned time: NOTE (E3)          [TIER 2.9]
   list       [likely] >= 4 list lines (bullet, numbered, emoji- or cashtag-led) on a niche item           [TIER 2.8]
   self_thread [likely] reply_text longer than the post, or numbers in it the post lacks                   [STOP list]
-  hashtags   [stop]   > 1 hashtag: NOTE "no reach effect"; emoji / caps are not linted                    [STOP list]
+  hashtags   [likely] >= 1 hashtag: NOTE, -9% [-15, -3] on new weeks (the earlier null did not hold); emoji /
+                      caps are not linted                                                                [STOP list]
 """
 from __future__ import annotations
 
@@ -50,8 +55,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-VERSION = "1.0.0"
-PLAYBOOK = "playbook v2 (2026-10-15)"
+VERSION = "1.1.0"
+PLAYBOOK = "playbook v2 (2026-10-15) + replication (2026-11-06)"
 UA = "RapidTradeView draft-lint (contact@rapidtradeview.trade)"
 LEVELS = ("real", "likely", "stop")
 SCORED = ("real", "likely")
@@ -77,7 +82,6 @@ CASHTAG_MIN, CASHTAG_MAX = 2, 5
 NUMBERS_MIN = 2
 WORDS_MIN, WORDS_MAX = 25, 60
 SPACING = dt.timedelta(hours=2)
-BODY_LINK_WINDOW = dt.timedelta(hours=24)
 FRESH = dt.timedelta(minutes=60)
 LIST_LINES_MAX = 3  # >= 4 list lines on a niche item warns
 QUESTION_LOOKBACK = 2
@@ -299,7 +303,7 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
     capped = item is not None and kind not in MULTI_CASHTAG_TYPES
     cap_why = f"; compliance allows only the item's own cashtag for {kind} today, so keep 1 until that rule changes"
     if n < CASHTAG_MIN or n > CASHTAG_MAX:
-        msg = f"{n} cashtag{'s' if n != 1 else ''}; playbook: {CASHTAG_MIN}-{CASHTAG_MAX} relevant ones (>=1 vs 0 +28%, >=3 vs 1-2 +11%)"
+        msg = f"{n} cashtag{'s' if n != 1 else ''}; playbook: {CASHTAG_MIN}-{CASHTAG_MAX} relevant ones (>=1 vs 0 +21% on new weeks, +38% under 1k)"
         if n < CASHTAG_MIN and capped:
             add("cashtags", "real", "note", msg + cap_why)
         else:
@@ -323,37 +327,38 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
     figs = figures(text)
     if len(figs) < NUMBERS_MIN:
         add("numbers", "real", "warn", f"{len(figs)} concrete figure{'s' if len(figs) != 1 else ''}; playbook: several "
-                                       "(actual vs estimate, $ size, % move, date) (+17%, breakout odds x2.2)")
+                                       "(actual vs estimate, $ size, % move, date) (any number +3% on new weeks)")
     if text.strip() and not figures(first_line(text)):
         add("numbers", "real", "warn", "no figure in the first line; lead with the headline number")
 
-    # macro [real]
+    # macro [stop]: the -15% did not replicate on new weeks (powered); notes only
     body = core(text)
     macro = sorted({m.group(0) for m in MACRO_CASE.finditer(body)} | {m.group(0).lower() for m in MACRO_WORDS.finditer(body)})
     if macro:
         stock = [t for t in tags if t not in INDEX_ETF]
         if not stock:
-            add("macro", "real", "warn", f"macro-only post ({', '.join(macro)}) with no stock cashtag (-15%); "
-                                         "tie it to tickers with facts")
+            add("macro", "stop", "note", f"macro-only post ({', '.join(macro)}) with no stock cashtag; the earlier "
+                                         "-15% did not replicate (+1% [-5, +6])")
         pred = sorted({m.group(0).lower() for m in PREDICTIVE.finditer(body)
                        if not (m.group(0).lower() == "expected" and ESTIMATE_LEAD.search(body[:m.start()]))})
         if pred:
-            add("macro", "real", "warn", f"predictive framing in a macro post ({', '.join(pred)}); facts only")
+            add("macro", "stop", "note", f"predictive framing in a macro post ({', '.join(pred)}); facts only "
+                                         "(compliance is grok_review's job)")
 
     # history rules
     rows = history_rows(history)
     mine = [r for r in rows if r["platform"] == platform and r["at"] < planned]  # strictly before: not the post itself
     if history is None:
-        skipped.append("spacing, question, link-24h (no --history)")
+        skipped.append("spacing, question (no --history)")
     elif rows and not any(r["platform"] == platform for r in rows):
-        skipped.append(f"spacing, question, link-24h (no history rows for platform '{short(platform, 12)}')")
+        skipped.append(f"spacing, question (no history rows for platform '{short(platform, 12)}')")
     else:
         # spacing [real]
         if mine:
             gap = planned - mine[-1]["at"]
             if gap < SPACING:
                 add("spacing", "real", "warn", f"last own {platform} post {int(gap.total_seconds() // 60)} min before; "
-                                               "space own posts >= 2 h apart (-8% within 1 h)")
+                                               "space own posts >= 2 h apart (-8% within 1 h, replicated)")
         # question [likely]
         if is_question(text):
             recent = mine[-QUESTION_LOOKBACK:]
@@ -370,16 +375,10 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
     elif words > WORDS_MAX and niche:
         add("length", "likely", "warn", f"{words} words on a {kind} post; playbook: {WORDS_MIN}-{WORDS_MAX}")
 
-    # link [likely]
+    # link [stop]: the reach cost did not replicate on new weeks (powered); a note, never a warn
     if has_body_link(text):
-        add("link", "likely", "note", "outside link in the body (reach -15%, engagement -22%): E2 arm? "
-                                      "Otherwise move it to the self-reply")
-        if history is not None:
-            since = planned - BODY_LINK_WINDOW
-            prior = [r for r in mine if r["at"] >= since and has_body_link(r["text"])]
-            if prior:
-                add("link", "likely", "warn", f"{len(prior)} own {platform} post(s) with a body link in the last 24 h; "
-                                              "at most 1 a day")
+        add("link", "stop", "note", "outside link in the body: no reach cost detected on new weeks (-1% [-5, +4]); "
+                                    "E2 arm? (conversion vs a self-reply link is still unknown)")
 
     # mention [likely]
     handles = sorted({m.group(1) for m in MENTION.finditer(core(text) + "\n" + core(reply))})
@@ -409,8 +408,8 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
                  if isinstance(m, dict) and str(m.get("kind") or "").lower() in ("reel", "video")]
         media = draft.get("media_url")
         if reels and not (isinstance(media, str) and (media in reels or VIDEO_EXT.search(media))):
-            add("video", "likely", "note", "video available for this item (its Reel); E1 arm? (video +28%, not yet "
-                                           "confirmed)")
+            add("video", "real", "note", "video available for this item (its Reel); E1 arm? (video +22% [+7, +39], "
+                                         "replicated on new weeks)")
 
     # earnings speed [likely]
     if kind == "earnings_result":
@@ -443,10 +442,11 @@ def lint(draft: dict, facts: dict | None, history=None, now: dt.datetime | None 
             add("self_thread", "likely", "warn", "; ".join(why) + "; keep substance in the main post, self-replies "
                                                                   "carry links/sources (continuations get -77% views)")
 
-    # hashtags [stop]
+    # hashtags [likely]: the earlier null did not hold on new weeks (>=1 vs 0: -9% [-15, -3]); a note, not scored
     n_hash = len(HASHTAG.findall(core(text)))
-    if n_hash > 1:
-        add("hashtags", "stop", "note", f"{n_hash} hashtags: no reach effect (0-1 relevant is fine)")
+    if n_hash >= 1:
+        add("hashtags", "likely", "note", f"{n_hash} hashtag{'s' if n_hash != 1 else ''}: -9% reach on new weeks "
+                                          "(>=1 vs 0, within author); consider none")
 
     score = sum(1 for f in findings if f["kind"] == "warn" and f["level"] in SCORED)
     return {"item_id": iid, "platform": platform, "item_type": kind, "planned_at": planned.strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -482,7 +482,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--facts", required=True, help="facts.json URL or path")
     ap.add_argument("--draft", required=True, help="draft JSON file: one object or a list")
-    ap.add_argument("--history", help="our own recent posts (JSON list), for spacing / question / link-24h")
+    ap.add_argument("--history", help="our own recent posts (JSON list), for spacing / question")
     ap.add_argument("--now", help="ISO time to lint at (default: now, UTC); a draft's planned_at wins")
     ap.add_argument("--format", choices=["text", "json", "both"], default="both")
     a = ap.parse_args(argv)

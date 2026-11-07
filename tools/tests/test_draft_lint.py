@@ -133,10 +133,11 @@ def test_numbers():
     assert any(f["message"].startswith("1 concrete figure;") for f in pld["findings"] if f["rule"] == "numbers")
 
 
-# macro [real] ----------------------------------------------------------------------------------------------------
+# macro [stop] notes (did not replicate, 2026-11-06) --------------------------------------------------------------
 
 def test_macro_only_and_predictive():
     res = run(draft("CPI came in at 3.1% vs 3.0% and the Fed is likely to hold; $SPY fell 1%. " + "word " * 15))
+    assert "macro" not in rules(res, "warn") and set(f["level"] for f in res["findings"] if f["rule"] == "macro") == {"stop"}
     msgs = [f["message"] for f in res["findings"] if f["rule"] == "macro"]
     assert any("macro-only" in m for m in msgs) and any("predictive framing" in m and "likely" in m for m in msgs)
     tied = run(draft("Bank stocks after CPI: $NXPI fell 2.4% and $ON 4.3% on Oct 14. " + "word " * 15))
@@ -162,12 +163,12 @@ def test_spacing():
     # planned_at wins over --now
     later = draft(planned_at=(NOW + dt.timedelta(hours=2)).isoformat())
     assert "spacing" not in rules(run(later, history=[post(70)]))
-    assert "spacing, question, link-24h (no --history)" in run(draft())["skipped"]
+    assert "spacing, question (no --history)" in run(draft())["skipped"]
     # platform is compared case-insensitively, both sides
     assert "spacing" in rules(run(draft(), history=[post(45, platform="X")]))
     assert "spacing" in rules(run(draft(platform=" X "), history=[post(45)]))
     ig_only = run(draft(), history=[post(45, platform="instagram")])
-    assert "spacing, question, link-24h (no history rows for platform 'x')" in ig_only["skipped"]
+    assert "spacing, question (no history rows for platform 'x')" in ig_only["skipped"]
 
 
 # length [likely] -------------------------------------------------------------------------------------------------
@@ -180,17 +181,17 @@ def test_length():
     assert "length" in rules(run(draft(long_text.replace("$NXPI $ON", "$BNY"), BNY)), "warn")
 
 
-# link [likely] ---------------------------------------------------------------------------------------------------
+# link [stop] (did not replicate on reach, 2026-11-06) ------------------------------------------------------------
 
 def test_link():
     linked = draft(GOOD + " https://www.rapidtradeview.trade/dashboard/NXPI")
     res = run(linked, history=[post(300)])
-    assert any(f["rule"] == "link" and f["kind"] == "note" and "E2 arm?" in f["message"] for f in res["findings"])
+    assert any(f["rule"] == "link" and f["kind"] == "note" and f["level"] == "stop" and "E2 arm?" in f["message"]
+               for f in res["findings"])
     assert "link" not in rules(res, "warn")
+    # a second body-link post within 24 h is no longer a warning (the reach cost did not replicate)
     res = run(linked, history=[post(300, text="$ON 4.3% https://example.com/a")])
-    assert "link" in rules(res, "warn")
-    old = run(linked, history=[post(60 * 25, text="$ON 4.3% https://example.com/a")])
-    assert "link" not in rules(old, "warn")
+    assert "link" not in rules(res, "warn")
     assert "link" not in rules(run(draft(reply_text="https://www.rapidtradeview.trade/dashboard/NXPI")))
 
 
@@ -281,13 +282,14 @@ def test_self_thread_substance():
     assert any(f["rule"] == "self_thread" and "longer than the post" in f["message"] for f in longer["findings"])
 
 
-# hashtags [stop] -------------------------------------------------------------------------------------------------
+# hashtags [likely] note (the earlier null did not hold, 2026-11-06) ----------------------------------------------
 
 def test_hashtags_note_is_not_scored():
     res = run(draft(GOOD + " #stocks #semis"), history=[post(300)])
-    assert [(f["rule"], f["kind"], f["level"]) for f in res["findings"]] == [("hashtags", "note", "stop")]
+    assert [(f["rule"], f["kind"], f["level"]) for f in res["findings"]] == [("hashtags", "note", "likely")]
     assert res["score"] == 0
-    assert "hashtags" not in rules(run(draft(GOOD + " #semis")))
+    one = run(draft(GOOD + " #semis"), history=[post(300)])
+    assert [(f["rule"], f["kind"]) for f in one["findings"]] == [("hashtags", "note")] and one["score"] == 0
 
 
 # score, output, CLI ----------------------------------------------------------------------------------------------
