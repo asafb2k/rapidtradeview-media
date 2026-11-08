@@ -62,6 +62,7 @@ import viral_check as vc  # noqa: E402
 GV = Path(__file__).resolve().parent / "gv"    # the renderer tree (tools/gv/scripts/v6cat/card_reel.py)
 PYTHON = "C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe"
 ORDER = ("earnings_result", "congress_trade", "form4_buy", "chart_pattern")
+SINGLE_FILINGS = {"congress_trade", "form4_buy"}   # in_500 leads only (2026-11-08: Grok skipped the MDGL Reel)
 WEEKDAY_FROM_ET = (10, 0)
 MAX_ATTEMPTS = 2                                # per slot
 REELS_PER_DAY = 2
@@ -107,6 +108,8 @@ def report_leak(item: dict) -> bool:
 def eligible(item: dict) -> bool:
     media = item.get("media") or []
     first = media[0] if media and isinstance(media[0], dict) else {}
+    if item.get("type") in SINGLE_FILINGS and item.get("in_500") is not True:
+        return False                                # Grok PROMPT v1 P3: a single filing posts only for an in_500 lead
     return (not report_leak(item) and item.get("type") in ORDER and isinstance(item.get("item_id"), str) and isinstance(item.get("facts_text"), str)
             and bool(item["facts_text"].strip()) and first.get("kind") == "image" and bool(OG_CARD.match(str(first.get("url") or ""))))
 

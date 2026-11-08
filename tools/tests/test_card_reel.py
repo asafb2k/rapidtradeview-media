@@ -27,6 +27,7 @@ def item(kind, ticker, key, filed=None, date=DATE, **over):
         kind, f"/smart-money/figures/f-{ticker.lower()}")
     it = fx.make_item(date, kind, ticker, key, path, filed=filed, facts_text=f"{ticker} fact text, filed {filed}.",
                       allowed_numbers=fx.date_forms(filed) if filed else [])
+    it["in_500"] = True
     it.update(over)
     return it
 
@@ -463,3 +464,9 @@ def test_g_n1_reel_spec_carries_no_report_url(tmp_path, monkeypatch):
     for text in (spec, staged, json.dumps(state), json.dumps(fetched)):
         assert "/earnings/reports/" not in text
     assert "/dashboard/JPM" in spec and "#earnings-history" in spec
+
+
+def test_a_single_filing_outside_the_500_is_never_the_reel():
+    """Grok PROMPT v1 P3: a Form 4 / congress single posts only for an in_500 lead (2026-11-08: the MDGL Reel went unused)."""
+    assert cr.eligible(F4) and not cr.eligible(dict(F4, in_500=False)) and not cr.eligible(dict(CONG_NEW, in_500=None))
+    assert cr.eligible(dict(PAT, in_500=False))                      # a chart pattern is not a filing
