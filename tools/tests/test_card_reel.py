@@ -22,10 +22,10 @@ DATE = "2026-10-12"
 SITE = "https://www.rapidtradeview.trade"
 
 
-def item(kind, ticker, key, filed=None, **over):
+def item(kind, ticker, key, filed=None, date=DATE, **over):
     path = {"earnings_result": f"/dashboard/{ticker}", "chart_pattern": f"/dashboard/{ticker}"}.get(
         kind, f"/smart-money/figures/f-{ticker.lower()}")
-    it = fx.make_item(DATE, kind, ticker, key, path, filed=filed, facts_text=f"{ticker} fact text, filed {filed}.",
+    it = fx.make_item(date, kind, ticker, key, path, filed=filed, facts_text=f"{ticker} fact text, filed {filed}.",
                       allowed_numbers=fx.date_forms(filed) if filed else [])
     it.update(over)
     return it
@@ -166,8 +166,8 @@ def env(tmp_path, monkeypatch):
     return env
 
 
-def prepare(env, facts, now="2026-10-12T14:05:00Z", push=False):
-    argv = ["prepare", "--date", DATE, "--facts", str(facts), "--work", str(env.work), "--repo", str(env.repo), "--now", now]
+def prepare(env, facts, now="2026-10-12T14:05:00Z", push=False, date=DATE):
+    argv = ["prepare", "--date", date, "--facts", str(facts), "--work", str(env.work), "--repo", str(env.repo), "--now", now]
     return cr.main(argv + ([] if push else ["--no-push"]))
 
 
@@ -328,9 +328,27 @@ def test_the_chosen_item_leaving_the_facts_is_not_replaced(env, tmp_path):
 
 
 def test_weekend_pass_renders_two(env, tmp_path):
-    f = facts_file(tmp_path, [CONG_NEW, PAT, F4])
-    assert prepare(env, f, now="2026-10-17T12:05:00Z") == 0
-    assert env.calls == [CONG_NEW["item_id"], F4["item_id"]]
+    sat = "2026-10-17"
+    cong, pat, f4 = (item("congress_trade", "AAPL", "ptr:2:AAPL", filed="2026-10-16", date=sat),
+                     item("chart_pattern", "SPGI", "pattern:SPGI", date=sat, scan_date="2026-10-16"),
+                     item("form4_buy", "BPRE", "form4:1:BPRE", filed="2026-10-16", date=sat))
+    f = facts_file(tmp_path, [cong, pat, f4])
+    assert prepare(env, f, now="2026-10-17T12:05:00Z", date=sat) == 0
+    assert env.calls == [cong["item_id"], f4["item_id"]]
+
+
+def test_a_stale_item_is_never_the_reel(env, tmp_path):
+    """2026-11-08: the weekend pass chose two earlier-week earnings_results (stale by VIRAL CHECK M8), and the validator
+    rejects a stale item's post; the chooser takes only items fresh on the build's day."""
+    sun = "2026-10-18"
+    old_er = item("earnings_result", "JPM", "report:jpm", filed="2026-10-14", date=sun,
+                  published_at="2026-10-14T11:00:00Z", session_date="2026-10-14")
+    pat = item("chart_pattern", "SPGI", "pattern:SPGI", date=sun, scan_date="2026-10-17")
+    stale_pat = item("chart_pattern", "MSFT", "pattern:MSFT", date="2026-10-16", scan_date="2026-10-15")
+    assert cr.vc.fresh(old_er, "2026-10-18T13:05:00Z").get("ok") is False
+    f = facts_file(tmp_path, [old_er, stale_pat, pat])
+    assert prepare(env, f, now="2026-10-18T13:05:00Z", date=sun) == 0
+    assert env.calls == [pat["item_id"]]
 
 
 def test_compare_sees_the_added_reel(tmp_path):

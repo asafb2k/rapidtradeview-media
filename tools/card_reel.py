@@ -16,7 +16,8 @@ prepare
     the morning's 06:45-08:30 ET reporters are in the earnings_result list; weekends on the weekend pass (any time).
   - which item: the first available of earnings_result (largest market cap, from /snapshot), congress_trade, form4_buy (both:
     buys before sales, then the largest amount at the top of its range, then the freshest filing), chart_pattern (freshest scan);
-    then the facts order. Slot 1 takes the first item by that order; slot 2 the next one by the same order: never slot 1's
+    then the facts order; only items fresh on the build's day (viral_check M8: 2026-11-08 the weekend pass chose two earlier-week
+    earnings_results the validator rejects). Slot 1 takes the first item by that order; slot 2 the next one by the same order: never slot 1's
     item, and an item of another ticker when one qualifies (else the same ticker's next item). Both are chosen on the first build
     that is due (slot 2 on a later build when no second item qualifies yet). An item qualifies when it has facts_text and its
     media[0] is our page's Open Graph card (https://www.rapidtradeview.trade/.../opengraph-image), and (G-N1 holdout, until
@@ -56,6 +57,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import manifest as mf  # noqa: E402
 import qa_header as qa  # noqa: E402
 import select_stories as ss  # noqa: E402
+import viral_check as vc  # noqa: E402
 
 GV = Path(__file__).resolve().parent / "gv"    # the renderer tree (tools/gv/scripts/v6cat/card_reel.py)
 PYTHON = "C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe"
@@ -377,8 +379,9 @@ def prepare_slot(n: int, state: dict, items: list[dict], facts: dict, a: argpars
     else:
         taken = slots[:n - 1]
         ids = {t.get("item_id") for t in taken}
-        caps = market_caps([i for i in items if i.get("item_id") not in ids])
-        item, why = choose_next(items, caps, taken) if taken else choose(items, caps)
+        fresh = [i for i in items if vc.fresh(i, now).get("ok") is not False]   # M8: the validator rejects a stale item's post
+        caps = market_caps([i for i in fresh if i.get("item_id") not in ids])
+        item, why = choose_next(fresh, caps, taken) if taken else choose(fresh, caps)
         if item is None:
             print(f"card reel: {tag}: none now: {why}")
             return False
