@@ -87,7 +87,7 @@ allowed_numbers (every numeric token a post may print), must_include, a one-line
 images a post may carry ([{url, kind: image, alt}], the landing page's Open Graph card <SITE><page>/opengraph-image;
 earnings_upcoming: <SITE>/earnings/opengraph-image; never fetched here). The runner (tools/card_reel.py, via
 daily_common.ps1 Publish-Facts) may append one {url: <Pages>/v/<date>/cards/<item_id>/reel_9x16.mp4, kind: reel, alt}
-a day to one item: its share card as a 9:16 Reel for Instagram.
+to each of up to two items a day: the item's share card as a 9:16 Reel for Instagram.
 Rank (audience rank, HQ 2026-10-18; replaces Growth B1's): every item carries rank and rank_why; the items are sorted by
 rank, highest first: base per type + recognisability (cap tier; market-level +4; a known person: fame.json or a CEO / CFO /
 Chair title) + magnitude + freshness - novelty (our own recent posts). See the "Audience rank" section. At

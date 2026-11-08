@@ -1,4 +1,5 @@
-"""Card Reel (Growth 2026-10-12): a second Instagram Reel a day made from ONE facts.json item's share card.
+"""Card Reel (Growth 2026-10-12; two a day since 2026-11-08): Instagram Reels made from facts.json items' share cards, at most
+REELS_PER_DAY (2) a date, each from ONE item.
 
     card_reel.py prepare --date D --facts FILE --work DIR [--repo DIR] [--now ISO] [--no-push] [--gv DIR] [--python EXE]
     card_reel.py live    --date D --facts FILE --work DIR [--repo DIR] [--timeout S]
@@ -7,26 +8,34 @@ Called by daily_common.ps1 Publish-Facts on every facts build (the morning pass,
 the weekend pass), on the day's facts file BEFORE it is compared and published. Nothing here ever changes the run's exit code.
 
 prepare
-  - one card Reel per date at most (state: <work>/card-reel.json). Once it is live on Pages, every later facts build of the day gets
-    {"url": <Pages URL>, "kind": "reel", "alt": <the item's facts_text>} appended to that item's media (when the item is still in it).
+  - up to two card Reels per date, one per slot (state: <work>/card-reel.json, schema rtv-card-reel-state/2: {"date", "reels":
+    [slot 1, slot 2]}; a one-reel rtv-card-reel-state/1 file of the date is read as slot 1). Once a slot's reel is live on Pages,
+    every later facts build of the day gets {"url": <Pages URL>, "kind": "reel", "alt": <the item's facts_text>} appended to that
+    item's media (when the item is still in it).
   - when it renders: weekdays from 10:00 ET (America/New_York; the first facts build at or after it: the 10:00 intraday refresh), so
     the morning's 06:45-08:30 ET reporters are in the earnings_result list; weekends on the weekend pass (any time).
   - which item: the first available of earnings_result (largest market cap, from /snapshot), congress_trade, form4_buy (both:
     buys before sales, then the largest amount at the top of its range, then the freshest filing), chart_pattern (freshest scan);
-    then the facts order. An item qualifies when it has facts_text and its media[0] is our
-    page's Open Graph card (https://www.rapidtradeview.trade/.../opengraph-image), and (G-N1 holdout, until 2026-11-21) carries
-    no /earnings/reports/ URL anywhere: an earnings_result's card is its ticker page's (/dashboard/<T>/opengraph-image).
-  - the chosen item is fixed for the day: a failed download, card check, render or QA logs its reason in the state and the item stays
-    without a reel; the same item is tried once more on the next build (MAX_ATTEMPTS), never another one (No Fallbacks).
+    then the facts order. Slot 1 takes the first item by that order; slot 2 the next one by the same order: never slot 1's
+    item, and an item of another ticker when one qualifies (else the same ticker's next item). Both are chosen on the first build
+    that is due (slot 2 on a later build when no second item qualifies yet). An item qualifies when it has facts_text and its
+    media[0] is our page's Open Graph card (https://www.rapidtradeview.trade/.../opengraph-image), and (G-N1 holdout, until
+    2026-11-21) carries no /earnings/reports/ URL anywhere: an earnings_result's card is its ticker page's
+    (/dashboard/<T>/opengraph-image).
+  - each slot's chosen item is fixed for the day: a failed download, card check, render or QA logs its reason in the slot and the
+    item stays without a reel; the same item is tried once more on the next build (MAX_ATTEMPTS per slot), never another one (No
+    Fallbacks). A failed slot 1 is not replaced (not by slot 2's item, not by a third one): that day has slot 2's reel only.
   - the card: media[0].url downloaded with the access header (qa_header), a 1200 x 630 PNG that is not the site's generic card.
-  - the render: growth-video scripts/v6cat/card_reel.py (caption = facts_text, push-in, VSCO bed, end card; exit 0 only when its QA
-    passes) -> staged as v/<date>/cards/<item_id>/reel_9x16.mp4 + music.json (provenance, file hash, the samples used) in the repo.
-  exit 0: nothing to push (attached, skipped or failed: the log says which); 10: files staged, listed one per line in
-  <work>/card-reel-files.txt: commit + push them, then run `live`. --no-push (a dry run): the staged reel is attached at once
-  (Pages does not serve it) and the exit is 0.
+  - the render: tools/gv/scripts/v6cat/card_reel.py in this repo, run with python -I (--gv overrides the tree; rebuilt
+    2026-11-08 after the old growth-video tree was deleted): 1 s hook, facts_text as kinetic type one word group per beat under
+    the card as a context header, a 3 s end card, an original score from VSCO 2 CE (CC0) samples; exit 0 only when its QA
+    passes) -> staged as v/<date>/cards/<item_id>/reel_9x16.mp4 + music.json (provenance, samples used, file hash) in the repo.
+  exit 0: nothing to push (attached, skipped or failed: the log says which); 10: files staged (every staged slot's), listed one
+  per line in <work>/card-reel-files.txt: commit + push them, then run `live`. --no-push (a dry run): a staged reel is attached at
+  once (Pages does not serve it) and the exit is 0.
 live
-  waits until Pages serves the staged MP4 (200 video/mp4, the local size), marks it live and attaches it to --facts; exit 1 when it
-  is not served within --timeout (the next facts build checks again).
+  waits until Pages serves every staged slot's MP4 (200 video/mp4, the local size), marks each live and attaches it to --facts as
+  it is served; exit 1 when one is not served within --timeout (the next facts build checks again).
 """
 from __future__ import annotations
 
@@ -48,17 +57,19 @@ import manifest as mf  # noqa: E402
 import qa_header as qa  # noqa: E402
 import select_stories as ss  # noqa: E402
 
-GV = Path("D:/rtvw/growth-video")
+GV = Path(__file__).resolve().parent / "gv"    # the renderer tree (tools/gv/scripts/v6cat/card_reel.py)
 PYTHON = "C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe"
 ORDER = ("earnings_result", "congress_trade", "form4_buy", "chart_pattern")
 WEEKDAY_FROM_ET = (10, 0)
-MAX_ATTEMPTS = 2
+MAX_ATTEMPTS = 2                                # per slot
+REELS_PER_DAY = 2
 RENDER_TIMEOUT_S = 1200
 CARD_SIZE = (1200, 630)
 OG_CARD = re.compile(r"^https://www\.rapidtradeview\.trade/[A-Za-z0-9._~/%-]*opengraph-image$")
 GENERIC_CARD = f"{ss.SITE}/opengraph-image"
 UA = "RapidTradeView card reel (contact@rapidtradeview.trade)"
 STATE = "card-reel.json"
+SCHEMA = "rtv-card-reel-state/2"
 FILES = "card-reel-files.txt"
 EXIT_STAGED = 10
 
@@ -99,7 +110,7 @@ def eligible(item: dict) -> bool:
 
 
 def choose(items: list[dict], caps: dict[str, float | None]) -> tuple[dict | None, str]:
-    """The day's card item: the first type of ORDER with an eligible item; within it
+    """Slot 1's card item: the first type of ORDER with an eligible item; within it
       earnings_result               the largest market cap (an unknown cap ranks last),
       congress_trade / form4_buy    buys before sales, then the largest amount (amount_upper), then the freshest filing,
       chart_pattern                 the freshest scan;
@@ -117,6 +128,22 @@ def choose(items: list[dict], caps: dict[str, float | None]) -> tuple[dict | Non
         best = max(cands, key=rank)[1]
         return best, f"{kind}: {why} of {len(cands)}"
     return None, "no earnings_result, congress_trade, form4_buy or chart_pattern item with a facts_text and an Open Graph card"
+
+
+def choose_next(items: list[dict], caps: dict[str, float | None], taken: list[dict]) -> tuple[dict | None, str]:
+    """A later slot's item by the same order (choose): never an earlier slot's item (taken: their states), and a ticker no earlier
+    slot has when such an item qualifies, else the next item of a ticker already used. Returns (item, why)."""
+    ids = {s.get("item_id") for s in taken}
+    tickers = {s.get("ticker") for s in taken if s.get("ticker")}
+    rest = [i for i in items if i.get("item_id") not in ids]
+    other = [i for i in rest if not i.get("ticker") or i.get("ticker") not in tickers]
+    item, why = choose(other, caps)
+    if item is not None:
+        return item, why + (f", another ticker than {', '.join(sorted(tickers))}" if tickers else "")
+    item, why = choose(rest, caps)
+    if item is not None:
+        return item, why + f", no item of another ticker than {', '.join(sorted(tickers))} qualifies"
+    return None, why + " besides the earlier slots' items"
 
 
 MONEY = re.compile(r"\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*([KMB])?", re.IGNORECASE)
@@ -151,13 +178,22 @@ def save_state(work: Path, state: dict) -> None:
     mf.write_json(work / STATE, state)
 
 
+def new_slot(n: int) -> dict:
+    return {"slot": n, "status": "new", "attempts": 0, "log": []}
+
+
 def read_state(work: Path, date: str) -> dict:
+    """The date's state {"schema", "date", "reels": [one dict per chosen slot, in slot order]}. A one-reel file (schema /1: the
+    slot's fields at the top level) of the date is read as slot 1; another date's file starts the day with no slot chosen."""
     p = work / STATE
     if p.is_file():
         s = load(p)
         if s.get("date") == date:
-            return s
-    return {"schema": "rtv-card-reel-state/1", "date": date, "status": "new", "attempts": 0, "log": []}
+            if isinstance(s.get("reels"), list):
+                return s
+            old = {k: v for k, v in s.items() if k not in ("schema", "date")}
+            return {"schema": SCHEMA, "date": date, "reels": [dict(new_slot(1), **old)] if old.get("item_id") else []}
+    return {"schema": SCHEMA, "date": date, "reels": []}
 
 
 def note(state: dict, msg: str, now: dt.datetime) -> None:
@@ -254,8 +290,8 @@ def render(state: dict, item: dict, rules: dict, a: argparse.Namespace, now: dt.
     banned = [w for w in [*(rules.get("banned_words") or []), *(item.get("banned_words") or [])] if isinstance(w, str) and w]
     mf.write_json(wdir / "item.json", {"item": item, "banned_words": banned})
     out = wdir / "reel"
-    cmd = [a.python, str(Path(a.gv) / "scripts" / "v6cat" / "card_reel.py"), "--item", str(wdir / "item.json"), "--card", str(card),
-           "--out", str(out)]
+    cmd = [a.python, "-I", str(Path(a.gv) / "scripts" / "v6cat" / "card_reel.py"), "--item", str(wdir / "item.json"),
+           "--card", str(card), "--out", str(out)]
     print("card reel: > " + " ".join(cmd), flush=True)
     try:
         r = subprocess.run(cmd, cwd=a.gv, timeout=RENDER_TIMEOUT_S)
@@ -292,67 +328,95 @@ def render(state: dict, item: dict, rules: dict, a: argparse.Namespace, now: dt.
     return True
 
 
+def staged_files(state: dict) -> list[str]:
+    return [f for slot in state["reels"] if slot.get("status") == "staged" for f in slot.get("files") or []]
+
+
+def prepare_slot(n: int, state: dict, items: list[dict], facts: dict, a: argparse.Namespace, now: dt.datetime) -> bool:
+    """Slot n (1-based) on one facts build: attach its live reel, keep a staged one for the push, or choose / retry its item and
+    render. True when the slot has staged files that need the push."""
+    work, facts_file = Path(a.work), Path(a.facts)
+    slots = state["reels"]
+    slot = slots[n - 1] if len(slots) >= n else None
+    tag = f"slot {n}"
+    if slot is not None:
+        st = slot.get("status")
+        if st == "live" or (st == "staged" and a.no_push):
+            print(f"card reel: {tag}: {attach(facts_file, slot)}" + (" (-NoPush: not on Pages)" if st == "staged" else ""))
+            return False
+        if st == "staged":
+            missing = [f for f in slot.get("files") or [] if not (Path(a.repo) / f).is_file()]
+            if missing:
+                note(slot, f"FAILED {slot.get('item_id')}: staged files are gone ({', '.join(missing)})", now)
+                slot["status"] = "failed"
+                save_state(work, state)
+                return False
+            print(f"card reel: {tag}: {slot['item_id']} is staged, not yet served by Pages: push + check again")
+            return True
+        if slot.get("attempts", 0) >= MAX_ATTEMPTS:
+            print(f"card reel: {tag}: none today: {slot.get('item_id')} failed {slot['attempts']} times "
+                  f"(last: {(slot.get('log') or ['?'])[-1]})")
+            return False
+    why = due(now)
+    if why:
+        print(f"card reel: {tag}: not yet: {why}")
+        return False
+    if slot is not None:
+        item = next((i for i in items if i.get("item_id") == slot["item_id"]), None)
+        if item is None:
+            note(slot, f"FAILED {slot['item_id']}: the chosen item left the facts; no other item is used for {tag} today", now)
+            slot["attempts"] = MAX_ATTEMPTS
+            save_state(work, state)
+            return False
+        if report_leak(item):
+            note(slot, f"FAILED {slot['item_id']}: it carries a report page URL ({ss.G_N1_REASON}); no other item is used for "
+                       f"{tag} today", now)
+            slot["attempts"] = MAX_ATTEMPTS
+            save_state(work, state)
+            return False
+    else:
+        taken = slots[:n - 1]
+        ids = {t.get("item_id") for t in taken}
+        caps = market_caps([i for i in items if i.get("item_id") not in ids])
+        item, why = choose_next(items, caps, taken) if taken else choose(items, caps)
+        if item is None:
+            print(f"card reel: {tag}: none now: {why}")
+            return False
+        slot = new_slot(n)
+        slot.update(item_id=item["item_id"], type=item["type"], ticker=item.get("ticker"), chosen_at=f"{now:%Y-%m-%dT%H:%M:%SZ}",
+                    chosen_why=why)
+        slots.append(slot)
+        note(slot, f"{tag}: chose {item['item_id']} ({why})", now)
+    slot["attempts"] = slot.get("attempts", 0) + 1
+    slot["status"] = "rendering"
+    save_state(work, state)
+    if not render(slot, item, facts.get("rules") or {}, a, now):
+        slot["status"] = "failed"
+        save_state(work, state)
+        return False
+    save_state(work, state)
+    if a.no_push:
+        print(f"card reel: {tag}: {attach(facts_file, slot)} (-NoPush: not on Pages)")
+        return False
+    return True
+
+
 def cmd_prepare(a: argparse.Namespace) -> int:
     now = now_utc(a.now)
     work = Path(a.work)
     work.mkdir(parents=True, exist_ok=True)
     (work / FILES).unlink(missing_ok=True)
     state = read_state(work, a.date)
-    facts_file = Path(a.facts)
-    facts = load(facts_file)
+    facts = load(Path(a.facts))
     items = [i for i in facts.get("items") or [] if isinstance(i, dict)]
-    st = state.get("status")
-    if st == "live" or (st == "staged" and a.no_push):
-        print(f"card reel: {attach(facts_file, state)}" + (" (-NoPush: not on Pages)" if st == "staged" else ""))
+    push = False
+    for n in range(1, REELS_PER_DAY + 1):
+        if len(state["reels"]) < n - 1:
+            break                                   # slot n is chosen after slot n-1 (its item and ticker are left out)
+        push = prepare_slot(n, state, items, facts, a, now) or push
+    if not push:
         return 0
-    if st == "staged":
-        missing = [f for f in state.get("files") or [] if not (Path(a.repo) / f).is_file()]
-        if missing:
-            note(state, f"FAILED {state.get('item_id')}: staged files are gone ({', '.join(missing)})", now)
-            state["status"] = "failed"
-            save_state(work, state)
-            return 0
-        (work / FILES).write_text("\n".join(state["files"]) + "\n", encoding="utf-8")
-        print(f"card reel: {state['item_id']} is staged, not yet served by Pages: push + check again")
-        return EXIT_STAGED
-    if state.get("attempts", 0) >= MAX_ATTEMPTS:
-        print(f"card reel: none today: {state.get('item_id')} failed {state['attempts']} times (last: {(state.get('log') or ['?'])[-1]})")
-        return 0
-    why = due(now)
-    if why:
-        print(f"card reel: not yet: {why}")
-        return 0
-    if state.get("item_id"):
-        item = next((i for i in items if i.get("item_id") == state["item_id"]), None)
-        if item is None:
-            note(state, f"FAILED {state['item_id']}: the chosen item left the facts; no other item is used today", now)
-            state["attempts"] = MAX_ATTEMPTS
-            save_state(work, state)
-            return 0
-        if report_leak(item):
-            note(state, f"FAILED {state['item_id']}: it carries a report page URL ({ss.G_N1_REASON}); no other item is used today", now)
-            state["attempts"] = MAX_ATTEMPTS
-            save_state(work, state)
-            return 0
-    else:
-        item, why = choose(items, market_caps(items))
-        if item is None:
-            print(f"card reel: none now: {why}")
-            return 0
-        state.update(item_id=item["item_id"], type=item["type"], ticker=item.get("ticker"), chosen_at=f"{now:%Y-%m-%dT%H:%M:%SZ}", chosen_why=why)
-        note(state, f"chose {item['item_id']} ({why})", now)
-    state["attempts"] = state.get("attempts", 0) + 1
-    state["status"] = "rendering"
-    save_state(work, state)
-    if not render(state, item, facts.get("rules") or {}, a, now):
-        state["status"] = "failed"
-        save_state(work, state)
-        return 0
-    save_state(work, state)
-    if a.no_push:
-        print(f"card reel: {attach(facts_file, state)} (-NoPush: not on Pages)")
-        return 0
-    (work / FILES).write_text("\n".join(state["files"]) + "\n", encoding="utf-8")
+    (work / FILES).write_text("\n".join(staged_files(state)) + "\n", encoding="utf-8")
     return EXIT_STAGED
 
 
@@ -360,24 +424,30 @@ def cmd_live(a: argparse.Namespace) -> int:
     now = now_utc(None)
     work = Path(a.work)
     state = read_state(work, a.date)
-    if state.get("status") != "staged":
-        print(f"card reel: nothing staged (status {state.get('status')})")
+    waiting = [slot for slot in state["reels"] if slot.get("status") == "staged"]
+    if not waiting:
+        print(f"card reel: nothing staged (slots: {', '.join(str(s.get('status')) for s in state['reels']) or 'none chosen'})")
         return 1
-    local = Path(a.repo) / state["files"][0]
     deadline = time.monotonic() + a.timeout
+    errors: dict[int, str] = {}
     while True:
-        errors = mf.check_media_urls({state["url"]: local})
-        if not errors:
-            break
+        for slot in list(waiting):
+            bad = mf.check_media_urls({slot["url"]: Path(a.repo) / slot["files"][0]})
+            if bad:
+                errors[id(slot)] = bad[0]
+                continue
+            slot["status"] = "live"
+            note(slot, f"live on Pages: {slot['url']}", now)
+            save_state(work, state)
+            print(f"card reel: slot {slot.get('slot')}: {attach(Path(a.facts), slot)}")
+            waiting.remove(slot)
+        if not waiting:
+            return 0
         if time.monotonic() > deadline:
-            print(f"card reel: not served within {a.timeout} s: {errors[0]}")
+            for slot in waiting:
+                print(f"card reel: slot {slot.get('slot')}: not served within {a.timeout} s: {errors.get(id(slot), '?')}")
             return 1
         time.sleep(15)
-    state["status"] = "live"
-    note(state, f"live on Pages: {state['url']}", now)
-    save_state(work, state)
-    print(f"card reel: {attach(Path(a.facts), state)}")
-    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -391,13 +461,16 @@ def main(argv: list[str] | None = None) -> int:
         p.add_argument("--repo", default=str(mf.REPO))
     sub.choices["prepare"].add_argument("--now", help="the clock (ISO; run_daily.ps1 -Now for a dry run)")
     sub.choices["prepare"].add_argument("--no-push", action="store_true")
-    sub.choices["prepare"].add_argument("--gv", default=str(GV), help="the growth-video tree")
+    sub.choices["prepare"].add_argument("--gv", default=str(GV), help="the renderer tree (default tools/gv)")
     sub.choices["prepare"].add_argument("--python", default=PYTHON)
     sub.choices["live"].add_argument("--timeout", type=int, default=600)
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", a.date):
         ap.error("--date must be YYYY-MM-DD")
+    for key in ("work", "facts", "repo", "gv"):         # absolute: the renderer runs with cwd=--gv
+        if getattr(a, key, None):
+            setattr(a, key, str(Path(getattr(a, key)).resolve()))
     return cmd_prepare(a) if a.cmd == "prepare" else cmd_live(a)
 
 

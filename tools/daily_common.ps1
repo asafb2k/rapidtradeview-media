@@ -109,9 +109,10 @@ function Publish-Spec([string]$SpecFile, [int]$PagesTimeoutSec = 900) {
     Log "PUBLISHED: https://asafb2k.github.io/rapidtradeview-media/v/$date/manifest.json is live and valid."
 }
 
-# Card Reel (Growth 2026-10-12: a second Instagram Reel a day; tools/card_reel.py says when and which item). prepare renders and
-# stages it (exit 10) or attaches the live one / skips (exit 0); a staged reel is committed and pushed on its own, then `live` waits
-# for Pages and adds {"url", "kind": "reel", "alt"} to the item's media in $FactsFile. Every failure is logged; nothing here throws.
+# Card Reels (Growth 2026-10-12; up to two a day since 2026-11-08; tools/card_reel.py says when and which items). prepare renders
+# and stages them (exit 10: every staged reel's files in card-reel-files.txt) or attaches the live ones / skips (exit 0); staged
+# reels are committed and pushed on their own, then `live` waits for Pages and adds {"url", "kind": "reel", "alt"} to each one's
+# item media in $FactsFile. Every failure is logged; nothing here throws.
 function Invoke-CardReel([string]$Date, [string]$Work, [string]$FactsFile, [bool]$Push, [string]$NowIso) {
     try {
         $tool = Join-Path $script:Tools 'card_reel.py'
@@ -199,7 +200,7 @@ function Publish-Facts([string]$Date, [string]$Work, [bool]$Push, [int]$PagesTim
         if ($code -eq 4 -and (Test-Path $dest)) { Log "FACTS PARTIAL (a core source failed): kept the existing $rel; this run's file is $tmp"; return }
         if ($code -ne 0 -and $code -ne 4) { Log "FACTS FAILED (facts.py exit $code): $rel not updated; the videos go on"; return }
         if ($code -eq 4) { Log "FACTS PARTIAL (a core source failed): publishing it, there is no $rel yet" }
-        # The day's card Reel (tools/card_reel.py): rendered, pushed and served by Pages first, then added to its item's media in
+        # The day's card Reels (tools/card_reel.py): rendered, pushed and served by Pages first, then added to their items' media in
         # $tmp, so the compare below publishes it. It never blocks the facts or changes the exit code.
         Invoke-PinCards $Date $Work $tmp $Push
         Invoke-CardReel $Date $Work $tmp $Push $NowIso
