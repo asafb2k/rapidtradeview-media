@@ -531,3 +531,19 @@ def test_ptr_summary_source_urls_must_be_official():
     v, why = gr.review(roundup_post(item, text, reply=f"{bad}\n{lk}"), facts)
     assert v == "REJECT" and any("URL not from this item" in r for r in why)
     assert any("no official source URL" in r for r in why)
+
+
+class PagedRest(FakeRest):
+    """The live client: get_all returns every row; call('GET') would return only the first `limit`."""
+    def get_all(self, query):
+        self.calls.append(("GET_ALL", query))
+        return [r for r in self.rows if r["id"] not in self.acked]
+
+
+def test_inbox_reads_drafts_behind_200_unacked_non_draft_rows(facts_dir):
+    """2026-11-08: 200 unacked report/issue rows filled the page and the day's DRAFT rows were never read."""
+    noise = [{"id": 1000 + n, "kind": "issue", "platform": None, "item_id": None, "body": f"note {n}"} for n in range(250)]
+    rest = PagedRest(noise + inbox_rows()[:1])
+    stats = gr.run_inbox(rest, INSTINCT, "prod", facts_dir, True, lambda p, b: True)
+    assert stats["unacked"] == 251 and stats["drafts"] == 1
+    assert rest.calls[0][0] == "GET_ALL" and "limit=" not in rest.calls[0][1]

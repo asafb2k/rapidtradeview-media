@@ -296,6 +296,8 @@ class FakeKit:
             since = query.split("created_at=gte.")[1].split("&")[0] if "created_at=gte." in query else ""
             return [r for r in self.rows if r["kind"] == "post_log"
                     and (not since or gr._ts(r["created_at"]) >= gr._ts(since))]
+        if "acked_at=is.null" in query:          # the inbox: every unacked row (no page cap since 2026-11-08)
+            return []
         raise AssertionError(query)
 
     def call(self, method, query, body=None, prefer=None):

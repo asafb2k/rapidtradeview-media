@@ -1557,9 +1557,12 @@ def run_inbox(rest, instinct, env: str, facts_base: str, dry_run: bool, send, li
     approved post joins the working history at once (rotation, variety) and, once its answer was sent, the approved
     ledger (approved_ledger) until its post_log row arrives (review round 7b). viral=True (the CLI's default) adds the
     VIRAL CHECK v1 gate to posts and comments (apply_viral)."""
-    rows = rest.call("GET", instinct.q("select=id,created_at,kind,platform,item_id,body", f"env=eq.{env}",
-                                       "direction=eq.from_instinct", "acked_at=is.null", "order=created_at.asc,id.asc",
-                                       f"limit={min(limit, instinct.PAGE_ROWS)}")) or []
+    base = instinct.q("select=id,created_at,kind,platform,item_id,body", f"env=eq.{env}", "direction=eq.from_instinct",
+                      "acked_at=is.null", "order=created_at.asc,id.asc")
+    # every unacked row, not the oldest `limit`: Grok's report/issue/post_log rows stay unacked here, and on 2026-11-08
+    # 200 of them filled the page, so the day's DRAFT rows (#1448-#1456) were never read (validator silent all day)
+    rows = (rest.get_all(base) if hasattr(rest, "get_all") else
+            rest.call("GET", f"{base}&limit={min(limit, instinct.PAGE_ROWS)}")) or []
     drafts = [r for r in rows if DRAFT_HEAD.match(str(r.get("body") or ""))]
     stats = {"unacked": len(rows), "drafts": len(drafts), "approved": 0, "rejected": 0, "answered": 0, "acked": 0, "deferred": 0}
     print(f"inbox ({env}): {len(rows)} unacked from_instinct rows, {len(drafts)} DRAFT"
