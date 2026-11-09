@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-09",
-  "generated_at": "2026-11-09T17:30:03Z",
-  "as_of": "2026-11-09T17:30:03Z",
+  "generated_at": "2026-11-09T18:45:02Z",
+  "as_of": "2026-11-09T18:45:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,7 +875,7 @@
   },
   "counts": {
     "congress_trade": 4,
-    "form4_buy": 2,
+    "form4_buy": 1,
     "earnings_result": 46,
     "earnings_upcoming": 62,
     "picks_ready": 0,
@@ -931,7 +931,7 @@
     "form4_buy": {
       "rows_read": 20,
       "filings_passing_filters": 15,
-      "below_minimum": 13,
+      "below_minimum": 14,
       "not_open_market": 0,
       "no_sec_index": 0
     },
@@ -969,7 +969,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 111,
+      "tickers_in_items": 110,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -983,7 +983,7 @@
     "market": {
       "market_session": "2026-11-06",
       "priced_cap_share": 0.9987592342655657,
-      "flows_as_of": "2026-11-09T17:31:05.557163+00:00"
+      "flows_as_of": "2026-11-09T18:46:03.640041+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -992,7 +992,7 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 113
+        "angles_dropped": 110
       },
       "top8": {
         "stale": 7,
@@ -1000,7 +1000,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 3,
-        "ranked_below": 114,
+        "ranked_below": 113,
         "pillars": 4
       }
     },
@@ -1008,14 +1008,14 @@
       "dropped": 2,
       "reasons": [
         "insider_flow AXP: share card not pinned (the PNG is the same image as v/2026-11-09/cards/market-insiders-2026-11-09-a3a77b8a.png (old data))",
-        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T17:17:34.357995+00:00 (X-Card-Date), the item 2026-11-06)"
+        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T18:32:54.526470+00:00 (X-Card-Date), the item 2026-11-06)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
     "not published: insider_flow AXP: share card not pinned (the PNG is the same image as v/2026-11-09/cards/market-insiders-2026-11-09-a3a77b8a.png (old data))",
-    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T17:17:34.357995+00:00 (X-Card-Date), the item 2026-11-06)"
+    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T18:32:54.526470+00:00 (X-Card-Date), the item 2026-11-06)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1046,7 +1046,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 150,
+  "api_requests": 149,
   "items": [
     {
       "item_id": "2026-11-09-reddit-buzz-NVDA-9d6e44",
@@ -2286,269 +2286,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-09-form4-buy-MDGL-d2abbb",
-      "type": "form4_buy",
-      "ticker": "MDGL",
-      "tickers": [
-        "MDGL"
-      ],
-      "name": "Baker Bros. Advisors Lp",
-      "office": "Director at Madrigal Pharmaceuticals, Inc.",
-      "amount_text": "$23.13M",
-      "traded": [
-        "2026-11-06"
-      ],
-      "filed": "2026-11-06",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1157601/000119312526452132/0001193125-26-452132-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/baker-bros-advisors-lp-1263508?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-form4-buy-MDGL-d2abbb#trades",
-      "allowed_numbers": [
-        "$23.13M",
-        "2026-11-06",
-        "Nov 6, 2026",
-        "Nov 6"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Baker Bros. Advisors Lp (Director at Madrigal Pharmaceuticals, Inc.) reported an open-market purchase of MDGL totaling $23.13M on a Form 4 filed 2026-11-06, traded 2026-11-06.",
-      "dedupe_key": "form4:0001193125-26-452132:MDGL",
-      "claim_phrases": [],
-      "company": "Madrigal Pharmaceuticals, Inc.",
-      "side": "buy",
-      "accession": "0001193125-26-452132",
-      "rows": 1,
-      "figure_slug": "baker-bros-advisors-lp-1263508",
-      "amount_top_usd": 23134106.0,
-      "market_cap_usd": 11934667776.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$23.13M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/baker-bros-advisors-lp-1263508/opengraph-image",
-          "kind": "image",
-          "alt": "Baker Bros. Advisors Lp (Director at Madrigal Pharmaceuticals, Inc.) reported an open-market purchase of MDGL totaling $23.13M on a Form 4 filed 2026-11-06, traded 2026-11-06."
-        }
-      ],
-      "rank": 9.0,
-      "rank_why": "form4_buy 2; large cap $11.93B +2.5; magnitude (top $23.13M) +3; filed 2026-11-06 (age 1) +1.5",
-      "pillar": "P3",
-      "cap_tier": "large",
-      "in_500": false,
-      "context_numbers": [
-        "$11.9B",
-        "$483M",
-        "+$483M",
-        "$483.3M",
-        "+$483.3M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "MDGL"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$483M",
-            "+$483M",
-            "$483.3M",
-            "+$483.3M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$11.9B",
-        "insiders_30d": {
-          "bought": "$483M",
-          "sold": "$3.2B",
-          "days": 30
-        }
-      },
-      "angles": [
-        "Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp bought $23.13M of $MDGL on the open market (Form 4, filed Nov 6).",
-        "Baker Bros. Advisors Lp, director at Madrigal Pharmaceuticals, Inc., bought $23.13M of $MDGL on the open market (Form 4, filed Nov 6).",
-        "An open-market purchase of $MDGL totaling $23.13M by Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp was reported on a Form 4 filed Nov 6."
-      ],
-      "fact_phrases": [
-        "Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp bought $23.13M of $MDGL on the open market (Form 4, filed Nov 6).",
-        "Baker Bros. Advisors Lp, director at Madrigal Pharmaceuticals, Inc., bought $23.13M of $MDGL on the open market (Form 4, filed Nov 6).",
-        "An open-market purchase of $MDGL totaling $23.13M by Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp was reported on a Form 4 filed Nov 6.",
-        "Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp bought $23.13M of $MDGL on the open market.",
-        "Baker Bros. Advisors Lp, director at Madrigal Pharmaceuticals, Inc., bought $23.13M of $MDGL on the open market.",
-        "On the open market, Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp bought $23.13M of $MDGL.",
-        "Baker Bros. Advisors Lp bought $23.13M of $MDGL on the open market.",
-        "On the open market, Baker Bros. Advisors Lp bought $23.13M of $MDGL.",
-        "Baker Bros. Advisors Lp made an open-market purchase of $MDGL: $23.13M.",
-        "Baker Bros. Advisors Lp (Director at Madrigal Pharmaceuticals, Inc.) reported an open-market purchase of $MDGL totaling $23.13M on a Form 4 filed Nov 6.",
-        "On a Form 4 filed Nov 6, Baker Bros. Advisors Lp (Director at Madrigal Pharmaceuticals, Inc.) reported an open-market purchase of $MDGL totaling $23.13M.",
-        "Baker Bros. Advisors Lp's $MDGL purchase was traded Nov 6 and reported on a Form 4 filed Nov 6.",
-        "Traded Nov 6, Baker Bros. Advisors Lp's $MDGL purchase was reported on a Form 4 filed Nov 6.",
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells."
-      ],
-      "phrasings": [
-        {
-          "id": "form4buy-3a6ae8.a",
-          "fact": "form4buy-3a6ae8",
-          "variant": "a",
-          "text": "Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp bought $23.13M of $MDGL on the open market (Form 4, filed Nov 6).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-3a6ae8.h1",
-          "fact": "form4buy-3a6ae8",
-          "variant": "h1",
-          "text": "Baker Bros. Advisors Lp, director at Madrigal Pharmaceuticals, Inc., bought $23.13M of $MDGL on the open market (Form 4, filed Nov 6).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-3a6ae8.h2",
-          "fact": "form4buy-3a6ae8",
-          "variant": "h2",
-          "text": "An open-market purchase of $MDGL totaling $23.13M by Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp was reported on a Form 4 filed Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-736a9f.a",
-          "fact": "form4buy-736a9f",
-          "variant": "a",
-          "text": "Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp bought $23.13M of $MDGL on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-736a9f.h1",
-          "fact": "form4buy-736a9f",
-          "variant": "h1",
-          "text": "Baker Bros. Advisors Lp, director at Madrigal Pharmaceuticals, Inc., bought $23.13M of $MDGL on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-736a9f.h2",
-          "fact": "form4buy-736a9f",
-          "variant": "h2",
-          "text": "On the open market, Madrigal Pharmaceuticals, Inc. director Baker Bros. Advisors Lp bought $23.13M of $MDGL.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
-          "variant": "a",
-          "text": "Baker Bros. Advisors Lp bought $23.13M of $MDGL on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
-          "variant": "h1",
-          "text": "On the open market, Baker Bros. Advisors Lp bought $23.13M of $MDGL.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "Baker Bros. Advisors Lp made an open-market purchase of $MDGL: $23.13M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.a",
-          "fact": "form4buy-39fdef",
-          "variant": "a",
-          "text": "Baker Bros. Advisors Lp (Director at Madrigal Pharmaceuticals, Inc.) reported an open-market purchase of $MDGL totaling $23.13M on a Form 4 filed Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.h1",
-          "fact": "form4buy-39fdef",
-          "variant": "h1",
-          "text": "On a Form 4 filed Nov 6, Baker Bros. Advisors Lp (Director at Madrigal Pharmaceuticals, Inc.) reported an open-market purchase of $MDGL totaling $23.13M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "Baker Bros. Advisors Lp's $MDGL purchase was traded Nov 6 and reported on a Form 4 filed Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Nov 6, Baker Bros. Advisors Lp's $MDGL purchase was reported on a Form 4 filed Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$483M": "+",
-          "$483.3M": "+",
-          "$3.2B": "+",
-          "$3B": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "MDGL": [
-          [
-            "$",
-            11.9,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-09-earnings-result-CEG-d485d9",
       "type": "earnings_result",
       "ticker": "CEG",
@@ -3645,6 +3382,482 @@
           [
             "$",
             90.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-09-earnings-result-FERG-c92a2f",
+      "type": "earnings_result",
+      "ticker": "FERG",
+      "tickers": [
+        "FERG"
+      ],
+      "name": "Ferguson Enterprises Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2011641/000201164126000042/exhibit991pressreleasesept.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FERG?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-result-FERG-c92a2f#earnings-history",
+      "allowed_numbers": [
+        "$3.43",
+        "$3.29",
+        "$0.14",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-09",
+        "Nov 9, 2026",
+        "Nov 9"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Ferguson Enterprises Inc. (FERG) published Q3 2026 results on 2026-11-09: EPS beat. Adjusted diluted earnings per share $3.43 vs $3.29 consensus (Beat by $0.14).",
+      "dedupe_key": "report:ferg-2026-q3",
+      "claim_phrases": [
+        "EPS came in above the $3.29 consensus.",
+        "$FERG beat the Q3 2026 EPS consensus: $3.43 vs $3.29.",
+        "$FERG Q3 2026 EPS: $3.43 vs $3.29 consensus (beat by $0.14).",
+        "$FERG Q3 2026 EPS $3.43, beat by $0.14.",
+        "EPS $3.43 vs $3.29 consensus (beat by $0.14).",
+        "EPS $3.43 vs $3.29 (beat by $0.14).",
+        "$FERG beat Q3 2026 EPS estimates by $0.14.",
+        "Adjusted diluted earnings per share came in above the $3.29 consensus.",
+        "$FERG beat the Q3 2026 Adjusted diluted earnings per share consensus: $3.43 vs $3.29.",
+        "$FERG Q3 2026 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus (beat by $0.14).",
+        "$FERG Q3 2026 Adjusted diluted earnings per share $3.43, beat by $0.14.",
+        "Adjusted diluted earnings per share $3.43 vs $3.29 consensus (beat by $0.14).",
+        "Adjusted diluted earnings per share $3.43 vs $3.29 (beat by $0.14).",
+        "$FERG beat Q3 2026 Adjusted diluted earnings per share estimates by $0.14.",
+        "$FERG beat the Q3 EPS consensus: $3.43 vs $3.29.",
+        "$FERG Q3 EPS: $3.43 vs $3.29 consensus (beat by $0.14).",
+        "$FERG Q3 EPS $3.43, beat by $0.14.",
+        "$FERG beat Q3 EPS estimates by $0.14.",
+        "$FERG beat the Q3 Adjusted diluted earnings per share consensus: $3.43 vs $3.29.",
+        "$FERG Q3 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus (beat by $0.14).",
+        "$FERG Q3 Adjusted diluted earnings per share $3.43, beat by $0.14.",
+        "$FERG beat Q3 Adjusted diluted earnings per share estimates by $0.14.",
+        "$FERG beat Q3 2026 estimates.",
+        "$FERG beat Q3 estimates."
+      ],
+      "report_id": "ferg-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-09",
+      "published_at": "2026-11-09T11:52:18.113365+00:00",
+      "tile_label": "EPS beat",
+      "tile_state": "beat",
+      "results": {
+        "eps": {
+          "basis": "Adjusted diluted earnings per share",
+          "reported": "$3.43",
+          "consensus": "$3.29",
+          "label": "Beat by $0.14",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FERG/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for FERG: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $45.59B +2.5; magnitude (verdict) +1.5; release_date 2026-11-09 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 45587135878.21606,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-06",
+        "Nov 6, 2026",
+        "Nov 6",
+        "$45.6B",
+        "−0.83%",
+        "0.83%",
+        "−0.8%",
+        "0.8%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "FERG"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "FERG": "Industrials"
+      },
+      "ticker_names": {
+        "FERG": "Ferguson Enterprises Inc."
+      },
+      "context": {
+        "market_cap": "$45.6B",
+        "market_cap_session": "2026-11-06",
+        "last_session_move": {
+          "pct": "−0.83%",
+          "session": "2026-11-06"
+        }
+      },
+      "angles": [
+        "Ferguson Enterprises Inc. ($FERG) published Q3 2026 results on Nov 9.",
+        "$FERG (Ferguson Enterprises Inc.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, Ferguson Enterprises Inc. ($FERG) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Ferguson Enterprises Inc. ($FERG) published Q3 2026 results on Nov 9.",
+        "$FERG (Ferguson Enterprises Inc.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, Ferguson Enterprises Inc. ($FERG) published Q3 2026 results.",
+        "$FERG published Q3 2026 results on Nov 9.",
+        "Q3 2026 results from $FERG came out on Nov 9.",
+        "On Nov 9, $FERG published Q3 2026 results.",
+        "$FERG Q3 2026 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus.",
+        "$FERG reported Q3 2026 Adjusted diluted earnings per share of $3.43 vs $3.29 consensus.",
+        "$FERG Q3 2026 Adjusted diluted earnings per share was $3.43.",
+        "Q3 2026 Adjusted diluted earnings per share at $FERG was $3.43.",
+        "$FERG had a market value of $45.6B at the Nov 6 close.",
+        "$FERG's market value at the Nov 6 close was $45.6B.",
+        "At the Nov 6 close, $FERG had a market value of $45.6B.",
+        "$FERG moved −0.83% on Friday, Nov 6.",
+        "$FERG's move on Friday, Nov 6: −0.83%.",
+        "On Friday, Nov 6, $FERG moved −0.83%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $3.29 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$FERG beat the Q3 2026 EPS consensus: $3.43 vs $3.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$FERG Q3 2026 EPS: $3.43 vs $3.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$FERG Q3 2026 EPS $3.43, beat by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $3.43 vs $3.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $3.43 vs $3.29 (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$FERG beat Q3 2026 EPS estimates by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-ffaa25.a",
+          "fact": "earningsre-ffaa25",
+          "variant": "a",
+          "text": "Adjusted diluted earnings per share came in above the $3.29 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d1e8a7.a",
+          "fact": "earningsre-d1e8a7",
+          "variant": "a",
+          "text": "$FERG beat the Q3 2026 Adjusted diluted earnings per share consensus: $3.43 vs $3.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e26387.a",
+          "fact": "earningsre-e26387",
+          "variant": "a",
+          "text": "$FERG Q3 2026 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-802f9a.a",
+          "fact": "earningsre-802f9a",
+          "variant": "a",
+          "text": "$FERG Q3 2026 Adjusted diluted earnings per share $3.43, beat by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3f523d.a",
+          "fact": "earningsre-3f523d",
+          "variant": "a",
+          "text": "Adjusted diluted earnings per share $3.43 vs $3.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cc1fe3.a",
+          "fact": "earningsre-cc1fe3",
+          "variant": "a",
+          "text": "Adjusted diluted earnings per share $3.43 vs $3.29 (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8911a4.a",
+          "fact": "earningsre-8911a4",
+          "variant": "a",
+          "text": "$FERG beat Q3 2026 Adjusted diluted earnings per share estimates by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$FERG beat the Q3 EPS consensus: $3.43 vs $3.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$FERG Q3 EPS: $3.43 vs $3.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$FERG Q3 EPS $3.43, beat by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$FERG beat Q3 EPS estimates by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-37e9f2.a",
+          "fact": "earningsre-37e9f2",
+          "variant": "a",
+          "text": "$FERG beat the Q3 Adjusted diluted earnings per share consensus: $3.43 vs $3.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-12da86.a",
+          "fact": "earningsre-12da86",
+          "variant": "a",
+          "text": "$FERG Q3 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-2c7861.a",
+          "fact": "earningsre-2c7861",
+          "variant": "a",
+          "text": "$FERG Q3 Adjusted diluted earnings per share $3.43, beat by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-67a421.a",
+          "fact": "earningsre-67a421",
+          "variant": "a",
+          "text": "$FERG beat Q3 Adjusted diluted earnings per share estimates by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$FERG beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$FERG beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Ferguson Enterprises Inc. ($FERG) published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$FERG (Ferguson Enterprises Inc.) reported Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 9, Ferguson Enterprises Inc. ($FERG) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$FERG published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $FERG came out on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 9, $FERG published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c913a3.a",
+          "fact": "earningsre-c913a3",
+          "variant": "a",
+          "text": "$FERG Q3 2026 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c913a3.h1",
+          "fact": "earningsre-c913a3",
+          "variant": "h1",
+          "text": "$FERG reported Q3 2026 Adjusted diluted earnings per share of $3.43 vs $3.29 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6bdf7c.a",
+          "fact": "earningsre-6bdf7c",
+          "variant": "a",
+          "text": "$FERG Q3 2026 Adjusted diluted earnings per share was $3.43.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6bdf7c.h1",
+          "fact": "earningsre-6bdf7c",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted diluted earnings per share at $FERG was $3.43.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$FERG had a market value of $45.6B at the Nov 6 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$FERG's market value at the Nov 6 close was $45.6B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 6 close, $FERG had a market value of $45.6B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$FERG moved −0.83% on Friday, Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$FERG's move on Friday, Nov 6: −0.83%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Friday, Nov 6, $FERG moved −0.83%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.83%": "-",
+          "0.8%": "-"
+        },
+        "subjects": {
+          "FERG": "down"
+        }
+      },
+      "subject_numbers": {
+        "FERG": [
+          [
+            "$",
+            3.43,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            3.29,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.14,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            0.83,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            45.6,
             1,
             1000000000.0,
             0
@@ -9848,483 +10061,6 @@
       "rank_why": "sector_rotation 4; market-level +4; magnitude (market) +1.82; session_date 2026-11-06 (age 1) +1.5",
       "top8": false,
       "top8_out": "stale: a price move of the 2026-11-06 session posted on 2026-11-09: same session day only, after the close (owner 10-22) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-09-earnings-result-FERG-c92a2f",
-      "type": "earnings_result",
-      "ticker": "FERG",
-      "tickers": [
-        "FERG"
-      ],
-      "name": "Ferguson Enterprises Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-09",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2011641/000201164126000042/exhibit991pressreleasesept.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/FERG?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-result-FERG-c92a2f#earnings-history",
-      "allowed_numbers": [
-        "$3.43",
-        "$3.29",
-        "$0.14",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-09",
-        "Nov 9, 2026",
-        "Nov 9"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Ferguson Enterprises Inc. (FERG) published Q3 2026 results on 2026-11-09: EPS beat. Adjusted diluted earnings per share $3.43 vs $3.29 consensus (Beat by $0.14).",
-      "dedupe_key": "report:ferg-2026-q3",
-      "claim_phrases": [
-        "EPS came in above the $3.29 consensus.",
-        "$FERG beat the Q3 2026 EPS consensus: $3.43 vs $3.29.",
-        "$FERG Q3 2026 EPS: $3.43 vs $3.29 consensus (beat by $0.14).",
-        "$FERG Q3 2026 EPS $3.43, beat by $0.14.",
-        "EPS $3.43 vs $3.29 consensus (beat by $0.14).",
-        "EPS $3.43 vs $3.29 (beat by $0.14).",
-        "$FERG beat Q3 2026 EPS estimates by $0.14.",
-        "Adjusted diluted earnings per share came in above the $3.29 consensus.",
-        "$FERG beat the Q3 2026 Adjusted diluted earnings per share consensus: $3.43 vs $3.29.",
-        "$FERG Q3 2026 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus (beat by $0.14).",
-        "$FERG Q3 2026 Adjusted diluted earnings per share $3.43, beat by $0.14.",
-        "Adjusted diluted earnings per share $3.43 vs $3.29 consensus (beat by $0.14).",
-        "Adjusted diluted earnings per share $3.43 vs $3.29 (beat by $0.14).",
-        "$FERG beat Q3 2026 Adjusted diluted earnings per share estimates by $0.14.",
-        "$FERG beat the Q3 EPS consensus: $3.43 vs $3.29.",
-        "$FERG Q3 EPS: $3.43 vs $3.29 consensus (beat by $0.14).",
-        "$FERG Q3 EPS $3.43, beat by $0.14.",
-        "$FERG beat Q3 EPS estimates by $0.14.",
-        "$FERG beat the Q3 Adjusted diluted earnings per share consensus: $3.43 vs $3.29.",
-        "$FERG Q3 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus (beat by $0.14).",
-        "$FERG Q3 Adjusted diluted earnings per share $3.43, beat by $0.14.",
-        "$FERG beat Q3 Adjusted diluted earnings per share estimates by $0.14.",
-        "$FERG beat Q3 2026 estimates.",
-        "$FERG beat Q3 estimates."
-      ],
-      "report_id": "ferg-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-09",
-      "published_at": "2026-11-09T11:52:18.113365+00:00",
-      "tile_label": "EPS beat",
-      "tile_state": "beat",
-      "results": {
-        "eps": {
-          "basis": "Adjusted diluted earnings per share",
-          "reported": "$3.43",
-          "consensus": "$3.29",
-          "label": "Beat by $0.14",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/FERG/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for FERG: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 9.0,
-      "rank_why": "earnings_result 3; large cap $45.59B +2.5; magnitude (verdict) +1.5; release_date 2026-11-09 (age 0) +2",
-      "pillar": "P5",
-      "market_cap_usd": 45587135878.21606,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-06",
-        "Nov 6, 2026",
-        "Nov 6",
-        "$45.6B",
-        "−0.83%",
-        "0.83%",
-        "−0.8%",
-        "0.8%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "FERG"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "FERG": "Industrials"
-      },
-      "ticker_names": {
-        "FERG": "Ferguson Enterprises Inc."
-      },
-      "context": {
-        "market_cap": "$45.6B",
-        "market_cap_session": "2026-11-06",
-        "last_session_move": {
-          "pct": "−0.83%",
-          "session": "2026-11-06"
-        }
-      },
-      "angles": [
-        "Ferguson Enterprises Inc. ($FERG) published Q3 2026 results on Nov 9.",
-        "$FERG (Ferguson Enterprises Inc.) reported Q3 2026 results on Nov 9.",
-        "On Nov 9, Ferguson Enterprises Inc. ($FERG) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Ferguson Enterprises Inc. ($FERG) published Q3 2026 results on Nov 9.",
-        "$FERG (Ferguson Enterprises Inc.) reported Q3 2026 results on Nov 9.",
-        "On Nov 9, Ferguson Enterprises Inc. ($FERG) published Q3 2026 results.",
-        "$FERG published Q3 2026 results on Nov 9.",
-        "Q3 2026 results from $FERG came out on Nov 9.",
-        "On Nov 9, $FERG published Q3 2026 results.",
-        "$FERG Q3 2026 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus.",
-        "$FERG reported Q3 2026 Adjusted diluted earnings per share of $3.43 vs $3.29 consensus.",
-        "$FERG Q3 2026 Adjusted diluted earnings per share was $3.43.",
-        "Q3 2026 Adjusted diluted earnings per share at $FERG was $3.43.",
-        "$FERG had a market value of $45.6B at the Nov 6 close.",
-        "$FERG's market value at the Nov 6 close was $45.6B.",
-        "At the Nov 6 close, $FERG had a market value of $45.6B.",
-        "$FERG moved −0.83% on Friday, Nov 6.",
-        "$FERG's move on Friday, Nov 6: −0.83%.",
-        "On Friday, Nov 6, $FERG moved −0.83%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $3.29 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$FERG beat the Q3 2026 EPS consensus: $3.43 vs $3.29.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$FERG Q3 2026 EPS: $3.43 vs $3.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$FERG Q3 2026 EPS $3.43, beat by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $3.43 vs $3.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $3.43 vs $3.29 (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$FERG beat Q3 2026 EPS estimates by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-ffaa25.a",
-          "fact": "earningsre-ffaa25",
-          "variant": "a",
-          "text": "Adjusted diluted earnings per share came in above the $3.29 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d1e8a7.a",
-          "fact": "earningsre-d1e8a7",
-          "variant": "a",
-          "text": "$FERG beat the Q3 2026 Adjusted diluted earnings per share consensus: $3.43 vs $3.29.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e26387.a",
-          "fact": "earningsre-e26387",
-          "variant": "a",
-          "text": "$FERG Q3 2026 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-802f9a.a",
-          "fact": "earningsre-802f9a",
-          "variant": "a",
-          "text": "$FERG Q3 2026 Adjusted diluted earnings per share $3.43, beat by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3f523d.a",
-          "fact": "earningsre-3f523d",
-          "variant": "a",
-          "text": "Adjusted diluted earnings per share $3.43 vs $3.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cc1fe3.a",
-          "fact": "earningsre-cc1fe3",
-          "variant": "a",
-          "text": "Adjusted diluted earnings per share $3.43 vs $3.29 (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8911a4.a",
-          "fact": "earningsre-8911a4",
-          "variant": "a",
-          "text": "$FERG beat Q3 2026 Adjusted diluted earnings per share estimates by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$FERG beat the Q3 EPS consensus: $3.43 vs $3.29.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$FERG Q3 EPS: $3.43 vs $3.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$FERG Q3 EPS $3.43, beat by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$FERG beat Q3 EPS estimates by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-37e9f2.a",
-          "fact": "earningsre-37e9f2",
-          "variant": "a",
-          "text": "$FERG beat the Q3 Adjusted diluted earnings per share consensus: $3.43 vs $3.29.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-12da86.a",
-          "fact": "earningsre-12da86",
-          "variant": "a",
-          "text": "$FERG Q3 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-2c7861.a",
-          "fact": "earningsre-2c7861",
-          "variant": "a",
-          "text": "$FERG Q3 Adjusted diluted earnings per share $3.43, beat by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-67a421.a",
-          "fact": "earningsre-67a421",
-          "variant": "a",
-          "text": "$FERG beat Q3 Adjusted diluted earnings per share estimates by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$FERG beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$FERG beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Ferguson Enterprises Inc. ($FERG) published Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$FERG (Ferguson Enterprises Inc.) reported Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 9, Ferguson Enterprises Inc. ($FERG) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$FERG published Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $FERG came out on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 9, $FERG published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c913a3.a",
-          "fact": "earningsre-c913a3",
-          "variant": "a",
-          "text": "$FERG Q3 2026 Adjusted diluted earnings per share: $3.43 vs $3.29 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c913a3.h1",
-          "fact": "earningsre-c913a3",
-          "variant": "h1",
-          "text": "$FERG reported Q3 2026 Adjusted diluted earnings per share of $3.43 vs $3.29 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-6bdf7c.a",
-          "fact": "earningsre-6bdf7c",
-          "variant": "a",
-          "text": "$FERG Q3 2026 Adjusted diluted earnings per share was $3.43.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-6bdf7c.h1",
-          "fact": "earningsre-6bdf7c",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted diluted earnings per share at $FERG was $3.43.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$FERG had a market value of $45.6B at the Nov 6 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$FERG's market value at the Nov 6 close was $45.6B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 6 close, $FERG had a market value of $45.6B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$FERG moved −0.83% on Friday, Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$FERG's move on Friday, Nov 6: −0.83%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Friday, Nov 6, $FERG moved −0.83%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "0.83%": "-",
-          "0.8%": "-"
-        },
-        "subjects": {
-          "FERG": "down"
-        }
-      },
-      "subject_numbers": {
-        "FERG": [
-          [
-            "$",
-            3.43,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            3.29,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.14,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            0.83,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            45.6,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
