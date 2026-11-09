@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-09",
-  "generated_at": "2026-11-09T20:15:03Z",
-  "as_of": "2026-11-09T20:15:03Z",
+  "generated_at": "2026-11-09T20:45:03Z",
+  "as_of": "2026-11-09T20:45:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,7 +875,7 @@
   },
   "counts": {
     "congress_trade": 6,
-    "form4_buy": 1,
+    "form4_buy": 2,
     "earnings_result": 45,
     "earnings_upcoming": 62,
     "picks_ready": 1,
@@ -929,8 +929,8 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 14,
-      "below_minimum": 13,
+      "filings_passing_filters": 16,
+      "below_minimum": 14,
       "not_open_market": 0,
       "no_sec_index": 0
     },
@@ -968,7 +968,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 112,
+      "tickers_in_items": 113,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -982,7 +982,7 @@
     "market": {
       "market_session": "2026-11-06",
       "priced_cap_share": 0.9987592342655657,
-      "flows_as_of": "2026-11-09T20:15:53.390008+00:00"
+      "flows_as_of": "2026-11-09T20:45:51.526675+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -991,7 +991,7 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 97
+        "angles_dropped": 100
       },
       "top8": {
         "stale": 6,
@@ -999,20 +999,20 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 3,
-        "ranked_below": 116,
+        "ranked_below": 117,
         "pillars": 4
       }
     },
     "card_unpinned": {
       "dropped": 1,
       "reasons": [
-        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T20:02:29.031187+00:00 (X-Card-Date), the item 2026-11-06)"
+        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T20:32:58.842631+00:00 (X-Card-Date), the item 2026-11-06)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T20:02:29.031187+00:00 (X-Card-Date), the item 2026-11-06)"
+    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T20:32:58.842631+00:00 (X-Card-Date), the item 2026-11-06)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1043,7 +1043,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 113,
+  "api_requests": 114,
   "items": [
     {
       "item_id": "2026-11-09-reddit-buzz-NVDA-9d6e44",
@@ -1509,17 +1509,17 @@
       "source_url": null,
       "page_url": "https://www.rapidtradeview.trade/dashboard/AXP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-insider-flow-AXP-aa5a75",
       "allowed_numbers": [
-        "$483M",
-        "+$483M",
-        "$483.5M",
-        "+$483.5M",
+        "$485M",
+        "+$485M",
+        "$485.1M",
+        "+$485.1M",
         "$3.2B",
         "+$3.2B",
         "$3B",
         "+$3B",
         "30",
-        "237",
-        "509",
+        "239",
+        "510",
         "500",
         "2026-10-10",
         "Oct 10, 2026",
@@ -1546,7 +1546,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 237 companies with buys, 509 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders).",
+      "facts_text": "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 239 companies with buys, 510 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders).",
       "dedupe_key": "insider_flow:2026-11-09:AXP",
       "claim_phrases": [
         "$AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M).",
@@ -1599,10 +1599,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$483M",
-            "+$483M",
-            "$483.5M",
-            "+$483.5M",
+            "$485M",
+            "+$485M",
+            "$485.1M",
+            "+$485.1M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -1612,7 +1612,7 @@
             "officers?\\s+and\\s+directors?",
             "open[-\\s]market"
           ],
-          "say": "the 30-day totals ($483M bought, $3.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+          "say": "the 30-day totals ($485M bought, $3.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
         }
       ],
       "headline": {
@@ -1623,7 +1623,7 @@
         ],
         "numbers": [
           "$3.2B",
-          "$483M"
+          "$485M"
         ]
       },
       "window": {
@@ -1631,10 +1631,10 @@
         "to": "2026-11-09",
         "days": 30
       },
-      "bought_usd": 483488790.84,
-      "sold_usd": 3200142891.88,
-      "buy_companies": 237,
-      "sell_companies": 509,
+      "bought_usd": 485081129.91,
+      "sold_usd": 3200284799.27,
+      "buy_companies": 239,
+      "sell_companies": 510,
       "top_sellers_500": [
         {
           "ticker": "AXP",
@@ -1681,12 +1681,12 @@
       ],
       "top_buyers_500": [],
       "angles": [
-        "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys."
+        "Officers and directors sold $3.2B and bought $485M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $485M of open-market buys."
       ],
       "market_cap_usd": 217909271436.99582,
-      "magnitude": 2.257754056121809,
+      "magnitude": 2.257782943064714,
       "trigger": "weekly (Monday facts)",
       "top5": [
         "AXP",
@@ -1700,18 +1700,18 @@
       "banned_words": [],
       "card": {
         "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-4aab47ee.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-dd0994ec.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
         "date": "2026-11-09",
-        "fingerprint": "4aab47ee",
-        "file": "market-insiders-2026-11-09-4aab47ee.png",
-        "sha256": "e56d25dd193a75589aa3b720e84e84fb06b898fdd27e8ee51ecd6a2e6ffbda57"
+        "fingerprint": "dd0994ec",
+        "file": "market-insiders-2026-11-09-dd0994ec.png",
+        "sha256": "1621eb439d1a375839ee0d1b7a0b922a3fa0b202a66558a3f0238ec62a0d2c16"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-4aab47ee.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-dd0994ec.png",
           "kind": "image",
-          "alt": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 237 companies with buys, 509 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders)."
+          "alt": "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 239 companies with buys, 510 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders)."
         }
       ],
       "market_cap_source": "market_map",
@@ -1728,13 +1728,13 @@
         "RCL": "Royal Caribbean Cruises Ltd."
       },
       "fact_phrases": [
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
-        "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 237 companies had open-market buys by officers and directors and 509 had open-market sells.",
-        "509 companies had open-market sells by officers and directors and 237 had open-market buys over 30 days in our feed.",
+        "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $485M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $485M of open-market buys and $3.2B of open-market sells.",
+        "Officers and directors sold $3.2B and bought $485M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $3.2B and bought $485M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 239 companies had open-market buys by officers and directors and 510 had open-market sells.",
+        "510 companies had open-market sells by officers and directors and 239 had open-market buys over 30 days in our feed.",
         "Officers and directors of $AXP sold $137M on the open market over 30 days in our feed (3 insiders).",
         "3 insiders at $AXP sold $137M on the open market over 30 days in our feed (officers and directors).",
         "Over 30 days in our feed, officers and directors of $AXP sold $137M on the open market (3 insiders).",
@@ -1876,49 +1876,49 @@
           "id": "insiderflo-de8c5a.a",
           "fact": "insiderflo-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.h1",
           "fact": "insiderflo-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $485M of open-market buys.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.t",
           "fact": "insiderflo-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $485M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.a",
           "fact": "insiderflo-cc7b17",
           "variant": "a",
-          "text": "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
+          "text": "Officers and directors sold $3.2B and bought $485M of their own companies' stock on the open market over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.t",
           "fact": "insiderflo-cc7b17",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market.",
+          "text": "Over 30 days in our feed, officers and directors sold $3.2B and bought $485M of their own companies' stock on the open market.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.a",
           "fact": "insiderflo-ca45c6",
           "variant": "a",
-          "text": "Over 30 days in our feed, 237 companies had open-market buys by officers and directors and 509 had open-market sells.",
+          "text": "Over 30 days in our feed, 239 companies had open-market buys by officers and directors and 510 had open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.h1",
           "fact": "insiderflo-ca45c6",
           "variant": "h1",
-          "text": "509 companies had open-market sells by officers and directors and 237 had open-market buys over 30 days in our feed.",
+          "text": "510 companies had open-market sells by officers and directors and 239 had open-market buys over 30 days in our feed.",
           "claim": false
         },
         {
@@ -1987,8 +1987,8 @@
       ],
       "moves": {
         "numbers": {
-          "$483M": "+",
-          "$483.5M": "+",
+          "$485M": "+",
+          "$485.1M": "+",
           "$3.2B": "+",
           "$3B": "+",
           "$137M": "+",
@@ -11215,10 +11215,10 @@
       "in_500": false,
       "context_numbers": [
         "$2.1B",
-        "$483M",
-        "+$483M",
-        "$483.5M",
-        "+$483.5M",
+        "$485M",
+        "+$485M",
+        "$485.1M",
+        "+$485.1M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -11240,10 +11240,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$483M",
-            "+$483M",
-            "$483.5M",
-            "+$483.5M",
+            "$485M",
+            "+$485M",
+            "$485.1M",
+            "+$485.1M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -11259,7 +11259,7 @@
       "context": {
         "market_cap": "$2.1B",
         "insiders_30d": {
-          "bought": "$483M",
+          "bought": "$485M",
           "sold": "$3.2B",
           "days": 30
         }
@@ -11283,9 +11283,9 @@
         "On a Form 4 filed Nov 5, Timothy Steven Johnson (Chief Executive Officer at Blackstone Mortgage Trust, Inc.) reported an open-market purchase of $BXMT totaling $1.04M.",
         "Timothy Steven Johnson's $BXMT purchase was traded Nov 4 and reported on a Form 4 filed Nov 5.",
         "Traded Nov 4, Timothy Steven Johnson's $BXMT purchase was reported on a Form 4 filed Nov 5.",
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells."
+        "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $485M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $485M of open-market buys and $3.2B of open-market sells."
       ],
       "phrasings": [
         {
@@ -11383,28 +11383,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $485M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $485M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$483M": "+",
-          "$483.5M": "+",
+          "$485M": "+",
+          "$485.1M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -12083,6 +12083,273 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "repeat: leads with $NVDA like 2026-11-09-reddit-buzz-NVDA-9d6e44",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-09-form4-buy-PAM-cec96d",
+      "type": "form4_buy",
+      "ticker": "PAM",
+      "tickers": [
+        "PAM"
+      ],
+      "name": "Damian Miguel Mindlin",
+      "office": "Vicepresident at Pampa Energía S.A.",
+      "amount_text": "$1.29M",
+      "traded": [
+        "2026-11-05"
+      ],
+      "filed": "2026-11-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1469395/000202891626000013/0002028916-26-000013-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/mindlin-damian-miguel-2028916?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-form4-buy-PAM-cec96d#trades",
+      "allowed_numbers": [
+        "$1.29M",
+        "2026-11-09",
+        "Nov 9, 2026",
+        "Nov 9",
+        "2026-11-05",
+        "Nov 5, 2026",
+        "Nov 5"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of PAM totaling $1.29M on a Form 4 filed 2026-11-09, traded 2026-11-05.",
+      "dedupe_key": "form4:0002028916-26-000013:PAM",
+      "claim_phrases": [],
+      "company": "Pampa Energía S.A.",
+      "side": "buy",
+      "accession": "0002028916-26-000013",
+      "rows": 1,
+      "figure_slug": "mindlin-damian-miguel-2028916",
+      "amount_top_usd": 1287400.0,
+      "market_cap_usd": 3904502016.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$1.29M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/mindlin-damian-miguel-2028916/opengraph-image",
+          "kind": "image",
+          "alt": "Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of PAM totaling $1.29M on a Form 4 filed 2026-11-09, traded 2026-11-05."
+        }
+      ],
+      "rank": 7.11,
+      "rank_why": "form4_buy 2; mid cap $3.9B +1; magnitude (top $1.29M) +2.11; filed 2026-11-09 (age 0) +2",
+      "pillar": "P3",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$3.9B",
+        "$485M",
+        "+$485M",
+        "$485.1M",
+        "+$485.1M",
+        "$3.2B",
+        "+$3.2B",
+        "$3B",
+        "+$3B",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "PAM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$485M",
+            "+$485M",
+            "$485.1M",
+            "+$485.1M",
+            "$3.2B",
+            "+$3.2B",
+            "$3B",
+            "+$3B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "context": {
+        "market_cap": "$3.9B",
+        "insiders_30d": {
+          "bought": "$485M",
+          "sold": "$3.2B",
+          "days": 30
+        }
+      },
+      "angles": [
+        "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.29M of $PAM on the open market (Form 4, filed Nov 9).",
+        "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.29M of $PAM on the open market (Form 4, filed Nov 9).",
+        "An open-market purchase of $PAM totaling $1.29M by Pampa Energía S.A. vicepresident Damian Miguel Mindlin was reported on a Form 4 filed Nov 9."
+      ],
+      "fact_phrases": [
+        "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.29M of $PAM on the open market (Form 4, filed Nov 9).",
+        "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.29M of $PAM on the open market (Form 4, filed Nov 9).",
+        "An open-market purchase of $PAM totaling $1.29M by Pampa Energía S.A. vicepresident Damian Miguel Mindlin was reported on a Form 4 filed Nov 9.",
+        "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.29M of $PAM on the open market.",
+        "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.29M of $PAM on the open market.",
+        "On the open market, Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.29M of $PAM.",
+        "Damian Miguel Mindlin bought $1.29M of $PAM on the open market.",
+        "On the open market, Damian Miguel Mindlin bought $1.29M of $PAM.",
+        "Damian Miguel Mindlin made an open-market purchase of $PAM: $1.29M.",
+        "Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.29M on a Form 4 filed Nov 9.",
+        "On a Form 4 filed Nov 9, Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.29M.",
+        "Damian Miguel Mindlin's $PAM purchase was traded Nov 5 and reported on a Form 4 filed Nov 9.",
+        "Traded Nov 5, Damian Miguel Mindlin's $PAM purchase was reported on a Form 4 filed Nov 9.",
+        "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $485M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $485M of open-market buys and $3.2B of open-market sells."
+      ],
+      "phrasings": [
+        {
+          "id": "form4buy-431131.a",
+          "fact": "form4buy-431131",
+          "variant": "a",
+          "text": "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.29M of $PAM on the open market (Form 4, filed Nov 9).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-431131.h1",
+          "fact": "form4buy-431131",
+          "variant": "h1",
+          "text": "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.29M of $PAM on the open market (Form 4, filed Nov 9).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-431131.h2",
+          "fact": "form4buy-431131",
+          "variant": "h2",
+          "text": "An open-market purchase of $PAM totaling $1.29M by Pampa Energía S.A. vicepresident Damian Miguel Mindlin was reported on a Form 4 filed Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-c024fe.a",
+          "fact": "form4buy-c024fe",
+          "variant": "a",
+          "text": "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.29M of $PAM on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-c024fe.h1",
+          "fact": "form4buy-c024fe",
+          "variant": "h1",
+          "text": "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.29M of $PAM on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-c024fe.h2",
+          "fact": "form4buy-c024fe",
+          "variant": "h2",
+          "text": "On the open market, Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.29M of $PAM.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.a",
+          "fact": "form4buy-1bee24",
+          "variant": "a",
+          "text": "Damian Miguel Mindlin bought $1.29M of $PAM on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h1",
+          "fact": "form4buy-1bee24",
+          "variant": "h1",
+          "text": "On the open market, Damian Miguel Mindlin bought $1.29M of $PAM.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h2",
+          "fact": "form4buy-1bee24",
+          "variant": "h2",
+          "text": "Damian Miguel Mindlin made an open-market purchase of $PAM: $1.29M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-39fdef.a",
+          "fact": "form4buy-39fdef",
+          "variant": "a",
+          "text": "Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.29M on a Form 4 filed Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-39fdef.h1",
+          "fact": "form4buy-39fdef",
+          "variant": "h1",
+          "text": "On a Form 4 filed Nov 9, Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.29M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.a",
+          "fact": "form4buy-bfe464",
+          "variant": "a",
+          "text": "Damian Miguel Mindlin's $PAM purchase was traded Nov 5 and reported on a Form 4 filed Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.h1",
+          "fact": "form4buy-bfe464",
+          "variant": "h1",
+          "text": "Traded Nov 5, Damian Miguel Mindlin's $PAM purchase was reported on a Form 4 filed Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.a",
+          "fact": "form4buy-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $485M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.h1",
+          "fact": "form4buy-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $485M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.t",
+          "fact": "form4buy-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $485M of open-market buys and $3.2B of open-market sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$485M": "+",
+          "$485.1M": "+",
+          "$3.2B": "+",
+          "$3B": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "PAM": [
+          [
+            "$",
+            3.9,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
