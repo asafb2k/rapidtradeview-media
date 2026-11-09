@@ -6,15 +6,19 @@ and the real screen as the payoff. Runs in the project conda env (PIL + numpy); 
 
 Inputs (story.json, schema rtv-cartoon-story/1; SKILL.md in this folder says how to write one):
   item_id, facts_file           the facts item (its numbers, phrasings and banned words gate every text)
-  fact_phrase                   the ONE data sentence, verbatim one of the item's own phrasings; spoken over the PAYOFF shots
+  fact_phrase                   the ONE data sentence, verbatim one of the item's own phrasings; read aloud, or shown whole
+                                on a receipt card (els "receipt", text "$fact_phrase") for at least RECEIPT_MIN_S
+  post_date                     YYYY-MM-DD the video goes out (a story-time weekday must be this day's weekday)
   voices                        {"narrator": {"id", "speed"}, "<role>": {...}} Kokoro voice ids (local, Apache-2.0)
   say                           display word -> spoken form ("$14.99M" -> "fourteen point nine nine million dollars")
   screens                       {"name": "<capture png>"}: each with its capture.py sidecar (<png>.json)
-  screen_numbers_ack            number on a real screenshot that is not an item number -> why it is there
-  shots                         the shot list (kind, set, els, move, vo, bubble, chip, ...), last one kind END
+  screen_numbers_ack            {screen name: {number: why it is there}} for numbers on a screenshot that are not item numbers
+  shots                         the shot list (kind, set, els, move, vo, voice, claim, bubble, chip, peek, ...), last one END
+                                (a shot whose vo states a fact carries "claim": the phrasing id it paraphrases)
 
 Outputs in DIR: reel_9x16.mp4 (1080x1920, 30 fps, H.264 + AAC), reel.json (provenance: item, numbers, voice engine and
-licence, music samples, screenshot and file sha256, shot list), reel-qa.json (pass, summary, details), sheet.png (a frame
+licence, music samples, screenshot and file sha256, screen crops, shot list, and claims_for_human_check: the story lines
+that paraphrase a fact, for a person to read), reel-qa.json (pass, summary, details), sheet.png (a frame
 every 1.5 s), vo.wav / mix.wav. Exit 0 = every QA gate passed, 1 = a QA gate failed, 2 = unusable input or a render error.
 """
 from __future__ import annotations
@@ -58,7 +62,14 @@ SHOTS_RANGE = (18, 26)
 LUFS_RANGE, TP_MAX, TARGET_LUFS = (-15.0, -13.0), -1.0, -14.0
 STATIC_MAD, STATIC_RUN = 0.3, 8
 CAPTION_SIZE, CAPTION_MIN, CAPTION_MAX_W = 92, 72, 760
-BANDS = {"mid": 1190, "low": 1340, "high": 820, "payoff": 1400, "top": 640}
+CAPTION_Y = 1230                          # ONE caption band (64% of the height) for every shot; frame the shots around it
+SPEAKER_COL = {"dale": (255, 178, 158), "pip": (160, 242, 208)}   # caption colour per voice (narrator white)
+PAYOFF_WINDOW = (4.0, 7.0)                # first PAYOFF start -> last PAYOFF end, reaction cut-ins included
+SCREEN_MIN_S = 1.8                        # the real screenshot is on screen at least this long
+RECEIPT_MIN_S = 1.8                       # a fact phrase shown (not read) stays on screen at least this long
+CHAR_GAP_MAX = 2.0                        # a character is never off screen for longer than this
+HOOK_NUMBER_BY = 2.5                      # an item number is on screen (caption or chip) by this time
+HOOK_CHAR_W = 0.5                         # frame 0: a character at least this share of the frame width
 LEAD_F = 2                                # the picture cuts 2 frames before the first word of its line
 SEARCH_TEXT = "Search RapidTradeView"
 END_TEXTS = (cr.BRAND, SEARCH_TEXT, cr.SITE, cr.DISCLAIMER)
@@ -156,7 +167,16 @@ class Story:
                 fmt, size = im.format, im.size
                 img = im.convert("RGB")
             self.screens[name] = {"png": png, "img": img, "meta": meta, "fmt": fmt, "size": size}
-        self.ack = d.get("screen_numbers_ack") or {}
+        ack = d.get("screen_numbers_ack") or {}
+        if not isinstance(ack, dict) or any(not isinstance(v, dict) for v in ack.values()) or set(ack) - set(self.screens):
+            raise InputError("screen_numbers_ack must be {screen name: {number: reason}} (one entry per screen in `screens`)")
+        self.ack = {n: ack.get(n, {}) for n in self.screens}
+        self.post_date = d.get("post_date")
+        if self.post_date:
+            try:
+                dt.date.fromisoformat(str(self.post_date))
+            except ValueError as e:
+                raise InputError(f"post_date {self.post_date!r} is not YYYY-MM-DD") from e
 
 
 class Word:
@@ -325,9 +345,14 @@ class Timeline:
                 by_shot.setdefault(w.shot, []).append(w)
         for si in sorted(by_shot):
             ws = by_shot[si]
-            groups = Q.chunk_words([w.text for w in ws], measure=f.getlength, max_px=CAPTION_MAX_W)
+            groups = Q.chunk_words([w.text for w in ws], measure=lambda s: f.getlength(" ".join(Q.display_words(s))),
+                                   max_px=CAPTION_MAX_W)
+            voice = self.story.shots[si].get("voice", "narrator")
             for g in groups:
-                self.chunks.append({"shot": si, "text": " ".join(ws[k].text for k in g), "start": ws[g[0]].start - 1 / FPS,
+                text = " ".join(Q.display_words(" ".join(ws[k].text for k in g)))
+                if not text:
+                    continue
+                self.chunks.append({"shot": si, "text": text, "voice": voice, "start": ws[g[0]].start - 1 / FPS,
                                     "w_start": ws[g[0]].start, "last_end": ws[g[-1]].end})
         if self.chunks and self.chunks[0]["shot"] == 0:
             self.chunks[0]["start"] = 0.0             # the hook: caption chunk 1 is on frame 0
@@ -340,7 +365,7 @@ class Timeline:
 
 
 # =============================================================================================== drawing helpers
-def caption_sprite(text: str, stress: set[str]) -> Image.Image:
+def caption_sprite(text: str, stress: set[str], base=(255, 255, 255)) -> Image.Image:
     words = text.split()
     size = CAPTION_SIZE
     while size > CAPTION_MIN and font("black", size).getlength(text) - 2 * (len(words) - 1) > CAPTION_MAX_W:
@@ -365,10 +390,10 @@ def caption_sprite(text: str, stress: set[str]) -> Image.Image:
             col = GREEN
         elif re.fullmatch(r"(?i)sold|sells?|sale|miss(ed)?", core):
             col = RED
-        elif w in stress:
+        elif w in stress or core in stress:
             col = LIME
         else:
-            col = (255, 255, 255)
+            col = base
         cols.append(col)
     shadow = Image.new("L", img.size, 0)
     sd = ImageDraw.Draw(shadow)
@@ -585,7 +610,9 @@ class Reel:
                 b["_t1"] = min(en, t0 + float(b.get("dur", 9.0)))
                 self.events.append((t0, "pop", {"sfx": sfx_kind(b["text"]), "gain": b.get("gain", 1.0)}))
                 w_, h_ = img.size
-                self.texts.append({"role": "bubble", "text": b["text"], "box": (b["x"] - w_ / 2, b["y"] - h_ / 2, b["x"] + w_ / 2, b["y"] + h_ / 2)})
+                m_ = 60                                   # the sprite's transparent margin (the tail sits inside it)
+                self.texts.append({"role": "bubble", "text": b["text"], "box": (b["x"] - w_ / 2 + m_, b["y"] - h_ / 2 + m_,
+                                                                               b["x"] + w_ / 2 - m_, b["y"] + h_ / 2 - m_)})
             c = sh.get("chip")
             if c:
                 img = C.chip(c["text"], c.get("size", 64), font_fn=font)
@@ -595,23 +622,45 @@ class Reel:
                                    "box": (c["x"] - w_ / 2, c["y"] - h_ / 2, c["x"] + w_ / 2, c["y"] + h_ / 2)})
             if sh.get("transition_in") == "whip" and si > 0:
                 self.events.append((st - 3 / FPS, "whip", {"sfx": "whoosh", "gain": 0.7}))
+            pk = sh.get("peek")
+            if pk:
+                pk["_img"] = C.head_only(pk.get("who", "pip"), pk.get("expr", "shock"), int(pk.get("hu", 240)), False,
+                                         1.0 if pk.get("brow") else 0.0)
             for el in sh.get("els", []):
-                if el.get("t") in ("screen", "card") and el.get("enter"):
+                typ = el.get("t")
+                if typ in ("screen", "card") and el.get("enter"):
                     self.events.append((st + 8 / FPS, "land", {"sfx": "thump", "gain": 0.9}))
-                if el.get("t") == "finger" and "tap" in el:
-                    self.events.append((self.word_time(si, el["tap"]), "tap", {"sfx": "clack", "gain": 0.8, "shake": 0.5}))
+                if typ == "receipt":
+                    if el.get("text", "$fact_phrase") == "$fact_phrase":
+                        el["text"] = self.st.doc["fact_phrase"]
+                    self.texts.append({"role": "receipt", "text": el["text"], "box": None, "shot": si})
+                    self.texts.append({"role": "receipt_header", "text": el.get("header", "SEC FILING"), "box": None})
+                    if el.get("enter"):
+                        self.events.append((st + 6 / FPS, "land", {"sfx": "thump", "gain": 0.8}))
+                if typ == "feed":
+                    for txt in C.FEED_TEXTS:
+                        self.texts.append({"role": "prop", "text": txt, "box": None})
+                if typ == "search_phone":
+                    word = str(el.get("text", ""))
+                    self.texts.append({"role": "prop", "text": C.SEARCH_PLACEHOLDER, "box": None})
+                    self.texts.append({"role": "prop", "text": word, "box": None})
+                    t0 = self.word_time(si, el.get("at", 0.2))
+                    rate = float(el.get("rate", 0.08))
+                    el["_t0"], el["_rate"] = t0 - st, rate
+                    for i in range(len(word)):
+                        self.events.append((t0 + i * rate, "tap", {"sfx": "clack", "gain": 0.9, "shake": 0.2}))
         stress = {}
         for si, sh in enumerate(self.shots):
             stress[si] = set(sh.get("stress") or [])
         for k, ch in enumerate(self.tl.chunks):
-            img = caption_sprite(ch["text"], stress.get(ch["shot"], set()))
+            img = caption_sprite(ch["text"], stress.get(ch["shot"], set()), SPEAKER_COL.get(ch.get("voice"), (255, 255, 255)))
             sweep = cr.Sweep(img, 0.4, 0.12) if Q.FIGURE_RX.search(ch["text"]) else None
             self.cap_sprites[k] = (img, sweep)
-            sh = self.shots[ch["shot"]]
-            cy = BANDS.get(sh.get("caption_band", "mid"), 1190)
+            cy = CAPTION_Y
             w_, h_ = img.size
             self.texts.append({"role": "caption", "text": ch["text"], "box": (W / 2 - w_ / 2, cy - h_ / 2, W / 2 + w_ / 2, cy + h_ / 2)})
             ch["cy"] = cy
+            ch["size"] = (w_, h_)
         self.events.sort(key=lambda e: e[0])
 
     # ------------------------------------------------------------------------------------------ camera
@@ -664,10 +713,11 @@ class Reel:
             if tg is None:
                 raise InputError(f"screen {el['name']}: no target {nm!r} in its sidecar")
             boxes.append(tg["box"])
-        x0 = min(b[0] for b in boxes)
-        y0 = min(b[1] for b in boxes)
-        x1 = max(b[0] + b[2] for b in boxes)
-        y1 = max(b[1] + b[3] for b in boxes)
+        cx0, cy0 = (el.get("crop") or (0, 0))[:2]
+        x0 = min(b[0] for b in boxes) - cx0
+        y0 = min(b[1] for b in boxes) - cy0
+        x1 = max(b[0] + b[2] for b in boxes) - cx0
+        y1 = max(b[1] + b[3] for b in boxes) - cy0
         spr = self.screen_sprite(el)
         q, rot_deg, k, alpha = self.el_pose(si, el, t)
         img, anchor, kk, off, res = spr
@@ -708,12 +758,18 @@ class Reel:
 
     # ------------------------------------------------------------------------------------------ elements
     def screen_sprite(self, el):
-        key = ("screen", el["name"], el["t"], el.get("w"))
+        crop = tuple(el.get("crop") or ())
+        key = ("screen", el["name"], el["t"], el.get("w"), crop)
         if key in self.cache:
             el["_res"] = self.cache[key][4]
             return self.cache[key]
         sc = self.st.screens[el["name"]]
         img = sc["img"]
+        if crop:                       # a plain rectangle of the real capture (pixels untouched), e.g. one table row
+            x0, y0, x1, y1 = (int(v) for v in crop)
+            if not (0 <= x0 < x1 <= img.size[0] and 0 <= y0 < y1 <= img.size[1]):
+                raise InputError(f"screen {el['name']}: crop {crop} is outside the {img.size} capture")
+            img = img.crop((x0, y0, x1, y1))
         if el["t"] == "screen":
             sw = int(el.get("w", 732))
             res = float(el.get("res", 2.0))
@@ -753,6 +809,24 @@ class Reel:
             a *= min(1.0, t / max(d * 0.4, 1e-3)) if en.get("fade") else 1.0
         return (x, y), r, k, a
 
+    def shot_u(self, si, t):
+        D = self.tl.ends[si] - self.tl.starts[si]
+        return t / D if D > 0 else 1.0
+
+    def pip_load(self, el, t):
+        """Pip's squat depth and front-rack bar (plates, tabs, bend) at shot time t, quantised for the sprite cache. squat
+        may be a number, [a, b] across the shot, or {"reps": n, "depth": d} (n squats over the shot)."""
+        u = self.shot_u(el["_si"], t)
+        sq = el.get("squat", 0.0)
+        if isinstance(sq, dict):
+            sq = float(sq.get("depth", 0.8)) * (0.5 - 0.5 * math.cos(2 * math.pi * float(sq.get("reps", 1)) * u))
+        squat = round(float(interp(sq, u)) * 20) / 20
+        b = el.get("bar")
+        bar = None
+        if b:
+            bar = (int(b.get("plates", 0)), int(round(interp(b.get("tabs", 0), u))), round(float(interp(b.get("bend", 0.0), u)) * 20) / 20)
+        return squat, bar
+
     def char_sprite(self, el, t_abs, t):
         who = el["t"]
         pose, expr = el.get("pose", "idle"), el.get("expr", "deadpan")
@@ -770,9 +844,10 @@ class Reel:
         hu = int(el.get("hu", 300))
         if who == "pip":
             kick = round(((t_abs * 5) % 1.0) * 4) / 4 if el.get("kick") else 0.0
-            key = ("pip", pose, expr, hu, blink, hold, kick)
+            squat, bar = self.pip_load(el, t)
+            key = ("pip", pose, expr, hu, blink, hold, kick, squat, bar)
             if key not in self.cache:
-                self.cache[key] = C.pip(pose, expr, hu, blink, hold, kick)
+                self.cache[key] = C.pip(pose, expr, hu, blink, hold, kick, squat=squat, bar=bar)
         else:
             brow = round(math.sin(t_abs * 2 * math.pi * 1.6) * 2) / 2 if el.get("brow") else 0.0
             key = ("dale", pose, expr, hu, blink, hold, brow)
@@ -812,7 +887,26 @@ class Reel:
                     self.cache[key] = C.barbell(int(el.get("w", 900)), int(el.get("plates", 0)), tabs, bend)
                 img, anchor = self.cache[key]
                 cam.sprite(frame, img, anchor, (x, y), r, k, 1.0, a)
-            elif typ == "bench_top" or typ == "bench_side" or typ == "cat" or typ == "sock" or typ == "search_bar" or typ == "finger":
+            elif typ == "search_phone":
+                word = str(el.get("text", ""))
+                v = t - el["_t0"]
+                n_typed = 0 if v < 0 else min(len(word), int(v / el["_rate"]) + 1)
+                thumb = 0.0
+                if 0 <= v < len(word) * el["_rate"] + 0.1:
+                    ph = (v % el["_rate"]) / el["_rate"]
+                    thumb = round(max(0.0, 1 - 2.5 * ph) * 4) / 4
+                caret = n_typed < len(word) or int(t * 3) % 2 == 0
+                key = ("sphone", int(el.get("w", 560)), word[:n_typed], caret, thumb)
+                if key not in self.cache:
+                    self.cache[key] = C.search_phone(int(el.get("w", 560)), word[:n_typed], caret, thumb, font_fn=font)
+                img, anchor = self.cache[key]
+                cam.sprite(frame, img, anchor, (x, y), r, k, 1.0, a)
+            elif typ == "receipt":
+                img, anchor = self.receipt_sprite(el)
+                cam.sprite(frame, img, anchor, (x, y), r, k, 1.0, a)
+            elif typ == "spray":
+                self._spray(frame, el, si, t, cam)
+            elif typ in ("bench_top", "bench_side", "cat", "sock", "search_bar"):
                 key = (typ, int(el.get("hu", 300)), el.get("text"))
                 if key not in self.cache:
                     if typ == "bench_top":
@@ -823,15 +917,9 @@ class Reel:
                         self.cache[key] = C.cat_box(int(el.get("hu", 300)))
                     elif typ == "sock":
                         self.cache[key] = C.sock(int(el.get("hu", 300)))
-                    elif typ == "search_bar":
-                        self.cache[key] = C.search_bar(int(el.get("w", 880)), True, el.get("text", "Search"))
                     else:
-                        self.cache[key] = C.finger(int(el.get("hu", 300)))
+                        self.cache[key] = C.search_bar(int(el.get("w", 880)), True, el.get("text", "Search"))
                 img, anchor = self.cache[key]
-                if typ == "finger" and "tap" in el:
-                    tt = self.word_time(si, el["tap"]) - self.tl.starts[si]
-                    press = math.exp(-((t - tt) / 0.09) ** 2)
-                    y += 40 * press - 260 * (1 - ease_out((t + 0.05) / max(tt, 0.2)))
                 if typ == "search_bar" and int(t * 2) % 2 == 1:
                     ck = (typ, int(el.get("w", 880)), "nocaret")
                     if ck not in self.cache:
@@ -886,6 +974,41 @@ class Reel:
             k = 0.35 + 0.75 * ease_out(ti / 0.45) + 0.15 * ti
             img, anchor = C.tab_sprite(base, i)
             cam.sprite(frame, img, anchor, (x, y), ((i * 53) % 40 - 20) + 90 * ti * (1 if i % 2 else -1), k)
+
+    def receipt_sprite(self, el):
+        key = ("receipt", el["text"], int(el.get("w", 900)), el.get("header", "SEC FILING"))
+        if key not in self.cache:
+            img = C.receipt(el["text"], int(el.get("w", 900)), font, int(el.get("size", 52)), el.get("header", "SEC FILING"))
+            spr, pad = C.with_shadow(img, 22, 18)
+            self.cache[key] = (spr, (spr.size[0] / 2, spr.size[1] / 2))
+        return self.cache[key]
+
+    def _spray(self, frame, el, si, t, cam):
+        """A spit-take: droplets burst from (x, y) toward `dir` degrees (0 = right, -90 = up), then fall."""
+        t0 = (self.word_time(si, el["at"]) - self.tl.starts[si]) if "at" in el else 0.0
+        v = t - t0
+        if v < 0:
+            return
+        d = ImageDraw.Draw(frame)
+        ox, oy = float(el.get("x", 540)), float(el.get("y", 800))
+        base = math.radians(float(el.get("dir", -15)))
+        n = int(el.get("n", 30))
+        sp = float(el.get("speed", 1500))
+        cols = ((167, 139, 250), (255, 255, 255), (200, 246, 252))
+        for i in range(n):
+            ang = base + math.radians(((i * 37) % 50) - 25)
+            vel = sp * (0.45 + 0.55 * ((i * 53) % 10) / 10)
+            delay = ((i * 29) % 7) * 0.012
+            tt = v - delay
+            if tt < 0:
+                continue
+            px = ox + math.cos(ang) * vel * tt
+            py = oy + math.sin(ang) * vel * tt + 1300 * tt * tt
+            p = cam.p((px, py))
+            r = (9 + (i % 4) * 5) * cam.s * max(0.35, 1 - 0.5 * tt)
+            d.ellipse((p[0] - r, p[1] - r * 0.8, p[0] + r, p[1] + r * 0.8), fill=C.INK + (255,))
+            r2 = r * 0.72
+            d.ellipse((p[0] - r2, p[1] - r2 * 0.8, p[0] + r2, p[1] + r2 * 0.8), fill=cols[i % 3] + (255,))
 
     def _confetti(self, frame, el, t, cam):
         d = ImageDraw.Draw(frame)
@@ -994,9 +1117,28 @@ class Reel:
                 dth += 0.6 * g * e * math.sin(2 * math.pi * 9 * v)
         return dx, dy, dth
 
+    def peek_pose(self, si, t_abs):
+        """A PEEK cut-in (a character's head leaning in from a frame edge, screen px): (x, y, rotation, scale) or None."""
+        pk = self.shots[si].get("peek")
+        if not pk:
+            return None
+        v = t_abs - self.tl.starts[si] - float(pk.get("at", 0.0))
+        if v < 0:
+            return None
+        e = eob(v / 0.3, 1.6)
+        fx, fy = pk.get("from", (-260, 0))
+        x = float(pk["x"]) + fx * (1 - e)
+        y = float(pk["y"]) + fy * (1 - e) + 8 * math.sin(2 * math.pi * 1.3 * v)
+        r = float(pk.get("rot", 0.0)) + 3 * math.sin(2 * math.pi * 0.8 * v)
+        return x, y, r, 1.0
+
     def overlays(self, frame, si, t_abs):
         sh = self.shots[si]
         en = self.tl.ends[si]
+        pp = self.peek_pose(si, t_abs)
+        if pp:
+            img = sh["peek"]["_img"][0].rotate(pp[2], Image.BICUBIC, expand=True, fillcolor=C.CLEAR)
+            cr.put(frame, img, pp[0], pp[1], 1.0, pp[3])
         c = sh.get("chip")
         if c and t_abs >= c["_t0"]:
             v = t_abs - c["_t0"]
@@ -1046,6 +1188,84 @@ class Reel:
                     self.cache[pk] = plate
                 cr.put(frame, self.cache[pk], W / 2, ch["cy"], al, s)
             cr.put(frame, img, W / 2, ch["cy"], al, s)
+
+    # ------------------------------------------------------------------------------------------ what a caption must not cover
+    def protect_boxes(self, si: int, t_abs: float) -> list[dict]:
+        """Screen boxes of what a caption may not cover at t_abs: faces and held props (from the cast's own geometry),
+        PEEK heads, visible bubbles and chips, the key number, the receipt, the search phone and the feed."""
+        sh = self.shots[si]
+        t = t_abs - self.tl.starts[si]
+        cam = self.camera(si, t)
+        out = []
+
+        def add(kind, pts):
+            pts = np.asarray(pts, float)
+            out.append({"kind": kind, "box": [float(pts[:, 0].min()), float(pts[:, 1].min()), float(pts[:, 0].max()),
+                                              float(pts[:, 1].max())]})
+
+        for el in sh.get("els", []):
+            el["_si"] = si
+            typ = el["t"]
+            (x, y), r, k, _a = self.el_pose(si, el, t)
+            if typ in ("pip", "dale"):
+                hu = int(el.get("hu", 300))
+                pose = el.get("pose", "idle")
+                hold = tuple(el.get("hold", ("shaker",) if typ == "dale" else ()))
+                if typ == "pip":
+                    squat, bar = self.pip_load(el, t)
+                    boxes = C.pip_boxes(pose, hold, squat, bar)
+                else:
+                    boxes = C.dale_boxes(pose, hold)
+                M = cam.s * k * rot(r - cam.th)
+                base = cam.p((x, y))
+                for kind, (x0, y0, x1, y1) in boxes:
+                    if el.get("flip"):
+                        x0, x1 = -x1, -x0
+                    add(kind, [base + M @ (np.array(c_) * hu) for c_ in ((x0, y0), (x1, y0), (x1, y1), (x0, y1))])
+            elif typ in ("receipt", "search_phone", "feed", "card", "screen"):
+                if typ == "receipt":
+                    w_, h_ = self.receipt_sprite(el)[0].size
+                    w_, h_ = w_ - 156, h_ - 156                     # without the drop shadow and margin
+                elif typ == "search_phone":
+                    w_, h_ = float(el.get("w", 560)), float(el.get("w", 560)) * 1.85
+                elif typ == "feed":
+                    w_, h_ = float(el.get("w", 900)), float(el.get("h", 1700))
+                else:
+                    continue
+                M = cam.s * k * rot(r - cam.th)
+                base = cam.p((x, y))
+                add(typ, [base + M @ np.array(c_) for c_ in ((-w_ / 2, -h_ / 2), (w_ / 2, -h_ / 2), (w_ / 2, h_ / 2), (-w_ / 2, h_ / 2))])
+        if sh.get("key_number"):
+            corners, _ = self._target_world(si, sh["key_number"], t)
+            add("key number", [cam.p(q) for q in corners])
+        pp = self.peek_pose(si, t_abs)
+        if pp:
+            img = sh["peek"]["_img"][0]
+            w_, h_ = img.size[0] * 0.75, img.size[1] * 0.75
+            add("peek face", [(pp[0] - w_ / 2, pp[1] - h_ / 2), (pp[0] + w_ / 2, pp[1] + h_ / 2)])
+        b = sh.get("bubble")
+        if b and b["_t0"] <= t_abs < b["_t1"]:
+            w_, h_ = b["_img"].size
+            add("bubble", [(b["x"] - w_ / 2 + 70, b["y"] - h_ / 2 + 70), (b["x"] + w_ / 2 - 70, b["y"] + h_ / 2 - 70)])
+        c = sh.get("chip")
+        if c and t_abs >= c["_t0"]:
+            w_, h_ = c["_img"].size
+            add("chip", [(c["x"] - w_ / 2, c["y"] - h_ / 2), (c["x"] + w_ / 2, c["y"] + h_ / 2)])
+        return out
+
+    def occlusion_samples(self) -> list[dict]:
+        out = []
+        for k, ch in enumerate(self.tl.chunks):
+            si = ch["shot"]
+            lo, hi = max(ch["start"], self.tl.starts[si]), min(ch["end"], self.tl.ends[si]) - 1e-3
+            if hi <= lo:
+                continue
+            w_, h_ = ch["size"]
+            box = [W / 2 - w_ / 2, ch["cy"] - h_ / 2, W / 2 + w_ / 2, ch["cy"] + h_ / 2]
+            for tt in (lo + 0.07, (lo + hi) / 2, hi - 0.02):
+                if lo <= tt <= hi:
+                    out.append({"t": tt, "caption": ch["text"], "box": box, "protect": self.protect_boxes(si, tt)})
+        return out
 
     # ------------------------------------------------------------------------------------------ end card
     def _end_build(self):
@@ -1251,11 +1471,27 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     all_vo = " ".join((sh.get("vo") or "").strip() for sh in st.shots if (sh.get("vo") or "").strip())
     chunks = [c["text"] for c in tl.chunks]
     s["caption_verbatim"], d["caption_verbatim"] = Q.caption_gate(chunks, script)
-    s["fact_phrase"], d["fact_phrase"] = Q.fact_phrase_gate(st.doc["fact_phrase"], item, script)
+    # the fact phrase: read aloud, or shown whole on a receipt card long enough to read
+    shown = {}
+    for si, sh in enumerate(st.shots):
+        for el in sh.get("els", []):
+            if el.get("t") == "receipt":
+                dur = tl.ends[si] - tl.starts[si] - float((el.get("enter") or {}).get("dur", 0.0))
+                shown[el["text"]] = shown.get(el["text"], 0.0) + dur
+    long_enough = [t_ for t_, dur in shown.items() if dur >= RECEIPT_MIN_S]
+    s["fact_phrase"], d["fact_phrase"] = Q.fact_phrase_gate(st.doc["fact_phrase"], item, script, long_enough)
+    d["fact_phrase"]["receipt_s"] = {k: round(v, 2) for k, v in shown.items()}
     spoken = " ".join(u["spoken"] for u in tl.utts)
     drawn = {f"{x['role']}:{i}": x["text"] for i, x in enumerate(reel.texts)}
-    texts = {"vo_script": all_vo, "spoken": spoken, **drawn}
-    s["numbers_verbatim"], d["numbers_verbatim"] = Q.numbers_gate(texts, Q.allowed_set(item))
+    texts = {"vo_script": all_vo, **drawn}
+    ok_w, d_w = Q.numbers_gate(texts, Q.allowed_set(item))
+    ok_s, d_s = Q.numbers_gate({"spoken": spoken}, Q.allowed_set(item), words=False)
+    s["numbers_verbatim"], d["numbers_verbatim"] = ok_w and ok_s, {**d_w, "spoken": d_s}
+    texts = {**texts, "spoken": spoken}
+    s["weekdays"], d["weekdays"] = Q.weekday_gate({"vo_script": all_vo, **drawn}, item, st.post_date)
+    lines = [{"line": (sh.get("vo") or "").strip(), "claim": sh.get("claim"), "shot": i + 1}
+             for i, sh in enumerate(st.shots[:end_i]) if (sh.get("vo") or "").strip()]
+    s["claim_lines"], d["claim_lines"] = Q.claim_lines_gate(lines, item, st.post_date)
     used_say = {}
     for sh in st.shots:
         say = {**st.say, **(sh.get("say") or {})}
@@ -1265,7 +1501,7 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     s["spoken_numbers"], d["spoken_numbers"] = Q.spoken_numbers_gate(used_say)
     scr_ok, scr_d = True, {}
     for name, sc in st.screens.items():
-        ok, det = Q.screen_numbers_gate(sc["meta"].get("visible_text", ""), item, st.ack)
+        ok, det = Q.screen_numbers_gate(sc["meta"].get("visible_text", ""), item, st.ack.get(name, {}))
         scr_ok &= ok
         scr_d[name] = det
     s["screen_numbers"], d["screen_numbers"] = scr_ok, scr_d
@@ -1286,6 +1522,8 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     s["glyphs"], d["glyphs"] = not miss, {"missing": miss, "fonts": dict(cr.FONTS_USED)}
     bad, rail = [], []
     for x in reel.texts:
+        if x.get("box") is None:                # drawn inside a moving element (feed, phone, receipt): no fixed box
+            continue
         x0, y0, x1, y1 = x["box"]
         if not (y0 >= cr.SAFE_TOP and y1 <= cr.SAFE_BOTTOM and x0 >= 0 and x1 <= W):
             bad.append([x["role"], x["text"], [round(v) for v in x["box"]]])
@@ -1312,15 +1550,53 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     bad_len = [i + 1 for i, (dd, k) in enumerate(zip(durs[:-1], kinds[:-1]))
                if not (SHOT_RANGE[0] - 1e-6 <= dd <= (PAYOFF_MAX if k == "PAYOFF" else SHOT_RANGE[1]) + 1e-6)]
     first_pay = next((tl.starts[i] for i, k in enumerate(kinds) if k == "PAYOFF"), None)
-    pay_s = sum(dd for dd, k in zip(durs, kinds) if k == "PAYOFF")
+    last_pay = max((tl.ends[i] for i, k in enumerate(kinds) if k == "PAYOFF"), default=None)
+    window = (last_pay - first_pay) if first_pay is not None else 0.0
+    screen_s = sum(dd for dd, sh in zip(durs, st.shots) if any(e.get("t") in ("screen", "card") for e in sh.get("els", [])))
     onset = min(w.start for w in tl.words)
     s["structure"] = (SHOTS_RANGE[0] <= len(st.shots) <= SHOTS_RANGE[1] and not bad_len and abs(durs[-1] - END_S) < 1e-6
-                      and kinds[-1] == "END" and pay_s >= 5.0 and onset <= 0.10 and tl.end_vo_finish <= 2.7)
-    d["structure"] = {"shots": len(st.shots), "durations": durs, "out_of_range": bad_len, "payoff_s": round(pay_s, 2),
-                      "first_payoff_at": round(first_pay or -1, 2),
+                      and kinds[-1] == "END" and PAYOFF_WINDOW[0] <= window <= PAYOFF_WINDOW[1] and screen_s >= SCREEN_MIN_S
+                      and onset <= 0.10 and tl.end_vo_finish <= 2.7)
+    d["structure"] = {"shots": len(st.shots), "durations": durs, "out_of_range": bad_len,
+                      "payoff_window_s": round(window, 2), "payoff_window_range": list(PAYOFF_WINDOW),
+                      "real_screen_s": round(screen_s, 2), "first_payoff_at": round(first_pay or -1, 2),
                       "first_payoff_share": round((first_pay or 0) / tl.total, 3), "voice_onset_s": round(onset, 3),
                       "end_vo_finishes_s": round(tl.end_vo_finish, 2), "kinds": kinds,
-                      "note": "first_payoff_share is reported, not gated (spec target 0.50-0.65)"}
+                      "note": "first_payoff_share is reported, not gated"}
+    # a character on screen at least every CHAR_GAP_MAX seconds (els pip/dale, a PEEK, or the end card's head)
+    gap = worst = 0.0
+    worst_at = None
+    for i, sh in enumerate(st.shots):
+        has = i == end_i or bool(sh.get("peek")) or any(e.get("t") in ("pip", "dale", "search_phone") for e in sh.get("els", []))
+        gap = 0.0 if has else gap + durs[i]
+        if gap > worst:
+            worst, worst_at = gap, i + 1
+    s["character_on_screen"] = worst <= CHAR_GAP_MAX
+    d["character_on_screen"] = {"longest_gap_s": round(worst, 2), "ends_at_shot": worst_at, "limit": CHAR_GAP_MAX}
+    # the hook: a close character at frame 0 (not top-down), and an item number on screen by HOOK_NUMBER_BY
+    sh0 = st.shots[0]
+    cam0 = reel.camera(0, 0.0)
+    widths, flipped = [], False
+    for el in sh0.get("els", []):
+        if el.get("t") in ("pip", "dale"):
+            el["_si"] = 0
+            img, _anc, _sq = reel.char_sprite(el, 0.0, 0.0)
+            bb = img.getbbox() or (0, 0, 0, 0)
+            (_x, _y), r0, k0, _a = reel.el_pose(0, el, 0.0)
+            widths.append(round((bb[2] - bb[0]) * cam0.s * k0 / W, 3))
+            flipped |= abs(((r0 + 180) % 360) - 180) > 60
+    allowed = Q.allowed_set(item)
+    num_at = [c["start"] for c in tl.chunks if any(n in allowed for n in Q.find_numbers(c["text"]))]
+    for i, sh in enumerate(st.shots):
+        c = sh.get("chip")
+        if c and any(n in allowed for n in Q.find_numbers(c["text"])):
+            num_at.append(c["_t0"])
+    first_num = min(num_at) if num_at else None
+    s["hook"] = bool(widths) and max(widths) >= HOOK_CHAR_W and not flipped and first_num is not None and first_num <= HOOK_NUMBER_BY
+    d["hook"] = {"char_width_share": widths, "upside_down": flipped, "first_item_number_s": None if first_num is None else round(first_num, 2),
+                 "limits": {"char_width_share": HOOK_CHAR_W, "number_by_s": HOOK_NUMBER_BY}}
+    # captions stay off faces, held props, bubbles, chips, the key number, the receipt and the phone
+    s["caption_occlusion"], d["caption_occlusion"] = Q.occlusion_gate(reel.occlusion_samples())
     # caption sync: onset 1 frame before its first word
     off = [round((c["start"] - (c["w_start"] - 1 / FPS)) * FPS, 2) for c in tl.chunks]
     s["caption_sync"] = all(abs(o) <= 2 for k, o in enumerate(off) if k > 0)    # chunk 1 is on frame 0 by design
@@ -1329,7 +1605,7 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
 
 
 def key_number_gate(reel: Reel, st: Story) -> tuple[bool, dict]:
-    good = [k for k in reel.key_samples if k["h"] >= 64 and 120 <= k["box"][0] and k["box"][2] <= 900 and 300 <= k["box"][1]
+    good = [k for k in reel.key_samples if k["h"] >= 64 and 60 <= k["box"][0] and k["box"][2] <= 960 and 300 <= k["box"][1]
             and k["box"][3] <= 1400]
     secs = len(good) / FPS
     # the target on the screenshot is the item's figure in the page's own format
@@ -1499,7 +1775,10 @@ def run(a, out: Path, ctx: dict) -> int:
     cr.write_json(out / "reel.json", clean({
         "schema": "rtv-cartoon-reel/1", "renderer": RENDERER, "item_id": ctx["iid"], "qa_pass": ok,
         "facts_file": str(st.facts_path), "facts_text": st.item.get("facts_text"), "fact_phrase": st.doc["fact_phrase"],
-        "allowed_numbers": st.item.get("allowed_numbers"), "numbers_used": used_numbers,
+        "allowed_numbers": st.item.get("allowed_numbers"), "numbers_used": used_numbers, "post_date": st.post_date,
+        "claims_for_human_check": (details.get("claim_lines") or {}).get("needs_human_check"),
+        "screen_crops": {f"shot {i + 1}": {"screen": e["name"], "crop_px": e["crop"]} for i, sh in enumerate(st.shots)
+                         for e in sh.get("els", []) if e.get("t") in ("screen", "card") and e.get("crop")},
         "story": {"path": str(st.path), "sha256": cr.sha256(st.path)},
         "files": {"reel_9x16.mp4": cr.sha256(mp4), "mix.wav": cr.sha256(wav)},
         "screens": {n: {"png": str(sc["png"]), "sha256": cr.sha256(sc["png"]), "url": sc["meta"].get("url"),

@@ -123,3 +123,89 @@ def test_align_maps_spoken_tokens_to_engine_words():
     merged = tts[:8] + [{"word": "KM", "start": 1.6, "end": 1.9}] + tts[10:]
     spans = Q.align([t for _, t in sp], merged)
     assert all(s is not None for s in spans) and 1.6 <= spans[8][0] <= 1.9
+
+
+# ------------------------------------------------------------------------------------------------- v2 gates (review 2026-11-09)
+ITEM2 = {**ITEM, "name": "Richard D. Kinder", "company": "Kinder Morgan, Inc.", "tickers": ["KMI"],
+         "phrasings": [{"id": "form4buy-a1ddae.h1", "text": PHRASE}]}
+
+
+def test_numbers_gate_catches_spelled_out_numbers_but_not_one():
+    ok, d = Q.numbers_gate({"vo": "He bought fifteen million dollars of KMI on Thursday, Nov 6."}, {"Nov 6", "$14.99M"})
+    assert not ok and d["number_words"] == {"vo": ["fifteen million"]}
+    ok, d = Q.numbers_gate({"vo": "You open one app. You search one name.", "chip": "ONE SEARCH"}, Q.allowed_set(ITEM))
+    assert ok, d
+    assert Q.find_number_words("filed the sixth, twenty-first, wait a second") == ["sixth", "twenty-first"]
+    # the TTS text spells the say map out: checked by spoken_numbers_gate, not here
+    ok, _ = Q.numbers_gate({"spoken": "fourteen point nine nine million dollars"}, Q.allowed_set(ITEM), words=False)
+    assert ok
+
+
+def test_weekday_must_match_an_item_date_or_the_post_day():
+    ok, d = Q.weekday_gate({"vo": "Kinder. KMI. Friday."}, ITEM)              # 2026-11-06 is a Friday
+    assert ok, d
+    ok, d = Q.weekday_gate({"vo": "bought it Thursday"}, ITEM)
+    assert not ok and d["wrong_weekday"] == {"vo": ["Thursday"]}
+    ok, _ = Q.weekday_gate({"vo": "Monday. Leg day."}, ITEM, "2026-11-09")    # posted on a Monday: story time
+    assert ok
+    ok, _ = Q.weekday_gate({"vo": "Monday. Leg day."}, ITEM, "2026-11-10")    # posted Tuesday: the hook lies
+    assert not ok
+
+
+def test_screen_ack_cannot_explain_away_an_item_value():
+    ok, d = Q.screen_numbers_gate("Officers bought 30 in 30 days. Sells 0", ITEM, {"0": "the SELLS tile"})
+    assert ok, d                                                              # "30" is a context number as written
+    ok, d = Q.screen_numbers_gate("Sells 67.3B and 0", ITEM, {"0": "the SELLS tile", "67.3B": "a market value"})
+    assert not ok and "67.3B" in d["ack_refused"]
+    ok, d = Q.screen_numbers_gate("Sells 0", ITEM, {"0": 1})                  # the per-screen form is required
+    assert not ok
+
+
+def test_banned_gate_catches_inflections_but_not_other_words():
+    ok, d = Q.banned_gate({"vo": "it moons, it's mooning"}, ["moon"])
+    assert not ok and d["found"] == ["moon"]
+    ok, _ = Q.banned_gate({"vo": "moonlight harmony"}, ["moon"])
+    assert ok
+    ok, d = Q.banned_gate({"chip": "LOADING UP"}, ["load up"])
+    assert ok                                                                 # inflection on the last word only
+
+
+def test_captions_drop_quote_marks_and_brackets():
+    script = 'Dale says, "Push." ' + PHRASE
+    chunks = ["Dale says,", "Push.", "Richard D. Kinder,", "executive chairman", "at Kinder Morgan,", "Inc.,", "bought $14.99M",
+              "of $KMI", "on the open market", "Form 4,", "filed Nov 6."]
+    ok, d = Q.caption_gate(chunks, script)
+    assert ok, d
+    assert Q.display_words('"A company (Form 4,') == ["A", "company", "Form", "4,"]
+
+
+def test_fact_phrase_may_be_shown_instead_of_read():
+    ok, d = Q.fact_phrase_gate(PHRASE, ITEM, "$14.99M. His own stock. Form 4, filed Friday.", [PHRASE])
+    assert ok and d["on_screen"] and not d["in_script"]
+    ok, _ = Q.fact_phrase_gate(PHRASE, ITEM, "$14.99M.", [])
+    assert not ok
+
+
+def test_story_lines_that_state_facts_need_a_matching_claim_tag():
+    lines = [{"line": "A chairman just bought", "claim": "form4buy-a1ddae.h1"},
+             {"line": "Kinder. KMI. Friday.", "claim": "form4buy-a1ddae.h1"},
+             {"line": "Monday. Leg day."},                                      # the post day: story, no tag needed
+             {"line": "You saw a cat."}]
+    ok, d = Q.claim_lines_gate(lines, ITEM2, "2026-11-09")
+    assert ok, d
+    assert [c["line"] for c in d["needs_human_check"]] == ["A chairman just bought", "Kinder. KMI. Friday."]
+    ok, d = Q.claim_lines_gate([{"line": "Form 4, filed Friday."}], ITEM2, "2026-11-09")
+    assert not ok and d["bad"][0]["problem"].startswith("states a fact")
+    ok, d = Q.claim_lines_gate([{"line": "He bought $15M on Thursday.", "claim": "form4buy-a1ddae.h1"}], ITEM2)
+    assert not ok and "$15M" in d["bad"][0]["problem"] and "Thursday" in d["bad"][0]["problem"]
+    ok, d = Q.claim_lines_gate([{"line": "Kinder bought.", "claim": "no-such-id"}], ITEM2)
+    assert not ok
+
+
+def test_occlusion_gate_flags_a_caption_on_a_face():
+    face = {"kind": "pip face", "box": [300, 1100, 700, 1400]}
+    ok, d = Q.occlusion_gate([{"t": 1.0, "caption": "Very heavy.", "box": [300, 1180, 780, 1280], "protect": [face]}])
+    assert not ok and d["hits"][0]["covers"] == "pip face"
+    ok, _ = Q.occlusion_gate([{"t": 1.0, "caption": "Very heavy.", "box": [300, 1180, 780, 1280],
+                               "protect": [{"kind": "pip face", "box": [300, 700, 700, 1170]}]}])
+    assert ok

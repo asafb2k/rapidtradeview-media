@@ -3,16 +3,25 @@
 
   find_numbers(text)                 every number-like token (money, %, dates, counts); document names such as "Form 4" are
                                      names, not numbers
-  numbers_gate(texts, allowed, ...)  every number we draw, caption or speak is one of the item's numbers, as written there
+  find_number_words(text)            spelled-out numbers ("fifteen million", "sixth"); a lone "one" is a word, not data
+  numbers_gate(texts, allowed, ...)  every number we draw, caption or speak is one of the item's numbers, as written there,
+                                     and no number is typed into the script as words
+  weekday_gate(texts, item, post)    a weekday name is the weekday of an item date, or of the day the video is posted
   spoken_numbers_gate(say)           every spelled-out number we make the voice say equals the figure it stands for
-  screen_numbers_gate(...)           every number visible in a real screenshot comes from the item or is acknowledged by the story
+  screen_numbers_gate(...)           every number visible in ONE real screenshot comes from the item or is acknowledged for
+                                     that screen; an acknowledgement cannot explain away a value the item carries
   provider_gate(texts)               no data-provider names (card_reel.PROVIDER_RX)
-  banned_gate(texts, banned)         none of the item's banned words
-  caption_gate(chunks, script)       the captions, joined, are exactly the voice script (nothing added, dropped or reordered)
+  banned_gate(texts, banned)         none of the item's banned words, inflections included ("moons", "mooning")
+  caption_gate(chunks, script)       the captions, joined, are exactly the voice script (quote marks and brackets not shown)
+  fact_phrase_gate(...)              the one data sentence is the item's own phrasing, verbatim, in the voice or on screen
+  claim_lines_gate(lines, item, ..)  every story line that states a fact is tagged with the phrasing it paraphrases and uses
+                                     only that phrasing's numbers and names (listed for a human check)
+  occlusion_gate(samples)            captions never sit on a face, a held prop, a bubble, a chip or the key number
   chunk_words(words, measure)        the caption chunker (1-3 words, <= 18 characters, never across a sentence end)
 """
 from __future__ import annotations
 
+import datetime as dt
 import difflib
 import re
 import sys
@@ -69,11 +78,14 @@ def allowed_set(item: dict) -> set[str]:
     return {norm_num(x) for x in (item.get("allowed_numbers") or []) + (item.get("context_numbers") or []) if isinstance(x, str)}
 
 
-def numbers_gate(texts: dict[str, str], allowed: set[str] | list[str]) -> tuple[bool, dict]:
-    """texts: role -> text. Every number token must be in `allowed` (normalised: - and the minus sign alike)."""
+def numbers_gate(texts: dict[str, str], allowed: set[str] | list[str], words: bool = True) -> tuple[bool, dict]:
+    """texts: role -> text. Every number token must be in `allowed` (normalised: - and the minus sign alike). With `words`
+    (the default) a spelled-out number fails too: the script writes a figure as the item does ("$14.99M") and the say map
+    spells it for the voice, where spoken_numbers_gate checks the value. Pass words=False only for the TTS text."""
     ok_set = {norm_num(a) for a in allowed}
     bad: dict[str, list[str]] = {}
     seen: dict[str, list[str]] = {}
+    spelled: dict[str, list[str]] = {}
     for role, txt in texts.items():
         nums = find_numbers(txt)
         if nums:
@@ -81,7 +93,11 @@ def numbers_gate(texts: dict[str, str], allowed: set[str] | list[str]) -> tuple[
         miss = [n for n in nums if n not in ok_set]
         if miss:
             bad[role] = miss
-    return not bad, {"not_in_item": bad, "found": seen}
+        if words:
+            nw = find_number_words(txt)
+            if nw:
+                spelled[role] = nw
+    return not bad and not spelled, {"not_in_item": bad, "number_words": spelled, "found": seen}
 
 
 # ------------------------------------------------------------------------------------------------- spoken numbers
@@ -125,6 +141,89 @@ def spoken_value(s: str) -> float | None:
     return total + cur + (float("0." + frac) if frac else 0.0)
 
 
+NUMBER_WORDS = set(_UNITS) | set(_TENS) | set(_ORD) | set(_SCALE) | {"hundred", "dozen", "dozens", "half", "twice", "thrice",
+                                                                    "double", "triple", "quadruple"}
+NON_DATA_WORDS = {"one"}               # "one app", "one name", "ONE SEARCH": a word, not a figure
+_GLUE = {"point", "and", "a"}
+
+
+def find_number_words(text: str) -> list[str]:
+    """Runs of spelled-out number words ("fifteen million dollars" -> "fifteen million", "twenty-first", "sixth",
+    "fourteen point nine nine million"). A run that is only "one", or "second" on its own (time), is not a number."""
+    toks = re.findall(r"[A-Za-z]+(?:-[A-Za-z]+)*|[.,;:!?()\"]", str(text))      # punctuation ends a run
+    out: list[str] = []
+    run: list[str] = []
+
+    def flush():
+        while run and run[-1].lower() in _GLUE:
+            run.pop()
+        while run and run[0].lower() in _GLUE:
+            run.pop(0)
+        if run:
+            low = [w.lower() for w in run]
+            if not (len(low) == 1 and low[0] in NON_DATA_WORDS | {"second"}):
+                out.append(" ".join(run))
+        run.clear()
+
+    for t in toks:
+        if t.lower() == "second" or not t[0].isalpha():   # "a second" is time, not a figure; punctuation ends a run
+            flush()
+        elif all(p in NUMBER_WORDS for p in t.lower().split("-")):
+            run.append(t)
+        elif run and t.lower() in _GLUE:
+            run.append(t)
+        else:
+            flush()
+    flush()
+    return out
+
+
+WEEKDAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+WEEKDAY_RX = re.compile(r"(?<![A-Za-z])(" + "|".join(WEEKDAYS) + r")(?![A-Za-z])", re.IGNORECASE)
+
+
+def _weekday(word: str) -> str:
+    return word[:1].upper() + word[1:].lower()
+
+
+def item_dates(item: dict) -> list[dt.date]:
+    out = []
+    for d in [item.get("filed")] + list(item.get("traded") or []):
+        try:
+            out.append(dt.date.fromisoformat(str(d)[:10]))
+        except ValueError:
+            pass
+    return out
+
+
+def allowed_weekdays(item: dict, post_date: str | None = None) -> dict[str, str]:
+    """Weekday -> why it may be named: the weekday of an item date (filed, traded) or of the story's post_date."""
+    allowed = {WEEKDAYS[d.weekday()]: f"item date {d.isoformat()}" for d in item_dates(item)}
+    if post_date:
+        pd_ = dt.date.fromisoformat(str(post_date)[:10])
+        allowed.setdefault(WEEKDAYS[pd_.weekday()], f"post_date {pd_.isoformat()} (story time)")
+    return allowed
+
+
+def weekday_gate(texts: dict[str, str], item: dict, post_date: str | None = None) -> tuple[bool, dict]:
+    """A weekday name in the script or on screen is the weekday of one of the item's dates (filed, traded: "Friday" for a
+    Form 4 filed 2026-11-06), or the weekday of the story's post_date (story time: "Monday. Leg day." only works when the
+    video goes out on a Monday)."""
+    try:
+        allowed = allowed_weekdays(item, post_date)
+    except ValueError:
+        return False, {"error": f"post_date {post_date!r} is not an ISO date"}
+    bad: dict[str, list[str]] = {}
+    seen: dict[str, list[str]] = {}
+    for role, txt in texts.items():
+        for m in WEEKDAY_RX.finditer(str(txt)):
+            day = _weekday(m.group(1))
+            seen.setdefault(day, []).append(role)
+            if day not in allowed:
+                bad.setdefault(role, []).append(day)
+    return not bad, {"allowed": allowed, "found": {k: sorted(set(v)) for k, v in seen.items()}, "wrong_weekday": bad}
+
+
 def written_value(tok: str) -> float | None:
     """"$14.99M" -> 14990000, "6)." -> 6, "4," -> 4, "$14,994,200" -> 14994200. None without digits."""
     m = re.search(r"\d+(?:,\d{3})*(?:\.\d+)?", tok)
@@ -150,9 +249,29 @@ def spoken_numbers_gate(say: dict[str, str]) -> tuple[bool, dict]:
     return not bad, {"mismatch": bad, "checked": len(say)}
 
 
+def item_values(item: dict) -> dict[float, str]:
+    """|value| -> written form for every non-date number the item carries (allowed + context numbers, amount_top_usd)."""
+    out: dict[float, str] = {}
+    for x in (item.get("allowed_numbers") or []) + (item.get("context_numbers") or []):
+        if not isinstance(x, str) or find_numbers(x) != [norm_num(x)] or DATE_RX.fullmatch(x.strip()):
+            continue
+        v = written_value(x)
+        if v is not None:
+            out.setdefault(abs(v), x)
+    if isinstance(item.get("amount_top_usd"), (int, float)):
+        out.setdefault(abs(float(item["amount_top_usd"])), "amount_top_usd")
+    return out
+
+
 def screen_numbers_gate(visible_text: str, item: dict, ack: dict[str, str]) -> tuple[bool, dict]:
-    """Numbers visible in a real screenshot: each is an item number as written, an item value in another format (the page's
-    "$14,994,200" for amount_top_usd 14994200; the trade count `rows`), or acknowledged by the story with a reason."""
+    """Numbers visible in ONE real screenshot: each is an item number as written, an item value in another format (the
+    page's "$14,994,200" for amount_top_usd 14994200; the trade count `rows`), or acknowledged for this screen with a
+    reason. An acknowledgement is refused when the number's value is one the item carries (then it is data in another
+    form, or a different figure that looks like ours: crop it out instead of explaining it away)."""
+    if not isinstance(ack, dict) or any(not isinstance(v, str) for v in ack.values()):
+        return False, {"error": "screen_numbers_ack must be {screen name: {number: reason}}", "numbers": {}, "unexplained": []}
+    others = item_values(item)
+    refused: dict[str, str] = {}
     allowed = allowed_set(item)
     values = set()
     for k in ("amount_top_usd", "rows"):
@@ -169,11 +288,16 @@ def screen_numbers_gate(visible_text: str, item: dict, ack: dict[str, str]) -> t
         elif written_value(n) is not None and written_value(n) in values and not re.search(r"[/%]", n):
             out[n] = "item value"
         elif n in ack and str(ack[n]).strip():
-            out[n] = "acknowledged: " + str(ack[n]).strip()
+            v = written_value(n)
+            if v is not None and abs(v) in others:
+                out[n] = None
+                refused[n] = f"same value as the item's {others[abs(v)]}"
+            else:
+                out[n] = "acknowledged: " + str(ack[n]).strip()
         else:
             out[n] = None
     bad = sorted(k for k, v in out.items() if v is None)
-    return not bad, {"numbers": out, "unexplained": bad}
+    return not bad, {"numbers": out, "unexplained": bad, "ack_refused": refused}
 
 
 # ------------------------------------------------------------------------------------------------- words
@@ -183,15 +307,42 @@ def provider_gate(texts: dict[str, str]) -> tuple[bool, dict]:
     return not hits, {"found": hits}
 
 
+INFLECT = r"(?:s|es|ed|d|ing|in|in'|er|ers|y|ies|'s)?"
+
+
+def banned_rx(w: str) -> re.Pattern:
+    """A banned term with inflections on its last word ("moon" -> moons, mooning, mooned, moony; "load up" -> "load ups"),
+    matched from a word start so "moonlight" and "harmony" stay clean."""
+    parts = [re.escape(x) for x in w.lower().split()]
+    if not parts:
+        return re.compile(r"(?!)")
+    body = r"[\s\-]+".join(parts[:-1] + [parts[-1] + INFLECT])
+    return re.compile(r"(?<![a-z0-9])" + body + r"(?![a-z0-9])")
+
+
 def banned_gate(texts: dict[str, str], banned: list[str]) -> tuple[bool, dict]:
     every = " \n ".join(texts.values()).lower()
-    hits = sorted({w for w in banned if isinstance(w, str) and w.strip() and cr.word_rx(w).search(every)})
+    hits = sorted({w for w in banned if isinstance(w, str) and w.strip() and banned_rx(w).search(every)})
     return not hits, {"found": hits, "checked": len(banned)}
 
 
+DISPLAY_STRIP = "\"“”()"
+
+
+def display_word(w: str) -> str:
+    """A script word as the caption shows it: quote marks and brackets are dropped (on screen they read as typos; the
+    speaker is shown by the caption colour instead)."""
+    return "".join(ch for ch in w if ch not in DISPLAY_STRIP)
+
+
+def display_words(text: str) -> list[str]:
+    return [d for d in (display_word(w) for w in str(text).split()) if d]
+
+
 def caption_gate(chunks: list[str], script: str) -> tuple[bool, dict]:
-    """The captions, joined in order, are exactly the voice script's words; reports the first difference."""
-    cap, ref = " ".join(chunks).split(), str(script).split()
+    """The captions, joined in order, are exactly the voice script's words as displayed (quote marks and brackets
+    dropped); reports the first difference."""
+    cap, ref = display_words(" ".join(chunks)), display_words(script)
     if cap == ref:
         return True, {"words": len(ref)}
     sm = difflib.SequenceMatcher(a=ref, b=cap, autojunk=False)
@@ -200,14 +351,121 @@ def caption_gate(chunks: list[str], script: str) -> tuple[bool, dict]:
     return False, {"diff": diff[:8], "caption_words_not_in_script": not_in_script}
 
 
-def fact_phrase_gate(phrase: str, item: dict, script: str) -> tuple[bool, dict]:
-    """The one data sentence is one of the item's own phrasings (or its facts_text), verbatim, and the voice script holds it."""
+def phrase_pool(item: dict) -> list[str]:
     pool = [item.get("facts_text")] + list(item.get("fact_phrases") or []) + list(item.get("angles") or [])
     pool += [p.get("text") for p in item.get("phrasings") or [] if isinstance(p, dict)]
+    return [p for p in pool if isinstance(p, str)]
+
+
+def fact_phrase_gate(phrase: str, item: dict, script: str, on_screen=()) -> tuple[bool, dict]:
+    """The one data sentence is one of the item's own phrasings (or its facts_text), verbatim, and the viewer gets it
+    whole: in the voice script, or drawn on screen as one text (the receipt card; the renderer gates how long)."""
     norm = cr.norm_ws
-    in_item = any(isinstance(p, str) and norm(p) == norm(phrase) for p in pool)
+    in_item = any(norm(p) == norm(phrase) for p in phrase_pool(item))
     in_script = norm(phrase) in norm(script)
-    return in_item and in_script, {"phrase": phrase, "in_item": in_item, "in_script": in_script}
+    shown = any(norm(phrase) == norm(t) for t in on_screen)
+    return in_item and (in_script or shown), {"phrase": phrase, "in_item": in_item, "in_script": in_script,
+                                              "on_screen": shown}
+
+
+# ------------------------------------------------------------------------------------------------- story lines that state facts
+FACT_WORDS = re.compile(r"(?i)(?<![a-z])(bought|buys?|buying|sold|sells?|selling|purchas\w*|filed|filing|reported|traded|"
+                        r"chairman|chair|ceo|cfo|director|officer|president|senator|congress\w*|insiders?)(?![a-z])")
+_NAME_STOP = {"inc", "corp", "the", "and", "company", "group", "holdings", "ltd", "co"}
+
+
+def _tickers(item: dict) -> set[str]:
+    return {str(t).upper() for t in [item.get("ticker")] + list(item.get("tickers") or []) if t}
+
+
+def fact_markers(line: str, item: dict, post_date: str | None = None) -> list[str]:
+    """Why a story line states a fact: a number, a spelled number, a weekday (other than the post day), the ticker, a word
+    of the person's or company's name, or a trade word / title. Empty = a story line (fiction, no check)."""
+    why = []
+    if find_numbers(line):
+        why.append("number")
+    if find_number_words(line):
+        why.append("number words")
+    post_wd = None
+    if post_date:
+        try:
+            post_wd = WEEKDAYS[dt.date.fromisoformat(str(post_date)[:10]).weekday()]
+        except ValueError:
+            pass
+    if any(_weekday(m.group(1)) != post_wd for m in WEEKDAY_RX.finditer(line)):
+        why.append("weekday")
+    toks = {t.strip(".'$,").lower() for t in re.findall(r"\$?[A-Za-z][A-Za-z.'-]*", line)}
+    if {t.upper() for t in toks} & _tickers(item):
+        why.append("ticker")
+    names = {t.lower() for k in ("name", "company") for t in re.findall(r"[A-Za-z]{3,}", str(item.get(k) or ""))} - _NAME_STOP
+    if toks & names:
+        why.append("name")
+    if FACT_WORDS.search(line):
+        why.append("trade word")
+    return why
+
+
+def claim_lines_gate(lines: list[dict], item: dict, post_date: str | None = None) -> tuple[bool, dict]:
+    """lines: [{"line": a shot's vo or drawn text, "claim": phrasing id or None}]. A line that states a fact (fact_markers)
+    must carry "claim": the id of the item phrasing it paraphrases. Its numbers must be that phrasing's numbers, its
+    weekday the weekday of an item date (or the post day), its ticker and name words words of that phrasing. Every tagged
+    line is listed under needs_human_check: a paraphrase can still shift the meaning ("his own stock"), so a person reads
+    those lines against the phrasing before the video ships."""
+    by_id = {p.get("id"): p.get("text") for p in item.get("phrasings") or [] if isinstance(p, dict) and p.get("id")}
+    try:
+        days = set(allowed_weekdays(item, post_date))
+    except ValueError:
+        days = set(allowed_weekdays(item))
+    names = {t.lower() for k in ("name", "company") for t in re.findall(r"[A-Za-z]{3,}", str(item.get(k) or ""))} - _NAME_STOP
+    bad, check = [], []
+    for ln in lines:
+        line, cid = str(ln.get("line") or ""), ln.get("claim")
+        why = fact_markers(line, item, post_date)
+        if not why and not cid:
+            continue
+        if not cid:
+            bad.append({"line": line, "why": why, "problem": "states a fact but has no claim tag"})
+            continue
+        src = by_id.get(cid)
+        if src is None:
+            bad.append({"line": line, "claim": cid, "problem": "claim is not a phrasing id of this item"})
+            continue
+        probs = []
+        src_nums = set(find_numbers(src))
+        probs += [f"number {n} is not in the phrasing" for n in find_numbers(line) if n not in src_nums]
+        if find_number_words(line):
+            probs.append("spelled-out number")
+        probs += [f"{_weekday(m.group(1))} is not the weekday of an item date" for m in WEEKDAY_RX.finditer(line)
+                  if _weekday(m.group(1)) not in days]
+        src_words = {w.strip("$.,()'").lower() for w in src.split()}
+        for t in re.findall(r"\$?[A-Za-z][A-Za-z.'-]*", line):
+            core = t.strip("$.,'").lower()
+            if (core.upper() in _tickers(item) or core in names) and core not in src_words:
+                probs.append(f"{t} is not in the phrasing")
+        if probs:
+            bad.append({"line": line, "claim": cid, "problem": "; ".join(probs)})
+        check.append({"line": line, "claim": cid, "phrasing": src, "why": why})
+    return not bad, {"bad": bad, "needs_human_check": check}
+
+
+# ------------------------------------------------------------------------------------------------- caption occlusion
+def box_overlap(a, b, shrink: float = 6.0) -> float:
+    """Intersection area of two (x0, y0, x1, y1) boxes after shrinking each by `shrink` px on every side."""
+    w = min(a[2], b[2]) - max(a[0], b[0]) - 2 * shrink
+    h = min(a[3], b[3]) - max(a[1], b[1]) - 2 * shrink
+    return max(0.0, w) * max(0.0, h)
+
+
+def occlusion_gate(samples: list[dict]) -> tuple[bool, dict]:
+    """samples: [{"t", "caption", "box", "protect": [{"kind", "box"}]}] in screen px. A caption may not overlap a protected
+    box: a face, a held prop, a bubble, a chip, the key number, the receipt or the search phone."""
+    hits = []
+    for s_ in samples:
+        for pr in s_.get("protect", []):
+            a = box_overlap(s_["box"], pr["box"])
+            if a > 0:
+                hits.append({"t": round(float(s_["t"]), 2), "caption": s_["caption"], "covers": pr["kind"], "px2": round(a)})
+    return not hits, {"hits": hits[:24], "n_hits": len(hits), "samples": len(samples)}
 
 
 # ------------------------------------------------------------------------------------------------- caption chunks

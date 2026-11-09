@@ -11,6 +11,7 @@ outlined sprites never leaves a light fringe. Sizes are in head units (hu = head
 from __future__ import annotations
 
 import math
+import re
 import sys
 from functools import lru_cache
 from pathlib import Path
@@ -180,6 +181,75 @@ def face(p: Pen, skin, expr: str, blink: bool, eye_dx=0.19, eye_y=-0.02, mouth_y
         p.poly([(x, y - 0.08), (x + 0.045, y + 0.01), (x, y + 0.045), (x - 0.045, y + 0.01)], CYAN, o=p.L(0.018))
 
 
+# Pip's own face (the series face): solid dot eyes with a glint and thick slanted brows that carry the expression, no
+# eye whites and no lids. (brow tilt: + = inner ends down / cross; raise in hu; eye scale; mouth; eye style)
+PIP_EXPR = {
+    "deadpan": (0.00, 0.00, 1.00, "flat", "dot"),
+    "side": (0.00, 0.00, 1.00, "flat", "side"),
+    "shock": (-0.05, 0.09, 1.30, "open", "ring"),
+    "smug": (0.05, 0.02, 1.00, "smirk", "dot"),
+    "panic": (-0.09, 0.05, 0.90, "zigzag", "dot"),
+    "strain": (0.10, -0.02, 1.00, "teeth", "squeeze"),
+    "happy": (-0.03, 0.04, 1.00, "smile", "arc"),
+    "sip": (0.00, 0.01, 1.00, "o", "dot"),
+    "spit": (0.08, 0.06, 1.00, "spit", "squeeze"),
+}
+
+
+def pip_face(p: Pen, expr: str, blink: bool, eye_dx=0.2, eye_y=0.02, mouth_y=0.25):
+    tilt, raise_, es, mouth, style = PIP_EXPR.get(expr, PIP_EXPR["deadpan"])
+    for sx in (-1, 1):
+        ex = sx * eye_dx
+        if blink and style in ("dot", "side", "ring"):
+            p.line([(ex - 0.06, eye_y), (ex + 0.06, eye_y)], 0.035)
+        elif style == "squeeze":                                   # > <
+            p.line([(ex - sx * 0.06, eye_y - 0.05), (ex + sx * 0.04, eye_y), (ex - sx * 0.06, eye_y + 0.05)], 0.035)
+        elif style == "arc":                                       # happy closed eyes
+            p.arc(ex, eye_y + 0.03, 0.13, 0.12, 200, 340, 0.035)
+        else:
+            gx = 0.035 if style == "side" else 0.0
+            if style == "ring":
+                p.ellipse(ex, eye_y, 0.17 * es, 0.19 * es, WHITE, o=p.L(0.02))
+            p.ellipse(ex + gx, eye_y, 0.095 * es, 0.12 * es, INK, line=False)
+            p.ellipse(ex + gx + 0.02, eye_y - 0.03, 0.035, 0.035, WHITE, line=False)
+        by = eye_y - 0.14 - raise_
+        inner, outer = ex - sx * 0.05, ex + sx * 0.08
+        p.line([(inner, by + tilt * 0.5), (outer, by - tilt * 0.5)], 0.055)
+    my = mouth_y
+    if mouth == "flat":
+        p.line([(-0.07, my), (0.07, my)], 0.03)
+    elif mouth == "open":
+        p.rrect(0, my + 0.03, 0.14, 0.17, 0.06, INK, line=False)
+        p.ellipse(0, my + 0.08, 0.10, 0.05, PINK, line=False)
+    elif mouth == "smirk":
+        p.arc(0.03, my - 0.06, 0.18, 0.12, 20, 150, 0.03)
+    elif mouth == "smile":
+        p.rrect(0, my + 0.01, 0.22, 0.1, 0.05, INK, line=False)
+        p.rrect(0, my - 0.01, 0.18, 0.04, 0.02, WHITE, line=False)
+    elif mouth == "zigzag":
+        p.line([(-0.11, my), (-0.055, my - 0.04), (0.0, my), (0.055, my - 0.04), (0.11, my)], 0.03)
+    elif mouth == "teeth":
+        p.rrect(0, my, 0.26, 0.1, 0.04, WHITE, o=p.L(0.025))
+        p.line([(0.0, my - 0.04), (0.0, my + 0.04)], 0.018)
+    elif mouth == "o":
+        p.ellipse(0, my, 0.06, 0.07, INK, line=False)
+    elif mouth == "spit":
+        p.ellipse(0.02, my + 0.02, 0.2, 0.15, INK, line=False)
+        p.ellipse(0.06, my + 0.01, 0.1, 0.07, (167, 139, 250), line=False)
+    if expr == "panic":
+        x, y = eye_dx + 0.22, -0.2
+        p.poly([(x, y - 0.08), (x + 0.045, y + 0.01), (x, y + 0.045), (x - 0.045, y + 0.01)], CYAN, o=p.L(0.018))
+
+
+def mitten(p: Pen, x, y, skin, toward=(0.0, -1.0), size=0.23):
+    """Pip's mitten hand: an oval palm with a thumb nub pointing `toward` (unit-ish, hu space)."""
+    p.ellipse(x, y, size, size * 0.9, skin, o=p.L(0.022))
+    tx, ty = toward
+    n = math.hypot(tx, ty) or 1.0
+    p.ellipse(x + tx / n * size * 0.45, y + ty / n * size * 0.45, size * 0.42, size * 0.42, skin, o=p.L(0.02))
+    p.ellipse(x, y, size * 0.8, size * 0.72, skin, line=False)
+
+
 # ------------------------------------------------------------------------------------------------- props (in hu)
 def phone_in_hand(p: Pen, cx, cy, w=0.46, glow=CYAN):
     h = w * 1.75
@@ -237,6 +307,8 @@ PIP_POSES = {  # (left hand, right hand) in hu from the head centre (image left 
     "sip": ((-0.66, 1.05), (0.12, 0.34)),
     "wave": ((-0.66, 1.05), (0.9, -0.3)),
     "flail": ((-0.95, 0.1), (0.9, 0.6)),
+    "rack": ((-0.4, 0.47), (0.4, 0.47)),
+    "spit": ((-0.66, 1.05), (0.66, 0.66)),
 }
 DALE_POSES = {
     "idle": ((-0.55, 1.55), (1.45, 2.55)),
@@ -248,21 +320,62 @@ DALE_POSES = {
 }
 
 
-def pip(pose="idle", expr="deadpan", hu=300, blink=False, hold=(), kick=0.0, band=0.0):
-    """Pip, the protagonist ("you"): mint squircle head, violet hoodie, a lime headband slipping over one eye."""
+def headband(p: Pen, band=0.0):
+    """Pip's lime headband, high on the forehead (the brows below it carry his expressions), knot tails on the left."""
+    ang = math.radians(8 + band)
+    cx, cy, L, T = 0.0, -0.33, 1.06, 0.12
+    c, s = math.cos(ang), math.sin(ang)
+    pts = [(cx + dx * c - dy * s, cy + dx * s + dy * c) for dx, dy in ((-L / 2, -T / 2), (L / 2, -T / 2), (L / 2, T / 2), (-L / 2, T / 2))]
+    p.poly(pts, LIME, o=p.L(0.025))
+    p.poly([(-0.5, -0.4), (-0.7, -0.5), (-0.66, -0.3)], LIME, o=p.L(0.02))
+
+
+PIP_SQUAT_DROP = 0.32          # hu the body sinks at full squat depth (the feet stay put)
+
+
+def bar_with_load(p: Pen, y, half=1.3, plates=0, tabs=0, bend=0.0, k0=0):
+    """A front-view barbell across x -half..half at height y: iron plates or app tabs stacked as plates; bend sags the
+    ends down (the bar bows under the tabs)."""
+    n = 20
+    pts = [(-half + 2 * half * i / n, y + bend * 0.35 * (abs(i - n / 2) / (n / 2)) ** 2) for i in range(n + 1)]
+    p.line(pts, 0.06, (203, 213, 225))
+    end_y = y + bend * 0.35
+    for sx in (-1, 1):
+        for j in range(plates):
+            p.rrect(sx * (half - 0.2 + 0.1 * j), end_y, 0.09, 0.5, 0.03, (100, 116, 139), o=p.L(0.02))
+        for j in range(tabs):
+            x = sx * (half - 0.28 + 0.1 * (j % 4))
+            yy = end_y - 0.06 * (j // 4)
+            p.rrect(x, yy, 0.09, 0.62 + 0.08 * (j % 3), 0.04, ACCENTS[(j + k0) % len(ACCENTS)], o=p.L(0.016))
+
+
+def pip(pose="idle", expr="deadpan", hu=300, blink=False, hold=(), kick=0.0, band=0.0, squat=0.0, bar=None):
+    """Pip, the protagonist ("you"): mint squircle head with dot eyes and thick brows, violet hoodie with cuffed sleeves and
+    mitten hands, a lime headband slipping over one eye. squat (0-1) bends the knees and sinks the body; bar =
+    (plates, tabs, bend) puts a front-rack barbell across the shoulders (pose "rack")."""
     p = Pen(3.0, 2.95, hu, origin=(1.5, 0.95))
     hands = PIP_POSES.get(pose, PIP_POSES["idle"])
     sh = ((-0.36, 0.52), (0.36, 0.52))
     behind = pose in ("idle", "press", "strain", "arms_up", "wave", "shrug", "flail")
-    # legs + shoes
+    drop = PIP_SQUAT_DROP * squat
+    # legs + shoes (feet fixed; with squat the hips sink and the knees go out)
     for sx, ph in ((-1, 0.0), (1, math.pi)):
         k = 0.12 * math.sin(kick * 2 * math.pi + ph) if kick else 0.0
-        top, bot = (sx * 0.2, 1.25), (sx * 0.22 + k, 1.67 - abs(k) * 0.3)
-        p.capsule(top, bot, 0.17, NAVY)
-        p.rrect(bot[0] + sx * 0.06, bot[1] + 0.06, 0.30, 0.13, 0.06, WHITE)
+        hip, foot = (sx * 0.2, 1.25 + drop), (sx * 0.24 + k, 1.67 - abs(k) * 0.3)
+        if squat > 0.05:
+            knee = (sx * (0.26 + 0.42 * squat), min(1.56, 1.36 + drop * 0.6))
+            p.capsule(hip, knee, 0.2, NAVY)
+            p.capsule(knee, foot, 0.18, NAVY)
+        else:
+            p.capsule(hip, foot, 0.18, NAVY)
+        p.rrect(foot[0] + sx * 0.06, foot[1] + 0.06, 0.30, 0.13, 0.06, WHITE)
+    p.oy += drop                                    # everything above the hips sinks with the squat
+
     def arm(a, b):
-        p.capsule(a, b, 0.17, PIP_HOOD)
-        p.ellipse(b[0], b[1], 0.19, 0.19, PIP_SKIN)
+        p.capsule(a, b, 0.21, PIP_HOOD)
+        cuff = (a[0] + (b[0] - a[0]) * 0.8, a[1] + (b[1] - a[1]) * 0.8)
+        p.capsule(cuff, (a[0] + (b[0] - a[0]) * 0.9, a[1] + (b[1] - a[1]) * 0.9), 0.23, LIME, o=p.L(0.02))
+        mitten(p, b[0], b[1], PIP_SKIN, toward=(-(b[0] - a[0]) * 0.2, -1.0))
     if behind:
         for a, b in zip(sh, hands):
             arm(a, b)
@@ -273,14 +386,8 @@ def pip(pose="idle", expr="deadpan", hu=300, blink=False, hold=(), kick=0.0, ban
     p.ellipse(0, 0.42, 0.62, 0.2, darker(PIP_HOOD, 0.2))
     # head
     p.rrect(0, 0, 1.0, 0.92, 0.36, PIP_SKIN)
-    face(p, PIP_SKIN, expr, blink)
-    # headband: a lime band across the forehead, slipping over the right eye
-    ang = math.radians(12 + band)
-    cx, cy, L, T = 0.0, -0.17, 1.08, 0.13
-    c, s = math.cos(ang), math.sin(ang)
-    pts = [(cx + dx * c - dy * s, cy + dx * s + dy * c) for dx, dy in ((-L / 2, -T / 2), (L / 2, -T / 2), (L / 2, T / 2), (-L / 2, T / 2))]
-    p.poly(pts, LIME, o=p.L(0.025))
-    p.poly([(-0.5, -0.32), (-0.68, -0.42), (-0.64, -0.24)], LIME, o=p.L(0.02))
+    pip_face(p, expr, blink)
+    headband(p, band)
     if not behind:
         if "phone" in hold:
             phone_in_hand(p, 0, 0.7)
@@ -294,8 +401,32 @@ def pip(pose="idle", expr="deadpan", hu=300, blink=False, hold=(), kick=0.0, ban
         for x in (-1.12, 1.12):
             p.rrect(x, y, 0.1, 0.32, 0.03, (100, 116, 139), o=p.L(0.02))
         for b in hands:
-            p.ellipse(b[0], b[1], 0.19, 0.19, PIP_SKIN)
+            mitten(p, b[0], b[1], PIP_SKIN)
+    if bar is not None:                              # front rack: bar on the shoulders, mittens on top of it
+        plates, tabs, bend = bar
+        bar_with_load(p, 0.5, 1.3, plates, tabs, bend)
+        for sx in (-1, 1):
+            mitten(p, sx * 0.4, 0.47, PIP_SKIN, toward=(-sx, -0.4))
+    p.oy -= drop
     return p.done((0, 1.8))
+
+
+def pip_boxes(pose="idle", hold=(), squat=0.0, bar=None):
+    """Pip's protected boxes in hu relative to his anchor (feet at (0, 0), y down): the head (with headband) and any held
+    prop. Captions must stay off these (cartoon_qa.occlusion_gate)."""
+    dy = PIP_SQUAT_DROP * squat - 1.8
+    out = [("pip face", (-0.58, dy - 0.56, 0.58, dy + 0.5))]
+    hands = PIP_POSES.get(pose, PIP_POSES["idle"])
+    if "phone" in hold:
+        out.append(("pip phone", (-0.25, dy + 0.28, 0.25, dy + 1.12)))
+    if "shaker" in hold:
+        hx, hy = hands[1]
+        out.append(("pip shaker", (hx - 0.15, hy - 0.2 - 0.32 + dy, hx + 0.15, hy - 0.2 + 0.24 + dy)))
+    if bar is not None:                              # bar at 0.5 hu below the head centre, ends sag by bend, plates hang
+        plates, tabs, bend = bar
+        low = 0.5 + bend * 0.35 + (0.36 if tabs else 0.27 if plates else 0.05)
+        out.append(("pip bar", (-1.4, dy + 0.15, 1.4, dy + low)))
+    return out
 
 
 def dale(pose="idle", expr="deadpan", hu=170, blink=False, brow=0.0, hold=("shaker",)):
@@ -329,18 +460,33 @@ def dale(pose="idle", expr="deadpan", hu=170, blink=False, brow=0.0, hold=("shak
     return p.done((0, 4.82))
 
 
-def head_only(who="pip", expr="smug", hu=300, blink=False):
+def head_only(who="pip", expr="smug", hu=300, blink=False, brow=0.0):
+    """A head on its own (end card, and the PEEK cut-ins that keep a character on screen during the real screenshot)."""
+    p = Pen(1.6, 1.5, hu, origin=(0.8, 0.75))
     if who == "pip":
-        p = Pen(1.6, 1.5, hu, origin=(0.8, 0.75))
         p.rrect(0, 0, 1.0, 0.92, 0.36, PIP_SKIN)
-        face(p, PIP_SKIN, expr, blink)
-        ang = math.radians(12)
-        c, s = math.cos(ang), math.sin(ang)
-        L, T = 1.08, 0.13
-        pts = [(dx * c - dy * s, -0.17 + dx * s + dy * c) for dx, dy in ((-L / 2, -T / 2), (L / 2, -T / 2), (L / 2, T / 2), (-L / 2, T / 2))]
-        p.poly(pts, LIME, o=p.L(0.025))
+        pip_face(p, expr, blink)
+        headband(p)
+        return p.done((0, 0))
+    if who == "dale":
+        p.rrect(0, 0, 1.0, 0.95, 0.36, DALE_SKIN)
+        face(p, DALE_SKIN, expr, blink, mouth_y=0.25)
+        tilt = {"smug": 0.06, "side": 0.04, "shock": -0.05}.get(expr, 0.0)
+        for sx in (-1, 1):
+            y = -0.25 + brow * (0.06 if sx < 0 else -0.04)
+            p.line([(sx * 0.07, y + (tilt if sx < 0 else -tilt) * 0.5), (sx * 0.33, y - (tilt if sx < 0 else -tilt) * 0.5)], 0.09)
         return p.done((0, 0))
     raise ValueError(who)
+
+
+def dale_boxes(pose="idle", hold=("shaker",)):
+    """Dale's protected boxes in hu relative to his anchor (feet at (0, 0)): the head and the shaker he holds."""
+    dy = -4.82
+    out = [("dale face", (-0.56, dy - 0.56, 0.56, dy + 0.52))]
+    if "shaker" in hold and pose != "empty":
+        hx, hy = DALE_POSES.get(pose, DALE_POSES["idle"])[0]
+        out.append(("dale shaker", (hx - 0.36, hy - 0.25 - 0.8 + dy, hx + 0.36, hy - 0.25 + 0.55 + dy)))
+    return out
 
 
 # ------------------------------------------------------------------------------------------------- small props
@@ -428,15 +574,6 @@ def search_bar(w_px=880, caret=True, text="Search"):
         d.rectangle((x, cy - 36 * SS, x + 6 * SS, cy + 36 * SS), fill=VIOLET)
     img = img.resize((img.size[0] // SS, img.size[1] // SS), Image.LANCZOS)
     return img, (img.size[0] / 2, img.size[1] / 2)
-
-
-def finger(hu=300):
-    """Pip's arm and mitten hand reaching up from the bottom of the frame (anchor: the fingertip)."""
-    p = Pen(0.8, 2.2, hu, origin=(0.4, 0.2))
-    p.capsule((0.0, 2.2), (0.0, 0.25), 0.34, PIP_HOOD)
-    p.ellipse(0, 0.12, 0.34, 0.34, PIP_SKIN)
-    p.capsule((0.0, 0.05), (0.0, -0.1), 0.12, PIP_SKIN)
-    return p.done((0, -0.16))
 
 
 # ------------------------------------------------------------------------------------------------- sets (world canvas)
@@ -679,3 +816,106 @@ def with_shadow(img: Image.Image, dy: int, blur: int, alpha: float = 0.45):
     out.alpha_composite(sh)
     out.alpha_composite(img, (pad, pad))
     return out, pad
+
+
+# ------------------------------------------------------------------------------------------------- search phone + receipt
+FEED_TEXTS = ("SOCKS", "ad")                 # the words drawn on the feed strip (they go through the text gates)
+SEARCH_PLACEHOLDER = "Search"
+
+
+def search_phone(w_px=560, typed="", caret=True, thumb=0.0, font_fn=None):
+    """Pip's two mitten hands holding a phone close to the lens; a plain search field near the top shows `typed` (or the
+    placeholder). Not our app's UI: a cartoon phone, the real screen comes after the whip. Anchor = phone centre.
+    thumb (0-1) presses the right thumb onto the screen (a letter being typed)."""
+    font_fn = font_fn or cr.font
+    p = Pen(2.1, 2.75, w_px, origin=(1.05, 1.05))
+    for sx in (-1, 1):                                          # sleeves from below the frame up to the hands
+        hand = (sx * 0.55, 0.42 - (0.06 if sx > 0 else 0.0))
+        p.capsule((sx * 0.85, 1.65), hand, 0.34, PIP_HOOD)
+        cuff0 = (sx * 0.85 + (hand[0] - sx * 0.85) * 0.78, 1.65 + (hand[1] - 1.65) * 0.78)
+        cuff1 = (sx * 0.85 + (hand[0] - sx * 0.85) * 0.9, 1.65 + (hand[1] - 1.65) * 0.9)
+        p.capsule(cuff0, cuff1, 0.37, LIME, o=p.L(0.02))
+    p.rrect(0, 0, 1.0, 1.85, 0.14, INK, o=p.L(0.03))
+    p.rrect(0, 0.02, 0.9, 1.7, 0.1, (15, 18, 34), line=False)
+    p.rrect(0, -0.8, 0.22, 0.05, 0.025, (30, 34, 56), line=False)
+    bar_y = -0.55
+    p.rrect(0, bar_y, 0.8, 0.17, 0.085, (236, 240, 255), o=p.L(0.018))
+    cx, cy = p.P(-0.31, bar_y)
+    r = p.L(0.032)
+    p.d.ellipse((cx - r, cy - r - p.L(0.006), cx + r, cy + r - p.L(0.006)), outline=INK, width=int(p.L(0.012)))
+    p.d.line((cx + r * 0.7, cy + r * 0.6, cx + r * 1.5, cy + r * 1.4), fill=INK, width=int(p.L(0.014)))
+    f = font_fn("bold", int(p.L(0.085)))
+    tx, ty = p.P(-0.24, bar_y)
+    txt = typed or SEARCH_PLACEHOLDER
+    p.d.text((tx, ty), txt, font=f, fill=INK if typed else (100, 116, 139), anchor="lm")
+    if caret:
+        x = tx + (f.getlength(typed) if typed else 0) + p.L(0.01)
+        p.d.rectangle((x, ty - p.L(0.05), x + p.L(0.012), ty + p.L(0.05)), fill=VIOLET)
+    # hands: mitten grips on both edges, the right thumb over the screen
+    mitten(p, -0.55, 0.42, PIP_SKIN, toward=(1.0, -0.6), size=0.3)
+    mitten(p, 0.55, 0.36, PIP_SKIN, toward=(-1.0, -0.2), size=0.3)
+    th = 0.06 * thumb
+    p.ellipse(0.4 - th, 0.22 + th, 0.16, 0.14, PIP_SKIN, o=p.L(0.02))           # a short thumb pad, pressing
+    return p.done((0, 0))
+
+
+def receipt(text: str, w_px=900, font_fn=None, size=52, header="SEC FILING"):
+    """The fact phrase as a paper receipt (held on screen so the viewer can read the full sentence): cream paper, INK
+    outline, a header tag, the phrase wrapped in bold INK with figures in violet and buy/sell verbs in green/red, and a
+    torn zigzag bottom edge. Returns RGBA (1x)."""
+    font_fn = font_fn or cr.font
+    S = SS
+    f = font_fn("bold", size * S)
+    fh = font_fn("black", 34 * S)
+    pad = 54 * S
+    wmax = w_px * S - 2 * pad
+    lines, cur = [], []
+    for w in text.split():
+        trial = " ".join(cur + [w])
+        if cur and f.getlength(trial) > wmax:
+            lines.append(cur)
+            cur = [w]
+        else:
+            cur.append(w)
+    if cur:
+        lines.append(cur)
+    lh = int(size * 1.32 * S)
+    head_h = 70 * S
+    body_h = pad + head_h + lh * len(lines) + pad
+    zig = 26 * S
+    W_, H_ = w_px * S + 40 * S, body_h + zig + 40 * S
+    img = Image.new("RGBA", (W_, H_), CLEAR)
+    d = ImageDraw.Draw(img)
+    x0, y0, x1, y1 = 20 * S, 20 * S, 20 * S + w_px * S, 20 * S + body_h
+    teeth = 18
+    pts = [(x0, y0 + 30 * S), (x0 + 30 * S, y0), (x1 - 30 * S, y0), (x1, y0 + 30 * S), (x1, y1)]
+    for i in range(teeth, -1, -1):
+        pts.append((x0 + (x1 - x0) * i / teeth, y1 + (zig if i % 2 else 0)))
+    d.polygon(pts, fill=INK)
+    inner = [(x + (S * 7 if x < (x0 + x1) / 2 else -S * 7), y + (S * 7 if y < (y0 + y1) / 2 else -S * 7)) for x, y in pts]
+    d.polygon(inner, fill=(255, 251, 240))
+    # header tag
+    hb = fh.getbbox(header, anchor="ls")
+    hw = hb[2] - hb[0] + 44 * S
+    hx, hy = x0 + pad, y0 + pad - 10 * S
+    d.rounded_rectangle((hx, hy, hx + hw, hy + 52 * S), radius=26 * S, fill=INK)
+    d.text((hx + 22 * S, hy + 38 * S), header, font=fh, fill=LIME, anchor="ls")
+    y = y0 + pad + head_h + int(size * 0.95 * S)
+    for ln in lines:
+        x = x0 + pad
+        for k, w in enumerate(ln):
+            core = w.strip("().,;:")
+            prev = ln[k - 1] if k else (lines[lines.index(ln) - 1][-1] if lines.index(ln) else "")
+            if (cr.FIGURE_RX.search(w) or re.search(r"\d", w)) and not re.fullmatch(r"\(?Form", prev):
+                col = VIOLET_D
+            elif re.fullmatch(r"(?i)bought|buys?|purchased?", core):
+                col = GREEN_D
+            elif re.fullmatch(r"(?i)sold|sells?|sale", core):
+                col = RED_D
+            else:
+                col = INK
+            d.text((x, y), w, font=f, fill=col + (255,), anchor="ls")
+            x += f.getlength(w + " ")
+        y += lh
+    img = img.resize((W_ // S, H_ // S), Image.LANCZOS)
+    return img
