@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-09",
-  "generated_at": "2026-11-09T12:30:03Z",
-  "as_of": "2026-11-09T12:30:03Z",
+  "generated_at": "2026-11-09T13:00:03Z",
+  "as_of": "2026-11-09T13:00:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,8 +876,8 @@
   "counts": {
     "congress_trade": 4,
     "form4_buy": 5,
-    "earnings_result": 31,
-    "earnings_upcoming": 61,
+    "earnings_result": 35,
+    "earnings_upcoming": 62,
     "picks_ready": 0,
     "chart_pattern": 1,
     "moves_like": 4,
@@ -886,7 +886,7 @@
     "market_move": 0,
     "mega_mover": 0,
     "congress_flow": 1,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -937,38 +937,40 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3306,
-      "recent_ready": 657,
+      "archive_reports": 3311,
+      "recent_ready": 662,
       "outside_24h": 623,
       "unreadable": 0,
-      "not_compared": 4,
+      "not_compared": 5,
       "not_compared_metrics": [
         "FHTX: revenue (basis_mismatch)",
+        "IBRX: revenue (basis_mismatch)",
         "IONS: revenue (basis_mismatch)",
         "KKR: revenue (basis_mismatch)",
         "SEAT: revenue (sec_disagrees)"
       ],
-      "consensus_mismatch_hold": 3,
+      "consensus_mismatch_hold": 4,
       "held": [
         "FHTX: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "IBRX: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "IONS: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "SEAT: revenue (sec_disagrees) and nothing else compared (report data to check)"
       ]
     },
     "earnings_upcoming": {
-      "listed": 276,
-      "confirmed_in_universe": 61
+      "listed": 259,
+      "confirmed_in_universe": 62
     },
     "earnings_tomorrow_roundup": {
-      "bmo": 27,
-      "amc": 34,
+      "bmo": 29,
+      "amc": 33,
       "no_set_session": 0
     },
     "chart_pattern": {
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 98,
+      "tickers_in_items": 103,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -982,7 +984,7 @@
     "market": {
       "market_session": "2026-11-06",
       "priced_cap_share": 0.9987592342655657,
-      "flows_as_of": "2026-11-09T12:31:00.306436+00:00"
+      "flows_as_of": "2026-11-09T13:01:02.219034+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -993,7 +995,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 106
+        "angles_dropped": 114
       },
       "top8": {
         "stale": 7,
@@ -1001,28 +1003,30 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 4,
-        "ranked_below": 99,
+        "ranked_below": 104,
         "pillars": 4
       }
     },
     "card_unpinned": {
-      "dropped": 5,
+      "dropped": 6,
       "reasons": [
-        "mega_mover SPCX: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)",
-        "mega_mover AMD: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)",
-        "sector_rotation 2026-11-09-sector-rotation-LIST-2517b0: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)",
-        "sector_rotation 2026-11-09-sector-rotation-LIST-e359a3: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)",
-        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)"
+        "insider_flow AXP: share card not pinned (not served by Pages yet)",
+        "mega_mover SPCX: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)",
+        "mega_mover AMD: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)",
+        "sector_rotation 2026-11-09-sector-rotation-LIST-2517b0: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)",
+        "sector_rotation 2026-11-09-sector-rotation-LIST-e359a3: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)",
+        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: mega_mover SPCX: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)",
-    "not published: mega_mover AMD: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)",
-    "not published: sector_rotation 2026-11-09-sector-rotation-LIST-2517b0: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)",
-    "not published: sector_rotation 2026-11-09-sector-rotation-LIST-e359a3: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)",
-    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T12:17:19.272669+00:00 (X-Card-Date), the item 2026-11-06)"
+    "not published: insider_flow AXP: share card not pinned (not served by Pages yet)",
+    "not published: mega_mover SPCX: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)",
+    "not published: mega_mover AMD: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)",
+    "not published: sector_rotation 2026-11-09-sector-rotation-LIST-2517b0: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)",
+    "not published: sector_rotation 2026-11-09-sector-rotation-LIST-e359a3: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)",
+    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T12:47:35.716860+00:00 (X-Card-Date), the item 2026-11-06)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1053,7 +1057,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 137,
+  "api_requests": 142,
   "items": [
     {
       "item_id": "2026-11-09-reddit-buzz-NVDA-9d6e44",
@@ -1503,556 +1507,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-09-insider-flow-AXP-aa5a75",
-      "type": "insider_flow",
-      "ticker": "AXP",
-      "tickers": [
-        "AXP",
-        "SNOW",
-        "RCL"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/AXP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-insider-flow-AXP-aa5a75",
-      "allowed_numbers": [
-        "$482M",
-        "+$482M",
-        "$482.2M",
-        "+$482.2M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30",
-        "228",
-        "508",
-        "500",
-        "2026-10-10",
-        "Oct 10, 2026",
-        "Oct 10",
-        "2026-11-09",
-        "Nov 9, 2026",
-        "Nov 9",
-        "$137M",
-        "+$137M",
-        "$137.1M",
-        "+$137.1M",
-        "$129M",
-        "+$129M",
-        "$128.7M",
-        "+$128.7M",
-        "$82.9M",
-        "+$82.9M",
-        "$83M",
-        "+$83M",
-        "3",
-        "6.6",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 228 companies with buys, 508 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders).",
-      "dedupe_key": "insider_flow:2026-11-09:AXP",
-      "claim_phrases": [
-        "$AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M).",
-        "Over 30 days in our feed, $AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($137M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M): $AXP.",
-        "$SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M).",
-        "Over 30 days in our feed, $SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($129M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M): $SNOW.",
-        "$RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M).",
-        "Over 30 days in our feed, $RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($82.9M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M): $RCL.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M).",
-        "$AXP ($137M) and $SNOW ($129M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-        "$AXP ($137M), $SNOW ($129M) and $RCL ($82.9M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $6.6.",
-        "Officers and directors sold $6.6 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $6.6 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "AXP",
-            "SNOW",
-            "RCL"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $AXP, $SNOW, $RCL"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$482M",
-            "+$482M",
-            "$482.2M",
-            "+$482.2M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($482M bought, $3.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "AXP",
-          "SNOW",
-          "RCL"
-        ],
-        "numbers": [
-          "$3.2B",
-          "$482M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-10",
-        "to": "2026-11-09",
-        "days": 30
-      },
-      "bought_usd": 482202131.4,
-      "sold_usd": 3178404946.17,
-      "buy_companies": 228,
-      "sell_companies": 508,
-      "top_sellers_500": [
-        {
-          "ticker": "AXP",
-          "name": "American Express Company",
-          "sector": "Financial Services",
-          "total_usd": 137069235.8,
-          "insider_count": 3,
-          "roles": {
-            "officer": 3,
-            "director": 0
-          },
-          "row_count": 8,
-          "first_trade": "2026-11-02",
-          "last_trade": "2026-11-04"
-        },
-        {
-          "ticker": "SNOW",
-          "name": "Snowflake Inc.",
-          "sector": "Technology",
-          "total_usd": 128694776.01,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 13,
-          "first_trade": "2026-10-19",
-          "last_trade": "2026-11-04"
-        },
-        {
-          "ticker": "RCL",
-          "name": "Royal Caribbean Cruises Ltd.",
-          "sector": "Consumer Cyclical",
-          "total_usd": 82876726.83,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 27,
-          "first_trade": "2026-10-28",
-          "last_trade": "2026-11-05"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $3.2B and bought $482M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys."
-      ],
-      "market_cap_usd": 217909271436.99582,
-      "magnitude": 2.253313841832286,
-      "trigger": "weekly (Monday facts)",
-      "top5": [
-        "AXP",
-        "SNOW",
-        "RCL",
-        "TRV",
-        "DELL"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-71b89cfb.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-09",
-        "fingerprint": "71b89cfb",
-        "file": "market-insiders-2026-11-09-71b89cfb.png",
-        "sha256": "89ffefbf23d44688422182a173737d4e6a392fd0a47ca221eacd75d6650c0734"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-71b89cfb.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 228 companies with buys, 508 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "ticker_sectors": {
-        "AXP": "Financial Services",
-        "SNOW": "Technology",
-        "RCL": "Consumer Cyclical"
-      },
-      "ticker_names": {
-        "AXP": "American Express Company",
-        "SNOW": "Snowflake Inc.",
-        "RCL": "Royal Caribbean Cruises Ltd."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells.",
-        "Officers and directors sold $3.2B and bought $482M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $3.2B and bought $482M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 228 companies had open-market buys by officers and directors and 508 had open-market sells.",
-        "508 companies had open-market sells by officers and directors and 228 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $AXP sold $137M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $AXP sold $137M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $AXP sold $137M on the open market (3 insiders).",
-        "Officers and directors of $SNOW sold $129M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $SNOW sold $129M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SNOW sold $129M on the open market (3 insiders).",
-        "Officers and directors of $RCL sold $82.9M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $RCL sold $82.9M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $RCL sold $82.9M on the open market (3 insiders)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($137M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M): $AXP.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M): $SNOW.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M): $RCL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$AXP ($137M) and $SNOW ($129M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$AXP ($137M), $SNOW ($129M) and $RCL ($82.9M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $6.6.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $6.6 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $6.6 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $3.2B and bought $482M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $3.2B and bought $482M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 228 companies had open-market buys by officers and directors and 508 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "508 companies had open-market sells by officers and directors and 228 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $AXP sold $137M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $AXP sold $137M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $AXP sold $137M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $SNOW sold $129M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $SNOW sold $129M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SNOW sold $129M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $RCL sold $82.9M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $RCL sold $82.9M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $RCL sold $82.9M on the open market (3 insiders).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$482M": "+",
-          "$482.2M": "+",
-          "$3.2B": "+",
-          "$3B": "+",
-          "$137M": "+",
-          "$137.1M": "+",
-          "$129M": "+",
-          "$128.7M": "+",
-          "$82.9M": "+",
-          "$83M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "AXP": [
-          [
-            "$",
-            137.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            6.6,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "SNOW": [
-          [
-            "$",
-            129.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "RCL": [
-          [
-            "$",
-            82.9,
-            1,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 12.25,
-      "rank_why": "insider_flow 4; mega cap $217.91B +4; magnitude (market) +2.25; today 2026-11-09 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-09-form4-buy-KMI-eaefd0",
       "type": "form4_buy",
       "ticker": "KMI",
@@ -2114,10 +1568,10 @@
         "0.76%",
         "−0.8%",
         "0.8%",
-        "$482M",
-        "+$482M",
-        "$482.2M",
-        "+$482.2M",
+        "$483M",
+        "+$483M",
+        "$482.7M",
+        "+$482.7M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -2143,10 +1597,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$482M",
-            "+$482M",
-            "$482.2M",
-            "+$482.2M",
+            "$483M",
+            "+$483M",
+            "$482.7M",
+            "+$482.7M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -2167,7 +1621,7 @@
           "session": "2026-11-06"
         },
         "insiders_30d": {
-          "bought": "$482M",
+          "bought": "$483M",
           "sold": "$3.2B",
           "days": 30
         }
@@ -2197,9 +1651,9 @@
         "$KMI moved −0.76% on Friday, Nov 6.",
         "$KMI's move on Friday, Nov 6: −0.76%.",
         "On Friday, Nov 6, $KMI moved −0.76%.",
-        "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells."
+        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells."
       ],
       "phrasings": [
         {
@@ -2339,21 +1793,21 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         }
       ],
@@ -2361,8 +1815,8 @@
         "numbers": {
           "0.76%": "-",
           "0.8%": "-",
-          "$482M": "+",
-          "$482.2M": "+",
+          "$483M": "+",
+          "$482.7M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -3237,10 +2691,10 @@
       "in_500": false,
       "context_numbers": [
         "$11.9B",
-        "$482M",
-        "+$482M",
-        "$482.2M",
-        "+$482.2M",
+        "$483M",
+        "+$483M",
+        "$482.7M",
+        "+$482.7M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -3264,10 +2718,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$482M",
-            "+$482M",
-            "$482.2M",
-            "+$482.2M",
+            "$483M",
+            "+$483M",
+            "$482.7M",
+            "+$482.7M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -3283,7 +2737,7 @@
       "context": {
         "market_cap": "$11.9B",
         "insiders_30d": {
-          "bought": "$482M",
+          "bought": "$483M",
           "sold": "$3.2B",
           "days": 30
         }
@@ -3307,9 +2761,9 @@
         "On a Form 4 filed Nov 6, Baker Bros. Advisors Lp (Director at Madrigal Pharmaceuticals, Inc.) reported an open-market purchase of $MDGL totaling $23.13M.",
         "Baker Bros. Advisors Lp's $MDGL purchase was traded Nov 6 and reported on a Form 4 filed Nov 6.",
         "Traded Nov 6, Baker Bros. Advisors Lp's $MDGL purchase was reported on a Form 4 filed Nov 6.",
-        "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells."
+        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells."
       ],
       "phrasings": [
         {
@@ -3407,28 +2861,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$482M": "+",
-          "$482.2M": "+",
+          "$483M": "+",
+          "$482.7M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -7092,10 +6546,10 @@
       "in_500": false,
       "context_numbers": [
         "$2.1B",
-        "$482M",
-        "+$482M",
-        "$482.2M",
-        "+$482.2M",
+        "$483M",
+        "+$483M",
+        "$482.7M",
+        "+$482.7M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -7119,10 +6573,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$482M",
-            "+$482M",
-            "$482.2M",
-            "+$482.2M",
+            "$483M",
+            "+$483M",
+            "$482.7M",
+            "+$482.7M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -7138,7 +6592,7 @@
       "context": {
         "market_cap": "$2.1B",
         "insiders_30d": {
-          "bought": "$482M",
+          "bought": "$483M",
           "sold": "$3.2B",
           "days": 30
         }
@@ -7162,9 +6616,9 @@
         "On a Form 4 filed Nov 5, Timothy Steven Johnson (Chief Executive Officer at Blackstone Mortgage Trust, Inc.) reported an open-market purchase of $BXMT totaling $1.04M.",
         "Timothy Steven Johnson's $BXMT purchase was traded Nov 4 and reported on a Form 4 filed Nov 5.",
         "Traded Nov 4, Timothy Steven Johnson's $BXMT purchase was reported on a Form 4 filed Nov 5.",
-        "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells."
+        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells."
       ],
       "phrasings": [
         {
@@ -7262,28 +6716,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$482M": "+",
-          "$482.2M": "+",
+          "$483M": "+",
+          "$482.7M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -7679,10 +7133,10 @@
       "in_500": false,
       "context_numbers": [
         "$6.2B",
-        "$482M",
-        "+$482M",
-        "$482.2M",
-        "+$482.2M",
+        "$483M",
+        "+$483M",
+        "$482.7M",
+        "+$482.7M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -7706,10 +7160,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$482M",
-            "+$482M",
-            "$482.2M",
-            "+$482.2M",
+            "$483M",
+            "+$483M",
+            "$482.7M",
+            "+$482.7M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -7725,7 +7179,7 @@
       "context": {
         "market_cap": "$6.2B",
         "insiders_30d": {
-          "bought": "$482M",
+          "bought": "$483M",
           "sold": "$3.2B",
           "days": 30
         }
@@ -7749,9 +7203,9 @@
         "On a Form 4 filed Nov 6, Baker Bros. Advisors Lp (Director at Kodiak Sciences Inc.) reported an open-market purchase of $KOD totaling $14.97M.",
         "Baker Bros. Advisors Lp's $KOD purchase was traded Nov 4 and reported on a Form 4 filed Nov 6.",
         "Traded Nov 4, Baker Bros. Advisors Lp's $KOD purchase was reported on a Form 4 filed Nov 6.",
-        "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells."
+        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells."
       ],
       "phrasings": [
         {
@@ -7849,28 +7303,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$482M": "+",
-          "$482.2M": "+",
+          "$483M": "+",
+          "$482.7M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -7930,7 +7384,7 @@
       "report_date": "2026-11-10",
       "hour": "bmo",
       "hour_text": "before the open",
-      "reporters_in_session": 27,
+      "reporters_in_session": 29,
       "market_cap_usd": 67570008064.0,
       "item_ids": [
         "2026-11-09-earnings-upcoming-TDG-fc9dfa",
@@ -8086,9 +7540,9 @@
       "ticker": null,
       "tickers": [
         "CRWV",
-        "ERAS",
         "MRCY",
-        "RGTI"
+        "RGTI",
+        "FLY"
       ],
       "name": null,
       "office": null,
@@ -8106,31 +7560,31 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Reporting earnings on 2026-11-10, after the close (confirmed dates): $CRWV (CoreWeave, Inc.), $ERAS (Erasca, Inc.), $MRCY (Mercury Systems, Inc.), $RGTI (Rigetti Computing, Inc.) and more.",
+      "facts_text": "Reporting earnings on 2026-11-10, after the close (confirmed dates): $CRWV (CoreWeave, Inc.), $MRCY (Mercury Systems, Inc.), $RGTI (Rigetti Computing, Inc.), $FLY (Firefly Aerospace Inc.) and more.",
       "dedupe_key": "roundup:2026-11-10:amc",
       "claim_phrases": [],
       "names": {
         "CRWV": "CoreWeave, Inc.",
-        "ERAS": "Erasca, Inc.",
         "MRCY": "Mercury Systems, Inc.",
-        "RGTI": "Rigetti Computing, Inc."
+        "RGTI": "Rigetti Computing, Inc.",
+        "FLY": "Firefly Aerospace Inc."
       },
       "report_date": "2026-11-10",
       "hour": "amc",
       "hour_text": "after the close",
-      "reporters_in_session": 34,
+      "reporters_in_session": 33,
       "market_cap_usd": 30262810624.0,
       "item_ids": [
         "2026-11-09-earnings-upcoming-CRWV-07b859",
-        "2026-11-09-earnings-upcoming-ERAS-dd756c",
         "2026-11-09-earnings-upcoming-MRCY-6868f7",
-        "2026-11-09-earnings-upcoming-RGTI-7b6666"
+        "2026-11-09-earnings-upcoming-RGTI-7b6666",
+        "2026-11-09-earnings-upcoming-FLY-6efd2e"
       ],
       "media": [
         {
           "url": "https://www.rapidtradeview.trade/earnings/tomorrow/opengraph-image",
           "kind": "image",
-          "alt": "Reporting earnings on 2026-11-10, after the close (confirmed dates): $CRWV (CoreWeave, Inc.), $ERAS (Erasca, Inc.), $MRCY (Mercury Systems, Inc.), $RGTI (Rigetti Computing, Inc.) and more."
+          "alt": "Reporting earnings on 2026-11-10, after the close (confirmed dates): $CRWV (CoreWeave, Inc.), $MRCY (Mercury Systems, Inc.), $RGTI (Rigetti Computing, Inc.), $FLY (Firefly Aerospace Inc.) and more."
         }
       ],
       "rank": 7.5,
@@ -8146,51 +7600,51 @@
       "headline": {
         "tickers": [
           "CRWV",
-          "ERAS",
-          "MRCY"
+          "MRCY",
+          "RGTI"
         ],
         "numbers": []
       },
       "ticker_sectors": {},
       "ticker_names": {},
       "angles": [
-        "$CRWV, $ERAS, $MRCY and $RGTI report earnings on Tuesday, Nov 10, after the close (confirmed dates).",
-        "On Tuesday, Nov 10, after the close: $CRWV, $ERAS, $MRCY and $RGTI report earnings (confirmed dates).",
-        "Reporting earnings on Tuesday, Nov 10, after the close (confirmed dates): $CRWV, $ERAS, $MRCY and $RGTI."
+        "$CRWV, $MRCY, $RGTI and $FLY report earnings on Tuesday, Nov 10, after the close (confirmed dates).",
+        "On Tuesday, Nov 10, after the close: $CRWV, $MRCY, $RGTI and $FLY report earnings (confirmed dates).",
+        "Reporting earnings on Tuesday, Nov 10, after the close (confirmed dates): $CRWV, $MRCY, $RGTI and $FLY."
       ],
       "fact_phrases": [
-        "$CRWV, $ERAS, $MRCY and $RGTI report earnings on Tuesday, Nov 10, after the close (confirmed dates).",
-        "On Tuesday, Nov 10, after the close: $CRWV, $ERAS, $MRCY and $RGTI report earnings (confirmed dates).",
-        "Reporting earnings on Tuesday, Nov 10, after the close (confirmed dates): $CRWV, $ERAS, $MRCY and $RGTI.",
+        "$CRWV, $MRCY, $RGTI and $FLY report earnings on Tuesday, Nov 10, after the close (confirmed dates).",
+        "On Tuesday, Nov 10, after the close: $CRWV, $MRCY, $RGTI and $FLY report earnings (confirmed dates).",
+        "Reporting earnings on Tuesday, Nov 10, after the close (confirmed dates): $CRWV, $MRCY, $RGTI and $FLY.",
         "$CRWV (CoreWeave, Inc.) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
         "$CRWV (CoreWeave, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "$ERAS (Erasca, Inc.) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "$ERAS (Erasca, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
         "$MRCY (Mercury Systems, Inc.) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
         "$MRCY (Mercury Systems, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
         "$RGTI (Rigetti Computing, Inc.) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "$RGTI (Rigetti Computing, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date)."
+        "$RGTI (Rigetti Computing, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
+        "$FLY (Firefly Aerospace Inc.) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
+        "$FLY (Firefly Aerospace Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date)."
       ],
       "phrasings": [
         {
           "id": "earningsto-8fc41c.a",
           "fact": "earningsto-8fc41c",
           "variant": "a",
-          "text": "$CRWV, $ERAS, $MRCY and $RGTI report earnings on Tuesday, Nov 10, after the close (confirmed dates).",
+          "text": "$CRWV, $MRCY, $RGTI and $FLY report earnings on Tuesday, Nov 10, after the close (confirmed dates).",
           "claim": false
         },
         {
           "id": "earningsto-8fc41c.h1",
           "fact": "earningsto-8fc41c",
           "variant": "h1",
-          "text": "On Tuesday, Nov 10, after the close: $CRWV, $ERAS, $MRCY and $RGTI report earnings (confirmed dates).",
+          "text": "On Tuesday, Nov 10, after the close: $CRWV, $MRCY, $RGTI and $FLY report earnings (confirmed dates).",
           "claim": false
         },
         {
           "id": "earningsto-8fc41c.h2",
           "fact": "earningsto-8fc41c",
           "variant": "h2",
-          "text": "Reporting earnings on Tuesday, Nov 10, after the close (confirmed dates): $CRWV, $ERAS, $MRCY and $RGTI.",
+          "text": "Reporting earnings on Tuesday, Nov 10, after the close (confirmed dates): $CRWV, $MRCY, $RGTI and $FLY.",
           "claim": false
         },
         {
@@ -8205,20 +7659,6 @@
           "fact": "earningsto-c03042",
           "variant": "h1",
           "text": "$CRWV (CoreWeave, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.a",
-          "fact": "earningsto-c03042",
-          "variant": "a",
-          "text": "$ERAS (Erasca, Inc.) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.h1",
-          "fact": "earningsto-c03042",
-          "variant": "h1",
-          "text": "$ERAS (Erasca, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
           "claim": false
         },
         {
@@ -8247,6 +7687,20 @@
           "fact": "earningsto-c03042",
           "variant": "h1",
           "text": "$RGTI (Rigetti Computing, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.a",
+          "fact": "earningsto-c03042",
+          "variant": "a",
+          "text": "$FLY (Firefly Aerospace Inc.) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.h1",
+          "fact": "earningsto-c03042",
+          "variant": "h1",
+          "text": "$FLY (Firefly Aerospace Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
           "claim": false
         }
       ],
@@ -8549,6 +8003,543 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "repeat: leads with $NVDA like 2026-11-09-reddit-buzz-NVDA-9d6e44",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-09-earnings-result-CECO-1c885e",
+      "type": "earnings_result",
+      "ticker": "CECO",
+      "tickers": [
+        "CECO"
+      ],
+      "name": "CECO Environmental Corp.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/3197/000119312526452685/ceco-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CECO?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-result-CECO-1c885e#earnings-history",
+      "allowed_numbers": [
+        "$404M",
+        "$400M",
+        "$4.79M",
+        "$0.60",
+        "$0.59",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-09",
+        "Nov 9, 2026",
+        "Nov 9"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "CECO Environmental Corp. (CECO) published Q3 2026 results on 2026-11-09: Beat estimates. Revenue $404M vs $400M consensus (Beat by $4.79M). non-GAAP EPS (diluted) $0.60 vs $0.59 consensus (Beat by $0.01).",
+      "dedupe_key": "report:ceco-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $400M consensus.",
+        "$CECO beat the Q3 2026 revenue consensus: $404M vs $400M.",
+        "$CECO Q3 2026 revenue: $404M vs $400M consensus (beat by $4.79M).",
+        "$CECO Q3 2026 revenue $404M, beat by $4.79M.",
+        "revenue $404M vs $400M consensus (beat by $4.79M).",
+        "revenue $404M vs $400M (beat by $4.79M).",
+        "$CECO beat Q3 2026 revenue estimates by $4.79M.",
+        "$CECO beat the Q3 revenue consensus: $404M vs $400M.",
+        "$CECO Q3 revenue: $404M vs $400M consensus (beat by $4.79M).",
+        "$CECO Q3 revenue $404M, beat by $4.79M.",
+        "$CECO beat Q3 revenue estimates by $4.79M.",
+        "EPS came in above the $0.59 consensus.",
+        "$CECO beat the Q3 2026 EPS consensus: $0.60 vs $0.59.",
+        "$CECO Q3 2026 EPS: $0.60 vs $0.59 consensus (beat by $0.01).",
+        "$CECO Q3 2026 EPS $0.60, beat by $0.01.",
+        "EPS $0.60 vs $0.59 consensus (beat by $0.01).",
+        "EPS $0.60 vs $0.59 (beat by $0.01).",
+        "$CECO beat Q3 2026 EPS estimates by $0.01.",
+        "non-GAAP EPS (diluted) came in above the $0.59 consensus.",
+        "$CECO beat the Q3 2026 non-GAAP EPS (diluted) consensus: $0.60 vs $0.59.",
+        "$CECO Q3 2026 non-GAAP EPS (diluted): $0.60 vs $0.59 consensus (beat by $0.01).",
+        "$CECO Q3 2026 non-GAAP EPS (diluted) $0.60, beat by $0.01.",
+        "non-GAAP EPS (diluted) $0.60 vs $0.59 consensus (beat by $0.01).",
+        "non-GAAP EPS (diluted) $0.60 vs $0.59 (beat by $0.01).",
+        "$CECO beat Q3 2026 non-GAAP EPS (diluted) estimates by $0.01.",
+        "$CECO beat the Q3 EPS consensus: $0.60 vs $0.59.",
+        "$CECO Q3 EPS: $0.60 vs $0.59 consensus (beat by $0.01).",
+        "$CECO Q3 EPS $0.60, beat by $0.01.",
+        "$CECO beat Q3 EPS estimates by $0.01.",
+        "$CECO beat the Q3 non-GAAP EPS (diluted) consensus: $0.60 vs $0.59.",
+        "$CECO Q3 non-GAAP EPS (diluted): $0.60 vs $0.59 consensus (beat by $0.01).",
+        "$CECO Q3 non-GAAP EPS (diluted) $0.60, beat by $0.01.",
+        "$CECO beat Q3 non-GAAP EPS (diluted) estimates by $0.01.",
+        "$CECO beat Q3 2026 estimates.",
+        "$CECO beat Q3 estimates."
+      ],
+      "report_id": "ceco-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-09",
+      "published_at": "2026-11-09T12:56:15.908652+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$404M",
+          "consensus": "$400M",
+          "label": "Beat by $4.79M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "non-GAAP EPS (diluted)",
+          "reported": "$0.60",
+          "consensus": "$0.59",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CECO/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CECO: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-09 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CECO"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "CECO Environmental Corp. ($CECO) published Q3 2026 results on Nov 9.",
+        "$CECO (CECO Environmental Corp.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, CECO Environmental Corp. ($CECO) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "CECO Environmental Corp. ($CECO) published Q3 2026 results on Nov 9.",
+        "$CECO (CECO Environmental Corp.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, CECO Environmental Corp. ($CECO) published Q3 2026 results.",
+        "$CECO published Q3 2026 results on Nov 9.",
+        "Q3 2026 results from $CECO came out on Nov 9.",
+        "On Nov 9, $CECO published Q3 2026 results.",
+        "$CECO Q3 2026 revenue: $404M vs $400M consensus.",
+        "$CECO reported Q3 2026 revenue of $404M vs $400M consensus.",
+        "$CECO Q3 2026 revenue was $404M.",
+        "Q3 2026 revenue at $CECO was $404M.",
+        "$CECO Q3 2026 non-GAAP EPS (diluted): $0.60 vs $0.59 consensus.",
+        "$CECO reported Q3 2026 non-GAAP EPS (diluted) of $0.60 vs $0.59 consensus.",
+        "$CECO Q3 2026 non-GAAP EPS (diluted) was $0.60.",
+        "Q3 2026 non-GAAP EPS (diluted) at $CECO was $0.60."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $400M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$CECO beat the Q3 2026 revenue consensus: $404M vs $400M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$CECO Q3 2026 revenue: $404M vs $400M consensus (beat by $4.79M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$CECO Q3 2026 revenue $404M, beat by $4.79M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $404M vs $400M consensus (beat by $4.79M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $404M vs $400M (beat by $4.79M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$CECO beat Q3 2026 revenue estimates by $4.79M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$CECO beat the Q3 revenue consensus: $404M vs $400M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$CECO Q3 revenue: $404M vs $400M consensus (beat by $4.79M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$CECO Q3 revenue $404M, beat by $4.79M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$CECO beat Q3 revenue estimates by $4.79M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.59 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$CECO beat the Q3 2026 EPS consensus: $0.60 vs $0.59.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$CECO Q3 2026 EPS: $0.60 vs $0.59 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$CECO Q3 2026 EPS $0.60, beat by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.60 vs $0.59 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.60 vs $0.59 (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$CECO beat Q3 2026 EPS estimates by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-357485.a",
+          "fact": "earningsre-357485",
+          "variant": "a",
+          "text": "non-GAAP EPS (diluted) came in above the $0.59 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b19915.a",
+          "fact": "earningsre-b19915",
+          "variant": "a",
+          "text": "$CECO beat the Q3 2026 non-GAAP EPS (diluted) consensus: $0.60 vs $0.59.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b56d2a.a",
+          "fact": "earningsre-b56d2a",
+          "variant": "a",
+          "text": "$CECO Q3 2026 non-GAAP EPS (diluted): $0.60 vs $0.59 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-154e49.a",
+          "fact": "earningsre-154e49",
+          "variant": "a",
+          "text": "$CECO Q3 2026 non-GAAP EPS (diluted) $0.60, beat by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9ffbda.a",
+          "fact": "earningsre-9ffbda",
+          "variant": "a",
+          "text": "non-GAAP EPS (diluted) $0.60 vs $0.59 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-dcb036.a",
+          "fact": "earningsre-dcb036",
+          "variant": "a",
+          "text": "non-GAAP EPS (diluted) $0.60 vs $0.59 (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1b6d67.a",
+          "fact": "earningsre-1b6d67",
+          "variant": "a",
+          "text": "$CECO beat Q3 2026 non-GAAP EPS (diluted) estimates by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$CECO beat the Q3 EPS consensus: $0.60 vs $0.59.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$CECO Q3 EPS: $0.60 vs $0.59 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$CECO Q3 EPS $0.60, beat by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$CECO beat Q3 EPS estimates by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7bcb83.a",
+          "fact": "earningsre-7bcb83",
+          "variant": "a",
+          "text": "$CECO beat the Q3 non-GAAP EPS (diluted) consensus: $0.60 vs $0.59.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b1c150.a",
+          "fact": "earningsre-b1c150",
+          "variant": "a",
+          "text": "$CECO Q3 non-GAAP EPS (diluted): $0.60 vs $0.59 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-64eeea.a",
+          "fact": "earningsre-64eeea",
+          "variant": "a",
+          "text": "$CECO Q3 non-GAAP EPS (diluted) $0.60, beat by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-dace17.a",
+          "fact": "earningsre-dace17",
+          "variant": "a",
+          "text": "$CECO beat Q3 non-GAAP EPS (diluted) estimates by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$CECO beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$CECO beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "CECO Environmental Corp. ($CECO) published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$CECO (CECO Environmental Corp.) reported Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 9, CECO Environmental Corp. ($CECO) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$CECO published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $CECO came out on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 9, $CECO published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$CECO Q3 2026 revenue: $404M vs $400M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$CECO reported Q3 2026 revenue of $404M vs $400M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$CECO Q3 2026 revenue was $404M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $CECO was $404M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1851a9.a",
+          "fact": "earningsre-1851a9",
+          "variant": "a",
+          "text": "$CECO Q3 2026 non-GAAP EPS (diluted): $0.60 vs $0.59 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1851a9.h1",
+          "fact": "earningsre-1851a9",
+          "variant": "h1",
+          "text": "$CECO reported Q3 2026 non-GAAP EPS (diluted) of $0.60 vs $0.59 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-2534d5.a",
+          "fact": "earningsre-2534d5",
+          "variant": "a",
+          "text": "$CECO Q3 2026 non-GAAP EPS (diluted) was $0.60.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-2534d5.h1",
+          "fact": "earningsre-2534d5",
+          "variant": "h1",
+          "text": "Q3 2026 non-GAAP EPS (diluted) at $CECO was $0.60.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CECO": [
+          [
+            "$",
+            404.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            400.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            4.79,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.6,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.59,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.01,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -12820,10 +12811,10 @@
       "in_500": false,
       "context_numbers": [
         "$3.9B",
-        "$482M",
-        "+$482M",
-        "$482.2M",
-        "+$482.2M",
+        "$483M",
+        "+$483M",
+        "$482.7M",
+        "+$482.7M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -12847,10 +12838,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$482M",
-            "+$482M",
-            "$482.2M",
-            "+$482.2M",
+            "$483M",
+            "+$483M",
+            "$482.7M",
+            "+$482.7M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -12866,7 +12857,7 @@
       "context": {
         "market_cap": "$3.9B",
         "insiders_30d": {
-          "bought": "$482M",
+          "bought": "$483M",
           "sold": "$3.2B",
           "days": 30
         }
@@ -12890,9 +12881,9 @@
         "On a Form 4 filed Nov 5, Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.33M.",
         "Damian Miguel Mindlin's $PAM purchase was traded Nov 3 and reported on a Form 4 filed Nov 5.",
         "Traded Nov 3, Damian Miguel Mindlin's $PAM purchase was reported on a Form 4 filed Nov 5.",
-        "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells."
+        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells."
       ],
       "phrasings": [
         {
@@ -12990,28 +12981,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $482M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $482M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $482M of open-market buys and $3.2B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$482M": "+",
-          "$482.2M": "+",
+          "$483M": "+",
+          "$482.7M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -13028,6 +13019,788 @@
           ]
         ]
       },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-09-earnings-result-BCAX-ece820",
+      "type": "earnings_result",
+      "ticker": "BCAX",
+      "tickers": [
+        "BCAX"
+      ],
+      "name": "Bicara Therapeutics Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2023658/000162828026071886/bicara-3q26earningspr.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BCAX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-result-BCAX-ece820#earnings-history",
+      "allowed_numbers": [
+        "−$1.04",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-09",
+        "Nov 9, 2026",
+        "Nov 9"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Bicara Therapeutics Inc. (BCAX) published Q3 2026 results on 2026-11-09: Published. GAAP EPS −$1.04.",
+      "dedupe_key": "report:bcax-2026-q3",
+      "claim_phrases": [],
+      "report_id": "bcax-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-09",
+      "published_at": "2026-11-09T12:54:15.553391+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$1.04"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BCAX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for BCAX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-09 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "BCAX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Bicara Therapeutics Inc. ($BCAX) published Q3 2026 results on Nov 9.",
+        "$BCAX (Bicara Therapeutics Inc.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, Bicara Therapeutics Inc. ($BCAX) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Bicara Therapeutics Inc. ($BCAX) published Q3 2026 results on Nov 9.",
+        "$BCAX (Bicara Therapeutics Inc.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, Bicara Therapeutics Inc. ($BCAX) published Q3 2026 results.",
+        "$BCAX published Q3 2026 results on Nov 9.",
+        "Q3 2026 results from $BCAX came out on Nov 9.",
+        "On Nov 9, $BCAX published Q3 2026 results.",
+        "$BCAX Q3 2026 GAAP EPS: −$1.04.",
+        "$BCAX reported Q3 2026 GAAP EPS of −$1.04.",
+        "$BCAX Q3 2026 GAAP EPS was −$1.04.",
+        "Q3 2026 GAAP EPS at $BCAX was −$1.04."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Bicara Therapeutics Inc. ($BCAX) published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$BCAX (Bicara Therapeutics Inc.) reported Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 9, Bicara Therapeutics Inc. ($BCAX) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$BCAX published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $BCAX came out on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 9, $BCAX published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$BCAX Q3 2026 GAAP EPS: −$1.04.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$BCAX reported Q3 2026 GAAP EPS of −$1.04.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$BCAX Q3 2026 GAAP EPS was −$1.04.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $BCAX was −$1.04.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$1.04": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-09-earnings-result-RDNT-e51fa1",
+      "type": "earnings_result",
+      "ticker": "RDNT",
+      "tickers": [
+        "RDNT"
+      ],
+      "name": "RadNet, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/790526/000168316826008404/radnet_ex9901.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RDNT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-result-RDNT-e51fa1#earnings-history",
+      "allowed_numbers": [
+        "$638M",
+        "$639M",
+        "−$950K",
+        "$0.30",
+        "$0.22",
+        "$0.08",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-08",
+        "Nov 8, 2026",
+        "Nov 8",
+        "2026-11-09",
+        "Nov 9, 2026",
+        "Nov 9"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "RadNet, Inc. (RDNT) published Q3 2026 results on 2026-11-08: Mixed vs estimates. Revenue $638M vs $639M consensus (In line (−$950K)). Adjusted Diluted Earnings Per Share $0.30 vs $0.22 consensus (Beat by $0.08).",
+      "dedupe_key": "report:rdnt-2026-q3",
+      "claim_phrases": [
+        "$RDNT Q3 2026 revenue was in line with the consensus: $638M vs $639M.",
+        "$RDNT Q3 revenue was in line with the consensus: $638M vs $639M.",
+        "EPS came in above the $0.22 consensus.",
+        "$RDNT beat the Q3 2026 EPS consensus: $0.30 vs $0.22.",
+        "$RDNT Q3 2026 EPS: $0.30 vs $0.22 consensus (beat by $0.08).",
+        "$RDNT Q3 2026 EPS $0.30, beat by $0.08.",
+        "EPS $0.30 vs $0.22 consensus (beat by $0.08).",
+        "EPS $0.30 vs $0.22 (beat by $0.08).",
+        "$RDNT beat Q3 2026 EPS estimates by $0.08.",
+        "Adjusted Diluted Earnings Per Share came in above the $0.22 consensus.",
+        "$RDNT beat the Q3 2026 Adjusted Diluted Earnings Per Share consensus: $0.30 vs $0.22.",
+        "$RDNT Q3 2026 Adjusted Diluted Earnings Per Share: $0.30 vs $0.22 consensus (beat by $0.08).",
+        "$RDNT Q3 2026 Adjusted Diluted Earnings Per Share $0.30, beat by $0.08.",
+        "Adjusted Diluted Earnings Per Share $0.30 vs $0.22 consensus (beat by $0.08).",
+        "Adjusted Diluted Earnings Per Share $0.30 vs $0.22 (beat by $0.08).",
+        "$RDNT beat Q3 2026 Adjusted Diluted Earnings Per Share estimates by $0.08.",
+        "$RDNT beat the Q3 EPS consensus: $0.30 vs $0.22.",
+        "$RDNT Q3 EPS: $0.30 vs $0.22 consensus (beat by $0.08).",
+        "$RDNT Q3 EPS $0.30, beat by $0.08.",
+        "$RDNT beat Q3 EPS estimates by $0.08.",
+        "$RDNT beat the Q3 Adjusted Diluted Earnings Per Share consensus: $0.30 vs $0.22.",
+        "$RDNT Q3 Adjusted Diluted Earnings Per Share: $0.30 vs $0.22 consensus (beat by $0.08).",
+        "$RDNT Q3 Adjusted Diluted Earnings Per Share $0.30, beat by $0.08.",
+        "$RDNT beat Q3 Adjusted Diluted Earnings Per Share estimates by $0.08."
+      ],
+      "report_id": "rdnt-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-08",
+      "published_at": "2026-11-09T12:52:16.771476+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$638M",
+          "consensus": "$639M",
+          "label": "In line (−$950K)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "Adjusted Diluted Earnings Per Share",
+          "reported": "$0.30",
+          "consensus": "$0.22",
+          "label": "Beat by $0.08",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/RDNT/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for RDNT: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-08 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "RDNT"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "RadNet, Inc. ($RDNT) published Q3 2026 results on Nov 8.",
+        "$RDNT (RadNet, Inc.) reported Q3 2026 results on Nov 8.",
+        "On Nov 8, RadNet, Inc. ($RDNT) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "RadNet, Inc. ($RDNT) published Q3 2026 results on Nov 8.",
+        "$RDNT (RadNet, Inc.) reported Q3 2026 results on Nov 8.",
+        "On Nov 8, RadNet, Inc. ($RDNT) published Q3 2026 results.",
+        "$RDNT published Q3 2026 results on Nov 8.",
+        "Q3 2026 results from $RDNT came out on Nov 8.",
+        "On Nov 8, $RDNT published Q3 2026 results.",
+        "$RDNT Q3 2026 revenue: $638M vs $639M consensus.",
+        "$RDNT reported Q3 2026 revenue of $638M vs $639M consensus.",
+        "$RDNT Q3 2026 revenue was $638M.",
+        "Q3 2026 revenue at $RDNT was $638M.",
+        "$RDNT Q3 2026 Adjusted Diluted Earnings Per Share: $0.30 vs $0.22 consensus.",
+        "$RDNT reported Q3 2026 Adjusted Diluted Earnings Per Share of $0.30 vs $0.22 consensus.",
+        "$RDNT Q3 2026 Adjusted Diluted Earnings Per Share was $0.30.",
+        "Q3 2026 Adjusted Diluted Earnings Per Share at $RDNT was $0.30."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-0a67cc.a",
+          "fact": "earningsre-0a67cc",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 revenue was in line with the consensus: $638M vs $639M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-5b24bf.a",
+          "fact": "earningsre-5b24bf",
+          "variant": "a",
+          "text": "$RDNT Q3 revenue was in line with the consensus: $638M vs $639M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.22 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$RDNT beat the Q3 2026 EPS consensus: $0.30 vs $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 EPS: $0.30 vs $0.22 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 EPS $0.30, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.30 vs $0.22 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.30 vs $0.22 (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$RDNT beat Q3 2026 EPS estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "Adjusted Diluted Earnings Per Share came in above the $0.22 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$RDNT beat the Q3 2026 Adjusted Diluted Earnings Per Share consensus: $0.30 vs $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 Adjusted Diluted Earnings Per Share: $0.30 vs $0.22 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 Adjusted Diluted Earnings Per Share $0.30, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "Adjusted Diluted Earnings Per Share $0.30 vs $0.22 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "Adjusted Diluted Earnings Per Share $0.30 vs $0.22 (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$RDNT beat Q3 2026 Adjusted Diluted Earnings Per Share estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$RDNT beat the Q3 EPS consensus: $0.30 vs $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$RDNT Q3 EPS: $0.30 vs $0.22 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$RDNT Q3 EPS $0.30, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$RDNT beat Q3 EPS estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$RDNT beat the Q3 Adjusted Diluted Earnings Per Share consensus: $0.30 vs $0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$RDNT Q3 Adjusted Diluted Earnings Per Share: $0.30 vs $0.22 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$RDNT Q3 Adjusted Diluted Earnings Per Share $0.30, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$RDNT beat Q3 Adjusted Diluted Earnings Per Share estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "RadNet, Inc. ($RDNT) published Q3 2026 results on Nov 8.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$RDNT (RadNet, Inc.) reported Q3 2026 results on Nov 8.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 8, RadNet, Inc. ($RDNT) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$RDNT published Q3 2026 results on Nov 8.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $RDNT came out on Nov 8.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 8, $RDNT published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 revenue: $638M vs $639M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$RDNT reported Q3 2026 revenue of $638M vs $639M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 revenue was $638M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $RDNT was $638M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-938394.a",
+          "fact": "earningsre-938394",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 Adjusted Diluted Earnings Per Share: $0.30 vs $0.22 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-938394.h1",
+          "fact": "earningsre-938394",
+          "variant": "h1",
+          "text": "$RDNT reported Q3 2026 Adjusted Diluted Earnings Per Share of $0.30 vs $0.22 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$RDNT Q3 2026 Adjusted Diluted Earnings Per Share was $0.30.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted Diluted Earnings Per Share at $RDNT was $0.30.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$950K": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "RDNT": [
+          [
+            "$",
+            638.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            639.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.3,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.22,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.08,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-09-earnings-result-ANTX-c0e01d",
+      "type": "earnings_result",
+      "ticker": "ANTX",
+      "tickers": [
+        "ANTX"
+      ],
+      "name": "AN2 Therapeutics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1880438/000119312526452660/antx-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ANTX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-result-ANTX-c0e01d#earnings-history",
+      "allowed_numbers": [
+        "−$0.17",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-09",
+        "Nov 9, 2026",
+        "Nov 9",
+        "AN2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "AN2 Therapeutics, Inc. (ANTX) published Q3 2026 results on 2026-11-09: Published. GAAP EPS −$0.17.",
+      "dedupe_key": "report:antx-2026-q3",
+      "claim_phrases": [],
+      "report_id": "antx-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-09",
+      "published_at": "2026-11-09T12:34:15.707787+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.17"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ANTX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for ANTX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-09 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ANTX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "AN2 Therapeutics, Inc. ($ANTX) published Q3 2026 results on Nov 9.",
+        "$ANTX (AN2 Therapeutics, Inc.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, AN2 Therapeutics, Inc. ($ANTX) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "AN2 Therapeutics, Inc. ($ANTX) published Q3 2026 results on Nov 9.",
+        "$ANTX (AN2 Therapeutics, Inc.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, AN2 Therapeutics, Inc. ($ANTX) published Q3 2026 results.",
+        "$ANTX published Q3 2026 results on Nov 9.",
+        "Q3 2026 results from $ANTX came out on Nov 9.",
+        "On Nov 9, $ANTX published Q3 2026 results.",
+        "$ANTX Q3 2026 GAAP EPS: −$0.17.",
+        "$ANTX reported Q3 2026 GAAP EPS of −$0.17.",
+        "$ANTX Q3 2026 GAAP EPS was −$0.17.",
+        "Q3 2026 GAAP EPS at $ANTX was −$0.17."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-f528a1.a",
+          "fact": "earningsre-f528a1",
+          "variant": "a",
+          "text": "AN2 Therapeutics, Inc. ($ANTX) published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f528a1.h1",
+          "fact": "earningsre-f528a1",
+          "variant": "h1",
+          "text": "$ANTX (AN2 Therapeutics, Inc.) reported Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f528a1.t",
+          "fact": "earningsre-f528a1",
+          "variant": "t",
+          "text": "On Nov 9, AN2 Therapeutics, Inc. ($ANTX) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$ANTX published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $ANTX came out on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 9, $ANTX published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$ANTX Q3 2026 GAAP EPS: −$0.17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$ANTX reported Q3 2026 GAAP EPS of −$0.17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$ANTX Q3 2026 GAAP EPS was −$0.17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $ANTX was −$0.17.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.17": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
@@ -19074,146 +19847,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-09-earnings-upcoming-ERAS-dd756c",
-      "type": "earnings_upcoming",
-      "ticker": "ERAS",
-      "tickers": [
-        "ERAS"
-      ],
-      "name": "Erasca, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ERAS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-upcoming-ERAS-dd756c#earnings-history",
-      "allowed_numbers": [
-        "2026-11-10",
-        "Nov 10, 2026",
-        "Nov 10",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Erasca, Inc. (ERAS) reports earnings on 2026-11-10, after the close (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:ERAS:2026-11-10",
-      "claim_phrases": [],
-      "report_date": "2026-11-10",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "market_cap_usd": 5019085312.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/ERAS/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for ERAS: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 4.0,
-      "rank_why": "earnings_upcoming 1; mid cap $5.02B +1; today 2026-11-09 (age 0) +2",
-      "pillar": "P5",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$5.0B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ERAS"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$5.0B"
-      },
-      "angles": [
-        "Erasca, Inc. ($ERAS) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "$ERAS (Erasca, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "On Tuesday, Nov 10, after the close, Erasca, Inc. ($ERAS) reports earnings (confirmed date)."
-      ],
-      "fact_phrases": [
-        "Erasca, Inc. ($ERAS) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "$ERAS (Erasca, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "On Tuesday, Nov 10, after the close, Erasca, Inc. ($ERAS) reports earnings (confirmed date).",
-        "$ERAS reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "$ERAS is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
-        "On Tuesday, Nov 10, after the close, $ERAS reports earnings (confirmed date)."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsup-fa7b42.a",
-          "fact": "earningsup-fa7b42",
-          "variant": "a",
-          "text": "Erasca, Inc. ($ERAS) reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-fa7b42.h1",
-          "fact": "earningsup-fa7b42",
-          "variant": "h1",
-          "text": "$ERAS (Erasca, Inc.) is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-fa7b42.h2",
-          "fact": "earningsup-fa7b42",
-          "variant": "h2",
-          "text": "On Tuesday, Nov 10, after the close, Erasca, Inc. ($ERAS) reports earnings (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-296a88.a",
-          "fact": "earningsup-296a88",
-          "variant": "a",
-          "text": "$ERAS reports earnings on Tuesday, Nov 10, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-296a88.h1",
-          "fact": "earningsup-296a88",
-          "variant": "h1",
-          "text": "$ERAS is scheduled to report earnings on Tuesday, Nov 10, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-296a88.h2",
-          "fact": "earningsup-296a88",
-          "variant": "h2",
-          "text": "On Tuesday, Nov 10, after the close, $ERAS reports earnings (confirmed date).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "ERAS": [
-          [
-            "$",
-            5.0,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-09-earnings-upcoming-MRCY-6868f7",
       "type": "earnings_upcoming",
       "ticker": "MRCY",
@@ -21208,6 +21841,146 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-09-earnings-upcoming-SGRY-24ed17",
+      "type": "earnings_upcoming",
+      "ticker": "SGRY",
+      "tickers": [
+        "SGRY"
+      ],
+      "name": "Surgery Partners, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SGRY?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-upcoming-SGRY-24ed17#earnings-history",
+      "allowed_numbers": [
+        "2026-11-10",
+        "Nov 10, 2026",
+        "Nov 10",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Surgery Partners, Inc. (SGRY) reports earnings on 2026-11-10, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:SGRY:2026-11-10",
+      "claim_phrases": [],
+      "report_date": "2026-11-10",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 1747758720.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SGRY/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SGRY: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 3.0,
+      "rank_why": "earnings_upcoming 1; small cap $1.75B +0; today 2026-11-09 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "small",
+      "in_500": false,
+      "context_numbers": [
+        "$1.7B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SGRY"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$1.7B"
+      },
+      "angles": [
+        "Surgery Partners, Inc. ($SGRY) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$SGRY (Surgery Partners, Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, Surgery Partners, Inc. ($SGRY) reports earnings (confirmed date)."
+      ],
+      "fact_phrases": [
+        "Surgery Partners, Inc. ($SGRY) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$SGRY (Surgery Partners, Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, Surgery Partners, Inc. ($SGRY) reports earnings (confirmed date).",
+        "$SGRY reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$SGRY is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, $SGRY reports earnings (confirmed date)."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsup-ff1625.a",
+          "fact": "earningsup-ff1625",
+          "variant": "a",
+          "text": "Surgery Partners, Inc. ($SGRY) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-ff1625.h1",
+          "fact": "earningsup-ff1625",
+          "variant": "h1",
+          "text": "$SGRY (Surgery Partners, Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-ff1625.h2",
+          "fact": "earningsup-ff1625",
+          "variant": "h2",
+          "text": "On Tuesday, Nov 10, before the open, Surgery Partners, Inc. ($SGRY) reports earnings (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.a",
+          "fact": "earningsup-9304b6",
+          "variant": "a",
+          "text": "$SGRY reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.h1",
+          "fact": "earningsup-9304b6",
+          "variant": "h1",
+          "text": "$SGRY is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.h2",
+          "fact": "earningsup-9304b6",
+          "variant": "h2",
+          "text": "On Tuesday, Nov 10, before the open, $SGRY reports earnings (confirmed date).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "SGRY": [
+          [
+            "$",
+            1.7,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-09-earnings-upcoming-SBH-85cd4a",
       "type": "earnings_upcoming",
       "ticker": "SBH",
@@ -21908,6 +22681,146 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-09-earnings-upcoming-GDRX-a0a432",
+      "type": "earnings_upcoming",
+      "ticker": "GDRX",
+      "tickers": [
+        "GDRX"
+      ],
+      "name": "GoodRx Holdings, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/GDRX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-upcoming-GDRX-a0a432#earnings-history",
+      "allowed_numbers": [
+        "2026-11-10",
+        "Nov 10, 2026",
+        "Nov 10",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "GoodRx Holdings, Inc. (GDRX) reports earnings on 2026-11-10, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:GDRX:2026-11-10",
+      "claim_phrases": [],
+      "report_date": "2026-11-10",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 1190597376.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/GDRX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for GDRX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 3.0,
+      "rank_why": "earnings_upcoming 1; small cap $1.19B +0; today 2026-11-09 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "small",
+      "in_500": false,
+      "context_numbers": [
+        "$1.2B"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "GDRX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$1.2B"
+      },
+      "angles": [
+        "GoodRx Holdings, Inc. ($GDRX) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$GDRX (GoodRx Holdings, Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, GoodRx Holdings, Inc. ($GDRX) reports earnings (confirmed date)."
+      ],
+      "fact_phrases": [
+        "GoodRx Holdings, Inc. ($GDRX) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$GDRX (GoodRx Holdings, Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, GoodRx Holdings, Inc. ($GDRX) reports earnings (confirmed date).",
+        "$GDRX reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$GDRX is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, $GDRX reports earnings (confirmed date)."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsup-ff1625.a",
+          "fact": "earningsup-ff1625",
+          "variant": "a",
+          "text": "GoodRx Holdings, Inc. ($GDRX) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-ff1625.h1",
+          "fact": "earningsup-ff1625",
+          "variant": "h1",
+          "text": "$GDRX (GoodRx Holdings, Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-ff1625.h2",
+          "fact": "earningsup-ff1625",
+          "variant": "h2",
+          "text": "On Tuesday, Nov 10, before the open, GoodRx Holdings, Inc. ($GDRX) reports earnings (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.a",
+          "fact": "earningsup-9304b6",
+          "variant": "a",
+          "text": "$GDRX reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.h1",
+          "fact": "earningsup-9304b6",
+          "variant": "h1",
+          "text": "$GDRX is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.h2",
+          "fact": "earningsup-9304b6",
+          "variant": "h2",
+          "text": "On Tuesday, Nov 10, before the open, $GDRX reports earnings (confirmed date).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "GDRX": [
+          [
+            "$",
+            1.2,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-09-earnings-upcoming-KURA-adf975",
       "type": "earnings_upcoming",
       "ticker": "KURA",
@@ -22036,146 +22949,6 @@
           [
             "$",
             1.2,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-09-earnings-upcoming-RSKD-dc94b6",
-      "type": "earnings_upcoming",
-      "ticker": "RSKD",
-      "tickers": [
-        "RSKD"
-      ],
-      "name": "Riskified Ltd.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RSKD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-upcoming-RSKD-dc94b6#earnings-history",
-      "allowed_numbers": [
-        "2026-11-10",
-        "Nov 10, 2026",
-        "Nov 10",
-        "Q3",
-        "Q3 2026",
-        "FY2026"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Riskified Ltd. (RSKD) reports earnings on 2026-11-10, before the open (confirmed date; source: calendar).",
-      "dedupe_key": "upcoming:RSKD:2026-11-10",
-      "claim_phrases": [],
-      "report_date": "2026-11-10",
-      "hour": "bmo",
-      "hour_text": "before the open",
-      "market_cap_usd": 1131563392.0,
-      "date_confirmed_source": "calendar",
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/RSKD/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for RSKD: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 3.0,
-      "rank_why": "earnings_upcoming 1; small cap $1.13B +0; today 2026-11-09 (age 0) +2",
-      "pillar": "P5",
-      "cap_tier": "small",
-      "in_500": false,
-      "context_numbers": [
-        "$1.1B"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "RSKD"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "context": {
-        "market_cap": "$1.1B"
-      },
-      "angles": [
-        "Riskified Ltd. ($RSKD) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
-        "$RSKD (Riskified Ltd.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
-        "On Tuesday, Nov 10, before the open, Riskified Ltd. ($RSKD) reports earnings (confirmed date)."
-      ],
-      "fact_phrases": [
-        "Riskified Ltd. ($RSKD) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
-        "$RSKD (Riskified Ltd.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
-        "On Tuesday, Nov 10, before the open, Riskified Ltd. ($RSKD) reports earnings (confirmed date).",
-        "$RSKD reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
-        "$RSKD is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
-        "On Tuesday, Nov 10, before the open, $RSKD reports earnings (confirmed date)."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsup-ff1625.a",
-          "fact": "earningsup-ff1625",
-          "variant": "a",
-          "text": "Riskified Ltd. ($RSKD) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-ff1625.h1",
-          "fact": "earningsup-ff1625",
-          "variant": "h1",
-          "text": "$RSKD (Riskified Ltd.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-ff1625.h2",
-          "fact": "earningsup-ff1625",
-          "variant": "h2",
-          "text": "On Tuesday, Nov 10, before the open, Riskified Ltd. ($RSKD) reports earnings (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-9304b6.a",
-          "fact": "earningsup-9304b6",
-          "variant": "a",
-          "text": "$RSKD reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-9304b6.h1",
-          "fact": "earningsup-9304b6",
-          "variant": "h1",
-          "text": "$RSKD is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsup-9304b6.h2",
-          "fact": "earningsup-9304b6",
-          "variant": "h2",
-          "text": "On Tuesday, Nov 10, before the open, $RSKD reports earnings (confirmed date).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "RSKD": [
-          [
-            "$",
-            1.1,
             1,
             1000000000.0,
             0
@@ -25958,6 +26731,146 @@
           [
             "$",
             125.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-09-earnings-upcoming-FHTX-727546",
+      "type": "earnings_upcoming",
+      "ticker": "FHTX",
+      "tickers": [
+        "FHTX"
+      ],
+      "name": "Foghorn Therapeutics Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/FHTX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-upcoming-FHTX-727546#earnings-history",
+      "allowed_numbers": [
+        "2026-11-10",
+        "Nov 10, 2026",
+        "Nov 10",
+        "Q3",
+        "Q3 2026",
+        "FY2026"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Foghorn Therapeutics Inc. (FHTX) reports earnings on 2026-11-10, before the open (confirmed date; source: calendar).",
+      "dedupe_key": "upcoming:FHTX:2026-11-10",
+      "claim_phrases": [],
+      "report_date": "2026-11-10",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "market_cap_usd": 111050544.0,
+      "date_confirmed_source": "calendar",
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/FHTX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for FHTX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 1.0,
+      "rank_why": "earnings_upcoming 1; micro cap $111.05M -2; today 2026-11-09 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "micro",
+      "in_500": false,
+      "context_numbers": [
+        "$111M"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "FHTX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "market_cap": "$111M"
+      },
+      "angles": [
+        "Foghorn Therapeutics Inc. ($FHTX) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$FHTX (Foghorn Therapeutics Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, Foghorn Therapeutics Inc. ($FHTX) reports earnings (confirmed date)."
+      ],
+      "fact_phrases": [
+        "Foghorn Therapeutics Inc. ($FHTX) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$FHTX (Foghorn Therapeutics Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, Foghorn Therapeutics Inc. ($FHTX) reports earnings (confirmed date).",
+        "$FHTX reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "$FHTX is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+        "On Tuesday, Nov 10, before the open, $FHTX reports earnings (confirmed date)."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsup-ff1625.a",
+          "fact": "earningsup-ff1625",
+          "variant": "a",
+          "text": "Foghorn Therapeutics Inc. ($FHTX) reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-ff1625.h1",
+          "fact": "earningsup-ff1625",
+          "variant": "h1",
+          "text": "$FHTX (Foghorn Therapeutics Inc.) is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-ff1625.h2",
+          "fact": "earningsup-ff1625",
+          "variant": "h2",
+          "text": "On Tuesday, Nov 10, before the open, Foghorn Therapeutics Inc. ($FHTX) reports earnings (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.a",
+          "fact": "earningsup-9304b6",
+          "variant": "a",
+          "text": "$FHTX reports earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.h1",
+          "fact": "earningsup-9304b6",
+          "variant": "h1",
+          "text": "$FHTX is scheduled to report earnings on Tuesday, Nov 10, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsup-9304b6.h2",
+          "fact": "earningsup-9304b6",
+          "variant": "h2",
+          "text": "On Tuesday, Nov 10, before the open, $FHTX reports earnings (confirmed date).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "FHTX": [
+          [
+            "$",
+            111.0,
             0,
             1000000.0,
             0
