@@ -470,3 +470,15 @@ def test_a_single_filing_outside_the_500_is_never_the_reel():
     """Grok PROMPT v1 P3: a Form 4 / congress single posts only for an in_500 lead (2026-11-08: the MDGL Reel went unused)."""
     assert cr.eligible(F4) and not cr.eligible(dict(F4, in_500=False)) and not cr.eligible(dict(CONG_NEW, in_500=None))
     assert cr.eligible(dict(PAT, in_500=False))                      # a chart pattern is not a filing
+
+
+def test_a_live_extra_reel_is_reattached_on_every_build(env, tmp_path):
+    """2026-11-09: a cartoon-story Reel added by hand to the day's state must survive the 30-minute facts rebuilds."""
+    url = cr.reel_url(DATE, CONG_NEW["item_id"]).replace("reel_9x16", "cartoon_9x16")
+    env.work.mkdir(parents=True, exist_ok=True)
+    (env.work / cr.STATE).write_text(json.dumps({"schema": cr.SCHEMA, "date": DATE, "reels": [], "extra": [
+        {"item_id": CONG_NEW["item_id"], "url": url, "alt": "a cartoon", "status": "live"},
+        {"item_id": F4["item_id"], "url": url + "x", "alt": "not live", "status": "staged"}]}), encoding="utf-8")
+    f = facts_file(tmp_path, [CONG_NEW, F4])
+    prepare(env, f, now="2026-10-12T09:00:00Z")                     # before the render window: extras still attach
+    assert url in media_urls(f, CONG_NEW["item_id"]) and url + "x" not in media_urls(f, F4["item_id"])

@@ -416,6 +416,9 @@ def cmd_prepare(a: argparse.Namespace) -> int:
     facts = load(Path(a.facts))
     items = [i for i in facts.get("items") or [] if isinstance(i, dict)]
     push = False
+    for extra in state.get("extra") or []:          # hand-made reels of the day (e.g. a cartoon-story Reel), live on Pages:
+        if extra.get("status") == "live":             # re-attached on every later facts build, like the slots' reels
+            print(f"card reel: extra: {attach(Path(a.facts), extra)}")
     for n in range(1, REELS_PER_DAY + 1):
         if len(state["reels"]) < n - 1:
             break                                   # slot n is chosen after slot n-1 (its item and ticker are left out)
