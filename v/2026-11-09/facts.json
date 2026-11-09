@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-09",
-  "generated_at": "2026-11-09T15:30:03Z",
-  "as_of": "2026-11-09T15:30:03Z",
+  "generated_at": "2026-11-09T16:00:03Z",
+  "as_of": "2026-11-09T16:00:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -886,7 +886,7 @@
     "market_move": 0,
     "mega_mover": 2,
     "congress_flow": 1,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -984,7 +984,7 @@
     "market": {
       "market_session": "2026-11-06",
       "priced_cap_share": 0.9987592342655657,
-      "flows_as_of": "2026-11-09T15:31:08.222450+00:00"
+      "flows_as_of": "2026-11-09T16:01:05.608166+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1006,15 +1006,17 @@
       }
     },
     "card_unpinned": {
-      "dropped": 1,
+      "dropped": 2,
       "reasons": [
-        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T15:18:01.426502+00:00 (X-Card-Date), the item 2026-11-06)"
+        "insider_flow AXP: share card not pinned (the PNG is the same image as v/2026-11-09/cards/market-insiders-2026-11-09-0fc512dc.png (old data))",
+        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T15:47:06.770701+00:00 (X-Card-Date), the item 2026-11-06)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T15:18:01.426502+00:00 (X-Card-Date), the item 2026-11-06)"
+    "not published: insider_flow AXP: share card not pinned (the PNG is the same image as v/2026-11-09/cards/market-insiders-2026-11-09-0fc512dc.png (old data))",
+    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T15:47:06.770701+00:00 (X-Card-Date), the item 2026-11-06)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1027,11 +1029,11 @@
   "market_state": {
     "session_date": "2026-11-06",
     "congress_top5": [
+      "STLN",
       "NVDA",
       "MU",
       "LMT",
-      "PG",
-      "ABT"
+      "MSFT"
     ],
     "insider_sell_top5": [
       "AXP",
@@ -1495,556 +1497,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-09-insider-flow-AXP-aa5a75",
-      "type": "insider_flow",
-      "ticker": "AXP",
-      "tickers": [
-        "AXP",
-        "SNOW",
-        "RCL"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/AXP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-insider-flow-AXP-aa5a75",
-      "allowed_numbers": [
-        "$483M",
-        "+$483M",
-        "$482.8M",
-        "+$482.8M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30",
-        "233",
-        "509",
-        "500",
-        "2026-10-10",
-        "Oct 10, 2026",
-        "Oct 10",
-        "2026-11-09",
-        "Nov 9, 2026",
-        "Nov 9",
-        "$137M",
-        "+$137M",
-        "$137.1M",
-        "+$137.1M",
-        "$129M",
-        "+$129M",
-        "$128.7M",
-        "+$128.7M",
-        "$82.9M",
-        "+$82.9M",
-        "$83M",
-        "+$83M",
-        "3",
-        "6.6",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 233 companies with buys, 509 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders).",
-      "dedupe_key": "insider_flow:2026-11-09:AXP",
-      "claim_phrases": [
-        "$AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M).",
-        "Over 30 days in our feed, $AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($137M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M): $AXP.",
-        "$SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M).",
-        "Over 30 days in our feed, $SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($129M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M): $SNOW.",
-        "$RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M).",
-        "Over 30 days in our feed, $RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($82.9M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M): $RCL.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M).",
-        "$AXP ($137M) and $SNOW ($129M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-        "$AXP ($137M), $SNOW ($129M) and $RCL ($82.9M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $6.6.",
-        "Officers and directors sold $6.6 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $6.6 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "AXP",
-            "SNOW",
-            "RCL"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $AXP, $SNOW, $RCL"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$483M",
-            "+$483M",
-            "$482.8M",
-            "+$482.8M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($483M bought, $3.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "AXP",
-          "SNOW",
-          "RCL"
-        ],
-        "numbers": [
-          "$3.2B",
-          "$483M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-10",
-        "to": "2026-11-09",
-        "days": 30
-      },
-      "bought_usd": 482845523.46,
-      "sold_usd": 3179290844.9,
-      "buy_companies": 233,
-      "sell_companies": 509,
-      "top_sellers_500": [
-        {
-          "ticker": "AXP",
-          "name": "American Express Company",
-          "sector": "Financial Services",
-          "total_usd": 137069235.8,
-          "insider_count": 3,
-          "roles": {
-            "officer": 3,
-            "director": 0
-          },
-          "row_count": 8,
-          "first_trade": "2026-11-02",
-          "last_trade": "2026-11-04"
-        },
-        {
-          "ticker": "SNOW",
-          "name": "Snowflake Inc.",
-          "sector": "Technology",
-          "total_usd": 128694776.01,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 13,
-          "first_trade": "2026-10-19",
-          "last_trade": "2026-11-04"
-        },
-        {
-          "ticker": "RCL",
-          "name": "Royal Caribbean Cruises Ltd.",
-          "sector": "Consumer Cyclical",
-          "total_usd": 82876726.83,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 27,
-          "first_trade": "2026-10-28",
-          "last_trade": "2026-11-05"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys."
-      ],
-      "market_cap_usd": 217909271436.99582,
-      "magnitude": 2.253495389178257,
-      "trigger": "weekly (Monday facts)",
-      "top5": [
-        "AXP",
-        "SNOW",
-        "RCL",
-        "TRV",
-        "DELL"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-0fc512dc.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-09",
-        "fingerprint": "0fc512dc",
-        "file": "market-insiders-2026-11-09-0fc512dc.png",
-        "sha256": "f9bac462deb60b5aa008eac4f9700078d5e5461aac87f6854eae56c9d7d3fa36"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-0fc512dc.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 233 companies with buys, 509 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "ticker_sectors": {
-        "AXP": "Financial Services",
-        "SNOW": "Technology",
-        "RCL": "Consumer Cyclical"
-      },
-      "ticker_names": {
-        "AXP": "American Express Company",
-        "SNOW": "Snowflake Inc.",
-        "RCL": "Royal Caribbean Cruises Ltd."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
-        "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 233 companies had open-market buys by officers and directors and 509 had open-market sells.",
-        "509 companies had open-market sells by officers and directors and 233 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $AXP sold $137M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $AXP sold $137M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $AXP sold $137M on the open market (3 insiders).",
-        "Officers and directors of $SNOW sold $129M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $SNOW sold $129M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SNOW sold $129M on the open market (3 insiders).",
-        "Officers and directors of $RCL sold $82.9M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $RCL sold $82.9M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $RCL sold $82.9M on the open market (3 insiders)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($137M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M): $AXP.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M): $SNOW.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M): $RCL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$AXP ($137M) and $SNOW ($129M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$AXP ($137M), $SNOW ($129M) and $RCL ($82.9M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $6.6.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $6.6 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $6.6 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 233 companies had open-market buys by officers and directors and 509 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "509 companies had open-market sells by officers and directors and 233 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $AXP sold $137M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $AXP sold $137M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $AXP sold $137M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $SNOW sold $129M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $SNOW sold $129M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SNOW sold $129M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $RCL sold $82.9M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $RCL sold $82.9M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $RCL sold $82.9M on the open market (3 insiders).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$483M": "+",
-          "$482.8M": "+",
-          "$3.2B": "+",
-          "$3B": "+",
-          "$137M": "+",
-          "$137.1M": "+",
-          "$129M": "+",
-          "$128.7M": "+",
-          "$82.9M": "+",
-          "$83M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "AXP": [
-          [
-            "$",
-            137.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            6.6,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "SNOW": [
-          [
-            "$",
-            129.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "RCL": [
-          [
-            "$",
-            82.9,
-            1,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 12.25,
-      "rank_why": "insider_flow 4; mega cap $217.91B +4; magnitude (market) +2.25; today 2026-11-09 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-09-form4-buy-KMI-eaefd0",
       "type": "form4_buy",
       "ticker": "KMI",
@@ -2108,8 +1560,8 @@
         "0.8%",
         "$483M",
         "+$483M",
-        "$482.8M",
-        "+$482.8M",
+        "$483.2M",
+        "+$483.2M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -2137,8 +1589,8 @@
           "numbers": [
             "$483M",
             "+$483M",
-            "$482.8M",
-            "+$482.8M",
+            "$483.2M",
+            "+$483.2M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -2354,7 +1806,7 @@
           "0.76%": "-",
           "0.8%": "-",
           "$483M": "+",
-          "$482.8M": "+",
+          "$483.2M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -3236,8 +2688,8 @@
         "$11.9B",
         "$483M",
         "+$483M",
-        "$482.8M",
-        "+$482.8M",
+        "$483.2M",
+        "+$483.2M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -3263,8 +2715,8 @@
           "numbers": [
             "$483M",
             "+$483M",
-            "$482.8M",
-            "+$482.8M",
+            "$483.2M",
+            "+$483.2M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -3425,7 +2877,7 @@
       "moves": {
         "numbers": {
           "$483M": "+",
-          "$482.8M": "+",
+          "$483.2M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -7508,9 +6960,9 @@
         "5",
         "3",
         "76",
-        "109",
-        "131",
-        "20",
+        "128",
+        "135",
+        "24",
         "30",
         "2",
         "1",
@@ -7524,12 +6976,12 @@
         "2026-11-05",
         "Nov 5, 2026",
         "Nov 5",
-        "1.4"
+        "1.7"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "$NVDA (NVIDIA Corporation) was the most-traded 500-largest stock in Congress over 30 days (Oct 10 to Nov 5, by disclosure): 8 trades by 4 members, 5 buys and 3 sells. All members: 76 buys, 109 sells in 131 tickers by 20 members. Also busy: $MU 5 trades, $LMT 4 trades.",
+      "facts_text": "$NVDA (NVIDIA Corporation) was the most-traded 500-largest stock in Congress over 30 days (Oct 10 to Nov 5, by disclosure): 8 trades by 4 members, 5 buys and 3 sells. All members: 76 buys, 128 sells in 135 tickers by 24 members. Also busy: $MU 5 trades, $LMT 4 trades.",
       "dedupe_key": "congress_flow:2026-11-05:NVDA",
       "claim_phrases": [
         "$NVDA was the most-traded of the 500 largest US-listed stocks in Congress over 30 days (8 trades).",
@@ -7544,9 +6996,9 @@
       },
       "totals": {
         "buys": 76,
-        "sells": 109,
-        "members": 20,
-        "tickers": 131
+        "sells": 128,
+        "members": 24,
+        "tickers": 135
       },
       "leader": {
         "ticker": "NVDA",
@@ -7579,7 +7031,7 @@
       ],
       "angles": [
         "$NVDA was the most-traded of the 500 largest US-listed stocks in Congress over 30 days (8 trades).",
-        "Congress disclosed 109 sells and 76 buys over 30 days.",
+        "Congress disclosed 128 sells and 76 buys over 30 days.",
         "Members of Congress disclosed 8 trades in $NVDA over 30 days: 5 buys and 3 sells by 4 members."
       ],
       "claims": [
@@ -7617,29 +7069,29 @@
       "magnitude": 2.0,
       "trigger": "weekly (Monday facts)",
       "top5": [
+        "STLN",
         "NVDA",
         "MU",
         "LMT",
-        "PG",
-        "ABT"
+        "MSFT"
       ],
       "context_tickers": [],
       "context_numbers": [],
       "banned_words": [],
       "card": {
         "panel": "congress",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-07/cards/market-congress-2026-11-05-bb630b66.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-congress-2026-11-05-5216dc23.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/congress",
         "date": "2026-11-05",
-        "fingerprint": "bb630b66",
-        "file": "market-congress-2026-11-05-bb630b66.png",
-        "sha256": "16e9f417ffb01db07398f378cd44b2a7ce8aa0def910c75b0616b7137ca7aeac"
+        "fingerprint": "5216dc23",
+        "file": "market-congress-2026-11-05-5216dc23.png",
+        "sha256": "d2ea0b1bbf524d32fa4284ec128e2ff72fd88299c0869a42eb4eeb64ad9b13b5"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-07/cards/market-congress-2026-11-05-bb630b66.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-congress-2026-11-05-5216dc23.png",
           "kind": "image",
-          "alt": "$NVDA (NVIDIA Corporation) was the most-traded 500-largest stock in Congress over 30 days (Oct 10 to Nov 5, by disclosure): 8 trades by 4 members, 5 buys and 3 sells. All members: 76 buys, 109 sells in 131 tickers by 20 members. Also busy: $MU 5 trades, $LMT 4 trades."
+          "alt": "$NVDA (NVIDIA Corporation) was the most-traded 500-largest stock in Congress over 30 days (Oct 10 to Nov 5, by disclosure): 8 trades by 4 members, 5 buys and 3 sells. All members: 76 buys, 128 sells in 135 tickers by 24 members. Also busy: $MU 5 trades, $LMT 4 trades."
         }
       ],
       "market_cap_source": "market_map",
@@ -7661,10 +7113,10 @@
         "Over 30 days, $NVDA drew 8 trades from 4 members of Congress: 5 buys and 3 sells.",
         "4 members of Congress disclosed trades in $NVDA over 30 days.",
         "Over 30 days, 4 members of Congress disclosed trades in $NVDA.",
-        "Members of Congress disclosed 76 buys and 109 sells over 30 days, in 131 tickers.",
-        "Over 30 days, members of Congress disclosed 76 buys and 109 sells in 131 tickers.",
-        "Congress disclosed 109 sells and 76 buys over 30 days.",
-        "Over 30 days, Congress disclosed 109 sells and 76 buys.",
+        "Members of Congress disclosed 76 buys and 128 sells over 30 days, in 135 tickers.",
+        "Over 30 days, members of Congress disclosed 76 buys and 128 sells in 135 tickers.",
+        "Congress disclosed 128 sells and 76 buys over 30 days.",
+        "Over 30 days, Congress disclosed 128 sells and 76 buys.",
         "Members of Congress disclosed 5 trades in $MU over 30 days.",
         "Over 30 days, members of Congress disclosed 5 trades in $MU.",
         "Members of Congress disclosed 4 trades in $LMT over 30 days.",
@@ -7731,28 +7183,28 @@
           "id": "congressfl-c951da.a",
           "fact": "congressfl-c951da",
           "variant": "a",
-          "text": "Members of Congress disclosed 76 buys and 109 sells over 30 days, in 131 tickers.",
+          "text": "Members of Congress disclosed 76 buys and 128 sells over 30 days, in 135 tickers.",
           "claim": false
         },
         {
           "id": "congressfl-c951da.h1",
           "fact": "congressfl-c951da",
           "variant": "h1",
-          "text": "Over 30 days, members of Congress disclosed 76 buys and 109 sells in 131 tickers.",
+          "text": "Over 30 days, members of Congress disclosed 76 buys and 128 sells in 135 tickers.",
           "claim": false
         },
         {
           "id": "congressfl-93e602.a",
           "fact": "congressfl-93e602",
           "variant": "a",
-          "text": "Congress disclosed 109 sells and 76 buys over 30 days.",
+          "text": "Congress disclosed 128 sells and 76 buys over 30 days.",
           "claim": false
         },
         {
           "id": "congressfl-93e602.t",
           "fact": "congressfl-93e602",
           "variant": "t",
-          "text": "Over 30 days, Congress disclosed 109 sells and 76 buys.",
+          "text": "Over 30 days, Congress disclosed 128 sells and 76 buys.",
           "claim": false
         },
         {
@@ -11555,8 +11007,8 @@
         "−1.0%",
         "1.0%",
         "76",
-        "109",
-        "20",
+        "128",
+        "24",
         "30",
         "4",
         "3",
@@ -11587,8 +11039,8 @@
         },
         "congress_30d": {
           "buys": 76,
-          "sells": 109,
-          "members": 20,
+          "sells": 128,
+          "members": 24,
           "days": 30
         },
         "ticker_congress_30d": {
@@ -11616,9 +11068,9 @@
         "$PG moved −1.02% on Friday, Nov 6.",
         "$PG's move on Friday, Nov 6: −1.02%.",
         "On Friday, Nov 6, $PG moved −1.02%.",
-        "Members of Congress disclosed 76 buys and 109 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 109 sells and 76 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 76 buys and 109 sells.",
+        "Members of Congress disclosed 76 buys and 128 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 128 sells and 76 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 76 buys and 128 sells.",
         "Members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells by 3 members.",
         "3 members of Congress disclosed 4 trades in $PG over 30 days in our feed: 2 buys and 2 sells."
       ],
@@ -11711,21 +11163,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 76 buys and 109 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 76 buys and 128 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 109 sells and 76 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 128 sells and 76 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 76 buys and 109 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 76 buys and 128 sells.",
           "claim": false
         },
         {
@@ -11833,8 +11285,8 @@
         "$2.1B",
         "$483M",
         "+$483M",
-        "$482.8M",
-        "+$482.8M",
+        "$483.2M",
+        "+$483.2M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -11860,8 +11312,8 @@
           "numbers": [
             "$483M",
             "+$483M",
-            "$482.8M",
-            "+$482.8M",
+            "$483.2M",
+            "+$483.2M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -12022,7 +11474,7 @@
       "moves": {
         "numbers": {
           "$483M": "+",
-          "$482.8M": "+",
+          "$483.2M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -12420,8 +11872,8 @@
         "$6.2B",
         "$483M",
         "+$483M",
-        "$482.8M",
-        "+$482.8M",
+        "$483.2M",
+        "+$483.2M",
         "$3.2B",
         "+$3.2B",
         "$3B",
@@ -12447,8 +11899,8 @@
           "numbers": [
             "$483M",
             "+$483M",
-            "$482.8M",
-            "+$482.8M",
+            "$483.2M",
+            "+$483.2M",
             "$3.2B",
             "+$3.2B",
             "$3B",
@@ -12609,7 +12061,7 @@
       "moves": {
         "numbers": {
           "$483M": "+",
-          "$482.8M": "+",
+          "$483.2M": "+",
           "$3.2B": "+",
           "$3B": "+"
         },
@@ -13069,8 +12521,8 @@
         "+2.8%",
         "2.8%",
         "76",
-        "109",
-        "20",
+        "128",
+        "24",
         "30",
         "8",
         "4",
@@ -13102,8 +12554,8 @@
         },
         "congress_30d": {
           "buys": 76,
-          "sells": 109,
-          "members": 20,
+          "sells": 128,
+          "members": 24,
           "days": 30
         },
         "ticker_congress_30d": {
@@ -13131,9 +12583,9 @@
         "$NVDA moved +2.78% on Friday, Nov 6.",
         "$NVDA's move on Friday, Nov 6: +2.78%.",
         "On Friday, Nov 6, $NVDA moved +2.78%.",
-        "Members of Congress disclosed 76 buys and 109 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 109 sells and 76 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 76 buys and 109 sells.",
+        "Members of Congress disclosed 76 buys and 128 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 128 sells and 76 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 76 buys and 128 sells.",
         "Members of Congress disclosed 8 trades in $NVDA over 30 days in our feed: 5 buys and 3 sells by 4 members.",
         "4 members of Congress disclosed 8 trades in $NVDA over 30 days in our feed: 5 buys and 3 sells."
       ],
@@ -13226,21 +12678,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 76 buys and 109 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 76 buys and 128 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 109 sells and 76 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 128 sells and 76 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 76 buys and 109 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 76 buys and 128 sells.",
           "claim": false
         },
         {
@@ -17925,8 +17377,8 @@
       "in_500": false,
       "context_numbers": [
         "76",
-        "109",
-        "20",
+        "128",
+        "24",
         "30"
       ],
       "context_tickers": [],
@@ -17944,8 +17396,8 @@
       "context": {
         "congress_30d": {
           "buys": 76,
-          "sells": 109,
-          "members": 20,
+          "sells": 128,
+          "members": 24,
           "days": 30
         }
       },
@@ -17961,9 +17413,9 @@
         "A purchase of $BHE (owner: joint), $1K–$15K, was disclosed by Josh Gottheimer.",
         "Josh Gottheimer's $BHE purchase was traded Oct 12 and disclosed on Nov 5.",
         "Traded Oct 12, Josh Gottheimer's $BHE purchase was disclosed on Nov 5.",
-        "Members of Congress disclosed 76 buys and 109 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 109 sells and 76 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 76 buys and 109 sells."
+        "Members of Congress disclosed 76 buys and 128 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 128 sells and 76 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 76 buys and 128 sells."
       ],
       "phrasings": [
         {
@@ -18012,21 +17464,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 76 buys and 109 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 76 buys and 128 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 109 sells and 76 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 128 sells and 76 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 76 buys and 109 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 76 buys and 128 sells.",
           "claim": false
         }
       ],
@@ -28252,8 +27704,8 @@
       "in_500": false,
       "context_numbers": [
         "76",
-        "109",
-        "20",
+        "128",
+        "24",
         "30"
       ],
       "context_tickers": [],
@@ -28271,8 +27723,8 @@
       "context": {
         "congress_30d": {
           "buys": 76,
-          "sells": 109,
-          "members": 20,
+          "sells": 128,
+          "members": 24,
           "days": 30
         }
       },
@@ -28288,9 +27740,9 @@
         "A purchase of $FMAO (owner: spouse), $1K–$15K, was disclosed by Robert E. Latta.",
         "Robert E. Latta's $FMAO purchase was traded Oct 20 and disclosed on Nov 3.",
         "Traded Oct 20, Robert E. Latta's $FMAO purchase was disclosed on Nov 3.",
-        "Members of Congress disclosed 76 buys and 109 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 109 sells and 76 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 76 buys and 109 sells."
+        "Members of Congress disclosed 76 buys and 128 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 128 sells and 76 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 76 buys and 128 sells."
       ],
       "phrasings": [
         {
@@ -28339,21 +27791,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 76 buys and 109 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 76 buys and 128 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 109 sells and 76 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 128 sells and 76 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 76 buys and 109 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 76 buys and 128 sells.",
           "claim": false
         }
       ],
