@@ -275,3 +275,34 @@ def test_item_page_urls_allow_the_earnings_report_page():
                                       "https://www.rapidtradeview.trade/earnings/reports/ceg-2026-q3"}
     assert Q.item_page_urls({"page_url": "https://www.rapidtradeview.trade/smart-money/figures/x?a=1"}) == \
         {"https://www.rapidtradeview.trade/smart-money/figures/x"}
+
+
+# ------------------------------------------------------------------------------------------------- v4 review fixes
+def test_one_claim_id_with_two_wordings_reports_the_one_that_matches_the_line():
+    # the facts give one id to "EPS ..." and to "Adjusted (non-GAAP) Operating Earnings ...": v3 kept the last wording only,
+    # so a person checking the line "EPS $5.06 vs $3.89" was shown the Operating Earnings sentence
+    item = {"ticker": "CEG", "tickers": ["CEG"], "name": "Constellation Energy Corporation",
+            "phrasings": [{"id": "e-1.a", "text": "EPS $5.06 vs $3.89 consensus (beat by $1.17)."},
+                          {"id": "e-1.a", "text": "Adjusted (non-GAAP) Operating Earnings $5.06 vs $3.89 consensus "
+                                                  "(beat by $1.17)."}]}
+    ok, d = Q.claim_lines_gate([{"line": "EPS $5.06 vs $3.89 consensus", "claim": "e-1.a"}], item, "2026-11-09")
+    assert ok, d
+    c = d["needs_human_check"][0]
+    assert c["phrasing"] == "EPS $5.06 vs $3.89 consensus (beat by $1.17)." and len(c["phrasings"]) == 2
+    ok, d = Q.claim_lines_gate([{"line": "EPS $5.07 vs $3.89", "claim": "e-1.a"}], item, "2026-11-09")
+    assert not ok and "$5.07" in d["bad"][0]["problem"]
+
+
+def test_brackets_never_reach_the_voice():
+    toks = [t for _, t in Q.spoken_tokens(["(beat", "by", "$1.17)."], {"$1.17).": "one point one seven."})]
+    assert toks == ["beat", "by", "one", "point", "one", "seven."]
+    toks = [t for _, t in Q.spoken_tokens(["[sic]", "(Form", "4)"], {})]
+    assert toks == ["sic", "Form", "4"]
+
+
+def test_no_standing_card_under_the_brand_pill():
+    still = {"t": 6.0, "screen": "head", "overlap_px": 900, "moving": False}
+    ok, d = Q.pill_clear_gate([still, dict(still, t=6.1, overlap_px=0)])
+    assert not ok and d["at_s"] == [6.0] and d["screens"] == ["head"]
+    ok, _ = Q.pill_clear_gate([dict(still, moving=True), dict(still, overlap_px=0)])     # flying in or out may cross it
+    assert ok

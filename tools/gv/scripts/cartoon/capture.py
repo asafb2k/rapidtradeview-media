@@ -3,7 +3,7 @@ of the key figures (no OCR, no synthetic UI).
 
 Runs in the isolated Playwright venv (never the conda env, never system python):
     <media>/.ops/cache/shot-venv/Scripts/python.exe capture.py --url URL --out DIR --name NAME
-        [--scroll-to TEXT] [--scroll-frac 0.42] [--clip-from TEXT --clip-to TEXT] [--target TEXT ...]
+        [--scroll-to TEXT] [--scroll-frac 0.42] [--clip-from TEXT --clip-to TEXT [--clip-end-above TEXT]] [--target TEXT ...]
         [--viewport 430x932] [--dpr 3]
 
 Writes DIR/NAME.png and DIR/NAME.json:
@@ -77,6 +77,9 @@ def main(argv=None) -> int:
                                         "TEXT#last = its last occurrence above --clip-to)")
     ap.add_argument("--clip-to", help="clip: band ends at the bottom of this text (TEXT#N = its N-th occurrence on the page)")
     ap.add_argument("--clip-pad", type=float, default=14.0, help="CSS px above and below the band")
+    ap.add_argument("--clip-end-above", help="clip: the band ends just above the first occurrence of this text between the "
+                                             "clip-from and clip-to texts (keeps small print such as a date off the card); "
+                                             "not found there = exit 2")
     ap.add_argument("--target", action="append", default=[],
                     help="text whose DOM box goes into the sidecar; TEXT#N = its N-th occurrence inside the captured area")
     ap.add_argument("--viewport", default="430x932")
@@ -133,6 +136,13 @@ def main(argv=None) -> int:
                 print("capture: --clip-from and --clip-to must both be found", file=sys.stderr)
                 return 2
             top, bot = hf["docY"] - a.clip_pad, ht["docY"] + ht["h"] + a.clip_pad
+            if a.clip_end_above:
+                cut = [h for h in pg.evaluate(JS_FIND, [a.clip_end_above, True])
+                       if hf["docY"] < h["docY"] < ht["docY"] + ht["h"]]
+                if not cut:
+                    print(f"capture: {a.clip_end_above!r} not found inside the clip", file=sys.stderr)
+                    return 2
+                bot = min(h["docY"] for h in cut) - 3
             if bot - top > vh:
                 print("capture: the clip band is taller than the viewport", file=sys.stderr)
                 return 2

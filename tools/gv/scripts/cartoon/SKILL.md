@@ -3,7 +3,7 @@ name: cartoon-story-reel
 description: Make a cartoon-story Reel / Short for RapidTradeView in the one-idea format. A cartoon character hears a news item in a confusing way, opens RapidTradeView, and our real page shows the real fact; the brand is on screen the whole time. Use it to turn one facts item into a 15-20 s vertical video, generated from the item by make_story.py.
 ---
 
-# Cartoon-story Reel (format v3: one idea, brand always visible)
+# Cartoon-story Reel (format v4: one idea, brand always visible)
 
 ## The owner's verdict (binding)
 
@@ -65,8 +65,10 @@ PY=C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe
 $PY tools/gv/scripts/cartoon/make_story.py v/<date>/facts.json <item_id> --run .ops/cartoon/<date>-<ticker> --capture
 ```
 
-It captures two real bands of our page into `<run>/screens/` (`head`: from our header's "RapidTradeView" to the company
-or person name; `fact`: the key card, e.g. from the last "EPS" above "Beat by $1.17" to that label) and writes
+It captures three real bands of our page into `<run>/screens/` (`head`: from our header's "RapidTradeView" to the company
+or person name; `fact`: the fact card, e.g. from the last "EPS" down to just above the "Consensus captured <date>" small
+print, whose date is not the item's; or a Form 4 trade's own two lines, "Traded ... / $1,287,400 Officer View filing";
+`key`: the key figure alone at 6x, e.g. the page's "Beat by $1.17" tag, cropped tight around it) and writes
 `<run>/story.json`:
 
 | # | Kind | Picture | Voice (CEG example) |
@@ -74,17 +76,22 @@ or person name; `fact`: the key card, e.g. from the last "EPS" above "Beat by $1
 | 1 | HOOK | Dale close-up, the figure pops into a chip | Dale: "CEG beat by $1.17!" |
 | 2 | CLOSE | Pip close, phone up with our mark on it, puzzled | Pip: "Beat what? Checking RapidTradeView." |
 | 3 | CLOSE | the phone close: our mark and name on top, the ticker typed letter by letter | (silent, key clacks) |
-| 4 | PAYOFF | whip into our real page: header card with our logo above the key card, camera pushes to the figures | "EPS $5.06 vs $3.89" |
-| 5 | PAYOFF | the camera lands on the key label, outlined | "(beat by $1.17)." |
-| 6 | CALLBACK | Pip, the phone with our mark, one word | Pip: "Oh." |
+| 4 | PAYOFF | whip into our real page: header card with our logo above the fact card, a slow push; Pip's head peeks in, wide-eyed | "EPS $5.06 vs $3.89 consensus" |
+| 5 | PAYOFF | the header flies off, the page's own key tag lands big under the fact card, outlined | "(beat by $1.17)." |
+| 6 | CALLBACK | Pip, the phone with our mark: shock on the cut, happy on the word | Pip: "Oh." |
 | 7 | END | the end card | "Search RapidTradeView. Not investment advice." |
 
 What it fills in: the hook figure (the EPS difference or the buy amount), the confused line, the search, the fact phrase
 (the item's own phrasing, verbatim, read in two halves), the claim tags (the phrasing each factual line paraphrases),
-the say map (figures spelled for the voice, "C E G", "Rapid Trade View"), the card layout, and the screen
-acknowledgements. Only two page parts may be acknowledged: the guest counter in our header ("0/2") and the "Consensus
-captured <date>" small print. Any other number on a capture that the item does not carry stops the script: change the
-capture band, do not explain the number away.
+the say map (figures spelled for the voice, "C E G", "Rapid Trade View"; brackets are never voiced), the card layout,
+and the screen acknowledgements. The layout keeps every standing card between the brand pill (y 333) and the caption
+band, and each character's face below the pill and its held prop above the captions, at the largest scale of its push.
+Only one page part may be acknowledged: the guest counter in our header, and only its own digits ("0/2" on its own line,
+or "0", "/", "2" as three nodes); a number beside it is not the counter. Any other number on a capture that the item does
+not carry stops the script: change the capture band, do not explain the number away. The earnings fact phrase is the
+item's phrasing with "consensus" in it, so "Beat what?" is answered in the caption; the payoff lines must name and repeat
+the hook's bare figure (EPS / bought) or the script stops. The form4 template had its first real run on PAM 2026-11-09
+(QA pass); its hook is "Insider bought $1.29M!" (with the ticker it ran 3.4 s, over the 2.6 s hook limit).
 
 To change the creative for every future video, change the template in `make_story.py`, not a single story.json.
 
@@ -104,7 +111,13 @@ the video ships ("CEG beat by $1.17!" is a paraphrase of "$CEG Q3 EPS $5.06, bea
 
 ## 4. QA gates (exit 0 pass, 1 QA fail, 2 input or render error)
 
-`reel-qa.json` holds every gate. New in v3:
+`reel-qa.json` holds every gate. New in v4:
+- **pill_clear:** no real card that is standing still (not flying in or out) overlaps the brand pill's box, in any
+  rendered payoff frame (v3: the pill sat on our page header, two logos colliding).
+- **end_card_safe:** the end card's wordmark and search box, at their largest (pop and pulse), stay left of x 950 (the
+  right 12% is the IG/YT action rail).
+
+New in v3:
 - **brand_pill:** the pill region of the decoded video matches the planned pill in every sampled frame (each second and
   the last frame; correlation >= 0.8, mean difference <= 24).
 - **brand_spoken:** "RapidTradeView" starts within the first 5 s and again within the last 5 s.

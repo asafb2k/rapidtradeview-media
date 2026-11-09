@@ -24,6 +24,7 @@ it"):
   brand_spoken_gate(words, total)    the voice says "RapidTradeView" in the first 5 s and again in the last 5 s
   region_match(region, ref)          (correlation, mean abs diff) of a decoded frame region against the planned pixels
   brand_pill_gate(samples)           the persistent brand pill is on screen in every sampled frame
+  pill_clear_gate(samples)           no standing real card sits under that pill (no two logos colliding)
   payoff_brand_gate(samples)         the payoff's real screen shows our own header/logo, readable, for long enough
   one_idea_gate(shots, total)        one situation: 15-22 s, at most 7 shots, no side-gag props
   item_page_urls(item)               the real pages a capture may come from (the item's page, its earnings report page)
@@ -416,13 +417,41 @@ def fact_markers(line: str, item: dict, post_date: str | None = None) -> list[st
     return why
 
 
+def _claim_problems(line: str, src: str, item: dict, days: set, names: set) -> list[str]:
+    probs = []
+    src_nums = set(find_numbers(src))
+    probs += [f"number {n} is not in the phrasing" for n in find_numbers(line) if n not in src_nums]
+    if find_number_words(line):
+        probs.append("spelled-out number")
+    probs += [f"{_weekday(m.group(1))} is not the weekday of an item date" for m in WEEKDAY_RX.finditer(line)
+              if _weekday(m.group(1)) not in days]
+    src_words = {w.strip("$.,()'").lower() for w in src.split()}
+    for t in re.findall(r"\$?[A-Za-z][A-Za-z.'-]*", line):
+        core = t.strip("$.,'").lower()
+        if (core.upper() in _tickers(item) or core in names) and core not in src_words:
+            probs.append(f"{t} is not in the phrasing")
+    return probs
+
+
+def _overlap(line: str, src: str) -> float:
+    """Share of the line's words that are in the phrasing (case and punctuation ignored)."""
+    norm = lambda x: {w.strip("$.,()'!?:;").lower() for w in x.split()} - {""}      # noqa: E731
+    lw = norm(line)
+    return len(lw & norm(src)) / max(1, len(lw))
+
+
 def claim_lines_gate(lines: list[dict], item: dict, post_date: str | None = None) -> tuple[bool, dict]:
     """lines: [{"line": a shot's vo or drawn text, "claim": phrasing id or None}]. A line that states a fact (fact_markers)
     must carry "claim": the id of the item phrasing it paraphrases. Its numbers must be that phrasing's numbers, its
-    weekday the weekday of an item date (or the post day), its ticker and name words words of that phrasing. Every tagged
-    line is listed under needs_human_check: a paraphrase can still shift the meaning ("his own stock"), so a person reads
-    those lines against the phrasing before the video ships."""
-    by_id = {p.get("id"): p.get("text") for p in item.get("phrasings") or [] if isinstance(p, dict) and p.get("id")}
+    weekday the weekday of an item date (or the post day), its ticker and name words words of that phrasing. One id can
+    carry several wordings (the facts write "EPS" and its basis, "Adjusted (non-GAAP) Operating Earnings"): the line passes
+    when it passes against one of them, and the one it matches best is the "phrasing" a person reads (all of them are in
+    "phrasings"). Every tagged line is listed under needs_human_check: a paraphrase can still shift the meaning ("his own
+    stock"), so a person reads those lines against the phrasing before the video ships."""
+    by_id: dict[str, list[str]] = {}
+    for p in item.get("phrasings") or []:
+        if isinstance(p, dict) and p.get("id") and p.get("text") and p["text"] not in by_id.get(p["id"], []):
+            by_id.setdefault(p["id"], []).append(p["text"])
     try:
         days = set(allowed_weekdays(item, post_date))
     except ValueError:
@@ -437,26 +466,30 @@ def claim_lines_gate(lines: list[dict], item: dict, post_date: str | None = None
         if not cid:
             bad.append({"line": line, "why": why, "problem": "states a fact but has no claim tag"})
             continue
-        src = by_id.get(cid)
-        if src is None:
+        srcs = by_id.get(cid)
+        if not srcs:
             bad.append({"line": line, "claim": cid, "problem": "claim is not a phrasing id of this item"})
             continue
-        probs = []
-        src_nums = set(find_numbers(src))
-        probs += [f"number {n} is not in the phrasing" for n in find_numbers(line) if n not in src_nums]
-        if find_number_words(line):
-            probs.append("spelled-out number")
-        probs += [f"{_weekday(m.group(1))} is not the weekday of an item date" for m in WEEKDAY_RX.finditer(line)
-                  if _weekday(m.group(1)) not in days]
-        src_words = {w.strip("$.,()'").lower() for w in src.split()}
-        for t in re.findall(r"\$?[A-Za-z][A-Za-z.'-]*", line):
-            core = t.strip("$.,'").lower()
-            if (core.upper() in _tickers(item) or core in names) and core not in src_words:
-                probs.append(f"{t} is not in the phrasing")
+        scored = sorted(((not _claim_problems(line, x, item, days, names), _overlap(line, x), -len(x), x) for x in srcs),
+                        reverse=True)
+        src = scored[0][3]
+        probs = _claim_problems(line, src, item, days, names)
         if probs:
             bad.append({"line": line, "claim": cid, "problem": "; ".join(probs)})
-        check.append({"line": line, "claim": cid, "phrasing": src, "why": why})
+        entry = {"line": line, "claim": cid, "phrasing": src, "why": why}
+        if len(srcs) > 1:
+            entry["phrasings"] = srcs
+        check.append(entry)
     return not bad, {"bad": bad, "needs_human_check": check}
+
+
+def pill_clear_gate(samples: list[dict]) -> tuple[bool, dict]:
+    """samples: one per rendered frame per real card: {"t", "screen", "overlap_px" (its box against the brand pill's box),
+    "moving" (entering or leaving)}. A card that is standing still never sits under the persistent pill: two logos colliding
+    and our page's header clipped under it read as a mistake. A card flying in or out may cross it."""
+    hits = [s_ for s_ in samples if s_["overlap_px"] > 0 and not s_["moving"]]
+    return not hits, {"samples": len(samples), "frames_under_pill": len(hits),
+                      "at_s": sorted({s_["t"] for s_ in hits})[:12], "screens": sorted({s_["screen"] for s_ in hits})}
 
 
 # ------------------------------------------------------------------------------------------------- caption occlusion
@@ -531,13 +564,13 @@ def chunk_words(words: list[str], measure=None, max_px: float = 760.0) -> list[l
 
 def spoken_tokens(words: list[str], say: dict[str, str]) -> list[tuple[int, str]]:
     """Display words -> spoken tokens [(display index, token)]: the say map (exact word, punctuation included) or the word
-    without its quote marks."""
+    without its quote marks; brackets are dropped either way ("(beat" is said "beat")."""
     out = []
     for i, w in enumerate(words):
         sp = say.get(w)
         if sp is None:
             sp = w.replace('"', "").replace("“", "").replace("”", "")
-        for tok in sp.split():
+        for tok in re.sub(r"[()\[\]{}]", "", sp).split():            # a bracket is for the eye, never voiced
             out.append((i, tok))
     return out
 
