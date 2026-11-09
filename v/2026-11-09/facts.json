@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-09",
-  "generated_at": "2026-11-09T17:00:03Z",
-  "as_of": "2026-11-09T17:00:03Z",
+  "generated_at": "2026-11-09T17:30:03Z",
+  "as_of": "2026-11-09T17:30:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,7 +875,7 @@
   },
   "counts": {
     "congress_trade": 4,
-    "form4_buy": 3,
+    "form4_buy": 2,
     "earnings_result": 46,
     "earnings_upcoming": 62,
     "picks_ready": 0,
@@ -886,7 +886,7 @@
     "market_move": 0,
     "mega_mover": 2,
     "congress_flow": 1,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -930,7 +930,7 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 16,
+      "filings_passing_filters": 15,
       "below_minimum": 13,
       "not_open_market": 0,
       "no_sec_index": 0
@@ -983,7 +983,7 @@
     "market": {
       "market_session": "2026-11-06",
       "priced_cap_share": 0.9987592342655657,
-      "flows_as_of": "2026-11-09T17:01:06.433805+00:00"
+      "flows_as_of": "2026-11-09T17:31:05.557163+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -992,28 +992,30 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 116
+        "angles_dropped": 113
       },
       "top8": {
         "stale": 7,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 4,
+        "repeat": 3,
         "ranked_below": 114,
         "pillars": 4
       }
     },
     "card_unpinned": {
-      "dropped": 1,
+      "dropped": 2,
       "reasons": [
-        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T16:47:27.517676+00:00 (X-Card-Date), the item 2026-11-06)"
+        "insider_flow AXP: share card not pinned (the PNG is the same image as v/2026-11-09/cards/market-insiders-2026-11-09-a3a77b8a.png (old data))",
+        "breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T17:17:34.357995+00:00 (X-Card-Date), the item 2026-11-06)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T16:47:27.517676+00:00 (X-Card-Date), the item 2026-11-06)"
+    "not published: insider_flow AXP: share card not pinned (the PNG is the same image as v/2026-11-09/cards/market-insiders-2026-11-09-a3a77b8a.png (old data))",
+    "not published: breadth_day 2026-11-09-breadth-day-LIST-f22a8b: share card not pinned (the card draws 2026-11-09T17:17:34.357995+00:00 (X-Card-Date), the item 2026-11-06)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1044,7 +1046,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 151,
+  "api_requests": 150,
   "items": [
     {
       "item_id": "2026-11-09-reddit-buzz-NVDA-9d6e44",
@@ -1490,908 +1492,6 @@
       "cooldown": null,
       "rank": 13.0,
       "rank_why": "reddit_buzz 4; mega cap $4385.09B +4; magnitude (market) +3; capture_date 2026-11-09 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-09-insider-flow-AXP-aa5a75",
-      "type": "insider_flow",
-      "ticker": "AXP",
-      "tickers": [
-        "AXP",
-        "SNOW",
-        "RCL"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/AXP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-insider-flow-AXP-aa5a75",
-      "allowed_numbers": [
-        "$483M",
-        "+$483M",
-        "$483.3M",
-        "+$483.3M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30",
-        "234",
-        "509",
-        "500",
-        "2026-10-10",
-        "Oct 10, 2026",
-        "Oct 10",
-        "2026-11-09",
-        "Nov 9, 2026",
-        "Nov 9",
-        "$137M",
-        "+$137M",
-        "$137.1M",
-        "+$137.1M",
-        "$129M",
-        "+$129M",
-        "$128.7M",
-        "+$128.7M",
-        "$82.9M",
-        "+$82.9M",
-        "$83M",
-        "+$83M",
-        "3",
-        "6.6",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 234 companies with buys, 509 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders).",
-      "dedupe_key": "insider_flow:2026-11-09:AXP",
-      "claim_phrases": [
-        "$AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M).",
-        "Over 30 days in our feed, $AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($137M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M): $AXP.",
-        "$SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M).",
-        "Over 30 days in our feed, $SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($129M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M): $SNOW.",
-        "$RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M).",
-        "Over 30 days in our feed, $RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($82.9M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M): $RCL.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M).",
-        "$AXP ($137M) and $SNOW ($129M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-        "$AXP ($137M), $SNOW ($129M) and $RCL ($82.9M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $6.6.",
-        "Officers and directors sold $6.6 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $6.6 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "AXP",
-            "SNOW",
-            "RCL"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $AXP, $SNOW, $RCL"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$483M",
-            "+$483M",
-            "$483.3M",
-            "+$483.3M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($483M bought, $3.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "AXP",
-          "SNOW",
-          "RCL"
-        ],
-        "numbers": [
-          "$3.2B",
-          "$483M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-10",
-        "to": "2026-11-09",
-        "days": 30
-      },
-      "bought_usd": 483272300.03,
-      "sold_usd": 3195445910.28,
-      "buy_companies": 234,
-      "sell_companies": 509,
-      "top_sellers_500": [
-        {
-          "ticker": "AXP",
-          "name": "American Express Company",
-          "sector": "Financial Services",
-          "total_usd": 137069235.8,
-          "insider_count": 3,
-          "roles": {
-            "officer": 3,
-            "director": 0
-          },
-          "row_count": 8,
-          "first_trade": "2026-11-02",
-          "last_trade": "2026-11-04"
-        },
-        {
-          "ticker": "SNOW",
-          "name": "Snowflake Inc.",
-          "sector": "Technology",
-          "total_usd": 128694776.01,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 13,
-          "first_trade": "2026-10-19",
-          "last_trade": "2026-11-04"
-        },
-        {
-          "ticker": "RCL",
-          "name": "Royal Caribbean Cruises Ltd.",
-          "sector": "Consumer Cyclical",
-          "total_usd": 82876726.83,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 27,
-          "first_trade": "2026-10-28",
-          "last_trade": "2026-11-05"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys."
-      ],
-      "market_cap_usd": 217909271436.99582,
-      "magnitude": 2.256797205883157,
-      "trigger": "weekly (Monday facts)",
-      "top5": [
-        "AXP",
-        "SNOW",
-        "RCL",
-        "TRV",
-        "DELL"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-a3a77b8a.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-09",
-        "fingerprint": "a3a77b8a",
-        "file": "market-insiders-2026-11-09-a3a77b8a.png",
-        "sha256": "2dbcf52902df9a923d700e202b9af0ed8594aed3bf36d8ec608d576eb58ed8d2"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/market-insiders-2026-11-09-a3a77b8a.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 10 to Nov 9; 234 companies with buys, 509 with sells). Largest sellers among the 500 largest US-listed companies: $AXP $137M (3 insiders), $SNOW $129M (3 insiders), $RCL $82.9M (3 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "ticker_sectors": {
-        "AXP": "Financial Services",
-        "SNOW": "Technology",
-        "RCL": "Consumer Cyclical"
-      },
-      "ticker_names": {
-        "AXP": "American Express Company",
-        "SNOW": "Snowflake Inc.",
-        "RCL": "Royal Caribbean Cruises Ltd."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
-        "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 234 companies had open-market buys by officers and directors and 509 had open-market sells.",
-        "509 companies had open-market sells by officers and directors and 234 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $AXP sold $137M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $AXP sold $137M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $AXP sold $137M on the open market (3 insiders).",
-        "Officers and directors of $SNOW sold $129M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $SNOW sold $129M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SNOW sold $129M on the open market (3 insiders).",
-        "Officers and directors of $RCL sold $82.9M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $RCL sold $82.9M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $RCL sold $82.9M on the open market (3 insiders)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $AXP had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($137M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($137M): $AXP.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SNOW had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($129M): $SNOW.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $RCL had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($82.9M): $RCL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$AXP ($137M) and $SNOW ($129M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $AXP ($137M), $SNOW ($129M), $RCL ($82.9M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$AXP ($137M), $SNOW ($129M) and $RCL ($82.9M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $6.6.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $6.6 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $6.6 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $3.2B and bought $483M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 234 companies had open-market buys by officers and directors and 509 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "509 companies had open-market sells by officers and directors and 234 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $AXP sold $137M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $AXP sold $137M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $AXP sold $137M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $SNOW sold $129M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $SNOW sold $129M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SNOW sold $129M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $RCL sold $82.9M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $RCL sold $82.9M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $RCL sold $82.9M on the open market (3 insiders).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$483M": "+",
-          "$483.3M": "+",
-          "$3.2B": "+",
-          "$3B": "+",
-          "$137M": "+",
-          "$137.1M": "+",
-          "$129M": "+",
-          "$128.7M": "+",
-          "$82.9M": "+",
-          "$83M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "AXP": [
-          [
-            "$",
-            137.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            6.6,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "SNOW": [
-          [
-            "$",
-            129.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "RCL": [
-          [
-            "$",
-            82.9,
-            1,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 12.26,
-      "rank_why": "insider_flow 4; mega cap $217.91B +4; magnitude (market) +2.26; today 2026-11-09 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-09-form4-buy-KMI-eaefd0",
-      "type": "form4_buy",
-      "ticker": "KMI",
-      "tickers": [
-        "KMI"
-      ],
-      "name": "Richard D. Kinder",
-      "office": "Executive Chairman at Kinder Morgan, Inc.",
-      "amount_text": "$14.99M",
-      "traded": [
-        "2026-11-06"
-      ],
-      "filed": "2026-11-06",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1506307/000150630726000139/0001506307-26-000139-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/kinder-richard-d-1031190?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-form4-buy-KMI-eaefd0#trades",
-      "allowed_numbers": [
-        "$14.99M",
-        "2026-11-06",
-        "Nov 6, 2026",
-        "Nov 6"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Richard D. Kinder (Executive Chairman at Kinder Morgan, Inc.) reported an open-market purchase of KMI totaling $14.99M on a Form 4 filed 2026-11-06, traded 2026-11-06.",
-      "dedupe_key": "form4:0001506307-26-000139:KMI",
-      "claim_phrases": [],
-      "company": "Kinder Morgan, Inc.",
-      "side": "buy",
-      "accession": "0001506307-26-000139",
-      "rows": 1,
-      "figure_slug": "kinder-richard-d-1031190",
-      "amount_top_usd": 14994200.0,
-      "market_cap_usd": 67254726594.324196,
-      "famous_person": null,
-      "row_amounts": [
-        "$14.99M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/kinder-richard-d-1031190/opengraph-image",
-          "kind": "image",
-          "alt": "Richard D. Kinder (Executive Chairman at Kinder Morgan, Inc.) reported an open-market purchase of KMI totaling $14.99M on a Form 4 filed 2026-11-06, traded 2026-11-06."
-        },
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-09/cards/2026-11-09-form4-buy-KMI-eaefd0/cartoon_9x16.mp4",
-          "kind": "reel",
-          "alt": "Cartoon story: Richard D. Kinder (Executive Chairman at Kinder Morgan, Inc.) reported an open-market purchase of KMI totaling $14.99M on a Form 4 filed 2026-11-06, traded 2026-11-06."
-        }
-      ],
-      "rank": 11.0,
-      "rank_why": "form4_buy 2; large cap $67.25B +2.5; known name Chairman (title) +2; magnitude (top $14.99M) +3; filed 2026-11-06 (age 1) +1.5",
-      "pillar": "P3",
-      "market_cap_feed_usd": 75452719104.0,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-06",
-        "Nov 6, 2026",
-        "Nov 6",
-        "$67.3B",
-        "−0.76%",
-        "0.76%",
-        "−0.8%",
-        "0.8%",
-        "$483M",
-        "+$483M",
-        "$483.3M",
-        "+$483.3M",
-        "$3.2B",
-        "+$3.2B",
-        "$3B",
-        "+$3B",
-        "30"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "KMI"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "KMI": "Energy"
-      },
-      "ticker_names": {
-        "KMI": "Kinder Morgan, Inc."
-      },
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$483M",
-            "+$483M",
-            "$483.3M",
-            "+$483.3M",
-            "$3.2B",
-            "+$3.2B",
-            "$3B",
-            "+$3B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$67.3B",
-        "market_cap_session": "2026-11-06",
-        "last_session_move": {
-          "pct": "−0.76%",
-          "session": "2026-11-06"
-        },
-        "insiders_30d": {
-          "bought": "$483M",
-          "sold": "$3.2B",
-          "days": 30
-        }
-      },
-      "angles": [
-        "Kinder Morgan, Inc. executive chairman Richard D. Kinder bought $14.99M of $KMI on the open market (Form 4, filed Nov 6).",
-        "Richard D. Kinder, executive chairman at Kinder Morgan, Inc., bought $14.99M of $KMI on the open market (Form 4, filed Nov 6).",
-        "An open-market purchase of $KMI totaling $14.99M by Kinder Morgan, Inc. executive chairman Richard D. Kinder was reported on a Form 4 filed Nov 6."
-      ],
-      "fact_phrases": [
-        "Kinder Morgan, Inc. executive chairman Richard D. Kinder bought $14.99M of $KMI on the open market (Form 4, filed Nov 6).",
-        "Richard D. Kinder, executive chairman at Kinder Morgan, Inc., bought $14.99M of $KMI on the open market (Form 4, filed Nov 6).",
-        "An open-market purchase of $KMI totaling $14.99M by Kinder Morgan, Inc. executive chairman Richard D. Kinder was reported on a Form 4 filed Nov 6.",
-        "Kinder Morgan, Inc. executive chairman Richard D. Kinder bought $14.99M of $KMI on the open market.",
-        "Richard D. Kinder, executive chairman at Kinder Morgan, Inc., bought $14.99M of $KMI on the open market.",
-        "On the open market, Kinder Morgan, Inc. executive chairman Richard D. Kinder bought $14.99M of $KMI.",
-        "Richard D. Kinder bought $14.99M of $KMI on the open market.",
-        "On the open market, Richard D. Kinder bought $14.99M of $KMI.",
-        "Richard D. Kinder made an open-market purchase of $KMI: $14.99M.",
-        "Richard D. Kinder (Executive Chairman at Kinder Morgan, Inc.) reported an open-market purchase of $KMI totaling $14.99M on a Form 4 filed Nov 6.",
-        "On a Form 4 filed Nov 6, Richard D. Kinder (Executive Chairman at Kinder Morgan, Inc.) reported an open-market purchase of $KMI totaling $14.99M.",
-        "Richard D. Kinder's $KMI purchase was traded Nov 6 and reported on a Form 4 filed Nov 6.",
-        "Traded Nov 6, Richard D. Kinder's $KMI purchase was reported on a Form 4 filed Nov 6.",
-        "$KMI had a market value of $67.3B at the Nov 6 close.",
-        "$KMI's market value at the Nov 6 close was $67.3B.",
-        "At the Nov 6 close, $KMI had a market value of $67.3B.",
-        "$KMI moved −0.76% on Friday, Nov 6.",
-        "$KMI's move on Friday, Nov 6: −0.76%.",
-        "On Friday, Nov 6, $KMI moved −0.76%.",
-        "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells."
-      ],
-      "phrasings": [
-        {
-          "id": "form4buy-a1ddae.a",
-          "fact": "form4buy-a1ddae",
-          "variant": "a",
-          "text": "Kinder Morgan, Inc. executive chairman Richard D. Kinder bought $14.99M of $KMI on the open market (Form 4, filed Nov 6).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-a1ddae.h1",
-          "fact": "form4buy-a1ddae",
-          "variant": "h1",
-          "text": "Richard D. Kinder, executive chairman at Kinder Morgan, Inc., bought $14.99M of $KMI on the open market (Form 4, filed Nov 6).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-a1ddae.h2",
-          "fact": "form4buy-a1ddae",
-          "variant": "h2",
-          "text": "An open-market purchase of $KMI totaling $14.99M by Kinder Morgan, Inc. executive chairman Richard D. Kinder was reported on a Form 4 filed Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-5632da.a",
-          "fact": "form4buy-5632da",
-          "variant": "a",
-          "text": "Kinder Morgan, Inc. executive chairman Richard D. Kinder bought $14.99M of $KMI on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-5632da.h1",
-          "fact": "form4buy-5632da",
-          "variant": "h1",
-          "text": "Richard D. Kinder, executive chairman at Kinder Morgan, Inc., bought $14.99M of $KMI on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-5632da.h2",
-          "fact": "form4buy-5632da",
-          "variant": "h2",
-          "text": "On the open market, Kinder Morgan, Inc. executive chairman Richard D. Kinder bought $14.99M of $KMI.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
-          "variant": "a",
-          "text": "Richard D. Kinder bought $14.99M of $KMI on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
-          "variant": "h1",
-          "text": "On the open market, Richard D. Kinder bought $14.99M of $KMI.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "Richard D. Kinder made an open-market purchase of $KMI: $14.99M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.a",
-          "fact": "form4buy-39fdef",
-          "variant": "a",
-          "text": "Richard D. Kinder (Executive Chairman at Kinder Morgan, Inc.) reported an open-market purchase of $KMI totaling $14.99M on a Form 4 filed Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.h1",
-          "fact": "form4buy-39fdef",
-          "variant": "h1",
-          "text": "On a Form 4 filed Nov 6, Richard D. Kinder (Executive Chairman at Kinder Morgan, Inc.) reported an open-market purchase of $KMI totaling $14.99M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "Richard D. Kinder's $KMI purchase was traded Nov 6 and reported on a Form 4 filed Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Nov 6, Richard D. Kinder's $KMI purchase was reported on a Form 4 filed Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-426192.a",
-          "fact": "form4buy-426192",
-          "variant": "a",
-          "text": "$KMI had a market value of $67.3B at the Nov 6 close.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-426192.h1",
-          "fact": "form4buy-426192",
-          "variant": "h1",
-          "text": "$KMI's market value at the Nov 6 close was $67.3B.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-426192.t",
-          "fact": "form4buy-426192",
-          "variant": "t",
-          "text": "At the Nov 6 close, $KMI had a market value of $67.3B.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-061727.a",
-          "fact": "form4buy-061727",
-          "variant": "a",
-          "text": "$KMI moved −0.76% on Friday, Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-061727.h1",
-          "fact": "form4buy-061727",
-          "variant": "h1",
-          "text": "$KMI's move on Friday, Nov 6: −0.76%.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-061727.t",
-          "fact": "form4buy-061727",
-          "variant": "t",
-          "text": "On Friday, Nov 6, $KMI moved −0.76%.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $483M of open-market buys and $3.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $3.2B of open-market sells and $483M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $483M of open-market buys and $3.2B of open-market sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "0.76%": "-",
-          "0.8%": "-",
-          "$483M": "+",
-          "$483.3M": "+",
-          "$3.2B": "+",
-          "$3B": "+"
-        },
-        "subjects": {
-          "KMI": "down"
-        }
-      },
-      "subject_numbers": {
-        "KMI": [
-          [
-            "$",
-            14.99,
-            2,
-            1000000.0,
-            0
-          ],
-          [
-            "%",
-            0.76,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            67.3,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
       "top8": true,
       "rotation": null
     },
@@ -3248,9 +2348,7 @@
         "+$3B",
         "30"
       ],
-      "context_tickers": [
-        "KMI"
-      ],
+      "context_tickers": [],
       "trigger": null,
       "card": null,
       "claims": [],
@@ -4071,6 +3169,482 @@
           [
             "$",
             84.9,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-09-earnings-result-KKR-47a0e4",
+      "type": "earnings_result",
+      "ticker": "KKR",
+      "tickers": [
+        "KKR"
+      ],
+      "name": "KKR & Co. Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-09",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000030/q326earningsrelease_vf.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/KKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-result-KKR-47a0e4#earnings-history",
+      "allowed_numbers": [
+        "$1.78",
+        "$1.58",
+        "$0.20",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-09",
+        "Nov 9, 2026",
+        "Nov 9"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "KKR & Co. Inc. (KKR) published Q3 2026 results on 2026-11-09. ANI per Adjusted Share $1.78 vs $1.58 consensus (Beat by $0.20).",
+      "dedupe_key": "report:kkr-2026-q3",
+      "claim_phrases": [
+        "EPS came in above the $1.58 consensus.",
+        "$KKR beat the Q3 2026 EPS consensus: $1.78 vs $1.58.",
+        "$KKR Q3 2026 EPS: $1.78 vs $1.58 consensus (beat by $0.20).",
+        "$KKR Q3 2026 EPS $1.78, beat by $0.20.",
+        "EPS $1.78 vs $1.58 consensus (beat by $0.20).",
+        "EPS $1.78 vs $1.58 (beat by $0.20).",
+        "$KKR beat Q3 2026 EPS estimates by $0.20.",
+        "ANI per Adjusted Share came in above the $1.58 consensus.",
+        "$KKR beat the Q3 2026 ANI per Adjusted Share consensus: $1.78 vs $1.58.",
+        "$KKR Q3 2026 ANI per Adjusted Share: $1.78 vs $1.58 consensus (beat by $0.20).",
+        "$KKR Q3 2026 ANI per Adjusted Share $1.78, beat by $0.20.",
+        "ANI per Adjusted Share $1.78 vs $1.58 consensus (beat by $0.20).",
+        "ANI per Adjusted Share $1.78 vs $1.58 (beat by $0.20).",
+        "$KKR beat Q3 2026 ANI per Adjusted Share estimates by $0.20.",
+        "$KKR beat the Q3 EPS consensus: $1.78 vs $1.58.",
+        "$KKR Q3 EPS: $1.78 vs $1.58 consensus (beat by $0.20).",
+        "$KKR Q3 EPS $1.78, beat by $0.20.",
+        "$KKR beat Q3 EPS estimates by $0.20.",
+        "$KKR beat the Q3 ANI per Adjusted Share consensus: $1.78 vs $1.58.",
+        "$KKR Q3 ANI per Adjusted Share: $1.78 vs $1.58 consensus (beat by $0.20).",
+        "$KKR Q3 ANI per Adjusted Share $1.78, beat by $0.20.",
+        "$KKR beat Q3 ANI per Adjusted Share estimates by $0.20.",
+        "$KKR beat Q3 2026 estimates.",
+        "$KKR beat Q3 estimates."
+      ],
+      "report_id": "kkr-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-09",
+      "published_at": "2026-11-09T11:54:19.702915+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "eps": {
+          "basis": "ANI per Adjusted Share",
+          "reported": "$1.78",
+          "consensus": "$1.58",
+          "label": "Beat by $0.20",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/KKR/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for KKR: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $90.79B +2.5; magnitude (verdict) +1.5; release_date 2026-11-09 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 90788946384.32037,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-06",
+        "Nov 6, 2026",
+        "Nov 6",
+        "$90.8B",
+        "−1.85%",
+        "1.85%",
+        "−1.9%",
+        "1.9%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "KKR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "KKR": "Financial Services"
+      },
+      "ticker_names": {
+        "KKR": "KKR & Co. Inc."
+      },
+      "context": {
+        "market_cap": "$90.8B",
+        "market_cap_session": "2026-11-06",
+        "last_session_move": {
+          "pct": "−1.85%",
+          "session": "2026-11-06"
+        }
+      },
+      "angles": [
+        "KKR & Co. Inc. ($KKR) published Q3 2026 results on Nov 9.",
+        "$KKR (KKR & Co. Inc.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, KKR & Co. Inc. ($KKR) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "KKR & Co. Inc. ($KKR) published Q3 2026 results on Nov 9.",
+        "$KKR (KKR & Co. Inc.) reported Q3 2026 results on Nov 9.",
+        "On Nov 9, KKR & Co. Inc. ($KKR) published Q3 2026 results.",
+        "$KKR published Q3 2026 results on Nov 9.",
+        "Q3 2026 results from $KKR came out on Nov 9.",
+        "On Nov 9, $KKR published Q3 2026 results.",
+        "$KKR Q3 2026 ANI per Adjusted Share: $1.78 vs $1.58 consensus.",
+        "$KKR reported Q3 2026 ANI per Adjusted Share of $1.78 vs $1.58 consensus.",
+        "$KKR Q3 2026 ANI per Adjusted Share was $1.78.",
+        "Q3 2026 ANI per Adjusted Share at $KKR was $1.78.",
+        "$KKR had a market value of $90.8B at the Nov 6 close.",
+        "$KKR's market value at the Nov 6 close was $90.8B.",
+        "At the Nov 6 close, $KKR had a market value of $90.8B.",
+        "$KKR moved −1.85% on Friday, Nov 6.",
+        "$KKR's move on Friday, Nov 6: −1.85%.",
+        "On Friday, Nov 6, $KKR moved −1.85%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.58 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$KKR beat the Q3 2026 EPS consensus: $1.78 vs $1.58.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$KKR Q3 2026 EPS: $1.78 vs $1.58 consensus (beat by $0.20).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$KKR Q3 2026 EPS $1.78, beat by $0.20.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.78 vs $1.58 consensus (beat by $0.20).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.78 vs $1.58 (beat by $0.20).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$KKR beat Q3 2026 EPS estimates by $0.20.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d2c0e8.a",
+          "fact": "earningsre-d2c0e8",
+          "variant": "a",
+          "text": "ANI per Adjusted Share came in above the $1.58 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-2659be.a",
+          "fact": "earningsre-2659be",
+          "variant": "a",
+          "text": "$KKR beat the Q3 2026 ANI per Adjusted Share consensus: $1.78 vs $1.58.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-38ad62.a",
+          "fact": "earningsre-38ad62",
+          "variant": "a",
+          "text": "$KKR Q3 2026 ANI per Adjusted Share: $1.78 vs $1.58 consensus (beat by $0.20).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-420f5c.a",
+          "fact": "earningsre-420f5c",
+          "variant": "a",
+          "text": "$KKR Q3 2026 ANI per Adjusted Share $1.78, beat by $0.20.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0278d0.a",
+          "fact": "earningsre-0278d0",
+          "variant": "a",
+          "text": "ANI per Adjusted Share $1.78 vs $1.58 consensus (beat by $0.20).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-2240df.a",
+          "fact": "earningsre-2240df",
+          "variant": "a",
+          "text": "ANI per Adjusted Share $1.78 vs $1.58 (beat by $0.20).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-102e5c.a",
+          "fact": "earningsre-102e5c",
+          "variant": "a",
+          "text": "$KKR beat Q3 2026 ANI per Adjusted Share estimates by $0.20.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$KKR beat the Q3 EPS consensus: $1.78 vs $1.58.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$KKR Q3 EPS: $1.78 vs $1.58 consensus (beat by $0.20).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$KKR Q3 EPS $1.78, beat by $0.20.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$KKR beat Q3 EPS estimates by $0.20.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-33d525.a",
+          "fact": "earningsre-33d525",
+          "variant": "a",
+          "text": "$KKR beat the Q3 ANI per Adjusted Share consensus: $1.78 vs $1.58.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9a28d7.a",
+          "fact": "earningsre-9a28d7",
+          "variant": "a",
+          "text": "$KKR Q3 ANI per Adjusted Share: $1.78 vs $1.58 consensus (beat by $0.20).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-063a67.a",
+          "fact": "earningsre-063a67",
+          "variant": "a",
+          "text": "$KKR Q3 ANI per Adjusted Share $1.78, beat by $0.20.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-aeb472.a",
+          "fact": "earningsre-aeb472",
+          "variant": "a",
+          "text": "$KKR beat Q3 ANI per Adjusted Share estimates by $0.20.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$KKR beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$KKR beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-aa39fc.a",
+          "fact": "earningsre-aa39fc",
+          "variant": "a",
+          "text": "KKR & Co. Inc. ($KKR) published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-aa39fc.h1",
+          "fact": "earningsre-aa39fc",
+          "variant": "h1",
+          "text": "$KKR (KKR & Co. Inc.) reported Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-aa39fc.t",
+          "fact": "earningsre-aa39fc",
+          "variant": "t",
+          "text": "On Nov 9, KKR & Co. Inc. ($KKR) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$KKR published Q3 2026 results on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $KKR came out on Nov 9.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 9, $KKR published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-99b956.a",
+          "fact": "earningsre-99b956",
+          "variant": "a",
+          "text": "$KKR Q3 2026 ANI per Adjusted Share: $1.78 vs $1.58 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-99b956.h1",
+          "fact": "earningsre-99b956",
+          "variant": "h1",
+          "text": "$KKR reported Q3 2026 ANI per Adjusted Share of $1.78 vs $1.58 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-df2e04.a",
+          "fact": "earningsre-df2e04",
+          "variant": "a",
+          "text": "$KKR Q3 2026 ANI per Adjusted Share was $1.78.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-df2e04.h1",
+          "fact": "earningsre-df2e04",
+          "variant": "h1",
+          "text": "Q3 2026 ANI per Adjusted Share at $KKR was $1.78.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$KKR had a market value of $90.8B at the Nov 6 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$KKR's market value at the Nov 6 close was $90.8B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 6 close, $KKR had a market value of $90.8B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$KKR moved −1.85% on Friday, Nov 6.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$KKR's move on Friday, Nov 6: −1.85%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Friday, Nov 6, $KKR moved −1.85%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "1.85%": "-",
+          "1.9%": "-"
+        },
+        "subjects": {
+          "KKR": "down"
+        }
+      },
+      "subject_numbers": {
+        "KKR": [
+          [
+            "$",
+            1.78,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.58,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.2,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            1.85,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            90.8,
             1,
             1000000000.0,
             0
@@ -10277,483 +9851,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-09-earnings-result-KKR-47a0e4",
-      "type": "earnings_result",
-      "ticker": "KKR",
-      "tickers": [
-        "KKR"
-      ],
-      "name": "KKR & Co. Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-09",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1404912/000140491226000030/q326earningsrelease_vf.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/KKR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-09-earnings-result-KKR-47a0e4#earnings-history",
-      "allowed_numbers": [
-        "$1.78",
-        "$1.58",
-        "$0.20",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-09",
-        "Nov 9, 2026",
-        "Nov 9"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "KKR & Co. Inc. (KKR) published Q3 2026 results on 2026-11-09. ANI per Adjusted Share $1.78 vs $1.58 consensus (Beat by $0.20).",
-      "dedupe_key": "report:kkr-2026-q3",
-      "claim_phrases": [
-        "EPS came in above the $1.58 consensus.",
-        "$KKR beat the Q3 2026 EPS consensus: $1.78 vs $1.58.",
-        "$KKR Q3 2026 EPS: $1.78 vs $1.58 consensus (beat by $0.20).",
-        "$KKR Q3 2026 EPS $1.78, beat by $0.20.",
-        "EPS $1.78 vs $1.58 consensus (beat by $0.20).",
-        "EPS $1.78 vs $1.58 (beat by $0.20).",
-        "$KKR beat Q3 2026 EPS estimates by $0.20.",
-        "ANI per Adjusted Share came in above the $1.58 consensus.",
-        "$KKR beat the Q3 2026 ANI per Adjusted Share consensus: $1.78 vs $1.58.",
-        "$KKR Q3 2026 ANI per Adjusted Share: $1.78 vs $1.58 consensus (beat by $0.20).",
-        "$KKR Q3 2026 ANI per Adjusted Share $1.78, beat by $0.20.",
-        "ANI per Adjusted Share $1.78 vs $1.58 consensus (beat by $0.20).",
-        "ANI per Adjusted Share $1.78 vs $1.58 (beat by $0.20).",
-        "$KKR beat Q3 2026 ANI per Adjusted Share estimates by $0.20.",
-        "$KKR beat the Q3 EPS consensus: $1.78 vs $1.58.",
-        "$KKR Q3 EPS: $1.78 vs $1.58 consensus (beat by $0.20).",
-        "$KKR Q3 EPS $1.78, beat by $0.20.",
-        "$KKR beat Q3 EPS estimates by $0.20.",
-        "$KKR beat the Q3 ANI per Adjusted Share consensus: $1.78 vs $1.58.",
-        "$KKR Q3 ANI per Adjusted Share: $1.78 vs $1.58 consensus (beat by $0.20).",
-        "$KKR Q3 ANI per Adjusted Share $1.78, beat by $0.20.",
-        "$KKR beat Q3 ANI per Adjusted Share estimates by $0.20.",
-        "$KKR beat Q3 2026 estimates.",
-        "$KKR beat Q3 estimates."
-      ],
-      "report_id": "kkr-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-09",
-      "published_at": "2026-11-09T11:54:19.702915+00:00",
-      "tile_label": null,
-      "tile_state": null,
-      "results": {
-        "eps": {
-          "basis": "ANI per Adjusted Share",
-          "reported": "$1.78",
-          "consensus": "$1.58",
-          "label": "Beat by $0.20",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/KKR/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for KKR: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 9.0,
-      "rank_why": "earnings_result 3; large cap $90.79B +2.5; magnitude (verdict) +1.5; release_date 2026-11-09 (age 0) +2",
-      "pillar": "P5",
-      "market_cap_usd": 90788946384.32037,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-06",
-        "Nov 6, 2026",
-        "Nov 6",
-        "$90.8B",
-        "−1.85%",
-        "1.85%",
-        "−1.9%",
-        "1.9%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "KKR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "KKR": "Financial Services"
-      },
-      "ticker_names": {
-        "KKR": "KKR & Co. Inc."
-      },
-      "context": {
-        "market_cap": "$90.8B",
-        "market_cap_session": "2026-11-06",
-        "last_session_move": {
-          "pct": "−1.85%",
-          "session": "2026-11-06"
-        }
-      },
-      "angles": [
-        "KKR & Co. Inc. ($KKR) published Q3 2026 results on Nov 9.",
-        "$KKR (KKR & Co. Inc.) reported Q3 2026 results on Nov 9.",
-        "On Nov 9, KKR & Co. Inc. ($KKR) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "KKR & Co. Inc. ($KKR) published Q3 2026 results on Nov 9.",
-        "$KKR (KKR & Co. Inc.) reported Q3 2026 results on Nov 9.",
-        "On Nov 9, KKR & Co. Inc. ($KKR) published Q3 2026 results.",
-        "$KKR published Q3 2026 results on Nov 9.",
-        "Q3 2026 results from $KKR came out on Nov 9.",
-        "On Nov 9, $KKR published Q3 2026 results.",
-        "$KKR Q3 2026 ANI per Adjusted Share: $1.78 vs $1.58 consensus.",
-        "$KKR reported Q3 2026 ANI per Adjusted Share of $1.78 vs $1.58 consensus.",
-        "$KKR Q3 2026 ANI per Adjusted Share was $1.78.",
-        "Q3 2026 ANI per Adjusted Share at $KKR was $1.78.",
-        "$KKR had a market value of $90.8B at the Nov 6 close.",
-        "$KKR's market value at the Nov 6 close was $90.8B.",
-        "At the Nov 6 close, $KKR had a market value of $90.8B.",
-        "$KKR moved −1.85% on Friday, Nov 6.",
-        "$KKR's move on Friday, Nov 6: −1.85%.",
-        "On Friday, Nov 6, $KKR moved −1.85%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.58 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$KKR beat the Q3 2026 EPS consensus: $1.78 vs $1.58.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$KKR Q3 2026 EPS: $1.78 vs $1.58 consensus (beat by $0.20).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$KKR Q3 2026 EPS $1.78, beat by $0.20.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.78 vs $1.58 consensus (beat by $0.20).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.78 vs $1.58 (beat by $0.20).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$KKR beat Q3 2026 EPS estimates by $0.20.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d2c0e8.a",
-          "fact": "earningsre-d2c0e8",
-          "variant": "a",
-          "text": "ANI per Adjusted Share came in above the $1.58 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-2659be.a",
-          "fact": "earningsre-2659be",
-          "variant": "a",
-          "text": "$KKR beat the Q3 2026 ANI per Adjusted Share consensus: $1.78 vs $1.58.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-38ad62.a",
-          "fact": "earningsre-38ad62",
-          "variant": "a",
-          "text": "$KKR Q3 2026 ANI per Adjusted Share: $1.78 vs $1.58 consensus (beat by $0.20).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-420f5c.a",
-          "fact": "earningsre-420f5c",
-          "variant": "a",
-          "text": "$KKR Q3 2026 ANI per Adjusted Share $1.78, beat by $0.20.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-0278d0.a",
-          "fact": "earningsre-0278d0",
-          "variant": "a",
-          "text": "ANI per Adjusted Share $1.78 vs $1.58 consensus (beat by $0.20).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-2240df.a",
-          "fact": "earningsre-2240df",
-          "variant": "a",
-          "text": "ANI per Adjusted Share $1.78 vs $1.58 (beat by $0.20).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-102e5c.a",
-          "fact": "earningsre-102e5c",
-          "variant": "a",
-          "text": "$KKR beat Q3 2026 ANI per Adjusted Share estimates by $0.20.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$KKR beat the Q3 EPS consensus: $1.78 vs $1.58.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$KKR Q3 EPS: $1.78 vs $1.58 consensus (beat by $0.20).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$KKR Q3 EPS $1.78, beat by $0.20.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$KKR beat Q3 EPS estimates by $0.20.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-33d525.a",
-          "fact": "earningsre-33d525",
-          "variant": "a",
-          "text": "$KKR beat the Q3 ANI per Adjusted Share consensus: $1.78 vs $1.58.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9a28d7.a",
-          "fact": "earningsre-9a28d7",
-          "variant": "a",
-          "text": "$KKR Q3 ANI per Adjusted Share: $1.78 vs $1.58 consensus (beat by $0.20).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-063a67.a",
-          "fact": "earningsre-063a67",
-          "variant": "a",
-          "text": "$KKR Q3 ANI per Adjusted Share $1.78, beat by $0.20.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-aeb472.a",
-          "fact": "earningsre-aeb472",
-          "variant": "a",
-          "text": "$KKR beat Q3 ANI per Adjusted Share estimates by $0.20.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$KKR beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$KKR beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-aa39fc.a",
-          "fact": "earningsre-aa39fc",
-          "variant": "a",
-          "text": "KKR & Co. Inc. ($KKR) published Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-aa39fc.h1",
-          "fact": "earningsre-aa39fc",
-          "variant": "h1",
-          "text": "$KKR (KKR & Co. Inc.) reported Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-aa39fc.t",
-          "fact": "earningsre-aa39fc",
-          "variant": "t",
-          "text": "On Nov 9, KKR & Co. Inc. ($KKR) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$KKR published Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $KKR came out on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 9, $KKR published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-99b956.a",
-          "fact": "earningsre-99b956",
-          "variant": "a",
-          "text": "$KKR Q3 2026 ANI per Adjusted Share: $1.78 vs $1.58 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-99b956.h1",
-          "fact": "earningsre-99b956",
-          "variant": "h1",
-          "text": "$KKR reported Q3 2026 ANI per Adjusted Share of $1.78 vs $1.58 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-df2e04.a",
-          "fact": "earningsre-df2e04",
-          "variant": "a",
-          "text": "$KKR Q3 2026 ANI per Adjusted Share was $1.78.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-df2e04.h1",
-          "fact": "earningsre-df2e04",
-          "variant": "h1",
-          "text": "Q3 2026 ANI per Adjusted Share at $KKR was $1.78.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$KKR had a market value of $90.8B at the Nov 6 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$KKR's market value at the Nov 6 close was $90.8B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 6 close, $KKR had a market value of $90.8B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$KKR moved −1.85% on Friday, Nov 6.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$KKR's move on Friday, Nov 6: −1.85%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Friday, Nov 6, $KKR moved −1.85%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "1.85%": "-",
-          "1.9%": "-"
-        },
-        "subjects": {
-          "KKR": "down"
-        }
-      },
-      "subject_numbers": {
-        "KKR": [
-          [
-            "$",
-            1.78,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.58,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.2,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            1.85,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            90.8,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-09-earnings-result-FERG-c92a2f",
       "type": "earnings_result",
       "ticker": "FERG",
@@ -11845,9 +10942,7 @@
         "+$3B",
         "30"
       ],
-      "context_tickers": [
-        "KMI"
-      ],
+      "context_tickers": [],
       "trigger": null,
       "card": null,
       "claims": [],
@@ -24485,7 +23580,7 @@
       "rank": 4.5,
       "rank_why": "moves_like 0.5; large cap $67.25B +2.5; session 2026-11-06 (age 1) +1.5",
       "top8": false,
-      "top8_out": "repeat: leads with $KMI like 2026-11-09-form4-buy-KMI-eaefd0",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
