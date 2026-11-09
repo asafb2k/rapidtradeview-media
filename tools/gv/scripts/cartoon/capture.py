@@ -3,7 +3,7 @@ of the key figures (no OCR, no synthetic UI).
 
 Runs in the isolated Playwright venv (never the conda env, never system python):
     <media>/.ops/cache/shot-venv/Scripts/python.exe capture.py --url URL --out DIR --name NAME
-        [--scroll-to TEXT] [--scroll-frac 0.42] [--clip-from TEXT --clip-to TEXT] [--target TEXT ...]
+        [--scroll-to TEXT] [--scroll-frac 0.42] [--clip-from TEXT --clip-to TEXT [--clip-end-above TEXT]] [--target TEXT ...]
         [--viewport 430x932] [--dpr 3]
 
 Writes DIR/NAME.png and DIR/NAME.json:
@@ -73,9 +73,13 @@ def main(argv=None) -> int:
     ap.add_argument("--name", required=True)
     ap.add_argument("--scroll-to", help="scroll so this text sits at --scroll-frac of the viewport height")
     ap.add_argument("--scroll-frac", type=float, default=0.42)
-    ap.add_argument("--clip-from", help="clip: band starts at the top of this text")
-    ap.add_argument("--clip-to", help="clip: band ends at the bottom of this text")
+    ap.add_argument("--clip-from", help="clip: band starts at the top of this text (TEXT#N = its N-th occurrence on the page, "
+                                        "TEXT#last = its last occurrence above --clip-to)")
+    ap.add_argument("--clip-to", help="clip: band ends at the bottom of this text (TEXT#N = its N-th occurrence on the page)")
     ap.add_argument("--clip-pad", type=float, default=14.0, help="CSS px above and below the band")
+    ap.add_argument("--clip-end-above", help="clip: the band ends just above the first occurrence of this text between the "
+                                             "clip-from and clip-to texts (keeps small print such as a date off the card); "
+                                             "not found there = exit 2")
     ap.add_argument("--target", action="append", default=[],
                     help="text whose DOM box goes into the sidecar; TEXT#N = its N-th occurrence inside the captured area")
     ap.add_argument("--viewport", default="430x932")
@@ -117,11 +121,28 @@ def main(argv=None) -> int:
             pg.wait_for_timeout(700)
         clip = None
         if a.clip_from or a.clip_to:
-            hf, ht = pg.evaluate(JS_FIND, [a.clip_from or "", False]), pg.evaluate(JS_FIND, [a.clip_to or "", False])
-            if not (a.clip_from and a.clip_to and hf and ht):
+            def nth_hit(spec, below=None):
+                """TEXT, TEXT#N (the N-th occurrence on the page) or TEXT#last (the last occurrence above `below`)."""
+                if spec.endswith("#last"):
+                    hits = [h for h in pg.evaluate(JS_FIND, [spec[:-5], True]) if below and h["docY"] < below["docY"]]
+                    return max(hits, key=lambda h: h["docY"]) if hits else None
+                needle, _, nth = spec.rpartition("#") if re.fullmatch(r".+#\d+", spec) else (spec, "", "1")
+                hits = pg.evaluate(JS_FIND, [needle, True])
+                return hits[int(nth) - 1] if len(hits) >= int(nth) else None
+
+            ht = nth_hit(a.clip_to) if a.clip_from and a.clip_to else None
+            hf = nth_hit(a.clip_from, ht) if ht else None
+            if not (hf and ht):
                 print("capture: --clip-from and --clip-to must both be found", file=sys.stderr)
                 return 2
             top, bot = hf["docY"] - a.clip_pad, ht["docY"] + ht["h"] + a.clip_pad
+            if a.clip_end_above:
+                cut = [h for h in pg.evaluate(JS_FIND, [a.clip_end_above, True])
+                       if hf["docY"] < h["docY"] < ht["docY"] + ht["h"]]
+                if not cut:
+                    print(f"capture: {a.clip_end_above!r} not found inside the clip", file=sys.stderr)
+                    return 2
+                bot = min(h["docY"] for h in cut) - 3
             if bot - top > vh:
                 print("capture: the clip band is taller than the viewport", file=sys.stderr)
                 return 2

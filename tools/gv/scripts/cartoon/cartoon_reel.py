@@ -1,6 +1,13 @@
 """Cartoon-story Reel renderer: a story script (story.json) + today's facts item + real RapidTradeView screenshots -> a 9:16
-Reel with flat cartoon characters, a camera that never stops, word-by-word captions on a local TTS voice, SFX bubbles,
-and the real screen as the payoff. Runs in the project conda env (PIL + numpy); the voice runs in its own venv.
+Reel with flat cartoon characters, a camera that never stops, word-by-word captions on a local TTS voice, and the real
+screen as the payoff. Runs in the project conda env (PIL + numpy); the voice runs in its own venv.
+
+Format v3 (owner verdict 2026-11-09: "the pilot short is too complicated and it isnt clear what brand behind it"): ONE
+situation, ONE punchline, 15-22 s, at most 7 shots, no side gags; the RapidTradeView pill is on screen from frame 0 to the
+last frame (a layer drawn over every frame, transitions included); the voice says RapidTradeView in the first 5 s and in
+the last 5 s; the payoff is our real page with its own header and logo. make_story.py writes the story from a facts item.
+v4: nothing that stays on screen sits under the pill (pill_clear gate: real cards keep below it, header flies off before
+the zoom); the end card keeps out of the right 12% (end_card_safe) and keeps moving (wordmark pulse, head bob).
 
     cartoon_reel.py --story STORY.json --out DIR [--ffmpeg-dir DIR] [--tts-python PY] [--sheet-every 1.5]
 
@@ -55,16 +62,16 @@ MARGIN = (162, 288)                       # the world canvas is 1404 x 2496: 1.3
 CANVAS = (W + 2 * MARGIN[0], H + 2 * MARGIN[1])
 SR = vsco_score.SR
 END_S = 3.0
-DURATION_RANGE = (25.0, 50.0)
+DURATION_RANGE = Q.ONE_IDEA_DURATION       # 15-22 s (v3: one situation, one punchline)
 SHOT_RANGE = (0.7, 2.6)
-PAYOFF_MAX = 4.0
-SHOTS_RANGE = (18, 26)
+PAYOFF_MAX = 4.5                          # v3: the payoff holds our real page (brand + fact), the one place to linger
+SHOTS_RANGE = (4, Q.ONE_IDEA_MAX_SHOTS)   # at most 7 shots
 LUFS_RANGE, TP_MAX, TARGET_LUFS = (-15.0, -13.0), -1.0, -14.0
 STATIC_MAD, STATIC_RUN = 0.3, 8
 CAPTION_SIZE, CAPTION_MIN, CAPTION_MAX_W = 92, 72, 760
 CAPTION_Y = 1230                          # ONE caption band (64% of the height) for every shot; frame the shots around it
 SPEAKER_COL = {"dale": (255, 178, 158), "pip": (160, 242, 208)}   # caption colour per voice (narrator white)
-PAYOFF_WINDOW = (4.0, 7.0)                # first PAYOFF start -> last PAYOFF end, reaction cut-ins included
+PAYOFF_WINDOW = (2.0, 8.0)                # first PAYOFF start -> last PAYOFF end, reaction cut-ins included
 SCREEN_MIN_S = 1.8                        # the real screenshot is on screen at least this long
 RECEIPT_MIN_S = 1.8                       # a fact phrase shown (not read) stays on screen at least this long
 CHAR_GAP_MAX = 2.0                        # a character is never off screen for longer than this
@@ -73,6 +80,12 @@ HOOK_CHAR_W = 0.5                         # frame 0: a character at least this s
 LEAD_F = 2                                # the picture cuts 2 frames before the first word of its line
 SEARCH_TEXT = "Search RapidTradeView"
 END_TEXTS = (cr.BRAND, SEARCH_TEXT, cr.SITE, cr.DISCLAIMER)
+BRAND_PILL_SIZE = 40                      # the persistent brand pill (card_reel.pill): top-left, under the platform's
+BRAND_PILL_XY = (54, 262)                 # top bar (SAFE_TOP 250), far from the bottom 18% and the right 12% (IG/YT UI)
+BRAND_SWEEP_EVERY = 4.0                   # a light sweep crosses the pill every 4 s (a little life, never a fade)
+END_BRAND_SIZE = 68                       # the end card's wordmark (~740 px): with its pop and pulse it stays left of x 950
+END_PULSE = 0.035                         # the wordmark's pulse after the search has typed (the end card never freezes)
+RIGHT_BAND_X = 0.88 * 1080                # the right ~12% is under the IG/YT action rail: no brand text there
 LIME, CYANC, GREEN, RED = C.LIME, (56, 225, 245), (52, 211, 120), (248, 92, 92)
 BUBBLE_FILL = {"lime": C.LIME, "cyan": C.CYAN, "white": (255, 255, 255)}
 font = cr.font
@@ -581,8 +594,11 @@ class Reel:
         self.texts: list[dict] = []                              # every text we draw: role, text, box
         self.key_samples: list[dict] = []
         self._sampled: dict[int, bool] = {}
+        self.brand_samples: list[dict] = []                     # PAYOFF frames that show our real header (payoff_brand)
+        self.pill_samples: list[dict] = []                      # frames with a real card: is one under the brand pill?
         self._plan_overlays()
         self._end_build()
+        self._brand_build()
 
     # ------------------------------------------------------------------------------------------ plan
     def word_time(self, si: int, ref) -> float:
@@ -644,6 +660,8 @@ class Reel:
                     word = str(el.get("text", ""))
                     self.texts.append({"role": "prop", "text": C.SEARCH_PLACEHOLDER, "box": None})
                     self.texts.append({"role": "prop", "text": word, "box": None})
+                    if el.get("brand", True):
+                        self.texts.append({"role": "prop", "text": C.BRAND_NAME, "box": None})
                     t0 = self.word_time(si, el.get("at", 0.2))
                     rate = float(el.get("rate", 0.08))
                     el["_t0"], el["_rate"] = t0 - st, rate
@@ -701,11 +719,18 @@ class Reel:
         th = float(mv.get("rot", 0.0)) * (t - D / 2) + float(mv.get("th", 0.0))
         return Cam(s, c, th)
 
-    def _target_world(self, si: int, name_or_list, t: float):
-        """World box corners of a screenshot target (or the union of several) on its screen/card element at time t."""
+    def _target_world(self, si: int, name_or_list, t: float, el=None):
+        """World box corners of a screenshot target (or the union of several) on its screen/card element at time t (the
+        shot's main screen unless `el` is given)."""
         names = name_or_list if isinstance(name_or_list, list) else [name_or_list]
         sh = self.shots[si]
-        el = next(e for e in sh["els"] if e.get("t") in ("screen", "card") and e.get("main", True))
+        if el is None:                  # the card whose capture has the target (the main one first)
+            cards = [e for e in sh["els"] if e.get("t") in ("screen", "card")]
+            cards.sort(key=lambda e: not e.get("main", True))
+            el = next((e for e in cards if all(any(x["text"] == nm for x in self.st.screens[e["name"]]["meta"]["targets"])
+                                               for nm in names)), None)
+            if el is None:
+                raise InputError(f"shot {si + 1}: no card has the target(s) {names}")
         meta = self.st.screens[el["name"]]["meta"]
         boxes = []
         for nm in names:
@@ -738,7 +763,10 @@ class Reel:
         Z = min(Z, float(mv.get("z_max", 3.0)))
         land = np.array(mv.get("land", (540, 900)), float)
         c_end = cen - (land - O) / Z
-        if "from_target" in mv:
+        if mv.get("from_prev") and si > 0:              # continue the previous shot's camera exactly (a joined line)
+            prev = self.camera(si - 1, self.tl.ends[si - 1] - self.tl.starts[si - 1])
+            c_start, s_start = np.array(prev.c, float), float(prev.s)
+        elif "from_target" in mv:
             c0corners, _ = self._target_world(si, mv["from_target"], 0.0)
             c0cen = c0corners.mean(0)
             Z0 = float(mv.get("z0", Z))
@@ -752,7 +780,7 @@ class Reel:
         c = c_start + (c_end - c_start) * v
         if t > a0 + dur:
             s *= 1 + float(mv.get("drift", 0.03)) * (t - a0 - dur)
-        elif t < a0 and "from_target" not in mv:
+        elif t < a0 and "from_target" not in mv and not mv.get("from_prev"):
             s *= 1 + 0.03 * t
         return Cam(s, c, float(mv.get("th", 0.0)))
 
@@ -807,7 +835,21 @@ class Reel:
             if "k0" in en:
                 k *= lerp(float(en["k0"]), 1.0, v)
             a *= min(1.0, t / max(d * 0.4, 1e-3)) if en.get("fade") else 1.0
+        ex = el.get("exit")
+        if ex and t > float(ex.get("at", 0.0)):
+            v = min(1.0, (t - float(ex.get("at", 0.0))) / float(ex.get("dur", 0.3)))
+            v = v * v                                       # ease in: it leaves fast
+            dx, dy = ex.get("to", (0, -1400))
+            x += dx * v
+            y += dy * v
         return (x, y), r, k, a
+
+    def el_moving(self, si, el, t) -> bool:
+        """True while an element is entering or leaving (its pass under the brand pill is a blur, not a collision)."""
+        en, ex = el.get("enter"), el.get("exit")
+        if en and t < float(en.get("dur", 9 / FPS)) + 2 / FPS:
+            return True
+        return bool(ex and t >= float(ex.get("at", 0.0)))
 
     def shot_u(self, si, t):
         D = self.tl.ends[si] - self.tl.starts[si]
@@ -898,7 +940,8 @@ class Reel:
                 caret = n_typed < len(word) or int(t * 3) % 2 == 0
                 key = ("sphone", int(el.get("w", 560)), word[:n_typed], caret, thumb)
                 if key not in self.cache:
-                    self.cache[key] = C.search_phone(int(el.get("w", 560)), word[:n_typed], caret, thumb, font_fn=font)
+                    self.cache[key] = C.search_phone(int(el.get("w", 560)), word[:n_typed], caret, thumb, font_fn=font,
+                                                     brand=el.get("brand", True))
                 img, anchor = self.cache[key]
                 cam.sprite(frame, img, anchor, (x, y), r, k, 1.0, a)
             elif typ == "receipt":
@@ -1267,9 +1310,92 @@ class Reel:
                     out.append({"t": tt, "caption": ch["text"], "box": box, "protect": self.protect_boxes(si, tt)})
         return out
 
+    # ------------------------------------------------------------------------------------------ the brand layer
+    def _brand_build(self):
+        self.b_pill = cr.pill(cr.BRAND, BRAND_PILL_SIZE, 26, 16)
+        self.b_sweep = cr.Sweep(self.b_pill, 0.35, 0.10)
+        x0, y0 = BRAND_PILL_XY
+        w_, h_ = self.b_pill.size
+        self.brand_box = (x0, y0, x0 + w_, y0 + h_)
+        self.texts.append({"role": "brand_pill", "text": cr.BRAND, "box": self.brand_box})
+
+    def brand_sprite(self, t_abs: float) -> Image.Image:
+        x = ((t_abs - 0.8) % BRAND_SWEEP_EVERY) / 0.7 if t_abs >= 0.8 else -1.0
+        return self.b_sweep.at(x) if 0 < x < 1 else self.b_pill
+
+    def draw_brand(self, fr: Image.Image, t_abs: float) -> Image.Image:
+        """The persistent RapidTradeView pill, drawn over the finished frame (after whips and smashes, so it never moves)."""
+        if fr.mode != "RGBA":
+            fr = fr.convert("RGBA")
+        fr.alpha_composite(self.brand_sprite(t_abs), (int(self.brand_box[0]), int(self.brand_box[1])))
+        return fr
+
+    def _brand_sample(self, si, t, t_abs, cam):
+        """On a PAYOFF frame: where our own header's brand (the capture's target "RapidTradeView") sits on screen."""
+        sh = self.shots[si]
+        if sh.get("kind") != "PAYOFF":
+            return
+        for el in sh.get("els", []):
+            if el.get("t") not in ("screen", "card"):
+                continue
+            sc = self.st.screens[el["name"]]
+            tg = next((x for x in sc["meta"].get("targets", []) if x.get("text") == cr.BRAND), None)
+            if tg is None:
+                continue
+            bx, by, bw, bh = tg["box"]
+            crop = el.get("crop")
+            in_crop = (not crop) or (crop[0] <= bx and crop[1] <= by and bx + bw <= crop[2] and by + bh <= crop[3])
+            corners, _ = self._target_world(si, cr.BRAND, t, el)
+            pts = np.array([cam.p(q) for q in corners])
+            hh = float(np.linalg.norm(pts[3] - pts[0]))
+            inside = bool(pts[:, 0].min() >= 0 and pts[:, 0].max() <= W and pts[:, 1].min() >= 0 and pts[:, 1].max() <= H)
+            self.brand_samples.append({"t": round(t_abs, 3), "screen": el["name"], "h": round(hh, 1), "inside": inside,
+                                       "in_crop": bool(in_crop), "in_text": cr.BRAND in sc["meta"].get("visible_text", "")})
+            return
+
+    def card_corners(self, si, el, t):
+        """World corners of a card's real capture (the shown crop) at shot time t."""
+        sc = self.st.screens[el["name"]]
+        cw, ch = sc["size"]
+        crop = el.get("crop") or (0, 0, cw, ch)
+        spr = self.screen_sprite(el)
+        q, rot_deg, k, _a = self.el_pose(si, el, t)
+        _img, anchor, kk, off, res = spr
+        pts = []
+        for (sx, sy) in ((0, 0), (crop[2] - crop[0], 0), (crop[2] - crop[0], crop[3] - crop[1]), (0, crop[3] - crop[1])):
+            u = np.array([off[0] + sx * kk, off[1] + sy * kk])
+            pts.append(np.array(q, float) + (k / res) * (rot(rot_deg) @ (u - np.array(anchor, float))))
+        return pts
+
+    def _pill_sample(self, si, t, t_abs, cam):
+        """Every rendered frame with a real card: does a card that is not entering or leaving sit under the brand pill?"""
+        sh = self.shots[si]
+        x0, y0, x1, y1 = self.brand_box
+        for el in sh.get("els", []):
+            if el.get("t") not in ("screen", "card"):
+                continue
+            pts = np.array([cam.p(q) for q in self.card_corners(si, el, t)])
+            bx0, by0 = pts.min(0)
+            bx1, by1 = pts.max(0)
+            ov = max(0.0, min(x1, bx1) - max(x0, bx0)) * max(0.0, min(y1, by1) - max(y0, by0))
+            self.pill_samples.append({"t": round(t_abs, 3), "screen": el["name"], "overlap_px": round(float(ov)),
+                                      "moving": self.el_moving(si, el, t),
+                                      "card_box": [round(float(v)) for v in (bx0, by0, bx1, by1)]})
+
+    def end_extent(self) -> dict:
+        """The end card's widest moment: the right edges of the wordmark and the search box (frame px) over the card."""
+        worst = {"wordmark": 0.0, "search": 0.0}
+        n = int(round(END_S * FPS))
+        for f in range(n):
+            v = f / FPS
+            gs, ws = self.end_scales(v)
+            worst["wordmark"] = max(worst["wordmark"], W / 2 + self.e_pill.size[0] / 2 * ws)
+            worst["search"] = max(worst["search"], W / 2 + self.search_box(v).size[0] / 2 * gs)
+        return {k: round(v, 1) for k, v in worst.items()}
+
     # ------------------------------------------------------------------------------------------ end card
     def _end_build(self):
-        self.e_pill = cr.pill(cr.BRAND, 86, 56, 34)
+        self.e_pill = cr.pill(cr.BRAND, END_BRAND_SIZE, round(END_BRAND_SIZE * 0.65), round(END_BRAND_SIZE * 0.4))
         self.e_sweep = cr.Sweep(self.e_pill, 0.38, 0.09)
         self.e_site = cr.text_img(cr.SITE, font("semi", 46), (200, 200, 212))
         self.e_disc = cr.text_img(cr.DISCLAIMER, font("regular", 48), cr.DISC_GREY)
@@ -1303,9 +1429,16 @@ class Reel:
         self.cache[key] = img
         return img
 
+    def end_scales(self, v: float) -> tuple[float, float]:
+        """(the card's slow push, the wordmark's scale: pop in, then a pulse once the search has typed)."""
+        gs = 1 + 0.06 * min(1.0, v / END_S)
+        k = eob(v / 0.36, 1.9)
+        pulse = 1 + END_PULSE * math.sin(2 * math.pi * 1.3 * (v - 0.75)) if v > 0.75 else 1.0
+        return gs, gs * (0.6 + 0.4 * k) * pulse
+
     def end_frame(self, v: float) -> Image.Image:
         fr = cr.Scenes.background(self.e_shim, v)
-        gs = 1 + 0.06 * min(1.0, v / END_S)
+        gs, ws = self.end_scales(v)
         Cc = (W / 2, H / 2)
 
         def at(y):
@@ -1316,11 +1449,14 @@ class Reel:
         if key not in self.cache:
             self.cache[key] = C.head_only("pip", "smug", 300, blink)
         head, _ = self.cache[key]
-        bob = 10 * math.sin(2 * math.pi * 1.1 * v)
-        cr.put(fr, head, W / 2, at(610 + bob), min(1.0, v / 0.15), gs * (0.8 + 0.2 * eob(v / 0.3)))
-        k = eob(v / 0.36, 1.9)
-        x = cr.prog(v, 0.55, 1.2) if v < 1.4 else cr.prog(v, 1.75, 2.4)
-        cr.put(fr, self.e_sweep.at(x), W / 2, at(860), cr.prog(v, 0, 3 / FPS), gs * (0.6 + 0.4 * k))
+        bob = 24 * math.sin(2 * math.pi * 1.1 * v)
+        tilt = 7 * math.sin(2 * math.pi * 0.8 * v)
+        hk = ("endhead_r", blink, round(tilt * 2) / 2)
+        if hk not in self.cache:
+            self.cache[hk] = head.rotate(hk[2], Image.BICUBIC, expand=True, fillcolor=C.CLEAR)
+        cr.put(fr, self.cache[hk], W / 2, at(610 + bob), min(1.0, v / 0.15), gs * (0.8 + 0.2 * eob(v / 0.3)))
+        x = cr.prog(v, 0.55, 1.2) if v < 1.4 else ((v - 1.5) % 0.8) / 0.55      # then a sweep every 0.8 s to the end
+        cr.put(fr, self.e_sweep.at(x), W / 2, at(860), cr.prog(v, 0, 3 / FPS), ws)
         cr.put(fr, self.search_box(v), W / 2, at(1040), cr.prog(v, 0.1, 0.3), gs)
         e = ease_out(cr.prog(v, 0.12, 0.45))
         cr.put(fr, self.e_site, W / 2, at(1190 + 40 * (1 - e)), e, gs)
@@ -1342,6 +1478,8 @@ class Reel:
         self.overlays(fr, si, t_abs)
         if sample:
             self._key_sample(si, t, t_abs, cam)
+            self._brand_sample(si, t, t_abs, cam)
+            self._pill_sample(si, t, t_abs, cam)
         return fr
 
     def _key_sample(self, si, t, t_abs, cam):
@@ -1382,6 +1520,7 @@ class Reel:
                 fr = fr.crop((int(W / 2 - w2 / 2), int(H / 2 - h2 / 2), int(W / 2 + w2 / 2), int(H / 2 + h2 / 2))).resize((W, H), Image.BILINEAR)
             if al < 1:
                 fr = Image.blend(Image.new("RGBA", (W, H), C.INK + (255,)), fr.convert("RGBA"), al)
+        fr = self.draw_brand(fr, t_abs)
         return fr.convert("RGB")
 
     @staticmethod
@@ -1534,12 +1673,12 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     real = {}
     ok_all = True
     day = st.doc["item_id"][:10]
-    want_url = re.sub(r"[?#].*$", "", str(item.get("page_url", "")))
+    want_urls = Q.item_page_urls(item)
     for name, sc in st.screens.items():
         m = sc["meta"]
         sha = cr.sha256(sc["png"])
         ok = (sc["fmt"] == "PNG" and sha == m.get("sha256") and list(sc["size"]) == list(m.get("png_size", []))
-              and str(m.get("captured_at", ""))[:10] == day and re.sub(r"[?#].*$", "", m.get("url", "")) == want_url)
+              and str(m.get("captured_at", ""))[:10] == day and re.sub(r"[?#].*$", "", m.get("url", "")) in want_urls)
         real[name] = {"png": str(sc["png"]), "sha256": sha, "sidecar_sha256": m.get("sha256"), "captured_at": m.get("captured_at"),
                       "url": m.get("url"), "ok": ok}
         ok_all &= ok
@@ -1595,6 +1734,9 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     s["hook"] = bool(widths) and max(widths) >= HOOK_CHAR_W and not flipped and first_num is not None and first_num <= HOOK_NUMBER_BY
     d["hook"] = {"char_width_share": widths, "upside_down": flipped, "first_item_number_s": None if first_num is None else round(first_num, 2),
                  "limits": {"char_width_share": HOOK_CHAR_W, "number_by_s": HOOK_NUMBER_BY}}
+    # the brand, said early and late; one situation, one punchline
+    s["brand_spoken"], d["brand_spoken"] = Q.brand_spoken_gate([(w.text, w.start) for w in tl.words], tl.total)
+    s["one_idea"], d["one_idea"] = Q.one_idea_gate(st.shots, tl.total)
     # captions stay off faces, held props, bubbles, chips, the key number, the receipt and the phone
     s["caption_occlusion"], d["caption_occlusion"] = Q.occlusion_gate(reel.occlusion_samples())
     # caption sync: onset 1 frame before its first word
@@ -1676,6 +1818,17 @@ def video_gates(mp4: Path, reel: Reel, ffmpeg: str, ffprobe: str) -> tuple[dict,
     contrast = float(region.max() - np.median(region)) if region.size else 0.0
     corr = float(np.corrcoef(region.ravel(), ref.ravel())[0, 1]) if region.std() > 0 and ref.std() > 0 else 0.0
     s["disclaimer_on_screen"] = contrast >= 60 and corr >= cr.DISCLAIMER_MIN_CORR
+    # the brand pill in every sampled decoded frame (every second, and the last frame)
+    x0, y0, x1, y1 = (int(v) for v in reel.brand_box)
+    inset = (y1 - y0) // 2
+    ref = np.asarray(reel.b_pill.convert("L"), np.float32)[4:-4, inset:-inset]
+    samples = []
+    for ts in list(np.arange(0.0, tt, 1.0)) + [tt - 0.01]:
+        g_ = cr.grey_at(mp4, ffmpeg, float(ts))
+        c_, m_ = Q.region_match(g_[y0 + 4:y1 - 4, x0 + inset:x1 - inset], ref)
+        samples.append({"t": float(ts), "corr": c_, "mad": m_})
+    s["brand_pill"], d["brand_pill"] = Q.brand_pill_gate(samples)
+    d["brand_pill"]["box"] = [x0, y0, x1, y1]
     d["disclaimer_on_screen"] = {"t": round(tt, 3), "contrast": round(contrast, 1), "corr_vs_planned": round(corr, 3)}
     return s, d, g
 
@@ -1753,6 +1906,11 @@ def run(a, out: Path, ctx: dict) -> int:
         return fail(out, ctx["iid"], f"render failed: {e}", "render")
     summary, details = text_gates(st, tl, reel)
     summary["key_number"], details["key_number"] = key_number_gate(reel, st)
+    summary["payoff_brand"], details["payoff_brand"] = Q.payoff_brand_gate(reel.brand_samples, FPS)
+    summary["pill_clear"], details["pill_clear"] = Q.pill_clear_gate(reel.pill_samples)
+    ext = reel.end_extent()
+    summary["end_card_safe"] = max(ext.values()) <= RIGHT_BAND_X
+    details["end_card_safe"] = {"right_edge_px": ext, "limit_px": RIGHT_BAND_X}
     summary["voice_present"] = bool(tl.words) and voinfo["vo_active_s"] >= 0.4 * tl.total and voinfo["vo_rms_db"] > -40
     details["voice_present"] = voinfo
     try:
@@ -1775,6 +1933,8 @@ def run(a, out: Path, ctx: dict) -> int:
     cr.write_json(out / "reel.json", clean({
         "schema": "rtv-cartoon-reel/1", "renderer": RENDERER, "item_id": ctx["iid"], "qa_pass": ok,
         "facts_file": str(st.facts_path), "facts_text": st.item.get("facts_text"), "fact_phrase": st.doc["fact_phrase"],
+        "format": "v4 one idea, brand always clear (owner verdict 2026-11-09)", "template": st.doc.get("template"),
+        "brand": {"pill_box": list(reel.brand_box), "spoken_at_s": details.get("brand_spoken", {}).get("spoken_at_s")},
         "allowed_numbers": st.item.get("allowed_numbers"), "numbers_used": used_numbers, "post_date": st.post_date,
         "claims_for_human_check": (details.get("claim_lines") or {}).get("needs_human_check"),
         "screen_crops": {f"shot {i + 1}": {"screen": e["name"], "crop_px": e["crop"]} for i, sh in enumerate(st.shots)
