@@ -251,13 +251,22 @@ def mitten(p: Pen, x, y, skin, toward=(0.0, -1.0), size=0.23):
 
 
 # ------------------------------------------------------------------------------------------------- props (in hu)
+def brand_mark_on(p: Pen, cx, cy, h_hu):
+    """Our green R-arrow mark (card_reel.brand_mark), h_hu tall, centred at (cx, cy) hu."""
+    hpx = max(4, int(p.L(h_hu)))
+    mk = cr.brand_mark(hpx)
+    x, y = p.P(cx, cy)
+    p.img.alpha_composite(mk, (int(x - mk.size[0] / 2), int(y - mk.size[1] / 2)))
+
+
 def phone_in_hand(p: Pen, cx, cy, w=0.46, glow=CYAN):
+    """A phone held up, screen to the viewer: our app's mark on the screen (the app in the story is RapidTradeView)."""
     h = w * 1.75
     p.rrect(cx, cy, w, h, w * 0.18, INK, o=p.L(0.02))
-    p.rrect(cx, cy, w * 0.84, h * 0.88, w * 0.12, (15, 42, 63), line=False)
-    pts = [(cx - w * 0.32, cy + h * 0.2), (cx - w * 0.12, cy + h * 0.02), (cx + w * 0.02, cy + h * 0.1),
-           (cx + w * 0.3, cy - h * 0.22)]
-    p.line(pts, w * 0.07, glow)
+    p.rrect(cx, cy, w * 0.84, h * 0.88, w * 0.12, (22, 20, 52), line=False)
+    brand_mark_on(p, cx, cy - h * 0.2, w * 0.46)
+    pts = [(cx - w * 0.28, cy + h * 0.3), (cx - w * 0.1, cy + h * 0.2), (cx + w * 0.04, cy + h * 0.25), (cx + w * 0.28, cy + h * 0.12)]
+    p.line(pts, w * 0.06, glow)
 
 
 def shaker(p: Pen, cx, cy, s=1.0, level=0.6):
@@ -821,11 +830,13 @@ def with_shadow(img: Image.Image, dy: int, blur: int, alpha: float = 0.45):
 # ------------------------------------------------------------------------------------------------- search phone + receipt
 FEED_TEXTS = ("SOCKS", "ad")                 # the words drawn on the feed strip (they go through the text gates)
 SEARCH_PLACEHOLDER = "Search"
+BRAND_NAME = cr.BRAND                        # drawn on the search phone's top bar (brand=True)
 
 
-def search_phone(w_px=560, typed="", caret=True, thumb=0.0, font_fn=None):
+def search_phone(w_px=560, typed="", caret=True, thumb=0.0, font_fn=None, brand=True):
     """Pip's two mitten hands holding a phone close to the lens; a plain search field near the top shows `typed` (or the
-    placeholder). Not our app's UI: a cartoon phone, the real screen comes after the whip. Anchor = phone centre.
+    placeholder). Not our app's UI: a cartoon phone, the real screen comes after the whip. With brand (the default) the
+    screen's top bar shows our mark and the name RapidTradeView, so the viewer knows which app this is. Anchor = phone centre.
     thumb (0-1) presses the right thumb onto the screen (a letter being typed)."""
     font_fn = font_fn or cr.font
     p = Pen(2.1, 2.75, w_px, origin=(1.05, 1.05))
@@ -838,7 +849,16 @@ def search_phone(w_px=560, typed="", caret=True, thumb=0.0, font_fn=None):
     p.rrect(0, 0, 1.0, 1.85, 0.14, INK, o=p.L(0.03))
     p.rrect(0, 0.02, 0.9, 1.7, 0.1, (15, 18, 34), line=False)
     p.rrect(0, -0.8, 0.22, 0.05, 0.025, (30, 34, 56), line=False)
-    bar_y = -0.55
+    if brand:                                                  # the app in the story: our mark and name, top of the screen
+        fb = font_fn("bold", int(p.L(0.082)))
+        tw = fb.getlength(BRAND_NAME) / p.hu
+        mk_w = 0.115
+        x0 = -(mk_w + 0.03 + tw) / 2
+        brand_mark_on(p, x0 + mk_w / 2, -0.62, 0.1)
+        bx, by = p.P(x0 + mk_w + 0.03, -0.62)
+        p.d.text((bx, by), BRAND_NAME, font=fb, fill=(255, 255, 255), anchor="lm")
+        p.d.line((p.P(-0.4, -0.5), p.P(0.4, -0.5)), fill=(40, 44, 72), width=max(1, int(p.L(0.008))))
+    bar_y = -0.36 if brand else -0.55
     p.rrect(0, bar_y, 0.8, 0.17, 0.085, (236, 240, 255), o=p.L(0.018))
     cx, cy = p.P(-0.31, bar_y)
     r = p.L(0.032)

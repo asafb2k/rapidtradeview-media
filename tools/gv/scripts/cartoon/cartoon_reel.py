@@ -1,6 +1,11 @@
 """Cartoon-story Reel renderer: a story script (story.json) + today's facts item + real RapidTradeView screenshots -> a 9:16
-Reel with flat cartoon characters, a camera that never stops, word-by-word captions on a local TTS voice, SFX bubbles,
-and the real screen as the payoff. Runs in the project conda env (PIL + numpy); the voice runs in its own venv.
+Reel with flat cartoon characters, a camera that never stops, word-by-word captions on a local TTS voice, and the real
+screen as the payoff. Runs in the project conda env (PIL + numpy); the voice runs in its own venv.
+
+Format v3 (owner verdict 2026-11-09: "the pilot short is too complicated and it isnt clear what brand behind it"): ONE
+situation, ONE punchline, 15-22 s, at most 7 shots, no side gags; the RapidTradeView pill is on screen from frame 0 to the
+last frame (a layer drawn over every frame, transitions included); the voice says RapidTradeView in the first 5 s and in
+the last 5 s; the payoff is our real page with its own header and logo. make_story.py writes the story from a facts item.
 
     cartoon_reel.py --story STORY.json --out DIR [--ffmpeg-dir DIR] [--tts-python PY] [--sheet-every 1.5]
 
@@ -55,16 +60,16 @@ MARGIN = (162, 288)                       # the world canvas is 1404 x 2496: 1.3
 CANVAS = (W + 2 * MARGIN[0], H + 2 * MARGIN[1])
 SR = vsco_score.SR
 END_S = 3.0
-DURATION_RANGE = (25.0, 50.0)
+DURATION_RANGE = Q.ONE_IDEA_DURATION       # 15-22 s (v3: one situation, one punchline)
 SHOT_RANGE = (0.7, 2.6)
-PAYOFF_MAX = 4.0
-SHOTS_RANGE = (18, 26)
+PAYOFF_MAX = 4.5                          # v3: the payoff holds our real page (brand + fact), the one place to linger
+SHOTS_RANGE = (4, Q.ONE_IDEA_MAX_SHOTS)   # at most 7 shots
 LUFS_RANGE, TP_MAX, TARGET_LUFS = (-15.0, -13.0), -1.0, -14.0
 STATIC_MAD, STATIC_RUN = 0.3, 8
 CAPTION_SIZE, CAPTION_MIN, CAPTION_MAX_W = 92, 72, 760
 CAPTION_Y = 1230                          # ONE caption band (64% of the height) for every shot; frame the shots around it
 SPEAKER_COL = {"dale": (255, 178, 158), "pip": (160, 242, 208)}   # caption colour per voice (narrator white)
-PAYOFF_WINDOW = (4.0, 7.0)                # first PAYOFF start -> last PAYOFF end, reaction cut-ins included
+PAYOFF_WINDOW = (2.0, 8.0)                # first PAYOFF start -> last PAYOFF end, reaction cut-ins included
 SCREEN_MIN_S = 1.8                        # the real screenshot is on screen at least this long
 RECEIPT_MIN_S = 1.8                       # a fact phrase shown (not read) stays on screen at least this long
 CHAR_GAP_MAX = 2.0                        # a character is never off screen for longer than this
@@ -73,6 +78,9 @@ HOOK_CHAR_W = 0.5                         # frame 0: a character at least this s
 LEAD_F = 2                                # the picture cuts 2 frames before the first word of its line
 SEARCH_TEXT = "Search RapidTradeView"
 END_TEXTS = (cr.BRAND, SEARCH_TEXT, cr.SITE, cr.DISCLAIMER)
+BRAND_PILL_SIZE = 40                      # the persistent brand pill (card_reel.pill): top-left, under the platform's
+BRAND_PILL_XY = (54, 262)                 # top bar (SAFE_TOP 250), far from the bottom 18% and the right 12% (IG/YT UI)
+BRAND_SWEEP_EVERY = 4.0                   # a light sweep crosses the pill every 4 s (a little life, never a fade)
 LIME, CYANC, GREEN, RED = C.LIME, (56, 225, 245), (52, 211, 120), (248, 92, 92)
 BUBBLE_FILL = {"lime": C.LIME, "cyan": C.CYAN, "white": (255, 255, 255)}
 font = cr.font
@@ -581,8 +589,10 @@ class Reel:
         self.texts: list[dict] = []                              # every text we draw: role, text, box
         self.key_samples: list[dict] = []
         self._sampled: dict[int, bool] = {}
+        self.brand_samples: list[dict] = []                     # PAYOFF frames that show our real header (payoff_brand)
         self._plan_overlays()
         self._end_build()
+        self._brand_build()
 
     # ------------------------------------------------------------------------------------------ plan
     def word_time(self, si: int, ref) -> float:
@@ -644,6 +654,8 @@ class Reel:
                     word = str(el.get("text", ""))
                     self.texts.append({"role": "prop", "text": C.SEARCH_PLACEHOLDER, "box": None})
                     self.texts.append({"role": "prop", "text": word, "box": None})
+                    if el.get("brand", True):
+                        self.texts.append({"role": "prop", "text": C.BRAND_NAME, "box": None})
                     t0 = self.word_time(si, el.get("at", 0.2))
                     rate = float(el.get("rate", 0.08))
                     el["_t0"], el["_rate"] = t0 - st, rate
@@ -701,11 +713,13 @@ class Reel:
         th = float(mv.get("rot", 0.0)) * (t - D / 2) + float(mv.get("th", 0.0))
         return Cam(s, c, th)
 
-    def _target_world(self, si: int, name_or_list, t: float):
-        """World box corners of a screenshot target (or the union of several) on its screen/card element at time t."""
+    def _target_world(self, si: int, name_or_list, t: float, el=None):
+        """World box corners of a screenshot target (or the union of several) on its screen/card element at time t (the
+        shot's main screen unless `el` is given)."""
         names = name_or_list if isinstance(name_or_list, list) else [name_or_list]
         sh = self.shots[si]
-        el = next(e for e in sh["els"] if e.get("t") in ("screen", "card") and e.get("main", True))
+        if el is None:
+            el = next(e for e in sh["els"] if e.get("t") in ("screen", "card") and e.get("main", True))
         meta = self.st.screens[el["name"]]["meta"]
         boxes = []
         for nm in names:
@@ -898,7 +912,8 @@ class Reel:
                 caret = n_typed < len(word) or int(t * 3) % 2 == 0
                 key = ("sphone", int(el.get("w", 560)), word[:n_typed], caret, thumb)
                 if key not in self.cache:
-                    self.cache[key] = C.search_phone(int(el.get("w", 560)), word[:n_typed], caret, thumb, font_fn=font)
+                    self.cache[key] = C.search_phone(int(el.get("w", 560)), word[:n_typed], caret, thumb, font_fn=font,
+                                                     brand=el.get("brand", True))
                 img, anchor = self.cache[key]
                 cam.sprite(frame, img, anchor, (x, y), r, k, 1.0, a)
             elif typ == "receipt":
@@ -1267,6 +1282,49 @@ class Reel:
                     out.append({"t": tt, "caption": ch["text"], "box": box, "protect": self.protect_boxes(si, tt)})
         return out
 
+    # ------------------------------------------------------------------------------------------ the brand layer
+    def _brand_build(self):
+        self.b_pill = cr.pill(cr.BRAND, BRAND_PILL_SIZE, 26, 16)
+        self.b_sweep = cr.Sweep(self.b_pill, 0.35, 0.10)
+        x0, y0 = BRAND_PILL_XY
+        w_, h_ = self.b_pill.size
+        self.brand_box = (x0, y0, x0 + w_, y0 + h_)
+        self.texts.append({"role": "brand_pill", "text": cr.BRAND, "box": self.brand_box})
+
+    def brand_sprite(self, t_abs: float) -> Image.Image:
+        x = ((t_abs - 0.8) % BRAND_SWEEP_EVERY) / 0.7 if t_abs >= 0.8 else -1.0
+        return self.b_sweep.at(x) if 0 < x < 1 else self.b_pill
+
+    def draw_brand(self, fr: Image.Image, t_abs: float) -> Image.Image:
+        """The persistent RapidTradeView pill, drawn over the finished frame (after whips and smashes, so it never moves)."""
+        if fr.mode != "RGBA":
+            fr = fr.convert("RGBA")
+        fr.alpha_composite(self.brand_sprite(t_abs), (int(self.brand_box[0]), int(self.brand_box[1])))
+        return fr
+
+    def _brand_sample(self, si, t, t_abs, cam):
+        """On a PAYOFF frame: where our own header's brand (the capture's target "RapidTradeView") sits on screen."""
+        sh = self.shots[si]
+        if sh.get("kind") != "PAYOFF":
+            return
+        for el in sh.get("els", []):
+            if el.get("t") not in ("screen", "card"):
+                continue
+            sc = self.st.screens[el["name"]]
+            tg = next((x for x in sc["meta"].get("targets", []) if x.get("text") == cr.BRAND), None)
+            if tg is None:
+                continue
+            bx, by, bw, bh = tg["box"]
+            crop = el.get("crop")
+            in_crop = (not crop) or (crop[0] <= bx and crop[1] <= by and bx + bw <= crop[2] and by + bh <= crop[3])
+            corners, _ = self._target_world(si, cr.BRAND, t, el)
+            pts = np.array([cam.p(q) for q in corners])
+            hh = float(np.linalg.norm(pts[3] - pts[0]))
+            inside = bool(pts[:, 0].min() >= 0 and pts[:, 0].max() <= W and pts[:, 1].min() >= 0 and pts[:, 1].max() <= H)
+            self.brand_samples.append({"t": round(t_abs, 3), "screen": el["name"], "h": round(hh, 1), "inside": inside,
+                                       "in_crop": bool(in_crop), "in_text": cr.BRAND in sc["meta"].get("visible_text", "")})
+            return
+
     # ------------------------------------------------------------------------------------------ end card
     def _end_build(self):
         self.e_pill = cr.pill(cr.BRAND, 86, 56, 34)
@@ -1342,6 +1400,7 @@ class Reel:
         self.overlays(fr, si, t_abs)
         if sample:
             self._key_sample(si, t, t_abs, cam)
+            self._brand_sample(si, t, t_abs, cam)
         return fr
 
     def _key_sample(self, si, t, t_abs, cam):
@@ -1382,6 +1441,7 @@ class Reel:
                 fr = fr.crop((int(W / 2 - w2 / 2), int(H / 2 - h2 / 2), int(W / 2 + w2 / 2), int(H / 2 + h2 / 2))).resize((W, H), Image.BILINEAR)
             if al < 1:
                 fr = Image.blend(Image.new("RGBA", (W, H), C.INK + (255,)), fr.convert("RGBA"), al)
+        fr = self.draw_brand(fr, t_abs)
         return fr.convert("RGB")
 
     @staticmethod
@@ -1534,12 +1594,12 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     real = {}
     ok_all = True
     day = st.doc["item_id"][:10]
-    want_url = re.sub(r"[?#].*$", "", str(item.get("page_url", "")))
+    want_urls = Q.item_page_urls(item)
     for name, sc in st.screens.items():
         m = sc["meta"]
         sha = cr.sha256(sc["png"])
         ok = (sc["fmt"] == "PNG" and sha == m.get("sha256") and list(sc["size"]) == list(m.get("png_size", []))
-              and str(m.get("captured_at", ""))[:10] == day and re.sub(r"[?#].*$", "", m.get("url", "")) == want_url)
+              and str(m.get("captured_at", ""))[:10] == day and re.sub(r"[?#].*$", "", m.get("url", "")) in want_urls)
         real[name] = {"png": str(sc["png"]), "sha256": sha, "sidecar_sha256": m.get("sha256"), "captured_at": m.get("captured_at"),
                       "url": m.get("url"), "ok": ok}
         ok_all &= ok
@@ -1595,6 +1655,9 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     s["hook"] = bool(widths) and max(widths) >= HOOK_CHAR_W and not flipped and first_num is not None and first_num <= HOOK_NUMBER_BY
     d["hook"] = {"char_width_share": widths, "upside_down": flipped, "first_item_number_s": None if first_num is None else round(first_num, 2),
                  "limits": {"char_width_share": HOOK_CHAR_W, "number_by_s": HOOK_NUMBER_BY}}
+    # the brand, said early and late; one situation, one punchline
+    s["brand_spoken"], d["brand_spoken"] = Q.brand_spoken_gate([(w.text, w.start) for w in tl.words], tl.total)
+    s["one_idea"], d["one_idea"] = Q.one_idea_gate(st.shots, tl.total)
     # captions stay off faces, held props, bubbles, chips, the key number, the receipt and the phone
     s["caption_occlusion"], d["caption_occlusion"] = Q.occlusion_gate(reel.occlusion_samples())
     # caption sync: onset 1 frame before its first word
@@ -1676,6 +1739,17 @@ def video_gates(mp4: Path, reel: Reel, ffmpeg: str, ffprobe: str) -> tuple[dict,
     contrast = float(region.max() - np.median(region)) if region.size else 0.0
     corr = float(np.corrcoef(region.ravel(), ref.ravel())[0, 1]) if region.std() > 0 and ref.std() > 0 else 0.0
     s["disclaimer_on_screen"] = contrast >= 60 and corr >= cr.DISCLAIMER_MIN_CORR
+    # the brand pill in every sampled decoded frame (every second, and the last frame)
+    x0, y0, x1, y1 = (int(v) for v in reel.brand_box)
+    inset = (y1 - y0) // 2
+    ref = np.asarray(reel.b_pill.convert("L"), np.float32)[4:-4, inset:-inset]
+    samples = []
+    for ts in list(np.arange(0.0, tt, 1.0)) + [tt - 0.01]:
+        g_ = cr.grey_at(mp4, ffmpeg, float(ts))
+        c_, m_ = Q.region_match(g_[y0 + 4:y1 - 4, x0 + inset:x1 - inset], ref)
+        samples.append({"t": float(ts), "corr": c_, "mad": m_})
+    s["brand_pill"], d["brand_pill"] = Q.brand_pill_gate(samples)
+    d["brand_pill"]["box"] = [x0, y0, x1, y1]
     d["disclaimer_on_screen"] = {"t": round(tt, 3), "contrast": round(contrast, 1), "corr_vs_planned": round(corr, 3)}
     return s, d, g
 
@@ -1753,6 +1827,7 @@ def run(a, out: Path, ctx: dict) -> int:
         return fail(out, ctx["iid"], f"render failed: {e}", "render")
     summary, details = text_gates(st, tl, reel)
     summary["key_number"], details["key_number"] = key_number_gate(reel, st)
+    summary["payoff_brand"], details["payoff_brand"] = Q.payoff_brand_gate(reel.brand_samples, FPS)
     summary["voice_present"] = bool(tl.words) and voinfo["vo_active_s"] >= 0.4 * tl.total and voinfo["vo_rms_db"] > -40
     details["voice_present"] = voinfo
     try:
@@ -1775,6 +1850,8 @@ def run(a, out: Path, ctx: dict) -> int:
     cr.write_json(out / "reel.json", clean({
         "schema": "rtv-cartoon-reel/1", "renderer": RENDERER, "item_id": ctx["iid"], "qa_pass": ok,
         "facts_file": str(st.facts_path), "facts_text": st.item.get("facts_text"), "fact_phrase": st.doc["fact_phrase"],
+        "format": "v3 one idea (owner verdict 2026-11-09)", "template": st.doc.get("template"),
+        "brand": {"pill_box": list(reel.brand_box), "spoken_at_s": details.get("brand_spoken", {}).get("spoken_at_s")},
         "allowed_numbers": st.item.get("allowed_numbers"), "numbers_used": used_numbers, "post_date": st.post_date,
         "claims_for_human_check": (details.get("claim_lines") or {}).get("needs_human_check"),
         "screen_crops": {f"shot {i + 1}": {"screen": e["name"], "crop_px": e["crop"]} for i, sh in enumerate(st.shots)

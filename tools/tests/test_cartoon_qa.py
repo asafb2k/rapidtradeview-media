@@ -209,3 +209,69 @@ def test_occlusion_gate_flags_a_caption_on_a_face():
     ok, _ = Q.occlusion_gate([{"t": 1.0, "caption": "Very heavy.", "box": [300, 1180, 780, 1280],
                                "protect": [{"kind": "pip face", "box": [300, 700, 700, 1170]}]}])
     assert ok
+
+
+# ------------------------------------------------------------------------------------------------- v3: brand and one idea
+# owner verdict 2026-11-09: "the pilot short is too complicated and it isnt clear what brand behind it"
+def test_fiscal_labels_are_one_number_token():
+    assert Q.find_numbers("Constellation Energy Q3 2026 earnings, FY2026 guide, Q3 beat") == ["Q3 2026", "FY2026", "Q3"]
+
+
+def test_brand_must_be_spoken_early_and_at_the_end():
+    words = [("CEG", 0.05), ("Checking", 3.0), ("RapidTradeView.", 3.4), ("Search", 13.0), ("RapidTradeView.", 13.2)]
+    ok, d = Q.brand_spoken_gate(words, 15.9)
+    assert ok and d["spoken_at_s"] == [3.4, 13.2]
+    ok, _ = Q.brand_spoken_gate([("RapidTradeView.", 6.2), ("RapidTradeView.", 13.2)], 15.9)      # too late at the start
+    assert not ok
+    ok, _ = Q.brand_spoken_gate([("RapidTradeView", 2.0)], 15.9)                                # never at the end
+    assert not ok
+    ok, _ = Q.brand_spoken_gate([("Rapid", 2.0), ("Search", 13.0)], 15.9)
+    assert not ok
+
+
+def test_brand_pill_must_match_in_every_sampled_frame():
+    import numpy as np
+    ref = np.tile(np.linspace(40, 220, 300), (40, 1))
+    c, m = Q.region_match(ref + 3, ref)
+    assert c > 0.99 and m == 3
+    covered = np.full_like(ref, 30.0)                                             # something drawn over the pill
+    c2, m2 = Q.region_match(covered, ref)
+    ok, d = Q.brand_pill_gate([{"t": 0.0, "corr": c, "mad": m}, {"t": 1.0, "corr": c2, "mad": m2}])
+    assert not ok and d["missing_at"] == [1.0]
+    ok, _ = Q.brand_pill_gate([{"t": 0.0, "corr": c, "mad": m}])
+    assert ok
+    ok, _ = Q.brand_pill_gate([])
+    assert not ok
+
+
+def test_payoff_must_show_our_real_header_readably():
+    good = {"t": 0, "screen": "head", "in_text": True, "in_crop": True, "inside": True, "h": 40.0}
+    ok, d = Q.payoff_brand_gate([good] * 30, 30)
+    assert ok and d["readable_s"] == 1.0
+    ok, _ = Q.payoff_brand_gate([good] * 20, 30)                                   # under 1 s
+    assert not ok
+    ok, _ = Q.payoff_brand_gate([dict(good, h=12.0)] * 60, 30)                      # too small to read
+    assert not ok
+    ok, _ = Q.payoff_brand_gate([dict(good, in_crop=False)] * 60, 30)               # cropped away
+    assert not ok
+
+
+def test_one_idea_gate_limits_length_shots_and_side_gags():
+    shots = [{"els": [{"t": "dale"}]}, {"els": [{"t": "pip"}]}, {"els": [{"t": "search_phone"}]},
+             {"els": [{"t": "card"}, {"t": "card"}]}, {"els": [{"t": "card"}, {"t": "highlight"}]}, {"els": [{"t": "pip"}]},
+             {"kind": "END"}]
+    ok, d = Q.one_idea_gate(shots, 15.9)
+    assert ok, d
+    assert not Q.one_idea_gate(shots, 14.0)[0] and not Q.one_idea_gate(shots, 23.0)[0]
+    assert not Q.one_idea_gate(shots + [{"els": [{"t": "pip"}]}], 18.0)[0]           # 8 shots
+    ok, d = Q.one_idea_gate([{"els": [{"t": "feed"}, {"t": "cat"}]}] + shots[1:], 18.0)
+    assert not ok and d["side_gag_elements"] == ["cat", "feed"]
+
+
+def test_item_page_urls_allow_the_earnings_report_page():
+    item = {"page_url": "https://www.rapidtradeview.trade/dashboard/CEG?utm_source={platform}#earnings-history",
+            "report_id": "ceg-2026-q3"}
+    assert Q.item_page_urls(item) == {"https://www.rapidtradeview.trade/dashboard/CEG",
+                                      "https://www.rapidtradeview.trade/earnings/reports/ceg-2026-q3"}
+    assert Q.item_page_urls({"page_url": "https://www.rapidtradeview.trade/smart-money/figures/x?a=1"}) == \
+        {"https://www.rapidtradeview.trade/smart-money/figures/x"}

@@ -73,8 +73,9 @@ def main(argv=None) -> int:
     ap.add_argument("--name", required=True)
     ap.add_argument("--scroll-to", help="scroll so this text sits at --scroll-frac of the viewport height")
     ap.add_argument("--scroll-frac", type=float, default=0.42)
-    ap.add_argument("--clip-from", help="clip: band starts at the top of this text")
-    ap.add_argument("--clip-to", help="clip: band ends at the bottom of this text")
+    ap.add_argument("--clip-from", help="clip: band starts at the top of this text (TEXT#N = its N-th occurrence on the page, "
+                                        "TEXT#last = its last occurrence above --clip-to)")
+    ap.add_argument("--clip-to", help="clip: band ends at the bottom of this text (TEXT#N = its N-th occurrence on the page)")
     ap.add_argument("--clip-pad", type=float, default=14.0, help="CSS px above and below the band")
     ap.add_argument("--target", action="append", default=[],
                     help="text whose DOM box goes into the sidecar; TEXT#N = its N-th occurrence inside the captured area")
@@ -117,8 +118,18 @@ def main(argv=None) -> int:
             pg.wait_for_timeout(700)
         clip = None
         if a.clip_from or a.clip_to:
-            hf, ht = pg.evaluate(JS_FIND, [a.clip_from or "", False]), pg.evaluate(JS_FIND, [a.clip_to or "", False])
-            if not (a.clip_from and a.clip_to and hf and ht):
+            def nth_hit(spec, below=None):
+                """TEXT, TEXT#N (the N-th occurrence on the page) or TEXT#last (the last occurrence above `below`)."""
+                if spec.endswith("#last"):
+                    hits = [h for h in pg.evaluate(JS_FIND, [spec[:-5], True]) if below and h["docY"] < below["docY"]]
+                    return max(hits, key=lambda h: h["docY"]) if hits else None
+                needle, _, nth = spec.rpartition("#") if re.fullmatch(r".+#\d+", spec) else (spec, "", "1")
+                hits = pg.evaluate(JS_FIND, [needle, True])
+                return hits[int(nth) - 1] if len(hits) >= int(nth) else None
+
+            ht = nth_hit(a.clip_to) if a.clip_from and a.clip_to else None
+            hf = nth_hit(a.clip_from, ht) if ht else None
+            if not (hf and ht):
                 print("capture: --clip-from and --clip-to must both be found", file=sys.stderr)
                 return 2
             top, bot = hf["docY"] - a.clip_pad, ht["docY"] + ht["h"] + a.clip_pad

@@ -18,6 +18,15 @@
                                      only that phrasing's numbers and names (listed for a human check)
   occlusion_gate(samples)            captions never sit on a face, a held prop, a bubble, a chip or the key number
   chunk_words(words, measure)        the caption chunker (1-3 words, <= 18 characters, never across a sentence end)
+
+Brand and format gates (owner verdict 2026-11-09: "the pilot short is too complicated and it isnt clear what brand behind
+it"):
+  brand_spoken_gate(words, total)    the voice says "RapidTradeView" in the first 5 s and again in the last 5 s
+  region_match(region, ref)          (correlation, mean abs diff) of a decoded frame region against the planned pixels
+  brand_pill_gate(samples)           the persistent brand pill is on screen in every sampled frame
+  payoff_brand_gate(samples)         the payoff's real screen shows our own header/logo, readable, for long enough
+  one_idea_gate(shots, total)        one situation: 15-22 s, at most 7 shots, no side-gag props
+  item_page_urls(item)               the real pages a capture may come from (the item's page, its earnings report page)
 """
 from __future__ import annotations
 
@@ -53,6 +62,7 @@ FIGURE_RX = cr.FIGURE_RX
 MONTHS = r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?"
 DOC_NAME_RX = re.compile(r"(?<![A-Za-z0-9])(?:Form\s+(?:3|4|5|144|13F|13D|13G|8-K|10-K|10-Q)|13F|10-K|10-Q|8-K|10b5-1)(?![A-Za-z0-9])")
 DATE_RX = re.compile(rf"(?<![A-Za-z0-9]){MONTHS}\s+\d{{1,2}}(?:,\s+\d{{4}})?(?![0-9])|\d{{4}}-\d{{2}}-\d{{2}}")
+FISCAL_RX = re.compile(r"(?<![A-Za-z0-9])(?:Q[1-4](?:\s+\d{4})?|FY\s?\d{4})(?![A-Za-z0-9])")   # "Q3 2026", "Q3", "FY2026": one token
 NUM_RX = re.compile(r"[−+\-]?\$?\d+(?:[,./]\d+)*(?:[KMBT](?![a-z])|%)?")
 TRAIL = ".,;:)]!?\"'”"
 
@@ -66,9 +76,10 @@ def find_numbers(text: str) -> list[str]:
     with their sign/suffix, other digit runs ("2/2", "500"). Document names ("Form 4", "10-K") are skipped."""
     s = DOC_NAME_RX.sub(lambda m: " " * len(m.group(0)), str(text))
     out: list[tuple[int, str]] = []
-    for m in DATE_RX.finditer(s):
-        out.append((m.start(), norm_num(m.group(0))))
-    s = DATE_RX.sub(lambda m: " " * len(m.group(0)), s)
+    for rx in (DATE_RX, FISCAL_RX):
+        for m in rx.finditer(s):
+            out.append((m.start(), norm_num(m.group(0))))
+        s = rx.sub(lambda m: " " * len(m.group(0)), s)
     for m in NUM_RX.finditer(s):
         out.append((m.start(), norm_num(m.group(0))))
     return [t for _, t in sorted(out)]
@@ -555,3 +566,83 @@ def align(spoken: list[str], tts_words: list[dict]) -> list[tuple[float, float] 
             t = prev[1] if prev else (nxt[0] if nxt else 0.0)
             res[i] = (t, t)
     return res
+
+
+# ------------------------------------------------------------------------------------------------- brand and format (v3)
+BRAND = cr.BRAND
+BRAND_FIRST_S, BRAND_LAST_S = 5.0, 5.0
+ONE_IDEA_DURATION = (15.0, 22.0)
+ONE_IDEA_MAX_SHOTS = 7
+STORY_ELS = {"pip", "dale", "search_phone", "card", "screen", "highlight", "receipt"}   # anything else is a side gag
+PILL_MIN_CORR, PILL_MAX_MAD = 0.8, 24.0
+PAYOFF_BRAND_MIN_H, PAYOFF_BRAND_MIN_S = 24.0, 1.0
+
+
+def _brand_word(text: str) -> bool:
+    return re.sub(r"[^A-Za-z]", "", str(text)).lower() == BRAND.lower()
+
+
+def brand_spoken_gate(words: list[tuple[str, float]], total: float, first_s: float = BRAND_FIRST_S,
+                      last_s: float = BRAND_LAST_S) -> tuple[bool, dict]:
+    """words: [(display word, start s)] of the whole voice track. "RapidTradeView" must start within the first `first_s` s
+    and again within the last `last_s` s (the end card's "Search RapidTradeView")."""
+    at = [round(float(t), 2) for w, t in words if _brand_word(w)]
+    first = [t for t in at if t <= first_s]
+    last = [t for t in at if t >= total - last_s]
+    return bool(first) and bool(last), {"spoken_at_s": at, "first_by_s": first_s, "last_from_s": round(total - last_s, 2)}
+
+
+def region_match(region, ref) -> tuple[float, float]:
+    """(Pearson correlation, mean |difference|) of two same-size grey arrays (0-255)."""
+    import numpy as np
+    a, b = np.asarray(region, np.float64).ravel(), np.asarray(ref, np.float64).ravel()
+    if a.size == 0 or a.size != b.size:
+        return 0.0, 255.0
+    mad = float(np.abs(a - b).mean())
+    if a.std() == 0 or b.std() == 0:
+        return 0.0, mad
+    return float(np.corrcoef(a, b)[0, 1]), mad
+
+
+def brand_pill_gate(samples: list[dict], min_corr: float = PILL_MIN_CORR, max_mad: float = PILL_MAX_MAD) -> tuple[bool, dict]:
+    """samples: [{"t", "corr", "mad"}], one per sampled decoded frame (the pill region against the pill as planned). Every
+    sample must match: the brand is on screen from frame 0 to the last frame."""
+    bad = [s_ for s_ in samples if not (s_["corr"] >= min_corr and s_["mad"] <= max_mad)]
+    return bool(samples) and not bad, {"samples": len(samples), "missing_at": [round(s_["t"], 2) for s_ in bad],
+                                       "min_corr": round(min((s_["corr"] for s_ in samples), default=0.0), 3),
+                                       "max_mad": round(max((s_["mad"] for s_ in samples), default=0.0), 1),
+                                       "limits": {"corr": min_corr, "mad": max_mad}}
+
+
+def payoff_brand_gate(samples: list[dict], fps: int, min_h: float = PAYOFF_BRAND_MIN_H,
+                      min_s: float = PAYOFF_BRAND_MIN_S) -> tuple[bool, dict]:
+    """samples: one per rendered PAYOFF frame that shows a real screen with our header: {"t", "screen", "in_text" (the
+    capture's visible text has the brand), "in_crop" (the brand's DOM box is inside the shown crop), "h" (its height on
+    screen, px), "inside" (its box is inside the frame)}. The brand on our real page must be readable for min_s."""
+    good = [s_ for s_ in samples if s_["in_text"] and s_["in_crop"] and s_["inside"] and s_["h"] >= min_h]
+    secs = len(good) / fps
+    return secs >= min_s, {"readable_s": round(secs, 2), "samples": len(samples), "screens": sorted({s_["screen"] for s_ in samples}),
+                           "max_h": round(max((s_["h"] for s_ in samples), default=0.0), 1), "limits": {"h": min_h, "s": min_s}}
+
+
+def one_idea_gate(shots: list[dict], total: float, duration=ONE_IDEA_DURATION, max_shots: int = ONE_IDEA_MAX_SHOTS) -> tuple[bool, dict]:
+    """One situation, one punchline: total 15-22 s, at most 7 shots, and only the story's own elements (characters, the
+    branded phone, our real screen, its highlight, a receipt). Feeds, cats, socks, tab bursts, barbells: side gags."""
+    gags = sorted({str(e.get("t")) for sh in shots for e in sh.get("els", []) if e.get("t") not in STORY_ELS})
+    bubbles = sum(1 for sh in shots if sh.get("bubble"))
+    ok = duration[0] <= total <= duration[1] and len(shots) <= max_shots and not gags and bubbles <= 1
+    return ok, {"seconds": round(total, 2), "duration_range": list(duration), "shots": len(shots), "max_shots": max_shots,
+                "side_gag_elements": gags, "sfx_bubbles": bubbles}
+
+
+def item_page_urls(item: dict) -> set[str]:
+    """Our pages a real capture may come from: the item's page_url (query and fragment dropped) and, for an earnings item,
+    its report page (public: no guest view counted)."""
+    out = set()
+    pu = re.sub(r"[?#].*$", "", str(item.get("page_url") or ""))
+    if pu:
+        out.add(pu)
+    m = re.match(r"(https://[^/]+)/", pu)
+    if m and item.get("report_id"):
+        out.add(f"{m.group(1)}/earnings/reports/{item['report_id']}")
+    return out
