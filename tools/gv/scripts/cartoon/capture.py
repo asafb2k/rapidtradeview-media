@@ -23,6 +23,20 @@ which keeps unrelated numbers off screen); with --clip-el it is the box of the f
 captured area. The guest intro
 panel is dismissed first (its close button), so no sample-portfolio numbers end up on screen. Exit 0 = ok, 2 = a target was
 not found or the page did not load (No Fallbacks: the renderer refuses a capture without its sidecar).
+
+STRIP mode (feature shorts, owner verdict 2026-11-10: the payoff shows the site's card WHOLE, as the site draws it):
+    capture.py --url URL --out DIR --name NAME --strip-top SPEC --strip-bottom SPEC [--strip-pad 6]
+        [--box NAME=SPEC ...] [--box-bottom NAME=SPEC ...] [--target TEXT ...] [--viewport 390x844] [--dpr 3]
+The PNG is the page at its full phone width from the top edge of the first SPEC to the bottom edge of the second, in one
+piece: the renderer scrolls over it like a thumb, it never cuts a card out of it. SPEC is "page" (the document), "el:CSS"
+(the first drawn element matching the selector), "all:CSS" (the union of every drawn element matching it) or "text:TEXT" (a text,
+with the "=" and "#N" marks of a target). The page is
+scrolled through once first, so lazy panels are drawn, and the screenshot is taken with the viewport parked off the strip:
+an element that is fixed or sticky (the bottom tab bar) would otherwise be painted into the middle of it; if one still
+lies on the strip the capture stops. --box records the DOM box of an element (the card, its chart) in the sidecar's
+"boxes", in strip px; the same NAME twice is the union, and --box-bottom NAME=SPEC ends the box at the bottom edge of
+another element (the card's head: from its top to the bottom of its chart). The sidecar also carries "kind": "strip" and
+"strip": {top, bottom, page_height} in CSS px.
 """
 from __future__ import annotations
 
@@ -97,7 +111,53 @@ def seal(side: dict) -> str:
     own venv and cannot import it; tools/tests/test_cartoon_features.py holds the two together)."""
     body = [side.get("url"), side.get("final_url"), side.get("captured_at"), side.get("sha256"), side.get("png_size"),
             side.get("visible_text"), side.get("inside_text"), side.get("targets")]
+    if "boxes" in side:                              # a strip: the card's DOM boxes and the strip's place on the page
+        body += [side.get("kind"), side.get("boxes"), side.get("strip"), side.get("viewport"), side.get("dpr")]
     return hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+JS_PINNED = r"""() => {
+  const out = [];
+  for (const e of document.querySelectorAll('body *')) {
+    const cs = getComputedStyle(e);
+    if (cs.position !== 'fixed' && cs.position !== 'sticky') continue;
+    if (cs.visibility === 'hidden' || cs.display === 'none' || parseFloat(cs.opacity) === 0) continue;
+    const r = e.getBoundingClientRect();
+    if (r.width < 4 || r.height < 4) continue;
+    out.push({pos: cs.position, x: r.left, w: r.width, h: r.height, docY: r.top + window.scrollY,
+              text: (e.innerText || '').replace(/\s+/g, ' ').slice(0, 40)});
+  }
+  return out;
+}"""
+
+JS_EL_BOX = """([sel, all]) => {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const e of document.querySelectorAll(sel)) {      // a responsive twin that is not drawn has no box: skipped
+    const b = e.getBoundingClientRect();
+    if (b.width < 1 || b.height < 1) continue;
+    x0 = Math.min(x0, b.left); y0 = Math.min(y0, b.top); x1 = Math.max(x1, b.right); y1 = Math.max(y1, b.bottom);
+    if (!all) break;
+  }
+  return x1 > x0 ? {x: x0, y: y0, w: x1 - x0, h: y1 - y0, docY: y0 + window.scrollY} : null; }"""
+
+
+def box_spec(spec: str) -> tuple[str, str]:
+    """"page" | "el:CSS" | "all:CSS" | "text:TEXT" -> (kind, value)."""
+    if spec == "page":
+        return "page", ""
+    kind, sep, val = spec.partition(":")
+    if not sep or kind not in ("el", "all", "text") or not val:
+        raise ValueError(f"a box is 'page', 'el:CSS', 'all:CSS' or 'text:TEXT', not {spec!r}")
+    return kind, val
+
+
+def named_spec(arg: str) -> tuple[str, str]:
+    """"card=el:section" -> ("card", "el:section")."""
+    name, sep, spec = arg.partition("=")
+    if not sep or not re.fullmatch(r"[a-z][a-z0-9_]*", name):
+        raise ValueError(f"a named box is NAME=SPEC (NAME in lower case), not {arg!r}")
+    box_spec(spec)
+    return name, spec
 
 
 def split_spec(spec: str) -> tuple[str, str, bool]:
@@ -129,6 +189,14 @@ def main(argv=None) -> int:
                                              "not found there = exit 2")
     ap.add_argument("--clip-el", help="clip: the box of the first element matching this CSS selector, plus --clip-pad on "
                                       "every side (instead of --clip-from/--clip-to)")
+    ap.add_argument("--strip-top", help="strip mode: the page at full width from the top edge of this box (page | el:CSS | "
+                                        "text:TEXT) ...")
+    ap.add_argument("--strip-bottom", help="... to the bottom edge of this box")
+    ap.add_argument("--strip-pad", type=float, default=6.0, help="CSS px of page above and below the strip's boxes")
+    ap.add_argument("--box", action="append", default=[], help="strip mode: NAME=SPEC, the DOM box of an element, recorded "
+                                                               "in the sidecar's boxes (the same NAME twice = the union)")
+    ap.add_argument("--box-bottom", action="append", default=[], help="strip mode: NAME=SPEC, the named box ends at the "
+                                                                      "bottom edge of this element")
     ap.add_argument("--target", action="append", default=[],
                     help="text whose DOM box goes into the sidecar; TEXT#N = its N-th occurrence inside the captured area")
     ap.add_argument("--viewport", default="430x932")
@@ -165,6 +233,89 @@ def main(argv=None) -> int:
                 break
         pg.evaluate("window.scrollTo(0, 0)")
         pg.wait_for_timeout(500)
+        strip = None
+        boxes: dict = {}
+        if a.strip_top or a.strip_bottom:
+            if not (a.strip_top and a.strip_bottom) or a.clip_el or a.clip_from or a.clip_to or a.scroll_to:
+                print("capture: strip mode takes --strip-top and --strip-bottom, and no clip or scroll option", file=sys.stderr)
+                return 2
+            # scroll through the page once so that lazy panels and charts are drawn
+            height = pg.evaluate("document.documentElement.scrollHeight")
+            y = 0
+            while y < height:
+                pg.evaluate("(y) => window.scrollTo(0, y)", y)
+                pg.wait_for_timeout(350)
+                y += 600
+                height = pg.evaluate("document.documentElement.scrollHeight")
+            pg.wait_for_timeout(1500)
+            pg.evaluate("window.scrollTo(0, 0)")
+            pg.wait_for_timeout(700)
+            height = pg.evaluate("document.documentElement.scrollHeight")
+
+            def doc_box(spec: str):
+                """A box in document CSS px: {x, y, w, h}; None when the element or the text is not on the page."""
+                kind, val = box_spec(spec)
+                if kind == "page":
+                    return {"x": 0.0, "y": 0.0, "w": float(vw), "h": float(height)}
+                if kind in ("el", "all"):       # the first element matching, or the union of all that match
+                    b_ = pg.evaluate(JS_EL_BOX, [val, kind == "all"])
+                    return {"x": b_["x"], "y": b_["docY"], "w": b_["w"], "h": b_["h"]} if b_ and b_["w"] >= 1 and b_["h"] >= 1 else None
+                needle, nth, exact = split_spec(val)
+                hits = find_all(needle, exact)
+                hit = (hits[-1] if nth == "last" else hits[int(nth) - 1] if len(hits) >= int(nth) else None) if hits else None
+                return {"x": hit["x"], "y": hit["docY"], "w": hit["w"], "h": hit["h"]} if hit else None
+
+            try:
+                bt, bb = doc_box(a.strip_top), doc_box(a.strip_bottom)
+                named = [named_spec(x) for x in a.box]
+                cuts = dict(named_spec(x) for x in a.box_bottom)
+            except ValueError as e:
+                print(f"capture: {e}", file=sys.stderr)
+                return 2
+            if not (bt and bb):
+                print("capture: --strip-top and --strip-bottom must both be on the page", file=sys.stderr)
+                return 2
+            top = float(max(0, int(bt["y"] - a.strip_pad)))
+            bot = float(min(int(height), -int(-(bb["y"] + bb["h"] + a.strip_pad) // 1)))
+            if bot - top < 40 or (bot - top) * a.dpr > 16000:
+                print(f"capture: the strip is {bot - top:.0f} CSS px tall (40 to {16000 // a.dpr} at dpr {a.dpr})", file=sys.stderr)
+                return 2
+            for name, spec in named:
+                b_ = doc_box(spec)
+                if not b_:
+                    print(f"capture: box {name}: {spec!r} is not on the page", file=sys.stderr)
+                    return 2
+                x0_, y0_, x1_, y1_ = b_["x"], b_["y"], b_["x"] + b_["w"], b_["y"] + b_["h"]
+                if name in boxes:
+                    o = boxes[name]
+                    x0_, y0_, x1_, y1_ = min(o[0], x0_), min(o[1], y0_), max(o[2], x1_), max(o[3], y1_)
+                boxes[name] = [x0_, y0_, x1_, y1_]
+            for name, spec in cuts.items():
+                b_ = doc_box(spec)
+                if name not in boxes or not b_:
+                    print(f"capture: --box-bottom {name}: no such box, or {spec!r} is not on the page", file=sys.stderr)
+                    return 2
+                boxes[name][3] = min(boxes[name][3], b_["y"] + b_["h"])
+            for name, (x0_, y0_, x1_, y1_) in boxes.items():
+                if not (x0_ >= -0.5 and x1_ <= vw + 0.5 and y0_ >= top - 0.5 and y1_ <= bot + 0.5 and y1_ - y0_ >= 1):
+                    print(f"capture: box {name} is not inside the strip", file=sys.stderr)
+                    return 2
+            # park the viewport off the strip: a fixed or sticky element is painted where the viewport is
+            max_sy = max(0.0, height - vh)
+            parked = None
+            for cand in (bot + 8, top - vh - 8, max_sy, 0.0):
+                if not (0 <= cand <= max_sy):
+                    continue
+                pg.evaluate("(y) => window.scrollTo(0, y)", cand)
+                pg.wait_for_timeout(600)
+                on_strip = [e_ for e_ in pg.evaluate(JS_PINNED) if e_["docY"] < bot and e_["docY"] + e_["h"] > top]
+                if not on_strip:
+                    parked = cand
+                    break
+            if parked is None:
+                print("capture: a fixed or sticky element lies on the strip at every scroll position tried", file=sys.stderr)
+                return 2
+            strip = {"top": top, "bottom": bot, "page_height": height}
         if a.scroll_to:
             hit = pg.evaluate(JS_FIND, [a.scroll_to, False, False])
             if not hit:
@@ -223,6 +374,10 @@ def main(argv=None) -> int:
         y1 = clip["y"] + clip["height"] if clip else float(vh)
         x0 = clip["x"] if clip else 0.0
         x1 = clip["x"] + clip["width"] if clip else float(vw)
+        if strip:                                    # the strip in viewport coordinates, where the viewport is parked
+            sy = pg.evaluate("window.scrollY")
+            y0, y1, x0, x1 = strip["top"] - sy, strip["bottom"] - sy, 0.0, float(vw)
+            clip = {"x": 0, "y": y0, "width": vw, "height": y1 - y0}
         targets = []
         for t in a.target:
             needle, nth, exact = split_spec(t)
@@ -238,7 +393,13 @@ def main(argv=None) -> int:
         texts = pg.evaluate(JS_VISIBLE, [x0, y0, x1, y1])
         scroll_y = pg.evaluate("window.scrollY")
         final_url = pg.url
-        pg.screenshot(path=str(png), clip=clip) if clip else pg.screenshot(path=str(png))
+        if strip:
+            pg.screenshot(path=str(png), full_page=True, clip={"x": 0, "y": strip["top"], "width": vw,
+                                                               "height": strip["bottom"] - strip["top"]})
+        elif clip:
+            pg.screenshot(path=str(png), clip=clip)
+        else:
+            pg.screenshot(path=str(png))
         b.close()
     head = png.read_bytes()[:24]                       # PNG IHDR: width, height (this venv has no PIL)
     size = [int.from_bytes(head[16:20], "big"), int.from_bytes(head[20:24], "big")]
@@ -247,6 +408,10 @@ def main(argv=None) -> int:
             "viewport": [vw, vh], "dpr": a.dpr, "png_size": size, "sha256": hashlib.sha256(png.read_bytes()).hexdigest(),
             "scroll_y": scroll_y, "clip_css": clip, "targets": targets, "visible_text": texts["visible"],
             "inside_text": texts["inside"], "page_text": page_text}
+    if strip:
+        side.update(kind="strip", strip=strip,
+                    boxes={n: [round((v[0]) * a.dpr, 1), round((v[1] - strip["top"]) * a.dpr, 1), round((v[2] - v[0]) * a.dpr, 1),
+                               round((v[3] - v[1]) * a.dpr, 1)] for n, v in boxes.items()})
     side["seal"] = seal(side)
     (out / f"{a.name}.json").write_text(json.dumps(side, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(json.dumps({"png": str(png), "size": size, "targets": targets}))

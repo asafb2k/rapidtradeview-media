@@ -704,7 +704,7 @@ BRAND = cr.BRAND
 BRAND_FIRST_S, BRAND_LAST_S = 5.0, 5.0
 ONE_IDEA_DURATION = (15.0, 22.0)
 ONE_IDEA_MAX_SHOTS = 7
-STORY_ELS = {"pip", "dale", "search_phone", "card", "screen", "highlight", "receipt"}   # anything else is a side gag
+STORY_ELS = {"pip", "dale", "search_phone", "card", "screen", "site", "highlight", "receipt"}   # anything else is a side gag
 PILL_MIN_CORR, PILL_MAX_MAD = 0.8, 24.0
 PAYOFF_BRAND_MIN_H, PAYOFF_BRAND_MIN_S = 24.0, 1.0
 
@@ -787,7 +787,18 @@ def item_page_urls(item: dict) -> set[str]:
 # functions are pure (sidecars in, verdict out): make_feature_story.py uses them to fill a story and cartoon_reel.py uses
 # them again at render time, from the sidecars, so a value typed by hand into a story fails.
 FEATURES_FILE = Path(__file__).resolve().parent / "features.json"
-FEATURE_SCHEMA = "rtv-cartoon-features/1"
+FEATURE_SCHEMA = "rtv-cartoon-features/2"  # /2: the "site screen" payoff (owner verdict 2026-11-10 on the first four shorts:
+#   "they arent good, only the last one show the visuals correctly as it shown on website"). One capture, `page`: a strip of
+#   the real page at phone width that holds the feature's card whole. The renderer shows it in one window under the brand
+#   pill and scrolls it like a thumb; nothing is cut out of it, nothing is captured again at 6x, the key is outlined where
+#   it stands. The /1 layouts ("stack", "hero": a headline strip, one table row, a chart lifted out of its card) are refused.
+PAGE = "page"                            # the one capture of a feature short
+SITE_VIEWPORT_W, SITE_MIN_DPR = 390, 3   # phone width in CSS px; 3 device px per CSS px keeps a ~1000 px wide card sharp
+SITE_CARD_MIN_W = 900.0                  # the card's width on screen (owner: about 940-1010 px of the 1080 frame)
+SITE_WHOLE_MIN_S, SITE_PART_MIN_S = 1.0, 0.25   # a card that fits is whole for 1 s; a part passes whole for 0.25 s in a scroll
+SITE_STAND_MIN_S = 1.8                   # the real screen stands (not flying in) at least this long
+SITE_KEY_MIN_H, SITE_KEY_MIN_S = 40.0, 1.5      # the outlined key's height on screen, and for how long
+SITE_PARTS_NEEDED = 2                    # at least this many named parts of the card (title, headline, chart, ...)
 FEATURE_MAX_AGE_H = 12.0                 # "captured today": the captures are at most this old when the video is rendered
 FEATURE_LINES = ("hook", "confused", "fact_a", "fact_b")
 REACTION = "Oh."
@@ -832,6 +843,7 @@ NOT_TICKERS = {"OK", "EPS", "ETF", "ETFS", "US", "USA", "AI", "CEO", "CFO", "IPO
 # has to stay whole across the frame) cannot make its label that tall: the card is at least 640 px wide and the outlined
 # label at least 40 px tall (30 px passed a 35 px donut label that read small; raised 2026-11-10).
 KEY_VISUAL_MIN_W, KEY_VISUAL_MIN_H, KEY_MIN_H, KEY_MIN_S = 640.0, 40.0, 64.0, 1.5
+SPEC_RX = re.compile(r"(?:page|(?:el|all|text):.+)", re.S)       # a box on the page, as capture.py reads it (box_spec)
 # pages a feature short never captures: they count a guest view, or they are sign-in only
 NO_CAPTURE_PATHS = ("dashboard", "smart-money", "portfolio", "account", "admin", "api", "auth", "oauth", "notifications")
 PHONE_MODES = ("type", "tap")
@@ -880,6 +892,8 @@ def capture_seal(meta: dict) -> str:
     is not a signature (whoever edits can also recompute it): it catches a hand edit, not a forger."""
     body = [meta.get("url"), meta.get("final_url"), meta.get("captured_at"), meta.get("sha256"), meta.get("png_size"),
             meta.get("visible_text"), meta.get(INSIDE_KEY), meta.get("targets")]
+    if "boxes" in meta:                              # a strip: the card's DOM boxes and the strip's place on the page
+        body += [meta.get("kind"), meta.get("boxes"), meta.get("strip"), meta.get("viewport"), meta.get("dpr")]
     return hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
 
 
@@ -947,11 +961,26 @@ def _value_names(f: dict) -> set[str]:
     return out
 
 
+def target_name(spec: str) -> str:
+    """A target as the sidecar names it: capture.py drops the "=" (whole text node) and keeps a "#N" (N-th occurrence)."""
+    return spec[1:] if str(spec).startswith("=") else str(spec)
+
+
+def _site_specs(site: dict) -> list[str]:
+    """Every box spec of a registry entry's `site` block (strip, card, parts)."""
+    strip, card = site.get("strip") or {}, site.get("card") or {}
+    out = [strip.get("top"), strip.get("bottom")] + list(card.get("box") or []) + [card.get("bottom")]
+    for v in (site.get("parts") or {}).values():
+        out += list(v) if isinstance(v, list) else [v]
+    return [x for x in out if x is not None]
+
+
 def registry_problems(reg: dict) -> list[str]:
-    """What is wrong with a registry (empty = usable): the schema, unique ids, our own https page, a head capture that
-    targets our brand, a fact and a key capture, every {slot} read by a value rule from a capture that needs no slot, the
-    brand in the confused line, claims that point at sources, and the owner's rules that can be read off the text (no
-    provider name, no banned word, no number typed into a line: a number is always a slot)."""
+    """What is wrong with a registry (empty = usable): the schema, unique ids, our own https page, a `site` block that
+    captures the card whole (a strip of the page, the card's box, its named parts), no fragment layout of schema /1,
+    every {slot} read by a value rule, the brand in the confused line, claims that point at sources, and the owner's rules
+    that can be read off the text (no provider name, no banned word, no number typed into a line: a number is always a
+    slot)."""
     bad: list[str] = []
     if not isinstance(reg, dict) or reg.get("schema") != FEATURE_SCHEMA:
         return [f"schema is not {FEATURE_SCHEMA}"]
@@ -980,17 +1009,36 @@ def registry_problems(reg: dict) -> list[str]:
             say("lands_on is not a page of https://www.rapidtradeview.trade")
         if f.get("phone", "type") not in PHONE_MODES:
             say(f"phone is one of {PHONE_MODES}")
-        caps = {c.get("name"): c for c in f.get("captures") or [] if isinstance(c, dict)}
-        for need in ("head", "fact", "key"):
-            if need not in caps:
-                say(f"no {need} capture")
-        if "head" in caps and BRAND not in (caps["head"].get("targets") or []):
-            say("the head capture does not target our brand")
+        if not re.fullmatch(rf"{SITE_VIEWPORT_W}x\d+", str(f.get("viewport") or "")):
+            say(f"viewport is {SITE_VIEWPORT_W}x<height>: the card is captured at phone width")
+        # the site screen: one strip of the real page, the card whole. Fragments are refused (owner verdict 2026-11-10).
+        key = f.get("key") if isinstance(f.get("key"), dict) else {}
+        if "captures" in f or f.get("layout", "site") != "site" or any(k in key for k in ("capture", "crop", "also", "kind", "w", "pad")):
+            say("fragment cards are not allowed (captures / layout stack or hero / key crop, also, 6x): the payoff is the "
+                "site's card whole, in `site`")
+        site = f.get("site") if isinstance(f.get("site"), dict) else {}
+        strip, card, parts = site.get("strip") or {}, site.get("card") or {}, site.get("parts") or {}
+        specs = _site_specs(site)
+        if not (isinstance(strip.get("top"), str) and isinstance(strip.get("bottom"), str)):
+            say("site.strip needs top and bottom (page | el:CSS | all:CSS | text:TEXT)")
+        if not (isinstance(card.get("box"), list) and card.get("box")):
+            say("site.card.box lists the element(s) whose box is the card")
+        if not (isinstance(parts, dict) and len(parts) >= SITE_PARTS_NEEDED
+                and all(isinstance(v, list) and v for v in parts.values())
+                and all(re.fullmatch(r"[a-z][a-z0-9_]*", str(k)) and k != "card" for k in parts)):
+            say(f"site.parts names at least {SITE_PARTS_NEEDED} parts of the card (title, headline, chart, ...), each a list of boxes")
+        for sp in specs:
+            if not isinstance(sp, str) or not SPEC_RX.fullmatch(sp):
+                say(f"site box {sp!r} is not page | el:CSS | all:CSS | text:TEXT")
+        for sp in [strip.get("top"), strip.get("bottom")] + list(card.get("box") or []) + [card.get("bottom")]:
+            if sp is not None and _slots(str(sp)):
+                say(f"the strip and the card box are captured before any value is read: no slot in {sp!r}")
+        if not isinstance(site.get("header", False), bool):
+            say("site.header is true (the strip starts at our page header) or false")
         names = _value_names(f)
-        plain = {n for n, c in caps.items() if not _slots(json.dumps(c))}
         for v in f.get("values") or []:
-            if v.get("from") not in plain:
-                say(f"value rule reads {v.get('from')!r}, which is not a capture without slots")
+            if v.get("from") != PAGE:
+                say(f"value rule reads {v.get('from')!r}; a feature has one capture, {PAGE!r}")
             try:
                 re.compile(str(v.get("rx", "")))
             except re.error as e:
@@ -999,21 +1047,14 @@ def registry_problems(reg: dict) -> list[str]:
         for k in FEATURE_LINES + ("hook_figure", "search"):
             if not isinstance(lines.get(k), str) or not lines[k].strip():
                 say(f"no line {k}")
-        key = f.get("key") or {}
-        if key.get("capture") not in caps or not isinstance(key.get("target"), str):
-            say("key needs a capture and a target")
-        if key.get("kind", "figure") not in ("figure", "visual"):
-            say("key.kind is figure or visual")
-        if f.get("layout", "stack") not in ("stack", "hero"):
-            say("layout is stack or hero")
-        also = key.get("also")
-        if also is not None and (not isinstance(also, dict) or not isinstance(also.get("target"), str)
-                                 or not str(also.get("at", "")).startswith("word:") or f.get("layout", "stack") != "stack"):
-            say("key.also needs a target and at \"word:<a word of fact_b>\" (stack layout only)")
-        also = also if isinstance(also, dict) else {}
+        targets = key.get("targets")
+        if not (isinstance(targets, list) and targets and all(isinstance(t, str) and t.strip() for t in targets)):
+            say("key.targets lists the text(s) of the card that are outlined in place")
+            targets = []
+        if "top" in key and not isinstance(key["top"], str):
+            say("key.top is a text of the page (the window's top line while the key is outlined)")
         texts = [str(lines.get(k, "")) for k in FEATURE_LINES + ("hook_figure", "search")]
-        texts += [str(f.get("fact_phrase", "")), str(key.get("target", "")), str(also.get("target", "")), str(also.get("at", ""))]
-        texts += [str(t) for t in key.get("crop") or []] + [json.dumps(c) for c in caps.values()]
+        texts += [str(f.get("fact_phrase", "")), str(key.get("top", ""))] + [str(t) for t in targets] + [str(sp) for sp in specs]
         texts += [str(s_.get("text", "")) for s_ in (f.get("sources") or {}).values() if isinstance(s_, dict)]
         for s_ in sorted({s_ for t in texts for s_ in _slots(t)} - names):
             say(f"slot {{{s_}}} is not read by a value rule")
@@ -1026,8 +1067,8 @@ def registry_problems(reg: dict) -> list[str]:
             say("no fact_phrase")
         srcs = f.get("sources") or {}
         for sid, s_ in srcs.items():
-            if not isinstance(s_, dict) or s_.get("capture") not in caps:
-                say(f"source {sid} names no capture")
+            if not isinstance(s_, dict) or s_.get("capture") != PAGE:
+                say(f"source {sid} does not name the capture {PAGE!r}")
         claims = f.get("claims") or {}
         for k, sid in claims.items():
             if k not in FEATURE_LINES or sid not in srcs:
@@ -1043,9 +1084,9 @@ def registry_problems(reg: dict) -> list[str]:
             if set(TICKER_TOKEN_RX.findall(_unslot(t))) - NOT_TICKERS:
                 say(f"line {k} types a ticker; a ticker is always a slot read from the capture")
             for sent in re.split(r"(?<=[.!?:])\s+", _unslot(t).strip()):
-                names = [w for w in re.findall(r"[A-Za-z][A-Za-z'\u2019]*", sent)[1:] if w[0].isupper() and w not in proper]
-                if names:                       # a name mid-sentence ("by Jane Roe"): a person or a company is always a slot
-                    say(f"line {k} types the name {' '.join(names)!r}; a name is always a slot (or list it in proper_words)")
+                people = [w for w in re.findall(r"[A-Za-z][A-Za-z'’]*", sent)[1:] if w[0].isupper() and w not in proper]
+                if people:                      # a name mid-sentence ("by Jane Roe"): a person or a company is always a slot
+                    say(f"line {k} types the name {' '.join(people)!r}; a name is always a slot (or list it in proper_words)")
         for sid, s_ in srcs.items():
             if isinstance(s_, dict) and (find_numbers(_unslot(str(s_.get("text", ""))))
                                          or find_number_words(_unslot(str(s_.get("text", ""))))):
@@ -1093,6 +1134,7 @@ def _number(tok: str, what: str) -> float:
 def _check(chk: dict, vals: dict, metas: dict) -> None:
     """One registry check on the values read. Kinds:
       {"value": v, "min" | "max": n, "equals": text}   the value as a number / as text
+      {"value": v, "more_than": w}                      the value is larger than another value of the page
       {"pct": p, "of": [count, total], "tol": 1.0}      p is count / total as a percent (the page's own arithmetic holds)
       {"session": {"wd", "mon", "day"}, "from": capture, "sets": {"weekday", "date"}}
                                                         the page's session label ("Mon, Nov 9") is the last US session
@@ -1131,6 +1173,12 @@ def _check(chk: dict, vals: dict, metas: dict) -> None:
     v = vals.get(chk.get("value"))
     if v is None:
         raise FeatureError(f"check on {chk.get('value')!r}: no such value")
+    if "more_than" in chk:                   # another value of the page ("130 sells" against "76 buys")
+        other = vals.get(chk["more_than"])
+        if other is None:
+            raise FeatureError(f"check on {chk['value']!r}: no value {chk['more_than']!r} to compare with")
+        if _number(v, chk["value"]) <= _number(other, chk["more_than"]):
+            raise FeatureError(f"{chk['value']} is {v!r}, not more than {chk['more_than']} ({other!r}): {why}")
     if "min" in chk and _number(v, chk["value"]) < float(chk["min"]):
         raise FeatureError(f"{chk['value']} is {v!r}, below {chk['min']}: {why}")
     if "max" in chk and _number(v, chk["value"]) > float(chk["max"]):
@@ -1224,9 +1272,7 @@ def feature_lines(feature: dict, values: dict) -> dict:
     ln = feature["lines"]
     out = {k: fill(ln[k], values) for k in FEATURE_LINES + ("hook_figure", "search")}
     out["fact_phrase"] = fill(feature["fact_phrase"], values)
-    out["key"] = fill(feature["key"]["target"], values)
-    also = feature["key"].get("also") or {}
-    out["also"] = fill(also["target"], values) if also else None
+    out["key"] = [target_name(fill(t, values)) for t in feature["key"]["targets"]]     # outlined together, as one box
     return out
 
 
@@ -1305,21 +1351,54 @@ def feature_capture_gate(feature: dict, metas: dict, now: dt.datetime, max_age_h
             why.append(f"provider names on screen: {prov}")
         if not shown_text(m).strip():
             why.append("nothing visible")
+        why += site_capture_problems(feature, m) if name == PAGE else [f"a feature has one capture, {PAGE!r}: {name!r} is not it"]
         if why:
             bad[name] = why
-    for need in ("head", "fact", "key"):
-        if need not in metas:
-            bad.setdefault(need, []).append("capture missing")
+    if PAGE not in metas:
+        bad.setdefault(PAGE, []).append("capture missing")
     return not bad, {"problems": bad, "age_h": ages, "max_age_h": max_age_h, "url": feature["url"],
                      "lands_on": feature.get("lands_on") or feature["url"]}
 
 
+def site_capture_problems(feature: dict, m: dict) -> list[str]:
+    """What keeps a sidecar from being the feature's site screen: it is a strip of the page at phone width (the whole
+    viewport width, at least SITE_MIN_DPR device px per CSS px), and it holds the card's DOM box and the box of each named
+    part inside it. A band, an element lifted out of its card, or a re-crop is not a strip and is refused."""
+    why = []
+    vp, dpr, size = m.get("viewport") or [0, 0], m.get("dpr") or 0, m.get("png_size") or [0, 0]
+    if m.get("kind") != "strip" or not isinstance(m.get("strip"), dict):
+        return ["not a strip of the page (capture.py --strip-top/--strip-bottom): fragments are not shown"]
+    if vp[0] != SITE_VIEWPORT_W or dpr < SITE_MIN_DPR or size[0] != SITE_VIEWPORT_W * dpr:
+        why.append(f"not the page at phone width: viewport {vp}, dpr {dpr}, {size[0]} px wide "
+                   f"(want {SITE_VIEWPORT_W} CSS px at dpr >= {SITE_MIN_DPR})")
+    boxes = m.get("boxes") if isinstance(m.get("boxes"), dict) else {}
+    need = ["card"] + sorted((feature.get("site") or {}).get("parts") or {})
+    for n in need:
+        b = boxes.get(n)
+        if not (isinstance(b, list) and len(b) == 4 and b[2] > 0 and b[3] > 0):
+            why.append(f"no DOM box {n!r} in the sidecar")
+        elif not (b[0] >= -1 and b[1] >= -1 and b[0] + b[2] <= size[0] + 1 and b[1] + b[3] <= size[1] + 1):
+            why.append(f"the box {n!r} is not inside the strip")
+    card = boxes.get("card")
+    if isinstance(card, list) and len(card) == 4:
+        for n in need[1:]:
+            b = boxes.get(n)
+            if isinstance(b, list) and len(b) == 4 and not (b[0] >= card[0] - 1 and b[1] >= card[1] - 1
+                                                            and b[0] + b[2] <= card[0] + card[2] + 1
+                                                            and b[1] + b[3] <= card[1] + card[3] + 1):
+                why.append(f"the part {n!r} is not inside the card's box")
+    if (feature.get("site") or {}).get("header") and not any(t.get("text") == BRAND for t in m.get("targets") or []):
+        why.append("site.header is true but the strip has no target for our header's brand")
+    return why
+
+
 def feature_say(feature: dict, values: dict) -> dict:
     """The one say map a feature story may carry: say_map over its voice lines (figures spelled to their value, the
-    ticker as letters, our name as three words)."""
+    ticker as letters, our name as three words). In the two payoff lines, read off the page, a dollar figure is said
+    without "dollars" ("five hundred two million bought": the screen shows the $, and the line is shorter)."""
     want = feature_lines(feature, values)
     lines = [want[k] for k in FEATURE_LINES] + [REACTION, f"Search {BRAND}. {cr.DISCLAIMER}"]
-    return say_map(lines, values.get(feature.get("ticker") or "") or "")
+    return say_map(lines, values.get(feature.get("ticker") or "") or "", (want["fact_a"], want["fact_b"]))
 
 
 def spoken_script(doc: dict) -> str:
@@ -1383,6 +1462,19 @@ def feature_story_gate(doc: dict, feature: dict, metas: dict) -> tuple[bool, dic
         probs.append(f"key {keys} / outlines {marks} are not the registry's key {want['key']!r} alone")
     if any(sh.get("bubble") for sh in shots) or any(e.get("t") == "receipt" for sh in shots for e in sh.get("els", [])):
         probs.append("a feature story draws no bubble and no receipt (their text is not the page's)")
+    # the real screen: the one strip, whole, in a `site` window. No card cut out of it, no crop, no second capture.
+    frag = sorted({str(e.get("t")) for sh in shots for e in sh.get("els", []) if e.get("t") in ("card", "screen")})
+    crops = [i + 1 for i, sh in enumerate(shots) if any("crop" in e for e in sh.get("els", []))]
+    if frag or crops:
+        probs.append(f"fragment cards {frag} / crops in shots {crops}: a feature short shows the site's card whole "
+                     "(owner verdict 2026-11-10)")
+    sites = [(i + 1, e) for i, sh in enumerate(shots) for e in sh.get("els", []) if e.get("t") == "site"]
+    pay = [i + 1 for i, sh in enumerate(shots) if sh.get("kind") == "PAYOFF"]
+    if sorted({i for i, _e in sites}) != pay or any(e.get("name") != PAGE for _i, e in sites) or len(sites) != len(pay):
+        probs.append(f"each PAYOFF shot shows the capture {PAGE!r} in one site window, and no other shot does "
+                     f"(site windows in shots {[i for i, _e in sites]}, PAYOFF shots {pay})")
+    if set(doc.get("screens") or {}) != {PAGE}:
+        probs.append(f"screens {sorted(doc.get('screens') or {})}: a feature story has one screen, {PAGE!r}")
     # the voice: only the generator's spoken forms
     own = [i + 1 for i, sh in enumerate(shots) if sh.get("say")]
     if own:
@@ -1423,10 +1515,16 @@ def key_target_gate(samples: list[dict], fps: int, kind: str = "figure") -> tupl
     """samples: one per rendered PAYOFF frame with the key outlined: {"t", "h" (the key text's height on screen), "box" (its
     box), "card_w" (the width on screen of the card it is on)}. A figure (a tag, a ticker, an amount) is at least 64 px tall
     for 1.5 s. A visual (a chart, or a table row that stays whole across the frame: its labels cannot be that tall) is at
-    least 640 px wide with its outlined label at least 40 px tall for 1.5 s. Either way the key sits inside the safe area."""
+    least 640 px wide with its outlined label at least 40 px tall for 1.5 s. Either way the key sits inside the safe area.
+    A "site" key (feature shorts) is a text of the real card, outlined where it stands: at least 40 px tall on a card at
+    least 900 px wide, inside the frame's safe height (a headline may run the card's width)."""
     def inside(k):
         return 60 <= k["box"][0] and k["box"][2] <= 960 and 300 <= k["box"][1] and k["box"][3] <= 1400
-    if kind == "visual":
+    if kind == "site":
+        good = [k for k in samples if k["h"] >= SITE_KEY_MIN_H and k.get("card_w", 0.0) >= SITE_CARD_MIN_W
+                and 0 <= k["box"][0] and k["box"][2] <= 1080 and 300 <= k["box"][1] and k["box"][3] <= 1400]
+        limits = {"label_h": SITE_KEY_MIN_H, "card_w": SITE_CARD_MIN_W, "s": SITE_KEY_MIN_S}
+    elif kind == "visual":
         good = [k for k in samples if k["h"] >= KEY_VISUAL_MIN_H and k.get("card_w", 0.0) >= KEY_VISUAL_MIN_W and inside(k)]
         limits = {"label_h": KEY_VISUAL_MIN_H, "card_w": KEY_VISUAL_MIN_W, "s": KEY_MIN_S}
     else:
@@ -1437,3 +1535,99 @@ def key_target_gate(samples: list[dict], fps: int, kind: str = "figure") -> tupl
                                "min_h": min((k["h"] for k in samples), default=None),
                                "max_h": max((k["h"] for k in samples), default=None),
                                "max_card_w": max((k.get("card_w", 0.0) for k in samples), default=None)}
+
+
+# ------------------------------------------------------------------------------------------------- the site screen (features /2)
+# One sample per rendered PAYOFF frame of a feature short (cartoon_reel.Reel._site_sample), all boxes in frame px
+# (x0, y0, x1, y1):
+#   {"t", "moving" (the window is flying in or out), "win" (the window that shows the strip), "card" (the card's DOM box,
+#    where it would be if the window did not clip it), "parts" {name: box}, "key" (the outlined text's box, None while no
+#    outline is drawn), "key_h", "caps" [caption boxes on screen], "peek" (Pip's head, or None)}
+def _in(inner, outer, tol: float = 1.5) -> bool:
+    return (inner[0] >= outer[0] - tol and inner[1] >= outer[1] - tol and inner[2] <= outer[2] + tol
+            and inner[3] <= outer[3] + tol)
+
+
+def _cut(a, b) -> list[float]:
+    """The intersection of two boxes (possibly empty: x1 <= x0)."""
+    return [max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3])]
+
+
+def site_card_whole_gate(samples: list[dict], fps: int, frame=(1080, 1920)) -> tuple[bool, dict]:
+    """The payoff shows the site's card WHOLE (owner verdict 2026-11-10: "only the last one show the visuals correctly as
+    it shown on website"; the first three cut the page into a headline strip, one table row and a chart lifted out).
+    While the window stands: the card is never cut at its sides; the rows of the card shown over the payoff add up to its
+    whole DOM box, top to bottom (a card taller than the window is scrolled, never cut into pieces); a card that fits the
+    window is whole in one frame for SITE_WHOLE_MIN_S; and each named part (title, headline, chart, ...) is whole on
+    screen for SITE_PART_MIN_S."""
+    fr = [0.0, 0.0, float(frame[0]), float(frame[1])]
+    st = [s_ for s_ in samples if not s_["moving"]]
+    side_cut = [s_ for s_ in st if not (s_["card"][0] >= max(s_["win"][0], 0.0) - 1.5
+                                        and s_["card"][2] <= min(s_["win"][2], fr[2]) + 1.5)]
+    ivs = []
+    for s_ in st:
+        c, vis = s_["card"], _cut(s_["win"], fr)
+        h = c[3] - c[1]
+        a_, b_ = max(c[1], vis[1]), min(c[3], vis[3])
+        if h > 0 and b_ > a_:
+            ivs.append(((a_ - c[1]) / h, (b_ - c[1]) / h))
+    reach, gap = 0.0, None
+    for a_, b_ in sorted(ivs):
+        if a_ > reach + 0.004:
+            gap = [round(reach, 3), round(a_, 3)]
+            break
+        reach = max(reach, b_)
+    covered = bool(ivs) and gap is None and reach >= 0.996
+    fits = bool(st) and all(s_["card"][3] - s_["card"][1] <= s_["win"][3] - s_["win"][1] + 1.5 for s_ in st)
+    whole_s = sum(1 for s_ in st if _in(s_["card"], _cut(s_["win"], fr))) / fps
+    names = sorted({n for s_ in st for n in s_.get("parts") or {}})
+    part_s = {n: round(sum(1 for s_ in st if n in s_["parts"] and _in(s_["parts"][n], _cut(s_["win"], fr))) / fps, 2)
+              for n in names}
+    short = sorted(n for n, v in part_s.items() if v < SITE_PART_MIN_S)
+    ok = (bool(st) and not side_cut and covered and not short and len(names) >= SITE_PARTS_NEEDED
+          and (not fits or whole_s >= SITE_WHOLE_MIN_S))
+    return ok, {"standing_s": round(len(st) / fps, 2), "frames_cut_at_the_sides": len(side_cut),
+                "rows_shown": [round(min((a_ for a_, _b in ivs), default=0.0), 3), round(reach, 3)], "gap_in_rows": gap,
+                "card_fits_the_window": fits, "whole_in_one_frame_s": round(whole_s, 2), "scrolled": not fits,
+                "parts_whole_s": part_s, "parts_never_whole": short,
+                "limits": {"whole_s": SITE_WHOLE_MIN_S, "part_s": SITE_PART_MIN_S, "parts": SITE_PARTS_NEEDED}}
+
+
+def card_width_gate(samples: list[dict], fps: int, min_w: float = SITE_CARD_MIN_W, frame_w: float = 1080.0) -> tuple[bool, dict]:
+    """The card is LARGE: at least min_w px wide on screen in every frame the window stands (the owner asked for about
+    940-1010 px of the 1080 frame), inside the frame, for at least SITE_STAND_MIN_S."""
+    st = [s_ for s_ in samples if not s_["moving"]]
+    ws = [s_["card"][2] - s_["card"][0] for s_ in st]
+    small = [round(s_["t"], 2) for s_, w in zip(st, ws) if w < min_w or s_["card"][0] < -1.5 or s_["card"][2] > frame_w + 1.5]
+    secs = len(st) / fps
+    return bool(st) and not small and secs >= SITE_STAND_MIN_S, {
+        "min_w": round(min(ws), 1) if ws else None, "max_w": round(max(ws), 1) if ws else None, "standing_s": round(secs, 2),
+        "too_small_or_off_frame_at_s": small[:12], "limits": {"w": min_w, "s": SITE_STAND_MIN_S}}
+
+
+def no_overlap_gate(samples: list[dict]) -> tuple[bool, dict]:
+    """Nothing of ours sits on the real screen: no caption and no Pip in any payoff frame, the frames in which the window
+    flies in included (the caption band is below the window, Pip's head beside the captions)."""
+    hits = []
+    for s_ in samples:
+        for kind, boxes in (("caption", s_.get("caps") or []), ("pip", [s_["peek"]] if s_.get("peek") else [])):
+            for b_ in boxes:
+                a_ = box_overlap(b_, s_["win"], shrink=0.0)
+                if a_ > 0:
+                    hits.append({"t": round(float(s_["t"]), 2), "what": kind, "px2": round(a_)})
+    return bool(samples) and not hits, {"samples": len(samples), "n_hits": len(hits), "hits": hits[:16]}
+
+
+def key_in_place_gate(samples: list[dict], fps: int, frame=(1080, 1920)) -> tuple[bool, dict]:
+    """The key value is outlined IN PLACE: whenever the outline is drawn, the outlined text lies on the card, inside the
+    window that shows the same strip (it is not a second capture, a re-crop or an enlargement), at least SITE_KEY_MIN_H px
+    tall, for SITE_KEY_MIN_S."""
+    fr = [0.0, 0.0, float(frame[0]), float(frame[1])]
+    drawn = [s_ for s_ in samples if s_.get("key")]
+    off = [round(s_["t"], 2) for s_ in drawn if not _in(s_["key"], _cut(_cut(s_["card"], s_["win"]), fr))]
+    good = [s_ for s_ in drawn if not s_["moving"] and s_.get("key_h", 0.0) >= SITE_KEY_MIN_H]
+    secs = len(good) / fps
+    return bool(drawn) and not off and secs >= SITE_KEY_MIN_S, {
+        "outlined_s": round(len(drawn) / fps, 2), "readable_s": round(secs, 2), "off_the_card_at_s": off[:12],
+        "min_h": round(min((s_.get("key_h", 0.0) for s_ in drawn), default=0.0), 1),
+        "limits": {"h": SITE_KEY_MIN_H, "s": SITE_KEY_MIN_S}}

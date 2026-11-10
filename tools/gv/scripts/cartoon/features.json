@@ -1,166 +1,223 @@
 {
- "schema": "rtv-cartoon-features/1",
- "about": "The registry of FEATURE shorts (make_feature_story.py; SKILL.md, section Feature shorts). One entry = one feature of the site and the one question it answers. Lines never hold a number, a ticker or a name: those are {slots}, read from the capture's text on the render day. A capitalised word in the middle of a line must be listed in proper_words (a person or a company is never typed).",
+ "schema": "rtv-cartoon-features/2",
+ "about": "The registry of FEATURE shorts (make_feature_story.py; SKILL.md, section Feature shorts). One entry = one feature of the site, the one question it answers and the real card that answers it. Schema /2 (owner verdict 2026-11-10: \"they arent good, only the last one show the visuals correctly as it shown on website\"): the payoff is the site's card WHOLE, captured as one strip of the page at phone width (`site`), shown large in one window, scrolled like a thumb when it is taller than the stage, with the key outlined where it stands. Fragment cards, crops and 6x key captures are refused. Lines never hold a number, a ticker or a name: those are {slots}, read from the capture's text on the render day. A capitalised word in the middle of a line must be listed in proper_words (a person or a company is never typed).",
  "banned_words": ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon", "breakout coming", "about to", "set to", "should buy", "should sell", "load up", "buy the dip", "time to buy", "time to sell", "don't miss", "dont miss", "easy money", "can't lose", "cant lose", "free money", "sell now", "get in now", "bitcoin", "btc", "crypto", "cryptocurrency", "ethereum", "blockchain"],
- "proper_words": ["Congress", "I", "I'm"],
+ "proper_words": ["Congress", "Concentration", "I", "I'm"],
  "features": [
   {
-   "id": "smart-money",
-   "title": "Congress trades tracker",
-   "post_note": "This is the public Congress trades tracker (/congress-trades), not the members-only Smart Money feed: title and caption it as Congress trades. The card also shows the row's return since the first buy filing and its sell filings, unspoken: real page data, not a call on the stock.",
-   "answers": "Which stock are the most members of Congress buying?",
-   "url": "https://www.rapidtradeview.trade/congress-trades",
+   "id": "congress",
+   "title": "Congress trades (market in pictures)",
+   "post_note": "The card counts the stock trades members of Congress disclosed in the site's disclosure window; it shows no dates, so do not add a period in the post text unless you read it on the page. Counts, not dollars. The card's \"Most traded\" row shows tickers with their small company logos, as the site draws it.",
+   "answers": "Is Congress buying or selling?",
+   "url": "https://www.rapidtradeview.trade/market",
+   "lands_on": "https://www.rapidtradeview.trade/#market",
+   "about_page": "/market is a permanent redirect to the home page's Market section (/#market): the capture asks for /market and the browser ends on /#market. The card is far below the page header, so the header is not in the strip (the brand pill carries the brand).",
    "viewport": "390x844",
-   "require": ["Most bought stocks by Congress"],
-   "refuse_if": ["The Congress tracker is unavailable right now", "No trades by members of Congress were disclosed"],
+   "require": ["Congress trades"],
+   "refuse_if": ["No stock trades by members of Congress were disclosed"],
    "phone": "tap",
-   "captures": [
-    {"name": "head", "clip_from": "RapidTradeView", "clip_to": "RapidTradeView", "pad": 12,
-     "targets": ["RapidTradeView"]},
-    {"name": "fact", "clip_from": "Most bought stocks by Congress", "clip_to": "first buy filing #1", "pad": 10,
-     "targets": ["Most bought stocks by Congress"]},
-    {"name": "key", "clip_from": "Since first buy filing", "clip_to": "{count_line}", "pad": 8, "dpr": 6,
-     "targets": ["={ticker}", "={name}", "{count_line}"]}
-   ],
+   "site": {
+    "strip": {"top": "el:[data-chart=\"congress\"]", "bottom": "el:[data-chart=\"congress\"]", "pad": 6},
+    "card": {"box": ["el:[data-chart=\"congress\"]"]},
+    "parts": {
+     "title": ["text:Congress trades"],
+     "headline": ["el:[data-chart=\"congress\"] h2"],
+     "chart": ["el:[data-chart=\"congress\"] svg[role=\"img\"]"]
+    },
+    "header": false
+   },
    "values": [
-    {"from": "fact", "after": "Since first buy filing", "offset": 1, "rx": "(?P<ticker>[A-Z][A-Z0-9.\\-]{0,5})"},
-    {"from": "fact", "after": "Since first buy filing", "offset": 2, "rx": "(?P<name>[A-Z].*[a-z].*)"},
-    {"from": "fact", "after": "Since first buy filing", "rx": "(?P<count>\\d+) members buying", "as": "count_line"}
+    {"from": "page", "after": "Congress trades", "offset": 2, "rx": "(?P<sells>\\d[\\d,]*)", "next": {"sells_word": "sells,"}},
+    {"from": "page", "after": "Congress trades", "offset": 4, "rx": "(?P<buys>\\d[\\d,]*)", "next": {"buys_word": "buys"}}
    ],
-   "checks": [{"value": "count", "min": 2, "why": "the hook needs several members buying the top stock"}],
-   "hold4": 0.8,
-   "hold5": 1.1,
-   "ticker": "ticker",
-   "name": "name",
+   "checks": [
+    {"value": "buys", "min": 2, "why": "the hook needs several buys"},
+    {"value": "sells", "more_than": "buys", "why": "the story is a day the card shows more sells than buys"}
+   ],
    "lines": {
-    "hook": "{count} in Congress bought the same stock!",
-    "hook_figure": "{count}",
-    "confused": "Which stock? Checking RapidTradeView.",
-    "search": "Congress trades tracker",
-    "fact_a": "Most bought stocks by Congress.",
-    "fact_b": "{ticker}: {count_line}."
+    "hook": "Congress made {buys} buys!",
+    "hook_figure": "{buys}",
+    "confused": "And sells? Checking RapidTradeView.",
+    "search": "Market",
+    "fact_a": "Congress trades:",
+    "fact_b": "{sells} sells, {buys} buys."
    },
-   "fact_phrase": "{count_line}",
+   "fact_phrase": "{sells} sells, {buys} buys",
    "sources": {
-    "heading": {"capture": "fact", "text": "Most bought stocks by Congress"},
-    "row": {"capture": "key"}
+    "title": {"capture": "page", "text": "Congress trades"},
+    "headline": {"capture": "page", "text": "{sells} sells, {buys} buys"}
    },
-   "claims": {"hook": "row", "fact_a": "heading", "fact_b": "row"},
-   "layout": "stack",
-   "key": {"capture": "key", "target": "{ticker}", "crop": ["{ticker}", "{name}"], "pad": [0.5, 0.3, 0.5, 0.2], "w": 760, "kind": "figure",
-           "also": {"target": "{count_line}", "at": "word:{count}", "w": 560, "pad": [0.35, 0.2, 0.15, 0.2]}}
+   "claims": {"hook": "headline", "confused": "headline", "fact_a": "title", "fact_b": "headline"},
+   "key": {"targets": ["={sells}", "buys"]}
+  },
+  {
+   "id": "insiders",
+   "title": "Insider trades (market in pictures)",
+   "post_note": "Open-market buys and sales by company officers and directors of their own company's stock; the card says 30-day totals. The rows show tickers with their small company logos, as the site draws it.",
+   "answers": "Are insiders buying or selling?",
+   "url": "https://www.rapidtradeview.trade/market",
+   "lands_on": "https://www.rapidtradeview.trade/#market",
+   "about_page": "/market is a permanent redirect to the home page's Market section (/#market). The card is far below the page header, so the header is not in the strip.",
+   "viewport": "390x844",
+   "require": ["Insider trades"],
+   "refuse_if": ["No open-market buys"],
+   "phone": "tap",
+   "site": {
+    "strip": {"top": "el:[data-chart=\"insiders\"]", "bottom": "el:[data-chart=\"insiders\"]", "pad": 6},
+    "card": {"box": ["el:[data-chart=\"insiders\"]"]},
+    "parts": {
+     "title": ["text:Insider trades"],
+     "headline": ["el:[data-chart=\"insiders\"] h2"],
+     "chart": ["all:[data-chart=\"insiders\"] svg[role=\"img\"]"]
+    },
+    "header": false
+   },
+   "values": [
+    {"from": "page", "after": "Insider trades", "offset": 2, "rx": "(?P<bought>\\$\\d[\\d.,]*[KMBT]?)", "next": {"bought_word": "bought,"}},
+    {"from": "page", "after": "Insider trades", "offset": 4, "rx": "(?P<sold>\\$\\d[\\d.,]*[KMBT]?)", "next": {"sold_word": "sold by insiders"}}
+   ],
+   "checks": [
+    {"value": "sold", "more_than": "bought", "why": "the story is a day the card shows more sold than bought"}
+   ],
+   "lines": {
+    "hook": "Insiders bought {bought}!",
+    "hook_figure": "{bought}",
+    "confused": "And sold? Checking RapidTradeView.",
+    "search": "Market",
+    "fact_a": "{bought} bought,",
+    "fact_b": "{sold} sold by insiders."
+   },
+   "fact_phrase": "{bought} bought, {sold} sold by insiders",
+   "sources": {
+    "headline": {"capture": "page", "text": "{bought} bought, {sold} sold by insiders"}
+   },
+   "claims": {"hook": "headline", "confused": "headline", "fact_a": "headline", "fact_b": "headline"},
+   "key": {"targets": ["={bought}", "sold by insiders"]}
   },
   {
    "id": "concentration",
    "title": "Portfolio concentration (sample portfolio)",
-   "post_note": "The numbers are the site's read-only sample portfolio (the screen says READ-ONLY SAMPLE): say so in the post text. Same card as the portfolio short: do not post the two close together.",
+   "post_note": "The numbers are the site's read-only sample portfolio: say so in the post text. Same page as the portfolio short: do not post the two close together.",
    "answers": "Am I actually diversified?",
    "url": "https://www.rapidtradeview.trade/sample-portfolio",
+   "about_page": "The strip is the Portfolio Concentration card from its title to the bottom of its two-ring donut (the card's box for the gates ends there: the lists below it are the portfolio short's scroll). The card starts a screen below the page header, so the header is not in the strip.",
    "viewport": "390x844",
-   "require": ["Sample portfolio", "Portfolio Concentration", "Biggest industry groups"],
+   "require": ["Sample portfolio", "Portfolio Concentration"],
    "refuse_if": [],
    "phone": "tap",
-   "captures": [
-    {"name": "head", "clip_from": "RapidTradeView", "clip_to": "Sample portfolio", "pad": 10,
-     "targets": ["RapidTradeView", "READ-ONLY SAMPLE", "Sample portfolio"]},
-    {"name": "fact", "clip_from": "Portfolio Concentration", "clip_to": "Inner ring: your", "end_above": "of your money. In the S&P 500", "pad": 14,
-     "targets": ["Portfolio Concentration", "=Concentrated"]},
-    {"name": "key", "clip_from": "Biggest industry groups", "clip_to": "Chip companies", "pad": 9, "dpr": 6,
-     "targets": ["Biggest industry groups", "Chip companies", "high", "={share}"]}
-   ],
+   "site": {
+    "strip": {"top": "el:.sample-concentration section", "bottom": "el:[aria-label=\"Portfolio concentration chart\"]", "pad": 1},
+    "card": {"box": ["el:.sample-concentration section"], "bottom": "el:[aria-label=\"Portfolio concentration chart\"]"},
+    "parts": {
+     "title": ["text:Portfolio Concentration"],
+     "pill": ["text:={verdict}"],
+     "headline": ["text:{headline}"],
+     "chart": ["el:[aria-label=\"Portfolio concentration chart\"]"]
+    },
+    "header": false
+   },
    "values": [
-    {"from": "fact", "after": "Portfolio Concentration", "offset": 1, "rx": "(?P<verdict>[A-Z][a-z]+)"},
-    {"from": "fact", "rx": "(?P<share>\\d+(?:\\.\\d+)?%) of your money is in (?P<n>\\d+) chip companies\\.", "as": "headline"}
+    {"from": "page", "after": "Portfolio Concentration", "offset": 1, "rx": "(?P<verdict>[A-Z][a-z]+)"},
+    {"from": "page", "rx": "(?P<share>\\d+(?:\\.\\d+)?%) of your money is in (?P<n>\\d+) chip companies\\.", "as": "headline"}
    ],
-   "checks": [{"value": "verdict", "equals": "Concentrated", "why": "the story is about a portfolio the page calls Concentrated"},
-              {"value": "n", "min": 2, "why": "the hook needs several chip companies"}],
+   "checks": [
+    {"value": "verdict", "equals": "Concentrated", "why": "the story is about a portfolio the page calls Concentrated"},
+    {"value": "n", "min": 2, "why": "the hook needs several chip companies"}
+   ],
    "lines": {
     "hook": "Only {n} are chips. I'm diversified!",
     "hook_figure": "{n}",
     "confused": "Are you? Checking RapidTradeView.",
     "search": "Sample portfolio",
-    "fact_a": "{headline}",
-    "fact_b": "{share}: {verdict}."
+    "fact_a": "Portfolio Concentration: {verdict}.",
+    "fact_b": "{headline}"
    },
    "fact_phrase": "{headline}",
    "sources": {
-    "headline": {"capture": "fact", "text": "{headline}"},
-    "card": {"capture": "fact"},
-    "row": {"capture": "key", "text": "{n} holdings ▲ high {share}"}
+    "title": {"capture": "page", "text": "Portfolio Concentration {verdict}"},
+    "headline": {"capture": "page", "text": "{headline}"}
    },
-   "claims": {"hook": "headline", "fact_a": "headline", "fact_b": "card"},
-   "layout": "stack",
-   "key": {"capture": "key", "target": "{share}", "crop": ["Biggest industry groups", "Chip companies", "{share}"],
-           "pad": [0.35, 0.45, 1.45, 0.45], "w": 860, "kind": "visual", "outline": 12}
+   "claims": {"hook": "headline", "fact_a": "title", "fact_b": "headline"},
+   "key": {"targets": ["{headline}"]}
   },
   {
    "id": "portfolio",
-   "title": "Portfolio donut (sample portfolio)",
-   "post_note": "The numbers are the site's read-only sample portfolio (the screen says READ-ONLY SAMPLE): say so in the post text. Same card as the concentration short: do not post the two close together; if only one goes out, this one.",
+   "title": "Portfolio page (sample portfolio)",
+   "post_note": "The numbers are the site's read-only sample portfolio (the screen says READ-ONLY SAMPLE): say so in the post text. Same page as the concentration short: do not post the two close together.",
    "answers": "Where is my money, really?",
    "url": "https://www.rapidtradeview.trade/sample-portfolio",
+   "about_page": "The strip is the page from its header down to the end of LARGEST HOLDINGS: one continuous scroll (value header, the concentration card and its donut, SECTORS, BIGGEST INDUSTRY GROUPS, LARGEST HOLDINGS), then back up to the sector row that is the key.",
    "viewport": "390x844",
-   "require": ["Sample portfolio", "Portfolio Concentration"],
+   "require": ["Sample portfolio", "Portfolio Concentration", "Largest holdings"],
    "refuse_if": [],
    "phone": "tap",
-   "captures": [
-    {"name": "head", "clip_from": "RapidTradeView", "clip_to": "Sample portfolio", "pad": 10,
-     "targets": ["RapidTradeView", "READ-ONLY SAMPLE", "Sample portfolio"]},
-    {"name": "fact", "clip_from": "of your money. In the S&P 500", "clip_to": "outer ring: their sectors", "pad": 4,
-     "targets": ["outer ring: their sectors"]},
-    {"name": "key", "clip_el": "[aria-label=\"Portfolio concentration chart\"]", "pad": 2, "dpr": 6,
-     "targets": ["={pct}", "=TOTAL"]}
-   ],
+   "site": {
+    "strip": {"top": "page", "bottom": "text:Show all (#2", "pad": 10},
+    "card": {"box": ["el:header", "el:.sample-concentration section"], "bottom": "text:Show all (#2"},
+    "parts": {
+     "header": ["el:header"],
+     "value": ["text:Sample portfolio value", "text:={total}"],
+     "chart": ["el:[aria-label=\"Portfolio concentration chart\"]"],
+     "sectors": ["text:=Sectors", "text:Show all (#1"],
+     "groups": ["text:=Biggest industry groups"],
+     "holdings": ["text:=Largest holdings", "text:Show all (#2"]
+    },
+    "header": true
+   },
    "values": [
-    {"from": "fact", "rx": "(?P<sector>[A-Z][A-Za-z &]+) is (?P<pct>\\d+(?:\\.\\d+)?%) of your money\\. In the S&P 500 it's (?P<bench>\\d+(?:\\.\\d+)?%)\\.", "as": "sector_line"},
-    {"from": "fact", "rx": "(?P<holdings>\\d+) holdings", "as": "holdings_line"}
+    {"from": "page", "after": "Sample portfolio value", "offset": 1, "rx": "(?P<total>\\$\\d[\\d,]*\\.\\d{2})"},
+    {"from": "page", "rx": "(?P<sector>[A-Z][A-Za-z &]+) is (?P<pct>\\d+(?:\\.\\d+)?%) of your money\\. In the S&P 500 it's (?P<bench>\\d+(?:\\.\\d+)?%)\\.", "as": "sector_line"},
+    {"from": "page", "rx": "(?P<holdings>\\d+) holdings", "as": "holdings_line"}
    ],
-   "checks": [{"value": "pct", "min": 40, "why": "the story is about one sector holding a large share of the money"},
-              {"value": "holdings", "min": 10, "why": "the hook needs many holdings"}],
+   "checks": [
+    {"value": "pct", "min": 40, "why": "the story is about one sector holding a large share of the money"},
+    {"value": "holdings", "min": 10, "why": "the hook needs many holdings"}
+   ],
    "lines": {
     "hook": "{holdings} holdings. Spread all over!",
     "hook_figure": "{holdings}",
     "confused": "Spread where? Checking RapidTradeView.",
     "search": "Sample portfolio",
-    "fact_a": "{sector} is {pct} of your money.",
-    "fact_b": "{sector}: {pct}."
+    "fact_a": "Sample portfolio: {holdings_line}.",
+    "fact_b": "{sector} is {pct} of your money."
    },
    "fact_phrase": "{sector} is {pct} of your money.",
    "sources": {
-    "sentence": {"capture": "fact", "text": "{sector_line}"},
-    "holdings": {"capture": "fact", "text": "{holdings_line}"}
+    "sentence": {"capture": "page", "text": "{sector_line}"},
+    "holdings": {"capture": "page", "text": "{holdings_line}"}
    },
-   "claims": {"hook": "holdings", "fact_a": "sentence", "fact_b": "sentence"},
-   "layout": "hero",
-   "key": {"capture": "key", "target": "{pct}", "kind": "visual"}
+   "claims": {"hook": "holdings", "fact_a": "holdings", "fact_b": "sentence"},
+   "key": {"targets": ["={sector}", "={pct}#2"], "top": "=Sectors"}
   },
   {
-   "id": "market-pictures",
+   "id": "market-breadth",
    "title": "Market breadth (market in pictures)",
    "post_note": "A dated fact: the card and the voice name the session's weekday. Post it before the next US session closes, or capture and render it again; never later.",
    "answers": "How much of the market actually moved with the headline?",
    "url": "https://www.rapidtradeview.trade/market",
    "lands_on": "https://www.rapidtradeview.trade/#market",
-   "about_page": "/market is a permanent redirect to the home page's Market section (/#market): the capture asks for /market and the browser ends on /#market.",
+   "about_page": "/market is a permanent redirect to the home page's Market section (/#market): the capture asks for /market and the browser ends on /#market. The card is far below the page header, so the header is not in the strip.",
    "viewport": "390x844",
    "require": ["Market breadth"],
    "refuse_if": [],
    "phone": "tap",
-   "captures": [
-    {"name": "head", "clip_from": "RapidTradeView", "clip_to": "RapidTradeView", "pad": 12,
-     "targets": ["RapidTradeView"]},
-    {"name": "fact", "clip_from": "Market breadth", "clip_to": "Up minus down", "end_above": "Up minus down", "pad": 12,
-     "targets": ["Market breadth"]},
-    {"name": "key", "clip_from": "Market breadth", "clip_to": "{mon} {day} ({wd})", "pad": 12, "dpr": 6,
-     "targets": ["={pct}"]}
-   ],
+   "site": {
+    "strip": {"top": "el:[data-chart=\"breadth\"]", "bottom": "el:[data-chart=\"breadth\"]", "pad": 2},
+    "card": {"box": ["el:[data-chart=\"breadth\"]"]},
+    "parts": {
+     "title": ["text:Market breadth"],
+     "headline": ["el:[data-chart=\"breadth\"] h2"],
+     "chart": ["el:[data-chart=\"breadth\"] svg[role=\"img\"]"]
+    },
+    "header": false
+   },
    "values": [
-    {"from": "fact", "after": "Market breadth", "rx": "Last session \\((?P<wd>Mon|Tue|Wed|Thu|Fri), (?P<mon>[A-Z][a-z]{2}) (?P<day>\\d{1,2})\\)", "as": "session_line"},
-    {"from": "fact", "after": "Market breadth", "rx": "of (?P<total>[\\d,]+) stocks (?P<verb>rose|fell) —", "as": "mid",
+    {"from": "page", "after": "Market breadth", "rx": "Last session \\((?P<wd>Mon|Tue|Wed|Thu|Fri), (?P<mon>[A-Z][a-z]{2}) (?P<day>\\d{1,2})\\)", "as": "session_line"},
+    {"from": "page", "after": "Market breadth", "rx": "of (?P<total>[\\d,]+) stocks (?P<verb>rose|fell) —", "as": "mid",
      "prev": {"count": "[\\d,]+"}, "next": {"pct": "\\d+%"}}
    ],
    "checks": [
-    {"session": {"wd": "wd", "mon": "mon", "day": "day"}, "from": "fact", "sets": {"weekday": "weekday", "date": "session_date"},
+    {"session": {"wd": "wd", "mon": "mon", "day": "day"}, "from": "page", "sets": {"weekday": "weekday", "date": "session_date"},
      "why": "the card must show the last closed session, the one the hook names"},
     {"value": "total", "min": 1000, "why": "a breadth count of a few stocks is a page that did not load its data"},
     {"pct": "pct", "of": ["count", "total"], "tol": 1.0, "why": "the page's share must be its own count over its own total"},
@@ -176,13 +233,11 @@
    },
    "fact_phrase": "{count} of {total} stocks {verb} — {pct}",
    "sources": {
-    "headline": {"capture": "fact", "text": "{count} of {total} stocks {verb} — {pct}"},
-    "panel": {"capture": "fact"}
+    "headline": {"capture": "page", "text": "{count} of {total} stocks {verb} — {pct}"},
+    "panel": {"capture": "page"}
    },
    "claims": {"hook": "panel", "fact_a": "headline", "fact_b": "headline"},
-   "layout": "hero",
-   "hold4": 0.1,
-   "key": {"capture": "key", "target": "{pct}", "kind": "visual"}
+   "key": {"targets": ["={pct}"]}
   }
  ]
 }

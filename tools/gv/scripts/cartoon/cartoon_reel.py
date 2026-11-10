@@ -8,6 +8,11 @@ last frame (a layer drawn over every frame, transitions included); the voice say
 the last 5 s; the payoff is our real page with its own header and logo. make_story.py writes the story from a facts item.
 v4: nothing that stays on screen sits under the pill (pill_clear gate: real cards keep below it, header flies off before
 the zoom); the end card keeps out of the right 12% (end_card_safe) and keeps moving (wordmark pulse, head bob).
+Feature shorts (owner verdict 2026-11-10: "they arent good, only the last one show the visuals correctly as it shown on
+website"): the payoff is a SITE SCREEN, els "site": one window that shows a strip of the real page at phone width, the
+card whole and about 1000 px wide, scrolled like a thumb when it is taller than the stage, the key outlined where it
+stands, the captions in a band under the window. Gates site_card_whole, card_width, no_overlap, key_in_place; the run
+folder also gets compare.png (the site capture beside the video frames, at one scale).
 
     cartoon_reel.py --story STORY.json --out DIR [--ffmpeg-dir DIR] [--tts-python PY] [--sheet-every 1.5]
 
@@ -72,6 +77,7 @@ DURATION_RANGE = Q.ONE_IDEA_DURATION       # 15-22 s (v3: one situation, one pun
 SHOT_RANGE = (0.7, 2.6)
 HOOK_MAX = 3.0          # the hook carries the voiced number; a longer figure ('$0.20' read out) runs ~2.7 s (2026-11-10 KKR)
 PAYOFF_MAX = 4.5                          # v3: the payoff holds our real page (brand + fact), the one place to linger
+PAYOFF_MAX_SITE = 5.0                     # a site screen shot: the top of the card, then a thumb scroll to its end
 SHOTS_RANGE = (4, Q.ONE_IDEA_MAX_SHOTS)   # at most 7 shots
 LUFS_RANGE, TP_MAX, TARGET_LUFS = (-15.0, -13.0), -1.0, -14.0
 STATIC_MAD, STATIC_RUN = 0.3, 8
@@ -79,6 +85,9 @@ CAPTION_SIZE, CAPTION_MIN, CAPTION_MAX_W = 92, 72, 760
 CAPTION_Y = 1230                          # ONE caption band (64% of the height) for every shot; frame the shots around it
 SPEAKER_COL = {"dale": (255, 178, 158), "pip": (160, 242, 208)}   # caption colour per voice (narrator white)
 PAYOFF_WINDOW = (2.0, 8.0)                # first PAYOFF start -> last PAYOFF end, reaction cut-ins included
+PAYOFF_WINDOW_SITE = (2.0, 9.5)           # a site screen: the scroll over the real card and the outlined key
+SITE_RIM, SITE_RADIUS = 5, 34             # the window's brand-gradient rim and its corner radius (frame px)
+SCROLL_TICK_S = 0.6                       # one soft run of scroll ticks per this much scrolling
 SCREEN_MIN_S = 1.8                        # the real screenshot is on screen at least this long
 RECEIPT_MIN_S = 1.8                       # a fact phrase shown (not read) stays on screen at least this long
 CHAR_GAP_MAX = 2.0                        # a character is never off screen for longer than this
@@ -119,6 +128,18 @@ def eob(x, s=1.7):
 
 def lerp(a, b, u):
     return a + (b - a) * u
+
+
+def cruise(x, a=0.15):
+    """A thumb scroll's progress 0..1: it speeds up over the first `a`, runs at one speed, slows over the last `a` (the
+    peak speed is 1 / (1 - a) of the average: a smoothstep's 1.5x blurs a tall page past the eye)."""
+    x = min(1.0, max(0.0, x))
+    v = 1.0 / (1.0 - a)
+    if x < a:
+        return v * x * x / (2 * a)
+    if x > 1 - a:
+        return 1.0 - v * (1 - x) * (1 - x) / (2 * a)
+    return v * (x - a / 2)
 
 
 def interp(v, u):
@@ -347,6 +368,8 @@ class Timeline:
             st = self.shot_start.get(last_shot, t)
             if last_shot != end_i and t - st < SHOT_RANGE[0]:
                 t = st + SHOT_RANGE[0]
+            if last_shot != end_i and shots[last_shot].get("min_dur"):      # a scroll that outlasts the shot's line
+                t = max(t, st + float(shots[last_shot]["min_dur"]) + LEAD_F / FPS)   # (the next shot cuts in LEAD_F early)
             cursor_shot = last_shot + 1
         while cursor_shot < end_i:
             self.shot_start.setdefault(cursor_shot, t)
@@ -390,8 +413,9 @@ class Timeline:
                 by_shot.setdefault(w.shot, []).append(w)
         for si in sorted(by_shot):
             ws = by_shot[si]
+            cap = self.story.shots[si].get("caption") or {}       # a shot's own caption band (the site screen's is narrower)
             groups = Q.chunk_words([w.text for w in ws], measure=lambda s: f.getlength(" ".join(Q.display_words(s))),
-                                   max_px=CAPTION_MAX_W)
+                                   max_px=float(cap.get("max_w", CAPTION_MAX_W)))
             voice = self.story.shots[si].get("voice", "narrator")
             for g in groups:
                 text = " ".join(Q.display_words(" ".join(ws[k].text for k in g)))
@@ -410,10 +434,10 @@ class Timeline:
 
 
 # =============================================================================================== drawing helpers
-def caption_sprite(text: str, stress: set[str], base=(255, 255, 255)) -> Image.Image:
+def caption_sprite(text: str, stress: set[str], base=(255, 255, 255), size: int = CAPTION_SIZE,
+                   max_w: float = CAPTION_MAX_W) -> Image.Image:
     words = text.split()
-    size = CAPTION_SIZE
-    while size > CAPTION_MIN and font("black", size).getlength(text) - 2 * (len(words) - 1) > CAPTION_MAX_W:
+    while size > CAPTION_MIN and font("black", size).getlength(text) - 2 * (len(words) - 1) > max_w:
         size -= 4
     f = font("black", size)
     sw = 7
@@ -628,6 +652,7 @@ class Reel:
         self._sampled: dict[int, bool] = {}
         self.brand_samples: list[dict] = []                     # PAYOFF frames that show our real header (payoff_brand)
         self.pill_samples: list[dict] = []                      # frames with a real card: is one under the brand pill?
+        self.site_samples: list[dict] = []                      # PAYOFF frames of a site screen (feature shorts)
         self._plan_overlays()
         self._end_build()
         self._brand_build()
@@ -676,8 +701,14 @@ class Reel:
                                          1.0 if pk.get("brow") else 0.0)
             for el in sh.get("els", []):
                 typ = el.get("t")
-                if typ in ("screen", "card") and el.get("enter"):
+                if typ in ("screen", "card", "site") and el.get("enter"):
                     self.events.append((st + self.enter_at(si, el) + 8 / FPS, "land", {"sfx": "thump", "gain": 0.9}))
+                if typ == "site":                             # a thumb scroll ticks softly; it does not shake the camera
+                    sc = el.get("scroll") or {}
+                    n_ticks = int(math.ceil(float(sc.get("dur", 0.0)) / SCROLL_TICK_S)) if sc.get("y0") != sc.get("y1") else 0
+                    for k_ in range(n_ticks):
+                        self.events.append((st + float(sc.get("at", 0.0)) + k_ * SCROLL_TICK_S, "scroll",
+                                            {"sfx": "scroll", "gain": 0.45, "shake": 0.0}))
                 if typ == "receipt":
                     if el.get("text", "$fact_phrase") == "$fact_phrase":
                         el["text"] = self.st.doc["fact_phrase"]
@@ -708,13 +739,15 @@ class Reel:
         for si, sh in enumerate(self.shots):
             stress[si] = set(sh.get("stress") or [])
         for k, ch in enumerate(self.tl.chunks):
-            img = caption_sprite(ch["text"], stress.get(ch["shot"], set()), SPEAKER_COL.get(ch.get("voice"), (255, 255, 255)))
+            cap = self.shots[ch["shot"]].get("caption") or {}
+            img = caption_sprite(ch["text"], stress.get(ch["shot"], set()), SPEAKER_COL.get(ch.get("voice"), (255, 255, 255)),
+                                 int(cap.get("size", CAPTION_SIZE)), float(cap.get("max_w", CAPTION_MAX_W)))
             sweep = cr.Sweep(img, 0.4, 0.12) if Q.FIGURE_RX.search(ch["text"]) else None
             self.cap_sprites[k] = (img, sweep)
-            cy = CAPTION_Y
+            cx, cy = float(cap.get("x", W / 2)), float(cap.get("y", CAPTION_Y))
             w_, h_ = img.size
-            self.texts.append({"role": "caption", "text": ch["text"], "box": (W / 2 - w_ / 2, cy - h_ / 2, W / 2 + w_ / 2, cy + h_ / 2)})
-            ch["cy"] = cy
+            self.texts.append({"role": "caption", "text": ch["text"], "box": (cx - w_ / 2, cy - h_ / 2, cx + w_ / 2, cy + h_ / 2)})
+            ch["cx"], ch["cy"] = cx, cy
             ch["size"] = (w_, h_)
         self.events.sort(key=lambda e: e[0])
 
@@ -749,6 +782,8 @@ class Reel:
             focus = c
         elif typ == "zoom_to":
             return self._zoom_cam(si, t, mv)
+        elif typ == "still":                                 # the site screen: the page moves (a scroll), the camera does not
+            s = s0
         else:
             s = s0 * (1 + 0.04 * u)
         if typ not in ("pan", "tilt"):
@@ -762,7 +797,7 @@ class Reel:
         names = name_or_list if isinstance(name_or_list, list) else [name_or_list]
         sh = self.shots[si]
         if el is None:                  # the card whose capture has the target (the main one first)
-            cards = [e for e in sh["els"] if e.get("t") in ("screen", "card")]
+            cards = [e for e in sh["els"] if e.get("t") in ("screen", "card", "site")]
             cards.sort(key=lambda e: not e.get("main", True))
             el = next((e for e in cards if all(any(x["text"] == nm for x in self.st.screens[e["name"]]["meta"]["targets"])
                                                for nm in names)), None)
@@ -775,6 +810,10 @@ class Reel:
             if tg is None:
                 raise InputError(f"screen {el['name']}: no target {nm!r} in its sidecar")
             boxes.append(tg["box"])
+        if el.get("t") == "site":       # a text of the strip, where the scroll has it now (it may be outside the window)
+            x0, y0 = min(b[0] for b in boxes), min(b[1] for b in boxes)
+            x1, y1 = max(b[0] + b[2] for b in boxes), max(b[1] + b[3] for b in boxes)
+            return np.array(self.site_world(si, el, t, (x0, y0, x1, y1))), (x1 - x0, y1 - y0)
         cx0, cy0 = (el.get("crop") or (0, 0))[:2]
         x0 = min(b[0] for b in boxes) - cx0
         y0 = min(b[1] for b in boxes) - cy0
@@ -853,6 +892,55 @@ class Reel:
         self.cache[key] = out
         el["_res"] = res
         return out
+
+    # ---- the site screen: one window onto a strip of the real page (feature shorts)
+    def site_geom(self, el) -> tuple[int, int, float, int]:
+        """(strip width, strip height, capture px per frame px, the window's height in capture px)."""
+        sw, sh = self.st.screens[el["name"]]["size"]
+        res = sw / float(el["w"])
+        return sw, sh, res, int(min(sh, round(float(el["h"]) * res)))
+
+    def site_scroll(self, el, t: float) -> float:
+        """The strip row (capture px) at the window's top at shot time t."""
+        sw, sh, _res, ch = self.site_geom(el)
+        sc = el.get("scroll") or {}
+        y0 = float(sc.get("y0", 0.0))
+        y1 = float(sc.get("y1", y0))
+        dur = float(sc.get("dur", 0.0))
+        y = y1 if dur <= 0 else lerp(y0, y1, cruise((t - float(sc.get("at", 0.0))) / dur))
+        return float(min(max(0.0, y), max(0, sh - ch)))
+
+    def site_world(self, si, el, t, box) -> list:
+        """World corners of a box of the strip (capture px: x0, y0, x1, y1) at shot time t."""
+        sw, _sh, res, ch = self.site_geom(el)
+        (x, y), rot_deg, k, _a = self.el_pose(si, el, t)
+        sy = round(self.site_scroll(el, t))
+        R = rot(rot_deg)
+        return [np.array((x, y), float) + (k / res) * (R @ np.array((px - sw / 2, py - sy - ch / 2), float))
+                for px, py in ((box[0], box[1]), (box[2], box[1]), (box[2], box[3]), (box[0], box[3]))]
+
+    def site_window(self, si, el, t) -> list:
+        """World corners of the window (the part of the strip on screen)."""
+        sw, _sh, _res, ch = self.site_geom(el)
+        sy = round(self.site_scroll(el, t))
+        return self.site_world(si, el, t, (0, sy, sw, sy + ch))
+
+    def site_sprite(self, el, sy: float):
+        """The window at one scroll position: the strip's rows as captured (only resized with the whole window when it
+        is drawn), inside a thin brand rim. -> (RGBA, anchor, capture px per frame px)."""
+        sw, _sh, res, ch = self.site_geom(el)
+        key = ("site", el["name"], int(el["w"]), int(el["h"]))
+        if key not in self.cache:
+            rim, rad = int(round(SITE_RIM * res)), int(round(SITE_RADIUS * res))
+            body = C.gradient((sw + 2 * rim, ch + 2 * rim)).convert("RGBA")
+            body.putalpha(C.rounded_mask(body.size, rad + rim))
+            base, pad = C.with_shadow(body, int(18 * res), int(20 * res))
+            self.cache[key] = (base, C.rounded_mask((sw, ch), rad), pad + rim)
+        base, mask, off = self.cache[key]
+        y0 = int(round(sy))
+        img = base.copy()
+        img.paste(self.st.screens[el["name"]]["img"].crop((0, y0, sw, y0 + ch)), (off, off), mask)
+        return img, (img.size[0] / 2, img.size[1] / 2), res
 
     def el_pose(self, si, el, t):
         """(world pos, rotation, scale, alpha) of an element at shot time t (enter animation, sink, bob)."""
@@ -972,6 +1060,9 @@ class Reel:
                 A, b = cam.sprite(frame, img, anchor, (x, y), r, k, el["_res"], a)
                 if el.get("dim"):
                     pass
+            elif typ == "site":
+                img, anchor, res = self.site_sprite(el, self.site_scroll(el, t))
+                cam.sprite(frame, img, anchor, (x, y), r, k, res, a)
             elif typ == "barbell":
                 tabs = int(round(interp(el.get("tabs", 0), u)))
                 bend = round(float(interp(el.get("bend", 0.0), u)) * 20) / 20
@@ -1278,23 +1369,63 @@ class Reel:
             img, sweep = self.cap_sprites[k]
             v = (t_abs - ch["start"]) * FPS
             first = k == 0
+            s = self.caption_scale(k, t_abs)
             if sweep:
                 img = sweep.at(min(1.0, max(0.0, (t_abs - ch["start"] - 0.35) / 0.55)))
-                s = 1.15 - 0.15 * eob(v / 4)
-            elif first:
-                s = 0.93 + 0.07 * eob(v / 4)
-            else:
-                s = 0.86 + 0.14 * eob(v / 4)
             al = 1.0 if first else min(1.0, (v + 1) / 2)
             if sh.get("caption_plate", sh.get("kind") == "PAYOFF"):
-                pk = ("plate", img.size)
+                pk = ("plate", img.size, tuple((sh.get("caption") or {}).get("plate", ())))
                 if pk not in self.cache:
-                    pw, ph = img.size[0] + 56, img.size[1] + 30
+                    pw, ph = self.plate_size(img.size, sh)
                     plate = Image.new("RGBA", (pw, ph), C.INK + (0,))
                     ImageDraw.Draw(plate).rounded_rectangle((0, 0, pw - 1, ph - 1), radius=ph // 2, fill=C.INK + (215,))
                     self.cache[pk] = plate
-                cr.put(frame, self.cache[pk], W / 2, ch["cy"], al, s)
-            cr.put(frame, img, W / 2, ch["cy"], al, s)
+                cr.put(frame, self.cache[pk], ch["cx"], ch["cy"], al, s)
+            cr.put(frame, img, ch["cx"], ch["cy"], al, s)
+
+    @staticmethod
+    def plate_size(size, sh: dict) -> tuple[int, int]:
+        """The dark plate behind a payoff caption (a shot's caption band may make it tighter: "plate": [dw, dh])."""
+        dw, dh = (sh.get("caption") or {}).get("plate", (56, 30))
+        return size[0] + int(dw), size[1] + int(dh)
+
+    def caption_scale(self, k: int, t_abs: float) -> float:
+        """A caption chunk's scale at t_abs (it pops in; a figure lands large and settles)."""
+        ch = self.tl.chunks[k]
+        v = (t_abs - ch["start"]) * FPS
+        if self.cap_sprites[k][1]:
+            return 1.15 - 0.15 * eob(v / 4)
+        if k == 0:
+            return 0.93 + 0.07 * eob(v / 4)
+        return 0.86 + 0.14 * eob(v / 4)
+
+    def caption_boxes(self, si: int, t_abs: float) -> list:
+        """Frame boxes of the captions on screen at t_abs, their plates included."""
+        out = []
+        sh = self.shots[si]
+        for k, ch in enumerate(self.tl.chunks):
+            if ch["shot"] != si or not (ch["start"] <= t_abs < ch["end"]):
+                continue
+            w_, h_ = ch["size"]
+            if sh.get("caption_plate", sh.get("kind") == "PAYOFF"):
+                w_, h_ = self.plate_size((w_, h_), sh)
+            s = self.caption_scale(k, t_abs)
+            out.append([ch["cx"] - w_ * s / 2, ch["cy"] - h_ * s / 2, ch["cx"] + w_ * s / 2, ch["cy"] + h_ * s / 2])
+        return out
+
+    def peek_box(self, si: int, t_abs: float):
+        """Frame box of a PEEK head at t_abs (what is drawn of it, with room for its tilt), or None."""
+        pp = self.peek_pose(si, t_abs)
+        if not pp:
+            return None
+        pk = self.shots[si]["peek"]
+        img = pk["_img"][0]
+        if "_bb" not in pk:
+            pk["_bb"] = img.getbbox() or (0, 0, img.size[0], img.size[1])
+        x0, y0, x1, y1 = pk["_bb"]
+        cx, cy = img.size[0] / 2, img.size[1] / 2
+        g = 1.08 * pp[3]
+        return [pp[0] + (x0 - cx) * g, pp[1] + (y0 - cy) * g, pp[0] + (x1 - cx) * g, pp[1] + (y1 - cy) * g]
 
     # ------------------------------------------------------------------------------------------ what a caption must not cover
     def protect_boxes(self, si: int, t_abs: float) -> list[dict]:
@@ -1368,7 +1499,7 @@ class Reel:
             if hi <= lo:
                 continue
             w_, h_ = ch["size"]
-            box = [W / 2 - w_ / 2, ch["cy"] - h_ / 2, W / 2 + w_ / 2, ch["cy"] + h_ / 2]
+            box = [ch["cx"] - w_ / 2, ch["cy"] - h_ / 2, ch["cx"] + w_ / 2, ch["cy"] + h_ / 2]
             for tt in (lo + 0.07, (lo + hi) / 2, hi - 0.02):
                 if lo <= tt <= hi:
                     out.append({"t": tt, "caption": ch["text"], "box": box, "protect": self.protect_boxes(si, tt)})
@@ -1400,12 +1531,22 @@ class Reel:
         if sh.get("kind") != "PAYOFF":
             return
         for el in sh.get("els", []):
-            if el.get("t") not in ("screen", "card"):
+            if el.get("t") not in ("screen", "card", "site"):
                 continue
             sc = self.st.screens[el["name"]]
             tg = next((x for x in sc["meta"].get("targets", []) if x.get("text") == cr.BRAND), None)
             if tg is None:
                 continue
+            if el["t"] == "site":            # our header on the strip: readable while the scroll has it inside the window
+                corners, _ = self._target_world(si, cr.BRAND, t, el)
+                pts = np.array([cam.p(q) for q in corners])
+                win = self._bbox([cam.p(q) for q in self.site_window(si, el, t)])
+                box = self._bbox(pts)
+                self.brand_samples.append({"t": round(t_abs, 3), "screen": el["name"],
+                                           "h": round(float(np.linalg.norm(pts[3] - pts[0])), 1),
+                                           "inside": bool(Q._in(box, Q._cut(win, [0, 0, W, H]))), "in_crop": True,
+                                           "in_text": cr.BRAND in sc["meta"].get("visible_text", "")})
+                return
             bx, by, bw, bh = tg["box"]
             crop = el.get("crop")
             in_crop = (not crop) or (crop[0] <= bx and crop[1] <= by and bx + bw <= crop[2] and by + bh <= crop[3])
@@ -1417,8 +1558,15 @@ class Reel:
                                        "in_crop": bool(in_crop), "in_text": cr.BRAND in sc["meta"].get("visible_text", "")})
             return
 
+    @staticmethod
+    def _bbox(pts) -> list[float]:
+        a = np.asarray(pts, float)
+        return [float(a[:, 0].min()), float(a[:, 1].min()), float(a[:, 0].max()), float(a[:, 1].max())]
+
     def card_corners(self, si, el, t):
-        """World corners of a card's real capture (the shown crop) at shot time t."""
+        """World corners of a card's real capture (the shown crop) at shot time t; for a site screen, its window."""
+        if el.get("t") == "site":
+            return self.site_window(si, el, t)
         sc = self.st.screens[el["name"]]
         cw, ch = sc["size"]
         crop = el.get("crop") or (0, 0, cw, ch)
@@ -1436,15 +1584,47 @@ class Reel:
         sh = self.shots[si]
         x0, y0, x1, y1 = self.brand_box
         for el in sh.get("els", []):
-            if el.get("t") not in ("screen", "card"):
+            if el.get("t") not in ("screen", "card", "site"):
                 continue
             pts = np.array([cam.p(q) for q in self.card_corners(si, el, t)])
             bx0, by0 = pts.min(0)
             bx1, by1 = pts.max(0)
+            if el["t"] == "site":                        # the window's rim is part of what must stay clear of the pill
+                bx0, by0, bx1, by1 = bx0 - SITE_RIM, by0 - SITE_RIM, bx1 + SITE_RIM, by1 + SITE_RIM
             ov = max(0.0, min(x1, bx1) - max(x0, bx0)) * max(0.0, min(y1, by1) - max(y0, by0))
             self.pill_samples.append({"t": round(t_abs, 3), "screen": el["name"], "overlap_px": round(float(ov)),
                                       "moving": self.el_moving(si, el, t),
                                       "card_box": [round(float(v)) for v in (bx0, by0, bx1, by1)]})
+
+    def _site_sample(self, si, t, t_abs, cam):
+        """A PAYOFF frame of a site screen, for the gates site_card_whole, card_width, no_overlap and key_in_place: the
+        window, the card's DOM box and its parts where the scroll has them, the key while it is outlined, the captions
+        and Pip's head (frame px)."""
+        sh = self.shots[si]
+        if sh.get("kind") != "PAYOFF":
+            return
+        for el in sh.get("els", []):
+            if el.get("t") != "site":
+                continue
+            boxes = self.st.screens[el["name"]]["meta"].get("boxes") or {}
+            if "card" not in boxes:
+                continue
+
+            def on_screen(b):
+                return self._bbox([cam.p(q) for q in self.site_world(si, el, t, (b[0], b[1], b[0] + b[2], b[1] + b[3]))])
+
+            hl = next((e for e in sh["els"] if e.get("t") == "highlight" and t >= float(e.get("at", 0.9))), None)
+            key = key_h = None
+            if hl:
+                corners, _ = self._target_world(si, hl["target"], t, el)
+                pts = np.array([cam.p(q) for q in corners])
+                key, key_h = self._bbox(pts), float(np.linalg.norm(pts[3] - pts[0]))
+            self.site_samples.append({
+                "t": round(t_abs, 3), "shot": si + 1, "moving": self.el_moving(si, el, t),
+                "win": self._bbox([cam.p(q) for q in self.site_window(si, el, t)]), "card": on_screen(boxes["card"]),
+                "parts": {n: on_screen(b) for n, b in boxes.items() if n != "card"},
+                "key": key, "key_h": key_h, "caps": self.caption_boxes(si, t_abs), "peek": self.peek_box(si, t_abs),
+                "scroll_px": round(self.site_scroll(el, t))})
 
     def end_extent(self) -> dict:
         """The end card's widest moment: the right edges of the wordmark and the search box (frame px) over the card."""
@@ -1534,7 +1714,9 @@ class Reel:
             return self.end_frame(t_abs - self.tl.end_start)
         t = t_abs - self.tl.starts[si]
         cam = self.camera(si, t)
-        dx, dy, dth = self.shake(t_abs)
+        # a site screen never shakes: it stands a few px under the brand pill and above the captions, pixels untouched
+        site = any(e.get("t") == "site" for e in self.shots[si].get("els", []))
+        dx, dy, dth = (0.0, 0.0, 0.0) if site else self.shake(t_abs)
         cam.d = np.array([dx, dy])
         cam.th += dth
         fr = self.background(si, t, t_abs, cam)
@@ -1544,6 +1726,7 @@ class Reel:
             self._key_sample(si, t, t_abs, cam)
             self._brand_sample(si, t, t_abs, cam)
             self._pill_sample(si, t, t_abs, cam)
+            self._site_sample(si, t, t_abs, cam)
         return fr
 
     def _key_sample(self, si, t, t_abs, cam):
@@ -1554,13 +1737,18 @@ class Reel:
         corners, _ = self._target_world(si, sh["key_number"], t)
         pts = np.array([cam.p(q) for q in corners])
         hh = float(np.linalg.norm(pts[3] - pts[0]))
-        cards = [e for e in sh["els"] if e.get("t") in ("screen", "card") and any(
-            x["text"] == sh["key_number"] for x in self.st.screens[e["name"]]["meta"]["targets"])]
+        names = sh["key_number"] if isinstance(sh["key_number"], list) else [sh["key_number"]]
+        cards = [e for e in sh["els"] if e.get("t") in ("screen", "card", "site") and all(any(
+            x["text"] == nm for x in self.st.screens[e["name"]]["meta"]["targets"]) for nm in names)]
         cards.sort(key=lambda e: not e.get("main", True))
         card_w = 0.0
         if cards and not self.el_moving(si, cards[0], t):
             cc = np.array([cam.p(q) for q in self.card_corners(si, cards[0], t)])
             card_w = float(np.linalg.norm(cc[1] - cc[0]))
+            cb = (self.st.screens[cards[0]["name"]]["meta"].get("boxes") or {}).get("card")
+            if cards[0]["t"] == "site" and cb:           # the card inside the window, not the window
+                cc = np.array([cam.p(q) for q in self.site_world(si, cards[0], t, (cb[0], cb[1], cb[0] + cb[2], cb[1] + cb[3]))])
+                card_w = float(np.linalg.norm(cc[1] - cc[0]))
         self.key_samples.append({"t": round(t_abs, 3), "h": round(hh, 1), "card_w": round(card_w, 1),
                                  "box": [round(float(v)) for v in
                                          (pts[:, 0].min(), pts[:, 1].min(), pts[:, 0].max(), pts[:, 1].max())]})
@@ -1776,18 +1964,20 @@ def text_gates(st: Story, tl: Timeline, reel: Reel, now: dt.datetime | None = No
     # structure
     durs = [round(e - b, 3) for b, e in zip(tl.starts, tl.ends)]
     kinds = [sh.get("kind") for sh in st.shots]
+    site = any(e.get("t") == "site" for sh in st.shots for e in sh.get("els", []))     # a site screen may run longer
+    pay_max, pay_window = (PAYOFF_MAX_SITE, PAYOFF_WINDOW_SITE) if site else (PAYOFF_MAX, PAYOFF_WINDOW)
     bad_len = [i + 1 for i, (dd, k) in enumerate(zip(durs[:-1], kinds[:-1]))
-               if not (SHOT_RANGE[0] - 1e-6 <= dd <= (PAYOFF_MAX if k == "PAYOFF" else HOOK_MAX if k == "HOOK" else SHOT_RANGE[1]) + 1e-6)]
+               if not (SHOT_RANGE[0] - 1e-6 <= dd <= (pay_max if k == "PAYOFF" else HOOK_MAX if k == "HOOK" else SHOT_RANGE[1]) + 1e-6)]
     first_pay = next((tl.starts[i] for i, k in enumerate(kinds) if k == "PAYOFF"), None)
     last_pay = max((tl.ends[i] for i, k in enumerate(kinds) if k == "PAYOFF"), default=None)
     window = (last_pay - first_pay) if first_pay is not None else 0.0
-    screen_s = sum(dd for dd, sh in zip(durs, st.shots) if any(e.get("t") in ("screen", "card") for e in sh.get("els", [])))
+    screen_s = sum(dd for dd, sh in zip(durs, st.shots) if any(e.get("t") in ("screen", "card", "site") for e in sh.get("els", [])))
     onset = min(w.start for w in tl.words)
     s["structure"] = (SHOTS_RANGE[0] <= len(st.shots) <= SHOTS_RANGE[1] and not bad_len and abs(durs[-1] - END_S) < 1e-6
-                      and kinds[-1] == "END" and PAYOFF_WINDOW[0] <= window <= PAYOFF_WINDOW[1] and screen_s >= SCREEN_MIN_S
+                      and kinds[-1] == "END" and pay_window[0] <= window <= pay_window[1] and screen_s >= SCREEN_MIN_S
                       and onset <= 0.10 and tl.end_vo_finish <= 2.7)
     d["structure"] = {"shots": len(st.shots), "durations": durs, "out_of_range": bad_len,
-                      "payoff_window_s": round(window, 2), "payoff_window_range": list(PAYOFF_WINDOW),
+                      "payoff_window_s": round(window, 2), "payoff_window_range": list(pay_window), "payoff_shot_max_s": pay_max,
                       "real_screen_s": round(screen_s, 2), "first_payoff_at": round(first_pay or -1, 2),
                       "first_payoff_share": round((first_pay or 0) / tl.total, 3), "voice_onset_s": round(onset, 3),
                       "end_vo_finishes_s": round(tl.end_vo_finish, 2), "kinds": kinds,
@@ -1837,8 +2027,8 @@ def text_gates(st: Story, tl: Timeline, reel: Reel, now: dt.datetime | None = No
 
 
 def key_number_gate(reel: Reel, st: Story) -> tuple[bool, dict]:
-    if st.feature:                         # the registry says whether the key is a figure or a chart
-        ok, det = Q.key_target_gate(reel.key_samples, FPS, (st.feature.get("key") or {}).get("kind", "figure"))
+    if st.feature:                         # a text of the real card, outlined where it stands
+        ok, det = Q.key_target_gate(reel.key_samples, FPS, "site")
         det["targets"] = [sh["key_number"] for sh in st.shots if sh.get("key_number")]
         return ok, det
     good = [k for k in reel.key_samples if k["h"] >= 64 and 60 <= k["box"][0] and k["box"][2] <= 960 and 300 <= k["box"][1]
@@ -1951,6 +2141,57 @@ def contact_sheet(mp4: Path, ffmpeg: str, every: float, path: Path, tl: Timeline
     sheet.save(path)
 
 
+def frame_at(mp4: Path, ffmpeg: str, t: float) -> Image.Image:
+    """One decoded frame of the video."""
+    raw = subprocess.run([ffmpeg, "-v", "error", "-ss", f"{max(0.0, t):.3f}", "-i", str(mp4), "-an", "-frames:v", "1",
+                          "-f", "image2pipe", "-c:v", "png", "-"], capture_output=True, check=True).stdout
+    return Image.open(io.BytesIO(raw)).convert("RGB")
+
+
+def compare_sheet(mp4: Path, ffmpeg: str, st: Story, tl: Timeline, path: Path, scale: float = 0.75) -> dict:
+    """compare.png of a feature short: the site capture of the card on the left (the strip's rows that hold the card, as
+    captured), the decoded video frames that show it on the right (the top of the card, the end of the scroll when there
+    is one, the outlined key), all at one scale: the card is as wide in the capture as in the frames, so the two can be
+    laid over each other by eye. A capture taller than a frame wraps into columns."""
+    pays = [(i, next(e for e in sh["els"] if e.get("t") == "site")) for i, sh in enumerate(st.shots)
+            if sh.get("kind") == "PAYOFF" and any(e.get("t") == "site" for e in sh.get("els", []))]
+    (ia, ea), (ib, eb) = pays[0], pays[-1]
+    sc = st.screens[ea["name"]]
+    meta = sc["meta"]
+    card = meta["boxes"]["card"]
+    k = float(ea["w"]) / sc["size"][0] * scale                     # sheet px per capture px
+    pad = 6 * float(meta.get("dpr") or 3)
+    y0, y1 = int(max(0, card[1] - pad)), int(min(sc["size"][1], card[1] + card[3] + pad))
+    cap = sc["img"].crop((0, y0, sc["size"][0], y1))
+    cap = cap.resize((round(cap.size[0] * k), round(cap.size[1] * k)), Image.LANCZOS)
+    fh, fw = round(H * scale), round(W * scale)
+    scr_a, scr_b = ea.get("scroll") or {}, eb.get("scroll") or {}
+    hl = next((e for e in st.shots[ib]["els"] if e.get("t") == "highlight"), {})
+    times = [("the card's top", tl.starts[ia] + max(0.45, 0.8 * float(scr_a.get("at", 0.6))))]
+    if float(scr_a.get("dur", 0.0)) > 0 and scr_a.get("y0") != scr_a.get("y1"):
+        times.append(("the end of the scroll", min(tl.ends[ia] - 0.04, tl.starts[ia] + float(scr_a["at"]) + float(scr_a["dur"]) + 0.12)))
+    times.append(("the key, outlined in place", min(tl.ends[ib] - 0.1, tl.starts[ib] + float(hl.get("at", 0.6)) + 0.9)))
+    frames = [(lab, t, frame_at(mp4, ffmpeg, t).resize((fw, fh), Image.LANCZOS)) for lab, t in times]
+    cols = [cap.crop((0, y, cap.size[0], min(cap.size[1], y + fh))) for y in range(0, cap.size[1], fh)]
+    gap, lab_h = 18, 44
+    wide = sum(c.size[0] + gap for c in cols) + sum(fw + gap for _ in frames) + gap
+    sheet = Image.new("RGB", (wide, fh + lab_h + gap), (16, 16, 20))
+    d = ImageDraw.Draw(sheet)
+    f = font("semi", 22)
+    x = gap
+    d.text((x, 10), f"site capture, phone width {meta.get('viewport', ['?'])[0]} CSS px, {meta.get('captured_at', '')}", font=f,
+           fill=(170, 240, 200))
+    for c in cols:
+        sheet.paste(c, (x, lab_h))
+        x += c.size[0] + gap
+    for lab, t, im in frames:
+        d.text((x, 10), f"video {t:.1f} s: {lab}", font=f, fill=(200, 200, 255))
+        sheet.paste(im, (x, lab_h))
+        x += fw + gap
+    sheet.save(path)
+    return {"png": str(path), "scale": scale, "capture_rows_px": [y0, y1], "frames_at_s": [round(t, 2) for _l, t in times]}
+
+
 # =============================================================================================== main
 def clean(o):
     """numpy scalars / tuples -> plain JSON values."""
@@ -2002,6 +2243,16 @@ def run(a, out: Path, ctx: dict) -> int:
     summary["key_number"], details["key_number"] = key_number_gate(reel, st)
     summary["payoff_brand"], details["payoff_brand"] = Q.payoff_brand_gate(reel.brand_samples, FPS)
     summary["pill_clear"], details["pill_clear"] = Q.pill_clear_gate(reel.pill_samples)
+    if st.feature:                         # the site screen: the card whole, large, uncovered, the key in place
+        summary["site_card_whole"], details["site_card_whole"] = Q.site_card_whole_gate(reel.site_samples, FPS, (W, H))
+        summary["card_width"], details["card_width"] = Q.card_width_gate(reel.site_samples, FPS, frame_w=W)
+        summary["no_overlap"], details["no_overlap"] = Q.no_overlap_gate(reel.site_samples)
+        summary["key_in_place"], details["key_in_place"] = Q.key_in_place_gate(reel.site_samples, FPS, (W, H))
+        if not (st.feature.get("site") or {}).get("header"):
+            # the card is far below our page header: it cannot be in the window with the card (the pill carries the brand)
+            summary["payoff_brand"] = True
+            details["payoff_brand"] = {**details["payoff_brand"], "not_applicable": "the registry's site.header is false: "
+                                       "the card stands far below the page header; brand_pill and brand_spoken gate the brand"}
     ext = reel.end_extent()
     summary["end_card_safe"] = max(ext.values()) <= RIGHT_BAND_X
     details["end_card_safe"] = {"right_edge_px": ext, "limit_px": RIGHT_BAND_X}
@@ -2022,6 +2273,12 @@ def run(a, out: Path, ctx: dict) -> int:
         contact_sheet(mp4, ffmpeg, a.sheet_every, out / "sheet.png", tl, st.shots)
     except (subprocess.CalledProcessError, OSError, ValueError) as e:
         print(f"cartoon_reel: sheet failed ({e})", file=sys.stderr)
+    compare = None
+    if st.feature:
+        try:
+            compare = compare_sheet(mp4, ffmpeg, st, tl, out / "compare.png")
+        except (subprocess.CalledProcessError, OSError, ValueError, StopIteration) as e:
+            print(f"cartoon_reel: compare sheet failed ({e})", file=sys.stderr)
     lic_path = HERE / "tts.py"
     used_numbers = sorted({n for x in [" ".join((sh.get("vo") or "") for sh in st.shots)] for n in Q.find_numbers(x)})
     cr.write_json(out / "reel.json", clean({
@@ -2035,6 +2292,10 @@ def run(a, out: Path, ctx: dict) -> int:
                                    "values": (details.get("feature_story") or {}).get("values"),
                                    "page_sources": {p["id"]: p["text"] for p in st.item.get("phrasings") or []}},
         "brand": {"pill_box": list(reel.brand_box), "spoken_at_s": details.get("brand_spoken", {}).get("spoken_at_s")},
+        "site_screen": st.feature and {"compare": compare, "card_width_px": [details.get("card_width", {}).get("min_w"),
+                                                                             details.get("card_width", {}).get("max_w")],
+                                       "scrolled": details.get("site_card_whole", {}).get("scrolled"),
+                                       "strip_css": (st.screens[Q.PAGE]["meta"].get("strip") if Q.PAGE in st.screens else None)},
         "allowed_numbers": st.item.get("allowed_numbers"), "numbers_used": used_numbers, "post_date": st.post_date,
         "claims_for_human_check": (details.get("claim_lines") or {}).get("needs_human_check"),
         "screen_crops": {f"shot {i + 1}": {"screen": e["name"], "crop_px": e["crop"]} for i, sh in enumerate(st.shots)
@@ -2070,7 +2331,7 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
-    for name in ("reel_9x16.mp4", "reel.json", "reel-qa.json", "sheet.png", "mix.wav", "vo.wav"):
+    for name in ("reel_9x16.mp4", "reel.json", "reel-qa.json", "sheet.png", "compare.png", "mix.wav", "vo.wav"):
         (out / name).unlink(missing_ok=True)
     ctx = {"iid": None}
     try:
