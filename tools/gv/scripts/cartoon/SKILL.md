@@ -155,76 +155,126 @@ $PY tools/gv/scripts/cartoon/make_feature_story.py <feature-id> --run .ops/carto
 $PY tools/gv/scripts/cartoon/cartoon_reel.py --story .ops/cartoon-features/<feature-id>/story.json --out .ops/cartoon-features/<feature-id>
 ```
 
-Render on the capture day: the renderer refuses captures older than 12 hours (`feature_capture`).
+Render on the capture day: the renderer refuses captures older than 12 hours (`feature_capture`), and the story's
+`post_date` is the capture day.
 
 ### The registry: `features.json`
 
-| id | Page (public, no guest view counted) | The question | The key |
+| id | Page (public, no guest view counted) | The question | Shot 5: the key |
 |---|---|---|---|
-| `smart-money` | `/congress-trades`, "Most bought stocks by Congress", top row | Which stock are the most members of Congress buying? | the row's ticker and company name |
-| `concentration` | `/sample-portfolio`, the Portfolio Concentration card's top | Am I actually diversified? | the card's verdict pill ("Concentrated") |
-| `portfolio` | `/sample-portfolio`, the two-ring donut | Where is my money, really? | the donut, its biggest slice's label outlined |
-| `market-pictures` | `/market`, the Market breadth panel | How much of the market moved? | the share ("83%") |
+| `smart-money` | `/congress-trades`, "Most bought stocks by Congress", top row | Which stock are the most members of Congress buying? | the row's ticker and company name outlined; "4 members buying" lands under it on the word "4" |
+| `concentration` | `/sample-portfolio`, the Portfolio Concentration card | Am I actually diversified? | the real row of BIGGEST INDUSTRY GROUPS ("Chip companies  9 holdings  ▲ high  33%"), 33% outlined, under the card's headline and its "Concentrated" pill |
+| `portfolio` | `/sample-portfolio`, the two-ring donut | Where is my money, really? | the donut alone (captured as its own element), its biggest slice's label outlined |
+| `market-pictures` | `/market`, the Market breadth card | How much of the market moved? | the whole card with its 20-close chart, the share ("83%") outlined |
 
-`/smart-money` (the feed) and `/portfolio` are sign-in only: never capture them, never sign in. `concentration` and
-`portfolio` read the same card of the read-only sample portfolio: do not post them close together.
+- `smart-money` is the public **Congress trades tracker**, not the members-only Smart Money feed: title and caption it as
+  Congress trades. `/smart-money`, `/portfolio` and `/dashboard/<ticker>` are sign-in only or count a guest view: the
+  registry refuses them as a `url`. Never sign in.
+- `concentration` and `portfolio` read the same card of the **read-only sample portfolio** (the screen says READ-ONLY
+  SAMPLE in shot 4, the phone opens "Sample portfolio"): say so in the post text, and do not post the two close together.
+  If only one goes out, `portfolio` (the donut is the stronger picture).
+- `market-pictures` is a **dated fact**: `/market` is a permanent redirect to the home page's Market section (`/#market`;
+  the registry's `lands_on`), the card shows "Last session (Mon, Nov 9)", and the hook names that weekday ("83% of stocks
+  rose Monday!"). The session must be the last US session that had closed when the page was captured, or the script
+  stops (also the day after a market holiday: the gate does not know holidays). Post it before the next session closes,
+  or capture and render again; never later.
+- Each entry carries a `post_note` (copied into `reel.json`): read it before the video is posted.
 
 One entry holds:
-- `url`, `viewport`, `require` (texts the page must have), `refuse_if` (texts that mean its data is missing).
+- `url`, `lands_on` (only when the page redirects), `viewport`, `require` (texts the page must have), `refuse_if` (texts
+  that mean its data is missing).
 - `captures`: the bands, as in the daily short (`head` with our logo, `fact`, `key` at 6x). A text that starts with `=`
-  matches a whole text node (`={ticker}` is the ticker V, not the V of "View"). Bands whose texts use a `{slot}` are
-  captured second, after the values are read.
-- `values`: how each slot is read from a capture's visible text: `{"from": capture, "after": line, "offset": n, "rx":
-  regex with named groups, "as": name for the whole line, "prev"/"next": {name: regex}}`. `checks` stop a day that does
-  not carry the story (`{"value": "count", "min": 2}`: one member buying breaks "4 in Congress bought one stock!").
+  matches a whole text node (`={ticker}` is the ticker V, not the V of "View"). `clip_el` (a CSS selector) captures one
+  element's own box instead of a full-width band (the donut without the page margins beside it). Bands whose texts use a
+  `{slot}` are captured second, after the values are read.
+- `values`: how each slot is read from a capture's text: `{"from": capture, "after": line, "offset": n, "rx": regex with
+  named groups, "as": name for the whole line, "prev"/"next": {name: regex}}`. `checks` stop a day that does not carry
+  the story: `{"value", "min" | "max" | "equals"}`, `{"pct": p, "of": [count, total]}` (the page's own arithmetic holds;
+  "0 of 0 stocks rose" and "3 of 4" are a page that did not load), `{"session": {...}, "sets": {"weekday", "date"}}`
+  (the card's session label is the last closed session; sets the weekday the hook may name).
 - `lines`: hook, hook_figure, confused, search, fact_a, fact_b. **A line never holds a number, a ticker or a name: those
-  are slots.** `registry_problems` refuses a typed number, a provider name, a banned word, a slot no rule reads.
+  are slots.** `registry_problems` refuses a typed number, ticker or name (a capitalised word mid-sentence that is not in
+  `proper_words`), a provider name, a banned word, advice or a prediction in any wording ("Buy it.", "It will go up."), a
+  slot no rule reads. A name at the start of a sentence cannot be told from an ordinary word: read a registry diff.
+- `phone`: `"tap"`. The phone in shot 3 shows one link with the text `search` and a thumb taps it. `search` is the text of
+  the real link on our site ("Congress trades tracker" on the home page, the "Market" tab, "Sample portfolio"): a
+  feature page is not reached by typing its name into the ticker search, so the phone does not type it.
 - `fact_phrase`: the one data phrase; on a capture word for word, and read aloud word for word.
 - `sources` and `claims`: the page text each factual line paraphrases (a text that is on its capture, or everything a
   capture shows). They are the phrasings the `claim_lines` gate checks, and they are listed in `reel.json`
-  `claims_for_human_check`: read each line against its page text before the video ships.
-- `layout`: `stack` (header + fact card, then fact card + the key tag) or `hero` (header + fact card, then both fly off
-  and the key capture, a chart, fills the stage). `key.kind`: `figure` or `visual`.
+  `claims_for_human_check`: read each line against its page text before the video ships. A source without a claim is a
+  text that must be on the page for the story to hold (concentration: the row is flagged "high").
+- `layout`: `stack` (header + fact card, then fact card + the key card) or `hero` (header + fact card, then both fly off
+  sideways and the key capture, a chart or a whole card, fills the stage). `key.kind`: `figure` (a tag or a ticker, 64 px)
+  or `visual` (a chart or a table row that stays whole: no zoom past the layout's scale). `key.also`: a second plain
+  crop of the key capture that lands under the key card on a word of the line (smart-money's count).
 - `hold4`, `lead5`, `hold5`: the still beats. Shot 5 starts `lead5` (0.5 s) before its line: the key lands and the camera
-  settles, then the voice names it.
+  settles, then the voice names it. `hold5` is about 1 s (1.6 s read as dead air).
+
+### What a capture records (`capture.py`)
+
+- `url` (asked for) and `final_url` (where the browser ended): both are gated.
+- `visible_text`: every line that touches the captured area. A superset of the pixels; the provider, error and banned
+  word checks read it (fail closed).
+- `inside_text`: what the PNG really shows (the nodes, or the words of a node, whose boxes lie at least half inside).
+  **Numbers, values, sources and the fact phrase are read from this one.** A line that only grazes a band's edge gives no
+  allowed number.
+- `seal`: a hash over the fields the gates trust. A sidecar edited after the capture fails `feature_capture`. It is not a
+  signature: it catches a hand edit, not somebody who also recomputes it. Never edit a sidecar; capture again.
 
 ### When `make_feature_story.py` stops (exit 2, no story.json)
 
 - a band or a value is missing, or a check fails (the page changed, or today's top row does not carry the story);
-- the page says a `refuse_if` text, or a band shows an error or loading word;
+- the page says a `refuse_if` text, or a band shows an error, a loading word or a figure that did not compute;
 - a provider or source brand is on what a band shows (the page's footer may name one; only the bands are checked);
-- a capture is not from the feature's URL, or not from today;
+- a capture is not from the feature's URL, did not end on its page, is not from today, or its sidecar was edited;
 - the filled lines would fail the number, claim or spoken-figure gates.
 
 No fallback and no explaining away: change the band in the registry, or do not make that video today.
 
 ### Gates that differ from the daily short
 
-- **feature_capture** (new): our page, captured at most 12 h before the render, `require` present, no `refuse_if`, no
-  error or loading state, no provider name on what is shown.
-- **feature_story** (new): the story's values are the ones read from the sidecars now, and its voice lines, chip, typed
-  search, fact phrase and key target are the registry's templates filled with them. A story edited by hand fails.
+- **feature_capture** (new): our page (asked for and ended on), captured at most 12 h before the render, `require`
+  present, no `refuse_if`, no error or loading state, no provider name on what is shown, the sidecar sealed.
+- **feature_story** (new): the story is exactly the one `make_feature_story.py` writes from the registry and the
+  sidecars now. Two checks: `cartoon_qa.feature_story_gate` (values, lines, claims, chip, phone, key, one outline on the
+  key and no other, `post_date`, and the voice: the say map is the generator's and nothing else, no shot has its own say
+  map, the spoken text names no provider, gives no advice, adds no number and no ticker) and
+  `make_feature_story.story_drift` (the whole story is rebuilt and compared: a crop, a timing or a voice edited by hand
+  is named). **A hand-edited say map was the hole found on 2026-11-10: the captions and every text gate stayed green
+  while the voice said something else.**
+- **no_provider_names**: the wider list (`cartoon_qa.VENDOR_EXTRA_WORDS`), look-alike letters and zero-width characters
+  folded, on what is drawn, captioned, spoken and captured. **no_advice** (new): advice or a prediction in any wording, in
+  the script, the drawn texts and the spoken text.
 - **fact_phrase**: on a capture and read aloud, word for word (punctuation is not a word).
 - **numbers_verbatim, claim_lines, hook, screen_numbers**: unchanged code, run against an item built from the sidecars
-  at render time (`cartoon_qa.feature_item`): the allowed numbers are the numbers the captures show.
-- **key_number**: a `figure` key is at least 64 px tall for 1.5 s (as before). A `visual` key (a chart: its labels cannot
-  be 64 px while the chart stays whole) needs the chart at least 640 px wide with the outlined label at least 30 px tall
-  for 1.5 s.
+  at render time (`cartoon_qa.feature_item`): the allowed numbers are the numbers inside the captures.
+- **spoken_numbers**: also refuses number words the value parser does not read ("a dozen", "hundreds", "half").
+- **key_number**: a `figure` key is at least 64 px tall for 1.5 s (as before). A `visual` key (a chart, or a row that
+  stays whole) needs the card at least 640 px wide with the outlined label at least 40 px tall for 1.5 s.
 - **screenshot_real**: the capture's URL is the registry's URL.
 
 Everything else (pill on every frame, brand spoken early and late, 15-22 s, at most 7 shots, payoff_brand, pill_clear,
 captions, audio) gates exactly as for the daily short.
+
+### Look at the frames (required, every render)
+
+The provider check is a deny-list and a sidecar has only text. A source brand nobody listed, or a logo drawn as an image,
+passes every gate. Before a feature short ships, open full frames of shots 4 and 5 (not only `sheet.png`) and check:
+no provider or source name, no other company's logo, no crop cutting through a neighbouring line, the real card big and
+legible, our logo readable, the key outlined. An index or ticker name on our own page ("S&P 500", "SPY") is a benchmark,
+not a source credit; if the owner reads the rule wider, change the band.
 
 ### Adding a feature
 
 1. Open the page as a logged-out guest at 390x844 and find one card that answers one question in two seconds. Prefer
    pages that count no guest view (server-rendered public pages; not `/dashboard/<ticker>`).
 2. Capture the bands by hand with `capture.py` and look at them: nothing cut through, no provider name, no other
-   company's logo, no real person as the hero.
-3. Add the entry. Write the lines so that they stay true whenever the page changes: only slots carry data.
-4. `make_feature_story.py <id> --run <dir> --capture`, render, and look at `sheet.png` and full frames of shots 4 and 5:
-   the real card big and legible, our logo readable, the key outlined, no sliver of a neighbouring line at a crop's edge
-   (tighten `pad`), the pill clear.
+   company's logo, no real person as the hero. Compare `inside_text` with the PNG.
+3. Add the entry. Write the lines so that they stay true whenever the page changes: only slots carry data. `search` is
+   the text of the real link that opens the page.
+4. `make_feature_story.py <id> --run <dir> --capture`, render, and look at `sheet.png` and full frames of shots 4 and 5
+   (the list above).
 5. Add its sidecar texts to `tools/tests/test_cartoon_features.py`.
 
 ## Writing rules (for template changes)

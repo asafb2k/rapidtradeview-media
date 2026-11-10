@@ -833,11 +833,14 @@ SEARCH_PLACEHOLDER = "Search"
 BRAND_NAME = cr.BRAND                        # drawn on the search phone's top bar (brand=True)
 
 
-def search_phone(w_px=560, typed="", caret=True, thumb=0.0, font_fn=None, brand=True):
+def search_phone(w_px=560, typed="", caret=True, thumb=0.0, font_fn=None, brand=True, mode="type", lit=False):
     """Pip's two mitten hands holding a phone close to the lens; a plain search field near the top shows `typed` (or the
     placeholder). Not our app's UI: a cartoon phone, the real screen comes after the whip. With brand (the default) the
     screen's top bar shows our mark and the name RapidTradeView, so the viewer knows which app this is. Anchor = phone centre.
-    thumb (0-1) presses the right thumb onto the screen (a letter being typed)."""
+    thumb (0-1) presses the right thumb onto the screen (a letter being typed).
+    mode "tap" (feature shorts): instead of a search field the screen shows one link, `typed` being its text (the real
+    link's text on our site: a feature page is reached by a tap, not by typing its name into the ticker search); thumb
+    (0-1) is how far the thumb has reached towards it and `lit` fills the link once it is tapped."""
     font_fn = font_fn or cr.font
     p = Pen(2.1, 2.75, w_px, origin=(1.05, 1.05))
     for sx in (-1, 1):                                          # sleeves from below the frame up to the hands
@@ -858,6 +861,35 @@ def search_phone(w_px=560, typed="", caret=True, thumb=0.0, font_fn=None, brand=
         bx, by = p.P(x0 + mk_w + 0.03, -0.62)
         p.d.text((bx, by), BRAND_NAME, font=fb, fill=(255, 255, 255), anchor="lm")
         p.d.line((p.P(-0.4, -0.5), p.P(0.4, -0.5)), fill=(40, 44, 72), width=max(1, int(p.L(0.008))))
+    if mode == "tap":
+        def fit(text):
+            size = 0.092
+            while size > 0.05 and font_fn("bold", int(p.L(size))).getlength(text) > p.L(0.66):
+                size -= 0.004
+            return size
+
+        rows = [typed]
+        words = typed.split()
+        if fit(typed) < 0.075 and len(words) > 1:               # a long link text reads small on one line: two lines
+            k = min(range(1, len(words)), key=lambda i: max(len(" ".join(words[:i])), len(" ".join(words[i:]))))
+            rows = [" ".join(words[:k]), " ".join(words[k:])]
+        size = min(fit(r) for r in rows)
+        gap = size * 1.25
+        ly = -0.16 if len(rows) == 1 else -0.2
+        p.rrect(0, ly, 0.82, 0.24 + gap * (len(rows) - 1), 0.07, VIOLET if lit else (36, 30, 92), o=p.L(0.018))
+        fl = font_fn("bold", int(p.L(size)))
+        for i, r in enumerate(rows):
+            lx, lty = p.P(-0.37, ly + gap * (i - (len(rows) - 1) / 2))
+            p.d.text((lx, lty), r, font=fl, fill=WHITE if lit else (214, 208, 255), anchor="lm")
+        ax, ay = p.P(0.35, ly)                                  # a chevron: this row opens a page
+        aw = p.L(0.03)
+        p.d.line((ax - aw, ay - 1.6 * aw, ax + aw, ay, ax - aw, ay + 1.6 * aw), fill=WHITE if lit else (160, 150, 230),
+                 width=max(2, int(p.L(0.016))), joint="curve")
+        mitten(p, -0.55, 0.42, PIP_SKIN, toward=(1.0, -0.6), size=0.3)
+        mitten(p, 0.55, 0.36, PIP_SKIN, toward=(-1.0, -0.2), size=0.3)
+        tip = (0.42 - 0.1 * thumb, 0.24 - 0.25 * thumb)         # the right thumb reaches the link's lower edge (text stays clear)
+        p.capsule((0.47, 0.3), tip, 0.13, PIP_SKIN, o=p.L(0.02))
+        return p.done((0, 0))
     bar_y = -0.36 if brand else -0.55
     p.rrect(0, bar_y, 0.8, 0.17, 0.085, (236, 240, 255), o=p.L(0.018))
     cx, cy = p.P(-0.31, bar_y)

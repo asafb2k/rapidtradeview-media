@@ -51,6 +51,7 @@ ACK_REASONS = {COUNTER: "the guest view counter in our site header"}
 # lands on our page (two logos colliding) and the caption never covers a figure.
 STAGE_TOP, STAGE_BOTTOM = 362, 1160
 CARD_W, CARD_GAP, KEY_W = 860, 26, 600       # header and fact cards, the gap, the key tag card (earnings)
+ALSO_GAP = 18                                # between the key card and a second crop under it
 PUSH_AMT, PUSH_S = 0.03, 1.15                # shot 4: a slow push; PUSH_S bounds its scale over a long shot (drift included)
 Z5_MAX, Z5_DRIFT = 1.4, 0.03                 # shot 5: the zoom onto the key figure, and its drift after landing
 PEEK = {"who": "pip", "expr": "shock", "x": 175, "y": 1430, "hu": 240, "rot": 14}   # above the bottom 18% (IG caption)
@@ -73,78 +74,11 @@ def char_frame(who: str, pose: str, hold: tuple, hu: float, amt: float, dur: flo
     return round(feet), [x, round(c)]
 
 
-class TemplateError(Exception):
-    pass
-
+TemplateError = Q.TemplateError              # one class for both generators and the gates (cartoon_qa holds it)
 
 # ------------------------------------------------------------------------------------------------- spoken forms
-_ONES = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen " \
-        "eighteen nineteen".split()
-_TENS = "twenty thirty forty fifty sixty seventy eighty ninety".split()
-
-
-def int_words(n: int) -> str:
-    if n < 20:
-        return _ONES[n]
-    if n < 100:
-        return _TENS[n // 10 - 2] + ("" if n % 10 == 0 else "-" + _ONES[n % 10])
-    if n < 1000:
-        return _ONES[n // 100] + " hundred" + ("" if n % 100 == 0 else " " + int_words(n % 100))
-    if n < 1_000_000:
-        return int_words(n // 1000) + " thousand" + ("" if n % 1000 == 0 else " " + int_words(n % 1000))
-    if n < 1_000_000_000:
-        return int_words(n // 1_000_000) + " million" + ("" if n % 1_000_000 == 0 else " " + int_words(n % 1_000_000))
-    raise TemplateError(f"no spoken form for {n}")
-
-
-def speak_figure(tok: str, unit: bool = True) -> str:
-    """"$5.06" -> "five point zero six dollars", "$1.29M" -> "one point two nine million dollars" (Q.spoken_value reads it
-    back: the renderer's spoken_numbers gate)."""
-    m = re.fullmatch(r"([−+\-]?)(\$?)(\d+(?:,\d{3})*)(?:\.(\d+))?([KMBT]?)(%?)", tok)
-    if not m:
-        raise TemplateError(f"no spoken form for the figure {tok!r}")
-    sign, dollar, whole, frac, suf, pct = m.groups()
-    out = int_words(int(whole.replace(",", "")))
-    if frac:
-        out += " point " + " ".join(_ONES[int(c)] for c in frac)
-    out += {"K": " thousand", "M": " million", "B": " billion", "T": " trillion", "": ""}[suf]
-    if pct:
-        out += " percent"
-    if dollar and unit:
-        out += " dollars"
-    if sign in ("-", "−"):
-        out = "minus " + out
-    return out
-
-
-def say_map(lines: list[str], ticker: str, bare: tuple[str, ...] = ()) -> dict[str, str]:
-    """Display word (with its punctuation) -> what the voice says, for every figure, the ticker, EPS, vs and our name.
-    In the `bare` lines (the read-out fact; the form4 hook) a dollar figure is said without "dollars" ("EPS five point zero
-    six", "bought one point two nine million"): the screen shows the $ and the line is shorter. A long plain figure
-    ("$1,287,400") keeps its "dollars"."""
-    say = {}
-    ticker = ticker or ""                        # a feature short about a page has no ticker
-    letters = " ".join(ticker.replace("-", " "))
-    for line in lines:
-        unit = line not in bare
-        for w in line.split():
-            core = w.strip("().,!?:;")
-            lead, trail = w[: w.index(core)] if core else "", w[w.index(core) + len(core):] if core else ""
-            trail = trail.replace(")", "")
-            lead = lead.replace("(", "")
-            if re.search(r"\d", core):
-                v = Q.written_value(core) or 0.0
-                big = v >= 1000 and not re.search(r"\d[KMBT]$", core)      # "$1,287,400" says dollars; "$1.29M" not
-                say[w] = lead + speak_figure(core, unit or big) + trail
-            elif ticker and core.lstrip("$").upper() == ticker.upper() and len(core.lstrip("$")) <= 5:
-                say[w] = lead + letters + trail
-            elif core == "EPS":
-                say[w] = lead + "E P S" + trail
-            elif core == "vs":
-                say[w] = lead + "versus" + trail
-            elif core == cr.BRAND:
-                say[w] = lead + "Rapid Trade View" + trail
-    return say
+# In cartoon_qa, so that the gates can rebuild the one say map a story may carry (feature_story).
+int_words, speak_figure, say_map = Q.int_words, Q.speak_figure, Q.say_map
 
 
 # ------------------------------------------------------------------------------------------------- picking phrasings
@@ -252,7 +186,11 @@ def plan_for(item: dict) -> dict:
 def run_captures(plan: dict, screens: Path, shot_python: str) -> None:
     for c in plan["captures"]:
         cmd = [shot_python, "-I", str(HERE / "capture.py"), "--url", plan["url"], "--out", str(screens), "--name", c["name"],
-               "--clip-from", c["clip_from"], "--clip-to", c["clip_to"], "--clip-pad", str(c["pad"])]
+               "--clip-pad", str(c["pad"])]
+        if c.get("clip_el"):                         # an element's own box (a chart), not a full-width band
+            cmd += ["--clip-el", c["clip_el"]]
+        else:
+            cmd += ["--clip-from", c["clip_from"], "--clip-to", c["clip_to"]]
         if c.get("end_above"):
             cmd += ["--clip-end-above", c["end_above"]]
         if c.get("dpr"):
@@ -314,18 +252,24 @@ def _box(meta: dict, text: str) -> list[float]:
 KEY_PAD = (0.4, 0.35, 0.4, 0.35)             # left, top, right, bottom, in heights of the key text
 
 
+def crop_around(meta: dict, size, key: str, targets=None, pad=None) -> list[int]:
+    """A crop of a capture: the box of the target `key` (or the union of `targets`) plus `pad` (left, top, right, bottom,
+    in heights of `key`'s text)."""
+    _bx, _by, _bw, bh = _box(meta, key)
+    boxes = [_box(meta, t) for t in targets or [key]]
+    x0, y0 = min(b[0] for b in boxes), min(b[1] for b in boxes)
+    x1, y1 = max(b[0] + b[2] for b in boxes), max(b[1] + b[3] for b in boxes)
+    pl, pt, pr, pb = pad or KEY_PAD
+    return [max(0, int(x0 - pl * bh)), max(0, int(y0 - pt * bh)), min(size[0], int(x1 + pr * bh)),
+            min(size[1], int(y1 + pb * bh))]
+
+
 def key_crop(plan: dict, meta: dict, size) -> list[int]:
     """The key card's crop of the key capture: the key text's box (or the union of plan["key_crop"], several targets, e.g.
     a ticker and its company name) plus plan["key_pad"] (left, top, right, bottom, in heights of the key text). The default
     is tight: a tag's brush edge runs ~0.3 bh past its text box; wider, a neighbour's glyphs creep in ("Officer", the
     bottom of the dates line above the amount on a Form 4 page). A pill with an icon needs more on its left."""
-    _bx, _by, _bw, bh = _box(meta, plan["key"])
-    boxes = [_box(meta, t) for t in plan.get("key_crop") or [plan["key"]]]
-    x0, y0 = min(b[0] for b in boxes), min(b[1] for b in boxes)
-    x1, y1 = max(b[0] + b[2] for b in boxes), max(b[1] + b[3] for b in boxes)
-    pl, pt, pr, pb = plan.get("key_pad") or KEY_PAD
-    return [max(0, int(x0 - pl * bh)), max(0, int(y0 - pt * bh)), min(size[0], int(x1 + pr * bh)),
-            min(size[1], int(y1 + pb * bh))]
+    return crop_around(meta, size, plan["key"], plan.get("key_crop"), plan.get("key_pad"))
 
 
 def head_fact_layout(screens: dict[str, dict]) -> tuple[dict, tuple]:
@@ -366,8 +310,18 @@ def payoff_layout(plan: dict, screens: dict[str, dict]) -> dict:
     ky = y_key - h_key / 2 + 10 + (by + bh / 2 - crop[1]) * sc
     bottom5 = y_key + h_key / 2
     out.update(key_crop=crop, y_key=round(y_key))
+    widest = max(w, key_w)
+    also = plan.get("key_also")                 # a second plain crop of the key capture, landing under the key card
+    if also:
+        crop2 = crop_around(screens["key"]["meta"], (kw_, kh_), also["target"], None, also.get("pad"))
+        w2 = int(also.get("w", KEY_W))
+        h2 = (crop2[3] - crop2[1]) * w2 / (crop2[2] - crop2[0]) + 20
+        y2 = bottom5 + ALSO_GAP + h2 / 2
+        bottom5 = y2 + h2 / 2
+        widest = max(widest, w2)
+        out.update(also_crop=crop2, y_also=round(y2), also_w=w2)
     z5 = min(Z5_MAX, stage_h / ((bottom5 - fact_top) * (1 + 4 * Z5_DRIFT)),
-             (1080 - 2 * 40) / ((max(w, key_w) + 20) * (1 + 4 * Z5_DRIFT)))  # the widest card stays whole across the frame
+             (1080 - 2 * 40) / ((widest + 20) * (1 + 4 * Z5_DRIFT)))  # the widest card stays whole across the frame
     c5 = (fact_top + bottom5) / 2
     out.update(z5=round(z5, 3), land5=[round(540 + (kx - 540) * z5), round(mid + (ky - c5) * z5)])
     return out
@@ -384,12 +338,18 @@ def payoff_els(plan: dict, L: dict) -> tuple[list, list, dict]:
     """(shot 4 elements, shot 5 elements, shot 5 camera move) of the stacked payoff laid out by payoff_layout."""
     head_el, fact_el = head_fact_els(L)
     pay4 = [dict(head_el, enter={"from": [-1200, 0], "dur": 0.3}), dict(fact_el, enter={"from": [0, 1100], "dur": 0.34})]
-    pay5 = [dict(head_el, exit={"to": [0, -1400], "at": 0.0, "dur": 0.3}), fact_el,
+    pay5 = [dict(head_el, exit={"to": plan.get("head_exit") or [0, -1400], "at": 0.0, "dur": 0.3}), fact_el,
             {"t": "card", "name": "key", "x": 540, "y": L["y_key"], "w": int(plan.get("key_w", KEY_W)), "rot": -2.0,
-             "main": True, "crop": L["key_crop"], "enter": {"from": plan.get("key_from") or [0, 1000], "dur": 0.32}},
-            {"t": "highlight", "target": plan["key"], "at": 0.5}]
+             "main": True, "crop": L["key_crop"], "enter": {"from": plan.get("key_from") or [0, 1000], "dur": 0.32}}]
+    if plan.get("key_also"):                    # lands on the word that names it (the hook's number, big, on our page)
+        pay5.append({"t": "card", "name": "key", "x": 540, "y": L["y_also"], "w": L["also_w"], "rot": 1.5, "main": False,
+                     "crop": L["also_crop"], "enter": {"from": [0, 1000], "dur": 0.3, "at": plan["key_also"]["at"]}})
+    pay5.append({"t": "highlight", "target": plan["key"], "at": 0.5,
+                 **({"width": int(plan["key_outline"])} if plan.get("key_outline") else {})})
     move5 = {"type": "zoom_to", "target": plan["key"], "z": L["z5"], "from_prev": True, "at": 0.0, "dur": 0.5,
              "land": L["land5"], "drift": Z5_DRIFT}
+    if plan.get("key_whole"):                   # a table row: the cards stay whole across the frame, the camera does not
+        move5["min_px"] = False                 # zoom in until the figure is 64 px (that cut the row off both edges)
     return pay4, pay5, move5
 
 
@@ -398,7 +358,13 @@ def story_shots(plan: dict, L: dict, pay: tuple | None = None) -> tuple[list, li
     shots), one word, the end card. `pay` = (shot 4 elements, shot 5 elements, shot 5 camera move); the default is the
     stacked payoff. Plan keys beyond the templates' own: "search" (what the phone types; default the ticker),
     "search_rate", "search_dur", "claim_a" / "claim_b" (default the fact's id), "hold4" / "hold5" (a still beat after the
-    line), "lead5" (shot 5 starts this long before its line: the key lands, then it is named; needs "join" False), "key_from" (where the key card flies in from; a large key comes in from the side, off the caption band), "join" (False: shots 4 and 5 are two utterances, so shot 4 can hold on the page before the key lands)."""
+    line), "lead5" (shot 5 starts this long before its line: the key lands, then it is named; needs "join" False), "key_from" (where
+    the key card flies in from; a large key comes in from the side, off the caption band), "join" (False: shots 4 and 5 are
+    two utterances, so shot 4 can hold on the page before the key lands), "phone" ("tap": the phone shows a link with the
+    text `search` and a thumb taps it at "tap_at"; default "type": the text is typed into the search field), "head_exit"
+    (where the header card flies off to in shot 5; default up), "key_also" ({"target", "at": "word:<w>", "w", "pad"}: a
+    second crop of the key capture that lands under the key card on that word), "key_outline" (the outline's width, px),
+    "key_whole" (the key is a row or a chart: no zoom past the layout's own scale)."""
     t = plan.get("ticker") or ""
     pay4, pay5, move5 = pay or payoff_els(plan, L)
     fig = plan["figure"]
@@ -413,6 +379,11 @@ def story_shots(plan: dict, L: dict, pay: tuple | None = None) -> tuple[list, li
              f"Search {cr.BRAND}. {cr.DISCLAIMER}"]
     pay_a = {"hold": float(plan["hold4"])} if plan.get("hold4") else {}
     pay_b = {"lead": float(plan["lead5"])} if plan.get("lead5") else {}
+    phone = {"t": "search_phone", "x": 540, "y": 840, "w": 520, "text": plan.get("search") or t.replace("-", "."),
+             "at": 0.2, "rate": float(plan.get("search_rate", 0.11))}
+    if plan.get("phone", "type") == "tap":       # a feature page is opened by a tap on its link, not typed into the search
+        phone.update(mode="tap", at=float(plan.get("tap_at", 0.6)))
+        del phone["rate"]
     shots = [
         {"kind": "HOOK", "set": "gym", "voice": "dale", "claim": plan["hook"]["claim"], "vo": hook_vo, "stress": [fig_word],
          "move": {"type": "push", "amt": 0.03, "focus": dale_f},
@@ -425,8 +396,7 @@ def story_shots(plan: dict, L: dict, pay: tuple | None = None) -> tuple[list, li
                   "swap": {"at": "word:Checking", "expr": "deadpan"}}]},
         {"kind": "CLOSE", "set": "gym", "set_variant": 2, "dur": float(plan.get("search_dur", 1.5)),
          "move": {"type": "push", "amt": 0.14, "focus": [540, 600]},
-         "els": [{"t": "search_phone", "x": 540, "y": 840, "w": 520, "text": plan.get("search") or t.replace("-", "."),
-                  "at": 0.2, "rate": float(plan.get("search_rate", 0.11))}]},
+         "els": [phone]},
         {"kind": "PAYOFF", "set": "payoff", "ring_centre": [540, 760], "transition_in": "whip", "voice": "narrator",
          "claim": plan.get("claim_a", plan["fact"]["id"]), "vo": plan["fact"]["a"], **pay_a,
          "move": {"type": "push", "amt": PUSH_AMT, "focus": L["focus4"]},

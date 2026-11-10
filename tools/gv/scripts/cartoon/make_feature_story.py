@@ -7,9 +7,9 @@ each value is read from a capture's visible text, and the story lines with {slot
 Owner request 2026-11-10: "create one for features like smart money, concentration visuals, portfolio visuals and such".
 A feature short shows what one feature answers, with our real screen as the payoff; it is not tied to a news item. The
 pattern and every owner rule are the daily short's (make_story.py):
-  1 HOOK      Dale says something confident, with a number that is on our page today     "4 in Congress bought one stock!"
+  1 HOOK      Dale says something confident, with a number that is on our page today     "4 in Congress bought the same stock!"
   2 CLOSE     Pip does not get it and says where he looks                               "Which stock? Checking RapidTradeView."
-  3 CLOSE     the phone close: our name and mark, the section typed                       (no voice, key clacks)
+  3 CLOSE     the phone close: our name and mark, a thumb taps the page's real link       (no voice, one tap)
   4 PAYOFF    our real page: its header and logo on top, the feature's card below        the page's own words
   5 PAYOFF    the header flies off, the key lands big and outlined                       the page's own words
   6 CALLBACK  one word                                                                    "Oh."
@@ -25,8 +25,9 @@ clip texts use a value (the key, at 6x). It stops with exit 2, and writes no sto
   - the filled lines would not pass the number and claim gates against the captures.
 Layouts: "stack" (the daily short's: header + fact card, then fact card + the key tag) and "hero" (header + fact card, then
 both fly off and the key capture, a chart, fills the stage with one label outlined).
-Then render:  cartoon_reel.py --story DIR/story.json --out DIR   (it builds the item from the sidecars again and gates the
-story against the registry: a story edited by hand fails feature_story).
+Then render:  cartoon_reel.py --story DIR/story.json --out DIR   (it builds the item from the sidecars again, gates the
+story against the registry and rebuilds it with story_drift: a story edited by hand, its say map included, fails
+feature_story).
 """
 from __future__ import annotations
 
@@ -45,10 +46,13 @@ cr = Q.cr
 TEMPLATE = "rtv-cartoon-feature/1"
 # A feature short lingers on the real screen: a still beat after each payoff line, and the key lands (and the camera
 # settles) before the voice names it, so its caption never sits on a card that is still flying in.
-HOLD4, LEAD5, HOLD5 = 0.4, 0.5, 1.6
+HOLD4, LEAD5, HOLD5 = 0.4, 0.5, 1.0         # 1.6 s after the last caption read as dead air (review 2026-11-10)
 HERO_W_MAX = 900                     # the hero card's width at landing (frame px)
-HERO_DRIFT, HERO_SHOT_S = 0.02, 4.5  # the camera's drift after landing, and the longest the shot may run (PAYOFF_MAX)
+HERO_DRIFT, HERO_SHOT_S = 0.012, 4.5 # the camera's drift after landing, and the longest the shot may run (PAYOFF_MAX);
+                                     # a slower drift leaves the chart more of the stage (0.02 cost it 4% of its size)
 HERO_AT = 0.5                        # the outline starts once the hero has landed, with the line that names it
+HERO_OUTLINE = 12                    # px: a chart label is small, its outline is drawn heavier than a tag's (8)
+SIDE_EXIT = 1400                     # a card that leaves goes off sideways: upwards it passed under the brand pill
 
 
 def filled(c: dict, values: dict) -> dict:
@@ -81,6 +85,9 @@ def plan_for(feature: dict, values: dict) -> dict:
         "join": False, "hold4": feature.get("hold4", HOLD4), "hold5": feature.get("hold5", HOLD5),
         "key_pad": key.get("pad"), "key_crop": [Q.fill(t, values) for t in key.get("crop") or []] or None,
         "key_w": key.get("w", M.KEY_W), "lead5": feature.get("lead5", LEAD5),
+        "phone": feature.get("phone", "type"), "head_exit": [SIDE_EXIT, 0], "key_outline": key.get("outline"),
+        "key_whole": key.get("kind", "figure") == "visual",
+        "key_also": (dict(key["also"], target=ln["also"], at=Q.fill(key["also"]["at"], values)) if key.get("also") else None),
         "url": feature["url"], "viewport": feature.get("viewport"),
         "captures": [filled(c, values) for c in feature["captures"]],
     }
@@ -108,11 +115,11 @@ def hero_pay(plan: dict, screens: dict) -> tuple[dict, tuple]:
     land = [round(540 - w / 2 + (bx + bw / 2) * sc), round(yc - (h - 20) / 2 + (by + bh / 2) * sc)]
     L.update(hero_w=w, y_key=round(yc))
     pay4 = [dict(head_el, enter={"from": [-1200, 0], "dur": 0.3}), dict(fact_el, enter={"from": [0, 1100], "dur": 0.34})]
-    pay5 = [dict(head_el, exit={"to": [0, -1400], "at": 0.0, "dur": 0.3}),
-            dict(fact_el, exit={"to": [-1400, 0], "at": 0.0, "dur": 0.3}),
+    pay5 = [dict(head_el, exit={"to": [SIDE_EXIT, 0], "at": 0.0, "dur": 0.3}),
+            dict(fact_el, exit={"to": [-SIDE_EXIT, 0], "at": 0.0, "dur": 0.3}),
             {"t": "card", "name": "key", "x": 540, "y": round(yc), "w": w, "rot": -1.0, "main": True,
              "enter": {"from": [0, 1100], "dur": 0.34}},
-            {"t": "highlight", "target": plan["key"], "at": HERO_AT}]
+            {"t": "highlight", "target": plan["key"], "at": HERO_AT, "width": HERO_OUTLINE}]
     move5 = {"type": "zoom_to", "target": plan["key"], "z": 1.0, "min_px": False, "from_prev": True, "at": 0.0, "dur": 0.5,
              "land": land, "drift": HERO_DRIFT}
     return L, (pay4, pay5, move5)
@@ -138,6 +145,50 @@ def build_story(feature: dict, values: dict, screens: dict, day: str) -> dict:
     }
 
 
+DRIFT_KEYS = ("schema", "template", "feature", "item_id", "fact_phrase", "post_date", "voices", "say", "screen_numbers_ack",
+              "shots")
+
+
+def _plain(o):
+    """JSON-shaped, without the keys the renderer adds while it runs ("_img", "_t0", ...)."""
+    if isinstance(o, dict):
+        return {str(k): _plain(v) for k, v in o.items() if not str(k).startswith("_")}
+    if isinstance(o, (list, tuple)):
+        return [_plain(v) for v in o]
+    return o if isinstance(o, (str, int, float, bool)) or o is None else str(o)
+
+
+def story_drift(doc: dict, feature: dict, metas: dict) -> list[str]:
+    """How a story differs from the one this script writes from the same registry entry and the same sidecars (empty =
+    it is that story). The renderer runs it inside feature_story: a line, a say entry, a crop, an outline, a voice or a
+    timing edited by hand is named here. The screens' paths are not compared (a run folder can move)."""
+    try:
+        values = Q.feature_values(feature, metas)
+        screens = {n: {"png": f"screens/{n}.png", "size": m["png_size"], "meta": m} for n, m in metas.items()}
+        want = build_story(feature, values, screens, Q.capture_day(metas))
+    except (Q.FeatureError, M.TemplateError, KeyError) as e:
+        return [f"the story cannot be rebuilt from the captures: {e}"]
+    got, want = _plain(json.loads(json.dumps(_plain(doc)))), _plain(json.loads(json.dumps(want)))
+    out = []
+    for k in sorted(set(got) | set(DRIFT_KEYS)):
+        if k == "screens":
+            if set(got.get(k) or {}) != set(metas):
+                out.append(f"screens {sorted(got.get(k) or {})} are not the captures {sorted(metas)}")
+        elif k not in DRIFT_KEYS:
+            out.append(f"the story has a key the generator does not write: {k}")
+        elif k == "shots":
+            a, b = got.get(k) or [], want[k]
+            if len(a) != len(b):
+                out.append(f"{len(a)} shots, the generator writes {len(b)}")
+            for i, (x, y) in enumerate(zip(a, b)):
+                keys = sorted(kk for kk in set(x) | set(y) if x.get(kk) != y.get(kk))
+                if keys:
+                    out.append(f"shot {i + 1} differs from the generator's in {keys}")
+        elif got.get(k) != want[k]:
+            out.append(f"{k} differs from the generator's")
+    return out
+
+
 def check_story(story: dict, feature: dict, metas: dict, now: dt.datetime) -> list[str]:
     """What would fail at render time and can be known now: the captures (page, day, state, providers), the story against
     the registry, and the lines against the captures (numbers, claims, banned words, the fact phrase)."""
@@ -148,6 +199,7 @@ def check_story(story: dict, feature: dict, metas: dict, now: dt.datetime) -> li
     ok, det = Q.feature_story_gate(story, feature, metas)
     if not ok:
         probs += det["problems"]
+    probs += story_drift(story, feature, metas)
     item = Q.feature_item(feature, story["feature"]["values"], metas, story["item_id"])
     shots = story["shots"]
     vo = {f"shot {i + 1}": sh["vo"] for i, sh in enumerate(shots) if sh.get("vo")}

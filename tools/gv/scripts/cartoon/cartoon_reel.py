@@ -16,7 +16,8 @@ Inputs (story.json, schema rtv-cartoon-story/1; SKILL.md in this folder says how
   feature                       instead of facts_file, a FEATURE short (make_feature_story.py): {"id": a features.json id,
                                 "values": the values read from the captures}. The item is then built from the capture
                                 sidecars at render time (cartoon_qa.feature_item): every number and name must be on a
-                                capture made today, and the story must be the registry's template filled from them
+                                capture made today, and the story must be exactly the one make_feature_story writes from
+                                the registry and those sidecars (lines, say map, crops, outline: story_drift)
   fact_phrase                   the ONE data sentence, verbatim one of the item's own phrasings; read aloud, or shown whole
                                 on a receipt card (els "receipt", text "$fact_phrase") for at least RECEIPT_MIN_S
   post_date                     YYYY-MM-DD the video goes out (a story-time weekday must be this day's weekday)
@@ -676,7 +677,7 @@ class Reel:
             for el in sh.get("els", []):
                 typ = el.get("t")
                 if typ in ("screen", "card") and el.get("enter"):
-                    self.events.append((st + 8 / FPS, "land", {"sfx": "thump", "gain": 0.9}))
+                    self.events.append((st + self.enter_at(si, el) + 8 / FPS, "land", {"sfx": "thump", "gain": 0.9}))
                 if typ == "receipt":
                     if el.get("text", "$fact_phrase") == "$fact_phrase":
                         el["text"] = self.st.doc["fact_phrase"]
@@ -689,15 +690,20 @@ class Reel:
                         self.texts.append({"role": "prop", "text": txt, "box": None})
                 if typ == "search_phone":
                     word = str(el.get("text", ""))
-                    self.texts.append({"role": "prop", "text": C.SEARCH_PLACEHOLDER, "box": None})
+                    tap = el.get("mode", "type") == "tap"
+                    if not tap:
+                        self.texts.append({"role": "prop", "text": C.SEARCH_PLACEHOLDER, "box": None})
                     self.texts.append({"role": "prop", "text": word, "box": None})
                     if el.get("brand", True):
                         self.texts.append({"role": "prop", "text": C.BRAND_NAME, "box": None})
                     t0 = self.word_time(si, el.get("at", 0.2))
                     rate = float(el.get("rate", 0.08))
                     el["_t0"], el["_rate"] = t0 - st, rate
-                    for i in range(len(word)):
-                        self.events.append((t0 + i * rate, "tap", {"sfx": "clack", "gain": 0.9, "shake": 0.2}))
+                    if tap:                                   # one tap on the link (no typing)
+                        self.events.append((t0, "tap", {"sfx": "clack", "gain": 1.0, "shake": 0.35}))
+                    else:
+                        for i in range(len(word)):
+                            self.events.append((t0 + i * rate, "tap", {"sfx": "clack", "gain": 0.9, "shake": 0.2}))
         stress = {}
         for si, sh in enumerate(self.shots):
             stress[si] = set(sh.get("stress") or [])
@@ -859,13 +865,16 @@ class Reel:
         en = el.get("enter")
         if en:
             d = float(en.get("dur", 9 / FPS))
-            v = eob(t / d, float(en.get("back", 1.4)))
+            te = t - self.enter_at(si, el)                  # "at": the entrance starts later in the shot (hidden before)
+            v = eob(te / d, float(en.get("back", 1.4)))
             dx, dy = en.get("from", (0, 1100))
             x += dx * (1 - v)
             y += dy * (1 - v)
             if "k0" in en:
                 k *= lerp(float(en["k0"]), 1.0, v)
-            a *= min(1.0, t / max(d * 0.4, 1e-3)) if en.get("fade") else 1.0
+            a *= min(1.0, te / max(d * 0.4, 1e-3)) if en.get("fade") else 1.0
+            if te < 0:
+                a = 0.0
         ex = el.get("exit")
         if ex and t > float(ex.get("at", 0.0)):
             v = min(1.0, (t - float(ex.get("at", 0.0))) / float(ex.get("dur", 0.3)))
@@ -875,10 +884,21 @@ class Reel:
             y += dy * v
         return (x, y), r, k, a
 
+    def enter_at(self, si, el) -> float:
+        """When an element's entrance starts, in shot time: 0, a number, or "word:<text>" (that word of the shot's line)."""
+        en = el.get("enter") or {}
+        at = en.get("at", 0.0)
+        if isinstance(at, str):
+            if "_at" not in en:
+                en["_at"] = self.word_time(si, at) - self.tl.starts[si]
+            return en["_at"]
+        return float(at)
+
     def el_moving(self, si, el, t) -> bool:
-        """True while an element is entering or leaving (its pass under the brand pill is a blur, not a collision)."""
+        """True while an element is entering or leaving (its pass under the brand pill is a blur, not a collision), or
+        still waiting off screen for a later entrance."""
         en, ex = el.get("enter"), el.get("exit")
-        if en and t < float(en.get("dur", 9 / FPS)) + 2 / FPS:
+        if en and t < self.enter_at(si, el) + float(en.get("dur", 9 / FPS)) + 2 / FPS:
             return True
         return bool(ex and t >= float(ex.get("at", 0.0)))
 
@@ -960,6 +980,18 @@ class Reel:
                     self.cache[key] = C.barbell(int(el.get("w", 900)), int(el.get("plates", 0)), tabs, bend)
                 img, anchor = self.cache[key]
                 cam.sprite(frame, img, anchor, (x, y), r, k, 1.0, a)
+            elif typ == "search_phone" and el.get("mode", "type") == "tap":
+                word = str(el.get("text", ""))
+                v = t - el["_t0"]                              # the thumb reaches the link, taps, and lifts a little
+                reach = max(0.0, min(1.0, (v + 0.25) / 0.25)) if v < 0.14 else max(0.55, 1.0 - 1.5 * (v - 0.14))
+                reach = round(reach * 5) / 5
+                key = ("tphone", int(el.get("w", 560)), word, reach, v >= 0)
+                if key not in self.cache:
+                    self.cache[key] = C.search_phone(int(el.get("w", 560)), word, False, reach, font_fn=font,
+                                                     brand=el.get("brand", True), mode="tap", lit=v >= 0)
+                img, anchor = self.cache[key]
+                pulse = 1.0 + (0.035 * math.exp(-v / 0.08) if v >= 0 else 0.0)        # the phone gives under the tap
+                cam.sprite(frame, img, anchor, (x, y), r, k * pulse, 1.0, a)
             elif typ == "search_phone":
                 word = str(el.get("text", ""))
                 v = t - el["_t0"]
@@ -1136,7 +1168,7 @@ class Reel:
         dl = ImageDraw.Draw(layer)
         rel = [(px - x0, py - y0) for px, py in path]
         if len(rel) >= 2:
-            dl.line(rel, fill=C.CYAN + (255,), width=8, joint="curve")
+            dl.line(rel, fill=C.CYAN + (255,), width=int(el.get("width", 8)), joint="curve")
         glow = layer.filter(ImageFilter.GaussianBlur(10))
         pulse = 0.35 + 0.25 * (0.5 + 0.5 * math.sin(2 * math.pi * 1.6 * (t - at)))
         g = cr.faded(glow, min(1.0, pulse * 2.2))
@@ -1662,7 +1694,10 @@ def text_gates(st: Story, tl: Timeline, reel: Reel, now: dt.datetime | None = No
         s["fact_phrase"], d["fact_phrase"] = Q.feature_fact_gate(st.doc["fact_phrase"], metas, script)
         s["feature_capture"], d["feature_capture"] = Q.feature_capture_gate(st.feature, metas,
                                                                             now or dt.datetime.now(dt.timezone.utc))
-        s["feature_story"], d["feature_story"] = Q.feature_story_gate(st.doc, st.feature, metas)
+        ok_f, det_f = Q.feature_story_gate(st.doc, st.feature, metas)
+        import make_feature_story as F          # the generator itself: the story must be the one it writes (no cycle: F
+        drift = F.story_drift(st.doc, st.feature, metas)       # does not import this module)
+        s["feature_story"], d["feature_story"] = ok_f and not drift, {**det_f, "differs_from_generator": drift}
     else:
         s["fact_phrase"], d["fact_phrase"] = Q.fact_phrase_gate(st.doc["fact_phrase"], item, script, long_enough)
     d["fact_phrase"]["receipt_s"] = {k: round(v, 2) for k, v in shown.items()}
@@ -1686,12 +1721,20 @@ def text_gates(st: Story, tl: Timeline, reel: Reel, now: dt.datetime | None = No
     s["spoken_numbers"], d["spoken_numbers"] = Q.spoken_numbers_gate(used_say)
     scr_ok, scr_d = True, {}
     for name, sc in st.screens.items():
-        ok, det = Q.screen_numbers_gate(sc["meta"].get("visible_text", ""), item, st.ack.get(name, {}))
+        # a feature capture: the numbers the PNG shows (inside_text); the wide visible_text also lists lines that only
+        # touch the band, and those are not on screen
+        shown = Q.shown_text(sc["meta"]) if st.feature else sc["meta"].get("visible_text", "")
+        ok, det = Q.screen_numbers_gate(shown, item, st.ack.get(name, {}))
         scr_ok &= ok
         scr_d[name] = det
     s["screen_numbers"], d["screen_numbers"] = scr_ok, scr_d
     vis = {f"screen:{n}": sc["meta"].get("visible_text", "") for n, sc in st.screens.items()}
-    s["no_provider_names"], d["no_provider_names"] = Q.provider_gate({**texts, **vis})
+    # a feature short: the wider source list and look-alike letters, on what is drawn, captioned, SPOKEN and captured
+    s["no_provider_names"], d["no_provider_names"] = (Q.vendor_gate if st.feature else Q.provider_gate)({**texts, **vis})
+    if st.feature:
+        adv = {k: Q.advice_hits(v) for k, v in texts.items()}
+        adv = {k: v for k, v in adv.items() if v}
+        s["no_advice"], d["no_advice"] = not adv, {"found": adv}
     s["banned_words"], d["banned_words"] = Q.banned_gate({**texts, **vis}, st.banned)
     end_vo = (st.shots[-1].get("vo") or "").strip()
     s["disclaimer_text"] = end_vo.endswith(cr.DISCLAIMER) and any(x["role"] == "end_disclaimer" and x["text"] == cr.DISCLAIMER
@@ -1985,6 +2028,9 @@ def run(a, out: Path, ctx: dict) -> int:
         "facts_file": str(st.facts_path), "facts_text": st.item.get("facts_text"), "fact_phrase": st.doc["fact_phrase"],
         "format": "v4 one idea, brand always clear (owner verdict 2026-11-09)", "template": st.doc.get("template"),
         "feature": st.feature and {"id": st.feature["id"], "url": st.feature["url"], "answers": st.feature.get("answers"),
+                                   "title": st.feature.get("title"), "post_note": st.feature.get("post_note"),
+                                   "lands_on": st.feature.get("lands_on") or st.feature["url"],
+                                   "spoken": (details.get("feature_story") or {}).get("spoken"),
                                    "values": (details.get("feature_story") or {}).get("values"),
                                    "page_sources": {p["id"]: p["text"] for p in st.item.get("phrasings") or []}},
         "brand": {"pill_box": list(reel.brand_box), "spoken_at_s": details.get("brand_spoken", {}).get("spoken_at_s")},
