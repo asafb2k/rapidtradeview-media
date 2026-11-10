@@ -1,10 +1,10 @@
 {
   "_about": "Render commands per template for run_daily.ps1. Each step is null (TODO: not wired; the story is skipped and the log says so), [] (nothing to run: another step does it) or an argument array run from 'cwd' with placeholders {python} {node} {tools} {data} {out} {story_id} {date} {slot}. {data} = the story's data.json (schema rtv-daily-story/1, written by daily.py stories), {out} = the story's work directory. Steps run in order data -> render -> qa -> package; every configured step must exit 0. After them {out} must hold post-package.json and either the three MP4s or PNG / JPEG images.",
-  "_todo": "track_record and insider_week (slot 7 Thu / Fri themes) have no template: select_stories.py maps them to no template, so run_daily.ps1 logs the TODO and leaves the slot empty.",
+  "_todo": "trade.render is null since 2026-11-10: its renderer (growth-video scripts/v6t-auto.py) was deleted with D:/rtvw on 2026-11-06 and is not rebuilt, so trade stories are skipped as TODO instead of failing every morning; put the command back when the renderer exists again. track_record and insider_week (slot 7 Thu / Fri themes) have no template: select_stories.py maps them to no template, so run_daily.ps1 logs the TODO and leaves the slot empty.",
   "readme": "D:/rtvw/growth-video/README-v6-daily.md",
   "cwd": "D:/rtvw/growth-video",
   "templates": {
-    "trade": {"data": [], "render": ["{python}", "D:/rtvw/growth-video/scripts/v6t-auto.py", "--data", "{data}", "--out", "{out}", "--date", "{date}"], "qa": [], "package": []},
+    "trade": {"data": [], "render": null, "qa": [], "package": []},
     "earnings_image": {"data": [], "render": ["{python}", "{tools}/hook_v6cat.py", "--data", "{data}", "--out", "{out}", "--python", "{python}"], "qa": [], "package": []},
     "report_summary": {"data": [], "render": ["{python}", "{tools}/hook_v6cat.py", "--data", "{data}", "--out", "{out}", "--python", "{python}"], "qa": [], "package": []},
     "daily_picks": {"data": [], "render": ["{python}", "{tools}/hook_v6cat.py", "--data", "{data}", "--out", "{out}", "--python", "{python}"], "qa": [], "package": []},
