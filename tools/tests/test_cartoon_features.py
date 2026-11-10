@@ -2,8 +2,9 @@
 cartoon_qa.py): a registry entry + the sidecar of a capture made today -> a one-idea story whose every number and name is
 on the capture, whose voice says nothing the captions do not show, and whose payoff is the site's card WHOLE (owner
 verdict 2026-11-10: "they arent good, only the last one show the visuals correctly as it shown on website"): one strip of
-the page at phone width in one window, scrolled when it is taller than the stage, the key outlined in place, no fragment
-card. Offline: no capture, no voice, no encode.  Run: python -m pytest tools/tests -q"""
+the page at phone width in one window, scrolled like a thumb when it is taller than the stage, standing only where the
+window's edges cut no row, the key outlined in place beside a chart, no fragment card. The sidecars below carry the
+geometry of the real captures of 2026-11-10. Offline: no capture, no voice, no encode.  Run: python -m pytest tools/tests -q"""
 import copy
 import datetime as dt
 import importlib.util
@@ -36,71 +37,110 @@ def seal(m):
     return m
 
 
-def strip(url, size, text, targets, boxes, page=None, at=AT, final=None, top=0.0, vis=None):
+def rows(bands, x=81.0, w=900.0):
+    """Rows of a page as capture.py lists them (`content`): one line of text per (top, bottom) band, strip px."""
+    return [[x, float(a), w, float(b - a), "text"] for a, b in bands]
+
+
+def strip(url, size, text, targets, boxes, page=None, at=AT, final=None, top=0.0, vis=None, bands=(), tags=None, images=(),
+          slots=(), failed=()):
     """A strip sidecar as capture.py writes it (the page at phone width, 3 px per CSS px). `text` is what the PNG shows;
-    `vis` the wide text (every line touching the strip; default: the same)."""
+    `vis` the wide text (every line touching the strip; default: the same); `bands` the rows of the page."""
+    tags = tags or {n: (["svg"] if n in ("chart", "bought", "sold") else ["section>graphic"] if n == "card" else ["#text"])
+                    for n in boxes}
     return seal({"url": url, "final_url": final or url, "captured_at": at, "viewport": [390, 844], "dpr": 3,
                  "png_size": list(size), "sha256": "0" * 64, "visible_text": text if vis is None else vis, "inside_text": text,
                  "targets": targets, "page_text": page if page is not None else text, "kind": "strip",
-                 "strip": {"top": top, "bottom": top + size[1] / 3, "page_height": 8048}, "boxes": boxes})
+                 "strip": {"top": top, "bottom": top + size[1] / 3, "page_height": 8048}, "boxes": boxes,
+                 "box_tags": tags, "content": rows(bands), "images": [dict(i) for i in images],
+                 "empty_slots": [list(b) for b in slots], "images_failed": list(failed)})
+
+
+def logo(y, sym, ok=True):
+    return {"box": [81.0, float(y), 53.7, 53.7], "ok": ok, "sym": sym}
+
+
+CONGRESS_BANDS = [[72, 120], [126, 216], [228, 267], [294, 343], [371, 420], [448, 497], [525, 574], [602, 651], [679, 728],
+                  [756, 806], [833, 883], [910, 960], [988, 1037], [1065, 1114], [1144, 1186], [1237, 1285], [1301, 1349],
+                  [1380, 1428]]          # title, headline, legend, 12 sector rows (the last: Utilities), Most traded (2 lines), link
 
 
 def congress(sells="130", buys="76", sells_word="sells,", buys_word="buys"):
     text = (f"Congress trades\nShare\n{sells}\n{sells_word}\n{buys}\n{buys_word}\n← SELLS\nBUYS →\nTechnology\n28\n24\nHealthcare\n26\n12\n"
             "Utilities\n1\n0\nMost traded:\nSTLN\n12\n·\nNVDA\n8\nAll Congress trades →")
     return {"page": strip(HOME, [1170, 1488], text,
-                          [{"text": sells, "box": [81.0, 125.3, 127.5, 90]}, {"text": "buys", "box": [505.9, 125.3, 155.9, 90]}],
-                          {"card": [36, 20.3, 1098, 1446.9], "title": [81, 71.7, 349.7, 42.0], "headline": [81, 134.3, 1008, 77.2],
-                           "chart": [81, 220.5, 1008, 984.1]},
-                          "MARKET BREADTH\nCONGRESS TRADES\n" + text + "\nINSIDER TRADES\nREDDIT BUZZ", final=LANDS, top=2409.0)}
+                          [{"text": sells, "box": [81.0, 125.6, 127.5, 90]}, {"text": "buys", "box": [505.9, 125.6, 155.9, 90]}],
+                          {"card": [36, 20.6, 1098, 1446.9], "title": [81, 72.0, 349.7, 42.0], "headline": [81, 134.6, 1008, 77.2],
+                           "chart": [81, 220.8, 1008, 984.1]},
+                          "MARKET BREADTH\nCONGRESS TRADES\n" + text + "\nINSIDER TRADES\nREDDIT BUZZ", final=LANDS, top=2418.0,
+                          bands=CONGRESS_BANDS, images=[logo(1240, "NVDA"), logo(1240, "MU")], failed=["STLN"])}
 
 
-def insiders(bought="$502M", sold="$3.6B"):
+INSIDER_BANDS = [[70, 118], [124, 291], [299, 341], [390, 483], [530, 624], [671, 765], [812, 905], [953, 1046], [1118, 1160],
+                 [1209, 1302], [1350, 1443], [1490, 1584], [1631, 1725], [1772, 1865], [1916, 1964]]
+#                title, headline (2 lines), BOUGHT line, 5 rows, SOLD line, 5 rows, the feed link
+
+
+def insiders(bought="$502M", sold="$3.6B", slots=(), images=None):
     text = (f"Insider trades\nShare\n{bought}\nbought,\n{sold}\nsold by insiders\nBought\n{bought}\n264\ncompanies\n·\n30\n-day totals\n"
             f"MGM\n1 director\nMGM Resorts International\nCons. Cyclical\n$51.7M\nSold\n{sold}\n534\ncompanies\n·\n30\n-day totals\n"
             "SYK\n1 director\nStryker\nHealthcare\n$179M\nSmart Money feed →")
     return {"page": strip(HOME, [1170, 2022], text,
-                          [{"text": bought, "box": [81.0, 123.2, 234.1, 90]}, {"text": "sold by insiders", "box": [81.0, 123.2, 951.6, 167.2]}],
-                          {"card": [36, 18.2, 1098, 1985.1], "title": [81, 69.6, 326.3, 42.0], "headline": [81, 132.2, 1008, 154.5],
-                           "chart": [81, 363.2, 1008, 1523.1]},
-                          "CONGRESS TRADES\nINSIDER TRADES\n" + text + "\nREDDIT BUZZ", final=LANDS, top=2904.0)}
+                          [{"text": sold, "box": [592.5, 123.5, 191.9, 90]}],
+                          {"card": [36, 18.5, 1098, 1985.1], "title": [81, 69.8, 326.3, 42.0], "headline": [81, 132.5, 1008, 154.5],
+                           "bought": [81, 363.5, 1008, 703.8], "sold": [81, 1182.8, 1008, 703.8]},
+                          "CONGRESS TRADES\nINSIDER TRADES\n" + text + "\nREDDIT BUZZ", final=LANDS, top=2913.0, bands=INSIDER_BANDS,
+                          images=images if images is not None else [logo(390.6, "MGM"), logo(1209.9, "SYK")], slots=slots)}
 
 
 CARD_TEXT = ("Portfolio Concentration\n{verdict}\n33% of your money is in 9 chip companies.\n"
              "Technology is 57% of your money. In the S&P 500 it's 39%.\nInner ring: your\n42 holdings\n· outer ring: their sectors\n"
              "57%\n10%\n8.4%\n8.2%\n6.1%\nTOTAL\n$198.8K\n42 holdings")
-SAMPLE_PAGE = "READ-ONLY SAMPLE\nSample portfolio\nPortfolio Concentration\nConcentrated\nBIGGEST INDUSTRY GROUPS\nLARGEST HOLDINGS"
+SAMPLE_PAGE = ("READ-ONLY SAMPLE\nSample portfolio\nPortfolio Concentration\nConcentrated\nSECTORS\nBIGGEST INDUSTRY GROUPS\n"
+               "LARGEST HOLDINGS")
 HEADLINE = "33% of your money is in 9 chip companies."
+DONUT = {"chart": ["div>graphic"]}
 
 
 def concentration(verdict="Concentrated"):
-    return {"page": strip(SAMPLE, [1170, 1230], CARD_TEXT.format(verdict=verdict),
-                          [{"text": HEADLINE, "box": [87.0, 156.0, 871.2, 60]}],
-                          {"card": [48, 3.0, 1074, 1222.1], "title": [87, 48.0, 485.4, 63], "pill": [824.9, 57.0, 228.1, 48],
-                           "headline": [87, 156.0, 871.2, 60], "chart": [195, 445.1, 780, 780.0]}, SAMPLE_PAGE, top=394.0)}
+    boxes = {"card": [48, 3.0, 1074, 1222.1], "title": [87, 48.0, 485.4, 63], "pill": [824.9, 57.0, 228.1, 48],
+             "headline": [87, 156.0, 871.2, 60], "chart": [195, 445.1, 780, 780.0]}
+    return {"page": strip(SAMPLE, [1170, 1254], CARD_TEXT.format(verdict=verdict),
+                          [{"text": HEADLINE, "box": [87.0, 156.0, 871.2, 60]}], boxes, SAMPLE_PAGE, top=394.0,
+                          bands=[[48, 111], [156, 216], [230, 281], [284, 334], [376, 424], [456, 1181]],
+                          tags={**{n: ["#text"] for n in boxes}, "card": ["section>graphic"], **DONUT})}
 
 
-def portfolio(row2=(785.6, 2559.4)):
+PORTFOLIO_BANDS = [[60, 132], [339, 381], [414, 495], [522, 618], [694, 745], [909, 1113], [1230, 1293], [1338, 1398],
+                   [1412, 1463], [1466, 1516], [1558, 1606], [1638, 2363], [2458, 2506], [2556, 2610], [2688, 2742]]
+#                  header, READ-ONLY SAMPLE, title, text, button, value, card title, headline, sentence (2 lines), legend, the
+#                  donut, SECTORS, the first sector row (the key), the second
+
+
+def portfolio(bench=(943.0, 2559.4)):
     text = (HEADER + "\nREAD-ONLY SAMPLE\nSample portfolio\n40 stocks + VOO and QQQ. Illustrative share counts, recorded prices.\n"
             "Build yours — register free\nSample portfolio value\n$198,819.47\n42 holdings · prices recorded\n2026-09-24\n"
             + CARD_TEXT.format(verdict="Concentrated") + "\nSectors\nyou · S&P 500\nTechnology\n▲\nhigh\n57%\nS&P 500\n39%\n"
-            "Consumer Cyclical\n10%\nS&P 500\n9.3%\nShow all (\n11\n)\nBiggest industry groups\nChip companies\n9 holdings\n▲\nhigh\n33%\n"
-            "Largest holdings\nVOO\nfund\n8.9%\nNVDA\n7.3%\nShow all (\n42\n)")
-    return {"page": strip(SAMPLE, [1170, 4863], text,
-                          [{"text": "Technology", "box": [141.0, 2559.4, 196.2, 51]}, {"text": "57%#2", "box": [row2[0], row2[1], 75.4, 51]},
-                           {"text": "Sectors", "box": [87.0, 2458.1, 173.6, 48]}, {"text": "RapidTradeView", "box": [144.0, 60.8, 370.3, 66]}],
-                          {"card": [0, 0.0, 1170, 4831.9], "header": [0, 0.0, 1170, 195], "value": [327.7, 909.0, 514.7, 162],
-                           "chart": [195, 1627.1, 780, 780.0], "sectors": [87, 2458.1, 173.6, 957.8], "groups": [87, 3496.1, 558.0, 48.0],
-                           "holdings": [87, 4006.1, 397.1, 825.8]}, SAMPLE_PAGE)}
+            "Consumer Cyclical\n10%\nS&P 500\n9.3%")
+    boxes = {"card": [0, 0.0, 1170, 2653.1], "header": [0, 0.0, 1170, 195], "value": [327.7, 909.0, 514.7, 162],
+             "title": [87, 1230.0, 485.4, 63], "chart": [195, 1627.1, 780, 780.0], "sectors": [87, 2458.1, 173.6, 48.0],
+             "row": [87, 2521.1, 996, 132.0]}
+    return {"page": strip(SAMPLE, [1170, 2805], text,
+                          [{"text": "Technology", "box": [141.0, 2559.4, 196.2, 51]}, {"text": "39%", "box": [bench[0], bench[1], 74.0, 51]},
+                           {"text": "RapidTradeView", "box": [144.0, 60.8, 370.3, 66]}], boxes, SAMPLE_PAGE, bands=PORTFOLIO_BANDS,
+                          tags={**{n: ["#text"] for n in boxes}, "card": ["header>graphic", "section>graphic"],
+                                "header": ["header>graphic"], "row": ["button>graphic"], **DONUT})}
 
 
 def market(verb="rose", label="Last session (Mon, Nov 9)", count="2,061", total="2,494", pct="83%", at=AT):
     text = (f"Market breadth\n·\n{label}\nShare\n{count}\nof {total} stocks {verb} —\n{pct}\n{count} up\n409 down\n{pct}\n16%\n"
             "Up minus down, last 20 closes\n+2,000\n0\n−2,000\nOct 13\nOct 26\n+1,652\nNov 9 (Mon)")
-    return {"page": strip(HOME, [1170, 1203], text, [{"text": pct, "box": [948.4, 175.2, 128.3, 81]}],
+    return {"page": strip(HOME, [1170, 1203], text,
+                          [{"text": pct, "box": [948.4, 175.2, 128.3, 81]}, {"text": total, "box": [330.0, 175.2, 152.0, 81]}],
                           {"card": [36, 8.7, 1098, 1187.6], "title": [81, 59.7, 326.3, 42.0], "headline": [81, 181.2, 1008, 72.4],
                            "chart": [81, 262.6, 1008, 894.7]},
-                          "MARKET BREADTH\n" + label + "\nREDDIT BUZZ", at, final=LANDS, top=996.0)}   # innerText: CSS upper-casing
+                          "MARKET BREADTH\n" + label + "\nREDDIT BUZZ", at, final=LANDS, top=996.0,       # innerText: CSS upper-casing
+                          bands=[[60, 102], [175, 256], [270, 420], [470, 1150]])}
 
 
 METAS = {"congress": congress, "insiders": insiders, "concentration": concentration, "portfolio": portfolio,
@@ -130,11 +170,17 @@ def test_the_shipped_registry_is_usable_and_shows_whole_cards(reg):
         for k in Q.FEATURE_LINES + ("search",):                 # a line never types a number: numbers are slots
             assert not Q.find_numbers(Q._unslot(f["lines"][k])), (f["id"], k)
         # one strip of the real page that holds the card and its named parts; no fragment capture of schema /1
-        assert "captures" not in f and "layout" not in f and set(f["key"]) <= {"targets", "top"}
+        assert "captures" not in f and "layout" not in f and set(f["key"]) <= {"targets", "outline_pad", "first"}
         assert f["site"]["card"]["box"] and len(f["site"]["parts"]) >= 2
+        # chosen by its VISUAL: every chart of the card is a drawn element of the page, never a text
+        charts = Q.site_charts(f["site"])
+        assert charts and all(sp.startswith("el:") for c in charts for sp in f["site"]["parts"][c]), f["id"]
         assert all(v["from"] == "page" for v in f["values"])
     assert Q.feature_by_id(reg, "portfolio")["site"]["header"] is True          # the page from its header down
     assert not Q.feature_by_id(reg, "congress")["site"]["header"]               # a card far below the header
+    assert Q.site_charts(Q.feature_by_id(reg, "insiders")["site"]) == ["bought", "sold"]      # two charts, one under the other
+    # the two cards that show other companies' ticker logos wait for the owner's ruling
+    assert {f["id"] for f in reg["features"] if f.get("hold")} == {"congress", "insiders"}
 
 
 def test_registry_problems_are_named(reg):
@@ -163,7 +209,7 @@ def test_registry_problems_are_named(reg):
     assert "advice or a prediction" in broken(lambda f: f["lines"].update(fact_a="Buy it."))
     assert "advice or a prediction" in broken(lambda f: f["lines"].update(fact_a="It will go up."))
     # a person, a ticker or a number typed into a line or a source
-    assert "types the name 'Jane Roe'" in broken(lambda f: f["lines"].update(fact_a="Trades by Jane Roe."))
+    assert "types the name 'Trades Jane Roe'" in broken(lambda f: f["lines"].update(fact_a="Trades by Jane Roe."))
     assert "types a ticker" in broken(lambda f: f["lines"].update(fact_a="Most traded: TSLA."))
     assert "source title types a number" in broken(lambda f: f["sources"]["title"].update(text="Top 5 Congress trades"))
     # pages that count a guest view or need a sign-in
@@ -172,6 +218,30 @@ def test_registry_problems_are_named(reg):
     assert "never captured" in broken(lambda f: f.update(url=f"{SITE}/portfolio"))
     assert "phone is one of" in broken(lambda f: f.update(phone="swipe"))
     assert "captured at phone width" in broken(lambda f: f.update(viewport="1280x800"))
+    # review 2026-11-10: the routes that count a guest view, in any case
+    for path in ("Dashboard/NVDA", "DASHBOARD/NVDA", "fund/5112345", "d/NVDA/2026-11-09", "Portfolio"):
+        assert "never captured" in broken(lambda f, p=path: f.update(url=f"{SITE}/{p}")), path
+    # ... advice and predictions in the wordings the first deny-list missed
+    for line in ("Copy Congress. They made {buys} buys!", "Follow the insiders: {buys} buys!", "{buys} buys, so stocks rise tomorrow!",
+                 "{buys} buys! More gains are coming.", "{buys} buys. Good time to get in!"):
+        assert "advice or a prediction" in broken(lambda f, x=line: f["lines"].update(hook=x)), line
+    # ... a name as the first word of a sentence, a day or a period typed into a line
+    assert "types the name 'Pelosi'" in broken(lambda f: f["lines"].update(hook="Pelosi made {buys} buys!"))
+    assert "types a day or a period ['today']" in broken(lambda f: f["lines"].update(hook="Congress made {buys} buys today!"))
+    assert "types a day or a period" in broken(lambda f: f["lines"].update(hook="Congress made {buys} buys this week!"))
+    assert "types a day or a period ['Monday']" in broken(lambda f: f["lines"].update(hook="Congress made {buys} buys Monday!"))
+    # ... the knobs the story builder reads
+    for knob, bad in (("search_rate", 5), ("search_dur", "long"), ("hold4", -1), ("hold5", 9), ("lead5", True)):
+        assert f"{knob} is a number from" in broken(lambda f, k=knob, v=bad: f.update({k: v})), knob
+    for knob, bad in (("top_hold", 9), ("end_hold", 0), ("px_s", 2600)):          # 2,600 px/s was the jump the review saw
+        assert f"site.{knob} is a number from" in broken(lambda f, k=knob, v=bad: f["site"].update({k: v})), knob
+    assert "site.dpr is a whole number from 3 to 6" in broken(lambda f: f["site"].update(dpr=1))
+    assert "site.strip.pad" in broken(lambda f: f["site"]["strip"].update(pad=[1, 2, 3]))
+    assert "site.read_end is true" in broken(lambda f: f["site"].update(read_end="yes"))
+    assert "hold is the reason" in broken(lambda f: f.update(hold=True))
+    assert "key.outline_pad" in broken(lambda f: f["key"].update(outline_pad=[500, 400]))
+    assert "key.first is" in broken(lambda f: f["key"].update(first={"targets": ["={buys}"], "word": "Senate"}))
+    assert "slot {seats} is not read" in broken(lambda f: f["key"].update(first={"targets": ["={seats}"], "word": "trades"}))
 
 
 def test_fragment_layouts_are_refused(reg):
@@ -197,7 +267,14 @@ def test_fragment_layouts_are_refused(reg):
     assert "no slot in" in broken(lambda f: f["site"]["strip"].update(top="text:{sells}"))
     assert "slot {seats} is not read" in broken(lambda f: f["site"]["parts"].update(title=["text:{seats}"]))
     assert "slot {seats} is not read" in broken(lambda f: f["key"].update(targets=["={seats}"]))
-    assert "site.top_hold is 0.5 to 2.5" in broken(lambda f: f["site"].update(top_hold=9))
+    assert "key.top is gone" in broken(lambda f: f["key"].update(top="=Sectors"))
+    # review 2026-11-10: a "card" that is the headline alone passed every gate. A card has a chart, and the chart is drawn
+    assert "the chart part 'chart' must be a part of the card given as el:CSS" in broken(
+        lambda f: f["site"].update(parts={"title": ["text:Congress trades"], "headline": ["el:[data-chart=\"congress\"] h2"]}))
+    assert "the chart part 'chart' must be" in broken(lambda f: f["site"]["parts"].update(chart=["text:Technology"]))
+    assert "the chart part 'bars' must be" in broken(lambda f: f["site"].update(charts=["bars"]))
+    assert "site.charts lists" in broken(lambda f: f["site"].update(charts=[]))
+    assert "site.end lists parts" in broken(lambda f: f["site"].update(end=["footer"]))
 
 
 def test_unknown_feature_and_unfilled_slot_are_errors(reg):
@@ -220,6 +297,9 @@ def test_values_are_read_from_the_cards_headline(reg):
     f = Q.feature_by_id(reg, "portfolio")
     v = Q.feature_values(f, portfolio())
     assert (v["total"], v["sector"], v["pct"], v["holdings_line"]) == ("$198,819.47", "Technology", "57%", "42 holdings")
+    assert v["bench"] == "39%"                                 # the row's benchmark: the key runs from the name to it
+    v = Q.feature_values(Q.feature_by_id(reg, "concentration"), concentration())
+    assert (v["n"], v["holdings"], v["share"]) == ("9", "42", "33%")          # "Only 9 of my 42": both are on the card
 
 
 def test_missing_region_or_a_story_that_does_not_hold_stops(reg):
@@ -263,6 +343,7 @@ def test_market_values_follow_the_days_direction_and_name_the_session(reg):
     ln = Q.feature_lines(f, v)
     assert ln["hook"] == "83% of stocks fell Monday!" and ln["fact_a"] == "2,061 of 2,494 stocks fell:"
     assert ln["confused"] == "Out of how many? Checking RapidTradeView." and ln["key"] == ["83%"]
+    assert ln["first"] == ["2,494"] and ln["first_word"] == "2,494"       # the answer to "Out of how many?" is outlined first
 
 
 def test_market_refuses_a_session_that_is_not_the_last_closed_one(reg):
@@ -380,6 +461,18 @@ def test_capture_gate_refuses_fragments(reg):
     assert "no DOM box 'chart'" in why(lambda p: p["boxes"].pop("chart"))
     assert "the box 'chart' is not inside the strip" in why(lambda p: p["boxes"].update(chart=[81, 220.5, 1008, 1984.1]))
     assert "the part 'title' is not inside the card's box" in why(lambda p: p["boxes"].update(card=[36, 200, 1098, 1200]))
+    # review 2026-11-10: a headline strip named "card" passed. The card's chart must be a drawn element of a real size
+    assert "the chart part 'chart' is not a drawn chart" in why(lambda p: p["box_tags"].update(chart=["h2"]))
+    assert "the chart part 'chart' is not a drawn chart" in why(lambda p: p["box_tags"].update(chart=["#text"]))
+    assert "the chart part 'chart' is not a drawn chart" in why(lambda p: p["box_tags"].pop("chart"))
+    assert "too small to be the card's visual" in why(lambda p: p["boxes"].update(chart=[81, 220.8, 48, 48]))       # an icon
+    assert "too small to be the card's visual" in why(lambda p: p["boxes"].update(chart=[81, 220.8, 1008, 120]))    # a line
+    thin = why(lambda p: (p.update(png_size=[1170, 351], strip={"top": 2450.0, "bottom": 2567.0, "page_height": 8108}),
+                          p["boxes"].update(card=[36, 0, 1098, 351], title=[81, 30, 349.7, 42], headline=[81, 100, 1008, 77.2])))
+    assert "the box 'chart' is not inside the strip" in thin               # the thin headline strip the owner rejected
+    # an old sidecar does not list what the strip draws
+    assert "does not list what the strip draws" in why(lambda p: p.pop("content"))
+    assert "does not list what the strip draws" in why(lambda p: p.update(content=[]))
     # the three bands of schema /1 are not captures of a feature any more
     m = congress()
     m["key"] = copy.deepcopy(m["page"])
@@ -391,6 +484,27 @@ def test_capture_gate_refuses_fragments(reg):
     seal(p["page"])
     ok, det = Q.feature_capture_gate(Q.feature_by_id(reg, "portfolio"), p, NOW)
     assert not ok and "no target for our header's brand" in json.dumps(det["problems"])
+
+
+def test_capture_gate_refuses_a_card_with_a_missing_logo(reg):
+    """Review 2026-11-10: the insiders card was captured with one row's logo slot empty (the logo request answered 404) and
+    another row carrying a different firm's logo. A picture that did not load stops the capture; which pictures the strip
+    shows is reported for the human look (no check can tell a wrong logo from the right one)."""
+    f = Q.feature_by_id(reg, "insiders")
+    ok, det = Q.feature_capture_gate(f, insiders(), NOW)
+    assert ok and det["logos"]["page"] == {"images_on_strip": 2, "symbols": ["MGM", "SYK"], "shown_without_their_logo": []}
+    ok, det = Q.feature_capture_gate(f, insiders(slots=[[81.0, 531.7, 53.7, 53.7]]), NOW)
+    assert not ok and "1 empty logo slot(s) on the strip" in json.dumps(det["problems"])
+    ok, det = Q.feature_capture_gate(f, insiders(images=[logo(390.6, "MGM"), logo(1209.9, "SYK", ok=False)]), NOW)
+    assert not ok and "1 image(s) on the strip did not load (['SYK'])" in json.dumps(det["problems"])
+    # congress: a ticker the site has no logo for stands in the Most traded line as text. No hole, so no stop: reported
+    ok, det = Q.feature_capture_gate(Q.feature_by_id(reg, "congress"), congress(), NOW)
+    assert ok and det["logos"]["page"]["shown_without_their_logo"] == ["STLN"]
+    # the lists are sealed with the rest
+    m = insiders(slots=[[81.0, 531.7, 53.7, 53.7]])
+    m["page"]["empty_slots"] = []
+    ok, det = Q.feature_capture_gate(f, m, NOW)
+    assert not ok and "seal does not match" in json.dumps(det["problems"])
 
 
 def test_dpr_six_at_phone_width_is_still_the_page(reg):
@@ -427,7 +541,10 @@ def test_an_edited_sidecar_no_longer_matches_its_seal(reg):
     spec.loader.exec_module(cap)                                 # capture.py cannot import cartoon_qa: the two must agree
     fresh = congress()["page"]
     assert cap.seal(fresh) == Q.capture_seal(fresh) == fresh["seal"]
-    band = {k: v for k, v in fresh.items() if k not in ("boxes", "kind", "strip")}      # a band sidecar (the daily short)
+    band = {k: v for k, v in fresh.items() if k not in ("boxes", "kind", "strip", "content", "box_tags", "images",
+                                                        "empty_slots", "images_failed")}      # a band sidecar (the daily short)
+    assert cap.seal(band) == Q.capture_seal(band) != fresh["seal"]
+    band = {k: v for k, v in fresh.items() if k not in ("content", "box_tags", "images", "empty_slots", "images_failed")}
     assert cap.seal(band) == Q.capture_seal(band) != fresh["seal"]
 
 
@@ -478,27 +595,39 @@ def test_story_follows_the_owner_rules_and_the_registry(reg, fid):
     assert [len(w) for w in wins] == [1, 1] and not any(e["t"] == "site" for s in shots[:3] + shots[5:] for e in s.get("els", []))
     a, b = wins[0][0], wins[1][0]
     assert {k: a[k] for k in "xywh"} == {k: b[k] for k in "xywh"} and a["name"] == b["name"] == "page"     # one window
-    # the window fills the frame's width under the pill and stays above the caption band; the card is 900+ px wide
+    # the window fills the frame's width, starts under the pill and gives the caption band the rest; the card is LARGE
     card_w = metas["page"]["boxes"]["card"][2] * a["w"] / metas["page"]["png_size"][0]
-    assert card_w >= Q.SITE_CARD_MIN_W and a["w"] <= 1080 - 2 * 20
+    assert card_w >= Q.SITE_CARD_TARGET_W[0] and a["w"] == 1040, (fid, card_w)            # 940+ (owner: about 940-1010)
     top, bottom = a["y"] - a["h"] / 2, a["y"] + a["h"] / 2
-    assert top >= 333 + 6 and bottom <= F.STAGE_BOTTOM                              # the pill ends at y 333; the rim is 6 px
+    assert top == F.STAGE_TOP >= 333 + F.RIM + 4 and bottom <= F.STAGE_BOTTOM              # the pill ends at y 333
+    assert a["h"] >= 1040                                                                  # the screen has most of the frame
     for s in shots[3:5]:
         cap, pk = s["caption"], s["peek"]
-        assert cap["y"] - 62 > bottom and cap["y"] + 62 <= 1520                     # the caption band: under the window
-        assert cap["x"] - cap["max_w"] / 2 > pk["x"] + 0.5 * pk["hu"]               # ... and right of Pip's small head
-        assert pk["y"] - 0.5 * pk["hu"] > bottom and pk["hu"] <= 150                # Pip: small, under the window
-        assert s["move"] == {"type": "still"}                                       # the page scrolls, the camera does not
+        band = dict(F.CAP_SIZES)[cap["size"]]
+        assert cap["y"] - band / 2 >= bottom + F.RIM + F.CAP_GAP - 0.5                      # the caption band: under the window
+        assert cap["y"] + band / 2 <= Q.SITE_CAPTION_BOTTOM                                 # ... and above the bottom 18%
+        assert cap["x"] - (cap["max_w"] + cap["plate"][0]) / 2 > pk["x"] + 0.75 * pk["hu"]  # ... right of Pip's small head
+        assert cap["x"] + (cap["max_w"] + cap["plate"][0]) / 2 <= 960                       # ... left of the action rail
+        assert pk["y"] - 0.62 * pk["hu"] - 8 > bottom + F.RIM and pk["hu"] <= 100           # Pip: small, under the window
+        assert s["move"] == {"type": "still"} and cap["pop"] is False and cap["tint"] == "trade"
+    assert all(s["caption"]["tint"] == "trade" for s in shots[:-1])                         # figures in the card's colours
     # the window comes in from the side: it crosses neither the pill nor the caption band
     assert a["enter"]["from"][1] == 0 and "enter" not in b
     # the scroll of shot 5 starts where shot 4's ended, and ends where the key is outlined
     assert b["scroll"]["y0"] == a["scroll"]["y1"] and a["scroll"]["y0"] == 0
-    # the key is outlined in the second payoff shot, in place, and it is the only outline
-    marks = [e["target"] for s in shots for e in s.get("els", []) if e.get("t") == "highlight"]
-    assert marks == [shots[4]["key_number"]] and isinstance(marks[0], list)
-    assert shots[4].get("lead", 0) >= 0.4 and not shots[4]["join"]       # the page settles on the key before the voice names it
-    assert b["scroll"]["at"] + b["scroll"]["dur"] <= shots[4]["lead"]
-    assert shots[4]["hold"] <= 1.2                                        # no dead air after the last caption
+    # the key is outlined in the second payoff shot, in place; the registry's first outline, if any, in the first
+    marks = [[e["target"] for e in s.get("els", []) if e.get("t") == "highlight"] for s in shots]
+    want_first = [Q.feature_lines(feature, story["feature"]["values"])["first"]] if feature["key"].get("first") else []
+    assert marks[3] == want_first and marks[4] == [shots[4]["key_number"]] and not any(marks[:3] + marks[5:])
+    hl = next(e for e in shots[4]["els"] if e["t"] == "highlight")
+    assert not shots[4]["join"] and b["scroll"]["at"] + b["scroll"]["dur"] <= hl["at"]     # the page stands, then the outline
+    assert shots[4]["min_dur"] >= hl["at"] + Q.SITE_KEY_MIN_S                              # ... which stays 1.5 s at least
+    assert shots[4]["hold"] <= 1.2                                                         # no dead air after the last caption
+    # a thumb scroll, never a jump: the top speed of each scroll is under the gate's limit
+    L = F.site_layout(feature, story["feature"]["values"], metas["page"])
+    for sc in (a["scroll"], b["scroll"]):
+        if sc["dur"]:
+            assert abs(sc["y1"] - sc["y0"]) * L["k"] / (sc["dur"] * F.CRUISE) <= Q.SITE_SCROLL_MAX_PX_S, (fid, sc)
 
 
 def test_filled_lines_come_from_the_capture(reg):
@@ -514,13 +643,15 @@ def test_filled_lines_come_from_the_capture(reg):
     # the hook says dollars; the two lines read off the page do not (the screen shows the $)
     assert s["say"]["$502M!"] == "five hundred two million dollars!" and s["say"]["$502M"] == "five hundred two million"
     assert s["say"]["$3.6B"] == "three point six billion"
+    assert s["shots"][4]["key_number"] == ["$3.6B"]                       # the answer to "And sold?", alone
     _f, _m, s = story_for(reg, "concentration")
-    assert lines(s) == ["Only 9 are chips. I'm diversified!", "Are you? Checking RapidTradeView.",
+    assert lines(s) == ["Only 9 of my 42 are chips!", "Only? Checking RapidTradeView.",
                         "Portfolio Concentration: Concentrated.", "33% of your money is in 9 chip companies."]
+    assert s["shots"][0]["chip"]["text"] == "9" and s["shots"][0]["claim"] == "card"      # 9 and 42 are both on the card
     _f, _m, s = story_for(reg, "portfolio")
     assert lines(s) == ["42 holdings. Spread all over!", "Spread where? Checking RapidTradeView.", "Sample portfolio: 42 holdings.",
                         "Technology is 57% of your money."]
-    assert s["shots"][4]["key_number"] == ["Technology", "57%#2"]         # the SECTORS row, not the donut's label
+    assert s["shots"][4]["key_number"] == ["Technology", "39%"]           # the SECTORS row whole: from its name to its benchmark
     _f, _m, s = story_for(reg, "market-breadth")
     assert s["shots"][0]["vo"] == "83% of stocks rose Monday!" and s["say"]["2,494"] == "two thousand four hundred ninety-four"
 
@@ -629,6 +760,8 @@ def test_story_drift_names_what_was_changed(reg):
     assert not drift(lambda s: s["shots"][0].update(_runtime="added by the renderer"))        # runtime keys are not the story
     assert "shot 5 differs from the generator's in ['els']" in drift(lambda s: s["shots"][4]["els"][0].update(w=700))
     assert "shot 4 differs from the generator's in ['els']" in drift(lambda s: s["shots"][3]["els"][0]["scroll"].update(y1=900))
+    assert "shot 4 differs from the generator's in ['els']" in drift(lambda s: s["shots"][3]["els"][0]["scroll"].update(dur=0.3))
+    assert "shot 5 differs from the generator's in ['els']" in drift(lambda s: s["shots"][4]["els"][1].update(pad=[500, 400]))
     assert "shot 5 differs from the generator's in ['hold']" in drift(lambda s: s["shots"][4].update(hold=4.0))
     assert "shot 5 differs from the generator's in ['caption']" in drift(lambda s: s["shots"][4]["caption"].update(y=900))
     assert "shot 4 differs from the generator's in ['peek']" in drift(lambda s: s["shots"][3]["peek"].update(hu=400, y=900))
@@ -699,39 +832,96 @@ def test_captures_are_one_day(reg):
 
 
 # ------------------------------------------------------------------------------------------------- the site screen's layout
+def _layout(reg, fid, metas=None):
+    f, m, _s = story_for(reg, fid, metas)
+    return f, m, F.site_layout(f, Q.feature_values(f, m), m["page"])
+
+
+def _vis(m, L):
+    return min(m["page"]["png_size"][1], round(L["h"] / L["k"]))        # the strip rows the window shows
+
+
+def _cuts(m, L, top):
+    return Q.window_edge_hits(Q.content_rows(m["page"]), top, top + _vis(m, L), m["page"]["png_size"][1], Q.SITE_EDGE_AIR / L["k"])
+
+
+def _whole(m, L, top, name):
+    b = m["page"]["boxes"][name]
+    return top <= b[1] and b[1] + b[3] <= top + _vis(m, L) + 1
+
+
 def test_a_card_that_fits_the_stage_is_whole_without_a_scroll(reg):
     for fid in ("market-breadth", "concentration"):
-        f, m, _s = story_for(reg, fid)
-        L = F.site_layout(f, Q.feature_values(f, m), m["page"])
+        f, m, L = _layout(reg, fid)
         sw, sh = m["page"]["png_size"]
-        assert L["s0"] == L["s1"] == L["s_key"] == 0 and L["dur"] == 0 and L["back"] == 0 and not L["min4"], fid
-        assert sh * L["w"] / sw <= L["h"] <= F.STAGE_BOTTOM - F.STAGE_TOP and L["h"] - sh * L["w"] / sw < 1    # the whole strip
-        assert L["card_w"] >= Q.SITE_CARD_MIN_W, (fid, L["card_w"])
+        assert L["fits"] and L["a"] == L["b"] == L["key"] == 0 and L["dur"] == 0 and L["back"] == 0 and not L["min4"], fid
+        assert L["w"] == F.WIN_W and sh * L["w"] / sw <= L["h"] <= F.STAGE_BOTTOM - F.STAGE_TOP and L["h"] - sh * L["w"] / sw < 1
+        assert Q.SITE_CARD_TARGET_W[0] <= L["card_w"] <= Q.SITE_CARD_TARGET_W[1], (fid, L["card_w"])      # 940-1010 (owner)
+    # concentration (review 2026-11-10: 906 px wide, the donut sitting on the window's border): 955 px wide at the page's
+    # full width, with the air the site leaves under the chart inside the window
+    f, m, L = _layout(reg, "concentration")
+    chart = m["page"]["boxes"]["chart"]
+    assert L["card_w"] == pytest.approx(954.7, abs=0.1) and L["h"] == F.STAGE_BOTTOM - F.STAGE_TOP
+    assert (m["page"]["png_size"][1] - (chart[1] + chart[3])) * L["k"] >= 20
+    assert L["cap_size"] == 60 and L["cap_y"] + 52 <= Q.SITE_CAPTION_BOTTOM        # the tallest window: the smallest caption
+    _f, _m, L2 = _layout(reg, "market-breadth")
+    assert L2["cap_size"] == 72 and L2["cap_y"] < L["cap_y"]                       # a shorter window: the band moves up with it
 
 
-def test_a_taller_card_is_scrolled_and_comes_back_to_the_key(reg):
-    for fid in ("congress", "insiders"):
-        f, m, _s = story_for(reg, fid)
-        L = F.site_layout(f, Q.feature_values(f, m), m["page"])
-        sw, sh = m["page"]["png_size"]
-        vis = L["h"] / L["k"]
-        assert L["w"] == F.WIN_W and L["h"] == F.STAGE_BOTTOM - F.STAGE_TOP and 960 <= L["card_w"] <= 1010, fid
-        assert L["s0"] == 0 and L["s1"] == pytest.approx(sh - vis, abs=0.1)       # from the strip's top to its end: all of it
-        assert L["s_key"] == 0 and L["back"] >= F.BACK_MIN_S                      # back on the card's top: the headline
-        assert L["dur"] >= F.SCROLL_MIN_S and L["min4"] == pytest.approx(L["at"] + L["dur"] + F.REST)
-        assert L["at"] == f["site"].get("top_hold", F.TOP_HOLD)       # insiders: the bought list stays while its line is read
-    # the page short: from the header down to the end of LARGEST HOLDINGS, then back to SECTORS for the key
-    f, m, _s = story_for(reg, "portfolio")
-    L = F.site_layout(f, Q.feature_values(f, m), m["page"])
-    assert L["at"] == F.TOP_HOLD_HEADER and L["min4"] <= F.SHOT4_MAX + 1e-6
-    sectors = next(t["box"] for t in m["page"]["targets"] if t["text"] == "Sectors")
-    assert L["s_key"] == pytest.approx(sectors[1] - F.KEY_MARGIN_CSS * 3)         # the window opens on the SECTORS heading
-    assert 0 < L["s_key"] < L["s1"]
+def test_a_taller_card_stands_where_its_edges_cut_no_row(reg):
+    """congress (review 2026-11-10: the window's bottom edge sliced the chart's last row, Utilities, for 4.6 of the 6.2 s;
+    title, headline and the 12 rows were together for two moving frames)."""
+    f, m, L = _layout(reg, "congress")
+    sw, sh = m["page"]["png_size"]
+    vis = _vis(m, L)
+    assert not L["fits"] and L["w"] == F.WIN_W and L["card_w"] == pytest.approx(976, abs=0.1)
+    assert (L["h"], L["a"], L["b"], L["key"]) == (1073, 0.0, 281.0, 0.0)        # the strip's top; its very end; the key on top
+    assert L["b"] == sh - vis and not _cuts(m, L, L["a"]) and not _cuts(m, L, L["b"])
+    # standing on the top: title, headline and the whole chart; the edge falls between Utilities and "Most traded"
+    assert all(_whole(m, L, 0, n) for n in ("title", "headline", "chart")) and 1186 < vis < 1237
+    # at the end: the card's last row, and the window's top edge between the legend and the first sector row
+    assert 267 < L["b"] < 294 and L["b"] + vis == sh
+    # the windows that cut a row are refused: the stage's full height ("Most traded" in half), the first render's 1038 px
+    for h in (F.STAGE_BOTTOM - F.STAGE_TOP, 1038):
+        assert Q.window_edge_hits(Q.content_rows(m["page"]), 0, round(h / L["k"]), sh, Q.SITE_EDGE_AIR / L["k"]), h
+    # the times: on the top while "Congress trades:" is read, a short scroll, a real stop on the end, back, the outline
+    assert L["at"] == 1.1 and L["dur"] == F.SCROLL_MIN_S and L["min4"] == pytest.approx(1.1 + L["dur"] + 1.2)
+    assert L["back"] == L["dur"] and L["hl_at"] == L["lead"] >= L["back_at"] + L["back"] + 0.1
+
+
+def test_two_charts_one_under_the_other_each_get_a_stop(reg):
+    """insiders (review 2026-11-10: the SOLD chart stood for 0.44 s and the page snapped back at 2,670 px/s)."""
+    f, m, L = _layout(reg, "insiders")
+    assert not L["fits"] and L["a"] == 0 and L["key"] == 0 and L["b"] > 600
+    assert not _cuts(m, L, L["a"]) and not _cuts(m, L, L["b"])
+    assert _whole(m, L, L["a"], "bought") and not _whole(m, L, L["a"], "sold")
+    card = m["page"]["boxes"]["card"]
+    assert _whole(m, L, L["b"], "sold") and L["b"] + _vis(m, L) >= card[1] + card[3] - 1      # down to the card's last row
+    # the second line is read over the SOLD list (site.read_end): the page stands there 1.5 s, comes back at thumb speed,
+    # and the sold figure is outlined for the last 1.65 s
+    assert L["lead"] == 0.1 and L["back_at"] == 1.5 and L["back"] == L["dur"] >= 0.9
+    assert L["hl_at"] == pytest.approx(L["back_at"] + L["back"] + 0.15) and L["min5"] == pytest.approx(L["hl_at"] + F.KEY_HOLD)
+    assert L["b"] * L["k"] / (L["dur"] * F.CRUISE) <= F.SCROLL_PX_S + 1 <= Q.SITE_SCROLL_MAX_PX_S
+    assert L["min4"] == pytest.approx(L["at"] + L["dur"] + F.REST) and L["min5"] <= 5.0
+
+
+def test_the_page_short_ends_on_the_donut_and_stays_there(reg):
+    """portfolio (review 2026-11-10: the only standing frames were the page top and a text list; the donut was whole for
+    0.27 s at 1,250 px/s; then a 2,600 px/s jump back)."""
+    f, m, L = _layout(reg, "portfolio")
+    assert not L["fits"] and L["a"] == 0 and L["key"] == L["b"] > 1500 and L["back"] == 0
+    assert not _cuts(m, L, L["a"]) and not _cuts(m, L, L["b"])
+    # the stop: the whole donut above the SECTORS heading and its first row, the key; the card's title has scrolled away
+    assert all(_whole(m, L, L["b"], n) for n in ("chart", "sectors", "row")) and not _whole(m, L, L["b"], "title")
+    assert 1516 < L["b"] < 1558                                   # between the headline's sentence and the donut's legend
+    # one scroll down, slow enough to read what passes; no way back
+    assert L["at"] == 0.85 and L["b"] * L["k"] / (L["dur"] * F.CRUISE) <= F.SCROLL_PX_S + 1
+    assert 2.0 <= L["dur"] <= 2.6 and L["hl_at"] == L["lead"] == F.LEAD5 and L["min4"] <= 5.0
 
 
 def test_site_layout_refuses_what_would_not_read(reg):
     f = Q.feature_by_id(reg, "portfolio")
-    m = portfolio(row2=(600.0, 1955.0))                 # "57%#2" matched the donut's label, not the row: not one line
+    m = portfolio(bench=(600.0, 1955.0))                # "39%" matched another place on the page: not one line
     with pytest.raises(M.TemplateError, match="not one line"):
         F.site_layout(f, Q.feature_values(f, m), m["page"])
     f = Q.feature_by_id(reg, "congress")
@@ -747,67 +937,158 @@ def test_site_layout_refuses_what_would_not_read(reg):
     m["page"].pop("boxes")
     with pytest.raises(M.TemplateError, match="no card box"):
         F.site_layout(f, Q.feature_values(f, m), m["page"])
+    m = congress()
+    m["page"]["boxes"].pop("chart")
+    with pytest.raises(M.TemplateError, match="no chart box"):
+        F.site_layout(f, Q.feature_values(f, m), m["page"])
+    m = congress()
+    m["page"]["content"] = []                                                 # an old sidecar: nothing to stand on
+    with pytest.raises(M.TemplateError, match="lists no rows"):
+        F.site_layout(f, Q.feature_values(f, m), m["page"])
+    m = congress()
+    m["page"]["content"] = rows([[i, i + 26] for i in range(40, 1470, 30)])   # rows 4 px apart: every edge cuts one
+    with pytest.raises(M.TemplateError, match="without cutting a row"):
+        F.site_layout(f, Q.feature_values(f, m), m["page"])
+    f = Q.feature_by_id(reg, "market-breadth")
+    m = market()
+    m["page"]["targets"][1]["box"] = [330.0, 1197.0, 152.0, 5]                # the first outline's text is not on the card
+    with pytest.raises(M.TemplateError, match="first outline"):
+        F.site_layout(f, Q.feature_values(f, m), m["page"])
+
+
+def test_rows_and_window_edges():
+    meta = {"dpr": 3, "content": rows(CONGRESS_BANDS) + [[600.0, 290.0, 3.0, 900.0, "shape"], [81.0, 500.0, 0.0, 20.0, "text"]]}
+    rws = Q.content_rows(meta)
+    assert len(rws) == len(CONGRESS_BANDS)                       # a chart's axis, 1 CSS px wide, is not a row
+    sh, air = 1488, 9.0
+    assert Q.window_edge_hits(rws, 0, 1168, sh, air) == [["bottom", 1144, 1186]]          # Utilities, cut in half
+    assert Q.window_edge_hits(rws, 0, 1254, sh, air) == [["bottom", 1237, 1285]]          # "Most traded", cut in half
+    assert Q.window_edge_hits(rws, 0, 1190, sh, air) == [["bottom", 1144, 1186]]          # 4 px under a row: sits on the edge
+    assert Q.window_edge_hits(rws, 0, 1190, sh, 0.0) == []
+    assert Q.window_edge_hits(rws, 0, 1207, sh, air) == []                                # in the gap above "Most traded"
+    assert Q.window_edge_hits(rws, 281, 1488, sh, air) == []                              # the strip's end, a clean top edge
+    assert Q.window_edge_hits(rws, 250, 1457, sh, air)[0][:1] == ["top"]                  # the legend line, cut
+    # the strip's own top and bottom: the capture's pad is the air; only a row that crosses counts
+    assert Q.window_edge_hits([(3, 40)], 0, 300, 300, air) == [] and Q.window_edge_hits([(-5, 20)], 0, 300, 300, air)
+    assert Q.window_edge_hits([(280, 320)], 0, 300, 300, air) == [["bottom", 280, 320]]
+    # a part taller than the window cannot be whole in a frame: it is not a row
+    assert Q.window_edge_hits([(100, 1400)], 0, 1200, sh, air) == []
+    assert Q.content_rows({"dpr": 3}) == [] and Q.content_rows({"content": [["x"], [1, float("nan"), 50, 50, "text"]]}) == []
 
 
 # ------------------------------------------------------------------------------------------------- the frame gates
-WIN = [20.0, 342.0, 1060.0, 1380.0]
+WIN = [20.0, 342.0, 1060.0, 1415.0]
+CARD = (52, 360, 1028, 1646)                # taller than the window: title, headline and chart fit it, the last rows do not
+PARTS = {"title": (92, 406, 403, 443), "headline": (92, 461, 988, 530), "chart": (92, 538, 988, 1413)}
 
 
-def _samples(n=90, card=(52, 360, 1028, 1646), scroll=0.0, key=None, caps=None, peek=None, moving=False, parts=None):
-    """n frames of a standing window; `scroll` shifts the card and its parts up (frame px)."""
+def _ramp(i, stops):
+    """A scroll as (frame, px) stops, linear between them."""
+    for (i0, y0), (i1, y1) in zip(stops, stops[1:]):
+        if i0 <= i <= i1:
+            return y0 + (y1 - y0) * (i - i0) / max(1, i1 - i0)
+    return stops[-1][1] if i > stops[-1][0] else stops[0][1]
+
+
+PEEK_THERE_AND_BACK = [(0, 0), (30, 0), (45, 250), (75, 250), (90, 0), (150, 0)]      # 500 px/s; 1 s on the end
+
+
+def _samples(n=90, card=CARD, scroll=0.0, key=None, caps=None, peek=None, moving=False, parts=None, first=None, outline="auto",
+             others=None, edge_hits=(), n_outlines=None, key_h=None, rim=5.0, t0=6.0, key_from=0):
+    """n frames of a window; `scroll` shifts the card and its parts up (frame px; a number, or f(frame)); the key is
+    outlined from frame `key_from` on."""
+    at = (lambda i: float(scroll(i))) if callable(scroll) else (lambda i: float(scroll))
     out = []
     for i in range(n):
-        dy = scroll(i) if callable(scroll) else scroll
+        dy = at(i)
         box = lambda b: [b[0], b[1] - dy, b[2], b[3] - dy]            # noqa: E731
-        out.append({"t": 6 + i / 30, "moving": moving, "win": list(WIN), "card": box(card),
-                    "parts": {k: box(v) for k, v in (parts or {"title": (92, 407, 442, 449), "headline": (92, 470, 1000, 547),
-                                                                   "chart": (92, 556, 1000, 1540)}).items()},
-                    "key": box(key) if key else None, "key_h": (key[3] - key[1]) if key else None,
-                    "caps": caps or [[330, 1403, 870, 1513]], "peek": peek or [32, 1400, 172, 1540]})
+        mark = (key if i >= key_from else None) or first
+        ol = None
+        if mark and outline == "auto":
+            ol = [mark[0] - 16, mark[1] - dy - 10, mark[2] + 16, mark[3] - dy + 10]
+        elif mark:
+            ol = outline
+        out.append({"t": t0 + i / 30, "shot": 4, "moving": moving, "still": at(max(0, i - 1)) == dy == at(i + 1), "win": list(WIN),
+                    "rim": rim, "card": box(card), "parts": {k: box(v) for k, v in (parts or PARTS).items()},
+                    "key": box(key) if key and i >= key_from else None,
+                    "key_h": key_h if key_h is not None else ((key[3] - key[1]) if key else None),
+                    "first": box(first) if first else None, "first_h": (first[3] - first[1]) if first else None,
+                    "outline": ol, "n_outlines": n_outlines if n_outlines is not None else (1 if mark else 0),
+                    "caps": caps if caps is not None else [[330, 1432, 870, 1540]], "peek": peek or [32, 1436, 150, 1560],
+                    "others": others or [], "scroll": dy,
+                    "edge_hits": edge_hits(i) if callable(edge_hits) else (None if edge_hits is None else list(edge_hits))})
     return out
 
 
 def test_site_card_whole_gate():
-    fit = (52, 350, 1028, 1372)                                    # a card that fits the window
-    ok, det = Q.site_card_whole_gate(_samples(card=fit, parts={"title": (92, 400, 442, 440), "chart": (92, 600, 1000, 1300)}), 30)
+    fit = (52, 350, 1028, 1400)                                    # a card that fits the window
+    fit_parts = {"title": (92, 400, 442, 440), "chart": (92, 600, 1000, 1300)}
+    ok, det = Q.site_card_whole_gate(_samples(card=fit, parts=fit_parts), 30)
     assert ok and det["card_fits_the_window"] and det["whole_in_one_frame_s"] == 3.0 and not det["scrolled"]
-    # a taller card, scrolled from its top to its end: every row is shown, every part is whole at some time
-    tall = (52, 360, 1028, 1646)
-    roll = lambda i: min(266.0, max(0.0, (i - 20) * 266 / 45))     # noqa: E731
-    ok, det = Q.site_card_whole_gate(_samples(card=tall, scroll=roll), 30)
-    assert ok and det["scrolled"] and det["rows_shown"] == [0.0, 1.0] and det["gap_in_rows"] is None
-    # the same card, never scrolled: its bottom rows are never on screen (a fragment)
-    ok, det = Q.site_card_whole_gate(_samples(card=tall), 30)
-    assert not ok and det["rows_shown"][1] < 0.8 and "chart" in det["parts_never_whole"]
+    assert det["charts_whole_and_still_s"] == {"chart": 3.0}
+    # a taller card: it stands on its top (title, headline, the whole chart), scrolls to its end, stands, comes back
+    there = lambda i: _ramp(i, PEEK_THERE_AND_BACK)                # noqa: E731
+    ok, det = Q.site_card_whole_gate(_samples(n=150, scroll=there), 30)
+    assert ok and det["scrolled"] and det["rows_shown"] == [0.0, 1.0] and det["gap_in_rows"] is None, det
+    assert det["charts_whole_and_still_s"]["chart"] >= 2.9 and not det["key_outlined_without_a_chart_at_s"]
+    # the same card, never scrolled: its last rows are never on screen (a fragment)
+    ok, det = Q.site_card_whole_gate(_samples(), 30)
+    assert not ok and det["rows_shown"][1] < 0.9
     # a jump from the top to the bottom with the middle never shown
     ok, det = Q.site_card_whole_gate(_samples(card=(52, 360, 1028, 3000), scroll=lambda i: 0.0 if i < 45 else 1620.0), 30)
     assert not ok and det["gap_in_rows"]
+    # ... and a middle that flashes past in one frame does not count as shown (review: a row counted after one frame)
+    flash = lambda i: 0.0 if i < 40 else (800.0 if i == 40 else 1585.0)        # noqa: E731
+    ok, det = Q.site_card_whole_gate(_samples(card=(52, 360, 1028, 3000), scroll=flash), 30)
+    assert not ok and det["gap_in_rows"], det
     # cut at the sides (a push-in past the frame, or a crop narrower than the card)
-    ok, det = Q.site_card_whole_gate(_samples(card=(-40, 350, 1120, 1372)), 30)
+    ok, det = Q.site_card_whole_gate(_samples(card=(-40, 350, 1120, 1400), parts=fit_parts), 30)
     assert not ok and det["frames_cut_at_the_sides"] == 90
     # a card that fits but is shown whole for a moment only
-    s = _samples(card=fit, n=20) + _samples(card=fit, n=70, scroll=400.0)
+    s = _samples(card=fit, parts=fit_parts, n=20) + _samples(card=fit, parts=fit_parts, n=70, scroll=400.0, t0=6.7)
     assert not Q.site_card_whole_gate(s, 30)[0]
     # a part that is never whole on screen: a headline strip without its chart
     ok, det = Q.site_card_whole_gate(_samples(card=fit, parts={"title": (92, 400, 442, 440), "chart": (92, 600, 1000, 1500)}), 30)
-    assert not ok and det["parts_never_whole"] == ["chart"]
-    # a part taller than the window (two charts, one under the other) cannot be whole in a frame: it is scrolled through
-    two = {"title": (92, 407, 442, 449), "chart": (92, 520, 1000, 1640)}
-    ok, det = Q.site_card_whole_gate(_samples(card=tall, scroll=roll, parts=two), 30)
-    assert ok and det["parts_taller_than_the_window"]["chart"]["rows_shown"] == [0.0, 1.0] and det["parts_whole_s"]["chart"] == 0
-    ok, det = Q.site_card_whole_gate(_samples(card=tall, parts=two), 30)              # ... and never scrolled: a fragment
-    assert not ok and det["parts_never_whole"] == ["chart"]
+    assert not ok and det["parts_never_whole"] == ["chart"] and det["charts_too_short"] == ["chart"]
+    # THE VISUAL IS THE PAYOFF (review 2026-11-10, the portfolio short): a chart that is whole only while the page runs
+    # past it, and a key outlined on a text list with no chart in the frame
+    page = (20, 342, 1060, 4400)
+    donut = {"header": (20, 342, 1060, 500), "chart": (180, 1790, 870, 2480)}
+    run = lambda i: _ramp(i, [(0, 0), (20, 0), (110, 2600), (200, 2600)])      # noqa: E731     866 px/s, then a text list
+    ok, det = Q.site_card_whole_gate(_samples(n=200, card=page, parts=donut, scroll=run, key=(90, 3200, 800, 3250),
+                                              key_from=120), 30)
+    assert not ok and det["parts_whole_s"]["chart"] >= 0.25 and det["charts_whole_and_still_s"]["chart"] == 0.0
+    assert det["charts_too_short"] == ["chart"] and det["key_outlined_without_a_chart_at_s"]
+    stop = lambda i: _ramp(i, [(0, 0), (20, 0), (80, 1400), (200, 1400)])      # noqa: E731     ends on the donut, and stays
+    ok, det = Q.site_card_whole_gate(_samples(n=200, card=(20, 342, 1060, 2800), parts=donut, scroll=stop,
+                                              key=(90, 2600, 800, 2650), key_from=100), 30)
+    assert ok and det["charts_whole_and_still_s"]["chart"] >= 3.9, det
+    # two charts, one under the other: each must stand whole for 1.5 s (insiders: the SOLD list stood 0.44 s)
+    two = {"title": (92, 407, 442, 449), "bought": (92, 600, 1000, 1250), "sold": (92, 1330, 1000, 1980)}
+    tall = (52, 360, 1028, 2130)
+    long_ = lambda i: _ramp(i, [(0, 0), (60, 0), (90, 715), (140, 715), (170, 0), (200, 0)])       # noqa: E731
+    brief = lambda i: _ramp(i, [(0, 0), (60, 0), (90, 715), (103, 715), (133, 0), (200, 0)])       # noqa: E731
+    ok, det = Q.site_card_whole_gate(_samples(n=200, card=tall, parts=two, scroll=long_), 30, charts=("bought", "sold"))
+    assert ok and det["charts_whole_and_still_s"]["sold"] >= 1.5, det
+    ok, det = Q.site_card_whole_gate(_samples(n=200, card=tall, parts=two, scroll=brief), 30, charts=("bought", "sold"))
+    assert not ok and det["charts_too_short"] == ["sold"]
+    assert not Q.site_card_whole_gate(_samples(n=200, card=tall, parts=two, scroll=long_), 30)[0]      # no part named chart
     # frames in which the window is still flying in do not count; no standing frame, no pass
-    assert not Q.site_card_whole_gate(_samples(card=fit, moving=True), 30)[0]
+    assert not Q.site_card_whole_gate(_samples(card=fit, parts=fit_parts, moving=True), 30)[0]
     assert not Q.site_card_whole_gate([], 30)[0]
 
 
 def test_card_width_gate():
-    assert Q.card_width_gate(_samples(card=(52, 350, 1028, 1372)), 30)[0]                    # 976 px
+    ok, det = Q.card_width_gate(_samples(card=(52, 350, 1028, 1372)), 30)                    # 976 px
+    assert ok and det["in_target"]
+    ok, det = Q.card_width_gate(_samples(card=(87, 350, 993, 1372)), 30)                     # 906 px: over the floor,
+    assert ok and not det["in_target"]                                                       # under what the owner asked for
     ok, det = Q.card_width_gate(_samples(card=(160, 350, 920, 1372)), 30)                    # 760 px: the old hero card
     assert not ok and det["min_w"] == 760.0
     assert not Q.card_width_gate(_samples(card=(52, 350, 1028, 1372), n=30), 30)[0]          # on screen for 1 s only
     assert not Q.card_width_gate(_samples(card=(-20, 350, 1100, 1372)), 30)[0]               # wider than the frame
+    ok, det = Q.card_width_gate(_samples(card=(52, 350, float("nan"), 1372)), 30)            # not a box: no pass by default
+    assert not ok and det["not_a_box_at_s"]
 
 
 def test_no_overlap_gate():
@@ -817,18 +1098,84 @@ def test_no_overlap_gate():
     ok, det = Q.no_overlap_gate(_samples(peek=[55, 1310, 295, 1550]))                        # the old large peek
     assert not ok and det["hits"][0]["what"] == "pip"
     assert not Q.no_overlap_gate(_samples(moving=True, caps=[[160, 1300, 920, 1400]]))[0]    # also while the window flies in
+    # the window's rim is part of the screen: a caption 3 px under the window sits on it
+    assert not Q.no_overlap_gate(_samples(caps=[[330, 1418, 870, 1500]]))[0]
+    assert Q.no_overlap_gate(_samples(caps=[[330, 1418, 870, 1500]], rim=0.0))[0]
+    # every other element the shot draws is looked at: a full-size character, a chip
+    ok, det = Q.no_overlap_gate(_samples(others=[{"what": "pip", "box": [300, 900, 700, 1700]}]))
+    assert not ok and det["hits"][0]["what"] == "pip"
+    ok, det = Q.no_overlap_gate(_samples(others=[{"what": "chip", "box": [700, 480, 880, 640]}]))
+    assert not ok and det["hits"][0]["what"] == "chip"
+    assert Q.no_overlap_gate(_samples(others=[{"what": "chip", "box": [700, 1600, 880, 1700]}]))[0]
+    assert not Q.no_overlap_gate(_samples(others=[{"what": "prop", "box": None}]))[0]        # a box nobody measured
     assert not Q.no_overlap_gate([])[0]
 
 
 def test_key_in_place_gate():
-    key = (92, 470, 660, 547)
+    key = (92, 461, 660, 530)
     assert Q.key_in_place_gate(_samples(key=key), 30)[0]
-    ok, det = Q.key_in_place_gate(_samples(key=(300, 1420, 700, 1500)), 30)                  # a key card under the window
+    ok, det = Q.key_in_place_gate(_samples(key=(300, 1440, 700, 1520)), 30)                  # a key card under the window
     assert not ok and det["off_the_card_at_s"]
     assert not Q.key_in_place_gate(_samples(key=key, scroll=300.0), 30)[0]                   # scrolled out of the window
     assert not Q.key_in_place_gate(_samples(key=(92, 470, 300, 500)), 30)[0]                 # 30 px tall: too small
     assert not Q.key_in_place_gate(_samples(key=key, n=30), 30)[0]                           # 1 s only
     assert not Q.key_in_place_gate(_samples(), 30)[0]                                        # never outlined
+    # the outline that is DRAWN is measured, not only the text's box (review: pad [500, 400] passed)
+    ok, det = Q.key_in_place_gate(_samples(key=key, outline=[92 - 500, 461 - 400, 660 + 500, 530 + 400]), 30)
+    assert not ok and det["outline_not_on_the_text_at_s"]
+    ok, det = Q.key_in_place_gate(_samples(key=key, outline=[92 - 80, 461 - 10, 660 + 80, 530 + 10]), 30)      # 80 px sideways
+    assert not ok and det["outline_not_on_the_text_at_s"]
+    assert Q.key_in_place_gate(_samples(key=key, outline=[92 - 64, 461 - 12, 660 + 64, 530 + 12]), 30)[0]      # a row's dot and chevron
+    assert not Q.key_in_place_gate(_samples(key=key, outline=[300, 480, 400, 500]), 30)[0]    # an outline inside the text
+    ok, det = Q.key_in_place_gate(_samples(key=key, n_outlines=2), 30)                        # a second outline: a second claim
+    assert not ok and det["two_outlines_at_s"]
+    # the height is the box's own: a 5 px box that says it is 80 px tall is 5 px tall
+    assert not Q.key_in_place_gate(_samples(key=(92, 461, 100, 466), key_h=80.0), 30)[0]
+    # outlined while the page moves does not count as readable
+    ok, det = Q.key_in_place_gate(_samples(key=key, scroll=lambda i: 0.4 * i), 30)
+    assert not ok and det["readable_s"] == 0.0 and det["outlined_s"] == 3.0
+    # the registry's first outline (shot 4), then the key (shot 5)
+    first = (500, 461, 650, 530)
+    ok, det = Q.key_in_place_gate(_samples(n=45, first=first) + _samples(n=60, key=key, t0=7.5), 30)
+    assert ok and det["first_outlined_s"] == 1.5 and det["outlined_s"] == 2.0
+    ok, det = Q.key_in_place_gate(_samples(n=45, first=(500, 461, 650, 480)) + _samples(n=60, key=key, t0=7.5), 30)
+    assert not ok and det["first_outline_too_small_at_s"]
+    assert not Q.key_in_place_gate(_samples(n=90, first=first), 30)[0]                       # the key itself never outlined
+
+
+def test_edge_clear_gate():
+    assert Q.edge_clear_gate(_samples(), 30)[0]
+    ok, det = Q.edge_clear_gate(_samples(edge_hits=[["bottom", 1144, 1186]]), 30)            # Utilities under the window's edge
+    assert not ok and det["frames_with_a_cut_row"] == 90 and det["first_cuts"][0]["rows"] == [["bottom", 1144, 1186]]
+    ok, det = Q.edge_clear_gate(_samples(edge_hits=None), 30)                                # the capture lists no rows
+    assert not ok and det["frames_without_rows_listed"] == 90
+    # while the page moves an edge crosses rows: that is a scroll. Only the frames that stand are held to it
+    there = lambda i: _ramp(i, PEEK_THERE_AND_BACK)                # noqa: E731
+    moving_only = lambda i: [["top", 228, 267]] if 30 < i < 45 or 75 < i < 90 else []        # noqa: E731
+    assert Q.edge_clear_gate(_samples(n=150, scroll=there, edge_hits=moving_only), 30)[0]
+    on_the_stop = lambda i: [["top", 228, 267]] if 45 <= i <= 75 else []                     # noqa: E731
+    assert not Q.edge_clear_gate(_samples(n=150, scroll=there, edge_hits=on_the_stop), 30)[0]
+    assert not Q.edge_clear_gate(_samples(moving=True), 30)[0] and not Q.edge_clear_gate([], 30)[0]
+
+
+def test_thumb_scroll_gate():
+    there = lambda i: _ramp(i, PEEK_THERE_AND_BACK)                # noqa: E731
+    ok, det = Q.thumb_scroll_gate(_samples(n=150, scroll=there), 30)
+    assert ok and det["fastest_px_s"] == pytest.approx(500, abs=1) and det["scrolling_s"] == 1.0
+    assert Q.thumb_scroll_gate(_samples(), 30)[0]                                            # a page that never moves
+    # review 2026-11-10: 41.6 px a frame down the page (1,250 px/s), then 1,120 px back up in 0.43 s (2,600 px/s)
+    fast = lambda i: _ramp(i, [(0, 0), (20, 0), (99, 3285), (150, 3285)])                    # noqa: E731
+    ok, det = Q.thumb_scroll_gate(_samples(n=150, scroll=fast), 30)
+    assert not ok and det["fastest_px_s"] > 1200
+    snap = lambda i: _ramp(i, [(0, 1120), (30, 1120), (43, 0), (90, 0)])                     # noqa: E731
+    ok, det = Q.thumb_scroll_gate(_samples(scroll=snap), 30)
+    assert not ok and det["fastest_px_s"] > 2500
+    # the cut between the two payoff shots: the page is where the last frame left it
+    assert Q.thumb_scroll_gate(_samples(n=30, scroll=250.0) + _samples(n=30, scroll=250.0, t0=7.0), 30)[0]
+    assert not Q.thumb_scroll_gate(_samples(n=30, scroll=250.0) + _samples(n=30, scroll=0.0, t0=7.0), 30)[0]
+    s = _samples()
+    s[10].pop("scroll")
+    assert not Q.thumb_scroll_gate(s, 30)[0] and not Q.thumb_scroll_gate([], 30)[0]
 
 
 def test_key_target_gate_figure_visual_and_site():
@@ -842,8 +1189,10 @@ def test_key_target_gate_figure_visual_and_site():
     assert not Q.key_target_gate(run(42, 500), 30, "visual")[0]              # a small chart is not
     assert not Q.key_target_gate(run(90, 700, n=30), 30, "figure")[0]        # 1 s is too short
     assert not Q.key_target_gate(run(90, 700, box=(900, 600, 1070, 700)), 30, "figure")[0]   # under the action rail
-    # a site key: a headline of the real card, where it stands; it may run the card's width
+    # a site key: a text of the real card, where it stands; it may run the card's width, down to the window's last row
     assert Q.key_target_gate(run(56, 976, box=(77, 448, 1005, 548)), 30, "site")[0]
+    assert Q.key_target_gate(run(46, 1040, box=(125, 1380, 905, 1426)), 30, "site")[0]       # a row near the window's end
+    assert not Q.key_target_gate(run(46, 1040, box=(125, 1430, 905, 1476)), 30, "site")[0]   # under the window: not on it
     assert not Q.key_target_gate(run(56, 760, box=(77, 448, 705, 548)), 30, "site")[0]       # on a small card
     assert not Q.key_target_gate(run(30, 976, box=(77, 448, 705, 478)), 30, "site")[0]
 
@@ -862,14 +1211,21 @@ def test_capture_args_ask_for_the_whole_card(reg):
     assert ("--box", "title=text:Congress trades") in pairs and ("--box", 'chart=el:[data-chart="congress"] svg[role="img"]') in pairs
     assert "--clip-from" not in args and "--clip-el" not in args and args[args.index("--dpr") + 1] == "3"    # no band, no 6x
     assert F.has_slots(f["key"]) and not F.has_slots(f["site"]["strip"])
+    assert "--strip-pad-bottom" not in args and args[args.index("--strip-pad") + 1] == "6"
     # the concentration card's box ends at its donut; the portfolio page asks for our header's brand
     f = Q.feature_by_id(reg, "concentration")
     args = F.capture_args(f, Q.feature_values(f, concentration()))
     pairs = list(zip(args, args[1:]))
     assert ("--box-bottom", 'card=el:[aria-label="Portfolio concentration chart"]') in pairs
     assert ("--target", HEADLINE) in pairs and ("--box", "pill=text:=Concentrated") in pairs
+    assert ("--strip-pad", "1") in pairs and ("--strip-pad-bottom", "9") in pairs       # the air the site leaves under the donut
     f = Q.feature_by_id(reg, "portfolio")
-    assert F.site_targets(f, Q.feature_values(f, portfolio())) == ["=Technology", "=57%#2", "=Sectors", "RapidTradeView"]
+    assert F.site_targets(f, Q.feature_values(f, portfolio())) == ["=Technology", "=39%", "RapidTradeView"]
+    f = Q.feature_by_id(reg, "market-breadth")                    # the first outline's text is a target too
+    assert F.site_targets(f, Q.feature_values(f, market())) == ["=83%", "2,494"]
+    f = Q.feature_by_id(reg, "insiders")                          # two charts: each is its own box
+    args = F.capture_args(f, Q.feature_values(f, insiders()))
+    assert sum(1 for x in args if x.startswith(("bought=el:", "sold=el:"))) == 2
 
 
 def test_capture_spec_parsing():
@@ -896,6 +1252,10 @@ def test_two_long_numbers_do_not_share_one_caption():
     words = "2,061 of 2,494 stocks rose:".split()
     chunks = [" ".join(words[i] for i in g) for g in Q.chunk_words(words)]
     assert chunks == ["2,061", "of 2,494", "stocks rose:"]       # one caption sat 3.3 s while the voice read both numbers
+    words = "130 sells, 76 buys.".split()                         # a clause ends before a number: "130 sells, 76" / "buys." read badly
+    assert [" ".join(words[i] for i in g) for g in Q.chunk_words(words)] == ["130 sells,", "76 buys."]
+    words = "Filed Nov 6, 2026 in Washington".split()            # a date stays whole
+    assert [" ".join(words[i] for i in g) for g in Q.chunk_words(words)][0] == "Filed Nov 6, 2026"
     words = "4 in Congress bought the same stock!".split()
     assert [" ".join(words[i] for i in g) for g in Q.chunk_words(words)][0] == "4 in Congress"      # not a lone "4"
 
@@ -911,6 +1271,38 @@ def test_make_feature_story_exit_codes(tmp_path, capsys):
     (tmp_path / "screens" / "page.png").write_bytes(b"png")                  # more buys than sells: the story does not hold
     assert F.main(["congress", "--run", str(tmp_path)]) == 2
     assert "not more than buys" in capsys.readouterr().err and not (tmp_path / "story.json").exists()
+    qa = json.loads((tmp_path / "reel-qa.json").read_text(encoding="utf-8"))     # the folder says why there is no video
+    assert qa["pass"] is False and qa["feature"] == "congress" and "not more than buys" in qa["details"]["story"]
+    # a folder that holds a render is left alone when no new capture was asked for: its video, story and record stay
+    (tmp_path / "reel_9x16.mp4").write_bytes(b"a video")
+    (tmp_path / "story.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "reel-qa.json").write_text('{"pass": true}', encoding="utf-8")
+    assert F.main(["congress", "--run", str(tmp_path)]) == 2
+    assert (tmp_path / "reel_9x16.mp4").exists() and (tmp_path / "story.json").exists()
+    assert json.loads((tmp_path / "reel-qa.json").read_text(encoding="utf-8")) == {"pass": True}
+
+
+def test_a_new_capture_shelves_the_render_it_would_orphan(tmp_path):
+    """2026-11-10: a refused capture replaced the capture of an older video and deleted its story; the video stayed in the
+    folder as if it were of that capture."""
+    assert F.shelve_previous(tmp_path) == []                                 # an empty folder: nothing to move
+    (tmp_path / "screens").mkdir()
+    (tmp_path / "screens" / "page.png").write_bytes(b"png")
+    (tmp_path / "screens" / "page.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "story.json").write_text("{}", encoding="utf-8")
+    assert F.shelve_previous(tmp_path) == [] and (tmp_path / "story.json").exists()      # a capture without a render stays
+    for n in ("reel_9x16.mp4", "reel.json", "reel-qa.json", "sheet.png"):
+        (tmp_path / n).write_bytes(b"x")
+    (tmp_path / "tts").mkdir()
+    moved = F.shelve_previous(tmp_path)
+    assert set(moved) == {"reel_9x16.mp4", "reel.json", "reel-qa.json", "sheet.png", "story.json", "screens/page.png", "screens/page.json"}
+    assert not (tmp_path / "reel_9x16.mp4").exists() and not (tmp_path / "screens" / "page.png").exists()
+    assert (tmp_path / "previous" / "reel_9x16.mp4").read_bytes() == b"x" and (tmp_path / "previous" / "screens" / "page.json").exists()
+    assert (tmp_path / "tts").is_dir()                                       # the voice cache is not a render
+    (tmp_path / "reel_9x16.mp4").write_bytes(b"newer")
+    (tmp_path / "reel.json").write_bytes(b"y")
+    F.shelve_previous(tmp_path)                                               # the next one replaces what was shelved
+    assert (tmp_path / "previous" / "reel_9x16.mp4").read_bytes() == b"newer"
 
 
 # ------------------------------------------------------------------------------------------------- the renderer's side
@@ -1019,40 +1411,70 @@ def test_text_gates_fail_a_voice_that_says_what_the_captions_do_not(reg, tmp_pat
     assert not s["feature_story"] and not s["banned_words"]
 
 
-def test_lead_and_the_scroll_time_the_payoff_shots(reg, tmp_path, monkeypatch):
-    """Shot 5 starts `lead` seconds before its first word (the page settles on the key, then the voice names it); shot 4
-    lasts as long as its scroll, however short its line is."""
+def _render_payoff(R, tl, reel, step=2):
+    """Render the two payoff shots (every `step`-th frame) so that the frame gates have their samples; -> fps of them."""
+    for si in (3, 4):
+        t = tl.starts[si]
+        while t < tl.ends[si] - 1e-6:
+            reel.shot_frame(si, t, sample=True)
+            t += step / R.FPS
+    return R.FPS / step
+
+
+def _frame_gates(R, st, reel, fps):
+    charts = Q.site_charts(st.feature["site"])
+    return {"site_card_whole": Q.site_card_whole_gate(reel.site_samples, fps, (R.W, R.H), charts),
+            "card_width": Q.card_width_gate(reel.site_samples, fps), "edge_clear": Q.edge_clear_gate(reel.site_samples, fps),
+            "thumb_scroll": Q.thumb_scroll_gate(reel.site_samples, fps), "no_overlap": Q.no_overlap_gate(reel.site_samples),
+            "key_in_place": Q.key_in_place_gate(reel.site_samples, fps)}
+
+
+def test_the_scroll_and_the_outline_time_the_payoff_shots(reg, tmp_path, monkeypatch):
+    """Shot 4 lasts as long as its stand, its scroll and its stop on the end, however short its line is. Shot 5 starts
+    `lead` seconds before its first word and lasts until the outlined key has stood 1.5 s."""
     (tmp_path / "a").mkdir()
     (tmp_path / "b").mkdir()
-    R, st, with_lead, _reel_a = _built(tmp_path / "a", reg, "insiders", monkeypatch)
-    _R, _st, no_lead, _reel_b = _built(tmp_path / "b", reg, "insiders", monkeypatch, edit=lambda s: s["shots"][4].pop("lead"))
-    lead = F.LEAD5
-    first = lambda tl: min(w.start for w in tl.words if w.shot == 4)          # noqa: E731
-    assert with_lead.starts[4] == pytest.approx(no_lead.starts[4], abs=1 / R.FPS)
-    assert first(with_lead) - with_lead.starts[4] == pytest.approx(lead + R.LEAD_F / R.FPS, abs=1 / R.FPS)
-    assert first(no_lead) - no_lead.starts[4] == pytest.approx(R.LEAD_F / R.FPS, abs=1 / R.FPS)
-    assert all(c["start"] >= with_lead.starts[4] + lead - 1 / R.FPS for c in with_lead.chunks if c["shot"] == 4)
-    # "$502M bought," is 0.9 s of (fake) voice; the scroll over the card takes longer, and the shot waits for it
-    a = st.shots[3]
-    assert with_lead.ends[3] - with_lead.starts[3] >= a["min_dur"] - 2 / R.FPS
-    assert with_lead.ends[3] - with_lead.starts[3] > 0.9 + 0.5                # longer than the line alone would make it
-    assert a["min_dur"] == pytest.approx(a["els"][0]["scroll"]["at"] + a["els"][0]["scroll"]["dur"] + F.REST)
+    R, st, tl, reel = _built(tmp_path / "a", reg, "congress", monkeypatch)
+    a, b = st.shots[3], st.shots[4]
+    sc = a["els"][0]["scroll"]
+    assert a["min_dur"] == pytest.approx(sc["at"] + sc["dur"] + 1.2)          # 1.2 s on the Most traded row (it had 0.45 s)
+    assert tl.ends[3] - tl.starts[3] >= a["min_dur"] - 2 / R.FPS
+    first = min(w.start for w in tl.words if w.shot == 4)
+    assert first - tl.starts[4] == pytest.approx(b["lead"] + R.LEAD_F / R.FPS, abs=1 / R.FPS)
+    hl = b["els"][1]
+    assert hl["at"] == b["lead"] and reel.hl_at(4, hl) == hl["at"]             # the page is back, the outline lands, the line names it
+    assert not reel.hl_on(4, hl, hl["at"] - 0.05) and reel.hl_on(4, hl, hl["at"] + 0.01)
+    assert tl.ends[4] - tl.starts[4] >= hl["at"] + Q.SITE_KEY_MIN_S
+    # insiders: the second line is read over the SOLD list; then the page comes back and the sold figure is outlined
+    R, st, tl, reel = _built(tmp_path / "b", reg, "insiders", monkeypatch)
+    a, b = st.shots[3], st.shots[4]
+    sc, back, hl = a["els"][0]["scroll"], b["els"][0]["scroll"], b["els"][1]
+    assert a["min_dur"] == pytest.approx(sc["at"] + sc["dur"] + F.REST) and b["lead"] == 0.1
+    first = min(w.start for w in tl.words if w.shot == 4)
+    assert first - tl.starts[4] == pytest.approx(0.1 + R.LEAD_F / R.FPS, abs=1 / R.FPS)
+    win = b["els"][0]
+    assert reel.site_scroll(win, 0.0) == reel.site_scroll(win, back["at"]) == pytest.approx(sc["y1"], abs=0.6)   # on the SOLD list
+    assert back["at"] == 1.5 and reel.site_scroll(win, hl["at"]) == 0.0                                            # ... then back
+    assert tl.ends[4] - tl.starts[4] >= hl["at"] + Q.SITE_KEY_MIN_S and tl.ends[4] - tl.starts[4] <= R.PAYOFF_MAX_SITE
 
 
 def test_the_window_scrolls_the_strip_and_never_cuts_it(reg, tmp_path, monkeypatch):
-    """congress: the window stands on the card's top, scrolls to its end like a thumb, and comes back to the headline,
-    which is outlined where it stands. The frame gates pass on the rendered payoff."""
+    """congress: the window stands on the card's top (title, headline, the whole chart), scrolls to its end like a thumb,
+    stands there, and comes back to the headline, which is outlined where it stands. The frame gates pass on the rendered
+    payoff."""
     R, st, tl, reel = _built(tmp_path, reg, "congress", monkeypatch)
     a, b = st.shots[3]["els"][0], st.shots[4]["els"][0]
     sw, sh, res, ch = reel.site_geom(a)
-    assert (sw, sh) == (1170, 1488) and res == pytest.approx(1170 / 1040) and ch == round(1038 * res)
+    assert (sw, sh) == (1170, 1488) and res == pytest.approx(1170 / 1040) and ch == round(a["h"] * res) == 1207
     sc = a["scroll"]
     assert reel.site_scroll(a, 0.0) == reel.site_scroll(a, sc["at"]) == 0.0                 # it stands on the card's top
     mid = reel.site_scroll(a, sc["at"] + sc["dur"] / 2)
     assert 0 < mid < sc["y1"] and reel.site_scroll(a, sc["at"] + sc["dur"] + 0.01) == pytest.approx(sc["y1"], abs=0.6)
+    assert sc["y1"] == sh - ch                                                              # the scroll ends on the strip's end
     assert reel.site_scroll(b, 0.0) == pytest.approx(sc["y1"], abs=0.6) and reel.site_scroll(b, st.shots[4]["lead"]) == 0.0
     assert R.cruise(0) == 0 and R.cruise(1) == 1 and R.cruise(0.5) == pytest.approx(0.5)
     assert max(R.cruise((i + 1) / 100) - R.cruise(i / 100) for i in range(100)) < 1.2 / 100         # no blur: peak 1.18x
+    assert 1 / (1 - 0.15) == pytest.approx(1 / F.CRUISE)                                    # the layout plans with the same peak
     # the sprite is the strip's own rows inside the rim: nothing resized before the camera draws the whole window
     img, anchor, res2 = reel.site_sprite(a, 37.0)
     assert res2 == res and img.size[0] > sw and img.size[1] > ch
@@ -1062,49 +1484,137 @@ def test_the_window_scrolls_the_strip_and_never_cuts_it(reg, tmp_path, monkeypat
     assert 342 < pts[:, 1].min() and pts[:, 1].max() < 700 and 20 < pts[:, 0].min() and pts[:, 0].max() < 1060
     pts0, _ = reel._target_world(4, st.shots[4]["key_number"], 0.0)                          # scrolled away: above the window
     assert pts0[:, 1].max() < pts[:, 1].max()
-    # render the two payoff shots (every 2nd frame) and gate them
-    for si in (3, 4):
-        t = tl.starts[si]
-        while t < tl.ends[si] - 1e-6:
-            reel.shot_frame(si, t, sample=True)
-            t += 2 / R.FPS
-    fps = R.FPS / 2
-    ok, det = Q.site_card_whole_gate(reel.site_samples, fps)
-    assert ok and det["scrolled"] and det["rows_shown"] == [0.0, 1.0] and not det["parts_never_whole"], det
-    ok, det = Q.card_width_gate(reel.site_samples, fps)
-    assert ok and 960 <= det["min_w"] <= det["max_w"] <= 1010, det
-    ok, det = Q.no_overlap_gate(reel.site_samples)
-    assert ok, det
-    ok, det = Q.key_in_place_gate(reel.site_samples, fps)
-    assert ok and det["min_h"] >= Q.SITE_KEY_MIN_H, det
+    fps = _render_payoff(R, tl, reel)
+    g = _frame_gates(R, st, reel, fps)
+    assert all(ok for ok, _d in g.values()), {k: d for k, (ok, d) in g.items() if not ok}
+    det = g["site_card_whole"][1]
+    assert det["scrolled"] and det["rows_shown"] == [0.0, 1.0] and not det["parts_never_whole"]
+    assert det["charts_whole_and_still_s"]["chart"] >= 1.5 and det["parts_whole_s"]["headline"] >= 1.5       # together, standing
+    assert g["card_width"][1]["min_w"] == g["card_width"][1]["max_w"] == 976.0 and g["card_width"][1]["in_target"]
+    assert g["edge_clear"][1]["still_s"] >= 3.0 and g["edge_clear"][1]["frames_with_a_cut_row"] == 0
+    assert 300 < g["thumb_scroll"][1]["fastest_px_s"] <= Q.SITE_SCROLL_MAX_PX_S
+    assert g["key_in_place"][1]["min_h"] >= Q.SITE_KEY_MIN_H
     assert Q.pill_clear_gate(reel.pill_samples)[0]                                           # the window keeps under the pill
     ok, det = Q.key_target_gate(reel.key_samples, fps, "site")
     assert ok and det["max_card_w"] >= 960, det
+    # every sample says whether the page stood, and none of the standing ones cuts a row
+    still = [s for s in reel.site_samples if s["still"] and not s["moving"]]
+    assert still and all(s["edge_hits"] == [] for s in still) and any(s["edge_hits"] for s in reel.site_samples if not s["still"])
+    assert all(s["rim"] == R.SITE_RIM and s["others"] == [] for s in reel.site_samples)
     # the scroll ticks softly and does not shake the camera; the phone taps once
     ticks = [e for e in reel.events if e[1] == "scroll"]
     assert ticks and all(e[2]["shake"] == 0.0 for e in ticks) and reel.shake(ticks[0][0] + 0.01) == (0.0, 0.0, 0.0)
     assert reel.shake(tl.starts[3] + 0.3)[1] != 0.0                # the landing thumps (elsewhere it would shake the camera) ...
     reel.site_samples.clear()
     reel.shot_frame(3, tl.starts[3] + 0.45, sample=True)           # ... but a site screen stands still: pixels untouched
-    assert reel.site_samples[0]["win"] == pytest.approx([20, 342, 1060, 1380], abs=0.2)
+    assert reel.site_samples[0]["win"] == pytest.approx([20, 342, 1060, 342 + a["h"]], abs=0.2)
     taps = [e for e in reel.events if e[1] == "tap"]
     assert len(taps) == 1 and tl.starts[2] < taps[0][0] < tl.ends[2]
     assert "Market" in [x["text"] for x in reel.texts if x["role"] == "prop"]
 
 
+def test_a_window_that_cuts_a_row_fails_edge_clear(reg, tmp_path, monkeypatch):
+    """The first render's window: 1038 px tall, its bottom edge through the Utilities row while the page stood."""
+    def old_window(s):
+        for sh in s["shots"][3:5]:
+            sh["els"][0].update(h=1038, y=342 + 519)
+        s["shots"][3]["els"][0]["scroll"]["y1"] = 320.0
+        s["shots"][4]["els"][0]["scroll"]["y0"] = 320.0
+
+    R, st, tl, reel = _built(tmp_path, reg, "congress", monkeypatch, edit=old_window)
+    fps = _render_payoff(R, tl, reel)
+    ok, det = Q.edge_clear_gate(reel.site_samples, fps)
+    assert not ok and det["first_cuts"][0]["rows"][0][:1] == ["bottom"], det
+    assert F.story_drift(st.doc, st.feature, {n: sc["meta"] for n, sc in st.screens.items()})      # and it is not the generator's
+
+
 def test_a_card_that_fits_is_whole_in_every_standing_frame(reg, tmp_path, monkeypatch):
     R, st, tl, reel = _built(tmp_path, reg, "market-breadth", monkeypatch)
-    for si in (3, 4):
-        t = tl.starts[si]
-        while t < tl.ends[si] - 1e-6:
-            reel.shot_frame(si, t, sample=True)
-            t += 2 / R.FPS
-    fps = R.FPS / 2
-    ok, det = Q.site_card_whole_gate(reel.site_samples, fps)
-    assert ok and det["card_fits_the_window"] and not det["scrolled"], det
+    fps = _render_payoff(R, tl, reel)
+    g = _frame_gates(R, st, reel, fps)
+    assert all(ok for ok, _d in g.values()), {k: d for k, (ok, d) in g.items() if not ok}
+    det = g["site_card_whole"][1]
+    assert det["card_fits_the_window"] and not det["scrolled"]
     assert det["whole_in_one_frame_s"] == det["standing_s"] > 3.0                # whole, all the time it stands
-    assert Q.card_width_gate(reel.site_samples, fps)[0] and Q.no_overlap_gate(reel.site_samples)[0]
-    assert Q.key_in_place_gate(reel.site_samples, fps)[0]
+    assert g["thumb_scroll"][1]["fastest_px_s"] == 0.0
+    # the total is outlined when it is read (the answer to "Out of how many?"), then the share: one outline at a time
+    kd = g["key_in_place"][1]
+    assert kd["first_outlined_s"] > 0.5 and kd["readable_s"] >= 1.5 and not kd["two_outlines_at_s"]
+    firsts = [s for s in reel.site_samples if s["first"]]
+    word = next(w for w in tl.words if w.shot == 3 and w.text == "2,494")
+    assert min(s["t"] for s in firsts) == pytest.approx(word.start, abs=3 / R.FPS) and all(s["shot"] == 4 for s in firsts)
+    assert all(s["outline"][0] > 20 and s["outline"][2] < 1060 for s in reel.site_samples if s["outline"])
+
+
+def test_the_page_short_stands_on_the_donut_with_the_key_outlined(reg, tmp_path, monkeypatch):
+    R, st, tl, reel = _built(tmp_path, reg, "portfolio", monkeypatch)
+    fps = _render_payoff(R, tl, reel)
+    g = _frame_gates(R, st, reel, fps)
+    assert all(ok for ok, _d in g.values()), {k: d for k, (ok, d) in g.items() if not ok}
+    det = g["site_card_whole"][1]
+    assert det["charts_whole_and_still_s"]["chart"] >= 2.5 and not det["key_outlined_without_a_chart_at_s"]
+    assert 500 < g["thumb_scroll"][1]["fastest_px_s"] <= 760                     # it ran at 1,250 px/s, then 2,600 back
+    keyed = [s for s in reel.site_samples if s["key"]]
+    assert keyed and all(s["still"] and s["shot"] == 5 for s in keyed)           # the page never moves under the outline
+    b = st.shots[4]["els"][0]["scroll"]
+    assert b["y0"] == b["y1"] and b["dur"] == 0                                  # no way back up
+    # the outline takes in the row from its dot to its chevron
+    ol, key = keyed[-1]["outline"], keyed[-1]["key"]
+    assert key[0] - ol[0] == pytest.approx(64, abs=0.1) and ol[2] - key[2] == pytest.approx(64, abs=0.1)
+
+
+def test_two_charts_each_stand_whole(reg, tmp_path, monkeypatch):
+    R, st, tl, reel = _built(tmp_path, reg, "insiders", monkeypatch)
+    fps = _render_payoff(R, tl, reel)
+    g = _frame_gates(R, st, reel, fps)
+    assert all(ok for ok, _d in g.values()), {k: d for k, (ok, d) in g.items() if not ok}
+    cs = g["site_card_whole"][1]["charts_whole_and_still_s"]
+    assert cs["bought"] >= 1.5 and cs["sold"] >= 1.5                             # the SOLD list stood 0.44 s
+    assert g["thumb_scroll"][1]["fastest_px_s"] <= 760                           # the way back ran at 2,670 px/s
+
+
+def test_no_overlap_sees_every_element_of_a_payoff_shot(reg, tmp_path, monkeypatch):
+    """Review 2026-11-10: a full-size Pip or a chip drawn over the window passed no_overlap (only the story drift failed)."""
+    def add(s):
+        s["shots"][4]["els"].append({"t": "pip", "x": 540, "y": 1500, "hu": 300, "pose": "idle", "expr": "shock"})
+        s["shots"][3]["chip"] = {"text": "76", "x": 700, "y": 600, "at": 0.0, "size": 160}
+        s["shots"][3]["els"].append({"t": "barbell", "x": 540, "y": 1700, "w": 400})
+
+    R, st, tl, reel = _built(tmp_path, reg, "congress", monkeypatch, edit=add)
+    reel.shot_frame(3, tl.starts[3] + 1.0, sample=True)
+    reel.shot_frame(4, tl.starts[4] + 1.0, sample=True)
+    ok, det = Q.no_overlap_gate(reel.site_samples)
+    assert not ok and {h["what"] for h in det["hits"]} == {"chip", "barbell", "pip"}, det
+
+
+def test_caption_figures_take_the_cards_colours(reg, tmp_path, monkeypatch):
+    """The card draws 130 red and 76 green; the caption drew both cyan."""
+    R = _reel()
+    np = pytest.importorskip("numpy")
+
+    def has(img, col):
+        a = np.asarray(img.convert("RGBA"), np.int32)
+        return bool(((np.abs(a[..., :3] - np.array(col)).sum(-1) < 12) & (a[..., 3] > 200)).any())
+
+    plain, tinted = R.caption_sprite("130 sells,", set()), R.caption_sprite("130 sells,", set(), tint="trade")
+    assert has(plain, R.CYANC) and has(plain, R.RED)                     # the figure cyan, the word red
+    assert has(tinted, R.RED) and not has(tinted, R.CYANC)               # both red, as on the card
+    buys = R.caption_sprite("76 buys.", set(), tint="trade")
+    assert has(buys, R.GREEN) and not has(buys, R.CYANC) and not has(buys, R.RED)
+    assert has(R.caption_sprite("$502M bought,", set(), tint="trade"), R.GREEN)
+    assert has(R.caption_sprite("bought $502M!", set(), tint="trade"), R.GREEN)          # the word before, when none follows
+    assert has(R.caption_sprite("83% of stocks", set(), tint="trade"), R.CYANC)          # no trade word: cyan as before
+    # the story asks for it on every caption, and a site caption does not grow over its band
+    _R, st, tl, reel = _built(tmp_path, reg, "congress", monkeypatch)
+    assert all((sh.get("caption") or {}).get("tint") == "trade" for sh in st.shots[:-1])
+    k = next(i for i, c in enumerate(tl.chunks) if c["shot"] == 4)
+    assert max(reel.caption_scale(k, tl.chunks[k]["start"] + f / R.FPS) for f in range(12)) <= 1.0
+    cap = next(x for x in reel.texts if x["role"] == "caption" and x.get("site"))
+    assert cr_bottom(R) < cap["box"][3] <= Q.SITE_CAPTION_BOTTOM         # under the daily band's limit, over the bottom 18%
+
+
+def cr_bottom(R):
+    return R.cr.SAFE_BOTTOM
 
 
 def test_our_header_is_readable_on_the_page_short(reg, tmp_path, monkeypatch):
@@ -1116,7 +1626,7 @@ def test_our_header_is_readable_on_the_page_short(reg, tmp_path, monkeypatch):
         t += 1 / R.FPS
     ok, det = Q.payoff_brand_gate(reel.brand_samples, R.FPS)
     assert ok and det["readable_s"] >= 1.0 and det["max_h"] >= 40, det
-    gone = [s for s in reel.brand_samples if s["t"] > tl.starts[3] + 2.5]
+    gone = [s for s in reel.brand_samples if s["t"] > tl.starts[3] + 2.0]
     assert gone and not any(s["inside"] for s in gone)                           # scrolled away: not counted as readable
     s, d = R.text_gates(st, tl, reel, NOW)
     assert s["structure"], d["structure"]                                        # a site shot may run up to 5 s

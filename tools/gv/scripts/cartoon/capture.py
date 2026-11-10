@@ -26,7 +26,8 @@ not found or the page did not load (No Fallbacks: the renderer refuses a capture
 
 STRIP mode (feature shorts, owner verdict 2026-11-10: the payoff shows the site's card WHOLE, as the site draws it):
     capture.py --url URL --out DIR --name NAME --strip-top SPEC --strip-bottom SPEC [--strip-pad 6]
-        [--box NAME=SPEC ...] [--box-bottom NAME=SPEC ...] [--target TEXT ...] [--viewport 390x844] [--dpr 3]
+        [--strip-pad-bottom N] [--box NAME=SPEC ...] [--box-bottom NAME=SPEC ...] [--target TEXT ...]
+        [--viewport 390x844] [--dpr 3]
 The PNG is the page at its full phone width from the top edge of the first SPEC to the bottom edge of the second, in one
 piece: the renderer scrolls over it like a thumb, it never cuts a card out of it. SPEC is "page" (the document), "el:CSS"
 (the first drawn element matching the selector), "all:CSS" (the union of every drawn element matching it) or "text:TEXT" (a text,
@@ -36,7 +37,20 @@ an element that is fixed or sticky (the bottom tab bar) would otherwise be paint
 lies on the strip the capture stops. --box records the DOM box of an element (the card, its chart) in the sidecar's
 "boxes", in strip px; the same NAME twice is the union, and --box-bottom NAME=SPEC ends the box at the bottom edge of
 another element (the card's head: from its top to the bottom of its chart). The sidecar also carries "kind": "strip" and
-"strip": {top, bottom, page_height} in CSS px.
+"strip": {top, bottom, page_height} in CSS px, and what the renderer and the gates need to treat the strip as a page:
+  "box_tags"      {NAME: the tag names of the elements a box was read from} ("svg" for a chart, "div>graphic" for an
+                  element that holds an svg, a canvas or an image, "#text" for a text);
+  "content"       [[x, y, w, h, kind]] in strip px: every line of text ("text"), every image ("img") and every painted
+                  leaf element ("shape": a bar, an arc; "box": a painted block) that touches the strip. The window that
+                  shows the strip may stand only where its edges cross none of them (the edge_clear gate);
+  "images"        [{box, ok, sym}]: every <img> on the strip, whether it finished loading with pixels, and the last part
+                  of its address (a ticker logo is asked for by its symbol);
+  "empty_slots"   [[x, y, w, h]]: empty square leaf elements that paint nothing: the place of a logo that did not load
+                  (the site removes the <img> when its request fails and the slot stays);
+  "images_failed" the last path segment of every image request of the page that failed (status >= 400, or no answer).
+A logo that failed leaves its row without its picture: the feature gate refuses such a capture. A logo that loaded but is
+the WRONG company's (the logo source answered with another firm's mark, seen on 2026-11-10 for one ticker) cannot be seen
+by any check here: a person looks at every logo before the video ships (make_feature_story writes screens/logos.png).
 """
 from __future__ import annotations
 
@@ -113,6 +127,9 @@ def seal(side: dict) -> str:
             side.get("visible_text"), side.get("inside_text"), side.get("targets")]
     if "boxes" in side:                              # a strip: the card's DOM boxes and the strip's place on the page
         body += [side.get("kind"), side.get("boxes"), side.get("strip"), side.get("viewport"), side.get("dpr")]
+    if "content" in side:                            # what the strip draws: its rows, its images and how they loaded
+        body += [side.get("content"), side.get("box_tags"), side.get("images"), side.get("empty_slots"),
+                 side.get("images_failed")]
     return hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
 
 
@@ -132,13 +149,63 @@ JS_PINNED = r"""() => {
 
 JS_EL_BOX = """([sel, all]) => {
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  const tags = [];
   for (const e of document.querySelectorAll(sel)) {      // a responsive twin that is not drawn has no box: skipped
     const b = e.getBoundingClientRect();
     if (b.width < 1 || b.height < 1) continue;
     x0 = Math.min(x0, b.left); y0 = Math.min(y0, b.top); x1 = Math.max(x1, b.right); y1 = Math.max(y1, b.bottom);
+    tags.push(e.tagName.toLowerCase() + (e.querySelector('svg,canvas,img') ? '>graphic' : ''));
     if (!all) break;
   }
-  return x1 > x0 ? {x: x0, y: y0, w: x1 - x0, h: y1 - y0, docY: y0 + window.scrollY} : null; }"""
+  return x1 > x0 ? {x: x0, y: y0, w: x1 - x0, h: y1 - y0, docY: y0 + window.scrollY, tags} : null; }"""
+
+# What the strip draws, as boxes in viewport CSS px ([X0, Y0, X1, Y1] is the strip where the viewport is parked): the
+# lines of every text, every image, every painted leaf element (an SVG bar or arc, a painted block), and the empty square
+# leaves that paint nothing (the slot of a logo that did not load). A container is not content: only what has no element
+# inside it, so a card's border or a chart's frame is never listed.
+JS_CONTENT = r"""([X0, Y0, X1, Y1]) => {
+  const content = [], images = [], slots = [];
+  const touches = (b) => b.width >= 1 && b.height >= 1 && b.bottom > Y0 && b.top < Y1 && b.right > X0 && b.left < X1;
+  const drawn = (e) => e.checkVisibility ? e.checkVisibility({checkOpacity: true, checkVisibilityCSS: true})
+                                         : e.getClientRects().length > 0;
+  const alpha = (c) => { if (!c || c === 'none' || c === 'transparent') return 0;
+                         const m = /rgba?\(([^)]+)\)/.exec(c); if (!m) return 1;
+                         const p = m[1].split(/[,\/ ]+/).filter(Boolean); return p.length >= 4 ? parseFloat(p[3]) : 1; };
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let n;
+  while ((n = w.nextNode())) {
+    if (!n.data.trim() || !n.parentElement || !drawn(n.parentElement)) continue;
+    const r = document.createRange(); r.selectNodeContents(n);
+    for (const b of r.getClientRects()) if (touches(b)) content.push([b.left, b.top, b.width, b.height, 'text']);
+  }
+  for (const e of document.querySelectorAll('body *')) {
+    if (e.childElementCount) continue;
+    const b = e.getBoundingClientRect();
+    if (!touches(b) || !drawn(e)) continue;
+    const tag = e.tagName.toLowerCase(), cs = getComputedStyle(e), box = [b.left, b.top, b.width, b.height];
+    if (tag === 'img') {
+      const seg = (e.currentSrc || e.src || '').split('?')[0].split('/').pop() || '';
+      images.push({box, ok: e.complete && e.naturalWidth > 0, sym: /^[A-Za-z0-9._-]{1,16}$/.test(seg) ? seg : ''});
+      content.push([...box, 'img']);
+    } else if (tag === 'canvas' || tag === 'video' || tag === 'svg') {
+      content.push([...box, 'img']);
+    } else if (e instanceof SVGElement) {
+      if (tag === 'text' || tag === 'tspan' || tag === 'title' || tag === 'desc') continue;     // its text is listed above
+      const fill = alpha(cs.fill) * parseFloat(cs.fillOpacity || '1');
+      const stroke = alpha(cs.stroke) * parseFloat(cs.strokeOpacity || '1');
+      if (fill > 0.02 || (stroke > 0.02 && parseFloat(cs.strokeWidth || '0') > 0)) content.push([...box, 'shape']);
+    } else if (!(e.textContent || '').trim()) {
+      const border = ['Top', 'Right', 'Bottom', 'Left'].some(
+          s_ => parseFloat(cs['border' + s_ + 'Width']) > 0 && alpha(cs['border' + s_ + 'Color']) > 0.02);
+      const marks = ['::before', '::after'].some(
+          p => { const c = getComputedStyle(e, p).content; return c && c !== 'none' && c !== 'normal'; });
+      const mask = (cs.maskImage && cs.maskImage !== 'none') || (cs.webkitMaskImage && cs.webkitMaskImage !== 'none');
+      if (alpha(cs.backgroundColor) > 0.02 || cs.backgroundImage !== 'none' || border || marks || mask) content.push([...box, 'box']);
+      else if (b.width >= 10 && b.height >= 10 && b.width / b.height > 0.75 && b.width / b.height < 1.34) slots.push(box);
+    }
+  }
+  return {content, images, slots};
+}"""
 
 
 def box_spec(spec: str) -> tuple[str, str]:
@@ -193,6 +260,8 @@ def main(argv=None) -> int:
                                         "text:TEXT) ...")
     ap.add_argument("--strip-bottom", help="... to the bottom edge of this box")
     ap.add_argument("--strip-pad", type=float, default=6.0, help="CSS px of page above and below the strip's boxes")
+    ap.add_argument("--strip-pad-bottom", type=float, help="CSS px of page below the strip's bottom box (default: --strip-pad): "
+                                                           "the air the site leaves under a chart")
     ap.add_argument("--box", action="append", default=[], help="strip mode: NAME=SPEC, the DOM box of an element, recorded "
                                                                "in the sidecar's boxes (the same NAME twice = the union)")
     ap.add_argument("--box-bottom", action="append", default=[], help="strip mode: NAME=SPEC, the named box ends at the "
@@ -216,6 +285,28 @@ def main(argv=None) -> int:
                             user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 "
                                        "(KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1")
         pg = ctx.new_page()
+        failed_images: list[str] = []
+
+        def _seg(url: str) -> str:
+            seg = url.split("?")[0].rstrip("/").rsplit("/", 1)[-1]
+            return seg if re.fullmatch(r"[A-Za-z0-9._-]{1,16}", seg) else ""
+
+        def _on_response(resp):
+            try:
+                if resp.request.resource_type == "image" and resp.status >= 400:
+                    failed_images.append(_seg(resp.url))
+            except Exception:  # noqa: BLE001 - a listener never stops the capture
+                pass
+
+        def _on_failed(req):
+            try:
+                if req.resource_type == "image":
+                    failed_images.append(_seg(req.url))
+            except Exception:  # noqa: BLE001
+                pass
+
+        pg.on("response", _on_response)
+        pg.on("requestfailed", _on_failed)
 
         def find_all(needle: str, exact: bool = False) -> list:
             return pg.evaluate(JS_FIND, [needle, True, exact])
@@ -235,6 +326,7 @@ def main(argv=None) -> int:
         pg.wait_for_timeout(500)
         strip = None
         boxes: dict = {}
+        box_tags: dict = {}
         if a.strip_top or a.strip_bottom:
             if not (a.strip_top and a.strip_bottom) or a.clip_el or a.clip_from or a.clip_to or a.scroll_to:
                 print("capture: strip mode takes --strip-top and --strip-bottom, and no clip or scroll option", file=sys.stderr)
@@ -256,14 +348,15 @@ def main(argv=None) -> int:
                 """A box in document CSS px: {x, y, w, h}; None when the element or the text is not on the page."""
                 kind, val = box_spec(spec)
                 if kind == "page":
-                    return {"x": 0.0, "y": 0.0, "w": float(vw), "h": float(height)}
+                    return {"x": 0.0, "y": 0.0, "w": float(vw), "h": float(height), "tags": ["#page"]}
                 if kind in ("el", "all"):       # the first element matching, or the union of all that match
                     b_ = pg.evaluate(JS_EL_BOX, [val, kind == "all"])
-                    return {"x": b_["x"], "y": b_["docY"], "w": b_["w"], "h": b_["h"]} if b_ and b_["w"] >= 1 and b_["h"] >= 1 else None
+                    return ({"x": b_["x"], "y": b_["docY"], "w": b_["w"], "h": b_["h"], "tags": b_.get("tags") or []}
+                            if b_ and b_["w"] >= 1 and b_["h"] >= 1 else None)
                 needle, nth, exact = split_spec(val)
                 hits = find_all(needle, exact)
                 hit = (hits[-1] if nth == "last" else hits[int(nth) - 1] if len(hits) >= int(nth) else None) if hits else None
-                return {"x": hit["x"], "y": hit["docY"], "w": hit["w"], "h": hit["h"]} if hit else None
+                return {"x": hit["x"], "y": hit["docY"], "w": hit["w"], "h": hit["h"], "tags": ["#text"]} if hit else None
 
             try:
                 bt, bb = doc_box(a.strip_top), doc_box(a.strip_bottom)
@@ -275,8 +368,9 @@ def main(argv=None) -> int:
             if not (bt and bb):
                 print("capture: --strip-top and --strip-bottom must both be on the page", file=sys.stderr)
                 return 2
+            pad_bottom = a.strip_pad if a.strip_pad_bottom is None else a.strip_pad_bottom
             top = float(max(0, int(bt["y"] - a.strip_pad)))
-            bot = float(min(int(height), -int(-(bb["y"] + bb["h"] + a.strip_pad) // 1)))
+            bot = float(min(int(height), -int(-(bb["y"] + bb["h"] + pad_bottom) // 1)))
             if bot - top < 40 or (bot - top) * a.dpr > 16000:
                 print(f"capture: the strip is {bot - top:.0f} CSS px tall (40 to {16000 // a.dpr} at dpr {a.dpr})", file=sys.stderr)
                 return 2
@@ -290,6 +384,7 @@ def main(argv=None) -> int:
                     o = boxes[name]
                     x0_, y0_, x1_, y1_ = min(o[0], x0_), min(o[1], y0_), max(o[2], x1_), max(o[3], y1_)
                 boxes[name] = [x0_, y0_, x1_, y1_]
+                box_tags[name] = sorted(set(box_tags.get(name, [])) | set(b_.get("tags") or []))
             for name, spec in cuts.items():
                 b_ = doc_box(spec)
                 if name not in boxes or not b_:
@@ -389,6 +484,13 @@ def main(argv=None) -> int:
                 return 2
             targets.append({"text": t[1:] if exact else t, "box": [round((hit["x"] - x0) * a.dpr, 1), round((hit["y"] - y0) * a.dpr, 1),
                                                round(hit["w"] * a.dpr, 1), round(hit["h"] * a.dpr, 1)]})
+        drawn = None
+        if strip:                                    # the strip's rows, images and empty logo slots (viewport px here)
+            for _ in range(12):                      # an image still on its way gets up to 6 s
+                drawn = pg.evaluate(JS_CONTENT, [x0, y0, x1, y1])
+                if all(i_["ok"] for i_ in drawn["images"]):
+                    break
+                pg.wait_for_timeout(500)
         page_text = pg.evaluate("document.body.innerText")
         texts = pg.evaluate(JS_VISIBLE, [x0, y0, x1, y1])
         scroll_y = pg.evaluate("window.scrollY")
@@ -409,9 +511,17 @@ def main(argv=None) -> int:
             "scroll_y": scroll_y, "clip_css": clip, "targets": targets, "visible_text": texts["visible"],
             "inside_text": texts["inside"], "page_text": page_text}
     if strip:
+        def px(b_):                                  # a viewport box (where the viewport was parked) -> strip px
+            return [round((b_[0] - x0) * a.dpr, 1), round((b_[1] - y0) * a.dpr, 1), round(b_[2] * a.dpr, 1), round(b_[3] * a.dpr, 1)]
+
         side.update(kind="strip", strip=strip,
                     boxes={n: [round((v[0]) * a.dpr, 1), round((v[1] - strip["top"]) * a.dpr, 1), round((v[2] - v[0]) * a.dpr, 1),
-                               round((v[3] - v[1]) * a.dpr, 1)] for n, v in boxes.items()})
+                               round((v[3] - v[1]) * a.dpr, 1)] for n, v in boxes.items()},
+                    box_tags=box_tags,
+                    content=sorted((px(c_[:4]) + [c_[4]] for c_ in drawn["content"]), key=lambda c_: (c_[1], c_[0])),
+                    images=[{"box": px(i_["box"]), "ok": bool(i_["ok"]), "sym": i_["sym"]} for i_ in drawn["images"]],
+                    empty_slots=[px(s_) for s_ in drawn["slots"]],
+                    images_failed=sorted(set(x for x in failed_images if x)))
     side["seal"] = seal(side)
     (out / f"{a.name}.json").write_text(json.dumps(side, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(json.dumps({"png": str(png), "size": size, "targets": targets}))

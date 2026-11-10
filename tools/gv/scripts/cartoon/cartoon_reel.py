@@ -10,9 +10,10 @@ v4: nothing that stays on screen sits under the pill (pill_clear gate: real card
 the zoom); the end card keeps out of the right 12% (end_card_safe) and keeps moving (wordmark pulse, head bob).
 Feature shorts (owner verdict 2026-11-10: "they arent good, only the last one show the visuals correctly as it shown on
 website"): the payoff is a SITE SCREEN, els "site": one window that shows a strip of the real page at phone width, the
-card whole and about 1000 px wide, scrolled like a thumb when it is taller than the stage, the key outlined where it
-stands, the captions in a band under the window. Gates site_card_whole, card_width, no_overlap, key_in_place; the run
-folder also gets compare.png (the site capture beside the video frames, at one scale).
+card whole and about 1000 px wide, scrolled like a thumb when it is taller than the stage (never faster than 900 px/s),
+standing only where the window's edges cut no row of the page, the key outlined where it stands beside a chart, the
+captions in a band under the window. Gates site_card_whole, card_width, edge_clear, thumb_scroll, no_overlap,
+key_in_place; the run folder also gets compare.png (the site capture beside the video frames, at one scale).
 
     cartoon_reel.py --story STORY.json --out DIR [--ffmpeg-dir DIR] [--tts-python PY] [--sheet-every 1.5]
 
@@ -434,9 +435,19 @@ class Timeline:
 
 
 # =============================================================================================== drawing helpers
+BUY_WORD_RX = re.compile(r"(?i)bought|buys?|purchased?|beat")
+SELL_WORD_RX = re.compile(r"(?i)sold|sells?|sale|miss(ed)?")
+
+
 def caption_sprite(text: str, stress: set[str], base=(255, 255, 255), size: int = CAPTION_SIZE,
-                   max_w: float = CAPTION_MAX_W) -> Image.Image:
+                   max_w: float = CAPTION_MAX_W, tint: str | None = None) -> Image.Image:
+    """tint "trade" (feature shorts): a figure beside a trade word takes that word's colour, as the site's card draws it
+    ("130 sells," red, "76 buys." green; "$502M bought," green); a figure beside none stays cyan."""
     words = text.split()
+
+    def side(w: str):
+        core = w.strip('().,:;"!?')
+        return GREEN if BUY_WORD_RX.fullmatch(core) else RED if SELL_WORD_RX.fullmatch(core) else None
     while size > CAPTION_MIN and font("black", size).getlength(text) - 2 * (len(words) - 1) > max_w:
         size -= 4
     f = font("black", size)
@@ -455,9 +466,11 @@ def caption_sprite(text: str, stress: set[str], base=(255, 255, 255), size: int 
         is_date_month = re.fullmatch(r"\(?" + Q.MONTHS, w) and nxt[:1].isdigit()
         if Q.FIGURE_RX.search(w) or is_date_month or (re.search(r"\d", w) and not re.fullmatch(r"\(?Form", prev)):
             col = CYANC
-        elif re.fullmatch(r"(?i)bought|buys?|purchased?|beat", core):
+            if tint == "trade":                    # the trade word after the figure, else the one before it
+                col = side(nxt) or side(prev) or CYANC
+        elif BUY_WORD_RX.fullmatch(core):
             col = GREEN
-        elif re.fullmatch(r"(?i)sold|sells?|sale|miss(ed)?", core):
+        elif SELL_WORD_RX.fullmatch(core):
             col = RED
         elif w in stress or core in stress:
             col = LIME
@@ -741,12 +754,13 @@ class Reel:
         for k, ch in enumerate(self.tl.chunks):
             cap = self.shots[ch["shot"]].get("caption") or {}
             img = caption_sprite(ch["text"], stress.get(ch["shot"], set()), SPEAKER_COL.get(ch.get("voice"), (255, 255, 255)),
-                                 int(cap.get("size", CAPTION_SIZE)), float(cap.get("max_w", CAPTION_MAX_W)))
+                                 int(cap.get("size", CAPTION_SIZE)), float(cap.get("max_w", CAPTION_MAX_W)), cap.get("tint"))
             sweep = cr.Sweep(img, 0.4, 0.12) if Q.FIGURE_RX.search(ch["text"]) else None
             self.cap_sprites[k] = (img, sweep)
             cx, cy = float(cap.get("x", W / 2)), float(cap.get("y", CAPTION_Y))
             w_, h_ = img.size
-            self.texts.append({"role": "caption", "text": ch["text"], "box": (cx - w_ / 2, cy - h_ / 2, cx + w_ / 2, cy + h_ / 2)})
+            self.texts.append({"role": "caption", "text": ch["text"], "box": (cx - w_ / 2, cy - h_ / 2, cx + w_ / 2, cy + h_ / 2),
+                               "site": any(e.get("t") == "site" for e in self.shots[ch["shot"]].get("els", []))})
             ch["cx"], ch["cy"] = cx, cy
             ch["size"] = (w_, h_)
         self.events.sort(key=lambda e: e[0])
@@ -1224,15 +1238,32 @@ class Reel:
                     p[1] + sz * math.sin(a + k * math.pi / 2) * (1.6 if k % 2 == 0 else 0.6)) for k in range(4)]
             d.polygon(pts, fill=col + (255,))
 
+    def hl_at(self, si: int, el: dict) -> float:
+        """When an outline starts, in shot time: a number, or "word:<text>" (that word of the shot's line)."""
+        at = el.get("at", 0.9)
+        if isinstance(at, str):
+            if "_at" not in el:
+                el["_at"] = self.word_time(si, at) - self.tl.starts[si]
+            return el["_at"]
+        return float(at)
+
+    def hl_on(self, si: int, el: dict, t: float) -> bool:
+        """An outline is drawn from its start to the shot's end, or to its "until" (it leaves before the page scrolls)."""
+        return t >= self.hl_at(si, el) and ("until" not in el or t < float(el["until"]))
+
+    @staticmethod
+    def hl_pad(el: dict) -> np.ndarray:
+        pad = el.get("pad", 18.0)                       # px around the text's box: one number, or [sideways, up and down]
+        return np.array(pad if isinstance(pad, (list, tuple)) else (pad, pad), float)
+
     def _highlight(self, frame, el, si, t, cam):
-        at = float(el.get("at", 0.9))
-        if t < at:
+        if not self.hl_on(si, el, t):
             return
+        at = self.hl_at(si, el)
         corners, (bw, bh) = self._target_world(si, el["target"], t)
         pts = np.array([cam.p(q) for q in corners])
         cen = pts.mean(0)
-        pad = el.get("pad", 18.0)                       # px around the text's box: one number, or [sideways, up and down]
-        pad = np.array(pad if isinstance(pad, (list, tuple)) else (pad, pad), float)
+        pad = self.hl_pad(el)
         dirs = pts - cen
         unit = np.sign(dirs)
         pts = pts + unit * pad
@@ -1393,6 +1424,9 @@ class Reel:
         """A caption chunk's scale at t_abs (it pops in; a figure lands large and settles)."""
         ch = self.tl.chunks[k]
         v = (t_abs - ch["start"]) * FPS
+        pop = (self.shots[ch["shot"]].get("caption") or {}).get("pop", True)
+        if not pop:                              # the band under a site screen is as tall as the caption: it settles from below
+            return min(1.0, 0.86 + 0.14 * eob(v / 4))
         if self.cap_sprites[k][1]:
             return 1.15 - 0.15 * eob(v / 4)
         if k == 0:
@@ -1596,35 +1630,105 @@ class Reel:
                                       "moving": self.el_moving(si, el, t),
                                       "card_box": [round(float(v)) for v in (bx0, by0, bx1, by1)]})
 
+    def other_boxes(self, si, t, t_abs, cam) -> list[dict]:
+        """Frame boxes of everything a shot draws besides its site window, its outlines, its captions and its PEEK head: a
+        character, a phone, a card, a chip, a bubble. An element whose box is not known here takes the whole frame (it
+        fails no_overlap rather than pass unseen)."""
+        sh = self.shots[si]
+        out = []
+
+        def add(kind, pts):
+            b_ = self._bbox(pts)
+            out.append({"what": kind, "box": b_})
+
+        for el in sh.get("els", []):
+            typ = el.get("t")
+            if typ in ("site", "highlight"):
+                continue
+            el["_si"] = si
+            (x, y), r, k, a = self.el_pose(si, el, t)
+            if a <= 0.004:
+                continue
+            if typ in ("pip", "dale"):
+                img, anchor, sq = self.char_sprite(el, t_abs, t)
+                bb = img.getbbox() or (0, 0, img.size[0], img.size[1])
+                Mx = cam.s * k * sq * rot(r - cam.th)
+                base = cam.p((x, y))
+                add(typ, [base + Mx @ (np.array(c_, float) - np.array(anchor, float))
+                          for c_ in ((bb[0], bb[1]), (bb[2], bb[1]), (bb[2], bb[3]), (bb[0], bb[3]))])
+            elif typ in ("card", "screen"):
+                add(typ, [cam.p(q) for q in self.card_corners(si, el, t)])
+            elif typ in ("receipt", "search_phone", "feed"):
+                if typ == "receipt":
+                    w_, h_ = self.receipt_sprite(el)[0].size
+                elif typ == "search_phone":
+                    w_, h_ = float(el.get("w", 560)), float(el.get("w", 560)) * 1.85
+                else:
+                    w_, h_ = float(el.get("w", 900)), float(el.get("h", 1700))
+                Mx = cam.s * k * rot(r - cam.th)
+                base = cam.p((x, y))
+                add(typ, [base + Mx @ np.array(c_) for c_ in ((-w_ / 2, -h_ / 2), (w_ / 2, -h_ / 2), (w_ / 2, h_ / 2), (-w_ / 2, h_ / 2))])
+            else:
+                out.append({"what": str(typ), "box": [0.0, 0.0, float(W), float(H)]})
+        b = sh.get("bubble")
+        if b and b["_t0"] <= t_abs < b["_t1"]:
+            w_, h_ = b["_img"].size
+            out.append({"what": "bubble", "box": [b["x"] - w_ / 2, b["y"] - h_ / 2, b["x"] + w_ / 2, b["y"] + h_ / 2]})
+        c = sh.get("chip")
+        if c and t_abs >= c["_t0"]:
+            w_, h_ = c["_img"].size
+            out.append({"what": "chip", "box": [c["x"] - w_ / 2 - 60, c["y"] - h_ / 2, c["x"] + w_ / 2, c["y"] + h_ / 2]})
+        return out
+
     def _site_sample(self, si, t, t_abs, cam):
-        """A PAYOFF frame of a site screen, for the gates site_card_whole, card_width, no_overlap and key_in_place: the
-        window, the card's DOM box and its parts where the scroll has them, the key while it is outlined, the captions
-        and Pip's head (frame px)."""
+        """A PAYOFF frame of a site screen, for the gates site_card_whole, card_width, edge_clear, thumb_scroll, no_overlap
+        and key_in_place: the window, the card's DOM box and its parts where the scroll has them, whether the page moved
+        in this frame, the rows its edges cut, the key (and the first outline) while it is outlined with the outline as
+        drawn, the captions, Pip's head and every other element of the shot (frame px)."""
         sh = self.shots[si]
         if sh.get("kind") != "PAYOFF":
             return
         for el in sh.get("els", []):
             if el.get("t") != "site":
                 continue
-            boxes = self.st.screens[el["name"]]["meta"].get("boxes") or {}
+            meta = self.st.screens[el["name"]]["meta"]
+            boxes = meta.get("boxes") or {}
             if "card" not in boxes:
                 continue
 
             def on_screen(b):
                 return self._bbox([cam.p(q) for q in self.site_world(si, el, t, (b[0], b[1], b[0] + b[2], b[1] + b[3]))])
 
-            hl = next((e for e in sh["els"] if e.get("t") == "highlight" and t >= float(e.get("at", 0.9))), None)
-            key = key_h = None
-            if hl:
+            sw, sh_px, res, ch = self.site_geom(el)
+            sy = round(self.site_scroll(el, t))
+            D = self.tl.ends[si] - self.tl.starts[si]
+            around = [round(self.site_scroll(el, min(max(t + d_, 0.0), D))) for d_ in (-1 / FPS, 1 / FPS)]
+            still = all(v == sy for v in around)
+            if "_rows" not in el:
+                el["_rows"] = Q.content_rows(meta) if isinstance(meta.get("content"), list) else None
+            hits = None if el["_rows"] is None else Q.window_edge_hits(el["_rows"], sy, sy + ch, sh_px, Q.SITE_EDGE_AIR * res)
+            marks = [e for e in sh["els"] if e.get("t") == "highlight" and self.hl_on(si, e, t)]
+            key = first = outline = key_h = first_h = None
+            if marks:
+                hl = marks[0]
                 corners, _ = self._target_world(si, hl["target"], t, el)
                 pts = np.array([cam.p(q) for q in corners])
-                key, key_h = self._bbox(pts), float(np.linalg.norm(pts[3] - pts[0]))
+                box, hh = self._bbox(pts), float(np.linalg.norm(pts[3] - pts[0]))
+                pad = self.hl_pad(hl) + float(hl.get("width", 8)) / 2
+                outline = [box[0] - pad[0], box[1] - pad[1], box[2] + pad[0], box[3] + pad[1]]
+                if hl["target"] == sh.get("key_number"):
+                    key, key_h = box, hh
+                else:
+                    first, first_h = box, hh
             self.site_samples.append({
-                "t": round(t_abs, 3), "shot": si + 1, "moving": self.el_moving(si, el, t),
-                "win": self._bbox([cam.p(q) for q in self.site_window(si, el, t)]), "card": on_screen(boxes["card"]),
+                "t": round(t_abs, 3), "shot": si + 1, "moving": self.el_moving(si, el, t), "still": bool(still),
+                "win": self._bbox([cam.p(q) for q in self.site_window(si, el, t)]), "rim": float(SITE_RIM),
+                "card": on_screen(boxes["card"]),
                 "parts": {n: on_screen(b) for n, b in boxes.items() if n != "card"},
-                "key": key, "key_h": key_h, "caps": self.caption_boxes(si, t_abs), "peek": self.peek_box(si, t_abs),
-                "scroll_px": round(self.site_scroll(el, t))})
+                "key": key, "key_h": key_h, "first": first, "first_h": first_h, "outline": outline, "n_outlines": len(marks),
+                "caps": self.caption_boxes(si, t_abs), "peek": self.peek_box(si, t_abs),
+                "others": self.other_boxes(si, t, t_abs, cam),
+                "scroll": float(sy) / res, "scroll_px": sy, "edge_hits": hits})
 
     def end_extent(self) -> dict:
         """The end card's widest moment: the right edges of the wordmark and the search box (frame px) over the card."""
@@ -1942,11 +2046,14 @@ def text_gates(st: Story, tl: Timeline, reel: Reel, now: dt.datetime | None = No
         if x.get("box") is None:                # drawn inside a moving element (feed, phone, receipt): no fixed box
             continue
         x0, y0, x1, y1 = x["box"]
-        if not (y0 >= cr.SAFE_TOP and y1 <= cr.SAFE_BOTTOM and x0 >= 0 and x1 <= W):
+        # a site screen takes the frame down to y 1457: its caption band sits under it, above the platforms' bottom 18%
+        bottom = Q.SITE_CAPTION_BOTTOM if (x.get("site") and x["role"] == "caption") else cr.SAFE_BOTTOM
+        if not (y0 >= cr.SAFE_TOP and y1 <= bottom and x0 >= 0 and x1 <= W):
             bad.append([x["role"], x["text"], [round(v) for v in x["box"]]])
         if y1 > cr.RAIL_Y and x1 > cr.RAIL_X:
             rail.append([x["role"], x["text"]])
-    s["safe_zones"], d["safe_zones"] = not bad and not rail, {"outside": bad, "under_right_rail": rail}
+    s["safe_zones"], d["safe_zones"] = not bad and not rail, {"outside": bad, "under_right_rail": rail,
+                                                              "bottom": cr.SAFE_BOTTOM, "site_caption_bottom": Q.SITE_CAPTION_BOTTOM}
     # screenshots are the real captures
     real = {}
     ok_all = True
@@ -2165,11 +2272,13 @@ def compare_sheet(mp4: Path, ffmpeg: str, st: Story, tl: Timeline, path: Path, s
     cap = sc["img"].crop((0, y0, sc["size"][0], y1))
     cap = cap.resize((round(cap.size[0] * k), round(cap.size[1] * k)), Image.LANCZOS)
     fh, fw = round(H * scale), round(W * scale)
-    scr_a, scr_b = ea.get("scroll") or {}, eb.get("scroll") or {}
+    scr_a = ea.get("scroll") or {}
     hl = next((e for e in st.shots[ib]["els"] if e.get("t") == "highlight"), {})
-    times = [("the card's top", tl.starts[ia] + max(0.45, 0.8 * float(scr_a.get("at", 0.6))))]
-    if float(scr_a.get("dur", 0.0)) > 0 and scr_a.get("y0") != scr_a.get("y1"):
-        times.append(("the end of the scroll", min(tl.ends[ia] - 0.04, tl.starts[ia] + float(scr_a["at"]) + float(scr_a["dur"]) + 0.12)))
+    moves = float(scr_a.get("dur", 0.0)) > 0 and scr_a.get("y0") != scr_a.get("y1")
+    stand = float(scr_a.get("at", 1.2)) if moves else tl.ends[ia] - tl.starts[ia]
+    times = [("the card's top, standing", tl.starts[ia] + min(max(0.45, 0.8 * stand), stand - 0.05))]
+    if moves:
+        times.append(("the end of the scroll, standing", min(tl.ends[ia] - 0.04, tl.starts[ia] + float(scr_a["at"]) + float(scr_a["dur"]) + 0.2)))
     times.append(("the key, outlined in place", min(tl.ends[ib] - 0.1, tl.starts[ib] + float(hl.get("at", 0.6)) + 0.9)))
     frames = [(lab, t, frame_at(mp4, ffmpeg, t).resize((fw, fh), Image.LANCZOS)) for lab, t in times]
     cols = [cap.crop((0, y, cap.size[0], min(cap.size[1], y + fh))) for y in range(0, cap.size[1], fh)]
@@ -2244,8 +2353,11 @@ def run(a, out: Path, ctx: dict) -> int:
     summary["payoff_brand"], details["payoff_brand"] = Q.payoff_brand_gate(reel.brand_samples, FPS)
     summary["pill_clear"], details["pill_clear"] = Q.pill_clear_gate(reel.pill_samples)
     if st.feature:                         # the site screen: the card whole, large, uncovered, the key in place
-        summary["site_card_whole"], details["site_card_whole"] = Q.site_card_whole_gate(reel.site_samples, FPS, (W, H))
+        summary["site_card_whole"], details["site_card_whole"] = Q.site_card_whole_gate(
+            reel.site_samples, FPS, (W, H), Q.site_charts(st.feature.get("site") or {}))
         summary["card_width"], details["card_width"] = Q.card_width_gate(reel.site_samples, FPS, frame_w=W)
+        summary["edge_clear"], details["edge_clear"] = Q.edge_clear_gate(reel.site_samples, FPS)
+        summary["thumb_scroll"], details["thumb_scroll"] = Q.thumb_scroll_gate(reel.site_samples, FPS)
         summary["no_overlap"], details["no_overlap"] = Q.no_overlap_gate(reel.site_samples)
         summary["key_in_place"], details["key_in_place"] = Q.key_in_place_gate(reel.site_samples, FPS, (W, H))
         if not (st.feature.get("site") or {}).get("header"):
@@ -2287,6 +2399,8 @@ def run(a, out: Path, ctx: dict) -> int:
         "format": "v4 one idea, brand always clear (owner verdict 2026-11-09)", "template": st.doc.get("template"),
         "feature": st.feature and {"id": st.feature["id"], "url": st.feature["url"], "answers": st.feature.get("answers"),
                                    "title": st.feature.get("title"), "post_note": st.feature.get("post_note"),
+                                   "hold": st.feature.get("hold"),
+                                   "logos_for_human_look": (details.get("feature_capture") or {}).get("logos"),
                                    "lands_on": st.feature.get("lands_on") or st.feature["url"],
                                    "spoken": (details.get("feature_story") or {}).get("spoken"),
                                    "values": (details.get("feature_story") or {}).get("values"),
@@ -2316,6 +2430,8 @@ def run(a, out: Path, ctx: dict) -> int:
         "captions": [{"text": c["text"], "start": round(c["start"], 3), "end": round(c["end"], 3)} for c in tl.chunks],
         "fonts": dict(cr.FONTS_USED)}))
     bad = [k for k, v in summary.items() if not v]
+    if st.feature and st.feature.get("hold"):
+        print(f"cartoon_reel: HOLD, do not post: {st.feature['hold']}", file=sys.stderr)
     print(f"cartoon_reel: {ctx['iid']}: {'QA passed' if ok else 'QA failed: ' + ', '.join(bad)} "
           f"({mp4.stat().st_size} bytes, {details.get('duration')} s)")
     return 0 if ok else 1

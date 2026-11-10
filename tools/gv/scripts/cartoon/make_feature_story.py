@@ -10,8 +10,11 @@ on website". Three of them had cut the real page into fragment cards (a thin hea
 lifted out of its card, values captured again at 6x). So the payoff is now the SITE SCREEN:
   - the site's real card WHOLE, at phone width, exactly as the website draws it (title, headline and chart together,
     pixels untouched), in one window that takes the frame's width under the brand pill: the card is 940-1010 px wide;
-  - a card taller than the stage is SCROLLED like a thumb over the one capture; nothing is cut out of it;
-  - the key value is outlined IN PLACE on that screen;
+  - a card taller than the stage is SCROLLED like a thumb over the one capture (never faster than 900 px/s, never a
+    jump); nothing is cut out of it;
+  - the page STANDS only where the window's edges cut no row of it (no line of text, bar, logo or chart sliced or
+    sitting on the edge): the window's height and the scroll's stops are solved from the capture's row boxes;
+  - the key value is outlined IN PLACE on that screen, in a frame that also holds a chart whole;
   - the captions sit in a band below the window and Pip's head is small, beside them: nothing covers the screen;
   - the screen is chosen by its visual (the card with the chart), not by a text row.
 The pattern and every other owner rule are the daily short's (make_story.py):
@@ -19,7 +22,7 @@ The pattern and every other owner rule are the daily short's (make_story.py):
   2 CLOSE     Pip does not get it and says where he looks                               "And sells? Checking RapidTradeView."
   3 CLOSE     the phone close: our name and mark, a thumb taps the page's real link       (no voice, one tap)
   4 PAYOFF    the site screen: the card from its top; then a thumb scroll to its end     the page's own words
-  5 PAYOFF    the same screen, back on the key, which is outlined where it stands        the page's own words
+  5 PAYOFF    the same screen, on the key, which is outlined where it stands             the page's own words
   6 CALLBACK  one word                                                                    "Oh."
   7 END       "Search RapidTradeView. Not investment advice."
 
@@ -30,11 +33,14 @@ stops with exit 2, and writes no story, when
   - the page is in an error or loading state, or says one of the feature's refuse_if texts,
   - a provider or source brand is on what the strip shows,
   - the capture is not from today, not from the feature's page, or not the page at phone width,
-  - the card would be narrower than 900 px on screen, or the key would not fit the window,
+  - a picture of the card did not load (an empty logo slot), or the card has no drawn chart,
+  - the card would be narrower than 900 px on screen, the key would not fit the window, or no window height lets the
+    page stand without cutting a row,
   - the filled lines would not pass the number and claim gates against the capture.
 Then render:  cartoon_reel.py --story DIR/story.json --out DIR   (it builds the item from the sidecar again, gates the
 story against the registry and rebuilds it with story_drift: a story edited by hand, its say map included, fails
-feature_story; site_card_whole, card_width, no_overlap and key_in_place gate the rendered frames).
+feature_story; site_card_whole, card_width, edge_clear, thumb_scroll, no_overlap and key_in_place gate the rendered
+frames).
 """
 from __future__ import annotations
 
@@ -54,23 +60,31 @@ Q = M.Q
 cr = Q.cr
 TEMPLATE = "rtv-cartoon-feature/2"
 PAGE = Q.PAGE
-# The site screen's place in the 1080 x 1920 frame. The brand pill ends at y 333 and the platform's bottom UI starts at
-# y 1520 (card_reel.SAFE_BOTTOM): the window stands between them and leaves a band for the captions.
-STAGE_TOP, STAGE_BOTTOM = 342, 1380
+# The site screen's place in the 1080 x 1920 frame. The brand pill ends at y 333; the window starts under it and may run
+# down to y 1457; the caption band sits right under the window and ends above the platforms' bottom 18% (y 1574).
+STAGE_TOP, STAGE_BOTTOM = int(Q.SITE_STAGE[0]), int(Q.SITE_STAGE[1])
 WIN_W = 1040                         # the window: the page at its full phone width, 20 px from each edge of the frame
-CARD_FIT_MIN_W = 900                 # a card that fits the stage whole at this width or more is shown whole, without a
-                                     # scroll (the whole card in one frame is what the owner liked; below it, it scrolls)
-CAPTION = {"x": 600, "y": 1458, "max_w": 640, "size": 80, "plate": [44, 18]}    # the caption band: under the window, right of Pip
-PEEK = {"who": "pip", "expr": "shock", "x": 96, "y": 1476, "hu": 126, "rot": 10}    # small, beside the captions
+CARD_FIT_MIN_W = Q.SITE_CARD_TARGET_W[0]   # a strip that fits the stage whole with its card this wide (940) is shown
+                                     # whole, a little smaller than 1040, without a scroll; below it, it scrolls
+RIM = 5                              # the window's rim (cartoon_reel.SITE_RIM)
+# the caption band under the window, right of Pip's head: (caption size, the band's height with the plate at its pop)
+CAP_SIZES = ((72, 118), (64, 110), (60, 104))
+CAP_GAP = 6                          # px between the window's rim and the caption band
+CAPTION = {"x": 566, "max_w": 700, "plate": [36, 8], "pop": False, "tint": "trade"}
+PEEK = {"who": "pip", "expr": "shock", "x": 88, "hu": 88, "rot": 10}    # small, beside the captions
 ENTER = {"from": [1300, 0], "dur": 0.32}  # the window comes in from the right: it crosses neither the pill nor the captions
-TOP_HOLD, TOP_HOLD_HEADER = 1.1, 1.4      # the window stands on the strip's top first (longer when our header is on it)
-SCROLL_PX_S = 900.0                  # the thumb scroll's speed, frame px per second ...
-SCROLL_MIN_S, REST = 0.5, 0.4        # ... never shorter than this; and the page rests after it
-SHOT4_MAX = 4.9                      # shot 4 at its longest (cartoon_reel.PAYOFF_MAX_SITE is 5.0)
-BACK_PX_S, BACK_MIN_S, BACK_MAX_S = 2400.0, 0.3, 0.5      # the scroll back to the key, at the head of shot 5
-LEAD5, HOLD5, HOLD4 = 0.6, 0.9, 0.3  # shot 5: the page settles on the key, then the voice names it; still beats
+TOP_HOLD = 1.1                       # the window stands on the strip's top first (site.top_hold)
+SCROLL_PX_S = 700.0                  # the thumb scroll's top speed, frame px per second (site.px_s; the gate allows 900)
+CRUISE = 0.85                        # cartoon_reel.cruise: the average speed is this share of the top speed
+SCROLL_MIN_S = 0.45                  # a scroll is never shorter than this
+REST = 0.35                          # the page rests after a scroll before the shot ends
+END_HOLD, END_READ = 1.1, 1.5        # the page stands on the end of the scroll (site.end_hold): in shot 4, or (read_end)
+                                     # in shot 5 while its line is read
+KEY_HOLD = 1.65                      # the outlined key stands at least this long (the gate asks for 1.5 s)
+LEAD5, HOLD5, HOLD4 = 0.35, 0.9, 0.3  # shot 5: the outline lands, then the voice names it; still beats
 OUTLINE, OUTLINE_PAD = 8, [12, 6]    # the outline around the key (px)
 KEY_MARGIN_CSS, KEY_MAX_H_CSS = 8, 72     # the key keeps this far inside the window; a key is a line or a two-line headline
+SOLVE_SPAN, SOLVE_STEP = 240, 3      # the window may be up to this much shorter than the stage to stand on clean edges
 
 
 def has_slots(o) -> bool:
@@ -78,12 +92,11 @@ def has_slots(o) -> bool:
 
 
 def site_targets(feature: dict, values: dict) -> list[str]:
-    """The texts whose DOM boxes the capture records: the key's targets, the line the window opens on while the key is
-    outlined (key.top), and our header's brand when the strip starts at the page header."""
+    """The texts whose DOM boxes the capture records: the key's targets, the first outline's (key.first), and our header's
+    brand when the strip starts at the page header."""
     key = feature["key"]
     out = [Q.fill(t, values) for t in key["targets"]]
-    if key.get("top"):
-        out.append(Q.fill(key["top"], values))
+    out += [Q.fill(t, values) for t in (key.get("first") or {}).get("targets", [])]
     if feature["site"].get("header"):
         out.append(cr.BRAND)
     return list(dict.fromkeys(out))
@@ -94,8 +107,12 @@ def capture_args(feature: dict, values: dict | None) -> list[str]:
     the page text is all it is for); with the values, also the parts and the targets, slots filled."""
     site = feature["site"]
     strip = site["strip"]
+    pad = strip.get("pad", 6)
+    pad = list(pad) if isinstance(pad, list) else [pad]
     args = ["--url", feature["url"], "--viewport", str(feature["viewport"]), "--dpr", str(int(site.get("dpr", Q.SITE_MIN_DPR))),
-            "--strip-top", strip["top"], "--strip-bottom", strip["bottom"], "--strip-pad", str(strip.get("pad", 6))]
+            "--strip-top", strip["top"], "--strip-bottom", strip["bottom"], "--strip-pad", str(pad[0])]
+    if len(pad) > 1:
+        args += ["--strip-pad-bottom", str(pad[1])]
     for sp in site["card"]["box"]:
         args += ["--box", f"card={sp}"]
     if site["card"].get("bottom"):
@@ -116,14 +133,14 @@ def plan_for(feature: dict, values: dict) -> dict:
     claims = feature.get("claims") or {}
     return {
         "kind": f"feature:{feature['id']}", "ticker": values.get(feature.get("ticker") or "") or "",
-        "figure": ln["hook_figure"], "key": ln["key"],
+        "figure": ln["hook_figure"], "key": ln["key"], "first": ln.get("first"), "first_word": ln.get("first_word"),
         "hook": {"vo": ln["hook"], "claim": claims.get("hook")},
         "confused": {"vo": ln["confused"], "claim": claims.get("confused")},
         "fact": {"text": ln["fact_phrase"], "id": claims.get("fact_a"), "a": ln["fact_a"], "b": ln["fact_b"]},
         "claim_a": claims.get("fact_a"), "claim_b": claims.get("fact_b"), "search": ln["search"],
         "search_rate": feature.get("search_rate", 0.11), "search_dur": feature.get("search_dur", 1.5),
         "join": False, "hold4": feature.get("hold4", HOLD4), "hold5": feature.get("hold5", HOLD5),
-        "lead5": feature.get("lead5", LEAD5), "phone": feature.get("phone", "type"),
+        "phone": feature.get("phone", "type"),
     }
 
 
@@ -133,78 +150,177 @@ def _union(boxes: list) -> list[float]:
             max(b[1] + b[3] for b in boxes)]
 
 
+def _mid_run(ok, best: int, lo: int, step: int) -> int:
+    """`best` is the first value (counting down from the top) for which ok() holds: the middle of the unbroken run of
+    values below it that also hold, so that an edge stands in the middle of a gap, not on its rim."""
+    last = best
+    v = best - step
+    while v >= lo and ok(v):
+        last = v
+        v -= step
+    return best - ((best - last) // (2 * step)) * step
+
+
 def site_layout(feature: dict, values: dict, meta: dict) -> dict:
-    """Where the window stands and how the strip moves in it. All scroll values are capture px (the strip row at the
-    window's top). -> {"w", "h", "x", "y", "k" (frame px per capture px), "s0" (the strip's top), "s1" (the end of the
-    scroll: the strip's end), "s_key" (where the page stands while the key is outlined), "card_w" (px on screen),
-    "at", "dur" (the scroll in shot 4), "back" (the scroll back in shot 5, s), "min4" (shot 4's shortest length)}."""
+    """Where the window stands and how the strip moves in it. Scroll values are capture px (the strip row at the window's
+    top). -> {"w", "h", "x", "y" (the window; its top is the stage's top), "k" (frame px per capture px), "card_w",
+    "a" (the first stop: the strip's top), "b" (where the scroll ends), "key" (where the page stands while the key is
+    outlined: a or b), "cap_y", "cap_size", "peek_y" (the caption band under the window), and the times of site_shots}.
+
+    A strip that fits the stage is shown whole. A taller one scrolls between two stops, and the page STANDS only where
+    the window's top and bottom edges cut no row (Q.window_edge_hits over the capture's rows): the window's height is
+    the tallest (down to SOLVE_SPAN px under the stage) for which the first stop, the end stop and the key's stop are all
+    clean, every chart of the card is whole at a stop, and a chart is whole where the key is outlined."""
     sw, sh = meta["png_size"]
     dpr = float(meta.get("dpr") or Q.SITE_MIN_DPR)
-    card = (meta.get("boxes") or {}).get("card")
+    boxes = meta.get("boxes") or {}
+    card = boxes.get("card")
     if not card:
         raise M.TemplateError("the capture has no card box (capture it with --capture)")
+    site = feature["site"]
     stage_h = STAGE_BOTTOM - STAGE_TOP
     w = WIN_W
-    if sh * w / sw > stage_h:                       # taller than the stage: does the whole strip fit a little smaller?
+    fits = sh * w / sw <= stage_h + 1e-6
+    if not fits:                                    # taller than the stage: does the whole strip fit a little smaller?
         fit = int(stage_h * sw / sh)
         if card[2] * fit / sw >= CARD_FIT_MIN_W:
-            w = fit
+            w, fits = fit, True
     k = w / sw
-    h = int(min(stage_h, math.ceil(sh * k - 1e-6)))     # a strip that fits is in the window to its last row
     card_w = card[2] * k
     if card_w < Q.SITE_CARD_MIN_W:
         raise M.TemplateError(f"the card would be {card_w:.0f} px wide on screen (at least {Q.SITE_CARD_MIN_W:.0f}): "
                               "capture the page at phone width")
-    vis = h / k                                     # capture rows the window shows
-    smax = max(0.0, sh - vis)
-    if smax < 1.5:                                  # less than a pixel and a half to scroll: it fits
-        smax = 0.0
-    kb = _union([M._box(meta, t) for t in Q.feature_lines(feature, values)["key"]])
-    if kb[3] - kb[1] > KEY_MAX_H_CSS * dpr:
-        raise M.TemplateError(f"the key's targets span {(kb[3] - kb[1]) / dpr:.0f} CSS px of height: they are not one line "
-                              "or headline (a target matched another place on the page)")
-    if (kb[3] - kb[1]) * k < Q.SITE_KEY_MIN_H:
-        raise M.TemplateError(f"the key would be {(kb[3] - kb[1]) * k:.0f} px tall on screen (at least {Q.SITE_KEY_MIN_H:.0f})")
-    if not (card[0] - 1 <= kb[0] and kb[2] <= card[0] + card[2] + 1 and card[1] - 1 <= kb[1] and kb[3] <= card[1] + card[3] + 1):
-        raise M.TemplateError("the key's targets are not on the card")
+    ln = Q.feature_lines(feature, values)
+    kb = _union([M._box(meta, t) for t in ln["key"]])
+    fb = _union([M._box(meta, t) for t in ln["first"]]) if ln.get("first") else None
+    for what, b_, floor in (("key", kb, Q.SITE_KEY_MIN_H), ("first outline", fb, Q.SITE_FIRST_MIN_H)):
+        if b_ is None:
+            continue
+        if b_[3] - b_[1] > KEY_MAX_H_CSS * dpr:
+            raise M.TemplateError(f"the {what}'s targets span {(b_[3] - b_[1]) / dpr:.0f} CSS px of height: they are not one "
+                                  "line or headline (a target matched another place on the page)")
+        if (b_[3] - b_[1]) * k < floor:
+            raise M.TemplateError(f"the {what} would be {(b_[3] - b_[1]) * k:.0f} px tall on screen (at least {floor:.0f})")
+        if not (card[0] - 1 <= b_[0] and b_[2] <= card[0] + card[2] + 1 and card[1] - 1 <= b_[1] and b_[3] <= card[1] + card[3] + 1):
+            raise M.TemplateError(f"the {what}'s targets are not on the card")
     m = KEY_MARGIN_CSS * dpr
+    charts = [boxes[c] for c in Q.site_charts(site) if c in boxes]
+    if not charts:
+        raise M.TemplateError("the capture has no chart box: the card is shown for its visual")
+    end_show = [boxes[n] for n in site.get("end", []) if n in boxes]
 
-    def shows(s_: float) -> bool:
-        return s_ + m <= kb[1] and kb[3] <= s_ + vis - m
+    def inside(s_: float, vis: float, b_, margin: float = 0.0) -> bool:      # b_: (x0, y0, x1, y1)
+        return s_ + margin <= b_[1] and b_[3] <= s_ + vis - margin
 
-    s0, s1 = 0.0, smax
-    top = feature["key"].get("top")
-    # while the key is outlined the window opens on the line the registry names (key.top), else on the card's top (the
-    # strip's top when the strip starts at the card): the card's title is never cut in half by the window's edge
-    anchor = M._box(meta, Q.target_name(Q.fill(top, values)))[1] - m if top else (0.0 if card[1] < 3 * m else card[1] - m)
-    s_key = min(smax, max(0.0, anchor))
-    if not shows(s_key):
-        s_key = s1 if shows(s1) else min(smax, max(0.0, (kb[1] + kb[3]) / 2 - vis / 2))    # where the scroll ends, or centred
-    if not shows(s_key):
+    def box_in(s_: float, vis: float, b_) -> bool:                           # b_: [x, y, w, h]
+        return s_ - 1 <= b_[1] and b_[1] + b_[3] <= s_ + vis + 1
+
+    if fits:
+        h = int(min(stage_h, math.ceil(sh * k - 1e-6)))     # a strip that fits is in the window to its last row
+        a = b = s_key = 0.0
+    else:
+        rows = Q.content_rows(meta)
+        if not rows:
+            raise M.TemplateError("the capture lists no rows of the page (content): capture it again")
+        air = Q.SITE_EDGE_AIR / k
+        card_end = card[1] + card[3]
+
+        def clean(top: float, vis: float) -> bool:
+            return not Q.window_edge_hits(rows, top, top + vis, sh, air)
+
+        def solve(h_: int):
+            """(a, b, key stop) for a window h_ px tall, or None."""
+            vis = float(min(sh, round(h_ / k)))              # the strip rows the window shows (cartoon_reel.site_geom)
+            smax = sh - vis
+            if smax < 3 * dpr or not clean(0.0, vis):
+                return None
+            lo = max(3 * dpr, card_end - vis)                # the end stop reaches the card's last row
+
+            def ok_b(s_: int) -> bool:
+                return (clean(float(s_), vis) and all(box_in(s_, vis, e_) for e_ in end_show)
+                        and (inside(0.0, vis, kb, m) or inside(s_, vis, kb, m)))
+
+            top = int(smax)
+            b_ = next((s_ for s_ in range(top, int(lo) - 1, -1) if ok_b(s_)), None)
+            if b_ is None:
+                return None
+            if b_ != top:
+                b_ = _mid_run(ok_b, b_, max(int(lo), b_ - int(4 * air)), 1)
+            key_ = 0.0 if inside(0.0, vis, kb, m) else float(b_)
+            if not all(box_in(0.0, vis, c_) or box_in(b_, vis, c_) for c_ in charts):
+                return None                                  # a chart that is whole at no stop
+            if not any(box_in(key_, vis, c_) for c_ in charts):
+                return None                                  # the key would be outlined without a chart in the frame
+            if fb is not None and not inside(0.0, vis, fb, m):
+                return None                                  # the first outline is drawn on the strip's top
+            return 0.0, float(b_), key_
+
+        lo_h = stage_h - SOLVE_SPAN
+        h = next((h_ for h_ in range(stage_h, lo_h - 1, -SOLVE_STEP) if solve(h_)), None)
+        if h is None:
+            raise M.TemplateError(
+                f"no window from {lo_h} to {stage_h} px tall lets the page stand without cutting a row, with every chart "
+                "whole at a stop and a chart beside the outlined key: change the strip (site.strip), or do not make it today")
+        h = _mid_run(lambda v: solve(v) is not None, h, max(lo_h, h - 4 * int(Q.SITE_EDGE_AIR)), SOLVE_STEP)
+        a, b, s_key = solve(h)
+    vis = float(min(sh, round(h / k)))
+    if not inside(s_key, vis, kb, m if not fits else 0.0):
         raise M.TemplateError("the key does not fit the window")
-    # how long the window stands on the strip's top before it scrolls (site.top_hold: a longer line read over the top)
-    at = float(feature["site"].get("top_hold", TOP_HOLD_HEADER if feature["site"].get("header") else TOP_HOLD))
-    dist = (s1 - s0) * k
-    dur = 0.0 if dist < 1 else round(min(max(dist / SCROLL_PX_S, SCROLL_MIN_S), SHOT4_MAX - at - REST), 2)
-    back_px = abs(s_key - s1) * k
-    back = 0.0 if back_px < 1 else round(min(max(back_px / BACK_PX_S, BACK_MIN_S), BACK_MAX_S), 2)
-    return {"w": int(w), "h": h, "x": 540, "y": round(STAGE_TOP + (stage_h - h) / 2 + h / 2), "k": k,
-            "s0": round(s0, 1), "s1": round(s1, 1), "s_key": round(s_key, 1), "card_w": round(card_w, 1),
-            "at": at, "dur": dur, "back": back, "min4": round(at + dur + REST, 2) if dur else 0.0}
+    # the caption band: right under the window, as large as the room above the platforms' bottom UI allows
+    bottom = STAGE_TOP + h
+    room = Q.SITE_CAPTION_BOTTOM - (bottom + RIM + CAP_GAP)
+    cap = next(((size, band) for size, band in CAP_SIZES if band <= room), None)
+    if cap is None:
+        raise M.TemplateError("no room for the caption band under the window")
+    cap_y = bottom + RIM + CAP_GAP + cap[1] / 2
+    # the times. Shot 4 stands on the strip's top (site.top_hold), scrolls to the end stop and rests there (site.end_hold,
+    # or REST when shot 5's line is read over it). Shot 5: (read_end) stands on the end while its line is read, scrolls
+    # back and the key is outlined; (key on the strip's top) scrolls back first, the outline lands and the line names
+    # it; (key at the end) stays where it is.
+    px_s = float(site.get("px_s", SCROLL_PX_S))
+    dist = abs(b - a) * k
+    dur = 0.0 if dist < 1 else round(max(SCROLL_MIN_S, dist / (px_s * CRUISE)), 2)
+    at = float(site.get("top_hold", TOP_HOLD))
+    read_end = bool(site.get("read_end")) and dur > 0 and s_key == a
+    rest = REST if (read_end or s_key == b or not dur) else float(site.get("end_hold", END_HOLD))
+    lead5 = float(feature.get("lead5", LEAD5))
+    if not dur or s_key == b:                      # no scroll, or the key is where the scroll ended
+        back_at, back, hl_at, lead = 0.0, 0.0, lead5, lead5
+    elif read_end:
+        back_at = float(site.get("end_hold", END_READ))
+        back, hl_at, lead = dur, round(back_at + dur + 0.15, 2), 0.1
+    else:
+        back_at, back = 0.05, dur
+        hl_at = lead = round(max(lead5, back_at + dur + 0.15), 2)
+    return {"w": int(w), "h": int(h), "x": 540, "y": STAGE_TOP + h / 2, "k": k,
+            "a": round(a, 1), "b": round(b, 1), "key": round(s_key, 1), "card_w": round(card_w, 1), "fits": bool(fits),
+            "cap_y": round(cap_y), "cap_size": cap[0], "peek_y": round(cap_y + 6),
+            "at": at, "dur": dur, "min4": round(at + dur + rest, 2) if dur else 0.0,
+            "back_at": back_at, "back": back, "hl_at": hl_at, "lead": lead,
+            "min5": round(hl_at + KEY_HOLD, 2)}
 
 
-def site_shots(plan: dict, L: dict) -> tuple[dict, dict]:
+def site_shots(feature: dict, plan: dict, L: dict) -> tuple[dict, dict]:
     """The two payoff shots of the site screen: (what shot 4 gets, what shot 5 gets), merged over make_story's shots."""
     win = {"t": "site", "name": PAGE, "x": L["x"], "y": L["y"], "w": L["w"], "h": L["h"], "main": True}
     still = {"type": "still"}
-    a_els = [dict(win, scroll={"y0": L["s0"], "y1": L["s1"], "at": L["at"], "dur": L["dur"]}, enter=dict(ENTER))]
-    b_els = [dict(win, scroll={"y0": L["s1"], "y1": L["s_key"], "at": 0.05, "dur": L["back"]}),
-             {"t": "highlight", "target": plan["key"], "at": float(plan["lead5"]), "width": OUTLINE, "pad": OUTLINE_PAD}]
-    a = {"els": a_els, "move": still, "caption": dict(CAPTION), "peek": dict(PEEK, at=0.35, **{"from": [-260, 0]})}
+    pad = list(feature["key"].get("outline_pad", OUTLINE_PAD))
+    caption = dict(CAPTION, y=L["cap_y"], size=L["cap_size"])
+    peek = dict(PEEK, y=L["peek_y"])
+    a_els = [dict(win, scroll={"y0": L["a"], "y1": L["b"], "at": L["at"], "dur": L["dur"]}, enter=dict(ENTER))]
+    if plan.get("first"):                           # the first payoff line's own text, outlined when its word is read
+        first = {"t": "highlight", "target": plan["first"], "at": f"word:{plan['first_word']}", "width": OUTLINE, "pad": pad}
+        if L["dur"]:
+            first["until"] = round(L["at"] - 0.05, 2)   # it leaves before the page moves
+        a_els.append(first)
+    start5 = L["b"]
+    b_els = [dict(win, scroll={"y0": start5, "y1": L["key"], "at": L["back_at"], "dur": L["back"]}),
+             {"t": "highlight", "target": plan["key"], "at": L["hl_at"], "width": OUTLINE, "pad": pad}]
+    a = {"els": a_els, "move": still, "caption": dict(caption), "peek": dict(peek, at=0.35, **{"from": [-260, 0]})}
     if L["min4"]:
         a["min_dur"] = L["min4"]
-    b = {"els": b_els, "move": still, "caption": dict(CAPTION), "peek": dict(PEEK, at=0.0, **{"from": [0, 0]}),
-         "key_number": plan["key"]}
+    b = {"els": b_els, "move": still, "caption": dict(caption), "peek": dict(peek, at=0.0, **{"from": [0, 0]}),
+         "key_number": plan["key"], "lead": L["lead"], "min_dur": L["min5"]}
     return a, b
 
 
@@ -213,11 +329,13 @@ def build_story(feature: dict, values: dict, screens: dict, day: str) -> dict:
     plan = plan_for(feature, values)
     L = site_layout(feature, values, screens[PAGE]["meta"])
     shots, lines = M.story_shots(plan, {"focus4": [540, 868]}, ([], [], {"type": "still"}))
-    a, b = site_shots(plan, L)
+    a, b = site_shots(feature, plan, L)
     for sh, new in ((shots[3], a), (shots[4], b)):
         sh.pop("ring_centre", None)
         sh.update(new, ring_centre=[540, 868])
-    return {
+    for sh in shots[:-1]:                           # every caption draws a figure in the colour the card gives its side
+        sh.setdefault("caption", {})["tint"] = CAPTION["tint"]
+    story = {
         "schema": "rtv-cartoon-story/1",
         "template": {"name": TEMPLATE, "plan": plan["kind"], "made_by": "make_feature_story.py"},
         "feature": {"id": feature["id"], "url": feature["url"], "answers": feature.get("answers"), "values": values},
@@ -227,6 +345,7 @@ def build_story(feature: dict, values: dict, screens: dict, day: str) -> dict:
         "screen_numbers_ack": {},
         "shots": shots,
     }
+    return story
 
 
 DRIFT_KEYS = ("schema", "template", "feature", "item_id", "fact_phrase", "post_date", "voices", "say", "screen_numbers_ack",
@@ -316,11 +435,65 @@ def load_screens(run: Path, names=(PAGE,)) -> dict:
     return out
 
 
+def logos_sheet(run: Path, meta: dict) -> Path | None:
+    """screens/logos.png: every image the strip shows (the ticker logos), enlarged, each with the row beside it, for the
+    human look before the video ships. No check can tell a wrong company's logo from the right one: on 2026-11-10 the
+    site drew another firm's mark beside a ticker on two loads out of three. None when the strip has no image."""
+    from PIL import Image, ImageDraw
+    imgs = [i_ for i_ in meta.get("images") or [] if isinstance(i_, dict) and i_.get("box")]
+    if not imgs:
+        (run / "screens" / "logos.png").unlink(missing_ok=True)
+        return None
+    strip = Image.open(run / "screens" / f"{PAGE}.png").convert("RGB")
+    z, row_w, pad = 3, 700, 12
+    tiles = []
+    for i_ in imgs:
+        x, y, w_, h_ = i_["box"]
+        box = (max(0, int(x - pad)), max(0, int(y - pad)), min(strip.size[0], int(x + row_w)), min(strip.size[1], int(y + h_ + pad)))
+        t_ = strip.crop(box)
+        tiles.append(t_.resize((t_.size[0] * z // 2, t_.size[1] * z // 2), Image.LANCZOS))
+    sheet = Image.new("RGB", (max(t_.size[0] for t_ in tiles) + 2 * pad, sum(t_.size[1] + pad for t_ in tiles) + pad + 40),
+                      (16, 16, 20))
+    d = ImageDraw.Draw(sheet)
+    d.text((pad, 10), f"{len(tiles)} images on the strip: is each the logo of the company named beside it?",
+           font=cr.font("semi", 22), fill=(170, 240, 200))
+    y = 40
+    for t_ in tiles:
+        sheet.paste(t_, (pad, y))
+        y += t_.size[1] + pad
+    out = run / "screens" / "logos.png"
+    sheet.save(out)
+    return out
+
+
 def run_capture(args: list[str], screens: Path, shot_python: str) -> None:
     cmd = [shot_python, "-I", str(HERE / "capture.py"), "--out", str(screens), "--name", PAGE] + args
     r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         raise M.TemplateError(f"capture failed: {(r.stderr or r.stdout).strip()[-400:]}")
+
+
+RUN_OUTPUTS = ("reel_9x16.mp4", "reel.json", "reel-qa.json", "sheet.png", "compare.png", "mix.wav", "vo.wav", "story.json")
+
+
+def shelve_previous(run: Path) -> list[str]:
+    """Before a new capture replaces the run folder's capture: the video that was made from the old one, its story and
+    that capture move to <run>/previous/ (replacing what was there). A run folder never holds a video beside a capture
+    it was not made from: on 2026-11-10 a refused capture was left next to an older video. -> the names moved."""
+    old = [n for n in RUN_OUTPUTS if (run / n).is_file()]
+    if not any(n in old for n in ("reel_9x16.mp4", "reel.json", "reel-qa.json")):
+        return []                                    # no render here: nothing a new capture could orphan
+    prev = run / "previous"
+    (prev / "screens").mkdir(parents=True, exist_ok=True)
+    moved = []
+    for n in old:
+        (run / n).replace(prev / n)
+        moved.append(n)
+    for f in sorted((run / "screens").glob(f"{PAGE}.*")) + [run / "screens" / "logos.png"]:
+        if f.is_file():
+            f.replace(prev / "screens" / f.name)
+            moved.append(f"screens/{f.name}")
+    return moved
 
 
 def capture_feature(feature: dict, run: Path, shot_python: str, now: dt.datetime) -> None:
@@ -347,6 +520,7 @@ def main(argv=None) -> int:
     ap.add_argument("--registry", help="another features.json (tests)")
     ap.add_argument("--list", action="store_true", help="list the registry's features and exit")
     a = ap.parse_args(argv)
+    run = None
     try:
         reg = Q.load_features(a.registry)
         if a.list:
@@ -358,7 +532,9 @@ def main(argv=None) -> int:
         feature = Q.feature_by_id(reg, a.feature)
         run = Path(a.run).resolve()
         run.mkdir(parents=True, exist_ok=True)
-        (run / "story.json").unlink(missing_ok=True)
+        if a.capture or not (run / "reel_9x16.mp4").is_file():
+            (run / "story.json").unlink(missing_ok=True)     # (a folder that holds a render keeps its story until a new
+                                                             # capture shelves both, or a new story replaces it)
         now = dt.datetime.now(dt.timezone.utc)
         if a.capture:
             shot_py = a.shot_python
@@ -367,11 +543,18 @@ def main(argv=None) -> int:
                 if not ops:
                     raise M.TemplateError("no .ops/cache/shot-venv above this script (pass --shot-python)")
                 shot_py = str(ops / "cache" / "shot-venv" / "Scripts" / "python.exe")
+            moved = shelve_previous(run)
+            if moved:
+                print(f"make_feature_story: the previous render moved to {run / 'previous'} ({len(moved)} files)", file=sys.stderr)
             capture_feature(feature, run, shot_py, now)
             now = dt.datetime.now(dt.timezone.utc)
         screens = load_screens(run)
         metas = {n: v["meta"] for n, v in screens.items()}
         values = Q.feature_values(feature, metas)
+        logos = logos_sheet(run, metas[PAGE])       # written before any refusal: a refused capture is looked at too
+        ok_c, det_c = Q.feature_capture_gate(feature, metas, now)
+        if not ok_c:                                # the capture first: a layout cannot be solved on a page that is not it
+            raise Q.FeatureError("; ".join(f"capture {n}: {'; '.join(w)}" for n, w in det_c["problems"].items()))
         story = build_story(feature, values, screens, Q.capture_day(metas))
         probs = check_story(story, feature, metas, now)
         if probs:
@@ -380,11 +563,20 @@ def main(argv=None) -> int:
             story["screens"][s_] = str(Path(story["screens"][s_]).relative_to(run)).replace("\\", "/")
     except (Q.FeatureError, M.TemplateError) as e:
         print(f"make_feature_story: {e}", file=sys.stderr)
+        # a day without a story leaves a record that says why. A folder that still holds a render (no new capture was
+        # asked for) is left as it is: its video, story and QA record belong together
+        if run is not None and run.is_dir() and not (run / "reel_9x16.mp4").is_file():
+            (run / "reel-qa.json").write_text(json.dumps({
+                "schema": "rtv-cartoon-reel-qa/1", "renderer": "make_feature_story.py", "item_id": None, "pass": False,
+                "feature": a.feature, "at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "summary": {"story": False}, "details": {"story": f"no story today, nothing rendered: {e}"}}, indent=1) + "\n",
+                encoding="utf-8")
         return 2
     out = run / "story.json"
     out.write_text(json.dumps(story, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({"story": str(out), "feature": feature["id"], "values": values, "fact_phrase": story["fact_phrase"],
-                      "lines": [s_.get("vo") for s_ in story["shots"] if s_.get("vo")]}, ensure_ascii=False))
+                      "lines": [s_.get("vo") for s_ in story["shots"] if s_.get("vo")],
+                      "logos_to_look_at": str(logos) if logos else None, "hold": feature.get("hold")}, ensure_ascii=False))
     return 0
 
 
