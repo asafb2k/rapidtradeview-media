@@ -1140,7 +1140,8 @@ class Reel:
         corners, (bw, bh) = self._target_world(si, el["target"], t)
         pts = np.array([cam.p(q) for q in corners])
         cen = pts.mean(0)
-        pad = float(el.get("pad", 18.0))
+        pad = el.get("pad", 18.0)                       # px around the text's box: one number, or [sideways, up and down]
+        pad = np.array(pad if isinstance(pad, (list, tuple)) else (pad, pad), float)
         dirs = pts - cen
         unit = np.sign(dirs)
         pts = pts + unit * pad

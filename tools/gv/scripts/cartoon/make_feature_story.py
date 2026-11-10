@@ -51,8 +51,9 @@ HERO_W_MAX = 900                     # the hero card's width at landing (frame p
 HERO_DRIFT, HERO_SHOT_S = 0.012, 4.5 # the camera's drift after landing, and the longest the shot may run (PAYOFF_MAX);
                                      # a slower drift leaves the chart more of the stage (0.02 cost it 4% of its size)
 HERO_AT = 0.5                        # the outline starts once the hero has landed, with the line that names it
-HERO_OUTLINE, HERO_OUTLINE_PAD = 10, 3   # px: a chart label is small: a heavier line than a tag's (8), drawn close to the
-                                         # label (a tag's 18 px ran over the line under the market card's "83%")
+HERO_OUTLINE, HERO_OUTLINE_PAD = 10, [9, 3]   # px: a chart label is small: a heavier line than a tag's (8), drawn close
+                                         # above and below (a tag's 18 px ran over the line under the market card's "83%"),
+                                         # wider at the sides (a glyph's edge runs past its text box)
 SIDE_EXIT = 1400                     # a card that leaves goes off sideways: upwards it passed under the brand pill
 
 
