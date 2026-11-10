@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-10",
-  "generated_at": "2026-11-10T14:30:03Z",
-  "as_of": "2026-11-10T14:30:03Z",
+  "generated_at": "2026-11-10T15:00:03Z",
+  "as_of": "2026-11-10T15:00:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -887,7 +887,7 @@
     "mega_mover": 0,
     "congress_flow": 0,
     "insider_flow": 0,
-    "reddit_buzz": 1,
+    "reddit_buzz": 0,
     "earnings_week_preview": 0,
     "earnings_reaction": 2,
     "sector_rotation": 0,
@@ -976,7 +976,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 126,
+      "tickers_in_items": 127,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -990,7 +990,7 @@
     "market": {
       "market_session": "2026-11-09",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-10T14:30:59.457647+00:00"
+      "flows_as_of": "2026-11-10T15:00:59.577833+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1006,27 +1006,29 @@
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 2,
-        "ranked_below": 128,
+        "repeat": 1,
+        "ranked_below": 129,
         "pillars": 4
       }
     },
     "card_unpinned": {
-      "dropped": 4,
+      "dropped": 5,
       "reasons": [
-        "market_move 2026-11-10-market-move-LIST-3aab82: share card not pinned (the card draws 2026-11-10T14:17:53.249786+00:00 (X-Card-Date), the item 2026-11-09)",
-        "mega_mover NVDA: share card not pinned (the card draws 2026-11-10T14:17:53.249786+00:00 (X-Card-Date), the item 2026-11-09)",
-        "mega_mover AMD: share card not pinned (the card draws 2026-11-10T14:17:53.249786+00:00 (X-Card-Date), the item 2026-11-09)",
-        "breadth_day 2026-11-10-breadth-day-LIST-b56a4b: share card not pinned (the card draws 2026-11-10T14:17:53.249786+00:00 (X-Card-Date), the item 2026-11-09)"
+        "reddit_buzz NVDA: share card not pinned (not served by Pages yet)",
+        "market_move 2026-11-10-market-move-LIST-3aab82: share card not pinned (the card draws 2026-11-10T14:47:55.925796+00:00 (X-Card-Date), the item 2026-11-09)",
+        "mega_mover NVDA: share card not pinned (the card draws 2026-11-10T14:47:55.925796+00:00 (X-Card-Date), the item 2026-11-09)",
+        "mega_mover AMD: share card not pinned (the card draws 2026-11-10T14:47:55.925796+00:00 (X-Card-Date), the item 2026-11-09)",
+        "breadth_day 2026-11-10-breadth-day-LIST-b56a4b: share card not pinned (the card draws 2026-11-10T14:47:55.925796+00:00 (X-Card-Date), the item 2026-11-09)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: market_move 2026-11-10-market-move-LIST-3aab82: share card not pinned (the card draws 2026-11-10T14:17:53.249786+00:00 (X-Card-Date), the item 2026-11-09)",
-    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-10T14:17:53.249786+00:00 (X-Card-Date), the item 2026-11-09)",
-    "not published: mega_mover AMD: share card not pinned (the card draws 2026-11-10T14:17:53.249786+00:00 (X-Card-Date), the item 2026-11-09)",
-    "not published: breadth_day 2026-11-10-breadth-day-LIST-b56a4b: share card not pinned (the card draws 2026-11-10T14:17:53.249786+00:00 (X-Card-Date), the item 2026-11-09)"
+    "not published: reddit_buzz NVDA: share card not pinned (not served by Pages yet)",
+    "not published: market_move 2026-11-10-market-move-LIST-3aab82: share card not pinned (the card draws 2026-11-10T14:47:55.925796+00:00 (X-Card-Date), the item 2026-11-09)",
+    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-10T14:47:55.925796+00:00 (X-Card-Date), the item 2026-11-09)",
+    "not published: mega_mover AMD: share card not pinned (the card draws 2026-11-10T14:47:55.925796+00:00 (X-Card-Date), the item 2026-11-09)",
+    "not published: breadth_day 2026-11-10-breadth-day-LIST-b56a4b: share card not pinned (the card draws 2026-11-10T14:47:55.925796+00:00 (X-Card-Date), the item 2026-11-09)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1059,459 +1061,6 @@
   },
   "api_requests": 136,
   "items": [
-    {
-      "item_id": "2026-11-10-reddit-buzz-NVDA-d0e1eb",
-      "type": "reddit_buzz",
-      "ticker": "NVDA",
-      "tickers": [
-        "NVDA",
-        "RKLB",
-        "ASTS"
-      ],
-      "name": "NVIDIA Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/NVDA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-10-reddit-buzz-NVDA-d0e1eb",
-      "allowed_numbers": [
-        "1199",
-        "1,199",
-        "137",
-        "136.9",
-        "8.8×",
-        "8.8x",
-        "8.8",
-        "8.0×",
-        "8.0x",
-        "8.0",
-        "3.1×",
-        "3.1x",
-        "3.1",
-        "10",
-        "1",
-        "9",
-        "2026-11-09",
-        "Nov 9, 2026",
-        "Nov 9",
-        "20+",
-        "5+",
-        "2026-11-10",
-        "Nov 10, 2026",
-        "Nov 10",
-        "−4.27%",
-        "4.27%",
-        "−4.3%",
-        "4.3%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Reddit mentions of $NVDA (NVIDIA Corporation): 1199 vs a usual day average of 137 (8.8× usual; capture Nov 10). The stock moved −4.27% on Monday, Nov 9. Also running hot: $RKLB 8.0×, $ASTS 3.1×. 9 of the 10 most-mentioned stocks with a close for Nov 9 rose that day.",
-      "dedupe_key": "reddit_buzz:2026-11-10:NVDA",
-      "claim_phrases": [
-        "Reddit mentions of $NVDA hit 8.8× its usual count: 1199 vs 137.",
-        "$NVDA drew 1199 Reddit mentions vs its usual count of 137 (8.8×).",
-        "At 1199 vs 137, Reddit mentions of $NVDA ran 8.8× its usual count.",
-        "Among the 10 most-mentioned stocks on Reddit with 20+ mentions and a usual count of 5+, $NVDA had the highest mentions-vs-usual ratio (8.8× its usual count).",
-        "$NVDA had the highest mentions-vs-usual ratio (8.8× its usual count) among the 10 most-mentioned stocks on Reddit with 20+ mentions and a usual count of 5+.",
-        "Among the 10 most-mentioned stocks on Reddit with 20+ mentions and a usual count of 5+, the highest mentions-vs-usual ratio belonged to $NVDA (8.8× its usual count).",
-        "$NVDA had the most Reddit mentions of the stocks on the buzz card (1199).",
-        "Of the stocks on the buzz card, $NVDA had the most Reddit mentions (1199).",
-        "The most Reddit mentions of the stocks on the buzz card went to $NVDA (1199).",
-        "9 of the 10 most-mentioned stocks with a close for Nov 9 rose that day.",
-        "On Nov 9, 9 of the 10 most-mentioned stocks with a close that day rose.",
-        "Of the 10 most-mentioned stocks with a close for Nov 9, 9 rose that day."
-      ],
-      "pillar": "P4",
-      "capture_date": "2026-11-10",
-      "price_session": "2026-11-09",
-      "usual": {
-        "day_type": "weekday",
-        "captures": 7,
-        "min_captures": 5,
-        "available": 7,
-        "from": "2026-10-30",
-        "to": "2026-11-07",
-        "dates": [
-          "2026-10-30",
-          "2026-10-31",
-          "2026-11-03",
-          "2026-11-04",
-          "2026-11-05",
-          "2026-11-06",
-          "2026-11-07"
-        ]
-      },
-      "lead": {
-        "ticker": "NVDA",
-        "mentions": 1199,
-        "usual": 136.86,
-        "ratio": 8.761,
-        "move": -4.27
-      },
-      "others": [
-        {
-          "ticker": "RKLB",
-          "ratio": 7.967
-        },
-        {
-          "ticker": "ASTS",
-          "ratio": 3.054
-        }
-      ],
-      "top_rows": 10,
-      "fell": 1,
-      "with_close": 10,
-      "angles": [
-        "Reddit mentions of $NVDA hit 8.8× its usual count: 1199 vs 137.",
-        "Among the 10 most-mentioned stocks on Reddit with 20+ mentions and a usual count of 5+, $NVDA had the highest mentions-vs-usual ratio (8.8× its usual count).",
-        "$NVDA moved −4.27% on Monday, Nov 9."
-      ],
-      "market_cap_usd": 4506795770846.357,
-      "magnitude": 3.0,
-      "claims": [
-        {
-          "words": [
-            "most",
-            "top",
-            "led",
-            "biggest"
-          ],
-          "subjects": [
-            "NVDA"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": 1,
-          "within": [],
-          "scope": null,
-          "metric": "mention_ratio",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "unusual|usual|normal|average|more than|\\d\\s*[x\\u00d7]",
-          "says": "$NVDA had the highest mentions-vs-usual ratio of the top 10 Reddit stocks (20+ mentions, usual 5+)"
-        },
-        {
-          "words": [
-            "most",
-            "top",
-            "led"
-          ],
-          "subjects": [
-            "NVDA"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": 1,
-          "within": [],
-          "scope": null,
-          "metric": "mentions",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "mention|talked|discussed",
-          "says": "$NVDA had the most Reddit mentions of the stocks on the buzz card (ETFs are not ranked there)"
-        },
-        {
-          "words": [
-            "most",
-            "top"
-          ],
-          "subjects": [],
-          "kind": "stock",
-          "polarity": null,
-          "rank": 1,
-          "within": [],
-          "scope": null,
-          "metric": "mentions",
-          "universe": null,
-          "date": null,
-          "bare": true,
-          "direction": "mixed",
-          "needs": "mention|talked|discussed",
-          "says": "the 10 most-mentioned stocks on Reddit (the buzz card's rows)"
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "NVDA"
-        ],
-        "numbers": [
-          "8.8×"
-        ]
-      },
-      "trigger": "$NVDA 8.8x usual >= 3.0x",
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "buzz",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-10/cards/market-buzz-2026-11-09-e03b7b36-b7060054-live.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/buzz",
-        "date": "2026-11-09",
-        "fingerprint": "e03b7b36",
-        "file": "market-buzz-2026-11-09-e03b7b36.png",
-        "sha256": "9e80ee29aaca1dacd380ba6c79b4be901bbe7b820dcea0f1084dbc493433499b",
-        "live": true
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-10/cards/market-buzz-2026-11-09-e03b7b36-b7060054-live.png",
-          "kind": "image",
-          "alt": "Reddit mentions of $NVDA (NVIDIA Corporation): 1199 vs a usual day average of 137 (8.8× usual; capture Nov 10). The stock moved −4.27% on Monday, Nov 9. Also running hot: $RKLB 8.0×, $ASTS 3.1×. 9 of the 10 most-mentioned stocks with a close for Nov 9 rose that day."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "ticker_sectors": {
-        "NVDA": "Technology",
-        "RKLB": "Industrials"
-      },
-      "ticker_names": {
-        "NVDA": "NVIDIA Corporation",
-        "RKLB": "Rocket Lab Corporation"
-      },
-      "fact_phrases": [
-        "Reddit mentions of $NVDA: 1199 vs a usual day average of 137.",
-        "$NVDA had 1199 Reddit mentions vs a usual day average of 137.",
-        "1199 Reddit mentions of $NVDA, against a usual day average of 137.",
-        "Reddit mentions of $NVDA ran at 8.8× the usual day average of 137.",
-        "$NVDA drew 8.8× its usual day average of 137 Reddit mentions.",
-        "$NVDA moved −4.27% on Monday, Nov 9.",
-        "$NVDA's move on Monday, Nov 9: −4.27%.",
-        "On Monday, Nov 9, $NVDA moved −4.27%.",
-        "Reddit mentions of $RKLB hit 8.0× its usual count.",
-        "Reddit mentions of $ASTS hit 3.1× its usual count."
-      ],
-      "phrasings": [
-        {
-          "id": "redditbuzz-1cf398.a",
-          "fact": "redditbuzz-1cf398",
-          "variant": "a",
-          "text": "Reddit mentions of $NVDA hit 8.8× its usual count: 1199 vs 137.",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-1cf398.h1",
-          "fact": "redditbuzz-1cf398",
-          "variant": "h1",
-          "text": "$NVDA drew 1199 Reddit mentions vs its usual count of 137 (8.8×).",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-1cf398.h2",
-          "fact": "redditbuzz-1cf398",
-          "variant": "h2",
-          "text": "At 1199 vs 137, Reddit mentions of $NVDA ran 8.8× its usual count.",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-ce7554.a",
-          "fact": "redditbuzz-ce7554",
-          "variant": "a",
-          "text": "Among the 10 most-mentioned stocks on Reddit with 20+ mentions and a usual count of 5+, $NVDA had the highest mentions-vs-usual ratio (8.8× its usual count).",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-ce7554.h1",
-          "fact": "redditbuzz-ce7554",
-          "variant": "h1",
-          "text": "$NVDA had the highest mentions-vs-usual ratio (8.8× its usual count) among the 10 most-mentioned stocks on Reddit with 20+ mentions and a usual count of 5+.",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-ce7554.h2",
-          "fact": "redditbuzz-ce7554",
-          "variant": "h2",
-          "text": "Among the 10 most-mentioned stocks on Reddit with 20+ mentions and a usual count of 5+, the highest mentions-vs-usual ratio belonged to $NVDA (8.8× its usual count).",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-953e78.a",
-          "fact": "redditbuzz-953e78",
-          "variant": "a",
-          "text": "$NVDA had the most Reddit mentions of the stocks on the buzz card (1199).",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-953e78.h1",
-          "fact": "redditbuzz-953e78",
-          "variant": "h1",
-          "text": "Of the stocks on the buzz card, $NVDA had the most Reddit mentions (1199).",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-953e78.h2",
-          "fact": "redditbuzz-953e78",
-          "variant": "h2",
-          "text": "The most Reddit mentions of the stocks on the buzz card went to $NVDA (1199).",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-a9866f.a",
-          "fact": "redditbuzz-a9866f",
-          "variant": "a",
-          "text": "9 of the 10 most-mentioned stocks with a close for Nov 9 rose that day.",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-a9866f.h1",
-          "fact": "redditbuzz-a9866f",
-          "variant": "h1",
-          "text": "On Nov 9, 9 of the 10 most-mentioned stocks with a close that day rose.",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-a9866f.f",
-          "fact": "redditbuzz-a9866f",
-          "variant": "f",
-          "text": "Of the 10 most-mentioned stocks with a close for Nov 9, 9 rose that day.",
-          "claim": true
-        },
-        {
-          "id": "redditbuzz-978126.a",
-          "fact": "redditbuzz-978126",
-          "variant": "a",
-          "text": "Reddit mentions of $NVDA: 1199 vs a usual day average of 137.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-978126.h1",
-          "fact": "redditbuzz-978126",
-          "variant": "h1",
-          "text": "$NVDA had 1199 Reddit mentions vs a usual day average of 137.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-978126.h2",
-          "fact": "redditbuzz-978126",
-          "variant": "h2",
-          "text": "1199 Reddit mentions of $NVDA, against a usual day average of 137.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-a07bf1.a",
-          "fact": "redditbuzz-a07bf1",
-          "variant": "a",
-          "text": "Reddit mentions of $NVDA ran at 8.8× the usual day average of 137.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-a07bf1.h1",
-          "fact": "redditbuzz-a07bf1",
-          "variant": "h1",
-          "text": "$NVDA drew 8.8× its usual day average of 137 Reddit mentions.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-061727.a",
-          "fact": "redditbuzz-061727",
-          "variant": "a",
-          "text": "$NVDA moved −4.27% on Monday, Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-061727.h1",
-          "fact": "redditbuzz-061727",
-          "variant": "h1",
-          "text": "$NVDA's move on Monday, Nov 9: −4.27%.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-061727.t",
-          "fact": "redditbuzz-061727",
-          "variant": "t",
-          "text": "On Monday, Nov 9, $NVDA moved −4.27%.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-5191cf.a",
-          "fact": "redditbuzz-5191cf",
-          "variant": "a",
-          "text": "Reddit mentions of $RKLB hit 8.0× its usual count.",
-          "claim": false
-        },
-        {
-          "id": "redditbuzz-5191cf.a",
-          "fact": "redditbuzz-5191cf",
-          "variant": "a",
-          "text": "Reddit mentions of $ASTS hit 3.1× its usual count.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "4.27%": "-",
-          "4.3%": "-",
-          "1": "-",
-          "9": "+"
-        },
-        "subjects": {
-          "NVDA": "down"
-        }
-      },
-      "subject_numbers": {
-        "NVDA": [
-          [
-            "%",
-            4.27,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "n",
-            1199.0,
-            0,
-            1.0,
-            0
-          ],
-          [
-            "x",
-            8.8,
-            1,
-            1.0,
-            0
-          ],
-          [
-            "n",
-            137.0,
-            0,
-            1.0,
-            0
-          ]
-        ],
-        "RKLB": [
-          [
-            "x",
-            8.0,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "ASTS": [
-          [
-            "x",
-            3.1,
-            1,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 13.0,
-      "rank_why": "reddit_buzz 4; mega cap $4506.8B +4; magnitude (market) +3; capture_date 2026-11-10 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
     {
       "item_id": "2026-11-10-earnings-result-VG-814f4b",
       "type": "earnings_result",
@@ -4320,82 +3869,82 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-10-chart-pattern-JCI-3c74b0",
+      "item_id": "2026-11-10-chart-pattern-VST-f99dbc",
       "type": "chart_pattern",
-      "ticker": "JCI",
+      "ticker": "VST",
       "tickers": [
-        "JCI"
+        "VST"
       ],
-      "name": "Johnson Controls International plc",
+      "name": "Vistra Corp.",
       "office": null,
       "amount_text": null,
       "traded": [],
       "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/dashboard/JCI",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/JCI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-10-chart-pattern-JCI-3c74b0#pattern",
+      "source_url": "https://www.rapidtradeview.trade/dashboard/VST",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/VST?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-10-chart-pattern-VST-f99dbc#pattern",
       "allowed_numbers": [
-        "$131.46",
-        "$135.79",
-        "$157.06",
-        "$160.41",
-        "$135.03",
-        "Nov 5",
-        "Aug 5",
-        "Sep 14",
-        "Oct 6",
-        "Nov 6",
+        "$120.29",
+        "$134.50",
+        "$171.35",
+        "$168.75",
+        "$133.92",
+        "Nov 4",
+        "Jun 25",
+        "Aug 24",
+        "Oct 8",
+        "Nov 9",
+        "2026-11-10",
+        "Nov 10, 2026",
+        "Nov 10",
+        "2026-06-25",
+        "Jun 25, 2026",
+        "2026-10-08",
+        "Oct 8, 2026",
+        "2026-11-04",
+        "Nov 4, 2026",
         "2026-11-09",
         "Nov 9, 2026",
-        "Nov 9",
-        "2026-08-05",
-        "Aug 5, 2026",
-        "2026-10-06",
-        "Oct 6, 2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "2026-11-06",
-        "Nov 6, 2026",
-        "2026-09-14",
-        "Sep 14, 2026"
+        "2026-08-24",
+        "Aug 24, 2026"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Automatic technical analysis flagged a double top on $JCI (Johnson Controls International plc) (scan 2026-11-09): pattern 2026-08-05 to 2026-10-06. Confirmed Nov 5: closed $131.46, clearly below the $135.79 neckline.",
-      "dedupe_key": "pattern:JCI:double_top:confirmed:2026-11-05",
+      "facts_text": "Automatic technical analysis flagged a double top on $VST (Vistra Corp.) (scan 2026-11-10): pattern 2026-06-25 to 2026-10-08. Confirmed Nov 4: closed $120.29, clearly below the $134.50 neckline.",
+      "dedupe_key": "pattern:VST:double_top:confirmed:2026-11-04",
       "claim_phrases": [],
-      "scan_date": "2026-11-09",
+      "scan_date": "2026-11-10",
       "pattern": {
         "type": "double_top",
         "name": "Double top",
         "status": "confirmed",
         "direction": "down",
-        "start": "2026-08-05",
-        "end": "2026-10-06",
-        "start_text": "Aug 5, 2026",
-        "end_text": "Oct 6, 2026",
-        "confirmed_on": "2026-11-05",
-        "as_of": "2026-11-06"
+        "start": "2026-06-25",
+        "end": "2026-10-08",
+        "start_text": "Jun 25, 2026",
+        "end_text": "Oct 8, 2026",
+        "confirmed_on": "2026-11-04",
+        "as_of": "2026-11-09"
       },
       "levels": {
         "key_level_name": "neckline",
-        "key_level": "$135.79",
-        "breakout_close": "$131.46"
+        "key_level": "$134.50",
+        "breakout_close": "$120.29"
       },
       "page_text": {
-        "pill": "Double top · Confirmed Nov 5",
-        "chip": "Confirmed Nov 5",
-        "detail": "confirmed by the Nov 5 close of $131.46 · neckline $135.79",
+        "pill": "Double top · Confirmed Nov 4",
+        "chip": "Confirmed Nov 4",
+        "detail": "confirmed by the Nov 4 close of $120.29 · neckline $134.50",
         "what": "Two peaks at about the same price, with a dip between them.",
         "key": [
-          "Confirmed Nov 5: closed $131.46, clearly below the $135.79 neckline.",
-          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $135.79."
+          "Confirmed Nov 4: closed $120.29, clearly below the $134.50 neckline.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $134.50."
         ],
         "points": [
-          "Peak 1 $157.06 on Aug 5",
-          "Low between $135.79 on Sep 14",
-          "Peak 2 $160.41 on Oct 6",
-          "Nov 5 closed $131.46: confirmed · last close $135.03 (Nov 6)"
+          "Peak 1 $171.35 on Jun 25",
+          "Low between $134.50 on Aug 24",
+          "Peak 2 $168.75 on Oct 8",
+          "Nov 4 closed $120.29: confirmed · last close $133.92 (Nov 9)"
         ]
       },
       "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
@@ -4405,15 +3954,15 @@
       ],
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/dashboard/JCI/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/VST/opengraph-image",
           "kind": "image",
-          "alt": "RapidTradeView research card for JCI: recent price, trend, analyst and filing summary."
+          "alt": "RapidTradeView research card for VST: recent price, trend, analyst and filing summary."
         }
       ],
-      "rank": 5.5,
-      "rank_why": "chart_pattern 1; large cap $81.79B +2.5; magnitude (pattern) +0.5; scan_date 2026-11-09 (age 1) +1.5",
+      "rank": 6.0,
+      "rank_why": "chart_pattern 1; large cap $42.31B +2.5; magnitude (pattern) +0.5; scan_date 2026-11-10 (age 0) +2",
       "pillar": "PX",
-      "market_cap_usd": 81793267129.66135,
+      "market_cap_usd": 42307203072.0,
       "market_cap_source": "market_map",
       "cap_tier": "large",
       "in_500": true,
@@ -4421,11 +3970,11 @@
         "2026-11-09",
         "Nov 9, 2026",
         "Nov 9",
-        "$81.8B",
-        "+4.78%",
-        "4.78%",
-        "+4.8%",
-        "4.8%"
+        "$42.3B",
+        "+7.31%",
+        "7.31%",
+        "+7.3%",
+        "7.3%"
       ],
       "context_tickers": [],
       "trigger": null,
@@ -4433,150 +3982,150 @@
       "claims": [],
       "headline": {
         "tickers": [
-          "JCI"
+          "VST"
         ],
         "numbers": []
       },
       "ticker_sectors": {
-        "JCI": "Industrials"
+        "VST": "Utilities"
       },
       "ticker_names": {
-        "JCI": "Johnson Controls International plc"
+        "VST": "Vistra Corp."
       },
       "context": {
-        "market_cap": "$81.8B",
+        "market_cap": "$42.3B",
         "market_cap_session": "2026-11-09",
         "last_session_move": {
-          "pct": "+4.78%",
+          "pct": "+7.31%",
           "session": "2026-11-09"
         }
       },
       "angles": [
-        "Automatic technical analysis flagged a double top on $JCI (scan Nov 9).",
-        "A double top on $JCI was flagged by automatic technical analysis (scan Nov 9).",
-        "The $JCI double top pattern ran from Aug 5 to Oct 6."
+        "Automatic technical analysis flagged a double top on $VST (scan Nov 10).",
+        "A double top on $VST was flagged by automatic technical analysis (scan Nov 10).",
+        "The $VST double top pattern ran from Jun 25 to Oct 8."
       ],
       "fact_phrases": [
-        "Automatic technical analysis flagged a double top on $JCI (scan Nov 9).",
-        "A double top on $JCI was flagged by automatic technical analysis (scan Nov 9).",
-        "The $JCI double top pattern ran from Aug 5 to Oct 6.",
-        "From Aug 5 to Oct 6, $JCI formed the double top pattern.",
-        "$JCI closed at $131.46 on Nov 5, below the $135.79 neckline.",
-        "On Nov 5, $JCI closed at $131.46, below the $135.79 neckline.",
-        "$JCI had a market value of $81.8B at the Nov 9 close.",
-        "$JCI's market value at the Nov 9 close was $81.8B.",
-        "At the Nov 9 close, $JCI had a market value of $81.8B.",
-        "$JCI moved +4.78% on Monday, Nov 9.",
-        "$JCI's move on Monday, Nov 9: +4.78%.",
-        "On Monday, Nov 9, $JCI moved +4.78%."
+        "Automatic technical analysis flagged a double top on $VST (scan Nov 10).",
+        "A double top on $VST was flagged by automatic technical analysis (scan Nov 10).",
+        "The $VST double top pattern ran from Jun 25 to Oct 8.",
+        "From Jun 25 to Oct 8, $VST formed the double top pattern.",
+        "$VST closed at $120.29 on Nov 4, below the $134.50 neckline.",
+        "On Nov 4, $VST closed at $120.29, below the $134.50 neckline.",
+        "$VST had a market value of $42.3B at the Nov 9 close.",
+        "$VST's market value at the Nov 9 close was $42.3B.",
+        "At the Nov 9 close, $VST had a market value of $42.3B.",
+        "$VST moved +7.31% on Monday, Nov 9.",
+        "$VST's move on Monday, Nov 9: +7.31%.",
+        "On Monday, Nov 9, $VST moved +7.31%."
       ],
       "phrasings": [
         {
           "id": "chartpatte-35f5b7.a",
           "fact": "chartpatte-35f5b7",
           "variant": "a",
-          "text": "Automatic technical analysis flagged a double top on $JCI (scan Nov 9).",
+          "text": "Automatic technical analysis flagged a double top on $VST (scan Nov 10).",
           "claim": false
         },
         {
           "id": "chartpatte-35f5b7.h1",
           "fact": "chartpatte-35f5b7",
           "variant": "h1",
-          "text": "A double top on $JCI was flagged by automatic technical analysis (scan Nov 9).",
+          "text": "A double top on $VST was flagged by automatic technical analysis (scan Nov 10).",
           "claim": false
         },
         {
           "id": "chartpatte-4b3265.a",
           "fact": "chartpatte-4b3265",
           "variant": "a",
-          "text": "The $JCI double top pattern ran from Aug 5 to Oct 6.",
+          "text": "The $VST double top pattern ran from Jun 25 to Oct 8.",
           "claim": false
         },
         {
           "id": "chartpatte-4b3265.h1",
           "fact": "chartpatte-4b3265",
           "variant": "h1",
-          "text": "From Aug 5 to Oct 6, $JCI formed the double top pattern.",
+          "text": "From Jun 25 to Oct 8, $VST formed the double top pattern.",
           "claim": false
         },
         {
           "id": "chartpatte-c8953c.a",
           "fact": "chartpatte-c8953c",
           "variant": "a",
-          "text": "$JCI closed at $131.46 on Nov 5, below the $135.79 neckline.",
+          "text": "$VST closed at $120.29 on Nov 4, below the $134.50 neckline.",
           "claim": false
         },
         {
           "id": "chartpatte-c8953c.h1",
           "fact": "chartpatte-c8953c",
           "variant": "h1",
-          "text": "On Nov 5, $JCI closed at $131.46, below the $135.79 neckline.",
+          "text": "On Nov 4, $VST closed at $120.29, below the $134.50 neckline.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.a",
           "fact": "chartpatte-426192",
           "variant": "a",
-          "text": "$JCI had a market value of $81.8B at the Nov 9 close.",
+          "text": "$VST had a market value of $42.3B at the Nov 9 close.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.h1",
           "fact": "chartpatte-426192",
           "variant": "h1",
-          "text": "$JCI's market value at the Nov 9 close was $81.8B.",
+          "text": "$VST's market value at the Nov 9 close was $42.3B.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.t",
           "fact": "chartpatte-426192",
           "variant": "t",
-          "text": "At the Nov 9 close, $JCI had a market value of $81.8B.",
+          "text": "At the Nov 9 close, $VST had a market value of $42.3B.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.a",
           "fact": "chartpatte-061727",
           "variant": "a",
-          "text": "$JCI moved +4.78% on Monday, Nov 9.",
+          "text": "$VST moved +7.31% on Monday, Nov 9.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.h1",
           "fact": "chartpatte-061727",
           "variant": "h1",
-          "text": "$JCI's move on Monday, Nov 9: +4.78%.",
+          "text": "$VST's move on Monday, Nov 9: +7.31%.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.t",
           "fact": "chartpatte-061727",
           "variant": "t",
-          "text": "On Monday, Nov 9, $JCI moved +4.78%.",
+          "text": "On Monday, Nov 9, $VST moved +7.31%.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "4.78%": "+",
-          "4.8%": "+"
+          "7.31%": "+",
+          "7.3%": "+"
         },
         "subjects": {
-          "JCI": "up"
+          "VST": "up"
         }
       },
       "subject_numbers": {
-        "JCI": [
+        "VST": [
           [
             "%",
-            4.78,
+            7.31,
             2,
             1.0,
             1
           ],
           [
             "$",
-            81.8,
+            42.3,
             1,
             1000000000.0,
             0
@@ -5149,8 +4698,8 @@
         "$3.5B",
         "$503M",
         "+$503M",
-        "$503.1M",
-        "+$503.1M",
+        "$503.2M",
+        "+$503.2M",
         "$3.6B",
         "+$3.6B",
         "$4B",
@@ -5174,8 +4723,8 @@
           "numbers": [
             "$503M",
             "+$503M",
-            "$503.1M",
-            "+$503.1M",
+            "$503.2M",
+            "+$503.2M",
             "$3.6B",
             "+$3.6B",
             "$4B",
@@ -5336,7 +4885,7 @@
       "moves": {
         "numbers": {
           "$503M": "+",
-          "$503.1M": "+",
+          "$503.2M": "+",
           "$3.6B": "+",
           "$4B": "+"
         },
@@ -5707,8 +5256,8 @@
         "$3.9B",
         "$503M",
         "+$503M",
-        "$503.1M",
-        "+$503.1M",
+        "$503.2M",
+        "+$503.2M",
         "$3.6B",
         "+$3.6B",
         "$4B",
@@ -5732,8 +5281,8 @@
           "numbers": [
             "$503M",
             "+$503M",
-            "$503.1M",
-            "+$503.1M",
+            "$503.2M",
+            "+$503.2M",
             "$3.6B",
             "+$3.6B",
             "$4B",
@@ -5894,7 +5443,7 @@
       "moves": {
         "numbers": {
           "$503M": "+",
-          "$503.1M": "+",
+          "$503.2M": "+",
           "$3.6B": "+",
           "$4B": "+"
         },
@@ -30624,7 +30173,7 @@
       "rank": 4.5,
       "rank_why": "moves_like 0.5; large cap $81.79B +2.5; session 2026-11-09 (age 1) +1.5",
       "top8": false,
-      "top8_out": "repeat: leads with $JCI like 2026-11-10-chart-pattern-JCI-3c74b0",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
