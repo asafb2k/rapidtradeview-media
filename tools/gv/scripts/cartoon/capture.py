@@ -63,6 +63,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))   # tools/: qa_header
+import qa_header as qa  # noqa: E402
+
 JS_FIND = r"""([needle, all, exact]) => {
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const hits = [];
@@ -284,6 +287,7 @@ def main(argv=None) -> int:
                             color_scheme="dark",
                             user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 "
                                        "(KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1")
+        qa.mark_browser(ctx)                         # our own capture: not a visitor
         pg = ctx.new_page()
         failed_images: list[str] = []
 

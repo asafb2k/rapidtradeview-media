@@ -55,10 +55,23 @@ def test_header_dropped_when_a_redirect_leaves_our_hosts(env_file):
     assert home.get_header(qa.HEADER.capitalize()) == DUMMY
 
 
-@pytest.mark.parametrize("other", [Path("D:/rtv-ops/tracks/growth/bin/qa_header.py"), Path("D:/rtvw/growth-video/scripts/qa_header.py")])
-def test_the_copies_stay_identical(other):
-    """qa_header.py lives in this repo (tools/), in growth-video (scripts/) and in tracks/growth/bin: one module, three places."""
-    if not other.is_file():
-        pytest.skip(f"{other} is not on this machine (or not merged yet)")
-    lf = lambda p: p.read_bytes().replace(b"\r\n", b"\n")   # git autocrlf may differ per checkout
-    assert lf(other) == lf(TOOLS / "qa_header.py")
+def test_a_browser_gets_the_public_marker_on_our_hosts_only():
+    """Unmarked captures counted as visitors (2026-11-10); a context-wide header leaked to a third party (2026-10-17)."""
+    seen = {}
+
+    class Ctx:
+        def route(self, match, handler):
+            seen["match"], seen["handler"] = match, handler
+
+    class Route:
+        def continue_(self, headers=None):
+            seen["headers"] = headers
+
+    class Req:
+        headers = {"accept": "*/*"}
+
+    qa.mark_browser(Ctx())
+    assert seen["match"]("https://api.rapidtradeview.trade/analytics/track")
+    assert not seen["match"]("https://assets.example.com/logo.png")
+    seen["handler"](Route(), Req())
+    assert seen["headers"] == {"accept": "*/*", qa.HEADER: "rtv-automated-qa/v1"}

@@ -2,7 +2,7 @@
 
 api.rapidtradeview.trade, api-rs-prod-production.up.railway.app and www.rapidtradeview.trade answer 403 to
 non-browser clients except verified crawlers. Our own scripts send  X-RTV-Automated-QA: <RTV_QA_MARKER_SECRET>.
-The value is read at runtime from D:/rtv-ops/secrets/access-keys.env (KEY=VALUE lines), sent only to OUR_HOSTS
+The value is read at runtime from D:/Coding_projects/rtv-ops/secrets/access-keys.env (KEY=VALUE lines), sent only to OUR_HOSTS
 (never github.io, sec.gov, a favicon host, ...), dropped again if a redirect leaves our hosts, and never printed,
 logged, written to evidence or put in an error message. A missing file or key keeps the old behaviour (no header)
 and prints one warning line that names the file.
@@ -11,8 +11,10 @@ and prints one warning line that names the file.
     with qa.urlopen(urllib.request.Request(url, headers={...}), timeout=30) as r: ...   # drop-in for urllib
     requests.get(url, headers={**qa.headers_for(url), ...})                              # or any other client
 
-The same file lives in rapidtradeview-media/tools, growth-video/scripts and D:/rtv-ops/tracks/growth/bin: keep the
-three identical (tools/tests/test_qa_header.py guards it in the media repo).
+A browser never gets the secret: mark_browser(context) puts the PUBLIC analytics marker in the same header on requests
+to our hosts only, which is enough for the API to leave the capture out of the visitor counts.
+
+    ctx = browser.new_context(...); qa.mark_browser(ctx)                                 # Playwright (sync API)
 """
 from __future__ import annotations
 
@@ -26,7 +28,9 @@ from urllib.parse import urlsplit
 
 HEADER = 'X-RTV-Automated-QA'
 KEY = 'RTV_QA_MARKER_SECRET'
-ENV_FILE = Path(os.environ.get('RTV_ACCESS_KEYS_FILE') or 'D:/rtv-ops/secrets/access-keys.env')
+ENV_FILE = Path(os.environ.get('RTV_ACCESS_KEYS_FILE') or 'D:/Coding_projects/rtv-ops/secrets/access-keys.env')
+# Public value the API accepts in HEADER for analytics only (backend ANALYTICS_QA_PAYLOAD_MARKER); it grants no access.
+BROWSER_MARKER = 'rtv-automated-qa/v1'
 OUR_HOSTS = frozenset({
     'api.rapidtradeview.trade',
     'www.rapidtradeview.trade',
@@ -107,3 +111,14 @@ def urlopen(req, timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
     if isinstance(req, str):
         req = urllib.request.Request(req)
     return _opener.open(sign(req), timeout=timeout)
+
+
+def mark_browser(context) -> None:
+    """Flag a Playwright context's requests to our hosts as automated QA, so a capture is not counted as a visitor.
+
+    Only the public marker, and only on our hosts: a context-wide header would also reach every third-party host the
+    page loads (the 2026-10-17 leak), so the header is added per request through a route.
+    """
+    def _add(route, request):
+        route.continue_(headers={**request.headers, HEADER: BROWSER_MARKER})
+    context.route(is_ours, _add)
