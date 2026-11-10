@@ -63,9 +63,9 @@ CARD_FIT_MIN_W = 900                 # a card that fits the stage whole at this 
 CAPTION = {"x": 600, "y": 1458, "max_w": 640, "size": 80, "plate": [44, 18]}    # the caption band: under the window, right of Pip
 PEEK = {"who": "pip", "expr": "shock", "x": 96, "y": 1476, "hu": 126, "rot": 10}    # small, beside the captions
 ENTER = {"from": [1300, 0], "dur": 0.32}  # the window comes in from the right: it crosses neither the pill nor the captions
-TOP_HOLD, TOP_HOLD_HEADER = 0.9, 1.4      # the window stands on the strip's top first (longer when our header is on it)
+TOP_HOLD, TOP_HOLD_HEADER = 1.1, 1.4      # the window stands on the strip's top first (longer when our header is on it)
 SCROLL_PX_S = 900.0                  # the thumb scroll's speed, frame px per second ...
-SCROLL_MIN_S, REST = 0.5, 0.3        # ... never shorter than this; and the page rests after it
+SCROLL_MIN_S, REST = 0.5, 0.4        # ... never shorter than this; and the page rests after it
 SHOT4_MAX = 4.9                      # shot 4 at its longest (cartoon_reel.PAYOFF_MAX_SITE is 5.0)
 BACK_PX_S, BACK_MIN_S, BACK_MAX_S = 2400.0, 0.3, 0.5      # the scroll back to the key, at the head of shot 5
 LEAD5, HOLD5, HOLD4 = 0.6, 0.9, 0.3  # shot 5: the page settles on the key, then the voice names it; still beats
@@ -182,7 +182,8 @@ def site_layout(feature: dict, values: dict, meta: dict) -> dict:
         s_key = s1 if shows(s1) else min(smax, max(0.0, (kb[1] + kb[3]) / 2 - vis / 2))    # where the scroll ends, or centred
     if not shows(s_key):
         raise M.TemplateError("the key does not fit the window")
-    at = TOP_HOLD_HEADER if feature["site"].get("header") else TOP_HOLD
+    # how long the window stands on the strip's top before it scrolls (site.top_hold: a longer line read over the top)
+    at = float(feature["site"].get("top_hold", TOP_HOLD_HEADER if feature["site"].get("header") else TOP_HOLD))
     dist = (s1 - s0) * k
     dur = 0.0 if dist < 1 else round(min(max(dist / SCROLL_PX_S, SCROLL_MIN_S), SHOT4_MAX - at - REST), 2)
     back_px = abs(s_key - s1) * k

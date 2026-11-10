@@ -70,7 +70,8 @@
      "headline": ["el:[data-chart=\"insiders\"] h2"],
      "chart": ["all:[data-chart=\"insiders\"] svg[role=\"img\"]"]
     },
-    "header": false
+    "header": false,
+    "top_hold": 1.7
    },
    "values": [
     {"from": "page", "after": "Insider trades", "offset": 2, "rx": "(?P<bought>\\$\\d[\\d.,]*[KMBT]?)", "next": {"bought_word": "bought,"}},

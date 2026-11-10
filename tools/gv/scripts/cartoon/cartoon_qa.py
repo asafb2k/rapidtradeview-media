@@ -1035,6 +1035,9 @@ def registry_problems(reg: dict) -> list[str]:
                 say(f"the strip and the card box are captured before any value is read: no slot in {sp!r}")
         if not isinstance(site.get("header", False), bool):
             say("site.header is true (the strip starts at our page header) or false")
+        hold = site.get("top_hold", 1.0)
+        if isinstance(hold, bool) or not isinstance(hold, (int, float)) or not 0.5 <= hold <= 2.5:
+            say("site.top_hold is 0.5 to 2.5 seconds on the strip's top before the scroll")
         names = _value_names(f)
         for v in f.get("values") or []:
             if v.get("from") != PAGE:
@@ -1553,41 +1556,61 @@ def _cut(a, b) -> list[float]:
     return [max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3])]
 
 
-def site_card_whole_gate(samples: list[dict], fps: int, frame=(1080, 1920)) -> tuple[bool, dict]:
-    """The payoff shows the site's card WHOLE (owner verdict 2026-11-10: "only the last one show the visuals correctly as
-    it shown on website"; the first three cut the page into a headline strip, one table row and a chart lifted out).
-    While the window stands: the card is never cut at its sides; the rows of the card shown over the payoff add up to its
-    whole DOM box, top to bottom (a card taller than the window is scrolled, never cut into pieces); a card that fits the
-    window is whole in one frame for SITE_WHOLE_MIN_S; and each named part (title, headline, chart, ...) is whole on
-    screen for SITE_PART_MIN_S."""
-    fr = [0.0, 0.0, float(frame[0]), float(frame[1])]
-    st = [s_ for s_ in samples if not s_["moving"]]
-    side_cut = [s_ for s_ in st if not (s_["card"][0] >= max(s_["win"][0], 0.0) - 1.5
-                                        and s_["card"][2] <= min(s_["win"][2], fr[2]) + 1.5)]
+def _rows_shown(st: list[dict], box_of, fr) -> tuple[list[float], list | None]:
+    """Which rows of a box the standing frames showed, as shares of its height: ([first, last reached without a gap],
+    the first gap or None)."""
     ivs = []
     for s_ in st:
-        c, vis = s_["card"], _cut(s_["win"], fr)
+        c = box_of(s_)
+        if c is None:
+            continue
+        vis = _cut(s_["win"], fr)
         h = c[3] - c[1]
         a_, b_ = max(c[1], vis[1]), min(c[3], vis[3])
-        if h > 0 and b_ > a_:
+        if h > 0 and b_ > a_ and c[0] >= vis[0] - 1.5 and c[2] <= vis[2] + 1.5:
             ivs.append(((a_ - c[1]) / h, (b_ - c[1]) / h))
+    if not ivs:
+        return [0.0, 0.0], [0.0, 1.0]
     reach, gap = 0.0, None
     for a_, b_ in sorted(ivs):
         if a_ > reach + 0.004:
             gap = [round(reach, 3), round(a_, 3)]
             break
         reach = max(reach, b_)
-    covered = bool(ivs) and gap is None and reach >= 0.996
+    return [round(min(a_ for a_, _b in ivs), 3), round(reach, 3)], gap
+
+
+def site_card_whole_gate(samples: list[dict], fps: int, frame=(1080, 1920)) -> tuple[bool, dict]:
+    """The payoff shows the site's card WHOLE (owner verdict 2026-11-10: "only the last one show the visuals correctly as
+    it shown on website"; the first three cut the page into a headline strip, one table row and a chart lifted out).
+    While the window stands: the card is never cut at its sides; the rows of the card shown over the payoff add up to its
+    whole DOM box, top to bottom (a card taller than the window is scrolled, never cut into pieces); a card that fits the
+    window is whole in one frame for SITE_WHOLE_MIN_S; and each named part (title, headline, chart, ...) is whole on
+    screen for SITE_PART_MIN_S (a part taller than the window itself, two charts one under the other, is scrolled through
+    from its first row to its last instead)."""
+    fr = [0.0, 0.0, float(frame[0]), float(frame[1])]
+    st = [s_ for s_ in samples if not s_["moving"]]
+    side_cut = [s_ for s_ in st if not (s_["card"][0] >= max(s_["win"][0], 0.0) - 1.5
+                                        and s_["card"][2] <= min(s_["win"][2], fr[2]) + 1.5)]
+    rows, gap = _rows_shown(st, lambda s_: s_["card"], fr)
+    covered = gap is None and rows[0] <= 0.004 and rows[1] >= 0.996
     fits = bool(st) and all(s_["card"][3] - s_["card"][1] <= s_["win"][3] - s_["win"][1] + 1.5 for s_ in st)
     whole_s = sum(1 for s_ in st if _in(s_["card"], _cut(s_["win"], fr))) / fps
     names = sorted({n for s_ in st for n in s_.get("parts") or {}})
     part_s = {n: round(sum(1 for s_ in st if n in s_["parts"] and _in(s_["parts"][n], _cut(s_["win"], fr))) / fps, 2)
               for n in names}
-    short = sorted(n for n, v in part_s.items() if v < SITE_PART_MIN_S)
+    win_h = min((s_["win"][3] - s_["win"][1] for s_ in st), default=0.0)
+    tall = {}                                         # parts that cannot be whole in one frame: every row was shown?
+    for n in names:
+        hs = [s_["parts"][n][3] - s_["parts"][n][1] for s_ in st if n in s_["parts"]]
+        if hs and min(hs) > win_h + 1.5:
+            r_, g_ = _rows_shown(st, lambda s_, n=n: s_["parts"].get(n), fr)
+            tall[n] = {"rows_shown": r_, "gap_in_rows": g_, "ok": g_ is None and r_[0] <= 0.004 and r_[1] >= 0.996}
+    short = sorted(n for n, v in part_s.items() if (not tall[n]["ok"] if n in tall else v < SITE_PART_MIN_S))
     ok = (bool(st) and not side_cut and covered and not short and len(names) >= SITE_PARTS_NEEDED
           and (not fits or whole_s >= SITE_WHOLE_MIN_S))
     return ok, {"standing_s": round(len(st) / fps, 2), "frames_cut_at_the_sides": len(side_cut),
-                "rows_shown": [round(min((a_ for a_, _b in ivs), default=0.0), 3), round(reach, 3)], "gap_in_rows": gap,
+                "rows_shown": rows, "gap_in_rows": gap, "parts_taller_than_the_window": tall,
                 "card_fits_the_window": fits, "whole_in_one_frame_s": round(whole_s, 2), "scrolled": not fits,
                 "parts_whole_s": part_s, "parts_never_whole": short,
                 "limits": {"whole_s": SITE_WHOLE_MIN_S, "part_s": SITE_PART_MIN_S, "parts": SITE_PARTS_NEEDED}}

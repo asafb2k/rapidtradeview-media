@@ -197,6 +197,7 @@ def test_fragment_layouts_are_refused(reg):
     assert "no slot in" in broken(lambda f: f["site"]["strip"].update(top="text:{sells}"))
     assert "slot {seats} is not read" in broken(lambda f: f["site"]["parts"].update(title=["text:{seats}"]))
     assert "slot {seats} is not read" in broken(lambda f: f["key"].update(targets=["={seats}"]))
+    assert "site.top_hold is 0.5 to 2.5" in broken(lambda f: f["site"].update(top_hold=9))
 
 
 def test_unknown_feature_and_unfilled_slot_are_errors(reg):
@@ -718,6 +719,7 @@ def test_a_taller_card_is_scrolled_and_comes_back_to_the_key(reg):
         assert L["s0"] == 0 and L["s1"] == pytest.approx(sh - vis, abs=0.1)       # from the strip's top to its end: all of it
         assert L["s_key"] == 0 and L["back"] >= F.BACK_MIN_S                      # back on the card's top: the headline
         assert L["dur"] >= F.SCROLL_MIN_S and L["min4"] == pytest.approx(L["at"] + L["dur"] + F.REST)
+        assert L["at"] == f["site"].get("top_hold", F.TOP_HOLD)       # insiders: the bought list stays while its line is read
     # the page short: from the header down to the end of LARGEST HOLDINGS, then back to SECTORS for the key
     f, m, _s = story_for(reg, "portfolio")
     L = F.site_layout(f, Q.feature_values(f, m), m["page"])
@@ -788,6 +790,12 @@ def test_site_card_whole_gate():
     assert not Q.site_card_whole_gate(s, 30)[0]
     # a part that is never whole on screen: a headline strip without its chart
     ok, det = Q.site_card_whole_gate(_samples(card=fit, parts={"title": (92, 400, 442, 440), "chart": (92, 600, 1000, 1500)}), 30)
+    assert not ok and det["parts_never_whole"] == ["chart"]
+    # a part taller than the window (two charts, one under the other) cannot be whole in a frame: it is scrolled through
+    two = {"title": (92, 407, 442, 449), "chart": (92, 520, 1000, 1640)}
+    ok, det = Q.site_card_whole_gate(_samples(card=tall, scroll=roll, parts=two), 30)
+    assert ok and det["parts_taller_than_the_window"]["chart"]["rows_shown"] == [0.0, 1.0] and det["parts_whole_s"]["chart"] == 0
+    ok, det = Q.site_card_whole_gate(_samples(card=tall, parts=two), 30)              # ... and never scrolled: a fragment
     assert not ok and det["parts_never_whole"] == ["chart"]
     # frames in which the window is still flying in do not count; no standing frame, no pass
     assert not Q.site_card_whole_gate(_samples(card=fit, moving=True), 30)[0]
