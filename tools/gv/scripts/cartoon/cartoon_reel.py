@@ -64,6 +64,7 @@ SR = vsco_score.SR
 END_S = 3.0
 DURATION_RANGE = Q.ONE_IDEA_DURATION       # 15-22 s (v3: one situation, one punchline)
 SHOT_RANGE = (0.7, 2.6)
+HOOK_MAX = 3.0          # the hook carries the voiced number; a longer figure ('$0.20' read out) runs ~2.7 s (2026-11-10 KKR)
 PAYOFF_MAX = 4.5                          # v3: the payoff holds our real page (brand + fact), the one place to linger
 SHOTS_RANGE = (4, Q.ONE_IDEA_MAX_SHOTS)   # at most 7 shots
 LUFS_RANGE, TP_MAX, TARGET_LUFS = (-15.0, -13.0), -1.0, -14.0
@@ -1687,7 +1688,7 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     durs = [round(e - b, 3) for b, e in zip(tl.starts, tl.ends)]
     kinds = [sh.get("kind") for sh in st.shots]
     bad_len = [i + 1 for i, (dd, k) in enumerate(zip(durs[:-1], kinds[:-1]))
-               if not (SHOT_RANGE[0] - 1e-6 <= dd <= (PAYOFF_MAX if k == "PAYOFF" else SHOT_RANGE[1]) + 1e-6)]
+               if not (SHOT_RANGE[0] - 1e-6 <= dd <= (PAYOFF_MAX if k == "PAYOFF" else HOOK_MAX if k == "HOOK" else SHOT_RANGE[1]) + 1e-6)]
     first_pay = next((tl.starts[i] for i, k in enumerate(kinds) if k == "PAYOFF"), None)
     last_pay = max((tl.ends[i] for i, k in enumerate(kinds) if k == "PAYOFF"), default=None)
     window = (last_pay - first_pay) if first_pay is not None else 0.0
