@@ -5,6 +5,8 @@ Runs in the isolated Playwright venv (never the conda env, never system python):
     <media>/.ops/cache/shot-venv/Scripts/python.exe capture.py --url URL --out DIR --name NAME
         [--scroll-to TEXT] [--scroll-frac 0.42] [--clip-from TEXT --clip-to TEXT [--clip-end-above TEXT]] [--target TEXT ...]
         [--viewport 430x932] [--dpr 3]
+A TEXT that starts with "=" matches a whole text node only ("=V" is the ticker V, not the V of "View"); the sidecar keeps
+the target's text without the "=".
 
 Writes DIR/NAME.png and DIR/NAME.json:
     {url, captured_at (UTC), viewport, dpr, png_size, sha256, scroll_y, page_text, visible_text,
@@ -26,13 +28,14 @@ import re
 import sys
 from pathlib import Path
 
-JS_FIND = r"""([needle, all]) => {
+JS_FIND = r"""([needle, all, exact]) => {
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const hits = [];
   let n;
   while ((n = w.nextNode())) {
     const i = n.data.indexOf(needle);
     if (i < 0) continue;
+    if (exact && n.data.replace(/\s+/g, ' ').trim() !== needle) continue;
     const el = n.parentElement;
     if (!el || el.offsetParent === null) continue;
     const r = document.createRange();
@@ -64,6 +67,19 @@ JS_VISIBLE = r"""([Y0, Y1]) => {
   }
   return out.join('\n');
 }"""
+
+
+def split_spec(spec: str) -> tuple[str, str, bool]:
+    """TEXT, TEXT#N, TEXT#last, each with an optional leading "=" (whole text node) -> (needle, nth or "last", exact)."""
+    exact = spec.startswith("=")
+    if exact:
+        spec = spec[1:]
+    if spec.endswith("#last"):
+        return spec[:-5], "last", exact
+    if re.fullmatch(r".+#\d+", spec):
+        needle, _, nth = spec.rpartition("#")
+        return needle, nth, exact
+    return spec, "1", exact
 
 
 def main(argv=None) -> int:
@@ -99,6 +115,10 @@ def main(argv=None) -> int:
                             user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 "
                                        "(KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1")
         pg = ctx.new_page()
+
+        def find_all(needle: str, exact: bool = False) -> list:
+            return pg.evaluate(JS_FIND, [needle, True, exact])
+
         r = pg.goto(a.url, wait_until="networkidle", timeout=60000)
         if not r or r.status != 200:
             print(f"capture: {a.url} returned {r.status if r else 'nothing'}", file=sys.stderr)
@@ -113,7 +133,7 @@ def main(argv=None) -> int:
         pg.evaluate("window.scrollTo(0, 0)")
         pg.wait_for_timeout(500)
         if a.scroll_to:
-            hit = pg.evaluate(JS_FIND, [a.scroll_to, False])
+            hit = pg.evaluate(JS_FIND, [a.scroll_to, False, False])
             if not hit:
                 print(f"capture: scroll text {a.scroll_to!r} not found", file=sys.stderr)
                 return 2
@@ -123,11 +143,11 @@ def main(argv=None) -> int:
         if a.clip_from or a.clip_to:
             def nth_hit(spec, below=None):
                 """TEXT, TEXT#N (the N-th occurrence on the page) or TEXT#last (the last occurrence above `below`)."""
-                if spec.endswith("#last"):
-                    hits = [h for h in pg.evaluate(JS_FIND, [spec[:-5], True]) if below and h["docY"] < below["docY"]]
+                needle, nth, exact = split_spec(spec)
+                if nth == "last":
+                    hits = [h for h in find_all(needle, exact) if below and h["docY"] < below["docY"]]
                     return max(hits, key=lambda h: h["docY"]) if hits else None
-                needle, _, nth = spec.rpartition("#") if re.fullmatch(r".+#\d+", spec) else (spec, "", "1")
-                hits = pg.evaluate(JS_FIND, [needle, True])
+                hits = find_all(needle, exact)
                 return hits[int(nth) - 1] if len(hits) >= int(nth) else None
 
             ht = nth_hit(a.clip_to) if a.clip_from and a.clip_to else None
@@ -137,7 +157,7 @@ def main(argv=None) -> int:
                 return 2
             top, bot = hf["docY"] - a.clip_pad, ht["docY"] + ht["h"] + a.clip_pad
             if a.clip_end_above:
-                cut = [h for h in pg.evaluate(JS_FIND, [a.clip_end_above, True])
+                cut = [h for h in find_all(a.clip_end_above)
                        if hf["docY"] < h["docY"] < ht["docY"] + ht["h"]]
                 if not cut:
                     print(f"capture: {a.clip_end_above!r} not found inside the clip", file=sys.stderr)
@@ -154,13 +174,13 @@ def main(argv=None) -> int:
         y1 = clip["y"] + clip["height"] if clip else float(vh)
         targets = []
         for t in a.target:
-            needle, _, nth = t.rpartition("#") if re.fullmatch(r".+#\d+", t) else (t, "", "1")
-            inside = [h for h in pg.evaluate(JS_FIND, [needle, True]) if h["y"] >= y0 and h["y"] + h["h"] <= y1]
-            hit = inside[int(nth) - 1] if len(inside) >= int(nth) else None
+            needle, nth, exact = split_spec(t)
+            inside = [h for h in find_all(needle, exact) if h["y"] >= y0 and h["y"] + h["h"] <= y1]
+            hit = (inside[-1] if nth == "last" else inside[int(nth) - 1] if len(inside) >= int(nth) else None) if inside else None
             if not hit:
                 print(f"capture: target {t!r} not found inside the captured area", file=sys.stderr)
                 return 2
-            targets.append({"text": t, "box": [round(hit["x"] * a.dpr, 1), round((hit["y"] - y0) * a.dpr, 1),
+            targets.append({"text": t[1:] if exact else t, "box": [round(hit["x"] * a.dpr, 1), round((hit["y"] - y0) * a.dpr, 1),
                                                round(hit["w"] * a.dpr, 1), round(hit["h"] * a.dpr, 1)]})
         page_text = pg.evaluate("document.body.innerText")
         visible = pg.evaluate(JS_VISIBLE, [y0, y1])

@@ -123,6 +123,7 @@ def say_map(lines: list[str], ticker: str, bare: tuple[str, ...] = ()) -> dict[s
     six", "bought one point two nine million"): the screen shows the $ and the line is shorter. A long plain figure
     ("$1,287,400") keeps its "dollars"."""
     say = {}
+    ticker = ticker or ""                        # a feature short about a page has no ticker
     letters = " ".join(ticker.replace("-", " "))
     for line in lines:
         unit = line not in bare
@@ -135,7 +136,7 @@ def say_map(lines: list[str], ticker: str, bare: tuple[str, ...] = ()) -> dict[s
                 v = Q.written_value(core) or 0.0
                 big = v >= 1000 and not re.search(r"\d[KMBT]$", core)      # "$1,287,400" says dollars; "$1.29M" not
                 say[w] = lead + speak_figure(core, unit or big) + trail
-            elif core.lstrip("$").upper() == ticker.upper() and len(core.lstrip("$")) <= 5:
+            elif ticker and core.lstrip("$").upper() == ticker.upper() and len(core.lstrip("$")) <= 5:
                 say[w] = lead + letters + trail
             elif core == "EPS":
                 say[w] = lead + "E P S" + trail
@@ -256,6 +257,8 @@ def run_captures(plan: dict, screens: Path, shot_python: str) -> None:
             cmd += ["--clip-end-above", c["end_above"]]
         if c.get("dpr"):
             cmd += ["--dpr", str(c["dpr"])]
+        if c.get("viewport") or plan.get("viewport"):
+            cmd += ["--viewport", str(c.get("viewport") or plan["viewport"])]
         for t in c["targets"]:
             cmd += ["--target", t]
         r = subprocess.run(cmd, capture_output=True, text=True)
@@ -308,12 +311,26 @@ def _box(meta: dict, text: str) -> list[float]:
     return tg["box"]
 
 
-def payoff_layout(plan: dict, screens: dict[str, dict]) -> dict:
-    """World positions (= frame px at camera scale 1) of the payoff cards and the two camera moves, so that every card that
-    stays on screen keeps inside the stage (below the brand pill, above the caption band):
-      shot 4  header + fact card, centred in the stage, a slow push about their centre (largest scale PUSH_S fits);
-      shot 5  the header flies off, the key card (earnings: the page's own tag) lands under the fact card, and the camera
-              zooms so fact card + key card fill the stage with the key figure big."""
+KEY_PAD = (0.4, 0.35, 0.4, 0.35)             # left, top, right, bottom, in heights of the key text
+
+
+def key_crop(plan: dict, meta: dict, size) -> list[int]:
+    """The key card's crop of the key capture: the key text's box (or the union of plan["key_crop"], several targets, e.g.
+    a ticker and its company name) plus plan["key_pad"] (left, top, right, bottom, in heights of the key text). The default
+    is tight: a tag's brush edge runs ~0.3 bh past its text box; wider, a neighbour's glyphs creep in ("Officer", the
+    bottom of the dates line above the amount on a Form 4 page). A pill with an icon needs more on its left."""
+    _bx, _by, _bw, bh = _box(meta, plan["key"])
+    boxes = [_box(meta, t) for t in plan.get("key_crop") or [plan["key"]]]
+    x0, y0 = min(b[0] for b in boxes), min(b[1] for b in boxes)
+    x1, y1 = max(b[0] + b[2] for b in boxes), max(b[1] + b[3] for b in boxes)
+    pl, pt, pr, pb = plan.get("key_pad") or KEY_PAD
+    return [max(0, int(x0 - pl * bh)), max(0, int(y0 - pt * bh)), min(size[0], int(x1 + pr * bh)),
+            min(size[1], int(y1 + pb * bh))]
+
+
+def head_fact_layout(screens: dict[str, dict]) -> tuple[dict, tuple]:
+    """Shot 4: the header card above the fact card, centred in the stage at a common width that still fits at the largest
+    scale of the slow push. -> ({"w", "y_head", "y_fact", "focus4"}, (w, the fact card's centre y, its height))."""
     hw, hh = screens["head"]["size"]
     fw, fh = screens["fact"]["size"]
     stage_h = STAGE_BOTTOM - STAGE_TOP
@@ -325,47 +342,77 @@ def payoff_layout(plan: dict, screens: dict[str, dict]) -> dict:
     h_head, h_fact = hh * w / hw + 20, fh * w / fw + 20                 # + the card frame (10 px a side)
     top = mid - (h_head + CARD_GAP + h_fact) / 2
     y_head, y_fact = top + h_head / 2, top + h_head + CARD_GAP + h_fact / 2
-    out = {"w": w, "y_head": round(y_head), "y_fact": round(y_fact), "focus4": [540, round(mid)]}
+    return {"w": w, "y_head": round(y_head), "y_fact": round(y_fact), "focus4": [540, round(mid)]}, (w, y_fact, h_fact)
+
+
+def payoff_layout(plan: dict, screens: dict[str, dict]) -> dict:
+    """World positions (= frame px at camera scale 1) of the payoff cards and the two camera moves, so that every card that
+    stays on screen keeps inside the stage (below the brand pill, above the caption band):
+      shot 4  header + fact card, centred in the stage, a slow push about their centre (largest scale PUSH_S fits);
+      shot 5  the header flies off, the key card (earnings: the page's own tag) lands under the fact card, and the camera
+              zooms so fact card + key card fill the stage with the key figure big."""
+    out, (w, y_fact, h_fact) = head_fact_layout(screens)
+    stage_h = STAGE_BOTTOM - STAGE_TOP
+    mid = (STAGE_TOP + STAGE_BOTTOM) / 2
     fact_top = y_fact - h_fact / 2
     kw_, kh_ = screens["key"]["size"]                                  # the key figure's own capture, cropped around it
     bx, by, bw, bh = _box(screens["key"]["meta"], plan["key"])
-    # a tight crop: the tag's brush edge runs ~0.3 bh past its text box; wider, a neighbour's glyphs creep in ("Officer",
-    # the bottom of the dates line above the amount on a Form 4 page)
-    mx, my = 0.4 * bh, 0.35 * bh
-    crop = [max(0, int(bx - mx)), max(0, int(by - my)), min(kw_, int(bx + bw + mx)), min(kh_, int(by + bh + my))]
-    sc = KEY_W / (crop[2] - crop[0])
+    crop = key_crop(plan, screens["key"]["meta"], (kw_, kh_))
+    key_w = int(plan.get("key_w", KEY_W))
+    sc = key_w / (crop[2] - crop[0])
     h_key = (crop[3] - crop[1]) * sc + 20
     y_key = y_fact + h_fact / 2 + CARD_GAP + h_key / 2
-    kx = 540 - KEY_W / 2 + (bx + bw / 2 - crop[0]) * sc
+    kx = 540 - key_w / 2 + (bx + bw / 2 - crop[0]) * sc
     ky = y_key - h_key / 2 + 10 + (by + bh / 2 - crop[1]) * sc
     bottom5 = y_key + h_key / 2
     out.update(key_crop=crop, y_key=round(y_key))
     z5 = min(Z5_MAX, stage_h / ((bottom5 - fact_top) * (1 + 4 * Z5_DRIFT)),
-             (1080 - 2 * 40) / ((w + 20) * (1 + 4 * Z5_DRIFT)))             # the fact card stays whole across the frame
+             (1080 - 2 * 40) / ((max(w, key_w) + 20) * (1 + 4 * Z5_DRIFT)))  # the widest card stays whole across the frame
     c5 = (fact_top + bottom5) / 2
     out.update(z5=round(z5, 3), land5=[round(540 + (kx - 540) * z5), round(mid + (ky - c5) * z5)])
     return out
 
 
-def build_story(item: dict, facts_file: str, post_date: str, plan: dict, screens: dict[str, dict]) -> dict:
-    """screens: {"head": {"png": path, "size": [w, h], "meta": sidecar}, "fact": {...}, "key": {...}} -> the story dict."""
-    t = plan["ticker"]
-    L = payoff_layout(plan, screens)
+def head_fact_els(L: dict) -> tuple[dict, dict]:
+    """The header card and the fact card as they stand in shot 4."""
     w = L["w"]
-    head_el = {"t": "card", "name": "head", "x": 540, "y": L["y_head"], "w": w, "rot": -1.5, "main": False}
-    fact_el = {"t": "card", "name": "fact", "x": 540, "y": L["y_fact"], "w": w, "rot": 1.0, "main": False}
+    return ({"t": "card", "name": "head", "x": 540, "y": L["y_head"], "w": w, "rot": -1.5, "main": False},
+            {"t": "card", "name": "fact", "x": 540, "y": L["y_fact"], "w": w, "rot": 1.0, "main": False})
+
+
+def payoff_els(plan: dict, L: dict) -> tuple[list, list, dict]:
+    """(shot 4 elements, shot 5 elements, shot 5 camera move) of the stacked payoff laid out by payoff_layout."""
+    head_el, fact_el = head_fact_els(L)
+    pay4 = [dict(head_el, enter={"from": [-1200, 0], "dur": 0.3}), dict(fact_el, enter={"from": [0, 1100], "dur": 0.34})]
     pay5 = [dict(head_el, exit={"to": [0, -1400], "at": 0.0, "dur": 0.3}), fact_el,
-            {"t": "card", "name": "key", "x": 540, "y": L["y_key"], "w": KEY_W, "rot": -2.0, "main": True,
-             "crop": L["key_crop"], "enter": {"from": [0, 1000], "dur": 0.32}},
+            {"t": "card", "name": "key", "x": 540, "y": L["y_key"], "w": int(plan.get("key_w", KEY_W)), "rot": -2.0,
+             "main": True, "crop": L["key_crop"], "enter": {"from": plan.get("key_from") or [0, 1000], "dur": 0.32}},
             {"t": "highlight", "target": plan["key"], "at": 0.5}]
+    move5 = {"type": "zoom_to", "target": plan["key"], "z": L["z5"], "from_prev": True, "at": 0.0, "dur": 0.5,
+             "land": L["land5"], "drift": Z5_DRIFT}
+    return pay4, pay5, move5
+
+
+def story_shots(plan: dict, L: dict, pay: tuple | None = None) -> tuple[list, list]:
+    """(the 7 shots, the voice lines) of the one-idea pattern: hook, confused, the branded phone, our real page (two payoff
+    shots), one word, the end card. `pay` = (shot 4 elements, shot 5 elements, shot 5 camera move); the default is the
+    stacked payoff. Plan keys beyond the templates' own: "search" (what the phone types; default the ticker),
+    "search_rate", "search_dur", "claim_a" / "claim_b" (default the fact's id), "hold4" / "hold5" (a still beat after the
+    line), "lead5" (shot 5 starts this long before its line: the key lands, then it is named; needs "join" False), "key_from" (where the key card flies in from; a large key comes in from the side, off the caption band), "join" (False: shots 4 and 5 are two utterances, so shot 4 can hold on the page before the key lands)."""
+    t = plan.get("ticker") or ""
+    pay4, pay5, move5 = pay or payoff_els(plan, L)
     fig = plan["figure"]
     hook_vo = plan["hook"]["vo"]
     dale_y, dale_f = char_frame("dale", "idle", ("shaker",), 280, 0.03, 2.8, 430)
     pip_y, pip_f = char_frame("pip", "phone_hold", ("phone",), 400, 0.04, 2.6)
     cb_y, cb_f = char_frame("pip", "phone_hold", ("phone",), 400, 0.06, 1.6)
-    fig_word = next(x for x in hook_vo.split() if fig in x)
+    fig_word = next((x for x in hook_vo.split() if fig in x), None)
+    if fig_word is None:
+        raise TemplateError(f"the hook {hook_vo!r} does not say its figure {fig!r}")
     lines = [hook_vo, plan["confused"]["vo"], plan["fact"]["a"], plan["fact"]["b"], REACTION,
              f"Search {cr.BRAND}. {cr.DISCLAIMER}"]
+    pay_a = {"hold": float(plan["hold4"])} if plan.get("hold4") else {}
+    pay_b = {"lead": float(plan["lead5"])} if plan.get("lead5") else {}
     shots = [
         {"kind": "HOOK", "set": "gym", "voice": "dale", "claim": plan["hook"]["claim"], "vo": hook_vo, "stress": [fig_word],
          "move": {"type": "push", "amt": 0.03, "focus": dale_f},
@@ -376,18 +423,18 @@ def build_story(item: dict, facts_file: str, post_date: str, plan: dict, screens
          "move": {"type": "push", "amt": 0.04, "focus": pip_f},
          "els": [{"t": "pip", "x": 540, "y": pip_y, "hu": 400, "pose": "phone_hold", "expr": "side", "hold": ["phone"],
                   "swap": {"at": "word:Checking", "expr": "deadpan"}}]},
-        {"kind": "CLOSE", "set": "gym", "set_variant": 2, "dur": 1.5,
+        {"kind": "CLOSE", "set": "gym", "set_variant": 2, "dur": float(plan.get("search_dur", 1.5)),
          "move": {"type": "push", "amt": 0.14, "focus": [540, 600]},
-         "els": [{"t": "search_phone", "x": 540, "y": 840, "w": 520, "text": t.replace("-", "."), "at": 0.2, "rate": 0.11}]},
+         "els": [{"t": "search_phone", "x": 540, "y": 840, "w": 520, "text": plan.get("search") or t.replace("-", "."),
+                  "at": 0.2, "rate": float(plan.get("search_rate", 0.11))}]},
         {"kind": "PAYOFF", "set": "payoff", "ring_centre": [540, 760], "transition_in": "whip", "voice": "narrator",
-         "claim": plan["fact"]["id"], "vo": plan["fact"]["a"],
+         "claim": plan.get("claim_a", plan["fact"]["id"]), "vo": plan["fact"]["a"], **pay_a,
          "move": {"type": "push", "amt": PUSH_AMT, "focus": L["focus4"]},
          "peek": dict(PEEK, at=0.3, **{"from": [-320, 0]}),
-         "els": [dict(head_el, enter={"from": [-1200, 0], "dur": 0.3}), dict(fact_el, enter={"from": [0, 1100], "dur": 0.34})]},
-        {"kind": "PAYOFF", "set": "payoff", "ring_centre": [540, 760], "voice": "narrator", "join": True,
-         "claim": plan["fact"]["id"], "vo": plan["fact"]["b"], "hold": 0.7, "key_number": plan["key"],
-         "move": {"type": "zoom_to", "target": plan["key"], "z": L["z5"], "from_prev": True, "at": 0.0, "dur": 0.5,
-                  "land": L["land5"], "drift": Z5_DRIFT},
+         "els": pay4},
+        {"kind": "PAYOFF", "set": "payoff", "ring_centre": [540, 760], "voice": "narrator", "join": bool(plan.get("join", True)),
+         "claim": plan.get("claim_b", plan["fact"]["id"]), "vo": plan["fact"]["b"], "hold": float(plan.get("hold5", 0.7)),
+         "key_number": plan["key"], "move": move5, **pay_b,
          "peek": dict(PEEK, at=0.0, **{"from": [0, 0]}),                    # still wide-eyed: the reaction lands once, on "Oh."
          "els": pay5},
         {"kind": "CALLBACK", "set": "gym", "voice": "pip", "vo": REACTION, "hold": 0.5, "transition_in": "whip",
@@ -396,6 +443,14 @@ def build_story(item: dict, facts_file: str, post_date: str, plan: dict, screens
                   "swap": {"at": 0.3, "expr": "happy"}}]},   # shock on the cut, happy on "Oh."
         {"kind": "END", "vo": f"Search {cr.BRAND}. {cr.DISCLAIMER}", "vo_at": 0.08, "voice": "end"},
     ]
+    return shots, lines
+
+
+def build_story(item: dict, facts_file: str, post_date: str, plan: dict, screens: dict[str, dict]) -> dict:
+    """screens: {"head": {"png": path, "size": [w, h], "meta": sidecar}, "fact": {...}, "key": {...}} -> the story dict."""
+    t = plan["ticker"]
+    shots, lines = story_shots(plan, payoff_layout(plan, screens))
+    hook_vo = plan["hook"]["vo"]
     return {
         "schema": "rtv-cartoon-story/1",
         "template": {"name": TEMPLATE, "plan": plan["kind"], "made_by": "make_story.py"},

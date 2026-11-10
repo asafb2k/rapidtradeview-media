@@ -1,6 +1,6 @@
 ---
 name: cartoon-story-reel
-description: Make a cartoon-story Reel / Short for RapidTradeView in the one-idea format. A cartoon character hears a news item in a confusing way, opens RapidTradeView, and our real page shows the real fact; the brand is on screen the whole time. Use it to turn one facts item into a 15-20 s vertical video, generated from the item by make_story.py.
+description: Make a cartoon-story Reel / Short for RapidTradeView in the one-idea format. A cartoon character hears a news item in a confusing way, opens RapidTradeView, and our real page shows the real fact; the brand is on screen the whole time. Use it to turn one facts item into a 15-20 s vertical video, generated from the item by make_story.py, or to show what one feature of the site answers (smart money, concentration, portfolio, market), generated from a capture made now by make_feature_story.py.
 ---
 
 # Cartoon-story Reel (format v4: one idea, brand always visible)
@@ -32,6 +32,8 @@ characters are ours and fictional; never draw a real person or another company's
 | File | What it is | Runs in |
 |---|---|---|
 | `make_story.py` | TEMPLATE mode: facts item -> `story.json` (captures the real pages with `--capture`) | conda env `rapidtradingview` |
+| `make_feature_story.py` | FEATURE mode: a registry entry + a capture made now -> `story.json` (section Feature shorts) | conda env `rapidtradingview` |
+| `features.json` | the feature registry: page, capture bands, value rules, story lines with slots, the key | (data) |
 | `cartoon_reel.py` | story.json -> `reel_9x16.mp4` + `reel.json` + `reel-qa.json` + `sheet.png` | conda env `rapidtradingview` |
 | `cast.py` | the cast (Pip, Dale), the branded phones, sets, pulse rings, chips, receipt, card frame | (imported) |
 | `cartoon_qa.py` | the text, brand and format gates (pure functions, unit-tested) | (imported) |
@@ -39,7 +41,7 @@ characters are ours and fictional; never draw a real person or another company's
 | `tts.py` | local Kokoro-82M voice with engine word timings (Apache-2.0) | `.ops/cache/tts-venv` |
 
 Music: `../v6cat/vsco_score.py` (VSCO 2 CE, CC0). End card, encoder, fonts and the brand pill: `../v6cat/card_reel.py`.
-Tests: `tools/tests/test_cartoon_qa.py`, `tools/tests/test_cartoon_make_story.py`.
+Tests: `tools/tests/test_cartoon_qa.py`, `tools/tests/test_cartoon_make_story.py`, `tools/tests/test_cartoon_features.py`.
 
 ## 1. Pick the item
 
@@ -135,6 +137,95 @@ weekdays, claim_lines, spoken_numbers, screen_numbers, no_provider_names, banned
 safe_zones, key_number (>= 64 px for 1.5 s), hook (a character >= 50% of the width at frame 0, an item number by 2.5 s),
 character_on_screen, caption_occlusion, caption_sync, first_frame_not_blank, motion_every_beat, no_static_run,
 disclaimer_on_screen.
+
+## Feature shorts (what one feature answers)
+
+Owner request 2026-11-10: "create one for features like smart money, concentration visuals, portfolio visuals and such".
+A feature short is not tied to a news item. It shows the one question a feature of the site answers, with our real screen
+as the payoff. Same pattern, same 7 shots, same owner rules as the daily short (one situation, one punchline, 15-20 s, the
+pill on every frame, "RapidTradeView" said in the first ~4 s and at the end, the real screen with our logo as the hero).
+
+**There is no facts item. The capture made on the render day is the truth.** Every number, ticker and name the video
+shows or says is read from the capture's DOM sidecar by a rule in the registry, never typed by hand.
+
+```
+PY=C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe
+$PY tools/gv/scripts/cartoon/make_feature_story.py --list
+$PY tools/gv/scripts/cartoon/make_feature_story.py <feature-id> --run .ops/cartoon-features/<feature-id> --capture
+$PY tools/gv/scripts/cartoon/cartoon_reel.py --story .ops/cartoon-features/<feature-id>/story.json --out .ops/cartoon-features/<feature-id>
+```
+
+Render on the capture day: the renderer refuses captures older than 12 hours (`feature_capture`).
+
+### The registry: `features.json`
+
+| id | Page (public, no guest view counted) | The question | The key |
+|---|---|---|---|
+| `smart-money` | `/congress-trades`, "Most bought stocks by Congress", top row | Which stock are the most members of Congress buying? | the row's ticker and company name |
+| `concentration` | `/sample-portfolio`, the Portfolio Concentration card's top | Am I actually diversified? | the card's verdict pill ("Concentrated") |
+| `portfolio` | `/sample-portfolio`, the two-ring donut | Where is my money, really? | the donut, its biggest slice's label outlined |
+| `market-pictures` | `/market`, the Market breadth panel | How much of the market moved? | the share ("83%") |
+
+`/smart-money` (the feed) and `/portfolio` are sign-in only: never capture them, never sign in. `concentration` and
+`portfolio` read the same card of the read-only sample portfolio: do not post them close together.
+
+One entry holds:
+- `url`, `viewport`, `require` (texts the page must have), `refuse_if` (texts that mean its data is missing).
+- `captures`: the bands, as in the daily short (`head` with our logo, `fact`, `key` at 6x). A text that starts with `=`
+  matches a whole text node (`={ticker}` is the ticker V, not the V of "View"). Bands whose texts use a `{slot}` are
+  captured second, after the values are read.
+- `values`: how each slot is read from a capture's visible text: `{"from": capture, "after": line, "offset": n, "rx":
+  regex with named groups, "as": name for the whole line, "prev"/"next": {name: regex}}`. `checks` stop a day that does
+  not carry the story (`{"value": "count", "min": 2}`: one member buying breaks "4 in Congress bought one stock!").
+- `lines`: hook, hook_figure, confused, search, fact_a, fact_b. **A line never holds a number, a ticker or a name: those
+  are slots.** `registry_problems` refuses a typed number, a provider name, a banned word, a slot no rule reads.
+- `fact_phrase`: the one data phrase; on a capture word for word, and read aloud word for word.
+- `sources` and `claims`: the page text each factual line paraphrases (a text that is on its capture, or everything a
+  capture shows). They are the phrasings the `claim_lines` gate checks, and they are listed in `reel.json`
+  `claims_for_human_check`: read each line against its page text before the video ships.
+- `layout`: `stack` (header + fact card, then fact card + the key tag) or `hero` (header + fact card, then both fly off
+  and the key capture, a chart, fills the stage). `key.kind`: `figure` or `visual`.
+- `hold4`, `lead5`, `hold5`: the still beats. Shot 5 starts `lead5` (0.5 s) before its line: the key lands and the camera
+  settles, then the voice names it.
+
+### When `make_feature_story.py` stops (exit 2, no story.json)
+
+- a band or a value is missing, or a check fails (the page changed, or today's top row does not carry the story);
+- the page says a `refuse_if` text, or a band shows an error or loading word;
+- a provider or source brand is on what a band shows (the page's footer may name one; only the bands are checked);
+- a capture is not from the feature's URL, or not from today;
+- the filled lines would fail the number, claim or spoken-figure gates.
+
+No fallback and no explaining away: change the band in the registry, or do not make that video today.
+
+### Gates that differ from the daily short
+
+- **feature_capture** (new): our page, captured at most 12 h before the render, `require` present, no `refuse_if`, no
+  error or loading state, no provider name on what is shown.
+- **feature_story** (new): the story's values are the ones read from the sidecars now, and its voice lines, chip, typed
+  search, fact phrase and key target are the registry's templates filled with them. A story edited by hand fails.
+- **fact_phrase**: on a capture and read aloud, word for word (punctuation is not a word).
+- **numbers_verbatim, claim_lines, hook, screen_numbers**: unchanged code, run against an item built from the sidecars
+  at render time (`cartoon_qa.feature_item`): the allowed numbers are the numbers the captures show.
+- **key_number**: a `figure` key is at least 64 px tall for 1.5 s (as before). A `visual` key (a chart: its labels cannot
+  be 64 px while the chart stays whole) needs the chart at least 640 px wide with the outlined label at least 30 px tall
+  for 1.5 s.
+- **screenshot_real**: the capture's URL is the registry's URL.
+
+Everything else (pill on every frame, brand spoken early and late, 15-22 s, at most 7 shots, payoff_brand, pill_clear,
+captions, audio) gates exactly as for the daily short.
+
+### Adding a feature
+
+1. Open the page as a logged-out guest at 390x844 and find one card that answers one question in two seconds. Prefer
+   pages that count no guest view (server-rendered public pages; not `/dashboard/<ticker>`).
+2. Capture the bands by hand with `capture.py` and look at them: nothing cut through, no provider name, no other
+   company's logo, no real person as the hero.
+3. Add the entry. Write the lines so that they stay true whenever the page changes: only slots carry data.
+4. `make_feature_story.py <id> --run <dir> --capture`, render, and look at `sheet.png` and full frames of shots 4 and 5:
+   the real card big and legible, our logo readable, the key outlined, no sliver of a neighbouring line at a crop's edge
+   (tighten `pad`), the pill clear.
+5. Add its sidecar texts to `tools/tests/test_cartoon_features.py`.
 
 ## Writing rules (for template changes)
 

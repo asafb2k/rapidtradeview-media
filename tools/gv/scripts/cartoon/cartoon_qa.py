@@ -28,11 +28,21 @@ it"):
   payoff_brand_gate(samples)         the payoff's real screen shows our own header/logo, readable, for long enough
   one_idea_gate(shots, total)        one situation: 15-22 s, at most 7 shots, no side-gag props
   item_page_urls(item)               the real pages a capture may come from (the item's page, its earnings report page)
+
+Feature shorts (owner 2026-11-10; no facts item, the capture made on the render day is the truth; registry features.json):
+  load_features() / registry_problems(reg)   the registry and what is wrong with it
+  feature_values(feature, sidecars)  the slot values, read from the captures' visible text by the registry's rules
+  feature_item(...)                  the item the number / claim / hook gates run against, built from the captures
+  feature_capture_gate(...)          our page, captured today, data loaded, no provider name on what is shown
+  feature_story_gate(...)            the story's lines, chip, search, key are the registry's templates filled from the sidecars
+  feature_fact_gate(...)             the one data phrase is on a capture and read aloud, word for word
+  key_target_gate(samples, fps, kind) the outlined key is big enough for long enough (a figure, or a chart)
 """
 from __future__ import annotations
 
 import datetime as dt
 import difflib
+import json
 import re
 import sys
 from pathlib import Path
@@ -679,3 +689,406 @@ def item_page_urls(item: dict) -> set[str]:
     if m and item.get("report_id"):
         out.add(f"{m.group(1)}/earnings/reports/{item['report_id']}")
     return out
+
+
+# ------------------------------------------------------------------------------------------------- feature shorts
+# A FEATURE short shows what one feature of the site answers (owner 2026-11-10: "create one for features like smart money,
+# concentration visuals, portfolio visuals and such"). It has no facts item: the truth is the capture made on the render
+# day. features.json (next to this file) is the registry: the page, the capture bands, how each value is read from a
+# capture's visible text, the story lines with {slots} for those values, and which captured text is the key. These
+# functions are pure (sidecars in, verdict out): make_feature_story.py uses them to fill a story and cartoon_reel.py uses
+# them again at render time, from the sidecars, so a value typed by hand into a story fails.
+FEATURES_FILE = Path(__file__).resolve().parent / "features.json"
+FEATURE_SCHEMA = "rtv-cartoon-features/1"
+FEATURE_MAX_AGE_H = 12.0                 # "captured today": the captures are at most this old when the video is rendered
+FEATURE_LINES = ("hook", "confused", "fact_a", "fact_b")
+# shown on our own pages, never in a video (owner 2026-10-19: no provider or source brand on a public surface we publish)
+VENDOR_EXTRA_RX = re.compile(r"(?i)(?<![a-z0-9])(?:reddit|stock\s?twits|ape\s?wisdom|wallstreetbets|edgar)(?![a-z0-9])")
+# a page that did not load its data: an error line, a spinner word
+ERROR_STATE_RX = re.compile(r"(?im)unavailable right now|something went wrong|failed to (?:load|fetch)|could ?n[o']t (?:load|fetch)|"
+                            r"^\s*loading\b|\bloading\s*(?:…|\.\.\.)|^\s*(?:error|retry|try again)\s*$")
+TICKER_TOKEN_RX = re.compile(r"(?<![A-Za-z0-9&])\$?([A-Z]{2,5}(?:[.\-][A-Z])?)(?![A-Za-z0-9&])")
+NOT_TICKERS = {"OK", "EPS", "ETF", "ETFS", "US", "USA", "AI", "CEO", "CFO", "IPO", "TV", "PM", "AM"}
+KEY_VISUAL_MIN_W, KEY_VISUAL_MIN_H, KEY_MIN_H, KEY_MIN_S = 640.0, 30.0, 64.0, 1.5
+
+
+class FeatureError(Exception):
+    """The registry or a capture cannot carry a feature short (make_feature_story exits 2, the renderer refuses)."""
+
+
+def load_features(path=None) -> dict:
+    p = Path(path) if path else FEATURES_FILE
+    try:
+        reg = json.loads(p.read_text(encoding="utf-8-sig"))
+    except (OSError, ValueError) as e:
+        raise FeatureError(f"feature registry unreadable: {p} ({type(e).__name__}: {e})") from e
+    problems = registry_problems(reg)
+    if problems:
+        raise FeatureError(f"feature registry {p}: " + "; ".join(problems[:6]))
+    reg["_path"] = str(p)
+    return reg
+
+
+def _slots(s: str) -> list[str]:
+    return re.findall(r"\{([a-z_][a-z0-9_]*)\}", str(s))
+
+
+def _unslot(s: str) -> str:
+    return re.sub(r"\{[a-z_][a-z0-9_]*\}", " ", str(s))
+
+
+def _value_names(f: dict) -> set[str]:
+    out: set[str] = set()
+    for v in f.get("values") or []:
+        out |= set(re.findall(r"\(\?P<([a-z_][a-z0-9_]*)>", str(v.get("rx", ""))))
+        if v.get("as"):
+            out.add(v["as"])
+        for k in ("prev", "next"):
+            out |= set((v.get(k) or {}).keys())
+    return out
+
+
+def registry_problems(reg: dict) -> list[str]:
+    """What is wrong with a registry (empty = usable): the schema, unique ids, our own https page, a head capture that
+    targets our brand, a fact and a key capture, every {slot} read by a value rule from a capture that needs no slot, the
+    brand in the confused line, claims that point at sources, and the owner's rules that can be read off the text (no
+    provider name, no banned word, no number typed into a line: a number is always a slot)."""
+    bad: list[str] = []
+    if not isinstance(reg, dict) or reg.get("schema") != FEATURE_SCHEMA:
+        return [f"schema is not {FEATURE_SCHEMA}"]
+    banned = [w for w in reg.get("banned_words") or [] if isinstance(w, str)]
+    if not banned:
+        bad.append("no banned_words")
+    feats = reg.get("features")
+    if not isinstance(feats, list) or not feats or not all(isinstance(f, dict) for f in feats):
+        return bad + ["no features"]
+    ids = [f.get("id") for f in feats]
+    if len(set(ids)) != len(ids) or not all(isinstance(i, str) and re.fullmatch(r"[a-z][a-z0-9-]*", i) for i in ids):
+        bad.append("feature ids must be unique lower-case slugs")
+    for f in feats:
+        fid = f.get("id")
+
+        def say(m, fid=fid):
+            bad.append(f"{fid}: {m}")
+
+        if not re.fullmatch(r"https://www\.rapidtradeview\.trade/[A-Za-z0-9/_-]*", str(f.get("url") or "")):
+            say("url is not a page of https://www.rapidtradeview.trade")
+        caps = {c.get("name"): c for c in f.get("captures") or [] if isinstance(c, dict)}
+        for need in ("head", "fact", "key"):
+            if need not in caps:
+                say(f"no {need} capture")
+        if "head" in caps and BRAND not in (caps["head"].get("targets") or []):
+            say("the head capture does not target our brand")
+        names = _value_names(f)
+        plain = {n for n, c in caps.items() if not _slots(json.dumps(c))}
+        for v in f.get("values") or []:
+            if v.get("from") not in plain:
+                say(f"value rule reads {v.get('from')!r}, which is not a capture without slots")
+            try:
+                re.compile(str(v.get("rx", "")))
+            except re.error as e:
+                say(f"bad value rx {v.get('rx')!r}: {e}")
+        lines = f.get("lines") or {}
+        for k in FEATURE_LINES + ("hook_figure", "search"):
+            if not isinstance(lines.get(k), str) or not lines[k].strip():
+                say(f"no line {k}")
+        key = f.get("key") or {}
+        if key.get("capture") not in caps or not isinstance(key.get("target"), str):
+            say("key needs a capture and a target")
+        if key.get("kind", "figure") not in ("figure", "visual"):
+            say("key.kind is figure or visual")
+        if f.get("layout", "stack") not in ("stack", "hero"):
+            say("layout is stack or hero")
+        texts = [str(lines.get(k, "")) for k in FEATURE_LINES + ("hook_figure", "search")]
+        texts += [str(f.get("fact_phrase", "")), str(key.get("target", ""))]
+        texts += [str(t) for t in key.get("crop") or []] + [json.dumps(c) for c in caps.values()]
+        texts += [str(s_.get("text", "")) for s_ in (f.get("sources") or {}).values() if isinstance(s_, dict)]
+        for s_ in sorted({s_ for t in texts for s_ in _slots(t)} - names):
+            say(f"slot {{{s_}}} is not read by a value rule")
+        fig = str(lines.get("hook_figure", ""))
+        if not _slots(fig) or fig not in str(lines.get("hook", "")):
+            say("hook_figure must be a slot that the hook says")
+        if BRAND not in str(lines.get("confused", "")):
+            say("the confused line must say our brand (it is the voice's first RapidTradeView)")
+        if not isinstance(f.get("fact_phrase"), str) or not f["fact_phrase"].strip():
+            say("no fact_phrase")
+        srcs = f.get("sources") or {}
+        for sid, s_ in srcs.items():
+            if not isinstance(s_, dict) or s_.get("capture") not in caps:
+                say(f"source {sid} names no capture")
+        claims = f.get("claims") or {}
+        for k, sid in claims.items():
+            if k not in FEATURE_LINES or sid not in srcs:
+                say(f"claim {k} -> {sid} is not a line -> source")
+        for k in ("hook", "fact_a", "fact_b"):
+            if k not in claims:
+                say(f"line {k} has no claim")
+        spoken = {k: str(lines.get(k, "")) for k in FEATURE_LINES + ("search",)}
+        for k, t in spoken.items():
+            if find_numbers(_unslot(t)) or find_number_words(_unslot(t)):
+                say(f"line {k} types a number; a number is always a slot read from the capture")
+        ok, _det = provider_gate(spoken)
+        if not ok or any(VENDOR_EXTRA_RX.search(t) for t in spoken.values()):
+            say("a line names a data provider")
+        ok, det = banned_gate(spoken, banned)
+        if not ok:
+            say(f"a line uses banned words {det['found']}")
+    return bad
+
+
+def feature_by_id(reg: dict, fid: str) -> dict:
+    f = next((x for x in reg.get("features", []) if x.get("id") == fid), None)
+    if f is None:
+        raise FeatureError(f"no feature {fid!r} in the registry (features: "
+                           f"{', '.join(str(x.get('id')) for x in reg.get('features', []))})")
+    return f
+
+
+def fill(template: str, values: dict) -> str:
+    """"{count} members" -> "4 members"; a slot without a value is an error, never an empty string."""
+    def sub(m):
+        if m.group(1) not in values:
+            raise FeatureError(f"no value for the slot {{{m.group(1)}}} in {template!r}")
+        return str(values[m.group(1)])
+    return re.sub(r"\{([a-z_][a-z0-9_]*)\}", sub, str(template))
+
+
+def vis_lines(meta: dict) -> list[str]:
+    return [ln.strip() for ln in str(meta.get("visible_text", "")).splitlines() if ln.strip()]
+
+
+def feature_values(feature: dict, metas: dict) -> dict:
+    """The slot values, read from the captures' visible text by the registry's rules. A rule: {"from": capture,
+    "after": line (optional; the search starts below the first line equal to it), "offset": n (optional; the n-th line
+    below `after` must match, else any later line may), "rx": a regex the whole line must match (named groups become
+    values), "as": name for the whole line, "prev" / "next": {name: rx} for the line just above / below}. Nothing is
+    guessed: a rule that finds no line, or a failed check ({"value", "min" | "equals"}), raises FeatureError."""
+    vals: dict = {}
+    for rule in feature.get("values") or []:
+        cap = rule.get("from")
+        if cap not in metas:
+            raise FeatureError(f"value rule reads capture {cap!r}, which was not made")
+        lines = vis_lines(metas[cap])
+        start = 0
+        if rule.get("after"):
+            if rule["after"] not in lines:
+                raise FeatureError(f"capture {cap}: no line {rule['after']!r} (the page changed, or its data did not load)")
+            start = lines.index(rule["after"]) + 1
+        rx = re.compile(rule["rx"])
+        idx = [start + int(rule["offset"]) - 1] if rule.get("offset") else list(range(start, len(lines)))
+        hit = next(((i, m) for i in idx if i < len(lines) for m in [rx.fullmatch(lines[i])] if m), None)
+        if hit is None:
+            raise FeatureError(f"capture {cap}: no line matches {rule['rx']!r}"
+                               + (f" below {rule['after']!r}" if rule.get("after") else ""))
+        i, m = hit
+        got = {k: v for k, v in m.groupdict().items() if v is not None}
+        if rule.get("as"):
+            got[rule["as"]] = lines[i]
+        for where, j in (("prev", i - 1), ("next", i + 1)):
+            for name, pat in (rule.get(where) or {}).items():
+                if not (0 <= j < len(lines)) or not re.fullmatch(pat, lines[j]):
+                    raise FeatureError(f"capture {cap}: the line {where} to {lines[i]!r} does not match {pat!r}")
+                got[name] = lines[j]
+        for k, v in got.items():
+            if k in vals and vals[k] != v:
+                raise FeatureError(f"value {k} is read twice and differs: {vals[k]!r} / {v!r}")
+            vals[k] = v
+    for chk in feature.get("checks") or []:
+        v = vals.get(chk.get("value"))
+        why = chk.get("why", "the story does not hold")
+        if v is None:
+            raise FeatureError(f"check on {chk.get('value')!r}: no such value")
+        if "min" in chk:
+            n = written_value(v)
+            if n is None or n < float(chk["min"]):
+                raise FeatureError(f"{chk['value']} is {v!r}, below {chk['min']}: {why}")
+        if "equals" in chk and v != chk["equals"]:
+            raise FeatureError(f"{chk['value']} is {v!r}, not {chk['equals']!r}: {why}")
+    return vals
+
+
+def page_words(text: str) -> list[str]:
+    """Words for a verbatim comparison: case kept, edge punctuation and punctuation-only tokens dropped, the minus sign
+    and the hyphen alike ("rose — 83%" and "rose: 83%." are the same words; "83%" and "8.3%" are not)."""
+    out = []
+    for w in str(text).replace("−", "-").split():
+        core = w.strip(".,;:!?()[]\"'“”‘’·—–|")
+        if core:
+            out.append(core)
+    return out
+
+
+def _has_run(hay: list[str], needle: list[str]) -> bool:
+    n = len(needle)
+    return n > 0 and any(hay[i:i + n] == needle for i in range(len(hay) - n + 1))
+
+
+def on_capture(text: str, meta: dict) -> bool:
+    """The words of `text`, in order and unbroken, are in the capture's visible text."""
+    return _has_run(page_words(str(meta.get("visible_text", ""))), page_words(text))
+
+
+def feature_sources(feature: dict, values: dict, metas: dict) -> dict:
+    """Source id -> the page text a story line may paraphrase: a text that is on its capture word for word, or (no
+    "text") everything the capture shows."""
+    out = {}
+    for sid, src in (feature.get("sources") or {}).items():
+        meta = metas.get(src.get("capture"))
+        if meta is None:
+            raise FeatureError(f"source {sid}: capture {src.get('capture')!r} was not made")
+        if src.get("text"):
+            text = fill(src["text"], values)
+            if not on_capture(text, meta):
+                raise FeatureError(f"source {sid}: {text!r} is not on the {src['capture']} capture")
+        else:
+            text = " ".join(vis_lines(meta))
+        out[sid] = text
+    return out
+
+
+def feature_lines(feature: dict, values: dict) -> dict:
+    """The story's texts: the registry's templates filled with the captured values."""
+    ln = feature["lines"]
+    out = {k: fill(ln[k], values) for k in FEATURE_LINES + ("hook_figure", "search")}
+    out["fact_phrase"] = fill(feature["fact_phrase"], values)
+    out["key"] = fill(feature["key"]["target"], values)
+    return out
+
+
+def feature_item(feature: dict, values: dict, metas: dict, item_id: str) -> dict:
+    """The facts item of a feature short, built from the captures: its allowed numbers are the numbers the captures show,
+    its phrasings the registry's sources as they stand on the captures. The renderer's number, claim and hook gates then
+    run unchanged, against the page instead of a facts file."""
+    numbers: list[str] = []
+    for meta in metas.values():
+        for n in find_numbers(meta.get("visible_text", "")):
+            if n not in numbers:
+                numbers.append(n)
+    srcs = feature_sources(feature, values, metas)
+    phrase = fill(feature["fact_phrase"], values)
+    if not any(on_capture(phrase, m) for m in metas.values()):
+        raise FeatureError(f"the fact phrase {phrase!r} is not on a capture")
+    return {"item_id": item_id, "type": "feature", "feature": feature["id"], "page_url": feature["url"],
+            "ticker": values.get(feature.get("ticker") or ""), "name": values.get(feature.get("name") or ""),
+            "allowed_numbers": numbers, "facts_text": phrase,
+            "phrasings": [{"id": sid, "text": text} for sid, text in srcs.items()]}
+
+
+def capture_day(metas: dict) -> str:
+    days = {str(m.get("captured_at", ""))[:10] for m in metas.values()}
+    if len(days) != 1 or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", next(iter(days))):
+        raise FeatureError(f"the captures are not from one day: {sorted(days)}")
+    return next(iter(days))
+
+
+def feature_capture_gate(feature: dict, metas: dict, now: dt.datetime, max_age_h: float = FEATURE_MAX_AGE_H) -> tuple[bool, dict]:
+    """Every capture of a feature short: our page (the registry's URL), made today (at most max_age_h before `now`, UTC,
+    never in the future), its data loaded (the registry's `require` texts on the page, none of its `refuse_if` texts, no
+    error or loading words on what is shown), and no provider or source brand on what is shown. The whole page's text may
+    name a source in its footer: only what the video shows is checked."""
+    bad: dict = {}
+    ages = {}
+    want = re.sub(r"[?#].*$", "", feature["url"]).rstrip("/")
+    for name, m in metas.items():
+        why = []
+        if re.sub(r"[?#].*$", "", str(m.get("url") or "")).rstrip("/") != want:
+            why.append(f"url {m.get('url')!r} is not {feature['url']}")
+        try:
+            at = dt.datetime.strptime(str(m.get("captured_at")), "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
+            age = (now - at).total_seconds() / 3600.0
+            ages[name] = round(age, 2)
+            if not (-0.1 <= age <= max_age_h):
+                why.append(f"captured {age:.1f} h before the render (limit {max_age_h} h): capture it again today")
+        except ValueError:
+            why.append(f"captured_at {m.get('captured_at')!r} is not a UTC timestamp")
+        page, vis = str(m.get("page_text", "")), str(m.get("visible_text", ""))
+        low = page.lower()                 # the page text is innerText: CSS upper-casing is applied to it
+        why += [f"the page lacks {t!r}" for t in feature.get("require") or [] if t.lower() not in low]
+        why += [f"the page says {t!r}" for t in feature.get("refuse_if") or [] if t.lower() in low]
+        err = sorted({x.group(0).strip() for x in ERROR_STATE_RX.finditer(vis)})
+        if err:
+            why.append(f"error or loading state on screen: {err}")
+        prov = sorted({x.group(0) for rx in (PROVIDER_RX, VENDOR_EXTRA_RX) for x in rx.finditer(vis)})
+        if prov:
+            why.append(f"provider names on screen: {prov}")
+        if not vis.strip():
+            why.append("nothing visible")
+        if why:
+            bad[name] = why
+    for need in ("head", "fact", "key"):
+        if need not in metas:
+            bad.setdefault(need, []).append("capture missing")
+    return not bad, {"problems": bad, "age_h": ages, "max_age_h": max_age_h, "url": feature["url"]}
+
+
+def feature_story_gate(doc: dict, feature: dict, metas: dict) -> tuple[bool, dict]:
+    """A feature story holds only what the registry and today's captures give: its values are the ones read from the
+    sidecars now, its voice lines, chip, typed search, fact phrase and key target are the registry's templates filled with
+    them, each line carries the registry's claim, and every ticker-like word it says or draws is on a capture."""
+    probs: list[str] = []
+    try:
+        vals = feature_values(feature, metas)
+        want = feature_lines(feature, vals)
+    except FeatureError as e:
+        return False, {"problems": [str(e)]}
+    got_vals = (doc.get("feature") or {}).get("values")
+    if got_vals != vals:
+        probs.append(f"story values {got_vals} are not the captures' {vals}")
+    shots = doc.get("shots") or []
+    vo = [str(sh.get("vo") or "").strip() for sh in shots if str(sh.get("vo") or "").strip()]
+    fixed = {"Oh.", f"Search {BRAND}. {cr.DISCLAIMER}"}
+    planned = [want[k] for k in FEATURE_LINES]
+    free = [v for v in vo if v not in fixed]
+    if free != planned:
+        probs.append(f"voice lines {free} are not the registry's {planned}")
+    claims = feature.get("claims") or {}
+    for k in FEATURE_LINES:
+        sh = next((s_ for s_ in shots if str(s_.get("vo") or "").strip() == want[k]), None)
+        if sh is not None and sh.get("claim") != claims.get(k):
+            probs.append(f"line {k} carries claim {sh.get('claim')!r}, the registry says {claims.get(k)!r}")
+    chips = [str(sh["chip"].get("text")) for sh in shots if sh.get("chip")]
+    if chips != [want["hook_figure"]]:
+        probs.append(f"chips {chips} are not the hook figure {want['hook_figure']!r}")
+    typed = [str(e.get("text")) for sh in shots for e in sh.get("els", []) if e.get("t") == "search_phone"]
+    if typed != [want["search"]]:
+        probs.append(f"the phone types {typed}, the registry says {want['search']!r}")
+    if doc.get("fact_phrase") != want["fact_phrase"]:
+        probs.append(f"fact phrase {doc.get('fact_phrase')!r} is not {want['fact_phrase']!r}")
+    keys = [sh.get("key_number") for sh in shots if sh.get("key_number")]
+    marks = [e.get("target") for sh in shots for e in sh.get("els", []) if e.get("t") == "highlight"]
+    if keys != [want["key"]] or want["key"] not in marks:
+        probs.append(f"key {keys} / outlines {marks} are not the registry's key {want['key']!r}")
+    if any(sh.get("bubble") for sh in shots) or any(e.get("t") == "receipt" for sh in shots for e in sh.get("els", [])):
+        probs.append("a feature story draws no bubble and no receipt (their text is not the page's)")
+    shown = " ".join(str(m.get("visible_text", "")) for m in metas.values())
+    stray = sorted(set(TICKER_TOKEN_RX.findall(" ".join(vo + chips + typed))) - set(TICKER_TOKEN_RX.findall(shown)) - NOT_TICKERS)
+    if stray:
+        probs.append(f"ticker-like words that are on no capture: {stray}")
+    return not probs, {"problems": probs, "values": vals, "lines": {k: want[k] for k in FEATURE_LINES}, "key": want["key"]}
+
+
+def feature_fact_gate(phrase: str, metas: dict, script: str) -> tuple[bool, dict]:
+    """The one data phrase of a feature short is on a capture word for word and the voice reads it word for word."""
+    where = sorted(n for n, m in metas.items() if on_capture(phrase, m))
+    read = _has_run(page_words(script), page_words(phrase))
+    return bool(where) and read, {"phrase": phrase, "on_captures": where, "in_script": read}
+
+
+def key_target_gate(samples: list[dict], fps: int, kind: str = "figure") -> tuple[bool, dict]:
+    """samples: one per rendered PAYOFF frame with the key outlined: {"t", "h" (the key text's height on screen), "box" (its
+    box), "card_w" (the width on screen of the card it is on)}. A figure (a tag, a ticker, an amount) is at least 64 px tall
+    for 1.5 s. A visual (a chart: its labels cannot be that tall while the chart stays whole) is at least 640 px wide with
+    its outlined label at least 30 px tall for 1.5 s. Either way the key sits inside the safe area."""
+    def inside(k):
+        return 60 <= k["box"][0] and k["box"][2] <= 960 and 300 <= k["box"][1] and k["box"][3] <= 1400
+    if kind == "visual":
+        good = [k for k in samples if k["h"] >= KEY_VISUAL_MIN_H and k.get("card_w", 0.0) >= KEY_VISUAL_MIN_W and inside(k)]
+        limits = {"label_h": KEY_VISUAL_MIN_H, "card_w": KEY_VISUAL_MIN_W, "s": KEY_MIN_S}
+    else:
+        good = [k for k in samples if k["h"] >= KEY_MIN_H and inside(k)]
+        limits = {"h": KEY_MIN_H, "s": KEY_MIN_S}
+    secs = len(good) / fps
+    return secs >= KEY_MIN_S, {"kind": kind, "readable_s": round(secs, 2), "samples": len(samples), "limits": limits,
+                               "min_h": min((k["h"] for k in samples), default=None),
+                               "max_h": max((k["h"] for k in samples), default=None),
+                               "max_card_w": max((k.get("card_w", 0.0) for k in samples), default=None)}

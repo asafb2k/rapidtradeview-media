@@ -1,0 +1,161 @@
+{
+ "schema": "rtv-cartoon-features/1",
+ "about": "The registry of FEATURE shorts (make_feature_story.py; SKILL.md, section Feature shorts). One entry = one feature of the site and the one question it answers. Lines never hold a number, a ticker or a name: those are {slots}, read from the capture's visible text on the render day.",
+ "banned_words": ["insider trading", "guaranteed", "moon", "buy now", "will rise", "price target", "to the moon", "breakout coming", "about to", "set to", "should buy", "should sell", "load up", "buy the dip", "time to buy", "time to sell", "don't miss", "dont miss", "easy money", "can't lose", "cant lose", "free money", "sell now", "get in now", "bitcoin", "btc", "crypto", "cryptocurrency", "ethereum", "blockchain"],
+ "features": [
+  {
+   "id": "smart-money",
+   "answers": "Which stock are the most members of Congress buying?",
+   "url": "https://www.rapidtradeview.trade/congress-trades",
+   "viewport": "390x844",
+   "require": ["Most bought stocks by Congress"],
+   "refuse_if": ["The Congress tracker is unavailable right now", "No trades by members of Congress were disclosed"],
+   "captures": [
+    {"name": "head", "clip_from": "RapidTradeView", "clip_to": "RapidTradeView", "pad": 12,
+     "targets": ["RapidTradeView"]},
+    {"name": "fact", "clip_from": "Most bought stocks by Congress", "clip_to": "first buy filing #1", "pad": 10,
+     "targets": ["Most bought stocks by Congress"]},
+    {"name": "key", "clip_from": "Since first buy filing", "clip_to": "{count_line}", "pad": 8, "dpr": 6,
+     "targets": ["={ticker}", "={name}", "{count_line}"]}
+   ],
+   "values": [
+    {"from": "fact", "after": "Since first buy filing", "offset": 1, "rx": "(?P<ticker>[A-Z][A-Z0-9.\\-]{0,5})"},
+    {"from": "fact", "after": "Since first buy filing", "offset": 2, "rx": "(?P<name>[A-Z].*[a-z].*)"},
+    {"from": "fact", "after": "Since first buy filing", "rx": "(?P<count>\\d+) members buying", "as": "count_line"}
+   ],
+   "checks": [{"value": "count", "min": 2, "why": "the hook needs several members buying the top stock"}],
+   "hold4": 0.8,
+   "ticker": "ticker",
+   "name": "name",
+   "lines": {
+    "hook": "{count} in Congress bought one stock!",
+    "hook_figure": "{count}",
+    "confused": "Which stock? Checking RapidTradeView.",
+    "search": "Congress",
+    "fact_a": "Most bought stocks by Congress.",
+    "fact_b": "{ticker}: {count_line}."
+   },
+   "fact_phrase": "{count_line}",
+   "sources": {
+    "heading": {"capture": "fact", "text": "Most bought stocks by Congress"},
+    "row": {"capture": "key"}
+   },
+   "claims": {"hook": "row", "fact_a": "heading", "fact_b": "row"},
+   "layout": "stack",
+   "key": {"capture": "key", "target": "{ticker}", "crop": ["{ticker}", "{name}"], "pad": [0.5, 0.3, 0.5, 0.2], "w": 760, "kind": "figure"}
+  },
+  {
+   "id": "concentration",
+   "answers": "Am I actually diversified?",
+   "url": "https://www.rapidtradeview.trade/sample-portfolio",
+   "viewport": "390x844",
+   "require": ["Sample portfolio", "Portfolio Concentration"],
+   "refuse_if": [],
+   "captures": [
+    {"name": "head", "clip_from": "RapidTradeView", "clip_to": "Sample portfolio", "pad": 10,
+     "targets": ["RapidTradeView", "READ-ONLY SAMPLE", "Sample portfolio"]},
+    {"name": "fact", "clip_from": "Portfolio Concentration", "clip_to": "Inner ring: your", "end_above": "Inner ring: your", "pad": 14,
+     "targets": ["Portfolio Concentration", "=Concentrated"]},
+    {"name": "key", "clip_from": "Portfolio Concentration", "clip_to": "Portfolio Concentration", "pad": 10, "dpr": 6,
+     "targets": ["={verdict}"]}
+   ],
+   "values": [
+    {"from": "fact", "after": "Portfolio Concentration", "offset": 1, "rx": "(?P<verdict>[A-Z][a-z]+)"},
+    {"from": "fact", "rx": "(?P<share>\\d+(?:\\.\\d+)?%) of your money is in (?P<n>\\d+) chip companies\\.", "as": "headline"}
+   ],
+   "checks": [{"value": "verdict", "equals": "Concentrated", "why": "the story is about a portfolio the page calls Concentrated"},
+              {"value": "n", "min": 2, "why": "the hook needs several chip companies"}],
+   "lines": {
+    "hook": "Only {n} chip stocks. I'm diversified!",
+    "hook_figure": "{n}",
+    "confused": "Are you? Checking RapidTradeView.",
+    "search": "Portfolio",
+    "fact_a": "{headline}",
+    "fact_b": "{verdict}."
+   },
+   "fact_phrase": "{headline}",
+   "sources": {
+    "headline": {"capture": "fact", "text": "{headline}"},
+    "verdict": {"capture": "fact", "text": "Portfolio Concentration {verdict}"}
+   },
+   "claims": {"hook": "headline", "fact_a": "headline", "fact_b": "verdict"},
+   "layout": "stack",
+   "key": {"capture": "key", "target": "{verdict}", "pad": [2.25, 0.57, 0.95, 0.57], "w": 640, "kind": "figure"}
+  },
+  {
+   "id": "portfolio",
+   "answers": "Where is my money, really?",
+   "url": "https://www.rapidtradeview.trade/sample-portfolio",
+   "viewport": "390x844",
+   "require": ["Sample portfolio", "Portfolio Concentration"],
+   "refuse_if": [],
+   "captures": [
+    {"name": "head", "clip_from": "RapidTradeView", "clip_to": "Sample portfolio", "pad": 10,
+     "targets": ["RapidTradeView", "READ-ONLY SAMPLE", "Sample portfolio"]},
+    {"name": "fact", "clip_from": "of your money. In the S&P 500", "clip_to": "outer ring: their sectors", "pad": 4,
+     "targets": ["outer ring: their sectors"]},
+    {"name": "key", "clip_from": "Inner ring: your", "clip_to": "Sectors", "end_above": "Sectors", "pad": 8, "dpr": 6,
+     "targets": ["={pct}", "=TOTAL"]}
+   ],
+   "values": [
+    {"from": "fact", "rx": "(?P<sector>[A-Z][A-Za-z &]+) is (?P<pct>\\d+(?:\\.\\d+)?%) of your money\\. In the S&P 500 it's (?P<bench>\\d+(?:\\.\\d+)?%)\\.", "as": "sector_line"},
+    {"from": "fact", "rx": "(?P<holdings>\\d+) holdings", "as": "holdings_line"}
+   ],
+   "checks": [{"value": "pct", "min": 40, "why": "the story is about one sector holding a large share of the money"},
+              {"value": "holdings", "min": 10, "why": "the hook needs many holdings"}],
+   "lines": {
+    "hook": "{holdings} holdings. Spread all over!",
+    "hook_figure": "{holdings}",
+    "confused": "Spread where? Checking RapidTradeView.",
+    "search": "Portfolio",
+    "fact_a": "{sector} is {pct} of your money.",
+    "fact_b": "{pct}."
+   },
+   "fact_phrase": "{sector} is {pct} of your money.",
+   "sources": {
+    "sentence": {"capture": "fact", "text": "{sector_line}"},
+    "holdings": {"capture": "fact", "text": "{holdings_line}"}
+   },
+   "claims": {"hook": "holdings", "fact_a": "sentence", "fact_b": "sentence"},
+   "layout": "hero",
+   "key": {"capture": "key", "target": "{pct}", "kind": "visual"}
+  },
+  {
+   "id": "market-pictures",
+   "answers": "How much of the market actually moved with the headline?",
+   "url": "https://www.rapidtradeview.trade/market",
+   "viewport": "390x844",
+   "require": ["Market breadth"],
+   "refuse_if": [],
+   "captures": [
+    {"name": "head", "clip_from": "RapidTradeView", "clip_to": "RapidTradeView", "pad": 12,
+     "targets": ["RapidTradeView"]},
+    {"name": "fact", "clip_from": "Market breadth", "clip_to": "Up minus down", "end_above": "Up minus down", "pad": 12,
+     "targets": ["Market breadth"]},
+    {"name": "key", "clip_from": "{mid}", "clip_to": "{mid}", "pad": 8, "dpr": 6,
+     "targets": ["={pct}"]}
+   ],
+   "values": [
+    {"from": "fact", "after": "Market breadth", "rx": "of (?P<total>[\\d,]+) stocks (?P<verb>rose|fell) —", "as": "mid",
+     "prev": {"count": "[\\d,]+"}, "next": {"pct": "\\d+%"}}
+   ],
+   "checks": [],
+   "lines": {
+    "hook": "{pct} of stocks {verb}!",
+    "hook_figure": "{pct}",
+    "confused": "How many? Checking RapidTradeView.",
+    "search": "Market",
+    "fact_a": "{count} of {total} stocks {verb}:",
+    "fact_b": "{pct}."
+   },
+   "fact_phrase": "{count} of {total} stocks {verb} — {pct}",
+   "sources": {
+    "headline": {"capture": "fact", "text": "{count} of {total} stocks {verb} — {pct}"}
+   },
+   "claims": {"hook": "headline", "fact_a": "headline", "fact_b": "headline"},
+   "layout": "stack",
+   "hold4": 0.1,
+   "key": {"capture": "key", "target": "{pct}", "pad": [0.2, 0.14, 0.25, 0.14], "w": 400, "kind": "figure"}
+  }
+ ]
+}

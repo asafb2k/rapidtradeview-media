@@ -13,6 +13,10 @@ the zoom); the end card keeps out of the right 12% (end_card_safe) and keeps mov
 
 Inputs (story.json, schema rtv-cartoon-story/1; SKILL.md in this folder says how to write one):
   item_id, facts_file           the facts item (its numbers, phrasings and banned words gate every text)
+  feature                       instead of facts_file, a FEATURE short (make_feature_story.py): {"id": a features.json id,
+                                "values": the values read from the captures}. The item is then built from the capture
+                                sidecars at render time (cartoon_qa.feature_item): every number and name must be on a
+                                capture made today, and the story must be the registry's template filled from them
   fact_phrase                   the ONE data sentence, verbatim one of the item's own phrasings; read aloud, or shown whole
                                 on a receipt card (els "receipt", text "$fact_phrase") for at least RECEIPT_MIN_S
   post_date                     YYYY-MM-DD the video goes out (a story-time weekday must be this day's weekday)
@@ -21,6 +25,7 @@ Inputs (story.json, schema rtv-cartoon-story/1; SKILL.md in this folder says how
   screens                       {"name": "<capture png>"}: each with its capture.py sidecar (<png>.json)
   screen_numbers_ack            {screen name: {number: why it is there}} for numbers on a screenshot that are not item numbers
   shots                         the shot list (kind, set, els, move, vo, voice, claim, bubble, chip, peek, ...), last one END
+                                (a voiced shot may carry "lead": seconds of picture before its first word)
                                 (a shot whose vo states a fact carries "claim": the phrasing id it paraphrases)
 
 Outputs in DIR: reel_9x16.mp4 (1080x1920, 30 fps, H.264 + AAC), reel.json (provenance: item, numbers, voice engine and
@@ -147,22 +152,24 @@ class Story:
         except (OSError, ValueError) as e:
             raise InputError(f"story unreadable ({type(e).__name__}: {e})") from e
         d = self.doc
-        for k in ("item_id", "facts_file", "fact_phrase", "shots", "screens"):
+        self.feature = None                # a FEATURE short: the registry entry; its item comes from the captures
+        for k in ("item_id", "fact_phrase", "shots", "screens") + (() if d.get("feature") else ("facts_file",)):
             if k not in d:
                 raise InputError(f"story has no {k}")
-        ff = Path(d["facts_file"])
-        if not ff.is_absolute():
-            ff = (path.parent / ff).resolve()
-        try:
-            facts = json.loads(ff.read_text(encoding="utf-8-sig"))
-        except (OSError, ValueError) as e:
-            raise InputError(f"facts file unreadable: {ff} ({type(e).__name__})") from e
-        self.item = next((i for i in facts.get("items", []) if i.get("item_id") == d["item_id"]), None)
-        if not self.item:
-            raise InputError(f"item {d['item_id']} not in {ff}")
-        self.facts_path = ff
-        self.banned = [w for w in (facts.get("rules") or {}).get("banned_words") or [] if isinstance(w, str)]
-        self.banned += [w for w in self.item.get("banned_words") or [] if isinstance(w, str)]
+        if not d.get("feature"):
+            ff = Path(d["facts_file"])
+            if not ff.is_absolute():
+                ff = (path.parent / ff).resolve()
+            try:
+                facts = json.loads(ff.read_text(encoding="utf-8-sig"))
+            except (OSError, ValueError) as e:
+                raise InputError(f"facts file unreadable: {ff} ({type(e).__name__})") from e
+            self.item = next((i for i in facts.get("items", []) if i.get("item_id") == d["item_id"]), None)
+            if not self.item:
+                raise InputError(f"item {d['item_id']} not in {ff}")
+            self.facts_path = ff
+            self.banned = [w for w in (facts.get("rules") or {}).get("banned_words") or [] if isinstance(w, str)]
+            self.banned += [w for w in self.item.get("banned_words") or [] if isinstance(w, str)]
         self.say = dict(d.get("say") or {})
         self.voices = d.get("voices") or {"narrator": {"id": "af_heart", "speed": 1.0}}
         self.shots = d["shots"]
@@ -181,6 +188,8 @@ class Story:
                 fmt, size = im.format, im.size
                 img = im.convert("RGB")
             self.screens[name] = {"png": png, "img": img, "meta": meta, "fmt": fmt, "size": size}
+        if d.get("feature"):
+            self._feature_item(d)
         ack = d.get("screen_numbers_ack") or {}
         if not isinstance(ack, dict) or any(not isinstance(v, dict) for v in ack.values()) or set(ack) - set(self.screens):
             raise InputError("screen_numbers_ack must be {screen name: {number: reason}} (one entry per screen in `screens`)")
@@ -191,6 +200,23 @@ class Story:
                 dt.date.fromisoformat(str(self.post_date))
             except ValueError as e:
                 raise InputError(f"post_date {self.post_date!r} is not YYYY-MM-DD") from e
+
+
+    def _feature_item(self, d: dict) -> None:
+        """A FEATURE short: the registry entry and the item built from the capture sidecars (never from the story)."""
+        try:
+            reg = Q.load_features()
+            self.feature = Q.feature_by_id(reg, str((d["feature"] or {}).get("id")))
+            metas = {n: sc["meta"] for n, sc in self.screens.items()}
+            day = Q.capture_day(metas)
+            if not str(d["item_id"]).startswith(day):
+                raise Q.FeatureError(f"item_id {d['item_id']} does not start with the capture day {day}")
+            vals = Q.feature_values(self.feature, metas)
+            self.item = Q.feature_item(self.feature, vals, metas, d["item_id"])
+        except Q.FeatureError as e:
+            raise InputError(f"feature story: {e}") from e
+        self.facts_path = Path(reg["_path"])
+        self.banned = [w for w in reg.get("banned_words") or [] if isinstance(w, str)]
 
 
 class Word:
@@ -286,6 +312,9 @@ class Timeline:
                 t = max(t, self.shot_start.get(end_i, t))
                 self.shot_start.setdefault(end_i, t)
                 t = self.shot_start[end_i] + float(shots[end_i].get("vo_at", 0.25))
+            # "lead": a silent beat at the head of the shot (the key lands and the camera settles, then the line names it)
+            lead_in = float(shots[first_shot].get("lead", 0.0)) if first_shot != end_i else 0.0
+            t += lead_in
             x, sr = read_wav_mono(u["wav"])
             tw = json.loads(Path(u["timings"]).read_text(encoding="utf-8"))
             if not tw:
@@ -309,7 +338,8 @@ class Timeline:
                     continue
                 if si not in self.shot_start:
                     fw = next(w for w in self.words if w.shot == si)
-                    self.shot_start[si] = 0.0 if si == 0 else max(fw.start - LEAD_F / FPS, 0.0)
+                    back = LEAD_F / FPS + (lead_in if si == first_shot else 0.0)
+                    self.shot_start[si] = 0.0 if si == 0 else max(fw.start - back, 0.0)
             last_shot = u["shots"][-1]
             t = t0 + (vend - lead) + float(shots[last_shot].get("pause", 0.12)) + float(shots[last_shot].get("hold", 0.0))
             # enforce the shot minimum on the utterance's last shot
@@ -1491,8 +1521,16 @@ class Reel:
         corners, _ = self._target_world(si, sh["key_number"], t)
         pts = np.array([cam.p(q) for q in corners])
         hh = float(np.linalg.norm(pts[3] - pts[0]))
-        self.key_samples.append({"t": round(t_abs, 3), "h": round(hh, 1), "box": [round(float(v)) for v in
-                                 (pts[:, 0].min(), pts[:, 1].min(), pts[:, 0].max(), pts[:, 1].max())]})
+        cards = [e for e in sh["els"] if e.get("t") in ("screen", "card") and any(
+            x["text"] == sh["key_number"] for x in self.st.screens[e["name"]]["meta"]["targets"])]
+        cards.sort(key=lambda e: not e.get("main", True))
+        card_w = 0.0
+        if cards and not self.el_moving(si, cards[0], t):
+            cc = np.array([cam.p(q) for q in self.card_corners(si, cards[0], t)])
+            card_w = float(np.linalg.norm(cc[1] - cc[0]))
+        self.key_samples.append({"t": round(t_abs, 3), "h": round(hh, 1), "card_w": round(card_w, 1),
+                                 "box": [round(float(v)) for v in
+                                         (pts[:, 0].min(), pts[:, 1].min(), pts[:, 0].max(), pts[:, 1].max())]})
 
     def frame(self, t_abs: float) -> Image.Image:
         fi = int(round(t_abs * FPS))
@@ -1603,9 +1641,10 @@ def build_audio(reel: Reel, tl: Timeline, out: Path, ffmpeg: str) -> tuple[Path,
 
 
 # =============================================================================================== QA
-def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
+def text_gates(st: Story, tl: Timeline, reel: Reel, now: dt.datetime | None = None) -> tuple[dict, dict]:
     s, d = {}, {}
     item = st.item
+    metas = {n: sc["meta"] for n, sc in st.screens.items()}
     end_i = len(st.shots) - 1
     script = " ".join((sh.get("vo") or "").strip() for sh in st.shots[:end_i] if (sh.get("vo") or "").strip())
     all_vo = " ".join((sh.get("vo") or "").strip() for sh in st.shots if (sh.get("vo") or "").strip())
@@ -1619,7 +1658,13 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
                 dur = tl.ends[si] - tl.starts[si] - float((el.get("enter") or {}).get("dur", 0.0))
                 shown[el["text"]] = shown.get(el["text"], 0.0) + dur
     long_enough = [t_ for t_, dur in shown.items() if dur >= RECEIPT_MIN_S]
-    s["fact_phrase"], d["fact_phrase"] = Q.fact_phrase_gate(st.doc["fact_phrase"], item, script, long_enough)
+    if st.feature:                         # a feature short: the phrase is on today's capture, and read aloud
+        s["fact_phrase"], d["fact_phrase"] = Q.feature_fact_gate(st.doc["fact_phrase"], metas, script)
+        s["feature_capture"], d["feature_capture"] = Q.feature_capture_gate(st.feature, metas,
+                                                                            now or dt.datetime.now(dt.timezone.utc))
+        s["feature_story"], d["feature_story"] = Q.feature_story_gate(st.doc, st.feature, metas)
+    else:
+        s["fact_phrase"], d["fact_phrase"] = Q.fact_phrase_gate(st.doc["fact_phrase"], item, script, long_enough)
     d["fact_phrase"]["receipt_s"] = {k: round(v, 2) for k, v in shown.items()}
     spoken = " ".join(u["spoken"] for u in tl.utts)
     drawn = {f"{x['role']}:{i}": x["text"] for i, x in enumerate(reel.texts)}
@@ -1674,7 +1719,7 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
     real = {}
     ok_all = True
     day = st.doc["item_id"][:10]
-    want_urls = Q.item_page_urls(item)
+    want_urls = {st.feature["url"]} if st.feature else Q.item_page_urls(item)
     for name, sc in st.screens.items():
         m = sc["meta"]
         sha = cr.sha256(sc["png"])
@@ -1748,6 +1793,10 @@ def text_gates(st: Story, tl: Timeline, reel: Reel) -> tuple[dict, dict]:
 
 
 def key_number_gate(reel: Reel, st: Story) -> tuple[bool, dict]:
+    if st.feature:                         # the registry says whether the key is a figure or a chart
+        ok, det = Q.key_target_gate(reel.key_samples, FPS, (st.feature.get("key") or {}).get("kind", "figure"))
+        det["targets"] = [sh["key_number"] for sh in st.shots if sh.get("key_number")]
+        return ok, det
     good = [k for k in reel.key_samples if k["h"] >= 64 and 60 <= k["box"][0] and k["box"][2] <= 960 and 300 <= k["box"][1]
             and k["box"][3] <= 1400]
     secs = len(good) / FPS
@@ -1935,6 +1984,9 @@ def run(a, out: Path, ctx: dict) -> int:
         "schema": "rtv-cartoon-reel/1", "renderer": RENDERER, "item_id": ctx["iid"], "qa_pass": ok,
         "facts_file": str(st.facts_path), "facts_text": st.item.get("facts_text"), "fact_phrase": st.doc["fact_phrase"],
         "format": "v4 one idea, brand always clear (owner verdict 2026-11-09)", "template": st.doc.get("template"),
+        "feature": st.feature and {"id": st.feature["id"], "url": st.feature["url"], "answers": st.feature.get("answers"),
+                                   "values": (details.get("feature_story") or {}).get("values"),
+                                   "page_sources": {p["id"]: p["text"] for p in st.item.get("phrasings") or []}},
         "brand": {"pill_box": list(reel.brand_box), "spoken_at_s": details.get("brand_spoken", {}).get("spoken_at_s")},
         "allowed_numbers": st.item.get("allowed_numbers"), "numbers_used": used_numbers, "post_date": st.post_date,
         "claims_for_human_check": (details.get("claim_lines") or {}).get("needs_human_check"),
