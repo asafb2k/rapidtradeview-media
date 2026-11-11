@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-11",
-  "generated_at": "2026-11-11T19:15:02Z",
-  "as_of": "2026-11-11T19:15:02Z",
+  "generated_at": "2026-11-11T20:15:02Z",
+  "as_of": "2026-11-11T20:15:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -943,23 +943,20 @@
     "earnings_result": {
       "archive_reports": 3500,
       "recent_ready": 251,
-      "outside_24h": 204,
+      "outside_24h": 205,
       "unreadable": 0,
-      "not_compared": 8,
+      "not_compared": 6,
       "not_compared_metrics": [
         "GEVO: revenue (basis_mismatch)",
         "LAND: revenue (basis_mismatch), eps_adjusted (ffo_measure)",
-        "NN: revenue (basis_mismatch)",
         "OIG: revenue (basis_mismatch)",
         "REED: revenue (basis_mismatch)",
-        "RGTI: revenue (basis_mismatch)",
         "SWMR: revenue (basis_mismatch)"
       ],
-      "consensus_mismatch_hold": 6,
+      "consensus_mismatch_hold": 5,
       "held": [
         "LAND: revenue (basis_mismatch), eps_adjusted (ffo_measure) and nothing else compared (report data to check)",
         "MRCY: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
-        "NN: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "OIG: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "REED: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "SWMR: revenue (basis_mismatch) and nothing else compared (report data to check)"
@@ -992,7 +989,7 @@
     "market": {
       "market_session": "2026-11-10",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-11T19:15:51.577002+00:00"
+      "flows_as_of": "2026-11-11T20:15:43.726602+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1004,15 +1001,15 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 113
+        "angles_dropped": 117
       },
       "top8": {
-        "stale": 6,
+        "stale": 5,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 9,
-        "ranked_below": 133,
+        "ranked_below": 134,
         "pillars": 4
       }
     }
@@ -1049,7 +1046,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 110,
+  "api_requests": 94,
   "items": [
     {
       "item_id": "2026-11-11-reddit-buzz-CRWV-c66857",
@@ -5373,6 +5370,8 @@
         "$3.54B",
         "$120M",
         "−$1.27",
+        "−$1.55",
+        "$0.28",
         "Q3 2026",
         "Q3",
         "FY2026",
@@ -5383,7 +5382,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "CoreWeave, Inc. (CRWV) published Q3 2026 results on 2026-11-10: Revenue beat. Revenue $3.66B vs $3.54B consensus (Beat by $120M). GAAP EPS −$1.27.",
+      "facts_text": "CoreWeave, Inc. (CRWV) published Q3 2026 results on 2026-11-10: Beat estimates. Revenue $3.66B vs $3.54B consensus (Beat by $120M). Diluted EPS (GAAP, street basis) −$1.27 vs −$1.55 consensus (Beat by $0.28).",
       "dedupe_key": "report:crwv-2026-q3",
       "claim_phrases": [
         "revenue came in above the $3.54B consensus.",
@@ -5397,6 +5396,28 @@
         "$CRWV Q3 revenue: $3.66B vs $3.54B consensus (beat by $120M).",
         "$CRWV Q3 revenue $3.66B, beat by $120M.",
         "$CRWV beat Q3 revenue estimates by $120M.",
+        "EPS came in above the −$1.55 consensus.",
+        "$CRWV beat the Q3 2026 EPS consensus: −$1.27 vs −$1.55.",
+        "$CRWV Q3 2026 EPS: −$1.27 vs −$1.55 consensus (beat by $0.28).",
+        "$CRWV Q3 2026 EPS −$1.27, beat by $0.28.",
+        "EPS −$1.27 vs −$1.55 consensus (beat by $0.28).",
+        "EPS −$1.27 vs −$1.55 (beat by $0.28).",
+        "$CRWV beat Q3 2026 EPS estimates by $0.28.",
+        "Diluted EPS (GAAP, street basis) came in above the −$1.55 consensus.",
+        "$CRWV beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$1.27 vs −$1.55.",
+        "$CRWV Q3 2026 Diluted EPS (GAAP, street basis): −$1.27 vs −$1.55 consensus (beat by $0.28).",
+        "$CRWV Q3 2026 Diluted EPS (GAAP, street basis) −$1.27, beat by $0.28.",
+        "Diluted EPS (GAAP, street basis) −$1.27 vs −$1.55 consensus (beat by $0.28).",
+        "Diluted EPS (GAAP, street basis) −$1.27 vs −$1.55 (beat by $0.28).",
+        "$CRWV beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.28.",
+        "$CRWV beat the Q3 EPS consensus: −$1.27 vs −$1.55.",
+        "$CRWV Q3 EPS: −$1.27 vs −$1.55 consensus (beat by $0.28).",
+        "$CRWV Q3 EPS −$1.27, beat by $0.28.",
+        "$CRWV beat Q3 EPS estimates by $0.28.",
+        "$CRWV beat the Q3 Diluted EPS (GAAP, street basis) consensus: −$1.27 vs −$1.55.",
+        "$CRWV Q3 Diluted EPS (GAAP, street basis): −$1.27 vs −$1.55 consensus (beat by $0.28).",
+        "$CRWV Q3 Diluted EPS (GAAP, street basis) −$1.27, beat by $0.28.",
+        "$CRWV beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.28.",
         "$CRWV beat Q3 2026 estimates.",
         "$CRWV beat Q3 estimates."
       ],
@@ -5404,7 +5425,7 @@
       "fiscal_label": "Q3 2026",
       "release_date": "2026-11-10",
       "published_at": "2026-11-10T21:12:55.665866+00:00",
-      "tile_label": "Revenue beat",
+      "tile_label": "Beat estimates",
       "tile_state": "beat",
       "results": {
         "revenue": {
@@ -5414,8 +5435,11 @@
           "verdict": "beat"
         },
         "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$1.27"
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "−$1.27",
+          "consensus": "−$1.55",
+          "label": "Beat by $0.28",
+          "verdict": "beat"
         }
       },
       "media": [
@@ -5487,10 +5511,10 @@
         "$CRWV reported Q3 2026 revenue of $3.66B vs $3.54B consensus.",
         "$CRWV Q3 2026 revenue was $3.66B.",
         "Q3 2026 revenue at $CRWV was $3.66B.",
-        "$CRWV Q3 2026 GAAP EPS: −$1.27.",
-        "$CRWV reported Q3 2026 GAAP EPS of −$1.27.",
-        "$CRWV Q3 2026 GAAP EPS was −$1.27.",
-        "Q3 2026 GAAP EPS at $CRWV was −$1.27.",
+        "$CRWV Q3 2026 Diluted EPS (GAAP, street basis): −$1.27 vs −$1.55 consensus.",
+        "$CRWV reported Q3 2026 Diluted EPS (GAAP, street basis) of −$1.27 vs −$1.55 consensus.",
+        "$CRWV Q3 2026 Diluted EPS (GAAP, street basis) was −$1.27.",
+        "Q3 2026 Diluted EPS (GAAP, street basis) at $CRWV was −$1.27.",
         "$CRWV had a market value of $27.0B at the Nov 10 close.",
         "$CRWV's market value at the Nov 10 close was $27.0B.",
         "At the Nov 10 close, $CRWV had a market value of $27.0B.",
@@ -5574,6 +5598,160 @@
           "fact": "earningsre-6ea266",
           "variant": "a",
           "text": "$CRWV beat Q3 revenue estimates by $120M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the −$1.55 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$CRWV beat the Q3 2026 EPS consensus: −$1.27 vs −$1.55.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$CRWV Q3 2026 EPS: −$1.27 vs −$1.55 consensus (beat by $0.28).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$CRWV Q3 2026 EPS −$1.27, beat by $0.28.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS −$1.27 vs −$1.55 consensus (beat by $0.28).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS −$1.27 vs −$1.55 (beat by $0.28).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$CRWV beat Q3 2026 EPS estimates by $0.28.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-12a211.a",
+          "fact": "earningsre-12a211",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in above the −$1.55 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b45d0c.a",
+          "fact": "earningsre-b45d0c",
+          "variant": "a",
+          "text": "$CRWV beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$1.27 vs −$1.55.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-365e1a.a",
+          "fact": "earningsre-365e1a",
+          "variant": "a",
+          "text": "$CRWV Q3 2026 Diluted EPS (GAAP, street basis): −$1.27 vs −$1.55 consensus (beat by $0.28).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4de0a3.a",
+          "fact": "earningsre-4de0a3",
+          "variant": "a",
+          "text": "$CRWV Q3 2026 Diluted EPS (GAAP, street basis) −$1.27, beat by $0.28.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e854ec.a",
+          "fact": "earningsre-e854ec",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$1.27 vs −$1.55 consensus (beat by $0.28).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0f9fa0.a",
+          "fact": "earningsre-0f9fa0",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$1.27 vs −$1.55 (beat by $0.28).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54bca2.a",
+          "fact": "earningsre-54bca2",
+          "variant": "a",
+          "text": "$CRWV beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.28.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$CRWV beat the Q3 EPS consensus: −$1.27 vs −$1.55.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$CRWV Q3 EPS: −$1.27 vs −$1.55 consensus (beat by $0.28).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$CRWV Q3 EPS −$1.27, beat by $0.28.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$CRWV beat Q3 EPS estimates by $0.28.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-dc1c68.a",
+          "fact": "earningsre-dc1c68",
+          "variant": "a",
+          "text": "$CRWV beat the Q3 Diluted EPS (GAAP, street basis) consensus: −$1.27 vs −$1.55.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1e82b3.a",
+          "fact": "earningsre-1e82b3",
+          "variant": "a",
+          "text": "$CRWV Q3 Diluted EPS (GAAP, street basis): −$1.27 vs −$1.55 consensus (beat by $0.28).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b47e3e.a",
+          "fact": "earningsre-b47e3e",
+          "variant": "a",
+          "text": "$CRWV Q3 Diluted EPS (GAAP, street basis) −$1.27, beat by $0.28.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-161196.a",
+          "fact": "earningsre-161196",
+          "variant": "a",
+          "text": "$CRWV beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.28.",
           "claim": true
         },
         {
@@ -5661,31 +5839,31 @@
           "claim": false
         },
         {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
           "variant": "a",
-          "text": "$CRWV Q3 2026 GAAP EPS: −$1.27.",
+          "text": "$CRWV Q3 2026 Diluted EPS (GAAP, street basis): −$1.27 vs −$1.55 consensus.",
           "claim": false
         },
         {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
           "variant": "h1",
-          "text": "$CRWV reported Q3 2026 GAAP EPS of −$1.27.",
+          "text": "$CRWV reported Q3 2026 Diluted EPS (GAAP, street basis) of −$1.27 vs −$1.55 consensus.",
           "claim": false
         },
         {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
           "variant": "a",
-          "text": "$CRWV Q3 2026 GAAP EPS was −$1.27.",
+          "text": "$CRWV Q3 2026 Diluted EPS (GAAP, street basis) was −$1.27.",
           "claim": false
         },
         {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
           "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $CRWV was −$1.27.",
+          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $CRWV was −$1.27.",
           "claim": false
         },
         {
@@ -5734,6 +5912,7 @@
       "moves": {
         "numbers": {
           "$1.27": "-",
+          "$1.55": "-",
           "0.51%": "-",
           "0.5%": "-"
         },
@@ -5762,6 +5941,27 @@
             120.0,
             0,
             1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.27,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            1.55,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.28,
+            2,
+            1.0,
             0
           ],
           [
@@ -9794,7 +9994,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "LightPath Technologies, Inc. (LPTH) published Q1 2027 results on 2026-11-10: Revenue miss. Revenue $20.8M vs $21.9M consensus (Missed by $1.18M). GAAP EPS −$0.02.",
+      "facts_text": "LightPath Technologies, Inc. (LPTH) published Q1 2027 results on 2026-11-10: Mixed vs estimates. Revenue $20.8M vs $21.9M consensus (Missed by $1.18M). Diluted EPS (GAAP, street basis) −$0.02 vs −$0.02 consensus (In line).",
       "dedupe_key": "report:lpth-2027-q1",
       "claim_phrases": [
         "revenue came in below the $21.9M consensus.",
@@ -9808,15 +10008,17 @@
         "$LPTH Q1 revenue: $20.8M vs $21.9M consensus (missed by $1.18M).",
         "$LPTH Q1 revenue $20.8M, missed by $1.18M.",
         "$LPTH missed Q1 revenue estimates by $1.18M.",
-        "$LPTH missed Q1 2027 estimates.",
-        "$LPTH missed Q1 estimates."
+        "$LPTH Q1 2027 EPS was in line with the consensus: −$0.02 vs −$0.02.",
+        "$LPTH Q1 2027 Diluted EPS (GAAP, street basis) was in line with the consensus: −$0.02 vs −$0.02.",
+        "$LPTH Q1 EPS was in line with the consensus: −$0.02 vs −$0.02.",
+        "$LPTH Q1 Diluted EPS (GAAP, street basis) was in line with the consensus: −$0.02 vs −$0.02."
       ],
       "report_id": "lpth-2027-q1",
       "fiscal_label": "Q1 2027",
       "release_date": "2026-11-10",
       "published_at": "2026-11-10T21:13:04.840497+00:00",
-      "tile_label": "Revenue miss",
-      "tile_state": "miss",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
       "results": {
         "revenue": {
           "reported": "$20.8M",
@@ -9825,8 +10027,11 @@
           "verdict": "miss"
         },
         "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.02"
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "−$0.02",
+          "consensus": "−$0.02",
+          "label": "In line",
+          "verdict": "in_line"
         }
       },
       "media": [
@@ -9870,10 +10075,10 @@
         "$LPTH reported Q1 2027 revenue of $20.8M vs $21.9M consensus.",
         "$LPTH Q1 2027 revenue was $20.8M.",
         "Q1 2027 revenue at $LPTH was $20.8M.",
-        "$LPTH Q1 2027 GAAP EPS: −$0.02.",
-        "$LPTH reported Q1 2027 GAAP EPS of −$0.02.",
-        "$LPTH Q1 2027 GAAP EPS was −$0.02.",
-        "Q1 2027 GAAP EPS at $LPTH was −$0.02."
+        "$LPTH Q1 2027 Diluted EPS (GAAP, street basis): −$0.02 vs −$0.02 consensus.",
+        "$LPTH reported Q1 2027 Diluted EPS (GAAP, street basis) of −$0.02 vs −$0.02 consensus.",
+        "$LPTH Q1 2027 Diluted EPS (GAAP, street basis) was −$0.02.",
+        "Q1 2027 Diluted EPS (GAAP, street basis) at $LPTH was −$0.02."
       ],
       "phrasings": [
         {
@@ -9954,17 +10159,31 @@
           "claim": true
         },
         {
-          "id": "earningsre-0bb625.a",
-          "fact": "earningsre-0bb625",
+          "id": "earningsre-046e29.a",
+          "fact": "earningsre-046e29",
           "variant": "a",
-          "text": "$LPTH missed Q1 2027 estimates.",
+          "text": "$LPTH Q1 2027 EPS was in line with the consensus: −$0.02 vs −$0.02.",
           "claim": true
         },
         {
-          "id": "earningsre-49ee3c.a",
-          "fact": "earningsre-49ee3c",
+          "id": "earningsre-c2ceeb.a",
+          "fact": "earningsre-c2ceeb",
           "variant": "a",
-          "text": "$LPTH missed Q1 estimates.",
+          "text": "$LPTH Q1 2027 Diluted EPS (GAAP, street basis) was in line with the consensus: −$0.02 vs −$0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-daf14f.a",
+          "fact": "earningsre-daf14f",
+          "variant": "a",
+          "text": "$LPTH Q1 EPS was in line with the consensus: −$0.02 vs −$0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-48b42f.a",
+          "fact": "earningsre-48b42f",
+          "variant": "a",
+          "text": "$LPTH Q1 Diluted EPS (GAAP, street basis) was in line with the consensus: −$0.02 vs −$0.02.",
           "claim": true
         },
         {
@@ -10038,31 +10257,31 @@
           "claim": false
         },
         {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
           "variant": "a",
-          "text": "$LPTH Q1 2027 GAAP EPS: −$0.02.",
+          "text": "$LPTH Q1 2027 Diluted EPS (GAAP, street basis): −$0.02 vs −$0.02 consensus.",
           "claim": false
         },
         {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
           "variant": "h1",
-          "text": "$LPTH reported Q1 2027 GAAP EPS of −$0.02.",
+          "text": "$LPTH reported Q1 2027 Diluted EPS (GAAP, street basis) of −$0.02 vs −$0.02 consensus.",
           "claim": false
         },
         {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
           "variant": "a",
-          "text": "$LPTH Q1 2027 GAAP EPS was −$0.02.",
+          "text": "$LPTH Q1 2027 Diluted EPS (GAAP, street basis) was −$0.02.",
           "claim": false
         },
         {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
           "variant": "h1",
-          "text": "Q1 2027 GAAP EPS at $LPTH was −$0.02.",
+          "text": "Q1 2027 Diluted EPS (GAAP, street basis) at $LPTH was −$0.02.",
           "claim": false
         }
       ],
@@ -10094,6 +10313,13 @@
             2,
             1000000.0,
             0
+          ],
+          [
+            "$",
+            0.02,
+            2,
+            1.0,
+            -1
           ]
         ]
       },
@@ -11017,6 +11243,343 @@
             2,
             1.0,
             -1
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-11-earnings-result-NN-59ea29",
+      "type": "earnings_result",
+      "ticker": "NN",
+      "tickers": [
+        "NN"
+      ],
+      "name": "NextNav Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-10",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1865631/000155485526002330/ex991_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/NN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-11-earnings-result-NN-59ea29#earnings-history",
+      "allowed_numbers": [
+        "$1.58M",
+        "$987K",
+        "$596K",
+        "−$0.04",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-10",
+        "Nov 10, 2026",
+        "Nov 10"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "NextNav Inc. (NN) published Q3 2026 results on 2026-11-10: Revenue beat. Revenue $1.58M vs $987K consensus (Beat by $596K). GAAP EPS −$0.04.",
+      "dedupe_key": "report:nn-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $987K consensus.",
+        "$NN beat the Q3 2026 revenue consensus: $1.58M vs $987K.",
+        "$NN Q3 2026 revenue: $1.58M vs $987K consensus (beat by $596K).",
+        "$NN Q3 2026 revenue $1.58M, beat by $596K.",
+        "revenue $1.58M vs $987K consensus (beat by $596K).",
+        "revenue $1.58M vs $987K (beat by $596K).",
+        "$NN beat Q3 2026 revenue estimates by $596K.",
+        "$NN beat the Q3 revenue consensus: $1.58M vs $987K.",
+        "$NN Q3 revenue: $1.58M vs $987K consensus (beat by $596K).",
+        "$NN Q3 revenue $1.58M, beat by $596K.",
+        "$NN beat Q3 revenue estimates by $596K.",
+        "$NN beat Q3 2026 estimates.",
+        "$NN beat Q3 estimates."
+      ],
+      "report_id": "nn-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-10",
+      "published_at": "2026-11-10T21:11:07.897658+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$1.58M",
+          "consensus": "$987K",
+          "label": "Beat by $596K",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.04"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/NN/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for NN: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-10 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "NN"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "NextNav Inc. ($NN) published Q3 2026 results on Nov 10.",
+        "$NN (NextNav Inc.) reported Q3 2026 results on Nov 10.",
+        "On Nov 10, NextNav Inc. ($NN) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "NextNav Inc. ($NN) published Q3 2026 results on Nov 10.",
+        "$NN (NextNav Inc.) reported Q3 2026 results on Nov 10.",
+        "On Nov 10, NextNav Inc. ($NN) published Q3 2026 results.",
+        "$NN published Q3 2026 results on Nov 10.",
+        "Q3 2026 results from $NN came out on Nov 10.",
+        "On Nov 10, $NN published Q3 2026 results.",
+        "$NN Q3 2026 revenue: $1.58M vs $987K consensus.",
+        "$NN reported Q3 2026 revenue of $1.58M vs $987K consensus.",
+        "$NN Q3 2026 revenue was $1.58M.",
+        "Q3 2026 revenue at $NN was $1.58M.",
+        "$NN Q3 2026 GAAP EPS: −$0.04.",
+        "$NN reported Q3 2026 GAAP EPS of −$0.04.",
+        "$NN Q3 2026 GAAP EPS was −$0.04.",
+        "Q3 2026 GAAP EPS at $NN was −$0.04."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $987K consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$NN beat the Q3 2026 revenue consensus: $1.58M vs $987K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$NN Q3 2026 revenue: $1.58M vs $987K consensus (beat by $596K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$NN Q3 2026 revenue $1.58M, beat by $596K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $1.58M vs $987K consensus (beat by $596K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $1.58M vs $987K (beat by $596K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$NN beat Q3 2026 revenue estimates by $596K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$NN beat the Q3 revenue consensus: $1.58M vs $987K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$NN Q3 revenue: $1.58M vs $987K consensus (beat by $596K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$NN Q3 revenue $1.58M, beat by $596K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$NN beat Q3 revenue estimates by $596K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$NN beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$NN beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "NextNav Inc. ($NN) published Q3 2026 results on Nov 10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$NN (NextNav Inc.) reported Q3 2026 results on Nov 10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 10, NextNav Inc. ($NN) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$NN published Q3 2026 results on Nov 10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $NN came out on Nov 10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 10, $NN published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$NN Q3 2026 revenue: $1.58M vs $987K consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$NN reported Q3 2026 revenue of $1.58M vs $987K consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$NN Q3 2026 revenue was $1.58M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $NN was $1.58M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$NN Q3 2026 GAAP EPS: −$0.04.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$NN reported Q3 2026 GAAP EPS of −$0.04.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$NN Q3 2026 GAAP EPS was −$0.04.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $NN was −$0.04.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.04": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "NN": [
+          [
+            "$",
+            1.58,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            987.0,
+            0,
+            1000.0,
+            0
+          ],
+          [
+            "$",
+            596.0,
+            0,
+            1000.0,
+            0
           ]
         ]
       },
@@ -13128,6 +13691,9 @@
       "source_url": "https://www.sec.gov/Archives/edgar/data/1838359/000110465926125152/rgti-ex99d1.htm",
       "page_url": "https://www.rapidtradeview.trade/dashboard/RGTI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-11-earnings-result-RGTI-30e0e8#earnings-history",
       "allowed_numbers": [
+        "$1.41M",
+        "$3.68M",
+        "$2.26M",
         "−$0.06",
         "−$0.05",
         "$0.01",
@@ -13141,9 +13707,20 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Rigetti Computing, Inc. (RGTI) published Q3 2026 results on 2026-11-10. non-GAAP diluted net loss per share −$0.06 vs −$0.05 consensus (Missed by $0.01).",
+      "facts_text": "Rigetti Computing, Inc. (RGTI) published Q3 2026 results on 2026-11-10: Missed estimates. Revenue $1.41M vs $3.68M consensus (Missed by $2.26M). non-GAAP diluted net loss per share −$0.06 vs −$0.05 consensus (Missed by $0.01).",
       "dedupe_key": "report:rgti-2026-q3",
       "claim_phrases": [
+        "revenue came in below the $3.68M consensus.",
+        "$RGTI missed the Q3 2026 revenue consensus: $1.41M vs $3.68M.",
+        "$RGTI Q3 2026 revenue: $1.41M vs $3.68M consensus (missed by $2.26M).",
+        "$RGTI Q3 2026 revenue $1.41M, missed by $2.26M.",
+        "revenue $1.41M vs $3.68M consensus (missed by $2.26M).",
+        "revenue $1.41M vs $3.68M (missed by $2.26M).",
+        "$RGTI missed Q3 2026 revenue estimates by $2.26M.",
+        "$RGTI missed the Q3 revenue consensus: $1.41M vs $3.68M.",
+        "$RGTI Q3 revenue: $1.41M vs $3.68M consensus (missed by $2.26M).",
+        "$RGTI Q3 revenue $1.41M, missed by $2.26M.",
+        "$RGTI missed Q3 revenue estimates by $2.26M.",
         "EPS came in below the −$0.05 consensus.",
         "$RGTI missed the Q3 2026 EPS consensus: −$0.06 vs −$0.05.",
         "$RGTI Q3 2026 EPS: −$0.06 vs −$0.05 consensus (missed by $0.01).",
@@ -13173,9 +13750,15 @@
       "fiscal_label": "Q3 2026",
       "release_date": "2026-11-10",
       "published_at": "2026-11-10T21:09:04.970831+00:00",
-      "tile_label": null,
-      "tile_state": null,
+      "tile_label": "Missed estimates",
+      "tile_state": "miss",
       "results": {
+        "revenue": {
+          "reported": "$1.41M",
+          "consensus": "$3.68M",
+          "label": "Missed by $2.26M",
+          "verdict": "miss"
+        },
         "eps": {
           "basis": "non-GAAP diluted net loss per share",
           "reported": "−$0.06",
@@ -13221,12 +13804,93 @@
         "$RGTI published Q3 2026 results on Nov 10.",
         "Q3 2026 results from $RGTI came out on Nov 10.",
         "On Nov 10, $RGTI published Q3 2026 results.",
+        "$RGTI Q3 2026 revenue: $1.41M vs $3.68M consensus.",
+        "$RGTI reported Q3 2026 revenue of $1.41M vs $3.68M consensus.",
+        "$RGTI Q3 2026 revenue was $1.41M.",
+        "Q3 2026 revenue at $RGTI was $1.41M.",
         "$RGTI Q3 2026 non-GAAP diluted net loss per share: −$0.06 vs −$0.05 consensus.",
         "$RGTI reported Q3 2026 non-GAAP diluted net loss per share of −$0.06 vs −$0.05 consensus.",
         "$RGTI Q3 2026 non-GAAP diluted net loss per share was −$0.06.",
         "Q3 2026 non-GAAP diluted net loss per share at $RGTI was −$0.06."
       ],
       "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $3.68M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-39974b.a",
+          "fact": "earningsre-39974b",
+          "variant": "a",
+          "text": "$RGTI missed the Q3 2026 revenue consensus: $1.41M vs $3.68M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-832d86.a",
+          "fact": "earningsre-832d86",
+          "variant": "a",
+          "text": "$RGTI Q3 2026 revenue: $1.41M vs $3.68M consensus (missed by $2.26M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1c6ba4.a",
+          "fact": "earningsre-1c6ba4",
+          "variant": "a",
+          "text": "$RGTI Q3 2026 revenue $1.41M, missed by $2.26M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $1.41M vs $3.68M consensus (missed by $2.26M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $1.41M vs $3.68M (missed by $2.26M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3da506.a",
+          "fact": "earningsre-3da506",
+          "variant": "a",
+          "text": "$RGTI missed Q3 2026 revenue estimates by $2.26M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b5f6a9.a",
+          "fact": "earningsre-b5f6a9",
+          "variant": "a",
+          "text": "$RGTI missed the Q3 revenue consensus: $1.41M vs $3.68M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f542e8.a",
+          "fact": "earningsre-f542e8",
+          "variant": "a",
+          "text": "$RGTI Q3 revenue: $1.41M vs $3.68M consensus (missed by $2.26M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-90244e.a",
+          "fact": "earningsre-90244e",
+          "variant": "a",
+          "text": "$RGTI Q3 revenue $1.41M, missed by $2.26M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-01ded6.a",
+          "fact": "earningsre-01ded6",
+          "variant": "a",
+          "text": "$RGTI missed Q3 revenue estimates by $2.26M.",
+          "claim": true
+        },
         {
           "id": "earningsre-418b63.a",
           "fact": "earningsre-418b63",
@@ -13438,6 +14102,34 @@
           "claim": false
         },
         {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$RGTI Q3 2026 revenue: $1.41M vs $3.68M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$RGTI reported Q3 2026 revenue of $1.41M vs $3.68M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$RGTI Q3 2026 revenue was $1.41M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $RGTI was $1.41M.",
+          "claim": false
+        },
+        {
           "id": "earningsre-faeafa.a",
           "fact": "earningsre-faeafa",
           "variant": "a",
@@ -13475,6 +14167,27 @@
       },
       "subject_numbers": {
         "RGTI": [
+          [
+            "$",
+            1.41,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            3.68,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            2.26,
+            2,
+            1000000.0,
+            0
+          ],
           [
             "$",
             0.06,
@@ -13522,6 +14235,7 @@
         "$40.4M",
         "$1.03M",
         "$0.00",
+        "$0.10",
         "FY2026 (Q4)",
         "FY2026",
         "Q4",
@@ -13533,7 +14247,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Clearfield, Inc. (CLFD) published FY2026 (Q4) results on 2026-11-10: Revenue miss. Revenue $39.3M vs $40.4M consensus (Missed by $1.03M). GAAP EPS $0.00.",
+      "facts_text": "Clearfield, Inc. (CLFD) published FY2026 (Q4) results on 2026-11-10: Missed estimates. Revenue $39.3M vs $40.4M consensus (Missed by $1.03M). Diluted EPS (GAAP, street basis) $0.00 vs $0.10 consensus (Missed by $0.10).",
       "dedupe_key": "report:clfd-2026-q4",
       "claim_phrases": [
         "revenue came in below the $40.4M consensus.",
@@ -13543,13 +14257,27 @@
         "revenue $39.3M vs $40.4M consensus (missed by $1.03M).",
         "revenue $39.3M vs $40.4M (missed by $1.03M).",
         "$CLFD missed FY2026 (Q4) revenue estimates by $1.03M.",
+        "EPS came in below the $0.10 consensus.",
+        "$CLFD missed the FY2026 (Q4) EPS consensus: $0.00 vs $0.10.",
+        "$CLFD FY2026 (Q4) EPS: $0.00 vs $0.10 consensus (missed by $0.10).",
+        "$CLFD FY2026 (Q4) EPS $0.00, missed by $0.10.",
+        "EPS $0.00 vs $0.10 consensus (missed by $0.10).",
+        "EPS $0.00 vs $0.10 (missed by $0.10).",
+        "$CLFD missed FY2026 (Q4) EPS estimates by $0.10.",
+        "Diluted EPS (GAAP, street basis) came in below the $0.10 consensus.",
+        "$CLFD missed the FY2026 (Q4) Diluted EPS (GAAP, street basis) consensus: $0.00 vs $0.10.",
+        "$CLFD FY2026 (Q4) Diluted EPS (GAAP, street basis): $0.00 vs $0.10 consensus (missed by $0.10).",
+        "$CLFD FY2026 (Q4) Diluted EPS (GAAP, street basis) $0.00, missed by $0.10.",
+        "Diluted EPS (GAAP, street basis) $0.00 vs $0.10 consensus (missed by $0.10).",
+        "Diluted EPS (GAAP, street basis) $0.00 vs $0.10 (missed by $0.10).",
+        "$CLFD missed FY2026 (Q4) Diluted EPS (GAAP, street basis) estimates by $0.10.",
         "$CLFD missed FY2026 (Q4) estimates."
       ],
       "report_id": "clfd-2026-q4",
       "fiscal_label": "FY2026 (Q4)",
       "release_date": "2026-11-10",
       "published_at": "2026-11-10T21:05:16.738347+00:00",
-      "tile_label": "Revenue miss",
+      "tile_label": "Missed estimates",
       "tile_state": "miss",
       "results": {
         "revenue": {
@@ -13559,8 +14287,11 @@
           "verdict": "miss"
         },
         "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$0.00"
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "$0.00",
+          "consensus": "$0.10",
+          "label": "Missed by $0.10",
+          "verdict": "miss"
         }
       },
       "media": [
@@ -13604,10 +14335,10 @@
         "$CLFD reported FY2026 (Q4) revenue of $39.3M vs $40.4M consensus.",
         "$CLFD FY2026 (Q4) revenue was $39.3M.",
         "FY2026 (Q4) revenue at $CLFD was $39.3M.",
-        "$CLFD FY2026 (Q4) GAAP EPS: $0.00.",
-        "$CLFD reported FY2026 (Q4) GAAP EPS of $0.00.",
-        "$CLFD FY2026 (Q4) GAAP EPS was $0.00.",
-        "FY2026 (Q4) GAAP EPS at $CLFD was $0.00."
+        "$CLFD FY2026 (Q4) Diluted EPS (GAAP, street basis): $0.00 vs $0.10 consensus.",
+        "$CLFD reported FY2026 (Q4) Diluted EPS (GAAP, street basis) of $0.00 vs $0.10 consensus.",
+        "$CLFD FY2026 (Q4) Diluted EPS (GAAP, street basis) was $0.00.",
+        "FY2026 (Q4) Diluted EPS (GAAP, street basis) at $CLFD was $0.00."
       ],
       "phrasings": [
         {
@@ -13657,6 +14388,104 @@
           "fact": "earningsre-b91b42",
           "variant": "a",
           "text": "$CLFD missed FY2026 (Q4) revenue estimates by $1.03M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the $0.10 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-91527d.a",
+          "fact": "earningsre-91527d",
+          "variant": "a",
+          "text": "$CLFD missed the FY2026 (Q4) EPS consensus: $0.00 vs $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f04ffc.a",
+          "fact": "earningsre-f04ffc",
+          "variant": "a",
+          "text": "$CLFD FY2026 (Q4) EPS: $0.00 vs $0.10 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe93e9.a",
+          "fact": "earningsre-fe93e9",
+          "variant": "a",
+          "text": "$CLFD FY2026 (Q4) EPS $0.00, missed by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS $0.00 vs $0.10 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS $0.00 vs $0.10 (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b36953.a",
+          "fact": "earningsre-b36953",
+          "variant": "a",
+          "text": "$CLFD missed FY2026 (Q4) EPS estimates by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6eb967.a",
+          "fact": "earningsre-6eb967",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in below the $0.10 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-24e101.a",
+          "fact": "earningsre-24e101",
+          "variant": "a",
+          "text": "$CLFD missed the FY2026 (Q4) Diluted EPS (GAAP, street basis) consensus: $0.00 vs $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1780e2.a",
+          "fact": "earningsre-1780e2",
+          "variant": "a",
+          "text": "$CLFD FY2026 (Q4) Diluted EPS (GAAP, street basis): $0.00 vs $0.10 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8ed475.a",
+          "fact": "earningsre-8ed475",
+          "variant": "a",
+          "text": "$CLFD FY2026 (Q4) Diluted EPS (GAAP, street basis) $0.00, missed by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-193d52.a",
+          "fact": "earningsre-193d52",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) $0.00 vs $0.10 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-03e5ea.a",
+          "fact": "earningsre-03e5ea",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) $0.00 vs $0.10 (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-a38fce.a",
+          "fact": "earningsre-a38fce",
+          "variant": "a",
+          "text": "$CLFD missed FY2026 (Q4) Diluted EPS (GAAP, street basis) estimates by $0.10.",
           "claim": true
         },
         {
@@ -13737,31 +14566,31 @@
           "claim": false
         },
         {
-          "id": "earningsre-6a3801.a",
-          "fact": "earningsre-6a3801",
+          "id": "earningsre-094257.a",
+          "fact": "earningsre-094257",
           "variant": "a",
-          "text": "$CLFD FY2026 (Q4) GAAP EPS: $0.00.",
+          "text": "$CLFD FY2026 (Q4) Diluted EPS (GAAP, street basis): $0.00 vs $0.10 consensus.",
           "claim": false
         },
         {
-          "id": "earningsre-6a3801.h1",
-          "fact": "earningsre-6a3801",
+          "id": "earningsre-094257.h1",
+          "fact": "earningsre-094257",
           "variant": "h1",
-          "text": "$CLFD reported FY2026 (Q4) GAAP EPS of $0.00.",
+          "text": "$CLFD reported FY2026 (Q4) Diluted EPS (GAAP, street basis) of $0.00 vs $0.10 consensus.",
           "claim": false
         },
         {
-          "id": "earningsre-1df3d9.a",
-          "fact": "earningsre-1df3d9",
+          "id": "earningsre-bf7696.a",
+          "fact": "earningsre-bf7696",
           "variant": "a",
-          "text": "$CLFD FY2026 (Q4) GAAP EPS was $0.00.",
+          "text": "$CLFD FY2026 (Q4) Diluted EPS (GAAP, street basis) was $0.00.",
           "claim": false
         },
         {
-          "id": "earningsre-1df3d9.h1",
-          "fact": "earningsre-1df3d9",
+          "id": "earningsre-bf7696.h1",
+          "fact": "earningsre-bf7696",
           "variant": "h1",
-          "text": "FY2026 (Q4) GAAP EPS at $CLFD was $0.00.",
+          "text": "FY2026 (Q4) Diluted EPS (GAAP, street basis) at $CLFD was $0.00.",
           "claim": false
         }
       ],
@@ -13790,6 +14619,20 @@
             1.03,
             2,
             1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.0,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.1,
+            2,
+            1.0,
             0
           ]
         ]
@@ -18003,543 +18846,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-11-earnings-result-MNDY-ea43e4",
-      "type": "earnings_result",
-      "ticker": "MNDY",
-      "tickers": [
-        "MNDY"
-      ],
-      "name": "monday.com Ltd.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-09",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1845338/000117891326005085/exhibit_99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/MNDY?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-11-earnings-result-MNDY-ea43e4#earnings-history",
-      "allowed_numbers": [
-        "$378M",
-        "$369M",
-        "$8.36M",
-        "$2.14",
-        "$1.37",
-        "$0.77",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-09",
-        "Nov 9, 2026",
-        "Nov 9"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "monday.com Ltd. (MNDY) published Q3 2026 results on 2026-11-09: Beat estimates. Revenue $378M vs $369M consensus (Beat by $8.36M). non-GAAP diluted net income per share $2.14 vs $1.37 consensus (Beat by $0.77).",
-      "dedupe_key": "report:mndy-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $369M consensus.",
-        "$MNDY beat the Q3 2026 revenue consensus: $378M vs $369M.",
-        "$MNDY Q3 2026 revenue: $378M vs $369M consensus (beat by $8.36M).",
-        "$MNDY Q3 2026 revenue $378M, beat by $8.36M.",
-        "revenue $378M vs $369M consensus (beat by $8.36M).",
-        "revenue $378M vs $369M (beat by $8.36M).",
-        "$MNDY beat Q3 2026 revenue estimates by $8.36M.",
-        "$MNDY beat the Q3 revenue consensus: $378M vs $369M.",
-        "$MNDY Q3 revenue: $378M vs $369M consensus (beat by $8.36M).",
-        "$MNDY Q3 revenue $378M, beat by $8.36M.",
-        "$MNDY beat Q3 revenue estimates by $8.36M.",
-        "EPS came in above the $1.37 consensus.",
-        "$MNDY beat the Q3 2026 EPS consensus: $2.14 vs $1.37.",
-        "$MNDY Q3 2026 EPS: $2.14 vs $1.37 consensus (beat by $0.77).",
-        "$MNDY Q3 2026 EPS $2.14, beat by $0.77.",
-        "EPS $2.14 vs $1.37 consensus (beat by $0.77).",
-        "EPS $2.14 vs $1.37 (beat by $0.77).",
-        "$MNDY beat Q3 2026 EPS estimates by $0.77.",
-        "non-GAAP diluted net income per share came in above the $1.37 consensus.",
-        "$MNDY beat the Q3 2026 non-GAAP diluted net income per share consensus: $2.14 vs $1.37.",
-        "$MNDY Q3 2026 non-GAAP diluted net income per share: $2.14 vs $1.37 consensus (beat by $0.77).",
-        "$MNDY Q3 2026 non-GAAP diluted net income per share $2.14, beat by $0.77.",
-        "non-GAAP diluted net income per share $2.14 vs $1.37 consensus (beat by $0.77).",
-        "non-GAAP diluted net income per share $2.14 vs $1.37 (beat by $0.77).",
-        "$MNDY beat Q3 2026 non-GAAP diluted net income per share estimates by $0.77.",
-        "$MNDY beat the Q3 EPS consensus: $2.14 vs $1.37.",
-        "$MNDY Q3 EPS: $2.14 vs $1.37 consensus (beat by $0.77).",
-        "$MNDY Q3 EPS $2.14, beat by $0.77.",
-        "$MNDY beat Q3 EPS estimates by $0.77.",
-        "$MNDY beat the Q3 non-GAAP diluted net income per share consensus: $2.14 vs $1.37.",
-        "$MNDY Q3 non-GAAP diluted net income per share: $2.14 vs $1.37 consensus (beat by $0.77).",
-        "$MNDY Q3 non-GAAP diluted net income per share $2.14, beat by $0.77.",
-        "$MNDY beat Q3 non-GAAP diluted net income per share estimates by $0.77.",
-        "$MNDY beat Q3 2026 estimates.",
-        "$MNDY beat Q3 estimates."
-      ],
-      "report_id": "mndy-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-09",
-      "published_at": "2026-11-10T20:01:17.394640+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$378M",
-          "consensus": "$369M",
-          "label": "Beat by $8.36M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "non-GAAP diluted net income per share",
-          "reported": "$2.14",
-          "consensus": "$1.37",
-          "label": "Beat by $0.77",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/MNDY/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for MNDY: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-09 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "MNDY"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "monday.com Ltd. ($MNDY) published Q3 2026 results on Nov 9.",
-        "$MNDY (monday.com Ltd.) reported Q3 2026 results on Nov 9.",
-        "On Nov 9, monday.com Ltd. ($MNDY) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "monday.com Ltd. ($MNDY) published Q3 2026 results on Nov 9.",
-        "$MNDY (monday.com Ltd.) reported Q3 2026 results on Nov 9.",
-        "On Nov 9, monday.com Ltd. ($MNDY) published Q3 2026 results.",
-        "$MNDY published Q3 2026 results on Nov 9.",
-        "Q3 2026 results from $MNDY came out on Nov 9.",
-        "On Nov 9, $MNDY published Q3 2026 results.",
-        "$MNDY Q3 2026 revenue: $378M vs $369M consensus.",
-        "$MNDY reported Q3 2026 revenue of $378M vs $369M consensus.",
-        "$MNDY Q3 2026 revenue was $378M.",
-        "Q3 2026 revenue at $MNDY was $378M.",
-        "$MNDY Q3 2026 non-GAAP diluted net income per share: $2.14 vs $1.37 consensus.",
-        "$MNDY reported Q3 2026 non-GAAP diluted net income per share of $2.14 vs $1.37 consensus.",
-        "$MNDY Q3 2026 non-GAAP diluted net income per share was $2.14.",
-        "Q3 2026 non-GAAP diluted net income per share at $MNDY was $2.14."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $369M consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$MNDY beat the Q3 2026 revenue consensus: $378M vs $369M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 revenue: $378M vs $369M consensus (beat by $8.36M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 revenue $378M, beat by $8.36M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $378M vs $369M consensus (beat by $8.36M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $378M vs $369M (beat by $8.36M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$MNDY beat Q3 2026 revenue estimates by $8.36M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$MNDY beat the Q3 revenue consensus: $378M vs $369M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$MNDY Q3 revenue: $378M vs $369M consensus (beat by $8.36M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$MNDY Q3 revenue $378M, beat by $8.36M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$MNDY beat Q3 revenue estimates by $8.36M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.37 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$MNDY beat the Q3 2026 EPS consensus: $2.14 vs $1.37.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 EPS: $2.14 vs $1.37 consensus (beat by $0.77).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 EPS $2.14, beat by $0.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $2.14 vs $1.37 consensus (beat by $0.77).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $2.14 vs $1.37 (beat by $0.77).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$MNDY beat Q3 2026 EPS estimates by $0.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b01110.a",
-          "fact": "earningsre-b01110",
-          "variant": "a",
-          "text": "non-GAAP diluted net income per share came in above the $1.37 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fc8cc3.a",
-          "fact": "earningsre-fc8cc3",
-          "variant": "a",
-          "text": "$MNDY beat the Q3 2026 non-GAAP diluted net income per share consensus: $2.14 vs $1.37.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c3ddd1.a",
-          "fact": "earningsre-c3ddd1",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 non-GAAP diluted net income per share: $2.14 vs $1.37 consensus (beat by $0.77).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d2529a.a",
-          "fact": "earningsre-d2529a",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 non-GAAP diluted net income per share $2.14, beat by $0.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7d7ca2.a",
-          "fact": "earningsre-7d7ca2",
-          "variant": "a",
-          "text": "non-GAAP diluted net income per share $2.14 vs $1.37 consensus (beat by $0.77).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-dcdf02.a",
-          "fact": "earningsre-dcdf02",
-          "variant": "a",
-          "text": "non-GAAP diluted net income per share $2.14 vs $1.37 (beat by $0.77).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-526257.a",
-          "fact": "earningsre-526257",
-          "variant": "a",
-          "text": "$MNDY beat Q3 2026 non-GAAP diluted net income per share estimates by $0.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$MNDY beat the Q3 EPS consensus: $2.14 vs $1.37.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$MNDY Q3 EPS: $2.14 vs $1.37 consensus (beat by $0.77).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$MNDY Q3 EPS $2.14, beat by $0.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$MNDY beat Q3 EPS estimates by $0.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e7d7ea.a",
-          "fact": "earningsre-e7d7ea",
-          "variant": "a",
-          "text": "$MNDY beat the Q3 non-GAAP diluted net income per share consensus: $2.14 vs $1.37.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-726831.a",
-          "fact": "earningsre-726831",
-          "variant": "a",
-          "text": "$MNDY Q3 non-GAAP diluted net income per share: $2.14 vs $1.37 consensus (beat by $0.77).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-60eb63.a",
-          "fact": "earningsre-60eb63",
-          "variant": "a",
-          "text": "$MNDY Q3 non-GAAP diluted net income per share $2.14, beat by $0.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4109a7.a",
-          "fact": "earningsre-4109a7",
-          "variant": "a",
-          "text": "$MNDY beat Q3 non-GAAP diluted net income per share estimates by $0.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$MNDY beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$MNDY beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d9c95a.a",
-          "fact": "earningsre-d9c95a",
-          "variant": "a",
-          "text": "monday.com Ltd. ($MNDY) published Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d9c95a.h1",
-          "fact": "earningsre-d9c95a",
-          "variant": "h1",
-          "text": "$MNDY (monday.com Ltd.) reported Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d9c95a.t",
-          "fact": "earningsre-d9c95a",
-          "variant": "t",
-          "text": "On Nov 9, monday.com Ltd. ($MNDY) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$MNDY published Q3 2026 results on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $MNDY came out on Nov 9.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 9, $MNDY published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 revenue: $378M vs $369M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$MNDY reported Q3 2026 revenue of $378M vs $369M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 revenue was $378M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $MNDY was $378M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ed030b.a",
-          "fact": "earningsre-ed030b",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 non-GAAP diluted net income per share: $2.14 vs $1.37 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ed030b.h1",
-          "fact": "earningsre-ed030b",
-          "variant": "h1",
-          "text": "$MNDY reported Q3 2026 non-GAAP diluted net income per share of $2.14 vs $1.37 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b4ebad.a",
-          "fact": "earningsre-b4ebad",
-          "variant": "a",
-          "text": "$MNDY Q3 2026 non-GAAP diluted net income per share was $2.14.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b4ebad.h1",
-          "fact": "earningsre-b4ebad",
-          "variant": "h1",
-          "text": "Q3 2026 non-GAAP diluted net income per share at $MNDY was $2.14.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "MNDY": [
-          [
-            "$",
-            378.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            369.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            8.36,
-            2,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            2.14,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.37,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.77,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-09 release (after the close: fresh through 2026-11-10) posted on 2026-11-11: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
