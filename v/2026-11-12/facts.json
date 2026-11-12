@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-12",
-  "generated_at": "2026-11-12T14:00:02Z",
-  "as_of": "2026-11-12T14:00:02Z",
+  "generated_at": "2026-11-12T14:30:02Z",
+  "as_of": "2026-11-12T14:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 2,
     "form4_buy": 1,
-    "earnings_result": 52,
+    "earnings_result": 54,
     "earnings_upcoming": 2,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -937,20 +937,21 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 18,
-      "below_minimum": 14,
+      "filings_passing_filters": 19,
+      "below_minimum": 15,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3577,
-      "recent_ready": 257,
+      "archive_reports": 3580,
+      "recent_ready": 260,
       "outside_24h": 197,
       "unreadable": 0,
-      "not_compared": 9,
+      "not_compared": 10,
       "not_compared_metrics": [
         "ABSI: revenue (basis_mismatch)",
         "AGBK: revenue (basis_mismatch)",
+        "BRUN: revenue (basis_mismatch)",
         "DAIO: revenue (basis_mismatch)",
         "EPC: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
         "LUCD: revenue (basis_mismatch)",
@@ -958,10 +959,11 @@
         "TE: revenue (basis_mismatch)",
         "TTEK: revenue (basis_mismatch)"
       ],
-      "consensus_mismatch_hold": 8,
+      "consensus_mismatch_hold": 9,
       "held": [
         "ABSI: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "AGBK: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "BRUN: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "DAIO: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "EPC: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed) and nothing else compared (report data to check)",
         "SPB: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
@@ -983,7 +985,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 56,
+      "tickers_in_items": 58,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -997,7 +999,7 @@
     "market": {
       "market_session": "2026-11-11",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-12T14:00:48.231229+00:00"
+      "flows_as_of": "2026-11-12T14:30:48.527406+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1010,7 +1012,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 111
+        "angles_dropped": 115
       },
       "top8": {
         "stale": 5,
@@ -1018,7 +1020,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 1,
-        "ranked_below": 52,
+        "ranked_below": 54,
         "pillars": 4
       }
     }
@@ -1055,7 +1057,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 105,
+  "api_requests": 107,
   "items": [
     {
       "item_id": "2026-11-12-congress-flow-NVDA-02c704",
@@ -1861,8 +1863,8 @@
         "$6.3B",
         "$540M",
         "+$540M",
-        "$539.6M",
-        "+$539.6M",
+        "$539.8M",
+        "+$539.8M",
         "$4.0B",
         "+$4.0B",
         "$4B",
@@ -1886,8 +1888,8 @@
           "numbers": [
             "$540M",
             "+$540M",
-            "$539.6M",
-            "+$539.6M",
+            "$539.8M",
+            "+$539.8M",
             "$4.0B",
             "+$4.0B",
             "$4B",
@@ -2048,7 +2050,7 @@
       "moves": {
         "numbers": {
           "$540M": "+",
-          "$539.6M": "+",
+          "$539.8M": "+",
           "$4.0B": "+",
           "$4B": "+"
         },
@@ -2061,6 +2063,342 @@
             6.3,
             1,
             1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-12-earnings-result-SGA-e3489f",
+      "type": "earnings_result",
+      "ticker": "SGA",
+      "tickers": [
+        "SGA"
+      ],
+      "name": "Saga Communications, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/886136/000110465926125986/sga-ex99d1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SGA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-12-earnings-result-SGA-e3489f#earnings-history",
+      "allowed_numbers": [
+        "$26.7M",
+        "$27.6M",
+        "$944K",
+        "−$1.11",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-12",
+        "Nov 12, 2026",
+        "Nov 12"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Saga Communications, Inc. (SGA) published Q3 2026 results on 2026-11-12: Revenue miss. Revenue $26.7M vs $27.6M consensus (Missed by $944K). GAAP EPS −$1.11.",
+      "dedupe_key": "report:sga-2026-q3",
+      "claim_phrases": [
+        "revenue came in below the $27.6M consensus.",
+        "$SGA missed the Q3 2026 revenue consensus: $26.7M vs $27.6M.",
+        "$SGA Q3 2026 revenue: $26.7M vs $27.6M consensus (missed by $944K).",
+        "$SGA Q3 2026 revenue $26.7M, missed by $944K.",
+        "revenue $26.7M vs $27.6M consensus (missed by $944K).",
+        "revenue $26.7M vs $27.6M (missed by $944K).",
+        "$SGA missed Q3 2026 revenue estimates by $944K.",
+        "$SGA missed the Q3 revenue consensus: $26.7M vs $27.6M.",
+        "$SGA Q3 revenue: $26.7M vs $27.6M consensus (missed by $944K).",
+        "$SGA Q3 revenue $26.7M, missed by $944K.",
+        "$SGA missed Q3 revenue estimates by $944K.",
+        "$SGA missed Q3 2026 estimates.",
+        "$SGA missed Q3 estimates."
+      ],
+      "report_id": "sga-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-12",
+      "published_at": "2026-11-12T14:11:24.721876+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$26.7M",
+          "consensus": "$27.6M",
+          "label": "Missed by $944K",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$1.11"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SGA/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SGA: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-12 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SGA"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Saga Communications, Inc. ($SGA) published Q3 2026 results on Nov 12.",
+        "$SGA (Saga Communications, Inc.) reported Q3 2026 results on Nov 12.",
+        "On Nov 12, Saga Communications, Inc. ($SGA) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Saga Communications, Inc. ($SGA) published Q3 2026 results on Nov 12.",
+        "$SGA (Saga Communications, Inc.) reported Q3 2026 results on Nov 12.",
+        "On Nov 12, Saga Communications, Inc. ($SGA) published Q3 2026 results.",
+        "$SGA published Q3 2026 results on Nov 12.",
+        "Q3 2026 results from $SGA came out on Nov 12.",
+        "On Nov 12, $SGA published Q3 2026 results.",
+        "$SGA Q3 2026 revenue: $26.7M vs $27.6M consensus.",
+        "$SGA reported Q3 2026 revenue of $26.7M vs $27.6M consensus.",
+        "$SGA Q3 2026 revenue was $26.7M.",
+        "Q3 2026 revenue at $SGA was $26.7M.",
+        "$SGA Q3 2026 GAAP EPS: −$1.11.",
+        "$SGA reported Q3 2026 GAAP EPS of −$1.11.",
+        "$SGA Q3 2026 GAAP EPS was −$1.11.",
+        "Q3 2026 GAAP EPS at $SGA was −$1.11."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $27.6M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-39974b.a",
+          "fact": "earningsre-39974b",
+          "variant": "a",
+          "text": "$SGA missed the Q3 2026 revenue consensus: $26.7M vs $27.6M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-832d86.a",
+          "fact": "earningsre-832d86",
+          "variant": "a",
+          "text": "$SGA Q3 2026 revenue: $26.7M vs $27.6M consensus (missed by $944K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1c6ba4.a",
+          "fact": "earningsre-1c6ba4",
+          "variant": "a",
+          "text": "$SGA Q3 2026 revenue $26.7M, missed by $944K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $26.7M vs $27.6M consensus (missed by $944K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $26.7M vs $27.6M (missed by $944K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3da506.a",
+          "fact": "earningsre-3da506",
+          "variant": "a",
+          "text": "$SGA missed Q3 2026 revenue estimates by $944K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b5f6a9.a",
+          "fact": "earningsre-b5f6a9",
+          "variant": "a",
+          "text": "$SGA missed the Q3 revenue consensus: $26.7M vs $27.6M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f542e8.a",
+          "fact": "earningsre-f542e8",
+          "variant": "a",
+          "text": "$SGA Q3 revenue: $26.7M vs $27.6M consensus (missed by $944K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-90244e.a",
+          "fact": "earningsre-90244e",
+          "variant": "a",
+          "text": "$SGA Q3 revenue $26.7M, missed by $944K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-01ded6.a",
+          "fact": "earningsre-01ded6",
+          "variant": "a",
+          "text": "$SGA missed Q3 revenue estimates by $944K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$SGA missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$SGA missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Saga Communications, Inc. ($SGA) published Q3 2026 results on Nov 12.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$SGA (Saga Communications, Inc.) reported Q3 2026 results on Nov 12.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 12, Saga Communications, Inc. ($SGA) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$SGA published Q3 2026 results on Nov 12.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $SGA came out on Nov 12.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 12, $SGA published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$SGA Q3 2026 revenue: $26.7M vs $27.6M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$SGA reported Q3 2026 revenue of $26.7M vs $27.6M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$SGA Q3 2026 revenue was $26.7M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $SGA was $26.7M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$SGA Q3 2026 GAAP EPS: −$1.11.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$SGA reported Q3 2026 GAAP EPS of −$1.11.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$SGA Q3 2026 GAAP EPS was −$1.11.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $SGA was −$1.11.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$1.11": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "SGA": [
+          [
+            "$",
+            26.7,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            27.6,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            944.0,
+            0,
+            1000.0,
             0
           ]
         ]
@@ -3218,202 +3556,6 @@
             2,
             1.0,
             0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-12-earnings-result-LUCD-6a1f44",
-      "type": "earnings_result",
-      "ticker": "LUCD",
-      "tickers": [
-        "LUCD"
-      ],
-      "name": "Lucid Diagnostics Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-12",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1799011/000149315226051207/ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/LUCD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-12-earnings-result-LUCD-6a1f44#earnings-history",
-      "allowed_numbers": [
-        "−$0.06",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-12",
-        "Nov 12, 2026",
-        "Nov 12"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Lucid Diagnostics Inc. (LUCD) published Q3 2026 results on 2026-11-12. Non-GAAP adjusted (loss) income per share −$0.06 vs −$0.06 consensus (In line).",
-      "dedupe_key": "report:lucd-2026-q3",
-      "claim_phrases": [
-        "$LUCD Q3 2026 EPS was in line with the consensus: −$0.06 vs −$0.06.",
-        "$LUCD Q3 EPS was in line with the consensus: −$0.06 vs −$0.06."
-      ],
-      "report_id": "lucd-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-12",
-      "published_at": "2026-11-12T13:06:27.547728+00:00",
-      "tile_label": null,
-      "tile_state": null,
-      "results": {
-        "eps": {
-          "basis": "Non-GAAP adjusted (loss) income per share",
-          "reported": "−$0.06",
-          "consensus": "−$0.06",
-          "label": "In line",
-          "verdict": "in_line"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/LUCD/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for LUCD: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-12 (age 0) +2",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "LUCD"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results on Nov 12.",
-        "$LUCD (Lucid Diagnostics Inc.) reported Q3 2026 results on Nov 12.",
-        "On Nov 12, Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results on Nov 12.",
-        "$LUCD (Lucid Diagnostics Inc.) reported Q3 2026 results on Nov 12.",
-        "On Nov 12, Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results.",
-        "$LUCD published Q3 2026 results on Nov 12.",
-        "Q3 2026 results from $LUCD came out on Nov 12.",
-        "On Nov 12, $LUCD published Q3 2026 results.",
-        "$LUCD Q3 2026 Non-GAAP adjusted (loss) income per share: −$0.06 vs −$0.06 consensus.",
-        "$LUCD reported Q3 2026 Non-GAAP adjusted (loss) income per share of −$0.06 vs −$0.06 consensus.",
-        "$LUCD Q3 2026 Non-GAAP adjusted (loss) income per share was −$0.06.",
-        "Q3 2026 Non-GAAP adjusted (loss) income per share at $LUCD was −$0.06."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-046e29.a",
-          "fact": "earningsre-046e29",
-          "variant": "a",
-          "text": "$LUCD Q3 2026 EPS was in line with the consensus: −$0.06 vs −$0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-daf14f.a",
-          "fact": "earningsre-daf14f",
-          "variant": "a",
-          "text": "$LUCD Q3 EPS was in line with the consensus: −$0.06 vs −$0.06.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results on Nov 12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$LUCD (Lucid Diagnostics Inc.) reported Q3 2026 results on Nov 12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 12, Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$LUCD published Q3 2026 results on Nov 12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $LUCD came out on Nov 12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 12, $LUCD published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-787472.a",
-          "fact": "earningsre-787472",
-          "variant": "a",
-          "text": "$LUCD Q3 2026 Non-GAAP adjusted (loss) income per share: −$0.06 vs −$0.06 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-787472.h1",
-          "fact": "earningsre-787472",
-          "variant": "h1",
-          "text": "$LUCD reported Q3 2026 Non-GAAP adjusted (loss) income per share of −$0.06 vs −$0.06 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-61a3b9.a",
-          "fact": "earningsre-61a3b9",
-          "variant": "a",
-          "text": "$LUCD Q3 2026 Non-GAAP adjusted (loss) income per share was −$0.06.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-61a3b9.h1",
-          "fact": "earningsre-61a3b9",
-          "variant": "h1",
-          "text": "Q3 2026 Non-GAAP adjusted (loss) income per share at $LUCD was −$0.06.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.06": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "LUCD": [
-          [
-            "$",
-            0.06,
-            2,
-            1.0,
-            -1
           ]
         ]
       },
@@ -6466,6 +6608,203 @@
       "rank_why": "earnings_reaction 2; large cap $26.88B +2.5; magnitude (market) +3; session_date 2026-11-11 (age 1) +1.5",
       "top8": false,
       "top8_out": "stale: a price move of the 2026-11-11 session posted on 2026-11-12: same session day only, after the close (owner 10-22) (#652)",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-12-earnings-result-LUCD-6a1f44",
+      "type": "earnings_result",
+      "ticker": "LUCD",
+      "tickers": [
+        "LUCD"
+      ],
+      "name": "Lucid Diagnostics Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1799011/000149315226051207/ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/LUCD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-12-earnings-result-LUCD-6a1f44#earnings-history",
+      "allowed_numbers": [
+        "−$0.06",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-12",
+        "Nov 12, 2026",
+        "Nov 12"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Lucid Diagnostics Inc. (LUCD) published Q3 2026 results on 2026-11-12. Non-GAAP adjusted (loss) income per share −$0.06 vs −$0.06 consensus (In line).",
+      "dedupe_key": "report:lucd-2026-q3",
+      "claim_phrases": [
+        "$LUCD Q3 2026 EPS was in line with the consensus: −$0.06 vs −$0.06.",
+        "$LUCD Q3 EPS was in line with the consensus: −$0.06 vs −$0.06."
+      ],
+      "report_id": "lucd-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-12",
+      "published_at": "2026-11-12T13:06:27.547728+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "eps": {
+          "basis": "Non-GAAP adjusted (loss) income per share",
+          "reported": "−$0.06",
+          "consensus": "−$0.06",
+          "label": "In line",
+          "verdict": "in_line"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/LUCD/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for LUCD: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-12 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "LUCD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results on Nov 12.",
+        "$LUCD (Lucid Diagnostics Inc.) reported Q3 2026 results on Nov 12.",
+        "On Nov 12, Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results on Nov 12.",
+        "$LUCD (Lucid Diagnostics Inc.) reported Q3 2026 results on Nov 12.",
+        "On Nov 12, Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results.",
+        "$LUCD published Q3 2026 results on Nov 12.",
+        "Q3 2026 results from $LUCD came out on Nov 12.",
+        "On Nov 12, $LUCD published Q3 2026 results.",
+        "$LUCD Q3 2026 Non-GAAP adjusted (loss) income per share: −$0.06 vs −$0.06 consensus.",
+        "$LUCD reported Q3 2026 Non-GAAP adjusted (loss) income per share of −$0.06 vs −$0.06 consensus.",
+        "$LUCD Q3 2026 Non-GAAP adjusted (loss) income per share was −$0.06.",
+        "Q3 2026 Non-GAAP adjusted (loss) income per share at $LUCD was −$0.06."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-046e29.a",
+          "fact": "earningsre-046e29",
+          "variant": "a",
+          "text": "$LUCD Q3 2026 EPS was in line with the consensus: −$0.06 vs −$0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-daf14f.a",
+          "fact": "earningsre-daf14f",
+          "variant": "a",
+          "text": "$LUCD Q3 EPS was in line with the consensus: −$0.06 vs −$0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results on Nov 12.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$LUCD (Lucid Diagnostics Inc.) reported Q3 2026 results on Nov 12.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 12, Lucid Diagnostics Inc. ($LUCD) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$LUCD published Q3 2026 results on Nov 12.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $LUCD came out on Nov 12.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 12, $LUCD published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-787472.a",
+          "fact": "earningsre-787472",
+          "variant": "a",
+          "text": "$LUCD Q3 2026 Non-GAAP adjusted (loss) income per share: −$0.06 vs −$0.06 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-787472.h1",
+          "fact": "earningsre-787472",
+          "variant": "h1",
+          "text": "$LUCD reported Q3 2026 Non-GAAP adjusted (loss) income per share of −$0.06 vs −$0.06 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-61a3b9.a",
+          "fact": "earningsre-61a3b9",
+          "variant": "a",
+          "text": "$LUCD Q3 2026 Non-GAAP adjusted (loss) income per share was −$0.06.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-61a3b9.h1",
+          "fact": "earningsre-61a3b9",
+          "variant": "h1",
+          "text": "Q3 2026 Non-GAAP adjusted (loss) income per share at $LUCD was −$0.06.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.06": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "LUCD": [
+          [
+            "$",
+            0.06,
+            2,
+            1.0,
+            -1
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -13264,6 +13603,443 @@
             2,
             1.0,
             -1
+          ],
+          [
+            "$",
+            0.02,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-12-earnings-result-DGII-968a2b",
+      "type": "earnings_result",
+      "ticker": "DGII",
+      "tickers": [
+        "DGII"
+      ],
+      "name": "Digi International Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/854775/000085477526000029/dgii-ex991_20261111.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DGII?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-12-earnings-result-DGII-968a2b#earnings-history",
+      "allowed_numbers": [
+        "$143M",
+        "$140M",
+        "$3.05M",
+        "$0.78",
+        "$0.76",
+        "$0.02",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-11",
+        "Nov 11, 2026",
+        "Nov 11",
+        "2026-11-12",
+        "Nov 12, 2026",
+        "Nov 12"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Digi International Inc. (DGII) published FY2026 (Q4) results on 2026-11-11: Beat estimates. Revenue $143M vs $140M consensus (Beat by $3.05M). Adjusted net income per diluted share $0.78 vs $0.76 consensus (Beat by $0.02).",
+      "dedupe_key": "report:dgii-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $140M consensus.",
+        "$DGII beat the FY2026 (Q4) revenue consensus: $143M vs $140M.",
+        "$DGII FY2026 (Q4) revenue: $143M vs $140M consensus (beat by $3.05M).",
+        "$DGII FY2026 (Q4) revenue $143M, beat by $3.05M.",
+        "revenue $143M vs $140M consensus (beat by $3.05M).",
+        "revenue $143M vs $140M (beat by $3.05M).",
+        "$DGII beat FY2026 (Q4) revenue estimates by $3.05M.",
+        "EPS came in above the $0.76 consensus.",
+        "$DGII beat the FY2026 (Q4) EPS consensus: $0.78 vs $0.76.",
+        "$DGII FY2026 (Q4) EPS: $0.78 vs $0.76 consensus (beat by $0.02).",
+        "$DGII FY2026 (Q4) EPS $0.78, beat by $0.02.",
+        "EPS $0.78 vs $0.76 consensus (beat by $0.02).",
+        "EPS $0.78 vs $0.76 (beat by $0.02).",
+        "$DGII beat FY2026 (Q4) EPS estimates by $0.02.",
+        "Adjusted net income per diluted share came in above the $0.76 consensus.",
+        "$DGII beat the FY2026 (Q4) Adjusted net income per diluted share consensus: $0.78 vs $0.76.",
+        "$DGII FY2026 (Q4) Adjusted net income per diluted share: $0.78 vs $0.76 consensus (beat by $0.02).",
+        "$DGII FY2026 (Q4) Adjusted net income per diluted share $0.78, beat by $0.02.",
+        "Adjusted net income per diluted share $0.78 vs $0.76 consensus (beat by $0.02).",
+        "Adjusted net income per diluted share $0.78 vs $0.76 (beat by $0.02).",
+        "$DGII beat FY2026 (Q4) Adjusted net income per diluted share estimates by $0.02.",
+        "$DGII beat FY2026 (Q4) estimates."
+      ],
+      "report_id": "dgii-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-11",
+      "published_at": "2026-11-12T14:25:04.885783+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$143M",
+          "consensus": "$140M",
+          "label": "Beat by $3.05M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted net income per diluted share",
+          "reported": "$0.78",
+          "consensus": "$0.76",
+          "label": "Beat by $0.02",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/DGII/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for DGII: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-11 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DGII"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Digi International Inc. ($DGII) published FY2026 (Q4) results on Nov 11.",
+        "$DGII (Digi International Inc.) reported FY2026 (Q4) results on Nov 11.",
+        "On Nov 11, Digi International Inc. ($DGII) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Digi International Inc. ($DGII) published FY2026 (Q4) results on Nov 11.",
+        "$DGII (Digi International Inc.) reported FY2026 (Q4) results on Nov 11.",
+        "On Nov 11, Digi International Inc. ($DGII) published FY2026 (Q4) results.",
+        "$DGII published FY2026 (Q4) results on Nov 11.",
+        "FY2026 (Q4) results from $DGII came out on Nov 11.",
+        "On Nov 11, $DGII published FY2026 (Q4) results.",
+        "$DGII FY2026 (Q4) revenue: $143M vs $140M consensus.",
+        "$DGII reported FY2026 (Q4) revenue of $143M vs $140M consensus.",
+        "$DGII FY2026 (Q4) revenue was $143M.",
+        "FY2026 (Q4) revenue at $DGII was $143M.",
+        "$DGII FY2026 (Q4) Adjusted net income per diluted share: $0.78 vs $0.76 consensus.",
+        "$DGII reported FY2026 (Q4) Adjusted net income per diluted share of $0.78 vs $0.76 consensus.",
+        "$DGII FY2026 (Q4) Adjusted net income per diluted share was $0.78.",
+        "FY2026 (Q4) Adjusted net income per diluted share at $DGII was $0.78."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $140M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$DGII beat the FY2026 (Q4) revenue consensus: $143M vs $140M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) revenue: $143M vs $140M consensus (beat by $3.05M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) revenue $143M, beat by $3.05M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $143M vs $140M consensus (beat by $3.05M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $143M vs $140M (beat by $3.05M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$DGII beat FY2026 (Q4) revenue estimates by $3.05M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.76 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$DGII beat the FY2026 (Q4) EPS consensus: $0.78 vs $0.76.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) EPS: $0.78 vs $0.76 consensus (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) EPS $0.78, beat by $0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.78 vs $0.76 consensus (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.78 vs $0.76 (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$DGII beat FY2026 (Q4) EPS estimates by $0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-127744.a",
+          "fact": "earningsre-127744",
+          "variant": "a",
+          "text": "Adjusted net income per diluted share came in above the $0.76 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-38f080.a",
+          "fact": "earningsre-38f080",
+          "variant": "a",
+          "text": "$DGII beat the FY2026 (Q4) Adjusted net income per diluted share consensus: $0.78 vs $0.76.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3bb747.a",
+          "fact": "earningsre-3bb747",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) Adjusted net income per diluted share: $0.78 vs $0.76 consensus (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-ab123b.a",
+          "fact": "earningsre-ab123b",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) Adjusted net income per diluted share $0.78, beat by $0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-72c605.a",
+          "fact": "earningsre-72c605",
+          "variant": "a",
+          "text": "Adjusted net income per diluted share $0.78 vs $0.76 consensus (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9bc00c.a",
+          "fact": "earningsre-9bc00c",
+          "variant": "a",
+          "text": "Adjusted net income per diluted share $0.78 vs $0.76 (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-36526d.a",
+          "fact": "earningsre-36526d",
+          "variant": "a",
+          "text": "$DGII beat FY2026 (Q4) Adjusted net income per diluted share estimates by $0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-232122.a",
+          "fact": "earningsre-232122",
+          "variant": "a",
+          "text": "$DGII beat FY2026 (Q4) estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Digi International Inc. ($DGII) published FY2026 (Q4) results on Nov 11.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$DGII (Digi International Inc.) reported FY2026 (Q4) results on Nov 11.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 11, Digi International Inc. ($DGII) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$DGII published FY2026 (Q4) results on Nov 11.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $DGII came out on Nov 11.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 11, $DGII published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) revenue: $143M vs $140M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$DGII reported FY2026 (Q4) revenue of $143M vs $140M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) revenue was $143M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $DGII was $143M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-ddf56d.a",
+          "fact": "earningsre-ddf56d",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) Adjusted net income per diluted share: $0.78 vs $0.76 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-ddf56d.h1",
+          "fact": "earningsre-ddf56d",
+          "variant": "h1",
+          "text": "$DGII reported FY2026 (Q4) Adjusted net income per diluted share of $0.78 vs $0.76 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-64b648.a",
+          "fact": "earningsre-64b648",
+          "variant": "a",
+          "text": "$DGII FY2026 (Q4) Adjusted net income per diluted share was $0.78.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-64b648.h1",
+          "fact": "earningsre-64b648",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Adjusted net income per diluted share at $DGII was $0.78.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "DGII": [
+          [
+            "$",
+            143.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            140.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            3.05,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.78,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.76,
+            2,
+            1.0,
+            0
           ],
           [
             "$",
