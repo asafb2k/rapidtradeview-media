@@ -11,8 +11,10 @@ qa.json, render.json, youtube.json.
 
 What it enforces: the screen texture is the recorded frames only (unlit, exact colours, nothing redrawn); holds are
 held real frames, never interpolated; every gesture time comes from the pixels (first changed frame); keep-out rects are
-projected through the camera on every frame (build fails on any visible part) and OCR reads every 10th frame; nothing we
-draw overlaps the phone screen; overlay text stays inside x 60-920, y 170-1500.
+projected through the camera on every frame (build fails on any visible part); OCR reads every recorded frame the render
+uses at capture resolution (the screen) and every 10th output frame (our overlays); each output frame shows ONE recorded
+frame (sub-frames blur the camera only, never two app frames); nothing we draw overlaps the phone screen; overlay text
+stays inside x 60-920, y 170-1500; 'Not investment advice.' stays on screen from the end card to the last frame.
 Exit: 0 built and QA passed, 1 built but a QA gate failed (files kept), 2 input/take error (no video).
 """
 from __future__ import annotations
@@ -44,10 +46,16 @@ BANNED = ("buy", "sell", "profit", "returns", "guarantee", "guaranteed", "will r
 OCR_BAD = ("HOLD", "BULLISH", "BEARISH", "FREE STOCK", "0/2", "1/2", "2/2", "OUR RECORD", "KEY LEVEL", "/100", "EDGAR",
            "SOURCE:", "SPONSOR")
 PRICE_RX = re.compile(r"\$\s?\d|\b\d+\.\d\d\b")
+# keep-outs read on the recorded screen (capture resolution, clean OCR): verdict chips, score, guest counter, pattern card,
+# picks / record blocks, party letters, credits
+SCREEN_BAD_RX = re.compile(r"\b(HOLD|BUY|SELL|BULLISH|BEARISH|MACD|RSI|GUEST|FREE STOCK|OUR RECORD|KEY LEVEL|PICKS?|SPY|"
+                           r"SPONSOR(?:ED)?|SOURCE:?|Democrat|Republican)\b|\b\d\s*/\s*2\b|\b\d+\s*/\s*100\b|"
+                           r"\b(?:of )?2 free\b|\([DRI]-[A-Z]{2}\)", re.I)
 TICKER_RX = re.compile(r"\b[A-Z]{2,5}\b")
 LOOK = {"fov": 20, "envi": 0.85, "envrot": 2.35, "frame": 0x6d737c, "rough": 0.28, "glass": 0x050505, "glass_env": 0.06,
         "glass_clearcoat": 0.0, "key_col": 0xe6eef5, "key": 1.0, "rim_col": 0xbcd6ff, "rim": 1.5,
-        "wall_top": [14, 28, 26], "wall_low": [11, 24, 21], "floor": [10, 19, 17], "pool": [22, 58, 50], "pool_w": 0.6,
+        "wall_top": [14, 28, 26], "wall_low": [11, 24, 21], "floor": [12, 21, 19], "pool": [22, 58, 50], "pool_w": 0.6,
+        "pool_dy": 0.07,
         "vig": 0.22, "grain": 0.013, "shadow_a": 0.42, "shadow_blur": 80}
 # body height in the whole-phone pose (px); s0 = this / body height in mm. 1136 (not 1150) so the headline / caption slot
 # (pill bottom 230 + 16 px gap, 60 px tall) clears the phone top by >= 18 px with the centre at 893 and bottom <= 1468.
@@ -90,7 +98,13 @@ def parse_lines(ep: dict) -> list[dict]:
 
 
 def voice(ep: dict, run: Path) -> tuple[list[dict], list[dict], float]:
+    """Fit the Kokoro speed to the target words/s, unless the episode pins it ("pinned_speed": the accepted cut's speed,
+    so the one command reproduces the shipped timings from a fresh folder)."""
     vs = ep["voice"]
+    if vs.get("pinned_speed"):
+        lines = F.tts(parse_lines(ep), run, vs["voice"], vs["pinned_speed"])
+        clips, _ = F.place_voice(lines)
+        return lines, clips, vs["pinned_speed"]
     speed = vs["speed"]
     for _ in range(5):
         lines = F.tts(parse_lines(ep), run, vs["voice"], speed)
@@ -274,7 +288,17 @@ def retime_scroll(take: dict, ev_name: str) -> list[float]:
     while path[-1] != 0:
         path.append(int(prev[path[-1], path[-2]]))
     path = path[::-1][1:]
-    settle = [f for f in names[top + 1:] if pts_of[f] <= e["end"] + 1e-6]
+    # the overscroll settle: each recorded frame once, skipping one within 1 px of the last kept one (a 0-1 px repaint
+    # reads as a frozen frame on screen), always ending on the settled frame (it replaces a kept frame within 1 px)
+    settle, last_off = [], off[top]
+    tail = [f for f in names[top + 1:] if pts_of[f] <= e["end"] + 1e-6]
+    for k, f in enumerate(tail):
+        if abs(sc[f] - last_off) > 1 or k == len(tail) - 1:
+            if k == len(tail) - 1 and settle and abs(sc[f] - last_off) <= 1:
+                settle[-1] = f
+            else:
+                settle.append(f)
+            last_off = sc[f]
     return [pts_of[names[p]] for p in path] + [pts_of[f] for f in settle]
 
 
@@ -388,7 +412,8 @@ def tap_state(t: float, ep: dict, T: dict) -> dict | None:
     if d < -tp["lead"] or d > tp["fade_after"]:
         return None
     # in over `lead` before the tap; the finger lifts as the sheet starts to move: out within `fade_after` of the tap
-    alpha = min(1.0, (d + tp["lead"]) / tp["lead"]) if d < 0 else max(0.0, 1 - max(0.0, d - 0.05) / (tp["fade_after"] - 0.05))
+    fin = tp["lead"] * tp.get("fade_in_frac", 1.0)
+    alpha = min(1.0, (d + tp["lead"]) / fin) if d < 0 else max(0.0, 1 - max(0.0, d - 0.05) / (tp["fade_after"] - 0.05))
     press = 1.0
     if 0 <= d <= tp["pop"]:
         press = 1 - 0.1 * math.sin(math.pi * d / tp["pop"])
@@ -460,13 +485,37 @@ def overlay_at(t: float, ep: dict, T: dict, caps: list[dict], accent: str, end_y
                                          "blur": round(b, 3)}],
                               "size": o["url"]["size"], "top": end_y["url"], "cx": 540, "maxRight": 912, "track": -0.01,
                               "shadow": True}
-    if t >= T["nia"] - 0.05 and gone > 0:
-        a, b = word_in(t, T["nia"] - 0.05, 0, dur=0.2)
+    d_in = evalx(o.get("disc_in", "{nia}"), T)
+    if t >= d_in - 0.05 and gone > 0:
+        a, b = word_in(t, d_in - 0.05, 0, dur=0.2)
         ov["lines"]["disc"] = {"words": [{"t": o["disc"]["text"], "color": "rgba(255,255,255,0.86)",
                                           "alpha": round(a * gone, 4), "blur": round(b, 3)}],
                                "size": o["disc"]["size"], "top": end_y["disc"], "cx": 540,
                                "maxRight": 912, "track": 0.0, "shadow": True}
+    ec = o.get("end_chip")
+    if ec:                                       # the disclaimer moves into the slot above the phone and stays to the end
+        c0 = evalx(ec["t0"], T)
+        if t >= c0:
+            ch = o["chip"]
+            ws = []
+            for k, w in enumerate(ec["text"].split(" ")):
+                a, b = word_in(t, c0, 0, dur=0.13)
+                ws.append({"t": w, "color": "#ffffff", "alpha": round(a, 4), "blur": round(b, 3)})
+            ov["lines"]["caption"] = {"words": ws, "size": ch["size"], "top": ch["top"], "cx": 540, "maxRight": 905,
+                                      "track": -0.01, "chip": {"alpha": round(min(1.0, (t - c0) / 0.1), 4),
+                                                               "padx": ch["padx"], "pady": ch["pady"]}}
     return ov
+
+
+def disclaimer_alpha(t: float, ep: dict, T: dict, caps, accent, end_y) -> float:
+    """How visible 'Not investment advice.' is at t (under the URL, or in the end chip)."""
+    ov = overlay_at(t, ep, T, caps, accent, end_y)["lines"]
+    a = 0.0
+    for nm in ("disc", "caption"):
+        ln = ov.get(nm)
+        if ln and " ".join(w["t"] for w in ln["words"]).startswith("Not investment advice"):
+            a = max(a, min(w["alpha"] for w in ln["words"]))
+    return a
 
 
 def sample_accent(ep: dict, run: Path, take: dict) -> str:
@@ -759,6 +808,10 @@ def build(ep: dict, run: Path, a, t_start: float) -> int:
         ns = frames_meta[i]["subs"]
         seed = (i * 0.137) % 1.0
         subs = [cfg_at(t + ((k + 0.5) / ns - 0.5) / 60.0, ep, T, take, seed) for k in range(ns)]
+        # the motion blur is the CAMERA's only: every sub-frame shows the one recorded frame on screen at the frame
+        # centre, so a moving UI (the sheet sliding) is never averaged across two recorded frames (no double exposure)
+        for sb in subs:
+            sb["screen"] = frames_meta[i]["screen"]
         return {"i": i, "subs": subs, "ov": overlay_at(t, ep, T, caps, accent, end_y)}
 
     key = {k: min(n - 1, max(0, int(round(evalx(ex, T) * FPS)))) for k, ex in ep["key_frames"].items()}
@@ -788,7 +841,7 @@ def build(ep: dict, run: Path, a, t_start: float) -> int:
     t_r = time.time()
     if not (a.skip_render and (run / "video_noaudio.mp4").is_file()):
         save = sorted(set(list(range(0, n, 5)) + list(key.values()) + [n - 1]))
-        plan = {"fps": FPS, "out": str(run / "video_noaudio.mp4"), "crf": 17, "save": save,
+        plan = {"fps": FPS, "out": str(run / "video_noaudio.mp4"), "crf": ep.get("encode", {}).get("crf", 17), "save": save,
                 "frames": [plan_frame(i) for i in range(n)]}
         rr = run_render(run, plan, "plan_full")
         wjson(run / "render.json", {k: v for k, v in rr.items() if k != "frames"} | {"frames_boxes": {f["i"]: f["boxes"] for f in rr["frames"]}})
@@ -964,12 +1017,23 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
         fails.append(f"slot clearance: {slot['n_hits']} hits")
     # settled holds on the readable beats (>= 1.2 s each)
     hold = []
-    for nm, a_, b_ in ep["holds"]:
+    for h_ in ep["holds"]:
+        nm, a_, b_ = h_[:3]
+        need = h_[3] if len(h_) > 3 else 1.2
         a0, b0 = evalx(a_, T), evalx(b_, T)
-        hold.append({"beat": nm, "from": round(a0, 3), "to": round(b0, 3), "s": round(b0 - a0, 3)})
-        if b0 - a0 < 1.2 - 1e-6:
-            fails.append(f"hold {nm} only {b0 - a0:.2f} s")
+        hold.append({"beat": nm, "from": round(a0, 3), "to": round(b0, 3), "s": round(b0 - a0, 3), "min_s": need})
+        if b0 - a0 < need - 1e-6:
+            fails.append(f"hold {nm} only {b0 - a0:.2f} s (needs {need})")
     q["holds"] = hold
+    # the video ends with 'Not investment advice.' shown: from the end card on, it is on screen (under the URL, then in
+    # the slot above the phone) on every frame to the last one
+    d_in = evalx(ep["overlay"].get("disc_in", "{nia}"), T)
+    dis = [(i, disclaimer_alpha(i / FPS, ep, T, caps, accent, end_y)) for i in range(int(math.ceil((d_in + 0.25) * FPS)), n)]
+    low = [(i, round(a_, 3)) for i, a_ in dis if a_ < 0.45]
+    q["disclaimer_to_the_end"] = {"from_s": round(d_in, 3), "frames": len(dis), "min_alpha": round(min(a_ for _, a_ in dis), 3),
+                                  "last_frame_alpha": round(dis[-1][1], 3), "frames_below_0.45": low[:10]}
+    if low or dis[-1][1] < 0.99:
+        fails.append("'Not investment advice.' not shown through to the last frame")
     # the touch disc: gone within 0.1 s of the sheet's first visible movement (first source frame after the tap whose
     # change is >= 1.0 mean)
     tev = take["events"][ep["take"]["events"][0]]
@@ -1109,6 +1173,42 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
         ff(["-i", str(final), "-vf", f"select=eq(n\\,{mid['i']})", "-vframes", "1", str(run / "qa_mid_push.png")])
     q["subframes"] = {"total": sum(f["subs"] for f in fm), "max": max(f["subs"] for f in fm),
                       "frames_blurred": len(mids)}
+    # one recorded frame per output frame: the rendered plan's sub-frames never mix two recorded frames (the blur is the
+    # camera's only, so the app is never double-exposed)
+    plan = rjson(run / "plan_full.json")
+    mixed = [f["i"] for f in plan["frames"] if len({sb["screen"] for sb in f["subs"]}) > 1]
+    q["one_source_per_frame"] = {"frames_checked": len(plan["frames"]), "frames_mixing_recorded_frames": mixed[:20],
+                                 "n_mixed": len(mixed)}
+    if mixed:
+        fails.append(f"{len(mixed)} output frames average two recorded frames (UI double exposure)")
+    # the mid-UI-change frame: the frame where the recorded UI moves most (largest decoded change caused by a new recorded
+    # frame), saved full size for a look (ghost copies of text would show here first)
+    ui = []
+    for i in range(1, n):
+        if fm[i]["screen"] != fm[i - 1]["screen"]:
+            ui.append((float(d[i - 1]), i))
+    if ui:
+        _, iu = max(ui)
+        q["mid_ui_change"] = {"frame": iu, "t": fm[iu]["t"], "subs": fm[iu]["subs"], "travel_px": fm[iu]["travel_px"],
+                              "decoded_diff": round(max(ui)[0], 2), "recorded_frames_in_subs":
+                                  sorted({sb["screen"] for sb in plan["frames"][iu]["subs"]}),
+                              "png": str(run / "qa_mid_ui.png")}
+        shutil.copy2(dfiles[iu], run / "qa_mid_ui.png")
+    # ground: the floor band (y 1500-1920, outside the phone) never darker than (7, 13, 12) on the whole-phone and end frames
+    flo = []
+    for nm in ("whole", "whole_hold", "end", "close"):
+        if nm not in key:
+            continue
+        i = key[nm]
+        img = np.asarray(Image.open(dfiles[i]).convert("RGB"), np.float32)
+        pr_ = fm[i]["phone_rect"]
+        cols = [x for x in range(W) if x < pr_[0] - 40 or x > pr_[2] + 40]
+        rows = img[1500:1920][:, cols].mean(1)
+        mn = rows.min(0)
+        flo.append({"frame": nm, "i": i, "darkest_row_mean_rgb": [round(float(x), 1) for x in mn]})
+        if mn[0] < 7 or mn[1] < 13 or mn[2] < 12:
+            fails.append(f"floor darker than (7,13,12) on {nm}: {mn.round(1).tolist()}")
+    q["floor"] = flo
     # first vs last frame
     f0 = np.asarray(Image.open(dfiles[0]).convert("RGB"), np.float32)
     fl = np.asarray(Image.open(dfiles[-1]).convert("RGB"), np.float32)
@@ -1132,9 +1232,22 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
                             "pixels_only_longest_s": round(_longest(d > 0.25) / FPS, 2)}
     if longest / FPS > 1.5:
         fails.append(f"{longest / FPS:.2f} s without a visible change")
-    # text gate: OCR every 10th decoded frame
+    # text gate, two parts. (1) The screen: every distinct recorded frame the render uses, OCR'd at capture resolution
+    # (1080x2400; every screen pixel comes from these, so this guards the app content). (2) Our overlays: every 10th
+    # decoded output frame.
+    src_used = sorted({sb["screen"].split("/")[-1] for f in plan["frames"] for sb in f["subs"]})
+    src_paths = [run / "take" / "frames" / x for x in src_used]
     pick = dfiles[::10]
     try:
+        o_src = ocr(src_paths, run)
+        hits_src = []
+        for p in src_paths:
+            tx = o_src.get(p.name, "")
+            for mt in SCREEN_BAD_RX.finditer(tx):
+                hits_src.append({"frame": p.name, "found": mt.group(0)})
+            for w in F.PROVIDER_WORDS:
+                if re.search(r"(?<![a-z])" + re.escape(w) + r"(?![a-z])", tx.lower()):
+                    hits_src.append({"frame": p.name, "found": w})
         o = ocr(pick, run)
         hits = []
         for p in pick:
@@ -1146,9 +1259,17 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
             for w in F.PROVIDER_WORDS:
                 if re.search(r"(?<![a-z])" + re.escape(w) + r"(?![a-z])", tx.lower()):
                     hits.append({"frame": p.name, "found": w})
-        q["text_gate"] = {"frames": len(pick), "hits": hits, "ocr_sample": {k: o[k][:200] for k in list(o)[:3]}}
-        if hits:
+        q["text_gate"] = {"screen_source_frames": len(src_paths), "screen_hits": hits_src[:20], "n_screen_hits": len(hits_src),
+                          "screen_ocr_sample": {k: o_src[k][:300] for k in list(o_src)[:2]},
+                          "output_frames": len(pick), "output_hits": hits,
+                          "output_ocr_sample": {k: o[k][:200] for k in list(o)[:2]},
+                          "rule": "screen: every recorded frame used, at 1080x2400, vs SCREEN_BAD_RX + provider names; "
+                                  "output: our overlays, every 10th decoded frame"}
+        if hits_src or hits:
             fails.append("text gate hit")
+        empty = [p.name for p in src_paths if len(o_src.get(p.name, "")) < 40]
+        if empty:
+            fails.append(f"text gate: OCR read no text on {len(empty)} recorded frames")
     except Exception as e:  # noqa: BLE001
         q["text_gate"] = {"error": str(e)}
         fails.append("text gate did not run")
@@ -1189,6 +1310,18 @@ def ocr(paths: list[Path], run: Path) -> dict:
     return out
 
 
+def takes_disclosure(tk: dict) -> dict:
+    """Every take recorded for this episode (the brief allows up to 3), which one is used, and the episode's note."""
+    allt = Path(tk.get("all_takes", Path(tk["source"]).parent))
+    rows = []
+    for d in sorted(p for p in allt.glob("take*") if p.is_dir()):
+        hl = d / "host_log.jsonl"
+        first = json.loads(hl.read_text().splitlines()[0]) if hl.is_file() and hl.read_text().strip() else {}
+        rows.append({"take": d.name, "raw_mp4": (d / "raw.mp4").is_file(), "rec_start_host_ms": first.get("host_ms"),
+                     "used": d.resolve() == Path(tk["source"]).resolve()})
+    return {"n": len(rows), "limit_in_brief": 3, "over_limit": len(rows) > 3, "takes": rows, "note": tk.get("takes_note")}
+
+
 def proof(run, ep, take, T, accent, mixinfo, rinfo, q):
     tk = ep["take"]
     pr = {
@@ -1205,6 +1338,7 @@ def proof(run, ep, take, T, accent, mixinfo, rinfo, q):
                     "shown one distinct recorded frame per output frame (chosen for an even speed), never interpolated",
             "srcmap": [{k: (v if k != "frames" else len(v)) for k, v in s.items()} for s in T["srcmap"]],
             "scroll_retime": q.get("scroll_retime")},
+        "takes_recorded": takes_disclosure(tk),
         "keepout_scan_of_device_snapshots": q.get("keepout_scan"),
         "touch_disc": q.get("touch_disc"),
         "accent_sampled_from_app": accent,

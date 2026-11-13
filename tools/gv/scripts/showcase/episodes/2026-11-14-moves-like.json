@@ -23,19 +23,22 @@
   "voice": "am_michael",
   "speed": 1.08,
   "target_wps": [
-   2.7,
+   2.8,
    3.0
-  ]
+  ],
+  "pinned_speed": 0.934,
+  "pinned_note": "the accepted cut (round 2) fitted 0.934 to target_wps; pinned so the one command reproduces it from a fresh folder (delete to refit after changing lines)"
  },
  "bed_under_voice_db": 20.0,
  "lines": [
   {
    "id": "hook",
-   "text": "@brand1 ~RapidTradeView shows you | ~which stocks | ~move together."
+   "text": "@brand1 ~RapidTradeView shows | ~which stocks | ~move together.",
+   "speed_mul": 1.09
   },
   {
    "id": "tap",
-   "gap_before": 0.08,
+   "gap_before": 0.06,
    "text": "@tap Tap one."
   },
   {
@@ -400,21 +403,10 @@
      "scroll": 442
     }
    ]
-  }
+  },
+  "takes_note": "5 takes were recorded, over the brief's limit of 3: takes 1-3 used a script with no in-sheet scroll (tap, hold, back), takes 4-5 added the scroll the brief asks for; take 4 is used. All five are the same single ANET guest page (no further stock opened, no app data changed). Next time: rehearse the gestures without recording, then shoot at most 3."
  },
  "poses": {
-  "whole": {
-   "z": 1.0,
-   "uv": [
-    540,
-    1200
-   ],
-   "A": [
-    540,
-    894.0
-   ],
-   "yaw": -4.0
-  },
   "frame0": {
    "z": 1.7,
    "uv": [
@@ -427,77 +419,89 @@
    ],
    "yaw": -12.0
   },
-  "card": {
-   "z": 1.4,
+  "whole": {
+   "z": 1.0,
    "uv": [
     540,
     1200
    ],
    "A": [
-    530,
-    1170
+    540,
+    894.0
+   ],
+   "yaw": -4.0
+  },
+  "whole_drift": {
+   "z": 1.02,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    540,
+    906.5
+   ],
+   "yaw": -5.0
+  },
+  "card": {
+   "z": 1.7,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    516,
+    1297
    ],
    "yaw": -4.0
   },
   "read1": {
-   "z": 1.8,
+   "z": 1.72,
    "uv": [
     540,
     1200
    ],
    "A": [
-    488,
-    1352
+    513,
+    1305
    ],
    "yaw": -3.0
   },
   "read2": {
-   "z": 1.3,
+   "z": 1.17,
    "uv": [
     540,
     1200
    ],
    "A": [
     540,
-    1066
+    990
    ],
-   "yaw": -3.0
+   "yaw": -3.5
   },
   "end": {
-   "z": 0.9,
+   "z": 0.84,
    "uv": [
     540,
     1200
    ],
    "A": [
     540,
-    788
+    811
    ],
    "yaw": -4.0
   },
   "end_drift": {
-   "z": 0.955,
+   "z": 0.88,
    "uv": [
     540,
     1200
    ],
    "A": [
-    535,
-    800
+    536,
+    834
    ],
-   "yaw": -7.0
-  },
-  "read3": {
-   "z": 1.15,
-   "uv": [
-    540,
-    1200
-   ],
-   "A": [
-    540,
-    1000
-   ],
-   "yaw": -3.5
+   "yaw": -6.0
   }
  },
  "moves": [
@@ -510,37 +514,37 @@
    "ease": "hook"
   },
   {
+   "name": "whole_drift",
+   "to": "whole_drift",
+   "t0": "{hook_pull_end}",
+   "dur": "{v_tap} - 1.15 - {hook_pull_end}",
+   "ease": "sio"
+  },
+  {
    "name": "card_push",
    "to": "card",
-   "t0": "{v_tap} - 1.5",
-   "dur": 0.9,
+   "t0": "{v_tap} - 1.15",
+   "dur": 0.95,
    "ease": "io2"
   },
   {
    "name": "read1_push",
    "to": "read1",
-   "t0": "{v_open_end} + 0.05",
-   "dur": 1.0,
-   "ease": "io2"
+   "t0": "{v_open_end}",
+   "dur": "{v_scroll} - 0.1 - {v_open_end}",
+   "ease": "sio"
   },
   {
    "name": "read2_pull",
    "to": "read2",
-   "t0": "{v_scroll_end} + 1.25",
-   "dur": 0.95,
-   "ease": "io2"
-  },
-  {
-   "name": "read3_glide",
-   "to": "read3",
-   "t0": "{read2_pull_end} + 1.22",
-   "dur": 0.9,
+   "t0": "{v_scroll_end} + 1.7",
+   "dur": 0.8,
    "ease": "io2"
   },
   {
    "name": "end_pull",
    "to": "end",
-   "t0": "{past_t1} + 0.45",
+   "t0": "M({past_t1} + 0.05, {read2_pull_end} + 1.6)",
    "dur": 0.8,
    "ease": "io2"
   },
@@ -554,8 +558,8 @@
   {
    "name": "loop_push",
    "to": "frame0",
-   "t0": "{end} - 1.0",
-   "dur": 1.0,
+   "t0": "{end} - 0.9",
+   "dur": 0.9,
    "ease": "sio"
   }
  ],
@@ -572,7 +576,7 @@
    "retime": "even"
   },
   {
-   "at": "{loop_push_t0} + 0.05",
+   "at": "{loop_push_t0} - 0.6",
    "event": "close",
    "from": "start"
   }
@@ -585,8 +589,9 @@
   "d_frac": 0.12,
   "disc_at": [
    470,
-   968
-  ]
+   987
+  ],
+  "fade_in_frac": 0.4
  },
  "overlay": {
   "pill": {
@@ -613,10 +618,6 @@
    [
     "-1",
     "{tap} - 0.1"
-   ],
-   [
-    "{end} - 0.3",
-    "{end} + 1"
    ]
   ],
   "accent_sample": {
@@ -627,6 +628,11 @@
     980,
     2000
    ]
+  },
+  "disc_in": "{url_in}",
+  "end_chip": {
+   "text": "Not investment advice.",
+   "t0": "{text_out} - 0.15"
   }
  },
  "sheen": {
@@ -642,19 +648,20 @@
   "description": "RapidTradeView lists the stocks whose daily moves tracked the one you are looking at. Tap one to see both lines on one chart, how many days they moved the same way, and their last big moves side by side. Free at rapidtradeview.trade\nPast moves, not a prediction. Not investment advice.\n#Shorts #stocks #investing #stockmarket"
  },
  "times": {
-  "v_tap": "2.45",
+  "v_tap": "2.58",
   "url_in": "M({brand2}, {end_pull_end}) + 0.05",
-  "end": "M({nia_t1} + 1.05, {url_in} + 2.2 + 1.0)",
+  "end": "M({nia_t1} + 1.0, {url_in} + 2.3 + 0.9)",
   "text_out": "{loop_push_t0}"
  },
  "key_frames": {
   "whole": "{hook_pull_end}",
+  "whole_hold": "{whole_drift_end} - 0.05",
   "tap": "{v_tap}",
-  "read1": "{read1_push_end} + 0.6",
+  "read1": "{read1_push_t0} + 1.0",
   "read2_same": "{v_scroll_end} + 0.4",
   "read2_rows": "{read2_pull_end} + 0.5",
   "end": "{url_in} + 1.4",
-  "read3": "{read3_glide_end} + 0.5"
+  "close": "{v_close} + 0.12"
  },
  "check6": [
   "frame0",
@@ -662,12 +669,18 @@
   "tap",
   "read1",
   "read2_rows",
-  "end"
+  "last"
  ],
  "holds": [
   [
+   "whole phone (still pose + slow drift)",
+   "{hook_pull_end}",
+   "{whole_drift_end}",
+   0.5
+  ],
+  [
    "read1 (sheet title + chart)",
-   "{read1_push_end}",
+   "{v_open_end}",
    "{v_scroll}"
   ],
   [
@@ -676,19 +689,22 @@
    "{read2_pull_t0}"
   ],
   [
-   "read2b (last big moves)",
+   "read2b (last big moves + the app's 'Past moves, not a prediction.')",
    "{read2_pull_end}",
-   "{read3_glide_t0}"
-  ],
-  [
-   "read3 (the app's 'Past moves, not a prediction.')",
-   "{read3_glide_end}",
-   "{end_pull_t0}"
+   "{end_pull_t0}",
+   1.6
   ],
   [
    "end card (URL)",
    "{url_in}",
-   "{text_out} - 0.15"
+   "{text_out} - 0.15",
+   2.0
+  ],
+  [
+   "end card (Not investment advice.)",
+   "{url_in}",
+   "{text_out} - 0.15",
+   2.0
   ]
  ],
  "sfx": {
@@ -697,7 +713,12 @@
    "close"
   ],
   "no_whoosh": [
-   "end_drift"
+   "end_drift",
+   "whole_drift",
+   "read1_push"
   ]
+ },
+ "encode": {
+  "crf": 13
  }
 }

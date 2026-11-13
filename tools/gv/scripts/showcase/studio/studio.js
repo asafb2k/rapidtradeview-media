@@ -123,7 +123,8 @@ function drawTap(st, sPx) {   // st: {scale, alpha, ripple 0..1}; sPx = output p
   g.globalAlpha = st.alpha;
   g.shadowColor = "rgba(0,0,0,0.25)"; g.shadowBlur = 12 / sPx * k;
   g.fillStyle = "rgba(255,255,255,0.80)"; g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill();
-  g.shadowColor = "transparent"; g.strokeStyle = "rgba(255,255,255,0.90)"; g.lineWidth = ring; g.beginPath(); g.arc(0, 0, r + ring / 2, 0, 7); g.stroke();
+  g.shadowColor = "transparent"; g.globalAlpha = Math.min(1, 2 * st.alpha); g.strokeStyle = "rgba(255,255,255,0.95)"; g.lineWidth = ring;
+  g.beginPath(); g.arc(0, 0, r + ring / 2, 0, 7); g.stroke();
   g.restore(); tapTex.needsUpdate = true;
 }
 const key = new THREE.DirectionalLight(L.key_col, L.key); key.position.set(-0.55, 0.75, 0.6); phoneScene.add(key);
@@ -136,17 +137,17 @@ const VS = "varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position
 const c3 = a => new THREE.Vector3(a[0] / 255, a[1] / 255, a[2] / 255);
 const bgMat = new THREE.ShaderMaterial({ vertexShader: VS, depthTest: false, depthWrite: false,
   uniforms: { wallTop: { value: c3(L.wall_top) }, wallLow: { value: c3(L.wall_low) }, floorC: { value: c3(L.floor) },
-    poolC: { value: c3(L.pool) }, poolW: { value: L.pool_w }, vig: { value: L.vig }, grain: { value: L.grain }, seed: { value: 0 },
+    poolC: { value: c3(L.pool) }, poolW: { value: L.pool_w }, poolDy: { value: L.pool_dy ?? -0.06 }, vig: { value: L.vig }, grain: { value: L.grain }, seed: { value: 0 },
     base: { value: new THREE.Vector2(540, 1468) }, ctr: { value: new THREE.Vector2(540, 893) }, pw: { value: 535 }, ph: { value: 1150 },
     shadowA: { value: L.shadow_a }, shadowBlur: { value: L.shadow_blur }, horizon: { value: 1468 } },
-  fragmentShader: `uniform vec3 wallTop, wallLow, floorC, poolC; uniform float poolW, vig, grain, seed, pw, ph, shadowA, shadowBlur, horizon;
+  fragmentShader: `uniform vec3 wallTop, wallLow, floorC, poolC; uniform float poolW, poolDy, vig, grain, seed, pw, ph, shadowA, shadowBlur, horizon;
   uniform vec2 base, ctr; varying vec2 vUv;
   float hash(vec2 p){ p = fract(p * vec2(443.897, 441.423) + seed); p += dot(p, p.yx + 19.19); return fract((p.x + p.y) * p.x); }
   void main(){
     vec2 px = vec2(vUv.x * 1080.0, (1.0 - vUv.y) * 1920.0);
     vec3 c = px.y < horizon ? mix(wallTop, wallLow, smoothstep(0.0, horizon, px.y))
                             : mix(wallLow, floorC, smoothstep(horizon, 1920.0, px.y));
-    vec2 d = (px - (ctr - vec2(0.0, 0.06 * ph))) / vec2(0.62 * pw, 0.46 * ph);
+    vec2 d = (px - (ctr + vec2(0.0, poolDy * ph))) / vec2(0.62 * pw, 0.46 * ph);
     c = mix(c, poolC, poolW * exp(-0.5 * dot(d, d)));
     float r = length((vUv - 0.5) * vec2(1.0, 1.15)) * 1.55;
     c *= 1.0 - vig * smoothstep(0.35, 1.0, r);
