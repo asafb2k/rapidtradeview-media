@@ -661,6 +661,16 @@ def tile_sheet(items: list[tuple[str, Path]], out: Path, tw=216, cols=11, scale_
 
 # ================================================================================================ main
 def main(argv=None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    eps = [x for x in argv if x.endswith(".json")]
+    if eps and rjson(Path(eps[0])).get("look", "studio") == "studio":    # the default look since day 2
+        import studio
+        return studio.main(argv)
+    return main_dock(argv)
+
+
+def main_dock(argv=None) -> int:
+    """Day 1 look ("look": "dock"): the recorded mobile site on a slab in a dock (web take via take.py)."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("episode")
     ap.add_argument("--out")

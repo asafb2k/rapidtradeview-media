@@ -1,0 +1,89 @@
+{
+ "schema": "rtv-showcase-episode/studio-1",
+ "look": "studio",
+ "slug": "2026-11-14-moves-like",
+ "series": "SHOWCASE: one RapidTradeView feature a day, its real screen in a phone",
+ "day": 2,
+ "feature": "Moves like: the stocks whose daily moves tracked this one, and the sheet 'How X moved with Y'",
+ "one_sentence": "RapidTradeView shows you which stocks move together.",
+ "headline": {"words": ["Stocks", "that", "move", "together"], "accent": ["together"], "size": 64, "track": -0.02},
+ "voice": {"voice": "am_michael", "speed": 1.08, "target_wps": [2.7, 3.0]},
+ "bed_under_voice_db": 20.0,
+ "lines": [
+  {"id": "hook", "text": "@brand1 ~RapidTradeView shows you | ~which stocks | ~move together."},
+  {"id": "tap", "gap_before": 0.08, "text": "@tap Tap one."},
+  {"id": "read1", "gap_before": 0.25, "text": "@read1 Both lines, | one chart."},
+  {"id": "read2", "gap_before": 0.3, "text": "@read2 It counts the days | they moved | the *same *way, | @rows and lines up | the big ones."},
+  {"id": "past", "gap_before": 0.2, "text": "@past Past moves, | not a prediction."},
+  {"id": "end", "gap_before": 0.3, "text": "@free Free, on | @brand2 ~RapidTradeView."},
+  {"id": "nia", "gap_before": 0.08, "text": "@nia ~Not investment advice.", "speed_mul": 1.04}
+ ],
+ "take": {
+  "source": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-14-moves-like/takes/take4",
+  "all_takes": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-14-moves-like/takes",
+  "app": {"package": "com.rapidtradeview.app", "version": "1.27.16", "versionCode": 26111301},
+  "device": {"avd": "rtv_smart_money_1258_20260912", "serial": "emulator-5558", "screen": [1080, 2400], "density": 420,
+             "ui": "dark, guest (not signed in), demo-mode status bar 9:41"},
+  "stock": "ANET",
+  "record": {"setup": "search the stock, open its page as a guest, then a slow pan so the key-stats card sits under the header and the Moves-like card is centred (the earnings card's source credit stays below the screen)",
+             "actions": [{"do": "record_start"}, {"do": "sleep", "s": 3.0}, {"do": "press", "x": 450, "y": 985, "name": "tap"},
+                         {"do": "sleep", "s": 3.2}, {"do": "pan", "x": 540, "y": 1900, "dx": 0, "dy": -470, "ms": 1800, "name": "scroll"},
+                         {"do": "sleep", "s": 2.6}, {"do": "back", "name": "back"}, {"do": "sleep", "s": 3.0}, {"do": "record_stop"}]},
+  "events": ["open", "scroll", "close"],
+  "event_quiet_s": 0.6,
+  "change_thresh": 0.15,
+  "tap_rect": [87, 931, 993, 1111],
+  "tap_at": [450, 985],
+  "scroll_probe": {"x": [0, 1080], "y": [700, 2300]},
+  "states": {
+   "card": {"text": ["MOVES LIKE ANET", "Daily moves, 60 sessions before Nov 12", "MTSI", "MACOM Technology Solutions Holdings, Inc.", "83", "−1.6%", "AMD", "Advanced Micro Devices, Inc.", "83", "+5.9%", "RAL", "Ralliant Corporation", "80", "−1.3%", "Tap a row to see why", "Past moves, not a prediction. Not advice."],
+            "rects": {"header": [0, 100, 1080, 255], "stats_card": [42, 284, 1038, 680], "card": [42, 712, 1038, 1697], "card_title": [87, 773, 460, 824],
+                      "row_mtsi": [87, 931, 993, 1111], "row_amd": [87, 1110, 993, 1292], "row_ral": [87, 1293, 993, 1475],
+                      "card_hint": [86, 1507, 994, 1596], "card_disclaimer": [86, 1616, 994, 1658], "earnings_card": [42, 1730, 1038, 2400]},
+            "keepout": {"earnings source credit (provider name)": [42, 2590, 1038, 2660]}},
+   "sheet": {"text": ["How ANET moved with MTSI", "83", "Sync 83 · Tight · 60 sessions before Nov 12", "ANET", "MTSI", "MTSI moves of 9%+", "Aug 18", "Daily closes, rebased to 100", "Nov 12", "Same direction", "49 of 60 days", "Typical pair: 32", "Typical size, same day", "ANET ≈ 0.6× MTSI", "Matched MTSI's big moves", "9 of 12", "Other days: 150 of 238 · since Nov 13, 2025", "MTSI'S LAST 4 BIG MOVES · ANET THAT DAY", "Nov 11", "MTSI +10.3%", "ANET +6.3%", "Nov 9", "MTSI +9.0%", "ANET +9.0%", "Nov 6", "MTSI +10.8%", "ANET +7.3%", "Nov 5", "MTSI −18.4%", "ANET −10.8%", "Matched: ANET moved the same way as MTSI that day, by at least half of its typical size.", "Past moves, not a prediction. Not advice.", "Open MTSI"],
+             "scroll_max": 442,
+             "rects": {"sheet_title": [189, 396, 1038, 462], "sync_ring": [42, 396, 158, 512], "sheet_sub": [189, 478, 898, 529], "legend": [42, 565, 1038, 607],
+                       "chart": [42, 639, 1038, 1196], "axis": [42, 1206, 1038, 1245], "same_direction": [42, 1290, 1038, 1466],
+                       "typical_size": [42, 1466, 1038, 1589], "matched": [42, 1589, 1038, 1765], "big_moves_label": [42, 1817, 1038, 1856],
+                       "big_moves_rows": [42, 1877, 1038, 2372], "footnote": [42, 2392, 1038, 2476], "sheet_disclaimer": [42, 2518, 1038, 2569],
+                       "open_button": [42, 2620, 1038, 2730]},
+             "keepout": {}}
+  }
+ },
+ "poses": {
+  "whole": {"z": 1.0, "uv": [540, 1200], "A": [540, 894.4], "yaw": -4.0},
+  "frame0": {"z": 1.70, "uv": [540, 1200], "A": [500, 1225], "yaw": -12.0},
+  "card": {"z": 1.25, "uv": [540, 1200], "A": [530, 1048], "yaw": -4.0},
+  "read1": {"z": 1.80, "uv": [540, 1200], "A": [488, 1349], "yaw": -3.0},
+  "read2": {"z": 1.30, "uv": [540, 1200], "A": [540, 1060], "yaw": -3.0},
+  "end": {"z": 0.775, "uv": [540, 1200], "A": [540, 742], "yaw": -4.0},
+  "end_drift": {"z": 0.83, "uv": [540, 1200], "A": [534, 768], "yaw": -7.0}
+ },
+ "moves": [
+  {"name": "hook_pull", "from": "frame0", "to": "whole", "t0": "0", "dur": 0.9, "ease": "hook"},
+  {"name": "card_push", "to": "card", "t0": "{v_tap} - 1.0", "dur": 0.75, "ease": "io2"},
+  {"name": "read1_push", "to": "read1", "t0": "{v_open_end} + 0.08", "dur": 1.0, "ease": "io2"},
+  {"name": "read2_pull", "to": "read2", "t0": "{rows} - 0.3", "dur": 0.95, "ease": "io2"},
+  {"name": "whole_pull", "to": "whole", "t0": "{past} - 0.15", "dur": 0.7, "ease": "io2"},
+  {"name": "end_ease", "to": "end", "t0": "{v_close_end} + 0.05", "dur": 0.85, "ease": "io2"},
+  {"name": "end_drift", "to": "end_drift", "t0": "{end_ease_end}", "dur": "{end} - {end_ease_end}", "ease": "lin"}
+ ],
+ "source_map": [
+  {"at": "{v_tap}", "event": "open", "from": "tap"},
+  {"at": "{read2} - 0.35", "event": "scroll", "from": "start"},
+  {"at": "{past_t1} - 0.4", "event": "close", "from": "start"}
+ ],
+ "tap": {"lead": 0.15, "pop": 0.2, "ripple": 0.3, "fade_after": 0.25, "d_frac": 0.12, "v_tap": "{tap} + 0.12"},
+ "overlay": {"pill": {"top": 170, "h": 60}, "headline_top": 238, "headline_in": [0.55, 0.92], "chip": {"size": 44, "top": 248, "padx": 0.42, "pady": 0.26},
+             "url": {"text": "rapidtradeview.trade", "size": 60}, "disc": {"text": "Not investment advice.", "size": 38}, "end_gap": 40,
+             "accent_rgb": "sample:take:sheet:green"},
+ "sheen": {"wide": 0.0, "read": 0.0},
+ "tail_s": 0.45,
+ "end_hold_min_s": 2.0,
+ "duration_s": [14.0, 18.0],
+ "youtube": {
+  "title": "This free app shows which stocks move together #Shorts",
+  "description": "RapidTradeView lists the stocks whose daily moves tracked the one you are looking at. Tap one to see both lines on one chart, how many days they moved the same way, and their last big moves side by side. Free at rapidtradeview.trade\nPast moves, not a prediction. Not investment advice.\n#Shorts #stocks #investing #stockmarket"
+ }
+}
