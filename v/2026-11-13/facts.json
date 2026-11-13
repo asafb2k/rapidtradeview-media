@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-13",
-  "generated_at": "2026-11-13T13:30:02Z",
-  "as_of": "2026-11-13T13:30:02Z",
+  "generated_at": "2026-11-13T14:00:02Z",
+  "as_of": "2026-11-13T14:00:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 5,
     "form4_buy": 0,
-    "earnings_result": 81,
+    "earnings_result": 79,
     "earnings_upcoming": 31,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -896,7 +896,6 @@
   },
   "reasons": {
     "ptr_summary": "2 member filing date(s) with 2+ Congress items were not whole filings (left_out.ptr_summary_incomplete)",
-    "form4_buy": "no material open-market Form 4 buy ($1M+ or a famous executive) filed in the last 5 weekdays",
     "picks_ready": "the published list (2026-11-12) expires 2026-11-13T19:00:00+00:00 before the 15:00 ET slot; today's list publishes at 2:00 PM ET",
     "market_move": "|move| 0.49% < 0.75% (a quiet day: no market-day post)",
     "basket_week": "the session is not a Friday (the basket is a week-in-review item)",
@@ -938,18 +937,19 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 15,
+      "filings_passing_filters": 16,
       "below_minimum": 15,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3666,
-      "recent_ready": 342,
-      "outside_24h": 251,
+      "archive_reports": 3669,
+      "recent_ready": 345,
+      "outside_24h": 255,
       "unreadable": 0,
-      "not_compared": 9,
+      "not_compared": 10,
       "not_compared_metrics": [
+        "BKYI: revenue (basis_mismatch)",
         "BN: revenue (basis_mismatch)",
         "BRUN: revenue (basis_mismatch)",
         "FDMT: revenue (basis_mismatch)",
@@ -960,8 +960,9 @@
         "TBN: revenue (basis_mismatch)",
         "UAMY: revenue (basis_mismatch)"
       ],
-      "consensus_mismatch_hold": 10,
+      "consensus_mismatch_hold": 11,
       "held": [
+        "BKYI: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "BN: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "BRUN: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "FDMT: revenue (basis_mismatch) and nothing else compared (report data to check)",
@@ -987,7 +988,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 113,
+      "tickers_in_items": 112,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -1001,41 +1002,43 @@
     "market": {
       "market_session": "2026-11-12",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-13T13:30:57.401390+00:00"
+      "flows_as_of": "2026-11-13T14:00:56.516668+00:00"
     },
     "gates": {
       "weekend_replay": 0,
-      "small_cap": 0,
+      "small_cap": 1,
       "cooldown": 0,
-      "reasons": [],
+      "reasons": [
+        "form4_buy PSEC: small cap under $2B and a buy under $10M"
+      ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 143
+        "angles_dropped": 142
       },
       "top8": {
-        "stale": 12,
+        "stale": 8,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 7,
-        "ranked_below": 103,
+        "ranked_below": 105,
         "pillars": 4
       }
     },
     "card_unpinned": {
       "dropped": 3,
       "reasons": [
-        "mega_mover NVDA: share card not pinned (the card draws 2026-11-13T13:17:34.338686+00:00 (X-Card-Date), the item 2026-11-12)",
-        "breadth_day 2026-11-13-breadth-day-LIST-e2b43c: share card not pinned (the card draws 2026-11-13T13:17:34.338686+00:00 (X-Card-Date), the item 2026-11-12)",
-        "sector_rotation 2026-11-13-sector-rotation-LIST-5aa379: share card not pinned (the card draws 2026-11-13T13:17:34.338686+00:00 (X-Card-Date), the item 2026-11-12)"
+        "mega_mover NVDA: share card not pinned (the card draws 2026-11-13T13:47:35.971269+00:00 (X-Card-Date), the item 2026-11-12)",
+        "breadth_day 2026-11-13-breadth-day-LIST-e2b43c: share card not pinned (the card draws 2026-11-13T13:47:35.971269+00:00 (X-Card-Date), the item 2026-11-12)",
+        "sector_rotation 2026-11-13-sector-rotation-LIST-5aa379: share card not pinned (the card draws 2026-11-13T13:47:35.971269+00:00 (X-Card-Date), the item 2026-11-12)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-13T13:17:34.338686+00:00 (X-Card-Date), the item 2026-11-12)",
-    "not published: breadth_day 2026-11-13-breadth-day-LIST-e2b43c: share card not pinned (the card draws 2026-11-13T13:17:34.338686+00:00 (X-Card-Date), the item 2026-11-12)",
-    "not published: sector_rotation 2026-11-13-sector-rotation-LIST-5aa379: share card not pinned (the card draws 2026-11-13T13:17:34.338686+00:00 (X-Card-Date), the item 2026-11-12)"
+    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-13T13:47:35.971269+00:00 (X-Card-Date), the item 2026-11-12)",
+    "not published: breadth_day 2026-11-13-breadth-day-LIST-e2b43c: share card not pinned (the card draws 2026-11-13T13:47:35.971269+00:00 (X-Card-Date), the item 2026-11-12)",
+    "not published: sector_rotation 2026-11-13-sector-rotation-LIST-5aa379: share card not pinned (the card draws 2026-11-13T13:47:35.971269+00:00 (X-Card-Date), the item 2026-11-12)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -5174,6 +5177,374 @@
           ]
         ]
       },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-13-earnings-result-XBIO-f198e0",
+      "type": "earnings_result",
+      "ticker": "XBIO",
+      "tickers": [
+        "XBIO"
+      ],
+      "name": "Xenetic Biosciences, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1534525/000168316826008650/xenetic_ex9901.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/XBIO?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-13-earnings-result-XBIO-f198e0#earnings-history",
+      "allowed_numbers": [
+        "−$0.72",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-13",
+        "Nov 13, 2026",
+        "Nov 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Xenetic Biosciences, Inc. (XBIO) published Q3 2026 results on 2026-11-13: Published. GAAP EPS −$0.72.",
+      "dedupe_key": "report:xbio-2026-q3",
+      "claim_phrases": [],
+      "report_id": "xbio-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-13",
+      "published_at": "2026-11-13T13:38:40.888005+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.72"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/XBIO/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for XBIO: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-13 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "XBIO"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Xenetic Biosciences, Inc. ($XBIO) published Q3 2026 results on Nov 13.",
+        "$XBIO (Xenetic Biosciences, Inc.) reported Q3 2026 results on Nov 13.",
+        "On Nov 13, Xenetic Biosciences, Inc. ($XBIO) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Xenetic Biosciences, Inc. ($XBIO) published Q3 2026 results on Nov 13.",
+        "$XBIO (Xenetic Biosciences, Inc.) reported Q3 2026 results on Nov 13.",
+        "On Nov 13, Xenetic Biosciences, Inc. ($XBIO) published Q3 2026 results.",
+        "$XBIO published Q3 2026 results on Nov 13.",
+        "Q3 2026 results from $XBIO came out on Nov 13.",
+        "On Nov 13, $XBIO published Q3 2026 results.",
+        "$XBIO Q3 2026 GAAP EPS: −$0.72.",
+        "$XBIO reported Q3 2026 GAAP EPS of −$0.72.",
+        "$XBIO Q3 2026 GAAP EPS was −$0.72.",
+        "Q3 2026 GAAP EPS at $XBIO was −$0.72."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Xenetic Biosciences, Inc. ($XBIO) published Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$XBIO (Xenetic Biosciences, Inc.) reported Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 13, Xenetic Biosciences, Inc. ($XBIO) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$XBIO published Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $XBIO came out on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 13, $XBIO published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$XBIO Q3 2026 GAAP EPS: −$0.72.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$XBIO reported Q3 2026 GAAP EPS of −$0.72.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$XBIO Q3 2026 GAAP EPS was −$0.72.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $XBIO was −$0.72.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.72": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-13-earnings-result-SGRP-2149a4",
+      "type": "earnings_result",
+      "ticker": "SGRP",
+      "tickers": [
+        "SGRP"
+      ],
+      "name": "SPAR Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1004989/000143774926036671/ex_1044765.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SGRP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-13-earnings-result-SGRP-2149a4#earnings-history",
+      "allowed_numbers": [
+        "$33.5M",
+        "$0.01",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-13",
+        "Nov 13, 2026",
+        "Nov 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "SPAR Group, Inc. (SGRP) published Q3 2026 results on 2026-11-13: Published. Revenue $33.5M. Non-GAAP adjusted diluted income per common share $0.01.",
+      "dedupe_key": "report:sgrp-2026-q3",
+      "claim_phrases": [],
+      "report_id": "sgrp-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-13",
+      "published_at": "2026-11-13T13:36:41.760814+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$33.5M"
+        },
+        "eps": {
+          "basis": "Non-GAAP adjusted diluted income per common share",
+          "reported": "$0.01"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SGRP/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SGRP: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-13 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SGRP"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "SPAR Group, Inc. ($SGRP) published Q3 2026 results on Nov 13.",
+        "$SGRP (SPAR Group, Inc.) reported Q3 2026 results on Nov 13.",
+        "On Nov 13, SPAR Group, Inc. ($SGRP) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "SPAR Group, Inc. ($SGRP) published Q3 2026 results on Nov 13.",
+        "$SGRP (SPAR Group, Inc.) reported Q3 2026 results on Nov 13.",
+        "On Nov 13, SPAR Group, Inc. ($SGRP) published Q3 2026 results.",
+        "$SGRP published Q3 2026 results on Nov 13.",
+        "Q3 2026 results from $SGRP came out on Nov 13.",
+        "On Nov 13, $SGRP published Q3 2026 results.",
+        "$SGRP Q3 2026 revenue: $33.5M.",
+        "$SGRP reported Q3 2026 revenue of $33.5M.",
+        "$SGRP Q3 2026 revenue was $33.5M.",
+        "Q3 2026 revenue at $SGRP was $33.5M.",
+        "$SGRP Q3 2026 Non-GAAP adjusted diluted income per common share: $0.01.",
+        "$SGRP reported Q3 2026 Non-GAAP adjusted diluted income per common share of $0.01.",
+        "$SGRP Q3 2026 Non-GAAP adjusted diluted income per common share was $0.01.",
+        "Q3 2026 Non-GAAP adjusted diluted income per common share at $SGRP was $0.01."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "SPAR Group, Inc. ($SGRP) published Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$SGRP (SPAR Group, Inc.) reported Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 13, SPAR Group, Inc. ($SGRP) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$SGRP published Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $SGRP came out on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 13, $SGRP published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$SGRP Q3 2026 revenue: $33.5M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$SGRP reported Q3 2026 revenue of $33.5M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$SGRP Q3 2026 revenue was $33.5M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $SGRP was $33.5M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-633314.a",
+          "fact": "earningsre-633314",
+          "variant": "a",
+          "text": "$SGRP Q3 2026 Non-GAAP adjusted diluted income per common share: $0.01.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-633314.h1",
+          "fact": "earningsre-633314",
+          "variant": "h1",
+          "text": "$SGRP reported Q3 2026 Non-GAAP adjusted diluted income per common share of $0.01.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-298c71.a",
+          "fact": "earningsre-298c71",
+          "variant": "a",
+          "text": "$SGRP Q3 2026 Non-GAAP adjusted diluted income per common share was $0.01.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-298c71.h1",
+          "fact": "earningsre-298c71",
+          "variant": "h1",
+          "text": "Q3 2026 Non-GAAP adjusted diluted income per common share at $SGRP was $0.01.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
@@ -24167,747 +24538,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-13-earnings-result-CHAD-4d889c",
-      "type": "earnings_result",
-      "ticker": "CHAD",
-      "tickers": [
-        "CHAD"
-      ],
-      "name": "DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-12",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000166/dfdvq32026shareholderlet.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CHAD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-13-earnings-result-CHAD-4d889c#earnings-history",
-      "allowed_numbers": [
-        "$2.43M",
-        "$1.91",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-12",
-        "Nov 12, 2026",
-        "Nov 12"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock (CHAD) published Q3 2026 results on 2026-11-12: Published. Revenue $2.43M. GAAP EPS $1.91.",
-      "dedupe_key": "report:chad-2026-q3",
-      "claim_phrases": [],
-      "report_id": "chad-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-12",
-      "published_at": "2026-11-12T13:42:23.708494+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$2.43M"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$1.91"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CHAD/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CHAD: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-12 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CHAD"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock ($CHAD) published Q3 2026 results on Nov 12.",
-        "$CHAD (DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock) reported Q3 2026 results on Nov 12.",
-        "On Nov 12, DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock ($CHAD) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock ($CHAD) published Q3 2026 results on Nov 12.",
-        "$CHAD (DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock) reported Q3 2026 results on Nov 12.",
-        "On Nov 12, DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock ($CHAD) published Q3 2026 results.",
-        "$CHAD published Q3 2026 results on Nov 12.",
-        "Q3 2026 results from $CHAD came out on Nov 12.",
-        "On Nov 12, $CHAD published Q3 2026 results.",
-        "$CHAD Q3 2026 revenue: $2.43M.",
-        "$CHAD reported Q3 2026 revenue of $2.43M.",
-        "$CHAD Q3 2026 revenue was $2.43M.",
-        "Q3 2026 revenue at $CHAD was $2.43M.",
-        "$CHAD Q3 2026 GAAP EPS: $1.91.",
-        "$CHAD reported Q3 2026 GAAP EPS of $1.91.",
-        "$CHAD Q3 2026 GAAP EPS was $1.91.",
-        "Q3 2026 GAAP EPS at $CHAD was $1.91."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock ($CHAD) published Q3 2026 results on Nov 12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$CHAD (DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock) reported Q3 2026 results on Nov 12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 12, DeFi Development Corp. Variable Rate Series C Perpetual Preferred Stock ($CHAD) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$CHAD published Q3 2026 results on Nov 12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $CHAD came out on Nov 12.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 12, $CHAD published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$CHAD Q3 2026 revenue: $2.43M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$CHAD reported Q3 2026 revenue of $2.43M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$CHAD Q3 2026 revenue was $2.43M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $CHAD was $2.43M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$CHAD Q3 2026 GAAP EPS: $1.91.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$CHAD reported Q3 2026 GAAP EPS of $1.91.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$CHAD Q3 2026 GAAP EPS was $1.91.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $CHAD was $1.91.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-12 release posted on 2026-11-13: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-13-earnings-result-CTVA-5d7d74",
-      "type": "earnings_result",
-      "ticker": "CTVA",
-      "tickers": [
-        "CTVA"
-      ],
-      "name": "Corteva, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-12",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1755672/000175567226000031/a3q_2026xearningsxnewsxr.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CTVA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-13-earnings-result-CTVA-5d7d74#earnings-history",
-      "allowed_numbers": [
-        "$1.59B",
-        "$1.77B",
-        "$177M",
-        "$0.06",
-        "$0.10",
-        "$0.04",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-11",
-        "Nov 11, 2026",
-        "Nov 11",
-        "2026-11-12",
-        "Nov 12, 2026",
-        "Nov 12"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Corteva, Inc. (CTVA) published Q3 2026 results on 2026-11-11: Missed estimates. Revenue $1.59B vs $1.77B consensus (Missed by $177M). Adjusted Pro Forma NON-GAAP $0.06 vs $0.10 consensus (Missed by $0.04).",
-      "dedupe_key": "report:ctva-2026-q3",
-      "claim_phrases": [
-        "revenue came in below the $1.77B consensus.",
-        "$CTVA missed the Q3 2026 revenue consensus: $1.59B vs $1.77B.",
-        "$CTVA Q3 2026 revenue: $1.59B vs $1.77B consensus (missed by $177M).",
-        "$CTVA Q3 2026 revenue $1.59B, missed by $177M.",
-        "revenue $1.59B vs $1.77B consensus (missed by $177M).",
-        "revenue $1.59B vs $1.77B (missed by $177M).",
-        "$CTVA missed Q3 2026 revenue estimates by $177M.",
-        "$CTVA missed the Q3 revenue consensus: $1.59B vs $1.77B.",
-        "$CTVA Q3 revenue: $1.59B vs $1.77B consensus (missed by $177M).",
-        "$CTVA Q3 revenue $1.59B, missed by $177M.",
-        "$CTVA missed Q3 revenue estimates by $177M.",
-        "EPS came in below the $0.10 consensus.",
-        "$CTVA missed the Q3 2026 EPS consensus: $0.06 vs $0.10.",
-        "$CTVA Q3 2026 EPS: $0.06 vs $0.10 consensus (missed by $0.04).",
-        "$CTVA Q3 2026 EPS $0.06, missed by $0.04.",
-        "EPS $0.06 vs $0.10 consensus (missed by $0.04).",
-        "EPS $0.06 vs $0.10 (missed by $0.04).",
-        "$CTVA missed Q3 2026 EPS estimates by $0.04.",
-        "Adjusted Pro Forma NON-GAAP came in below the $0.10 consensus.",
-        "$CTVA missed the Q3 2026 Adjusted Pro Forma NON-GAAP consensus: $0.06 vs $0.10.",
-        "$CTVA Q3 2026 Adjusted Pro Forma NON-GAAP: $0.06 vs $0.10 consensus (missed by $0.04).",
-        "$CTVA Q3 2026 Adjusted Pro Forma NON-GAAP $0.06, missed by $0.04.",
-        "Adjusted Pro Forma NON-GAAP $0.06 vs $0.10 consensus (missed by $0.04).",
-        "Adjusted Pro Forma NON-GAAP $0.06 vs $0.10 (missed by $0.04).",
-        "$CTVA missed Q3 2026 Adjusted Pro Forma NON-GAAP estimates by $0.04.",
-        "$CTVA missed the Q3 EPS consensus: $0.06 vs $0.10.",
-        "$CTVA Q3 EPS: $0.06 vs $0.10 consensus (missed by $0.04).",
-        "$CTVA Q3 EPS $0.06, missed by $0.04.",
-        "$CTVA missed Q3 EPS estimates by $0.04.",
-        "$CTVA missed the Q3 Adjusted Pro Forma NON-GAAP consensus: $0.06 vs $0.10.",
-        "$CTVA Q3 Adjusted Pro Forma NON-GAAP: $0.06 vs $0.10 consensus (missed by $0.04).",
-        "$CTVA Q3 Adjusted Pro Forma NON-GAAP $0.06, missed by $0.04.",
-        "$CTVA missed Q3 Adjusted Pro Forma NON-GAAP estimates by $0.04.",
-        "$CTVA missed Q3 2026 estimates.",
-        "$CTVA missed Q3 estimates."
-      ],
-      "report_id": "ctva-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-11",
-      "published_at": "2026-11-12T13:37:04.833823+00:00",
-      "tile_label": "Missed estimates",
-      "tile_state": "miss",
-      "results": {
-        "revenue": {
-          "reported": "$1.59B",
-          "consensus": "$1.77B",
-          "label": "Missed by $177M",
-          "verdict": "miss"
-        },
-        "eps": {
-          "basis": "Adjusted Pro Forma NON-GAAP",
-          "reported": "$0.06",
-          "consensus": "$0.10",
-          "label": "Missed by $0.04",
-          "verdict": "miss"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CTVA/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CTVA: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-11 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CTVA"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Corteva, Inc. ($CTVA) published Q3 2026 results on Nov 11.",
-        "$CTVA (Corteva, Inc.) reported Q3 2026 results on Nov 11.",
-        "On Nov 11, Corteva, Inc. ($CTVA) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Corteva, Inc. ($CTVA) published Q3 2026 results on Nov 11.",
-        "$CTVA (Corteva, Inc.) reported Q3 2026 results on Nov 11.",
-        "On Nov 11, Corteva, Inc. ($CTVA) published Q3 2026 results.",
-        "$CTVA published Q3 2026 results on Nov 11.",
-        "Q3 2026 results from $CTVA came out on Nov 11.",
-        "On Nov 11, $CTVA published Q3 2026 results.",
-        "$CTVA Q3 2026 revenue: $1.59B vs $1.77B consensus.",
-        "$CTVA reported Q3 2026 revenue of $1.59B vs $1.77B consensus.",
-        "$CTVA Q3 2026 revenue was $1.59B.",
-        "Q3 2026 revenue at $CTVA was $1.59B.",
-        "$CTVA Q3 2026 Adjusted Pro Forma NON-GAAP: $0.06 vs $0.10 consensus.",
-        "$CTVA reported Q3 2026 Adjusted Pro Forma NON-GAAP of $0.06 vs $0.10 consensus.",
-        "$CTVA Q3 2026 Adjusted Pro Forma NON-GAAP was $0.06.",
-        "Q3 2026 Adjusted Pro Forma NON-GAAP at $CTVA was $0.06."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-d07e43.a",
-          "fact": "earningsre-d07e43",
-          "variant": "a",
-          "text": "revenue came in below the $1.77B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-39974b.a",
-          "fact": "earningsre-39974b",
-          "variant": "a",
-          "text": "$CTVA missed the Q3 2026 revenue consensus: $1.59B vs $1.77B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-832d86.a",
-          "fact": "earningsre-832d86",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 revenue: $1.59B vs $1.77B consensus (missed by $177M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1c6ba4.a",
-          "fact": "earningsre-1c6ba4",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 revenue $1.59B, missed by $177M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-96a577.a",
-          "fact": "earningsre-96a577",
-          "variant": "a",
-          "text": "revenue $1.59B vs $1.77B consensus (missed by $177M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7c4659.a",
-          "fact": "earningsre-7c4659",
-          "variant": "a",
-          "text": "revenue $1.59B vs $1.77B (missed by $177M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3da506.a",
-          "fact": "earningsre-3da506",
-          "variant": "a",
-          "text": "$CTVA missed Q3 2026 revenue estimates by $177M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b5f6a9.a",
-          "fact": "earningsre-b5f6a9",
-          "variant": "a",
-          "text": "$CTVA missed the Q3 revenue consensus: $1.59B vs $1.77B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f542e8.a",
-          "fact": "earningsre-f542e8",
-          "variant": "a",
-          "text": "$CTVA Q3 revenue: $1.59B vs $1.77B consensus (missed by $177M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-90244e.a",
-          "fact": "earningsre-90244e",
-          "variant": "a",
-          "text": "$CTVA Q3 revenue $1.59B, missed by $177M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-01ded6.a",
-          "fact": "earningsre-01ded6",
-          "variant": "a",
-          "text": "$CTVA missed Q3 revenue estimates by $177M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-418b63.a",
-          "fact": "earningsre-418b63",
-          "variant": "a",
-          "text": "EPS came in below the $0.10 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3982e5.a",
-          "fact": "earningsre-3982e5",
-          "variant": "a",
-          "text": "$CTVA missed the Q3 2026 EPS consensus: $0.06 vs $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cf8f92.a",
-          "fact": "earningsre-cf8f92",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 EPS: $0.06 vs $0.10 consensus (missed by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1ed72e.a",
-          "fact": "earningsre-1ed72e",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 EPS $0.06, missed by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f18190.a",
-          "fact": "earningsre-f18190",
-          "variant": "a",
-          "text": "EPS $0.06 vs $0.10 consensus (missed by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-17abfe.a",
-          "fact": "earningsre-17abfe",
-          "variant": "a",
-          "text": "EPS $0.06 vs $0.10 (missed by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-54e1d8.a",
-          "fact": "earningsre-54e1d8",
-          "variant": "a",
-          "text": "$CTVA missed Q3 2026 EPS estimates by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-418b63.a",
-          "fact": "earningsre-418b63",
-          "variant": "a",
-          "text": "Adjusted Pro Forma NON-GAAP came in below the $0.10 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3982e5.a",
-          "fact": "earningsre-3982e5",
-          "variant": "a",
-          "text": "$CTVA missed the Q3 2026 Adjusted Pro Forma NON-GAAP consensus: $0.06 vs $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cf8f92.a",
-          "fact": "earningsre-cf8f92",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 Adjusted Pro Forma NON-GAAP: $0.06 vs $0.10 consensus (missed by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1ed72e.a",
-          "fact": "earningsre-1ed72e",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 Adjusted Pro Forma NON-GAAP $0.06, missed by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f18190.a",
-          "fact": "earningsre-f18190",
-          "variant": "a",
-          "text": "Adjusted Pro Forma NON-GAAP $0.06 vs $0.10 consensus (missed by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-17abfe.a",
-          "fact": "earningsre-17abfe",
-          "variant": "a",
-          "text": "Adjusted Pro Forma NON-GAAP $0.06 vs $0.10 (missed by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-54e1d8.a",
-          "fact": "earningsre-54e1d8",
-          "variant": "a",
-          "text": "$CTVA missed Q3 2026 Adjusted Pro Forma NON-GAAP estimates by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-355c5f.a",
-          "fact": "earningsre-355c5f",
-          "variant": "a",
-          "text": "$CTVA missed the Q3 EPS consensus: $0.06 vs $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-83f6a0.a",
-          "fact": "earningsre-83f6a0",
-          "variant": "a",
-          "text": "$CTVA Q3 EPS: $0.06 vs $0.10 consensus (missed by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d4f8ff.a",
-          "fact": "earningsre-d4f8ff",
-          "variant": "a",
-          "text": "$CTVA Q3 EPS $0.06, missed by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4ffa7a.a",
-          "fact": "earningsre-4ffa7a",
-          "variant": "a",
-          "text": "$CTVA missed Q3 EPS estimates by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-355c5f.a",
-          "fact": "earningsre-355c5f",
-          "variant": "a",
-          "text": "$CTVA missed the Q3 Adjusted Pro Forma NON-GAAP consensus: $0.06 vs $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-83f6a0.a",
-          "fact": "earningsre-83f6a0",
-          "variant": "a",
-          "text": "$CTVA Q3 Adjusted Pro Forma NON-GAAP: $0.06 vs $0.10 consensus (missed by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d4f8ff.a",
-          "fact": "earningsre-d4f8ff",
-          "variant": "a",
-          "text": "$CTVA Q3 Adjusted Pro Forma NON-GAAP $0.06, missed by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4ffa7a.a",
-          "fact": "earningsre-4ffa7a",
-          "variant": "a",
-          "text": "$CTVA missed Q3 Adjusted Pro Forma NON-GAAP estimates by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-0bb625.a",
-          "fact": "earningsre-0bb625",
-          "variant": "a",
-          "text": "$CTVA missed Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-49ee3c.a",
-          "fact": "earningsre-49ee3c",
-          "variant": "a",
-          "text": "$CTVA missed Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Corteva, Inc. ($CTVA) published Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$CTVA (Corteva, Inc.) reported Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 11, Corteva, Inc. ($CTVA) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$CTVA published Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $CTVA came out on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 11, $CTVA published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 revenue: $1.59B vs $1.77B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$CTVA reported Q3 2026 revenue of $1.59B vs $1.77B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 revenue was $1.59B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $CTVA was $1.59B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-938394.a",
-          "fact": "earningsre-938394",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 Adjusted Pro Forma NON-GAAP: $0.06 vs $0.10 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-938394.h1",
-          "fact": "earningsre-938394",
-          "variant": "h1",
-          "text": "$CTVA reported Q3 2026 Adjusted Pro Forma NON-GAAP of $0.06 vs $0.10 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$CTVA Q3 2026 Adjusted Pro Forma NON-GAAP was $0.06.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted Pro Forma NON-GAAP at $CTVA was $0.06.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "CTVA": [
-          [
-            "$",
-            1.59,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            1.77,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            177.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            0.06,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.1,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.04,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-11 release (after the close: fresh through 2026-11-12) posted on 2026-11-13: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-13-earnings-upcoming-BIDU-8760fb",
       "type": "earnings_upcoming",
       "ticker": "BIDU",
@@ -25691,380 +25321,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "stale: the 2026-11-10 release (after the close: fresh through 2026-11-12) posted on 2026-11-13: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-13-earnings-result-HSDT-198855",
-      "type": "earnings_result",
-      "ticker": "HSDT",
-      "tickers": [
-        "HSDT"
-      ],
-      "name": "Solana Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-12",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000016/q32026pressreleaseex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/HSDT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-13-earnings-result-HSDT-198855#earnings-history",
-      "allowed_numbers": [
-        "$3.36M",
-        "$1.17",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-11",
-        "Nov 11, 2026",
-        "Nov 11",
-        "2026-11-12",
-        "Nov 12, 2026",
-        "Nov 12"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Solana Company (HSDT) published Q3 2026 results on 2026-11-11: Published. Revenue $3.36M. GAAP EPS $1.17.",
-      "dedupe_key": "report:hsdt-2026-q3",
-      "claim_phrases": [],
-      "report_id": "hsdt-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-11",
-      "published_at": "2026-11-12T13:45:02.147365+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$3.36M"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$1.17"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/HSDT/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for HSDT: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-11 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "HSDT"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Solana Company ($HSDT) published Q3 2026 results on Nov 11.",
-        "$HSDT (Solana Company) reported Q3 2026 results on Nov 11.",
-        "On Nov 11, Solana Company ($HSDT) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Solana Company ($HSDT) published Q3 2026 results on Nov 11.",
-        "$HSDT (Solana Company) reported Q3 2026 results on Nov 11.",
-        "On Nov 11, Solana Company ($HSDT) published Q3 2026 results.",
-        "$HSDT published Q3 2026 results on Nov 11.",
-        "Q3 2026 results from $HSDT came out on Nov 11.",
-        "On Nov 11, $HSDT published Q3 2026 results.",
-        "$HSDT Q3 2026 revenue: $3.36M.",
-        "$HSDT reported Q3 2026 revenue of $3.36M.",
-        "$HSDT Q3 2026 revenue was $3.36M.",
-        "Q3 2026 revenue at $HSDT was $3.36M.",
-        "$HSDT Q3 2026 GAAP EPS: $1.17.",
-        "$HSDT reported Q3 2026 GAAP EPS of $1.17.",
-        "$HSDT Q3 2026 GAAP EPS was $1.17.",
-        "Q3 2026 GAAP EPS at $HSDT was $1.17."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Solana Company ($HSDT) published Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$HSDT (Solana Company) reported Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 11, Solana Company ($HSDT) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$HSDT published Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $HSDT came out on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 11, $HSDT published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$HSDT Q3 2026 revenue: $3.36M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$HSDT reported Q3 2026 revenue of $3.36M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$HSDT Q3 2026 revenue was $3.36M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $HSDT was $3.36M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$HSDT Q3 2026 GAAP EPS: $1.17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$HSDT reported Q3 2026 GAAP EPS of $1.17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$HSDT Q3 2026 GAAP EPS was $1.17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $HSDT was $1.17.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-11 release (after the close: fresh through 2026-11-12) posted on 2026-11-13: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-13-earnings-result-VANI-cbd980",
-      "type": "earnings_result",
-      "ticker": "VANI",
-      "tickers": [
-        "VANI"
-      ],
-      "name": "Vivani Medical, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-12",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1266806/000175392626002108/ex991_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/VANI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-13-earnings-result-VANI-cbd980#earnings-history",
-      "allowed_numbers": [
-        "−$0.08",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-11",
-        "Nov 11, 2026",
-        "Nov 11",
-        "2026-11-12",
-        "Nov 12, 2026",
-        "Nov 12"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Vivani Medical, Inc. (VANI) published Q3 2026 results on 2026-11-11: Published. GAAP EPS −$0.08.",
-      "dedupe_key": "report:vani-2026-q3",
-      "claim_phrases": [],
-      "report_id": "vani-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-11",
-      "published_at": "2026-11-12T13:32:19.309198+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.08"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/VANI/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for VANI: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-11 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "VANI"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Vivani Medical, Inc. ($VANI) published Q3 2026 results on Nov 11.",
-        "$VANI (Vivani Medical, Inc.) reported Q3 2026 results on Nov 11.",
-        "On Nov 11, Vivani Medical, Inc. ($VANI) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Vivani Medical, Inc. ($VANI) published Q3 2026 results on Nov 11.",
-        "$VANI (Vivani Medical, Inc.) reported Q3 2026 results on Nov 11.",
-        "On Nov 11, Vivani Medical, Inc. ($VANI) published Q3 2026 results.",
-        "$VANI published Q3 2026 results on Nov 11.",
-        "Q3 2026 results from $VANI came out on Nov 11.",
-        "On Nov 11, $VANI published Q3 2026 results.",
-        "$VANI Q3 2026 GAAP EPS: −$0.08.",
-        "$VANI reported Q3 2026 GAAP EPS of −$0.08.",
-        "$VANI Q3 2026 GAAP EPS was −$0.08.",
-        "Q3 2026 GAAP EPS at $VANI was −$0.08."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Vivani Medical, Inc. ($VANI) published Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$VANI (Vivani Medical, Inc.) reported Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 11, Vivani Medical, Inc. ($VANI) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$VANI published Q3 2026 results on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $VANI came out on Nov 11.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 11, $VANI published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$VANI Q3 2026 GAAP EPS: −$0.08.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$VANI reported Q3 2026 GAAP EPS of −$0.08.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$VANI Q3 2026 GAAP EPS was −$0.08.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $VANI was −$0.08.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.08": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-11 release (after the close: fresh through 2026-11-12) posted on 2026-11-13: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
