@@ -108,7 +108,8 @@ async def render(a) -> dict:
     if not plan.get("no_video"):
         ff = subprocess.Popen([a.ffmpeg, "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", "1080x1920",
                                "-framerate", str(plan["fps"]), "-i", "pipe:0", "-vf",
-                               "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p", "-c:v", "libx264",
+                               "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p,"
+                               "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv", "-c:v", "libx264",
                                "-preset", "slow", "-crf", str(plan.get("crf", 17)), "-tune", "film",
                                "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709",
                                "-color_range", "tv", "-movflags", "+faststart", str(out_mp4)], stdin=subprocess.PIPE)
