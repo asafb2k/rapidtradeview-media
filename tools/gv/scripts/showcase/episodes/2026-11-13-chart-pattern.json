@@ -149,7 +149,7 @@
    {
     "do": "wait_until",
     "since": "hide",
-    "s": "0.4"
+    "s": "0.3"
    },
    {
     "do": "snap",
@@ -168,7 +168,7 @@
    {
     "do": "wait_until",
     "since": "show",
-    "s": "1.5"
+    "s": "1.3"
    },
    {
     "do": "snap",
@@ -177,21 +177,12 @@
    {
     "do": "wait_until",
     "since": "show",
-    "s": "{t_hide_b} - {t_show}"
+    "s": "{src_hide_b_after_show}"
    },
    {
     "do": "tap",
     "name": "hide_b",
     "sel": "[data-testid=\"pattern-banner\"] button"
-   },
-   {
-    "do": "wait_until",
-    "since": "hide_b",
-    "s": "0.4"
-   },
-   {
-    "do": "snap",
-    "label": "hidden_b"
    },
    {
     "do": "wait_until",
@@ -206,7 +197,7 @@
    {
     "do": "wait_until",
     "since": "show_b",
-    "s": "1.2"
+    "s": "1.4"
    },
    {
     "do": "snap",
@@ -225,15 +216,6 @@
    {
     "do": "wait_until",
     "since": "hide_end",
-    "s": "0.4"
-   },
-   {
-    "do": "snap",
-    "label": "end_hidden"
-   },
-   {
-    "do": "wait_until",
-    "since": "hide_end",
     "s": "{t_show_end} - {t_hide_end}"
    },
    {
@@ -245,6 +227,10 @@
     "do": "wait_until",
     "since": "show_end",
     "s": "1.6"
+   },
+   {
+    "do": "snap",
+    "label": "end_shown"
    }
   ],
   "taps_used": {
@@ -257,7 +243,7 @@
    "show_end": "show_end"
   }
  },
- "schema": "rtv-showcase-episode/2",
+ "schema": "rtv-showcase-episode/3",
  "requires": {
   "pattern_status": "confirmed",
   "banner_words": [
@@ -288,23 +274,23 @@
   {
    "id": "hide",
    "gap_before": 0.1,
-   "text": "@off Switch it *off: | gone."
+   "text": "@hide *Hide it."
   },
   {
    "id": "show",
-   "gap_before": 0.1,
-   "text": "@tap One *tap."
+   "gap_before": 0.06,
+   "text": "@tap *Tap: | it draws it | *back."
   },
   {
    "id": "honest",
    "gap_before": 0.12,
    "after": "impact",
-   "text": "And it tells you | *straight: | @shape a chart shape, | not a | prediction."
+   "text": "And it tells you | *straight: | @shape a chart shape, | not a | @pred *prediction."
   },
   {
    "id": "end",
    "gap_before": 0.1,
-   "text": "@free It's a *free | stock app: | @brand2 *RapidTradeView."
+   "text": "Free, on | @brand2 *RapidTradeView."
   },
   {
    "id": "nia",
@@ -313,17 +299,11 @@
    "speed_mul": 1.06
   }
  ],
- "slow": {
-  "draw": "hook",
-  "speed": 0.5,
-  "note": "the hook draw-on plays at 0.5x from real frames; the Show replay plays at real speed"
- },
- "hook_app_ms": 350,
  "youtube": {
   "title": "This free app draws the chart pattern for you #Shorts",
   "description": "RapidTradeView finds the chart pattern on a stock and draws it right on the chart: one tap hides it, one tap draws it back, and it says plainly it is a chart shape, not a prediction. Free at rapidtradeview.trade\nNot investment advice.\n#Shorts #stocks #charts"
  },
- "tail_s": 0.45,
+ "tail_s": 0.3,
  "show_latency_guess": 0.04,
  "camera": {
   "fov": 24,
@@ -352,10 +332,11 @@
    "xc": 496
   },
   "macro": {
-   "s": 0.738,
-   "top": 372,
-   "xc": 492,
-   "yaw": 3.0
+   "s": 0.785,
+   "top": 346,
+   "xc": 490,
+   "yaw": 1.5,
+   "free_phone": true
   },
   "punch": 0.012
  },
@@ -368,7 +349,7 @@
   },
   "plinth": {
    "w": 4.2,
-   "h": 3.0,
+   "h": 0.55,
    "d": 1.4,
    "reflect": 0.3
   },
@@ -398,12 +379,23 @@
    "site_below_edge": 78,
    "site_max_base": 1418,
    "disc_gap": 60
+  },
+  "floor": {
+   "reflect": 0.55,
+   "pool": 0.012
+  },
+  "beams": {
+   "depth": -1.6,
+   "core": 0.016,
+   "glow": 0.13,
+   "ext_left": 4.5,
+   "on": 1.2,
+   "flare": 3.0
   }
  },
- "show_end_before_end_s": 0.2,
  "pre_impact_silence_s": 0.3,
  "duration_s": [
-  13.5,
+  16.0,
   20.0
  ],
  "hero_rects": [
@@ -414,5 +406,43 @@
   "chart",
   "show_chip",
   "chart_hidden"
- ]
+ ],
+ "timing": {
+  "note": "tap words: Hide on \"Hide\", Show on \"Tap\" (its draw-on at 0.5x, the label pop = the one impact), the second Hide on \"shape\" and the second Show on \"prediction\" (the banner with the app's words comes back on that word; the redraw plays at real speed; hidden 0.55-0.85 s); the last Hide/Show close the loop: the last frame is the last Show's draw-on one source frame before frame 0's draw-on point",
+  "hook_app_ms": 265,
+  "slow": 0.5,
+  "slow_draws": [
+   "hook",
+   "show",
+   "end"
+  ],
+  "tap_words": {
+   "t_hide": [
+    "hide",
+    0
+   ],
+   "t_show": [
+    "tap",
+    0
+   ],
+   "t_hide_b": [
+    "shape",
+    2
+   ],
+   "t_show_b": [
+    "pred",
+    0
+   ]
+  },
+  "hidden_b_s": [
+   0.55,
+   0.85
+  ],
+  "hidden_end_s": 0.65,
+  "max_hold_s": 2.6
+ },
+ "duration_exception": {
+  "asked": "lead sign-off",
+  "why": "one real interaction (Hide/Show + the draw-on) holds a real UI change at most every ~2.5 s only up to ~12 s; 16 s would need a fourth Hide/Show pair (the 'fidgeting' finding) or a static stretch (the 'dead middle' finding). The gate stays at the brief's 16-20 s and fails honestly until the lead accepts the length."
+ }
 }

@@ -76,8 +76,9 @@ bg.position.z = -5; scene.add(bg);
 
 // lights: one soft key (upper left), a cool rim (behind right); both animate a little on each beat
 scene.add(new THREE.AmbientLight(0xffffff, 0.12));
-const key = new THREE.DirectionalLight(0xfff6ea, 1.6); scene.add(key); scene.add(key.target);
-const rim = new THREE.DirectionalLight(0xdfeaff, 0.9); rim.position.set(4, 3, -4); scene.add(rim);
+const key = new THREE.DirectionalLight(0xfff6ea, 2.4); scene.add(key); scene.add(key.target);
+const rim = new THREE.DirectionalLight(0xdfeaff, 1.6); rim.position.set(4, 3, -4); scene.add(rim);
+const rimL = new THREE.DirectionalLight(0xe8f0ff, 1.1); rimL.position.set(-5, 2.5, -2.5); scene.add(rimL);   // left edge light
 const ACC = new THREE.Color(C.accent);
 const rimG = new THREE.DirectionalLight(ACC, 1.3); rimG.position.set(5, 1.5, -1.5); scene.add(rimG);   // accent rim (right edge)
 
@@ -89,7 +90,7 @@ function roundRectShape(w, h, r) {
   s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y); return s;
 }
 const phone = new THREE.Group(); scene.add(phone);
-const bodyMat = new THREE.MeshPhysicalMaterial({ color: 0x8e95a2, metalness: 0.92, roughness: 0.24, clearcoat: 0.6, clearcoatRoughness: 0.15, envMapIntensity: 2.2 });
+const bodyMat = new THREE.MeshPhysicalMaterial({ color: 0x8e95a2, metalness: 0.92, roughness: 0.2, clearcoat: 0.7, clearcoatRoughness: 0.15, envMapIntensity: 2.2 });
 const body = new THREE.Mesh(new RoundedBoxGeometry(SW + 2 * BZ, SH + 2 * BZ, PD, 8, R.phone.radius), bodyMat); phone.add(body);
 const glassMat = new THREE.MeshStandardMaterial({ color: 0x030304, roughness: 0.18, metalness: 0.0, envMapIntensity: 0.5 });
 const glass = new THREE.Mesh(new THREE.ShapeGeometry(roundRectShape(SW + 2 * BZ - 0.012, SH + 2 * BZ - 0.012, R.phone.radius - 0.006), 24), glassMat);
@@ -116,7 +117,7 @@ const ringShape = roundRectShape(OW - 0.002, OH - 0.002, R.phone.radius - 0.001)
 ringShape.holes.push(roundRectShape(OW - 0.002 - 2 * RW, OH - 0.002 - 2 * RW, R.phone.radius - 0.001 - RW));
 const ringMat = new THREE.ShaderMaterial({
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
-  uniforms: { p: { value: 0 }, a: { value: 0 }, base: { value: 0.22 }, acc: { value: ACC } },
+  uniforms: { p: { value: 0 }, a: { value: 0 }, base: { value: 0.5 }, acc: { value: ACC } },
   vertexShader: `varying vec2 lp; void main(){ lp = position.xy; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0);} `,
   fragmentShader: `varying vec2 lp; uniform float p, a, base; uniform vec3 acc; void main(){
     float ang = atan(lp.y, lp.x * ${(OH / OW).toFixed(4)}) / 6.28318 + 0.5;            // 0..1 around the frame
@@ -181,6 +182,91 @@ const faceMat = new THREE.ShaderMaterial({ toneMapped: false, uniforms: { acc: {
   }` });
 const face = new THREE.Mesh(new THREE.PlaneGeometry(PL.w - 0.04, PL.h - 0.04), faceMat);
 face.position.set(0, YP - PL.h / 2, PL.d / 2 + 0.0015); scene.add(face);
+
+// ------------------------------------------------------------------------------------------------ pattern beams
+// Two light beams far behind the phone continue the app's two pattern lines out past the phone's edges. Each is laid
+// along the ray from the frame-0 camera through the real line (at frame 0 it projects exactly onto the line's
+// extension); it grows, flares and fades with the app's real draw-ons: R.beam[i] = [seconds since the measured
+// draw-on start, seconds since the measured Hide], read through the app's own timeline (PATTERN_TIMELINE, cubic ease).
+const BM = R.beams, PM = R.pattern_ms;
+const easeOut3 = x => 1 - Math.pow(1 - clamp(x), 3);
+const beamMats = [];
+function buildBeams(C0) {
+  const L2 = R.lines.map(([u0, v0, u1, v1]) => [uv2w(u0, v0), uv2w(u1, v1)]);
+  const kz = (C0.z - BM.depth) / (C0.z - ZS);
+  const push = P => C0.clone().add(P.clone().sub(C0).multiplyScalar((C0.z - BM.depth) / (C0.z - P.z)));
+  const [a1, b1] = L2[0], [a2, b2] = L2[1];                       // where the two lines meet (line units of each)
+  const d1 = b1.clone().sub(a1), d2 = b2.clone().sub(a2), den = d1.x * d2.y - d1.y * d2.x;
+  let ap = [1.25, 1.25];
+  if (Math.abs(den) > 1e-6) {
+    const w = a2.clone().sub(a1); const s1 = (w.x * d2.y - w.y * d2.x) / den, s2 = (w.x * d1.y - w.y * d1.x) / den;
+    if (s1 > 1 && s2 > 1 && s1 < 4 && s2 < 4) ap = [s1, s2];
+  }
+  L2.forEach(([A, B], j) => {
+    const A2 = push(A), B2 = push(B), dir = B2.clone().sub(A2), len = dir.length(); dir.normalize();
+    const nrm = new THREE.Vector3(-dir.y, dir.x, 0);
+    const E = BM.ext_left * kz / len, half = BM.glow * kz * 3.0;
+    const pos = [], lx = [], ld = [];
+    for (const x of [-E, ap[j] + 0.02]) for (const sd of [-1, 1]) {
+      const P = A2.clone().add(dir.clone().multiplyScalar(x * len)).add(nrm.clone().multiplyScalar(sd * half));
+      pos.push(P.x, P.y, P.z); lx.push(x); ld.push(sd);
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute("lx", new THREE.Float32BufferAttribute(lx, 1)); g.setAttribute("ld", new THREE.Float32BufferAttribute(ld, 1));
+    g.setIndex([0, 1, 2, 2, 1, 3]);
+    const m = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, side: THREE.DoubleSide,
+      uniforms: { head: { value: 0 }, tail: { value: 0 }, amp: { value: 0 }, hot: { value: 0 }, acc: { value: ACC },
+                  core: { value: BM.core / (BM.glow * 3.0) }, apex: { value: ap[j] }, len: { value: len } },
+      vertexShader: `attribute float lx, ld; varying float vx, vd; void main(){ vx = lx; vd = ld; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0);} `,
+      fragmentShader: `varying float vx, vd; uniform float head, tail, amp, hot, core, apex, len; uniform vec3 acc; void main(){
+        float d = abs(vd);
+        float prof = exp(-d*d/(core*core)) + exp(-d*d*9.0) * 0.32;
+        float soft = 0.025 / len;
+        float on = smoothstep(tail - soft, tail + soft, vx) * (1.0 - smoothstep(head - soft, head + soft, vx));
+        float tipH = exp(-pow((vx - head) * len / 0.05, 2.0)) * hot, tipT = exp(-pow((vx - tail) * len / 0.07, 2.0)) * hot;
+        float far = exp(-max(0.0, -vx) * len * 0.32);
+        float i = (on * amp * far + (tipH + tipT) * on * 1.4) * prof;
+        vec3 c = mix(acc, vec3(1.0), clamp(prof - 0.55, 0.0, 0.45)) * i;
+        gl_FragColor = vec4(c, 1.0); }`
+    });
+    const mesh = new THREE.Mesh(g, m); mesh.renderOrder = -1; scene.add(mesh); beamMats.push(m);
+  });
+}
+function beamState(i) {
+  // [app seconds since the draw-on start, seconds since Hide, measured upper-line progress, measured lower-line progress]
+  const [a, hid, pU, pL] = R.beam[i];
+  const tA = a < 0 ? 9 : a, lab = PM.label[0] / 1000;
+  const pf = easeOut3((tA - PM.lines[1] / 1000) / ((PM.fill_end - PM.lines[1]) / 1000));   // after the lines: to the apex
+  const flare = tA >= lab ? BM.flare * Math.exp(-(tA - lab) * 4.5) * Math.min(1, (tA - lab) / 0.04) : 0;
+  return beamMats.map((m, j) => {
+    const p = a < 0 ? 1 : (j === 0 ? pU : pL);
+    let amp = BM.on * Math.min(1, p * 2.0) + flare, hot = tA < lab ? (p < 1 ? 1.0 : 0.5) * (1 - 0.6 * pf) : 0.25 * Math.exp(-(tA - lab) * 6);
+    if (a < 0) { const f = 1 - clamp(hid / 0.16); amp *= f; hot *= f; }
+    const head = p + pf * (m.uniforms.apex.value - 1);
+    m.uniforms.head.value = head; m.uniforms.tail.value = -9 * p; m.uniforms.amp.value = amp; m.uniforms.hot.value = hot;
+    return { head: +head.toFixed(3), amp: +amp.toFixed(3) };
+  });
+}
+
+// the floor: a dark, light-catching surface under the dock: a soft reflection (beams, rim, halo) and a light pool
+const FL = R.floor, YF = YP - PL.h;
+const FloorShader = {
+  name: "Floor",
+  uniforms: { color: { value: null }, tDiffuse: { value: null }, textureMatrix: { value: null }, mixk: { value: FL.reflect },
+              pool: { value: FL.pool }, acc: { value: ACC }, k: { value: 0 } },
+  vertexShader: `uniform mat4 textureMatrix; varying vec4 vUv; varying vec2 lp; void main(){ vUv = textureMatrix*vec4(position,1.0); lp = position.xy; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float mixk, pool, k; uniform vec3 acc; varying vec4 vUv; varying vec2 lp; void main(){
+    vec3 r = vec3(0.0); for (int i=-2;i<=2;i++) for (int j=-2;j<=2;j++){ vec4 q = vUv; q.xy += vec2(float(i),float(j))*0.0045*vUv.w; r += texture2DProj(tDiffuse, q).rgb; } r /= 25.0;
+    vec2 c = (lp - vec2(0.0, ${(-(PL.d / 2 + 0.7 - 1.05)).toFixed(3)})) * vec2(0.55, 1.1);
+    vec3 base = vec3(0.0030,0.0034,0.0044) + acc * pool * exp(-dot(c, c)) * (1.0 + 1.5*k);
+    gl_FragColor = vec4(base + r*mixk, 1.0);
+    #include <colorspace_fragment>
+  }`
+};
+const floor = new Reflector(new THREE.PlaneGeometry(30, 11.9), { textureWidth: 1080, textureHeight: 960, clipBias: 0.003, shader: FloorShader, multisample: 4 });
+floor.rotation.x = -Math.PI / 2; floor.position.set(0, YF, 1.05); scene.add(floor);
 
 // ------------------------------------------------------------------------------------------------ camera
 function interp(keys, t) {
@@ -286,20 +372,14 @@ function drawCaption(t, edgeY) {
 }
 function drawEnd(t, edgeY, pill) {
   if (t < T.url0) return;
-  const full = R.text.site;
-  const n = Math.round(full.length * prog(t, T.url0, T.url0 + 0.6)); if (n <= 0) return;
-  // under the pill while the captions hold the dock; when they stop it cross-fades onto the dock (never over the screen)
-  const mv = easeIO(prog(t, T.disclaim - 0.05, T.disclaim + 0.25));
-  const yTop = pill[1] + pill[3] + 14 + 58 * 0.78;
+  // the URL appears once, on the dock face, with one quick pop as the captions stop; the disclaimer comes under it
+  const full = R.text.site, a = prog(t, T.url0, T.url0 + 0.14), sc = 1 + 0.12 * (1 - easeO(prog(t, T.url0, T.url0 + 0.22)));
+  const fs = R.end.site_size, f2 = `800 ${fs}px InterV`, w2 = textW(full, f2);
   const yDock = Math.min(edgeY + R.end.site_below_edge, R.end.site_max_base);
-  const s_ = full.slice(0, n);
-  for (const [al, fs, y] of [[1 - mv, 58, yTop], [mv, R.end.site_size, yDock]]) {
-    if (al <= 0.002) continue;
-    const f2 = `800 ${fs}px InterV`, w2 = textW(full, f2), dy = (1 - al) * (y === yTop ? -10 : 10);
-    ctx.save(); ctx.globalAlpha = al; ctx.font = f2; ctx.textBaseline = "alphabetic"; ctx.lineJoin = "round";
-    ctx.lineWidth = 10; ctx.strokeStyle = "rgba(4,5,8,0.95)"; ctx.strokeText(s_, CX - w2 / 2, y + dy); ctx.fillStyle = C.cyan; ctx.fillText(s_, CX - w2 / 2, y + dy);
-    ctx.restore(); rec("end_site", CX - w2 / 2, y + dy - fs * 0.78, w2, fs * 0.98, fs);
-  }
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(CX, yDock - fs * 0.36); ctx.scale(sc, sc); ctx.translate(-CX, -(yDock - fs * 0.36));
+  ctx.font = f2; ctx.textBaseline = "alphabetic"; ctx.lineJoin = "round";
+  ctx.lineWidth = 10; ctx.strokeStyle = "rgba(4,5,8,0.95)"; ctx.strokeText(full, CX - w2 / 2, yDock); ctx.fillStyle = C.cyan; ctx.fillText(full, CX - w2 / 2, yDock);
+  ctx.restore(); rec("end_site", CX - w2 * sc / 2, yDock - fs * 0.36 - fs * 0.42 * sc, w2 * sc, fs * 0.98 * sc, fs);
   const da = prog(t, T.disclaim + 0.05, T.disclaim + 0.3);
   if (da > 0) {
     const f3 = `700 ${R.end.disc_size}px InterV`, w3 = textW(R.text.disclaimer, f3), y3 = yDock + R.end.disc_gap;
@@ -310,14 +390,16 @@ function drawEnd(t, edgeY, pill) {
 }
 function drawRipples(t) {
   for (const tp of R.taps) {
-    const k = prog(t, tp.t, tp.t + 0.42); if (t < tp.t || k >= 1) continue;
+    // short: the fill disc is gone in 70 ms (the app answers a tap in ~45 ms), the ring expands away and is gone in
+    // 0.26 s, so it never sits on the app's new state (the last tap's ring ends before the last frame)
+    const k = prog(t, tp.t, tp.t + 0.26); if (t < tp.t || k >= 1) continue;
     const [x, y] = projUV(tp.u, tp.v);
     ctx.save();
-    ctx.globalAlpha = 0.34 * (1 - prog(t, tp.t, tp.t + 0.18)); ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(x, y, 22, 0, 6.2832); ctx.fill();
+    ctx.globalAlpha = 0.34 * (1 - prog(t, tp.t, tp.t + 0.07)); ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(x, y, 22, 0, 6.2832); ctx.fill();
     ctx.globalAlpha = 0.95 * (1 - k); ctx.strokeStyle = "#fff"; ctx.lineWidth = 2 + 3 * (1 - k); ctx.shadowColor = "rgba(255,255,255,0.8)"; ctx.shadowBlur = 10;
-    ctx.beginPath(); ctx.arc(x, y, 16 + 58 * easeO(k), 0, 6.2832); ctx.stroke();
+    ctx.beginPath(); ctx.arc(x, y, 20 + 70 * easeO(k), 0, 6.2832); ctx.stroke();
     ctx.restore();
-    rec("ripple", x - 74, y - 74, 148, 148, 0);
+    rec("ripple", x - 92, y - 92, 184, 184, 0);
   }
 }
 
@@ -350,7 +432,7 @@ function visibleTexts() {
 }
 
 function heroState() {
-  return R.hero.map(h => { const [u0, v0, u1, v1] = h.src; return { id: h.id, zone: h.zone || null, quad: [projUV(u0, v0), projUV(u1, v0), projUV(u1, v1), projUV(u0, v1)] }; });
+  return R.hero.map(h => { const [u0, v0, u1, v1] = h.src; return { id: h.id, zone: h.zone || null, skip_t: h.skip_t || null, quad: [projUV(u0, v0), projUV(u1, v0), projUV(u1, v1), projUV(u0, v1)] }; });
 }
 // the two light events: the hook's label pop and the one impact; a rim band runs once around the frame
 function flashAt(t) {
@@ -369,15 +451,17 @@ function frame2D(t, i) {
   const win = [projUV(0, 0), projUV(SRC_W, 0), projUV(SRC_W, VP), projUV(0, VP)];
   return { pill, edgeY, logoH, win };
 }
+applyPose(poseAt(0)); buildBeams(camera.position.clone());
 window.renderFrame = async (i) => {
   const t = i / FPS; TEXTS = [];
   await setShot(R.track[i]);
   const p = poseAt(t); applyPose(p);
+  const bst = beamState(i);
   const fk = flashAt(t);
   ringMat.uniforms.p.value = fk < 0 ? 0 : 0.62 + 1.0 * easeO(fk); ringMat.uniforms.a.value = fk < 0 ? 0 : Math.sin(Math.PI * Math.min(1, fk * 1.15));
   const bloom = fk < 0 ? 0 : Math.exp(-fk * 4.0) * (fk < 0.06 ? fk / 0.06 : 1);
   haloMat.uniforms.a.value = 0.014 + 0.30 * bloom; bg.material.uniforms.glow.value = bloom;
-  rimG.intensity = 1.3 + 2.5 * bloom; faceMat.uniforms.k.value = 2.0 * bloom;
+  rimG.intensity = 1.3 + 2.5 * bloom; faceMat.uniforms.k.value = 2.0 * bloom; floor.material.uniforms.k.value = bloom;
   renderer.render(scene, camera);
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H);
   ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
@@ -385,7 +469,7 @@ window.renderFrame = async (i) => {
   const f = frame2D(t, i);
   return { t, src: R.track[i], pose: p, pill: f.pill, texts: TEXTS, window_quad: f.win, plinth_edge_y: f.edgeY,
            logo_px_h: f.logoH, keepout: keepoutState(), hero: heroState(),
-           page_texts_visible: i % 10 === 0 ? visibleTexts() : null, flash: fk >= 0 };
+           page_texts_visible: i % 10 === 0 ? visibleTexts() : null, flash: fk >= 0, beams: bst };
 };
 // framing only (no GL render, no screen texture): the build gates the camera before any pixel is rendered
 window.probeFrame = (i) => {

@@ -99,10 +99,11 @@ def glass_snap(seed=23):
     return S._norm(np.tanh(1.3 * (0.5 * ring + click + thump)), 0.9)
 
 
-PENCIL_MID_S = 0.45                # the replay's line phase is 600 ms; the sound stops early so 0.3 s of silence remains
-KIT2_FX = {"pop": pop, "pencil_hook": lambda: pencil(0.8), "pencil_mid": lambda: pencil(PENCIL_MID_S, 24),
+PENCIL_MID_S = 1.1                 # the Show draw-on's line phase at 0.5x is 1.2 s; the fill phase stays quiet, so
+KIT2_FX = {"pop": pop, "pencil_hook": lambda: pencil(1.05),          # >= 0.3 s of silence precede the impact
+           "pencil_mid": lambda: pencil(PENCIL_MID_S, 24), "pencil_short": lambda: pencil(0.5, 25),
            "glass_snap": glass_snap}
-KIT2_VERSION = "showcase-kit/3"
+KIT2_VERSION = "showcase-kit/4"
 
 
 def make_kit() -> dict:
@@ -184,24 +185,32 @@ def shift_line(lines, clips, k, delta):
         clips[j]["at"] = round(clips[j]["at"] + delta, 4)
 
 
-def timeline(ep, lines, clips, lat_show: float) -> dict:
-    """Every beat time comes from the voice's word timings (and, for the impact, the take's measured response).
+SRC_FRAME_S = 1 / 53.6              # one source frame during a draw-on (measured: 53.6 unique fps on every take)
 
-    Real taps in the cut: Hide on the word "off", Show on "tap" (the replay at real speed, its label pop = the one
-    impact), Hide on "free", Show on the second brand word (the app draws it once more), Hide on "Not", and a last
-    Show just before the end, so the loop runs straight into frame 0's draw-on. The hook draw-on (a real Show tap
-    before frame 0) plays at the episode's slow speed from real frames."""
+
+def timeline(ep, lines, clips, lat_show: float, lat_end: float | None = None) -> dict:
+    """Every beat time comes from the voice's word timings (and the take's measured tap-to-draw latency).
+
+    Real taps in the cut (episode timing.tap_words): Hide on "Hide", Show on "tap" (its draw-on plays at 0.5x from
+    real frames; its label pop is the one impact), Hide on "straight", Show placed so the app's label pops on
+    "prediction" (that redraw plays at real speed), then the last Hide and a last Show whose draw-on (0.5x) runs to
+    one source frame before frame 0's draw-on point, so the loop seam is the line continuing to grow."""
     L = {ln["id"]: ln for ln in lines}
     anc = {c["anchor"]: c for ln in lines for c in ln["chunks"] if c["anchor"]}
-    slow = ep["slow"]["speed"]
-    lead = ep["hook_app_ms"] / 1000
+    tm = ep["timing"]
+    slow = tm["slow"]
+    lead = tm["hook_app_ms"] / 1000
     draw = DRAW_MS / 1000
-    T = {"slow": slow, "hook_lead": lead}
+    lat_end = lat_show if lat_end is None else lat_end
+    T = {"slow": slow, "hook_lead": lead, "lat_show": round(lat_show, 4), "lat_end": round(lat_end, 4)}
+    word = lambda key: anc[tm["tap_words"][key][0]]["words"][tm["tap_words"][key][1]]["t0"]  # noqa: E731
     T["hook_out"] = round((draw - lead) / slow, 4)                      # the hook draw-on ends (output time)
     T["hook_label"] = round((LABEL_MS / 1000 - lead) / slow, 3)         # its label pops: the hook's light event
-    T["t_hide"] = anc["off"]["words"][2]["t0"]                          # the tap lands on the word "off"
-    T["t_show"] = anc["tap"]["words"][1]["t0"]                          # ... and on the word "tap"
-    T["impact"] = round(T["t_show"] + lat_show + LABEL_MS / 1000, 3)
+    T["t_hide"] = word("t_hide")
+    T["t_show"] = word("t_show")
+    T["show_slow_end"] = round(T["t_show"] + (lat_show + draw) / slow, 4)          # Show's 0.5x draw-on ends
+    T["show_lines_end"] = round(T["t_show"] + (lat_show + LINES_MS[1] / 1000) / slow, 4)
+    T["impact"] = round(T["t_show"] + (lat_show + LABEL_MS / 1000) / slow, 3)
     T["show_line_end"] = L["show"]["t1"]
     sil = ep.get("pre_impact_silence_s", 0.3)
     if T["impact"] - T["show_line_end"] < sil - 1e-3:
@@ -212,24 +221,31 @@ def timeline(ep, lines, clips, lat_show: float) -> dict:
             need = T["impact"] + ln["gap_before"]
             if ln["t0"] < need:
                 shift_line(lines, clips, k, round(need - ln["t0"], 3))
-    T["shape"] = anc["shape"]["t0"]
-    T["free"] = anc["free"]["t0"]
-    T["t_hide_b"] = anc["free"]["words"][2]["t0"]                       # Hide on "free"
-    T["t_show_b"] = anc["brand2"]["t0"]                                 # Show on the brand word: it draws once more
+    T["t_hide_b"] = word("t_hide_b")
+    lo, hi = tm["hidden_b_s"]                                           # the hidden state stays a short flash
+    T["t_show_b"] = round(min(max(word("t_show_b"), T["t_hide_b"] + lo), T["t_hide_b"] + hi), 3)
+    T["label_b"] = round(T["t_show_b"] + lat_show + LABEL_MS / 1000, 3)
+    T["draw_b_end"] = round(T["t_show_b"] + lat_show + draw, 3)
+    T["shape"] = round(T["t_show_b"] + 0.1, 3)                          # the push-in on the app's own words
+    T["brand2"] = anc["brand2"]["t0"]
+    T["free"] = round(T["brand2"] - 0.5, 3)
     T["disclaim"] = anc["nia"]["t0"]
-    T["caption_stop"] = round(T["disclaim"] - 0.02, 3)
-    T["brand_big"] = round(T["free"] + 0.3, 3)
-    T["t_hide_end"] = round(T["disclaim"], 3)                         # Hide on "Not"
+    T["caption_stop"] = round(T["brand2"] - 0.02, 3)                   # the URL takes the dock on the brand word
+    T["url0"] = T["brand2"]
+    T["brand_big"] = round(T["brand2"], 3)
     T["speech_end"] = L["nia"]["t1"]
-    T["end"] = round(round((T["speech_end"] + ep.get("tail_s", 0.55)) * FPS) / FPS, 4)
-    T["t_show_end"] = round(T["end"] - ep.get("show_end_before_end_s", 0.2), 3)
+    T["end"] = round(round((T["speech_end"] + ep.get("tail_s", 0.3)) * FPS) / FPS, 4)
+    # the last frame (end - 1/FPS) shows the last Show's draw-on at app time lead - one source frame
+    T["t_show_end"] = round(T["end"] - 1 / FPS - (lat_end + lead - SRC_FRAME_S) / slow, 4)
+    T["t_hide_end"] = round(T["t_show_end"] - tm["hidden_end_s"], 4)
     T["loop0"] = round(T["end"] - 0.5, 3)
     T["loop1"] = round(T["end"] - 0.04, 3)
-    T["head_out1"] = round(L["hook"]["t1"] - 0.02, 3)
-    T["head_out0"] = round(T["head_out1"] - 0.25, 3)
+    T["head_out1"] = round(T["hook_out"] + 0.1, 3)                    # the headline leaves as the camera starts
+    T["head_out0"] = round(T["hook_out"] - 0.15, 3)                   # its push toward the banner
     T["src_hide_after_show1"] = round(lat_show + draw + T["t_hide"] - T["hook_out"], 4)
-    for a_, b_, gap in (("t_hide", "t_show", 0.8), ("t_show", "t_hide_b", 1.6), ("t_hide_b", "t_show_b", 0.8),
-                        ("t_show_b", "t_hide_end", 1.25), ("t_hide_end", "t_show_end", 0.8)):
+    T["src_hide_b_after_show"] = round(lat_show + draw + T["t_hide_b"] - T["show_slow_end"], 4)
+    for a_, b_, gap in (("t_hide", "t_show", 0.5), ("show_slow_end", "t_hide_b", 0.25), ("t_hide_b", "t_show_b", 0.5),
+                        ("draw_b_end", "t_hide_end", 0.3), ("t_hide_end", "t_show_end", 0.5)):
         if T[b_] - T[a_] < gap:
             raise InputError(f"{b_} ({T[b_]}) comes {T[b_] - T[a_]:.2f} s after {a_} ({T[a_]}): needs {gap} s")
     return T
@@ -354,16 +370,17 @@ def analyze_take(d: Path, ep: dict) -> dict:
     d1, w1 = drawon(idx_of("show1"), "the hook Show tap")
     d2, w2 = drawon(idx_of("show"), "Show")
     d3, w3 = drawon(idx_of("show_b"), "the second Show")
+    d4, w4 = drawon(idx_of("show_end"), "the last Show")
     resp = {}
-    for nm in ("hide", "hide_b", "hide_end", "show_end"):
+    for nm in ("hide", "hide_b", "hide_end"):
         bb = burst(idx_of(nm))
         resp[nm] = round(float(ts[bb[0]] - marks[nm]), 3) if bb else None
     banner = drawn.get("banner") or {}
     shown = steps.get("shown", {}).get("named", {})
     res = {"take": d.name, "frames": len(fr), "jump_frame": int(jf), "jump_s": round(float(ts[jf]), 4),
            "marks": {k: round(v, 4) for k, v in marks.items()}, "late": late,
-           "draw_on_1": d1, "draw_on_2_show": d2, "draw_on_3_show_b": d3, "tap_response_s": resp,
-           "warnings": [w for w in (w1, w2, w3) if w],
+           "draw_on_1": d1, "draw_on_2_show": d2, "draw_on_3_show_b": d3, "draw_on_4_show_end": d4,
+           "tap_response_s": resp, "warnings": [w for w in (w1, w2, w3, w4) if w],
            "banner_text": banner.get("text"), "banner_text_after_show": (shown.get("banner") or {}).get("text"),
            "guest_badge_text_in_page": tk.get("guest_badge_end"), "search_track": tk.get("search_track")}
     res["score"] = (min(d1["unique_fps"], d2["unique_fps"]) - 0.2 * max(d1["max_gap_ms"], d2["max_gap_ms"])
@@ -372,16 +389,35 @@ def analyze_take(d: Path, ep: dict) -> dict:
 
 
 # ================================================================================================ the screen track
-def build_track(tk: dict, an: dict, T: dict) -> dict:
+def line_drawn(img: np.ndarray, L: list) -> float:
+    """How far the app has drawn one pattern line on this frame: the last column (of the fitted line's span) where a
+    line-coloured pixel (#bbf7d0) sits within 3 px of the line, as a fraction of the span."""
+    u0, v0, u1, v1 = L
+    xs = np.arange(int(u0), int(u1))
+    vs = (v0 + (v1 - v0) * (xs - u0) / (u1 - u0)).astype(int)
+    hit = np.zeros(len(xs), bool)
+    for dv in range(-3, 4):
+        px = img[np.clip(vs + dv, 0, img.shape[0] - 1), xs]
+        hit |= (px[:, 0] > 140) & (px[:, 1] > 225) & (px[:, 2] > 180) & (px[:, 2] < 240)
+    nz = np.nonzero(hit)[0]
+    return round(float((nz.max() + 1) / len(xs)), 3) if len(nz) else 0.0
+
+
+def build_track(tk: dict, an: dict, T: dict, take_dir: Path | None = None, lines: list | None = None) -> dict:
     t0 = tk["t0_wall"]
     ts = np.array([f[1] - t0 for f in tk["frames"]])
     nums = [f[0] for f in tk["frames"]]
     m = an["marks"]
     d1, d2 = an["draw_on_1"]["start_s"], an["draw_on_2_show"]["start_s"]
+    d4 = an["draw_on_4_show_end"]["start_s"]
     a0 = d1 + T["hook_lead"]
+    sl = T["slow"]
+    last_out = T["end"] - 1 / FPS                                        # the last frame: one source frame before
+    last_src = d4 + T["hook_lead"] - SRC_FRAME_S                         # frame 0's point in the draw-on
     anchors = [(0.0, a0), (T["hook_out"], d1 + DRAW_MS / 1000), (T["t_hide"], m["hide"]), (T["t_show"], m["show"]),
+               (T["show_slow_end"], m["show"] + (T["show_slow_end"] - T["t_show"]) * sl),
                (T["t_hide_b"], m["hide_b"]), (T["t_show_b"], m["show_b"]), (T["t_hide_end"], m["hide_end"]),
-               (T["t_show_end"], m["show_end"]), (T["end"], m["show_end"] + (T["end"] - T["t_show_end"]))]
+               (T["t_show_end"], m["show_end"]), (last_out, last_src), (T["end"], last_src + sl / FPS)]
     segs = []
     for (o0, s0), (o1, s1) in zip(anchors, anchors[1:]):
         if o1 <= o0:
@@ -409,17 +445,50 @@ def build_track(tk: dict, an: dict, T: dict) -> dict:
             if sg["src"][0] <= src_t <= sg["src"][1]:
                 return sg["out"][0] + (src_t - sg["src"][0]) / sg["speed"]
         raise InputError(f"source time {src_t} is not in the cut")
-    # slow segment (the hook): unique source frames per output frame (never interpolated: repeats only)
-    so = [i for i in range(n) if i / FPS < T["hook_out"]]
-    uniq = len(set(idx[i] for i in so))
-    seg_speeds = [sg["speed"] for sg in segs[1:]]
-    return {"track": track, "src_s": srcs, "src_idx": idx, "segments": segs, "anchors": anchors,
+    # slow segments (the hook, the Show draw-on, the last Show): unique source frames per output frame (never
+    # interpolated: repeats only); every other segment plays at real speed
+    for sg in segs:
+        sg["kind"] = "slow" if sg["speed"] < 0.75 else "real"
+    slow_out = []
+    for sg in segs:
+        if sg["kind"] != "slow":
+            continue
+        so = [i for i in range(n) if sg["out"][0] - 1e-9 <= i / FPS < sg["out"][1] - 1e-9]
+        uniq = len(set(idx[i] for i in so))
+        slow_out.append({"out_s": sg["out"], "speed": sg["speed"], "output_frames": len(so),
+                         "distinct_source_frames": uniq, "repeat_frames": len(so) - uniq, "interpolated_frames": 0})
+    seg_speeds = [sg["speed"] for sg in segs if sg["kind"] == "real"]
+    # per output frame: where the app's pattern drawing is (seconds since the last measured draw-on start), or how
+    # long ago it was hidden: the background beams follow the real draw-ons with the app's own timeline
+    starts = [an[k]["start_s"] for k in ("draw_on_1", "draw_on_2_show", "draw_on_3_show_b", "draw_on_4_show_end")]
+    hides = [m[k] + (an["tap_response_s"].get(k) or 0.045) for k in ("hide", "hide_b", "hide_end")]
+    beam, prog_cache = [], {}
+    for s, k in zip(srcs, idx):
+        ds = max((x for x in starts if x <= s), default=None)
+        hs = max((x for x in hides if x <= s), default=None)
+        if hs is not None and (ds is None or hs > ds):
+            beam.append([-1.0, round(s - hs, 4), 0.0, 0.0])
+            continue
+        a = round(s - ds, 4) if ds is not None else 9.0
+        if a <= 0.9 and lines is not None:                               # the real line tips, measured on the frame
+            if k not in prog_cache:
+                img = np.asarray(Image.open(take_dir / "frames" / f"{nums[k]:05d}.png").convert("RGB")).astype(np.int16)
+                prog_cache[k] = [line_drawn(img, L_) for L_ in lines]
+            pu, pl = prog_cache[k]
+        else:
+            pu = pl = 1.0
+        beam.append([a, -1.0, pu, pl])
+    return {"track": track, "src_s": srcs, "src_idx": idx, "segments": segs, "anchors": anchors, "beam": beam,
             "impact_out": round(out_at(d2 + LABEL_MS / 1000), 4), "show_latency_s": round(d2 - m["show"], 4),
             "d2_out": round(out_at(d2), 4), "d3_out": round(out_at(an["draw_on_3_show_b"]["start_s"]), 4),
+            "label_b_out": round(out_at(an["draw_on_3_show_b"]["start_s"] + LABEL_MS / 1000), 4),
             "real_speed_range": [round(min(seg_speeds), 4), round(max(seg_speeds), 4)],
-            "slow": {"out_s": [0.0, round(T["hook_out"], 3)], "speed": round(segs[0]["speed"], 4),
-                     "output_frames": len(so), "distinct_source_frames": uniq, "repeat_frames": len(so) - uniq,
-                     "interpolated_frames": 0}}
+            "loop_seam": {"last_frame_app_s": round(srcs[-1] - d4, 4), "frame0_app_s": round(srcs[0] - d1, 4),
+                          "source_frame_s": round(SRC_FRAME_S, 4)},
+            "slow": {"segments": slow_out, "speed": sl,
+                     "output_frames": sum(x["output_frames"] for x in slow_out),
+                     "distinct_source_frames": sum(x["distinct_source_frames"] for x in slow_out),
+                     "repeat_frames": sum(x["repeat_frames"] for x in slow_out), "interpolated_frames": 0}}
 
 
 def line_geometry(take_dir: Path, tk: dict, an: dict) -> dict:
@@ -438,31 +507,48 @@ def line_geometry(take_dir: Path, tk: dict, an: dict) -> dict:
     by0 = (named["banner"]["rect"][1] + named["banner"]["rect"][3]) * DPR + 6
     sub_on = on[int(by0):int(by + bh), int(bx):int(bx + bw)]
     sub_off = off[int(by0):int(by + bh), int(bx):int(bx + bw)]
+    # the app's pattern line colour is #bbf7d0 (light mint; PATTERN_STYLE.line); candles are #10b981-ish and the
+    # anchor dots #86efac, so a red channel > 140 separates the lines from both
     r, g, b = sub_on[..., 0], sub_on[..., 1], sub_on[..., 2]
-    mint = (g > 150) & (g > r + 40) & (g > b + 10) & (np.abs(sub_on - sub_off).max(axis=2) > 40)
+    mint = ((r > 140) & (g > 225) & (b > 180) & (b < 240) & (g > r + 25)
+            & (np.abs(sub_on - sub_off).max(axis=2) > 40))
     ys, xs = np.nonzero(mint)
     if len(xs) < 200:
         raise InputError("could not find the drawn pattern lines on the replay frame")
-    accent = "#%02x%02x%02x" % tuple(int(v) for v in np.median(sub_on[mint], axis=0))
-    x_lo, x_hi = np.percentile(xs, 3), np.percentile(xs, 97)
-    cols, tops = [], []
-    for x in range(int(x_lo), int(x_hi)):
-        yy = ys[xs == x]
-        if len(yy):
-            cols.append(x)
-            tops.append(yy.min())
-    cols, tops = np.array(cols, float), np.array(tops, float)
-    # the upper line: robust fit over the columns whose top pixel is a line, not the label box (trim the worst 30%)
-    sel = np.ones(len(cols), bool)
-    for _ in range(4):
-        p = np.polyfit(cols[sel], tops[sel], 1)
-        res = np.abs(tops - np.polyval(p, cols))
-        sel = res <= np.percentile(res[sel], 70)
-    xs_line = cols[sel]
-    u0, u1 = float(xs_line.min() + bx), float(xs_line.max() + bx)
-    v0 = float(np.polyval(p, xs_line.min()) + by0)
-    v1 = float(np.polyval(p, xs_line.max()) + by0)
-    return {"accent": accent, "upper_line_src": [round(u0, 1), round(v0, 1), round(u1, 1), round(v1, 1)],
+    # the app's accent (#4ade80: the callout border, PATTERN_STYLE.accent), measured on the frame
+    acc_px = sub_on[np.abs(sub_on - np.array([74, 222, 128])).max(axis=2) < 12]
+    if len(acc_px) < 200:
+        raise InputError("the app's accent colour is not on the replay frame")
+    accent = "#%02x%02x%02x" % tuple(int(v) for v in np.median(acc_px, axis=0))
+    line_color = "#%02x%02x%02x" % tuple(int(v) for v in np.median(sub_on[mint], axis=0))
+    # two lines by RANSAC over the line pixels (deterministic seed): the best line, its inliers removed, the next
+    pts = np.stack([xs, ys], 1).astype(float)
+    rng = np.random.default_rng(7)
+
+    def ransac(P):
+        best, bi = None, None
+        for _ in range(2500):
+            a, b = P[rng.integers(len(P))], P[rng.integers(len(P))]
+            if abs(b[0] - a[0]) < 60:
+                continue
+            k = (b[1] - a[1]) / (b[0] - a[0])
+            res = np.abs(P[:, 1] - (a[1] + k * (P[:, 0] - a[0]))) / math.sqrt(1 + k * k)
+            inl = res < 4.0
+            if best is None or inl.sum() > best:
+                best, bi = int(inl.sum()), inl
+        p = np.polyfit(P[bi, 0], P[bi, 1], 1)
+        a, b = float(np.percentile(P[bi, 0], 0.5)), float(np.percentile(P[bi, 0], 99.5))
+        return [a, float(np.polyval(p, a)), b, float(np.polyval(p, b))], bi, best
+    l1, in1, n1 = ransac(pts)
+    l2, _, n2 = ransac(pts[~in1])
+    if min(n1, n2) < 300:
+        raise InputError(f"could not fit two pattern lines (inliers {n1}, {n2})")
+    mid = lambda l_: (l_[1] + l_[3]) / 2  # noqa: E731
+    up, lo = sorted([l1, l2], key=mid)
+    up, lo = ([round(l_[0] + bx, 1), round(l_[1] + by0, 1), round(l_[2] + bx, 1), round(l_[3] + by0, 1)]
+              for l_ in (up, lo))
+    return {"accent": accent, "line_color": line_color, "accent_px": int(len(acc_px)),
+            "upper_line_src": up, "lower_line_src": lo,
             "frames_used": [nums[k_on], nums[k_off]], "mint_pixels": int(len(xs))}
 
 
@@ -482,18 +568,23 @@ def camera_keys(ep, T, rects, line) -> list[dict]:
     p0, he, push, pull, mac = cam["frame0"], cam["hook_end"], cam["push"], cam["pull"], cam["macro"]
     k = [
         pose(0.0, p0["s"], p0["top"], p0["xc"], yaw=p0["yaw"], pitch=p0["pitch"], sweep=-2.4),
-        pose(T["head_out1"], he["s"], he["top"], he["xc"], yaw=he["yaw"], pitch=he["pitch"], key=0.2, sweep=-1.0,
+        pose(T["hook_out"], he["s"], he["top"], he["xc"], yaw=he["yaw"], pitch=he["pitch"], key=0.2, sweep=-1.0,
              ease="lin"),
         pose(T["t_hide"] - 0.08, push["s"], push["top"], push["xc"], yaw=2.0, pitch=2.6, key=0.6, sweep=0.6, ease="o"),
-        pose(T["t_show"] - 0.05, push["s"] + 0.004, push["top"] - 2, push["xc"], yaw=2.6, pitch=2.4, key=0.6,
+        pose(T["t_show"] + 0.2, push["s"] + 0.004, push["top"] - 2, push["xc"], yaw=2.6, pitch=2.4, key=0.6,
              sweep=1.2, ease="lin"),
-        pose(T["impact"], push["s"] + 0.006, push["top"] - 4, push["xc"], yaw=-2.6, pitch=2.0, key=0.9, sweep=2.4),
-        pose(T["shape"] - 0.35, pull["s"], pull["top"], pull["xc"], yaw=-1.2, pitch=3.2, key=1.0, sweep=2.0, ease="io"),
-        pose(T["shape"] + 0.25, mac["s"], mac["top"], mac["xc"], yaw=mac["yaw"], pitch=1.8, key=1.3, sweep=-2.0,
+        # the glide: a yaw sweep that follows the upper line while the app draws it (0.5x)
+        pose(T["show_lines_end"], push["s"] + 0.008, push["top"] - 5, push["xc"], yaw=-2.4, pitch=2.0, key=0.9,
+             sweep=2.4, ease="io"),
+        pose(T["impact"], push["s"] + 0.008, push["top"] - 5, push["xc"], yaw=-2.6, pitch=2.0, key=0.9, sweep=2.4,
+             ease="lin"),
+        pose(T["t_hide_b"] - 0.05, pull["s"], pull["top"], pull["xc"], yaw=-1.2, pitch=3.2, key=1.0, sweep=2.0,
+             ease="io"),
+        pose(T["shape"] + 0.55, mac["s"], mac["top"], mac["xc"], yaw=mac["yaw"], pitch=1.8, key=1.3, sweep=-2.0,
              ease="o"),
-        pose(T["free"] - 0.1, mac["s"] + 0.004, mac["top"] - 2, mac["xc"], yaw=mac["yaw"] + 0.8, pitch=1.8, key=1.2,
-             sweep=-2.4, ease="lin"),
-        pose(T["t_show_b"] + 0.2, p0["s"] * 1.03, p0["top"] - 6, p0["xc"] - 4, yaw=p0["yaw"] + 2.0,
+        pose(T["label_b"] + 0.25, mac["s"] + 0.004, mac["top"] - 2, mac["xc"], yaw=mac["yaw"] + 0.8, pitch=1.8,
+             key=1.2, sweep=-2.4, ease="lin"),
+        pose(max(T["brand2"] + 0.5, T["label_b"] + 1.0), p0["s"] * 1.03, p0["top"] - 6, p0["xc"] - 4, yaw=p0["yaw"] + 2.0,
              pitch=p0["pitch"] - 0.3, key=0.4, sweep=0.0),
         pose(T["end"], p0["s"], p0["top"], p0["xc"], yaw=p0["yaw"], pitch=p0["pitch"], key=0.0, sweep=-2.4),
     ]
@@ -507,6 +598,8 @@ def framing_problems(fl: list[dict]) -> dict:
     for f in fl:
         ko += [(f["i"], k["id"]) for k in f["keepout"] if k["visible"]]
         for h in f.get("hero", []):
+            if h.get("skip_t") and h["skip_t"][0] <= f["t"] <= h["skip_t"][1]:
+                continue
             x0, y0, x1, y1 = h.get("zone") or SAFE
             xs = [p[0] for p in h["quad"]]
             ys = [p[1] for p in h["quad"]]
@@ -632,20 +725,21 @@ def main(argv=None) -> int:
         # ---------------------------------------------------------------- the real timeline (measured)
         lines, clips, speed = voice(ep, run, None)
         lat = best["draw_on_2_show"]["start_s"] - best["marks"]["show"]
-        T = timeline(ep, lines, clips, lat_show=lat)
-        trk = build_track(tk, best, T)
+        lat_end = best["draw_on_4_show_end"]["start_s"] - best["marks"]["show_end"]
+        T = timeline(ep, lines, clips, lat_show=lat, lat_end=lat_end)
+        line = line_geometry(take_out, tk, best)
+        trk = build_track(tk, best, T, take_out, [line["upper_line_src"], line["lower_line_src"]])
         T["impact"] = trk["impact_out"]
         T["d2_out"], T["d3_out"] = trk["d2_out"], trk["d3_out"]
         T["flash0"] = T["hook_label"]                                    # light events: the hook's label pop
         T["flash1"] = T["impact"]                                        # ... and the one impact
-        T["url0"] = T["t_show_b"]                                        # the URL types on the last brand word
+        T["label_b"] = trk["label_b_out"]
         steps = {s["label"]: s for s in tk["steps"]}
         named = steps["drawn"]["named"]
         rects = {k: v["rect"] for k, v in named.items() if v}
-        line = line_geometry(take_out, tk, best)
         # keep-out union (css -> source px) over every recorded state the track uses, and the visible page text
         keep, texts = [], {}
-        for lab in ("setup_hidden", "drawn", "hidden", "shown", "hidden_b", "shown_b", "end_hidden"):
+        for lab in [s_["label"] for s_ in tk["steps"] if s_["label"] != "top"]:
             for kx in steps[lab]["keepout"]:
                 x, y, w, h = kx["visible"]
                 keep.append({"id": f"{lab}: {kx['why']}", "src": [x * DPR, y * DPR, (x + w) * DPR, (y + h) * DPR]})
@@ -679,7 +773,8 @@ def main(argv=None) -> int:
                     x, y, w, h = v
                     hero.append({"id": f"{lab}: {k}", "src": [x * DPR, y * DPR, (x + w) * DPR, min((y + h) * DPR, v_plinth)]})
         bz = sty_["phone"]["bezel"] * 1000                               # the whole phone (above the dock) in frame
-        hero.append({"id": "phone body", "src": [-bz, -bz, SRC_W + bz, v_plinth], "zone": [0, 0, W, H]})
+        free = [T["t_hide_b"], round(max(T["brand2"] + 0.5, T["label_b"] + 1.0), 3)] if ep["camera"]["macro"].get("free_phone") else None
+        hero.append({"id": "phone body", "src": [-bz, -bz, SRC_W + bz, v_plinth], "zone": [0, 0, W, H], "skip_t": free})
         caps = captions(lines, T)
         sty = ep["style"]
         R = {"W": W, "H": H, "fps": FPS, "duration": T["end"], "supersample": 2, "fov": ep["camera"]["fov"],
@@ -691,7 +786,9 @@ def main(argv=None) -> int:
                       "site": "rapidtradeview.trade", "disclaimer": "Not investment advice."},
              "mark": F.brand_mark_spec(), "T": T, "cam": cam, "track": trk["track"], "taps": taps,
              "captions": caps, "keepout": keep, "page_texts": list(texts.values()), "logo_src": logo_src,
-             "hero": hero, "safe": SAFE}
+             "hero": hero, "safe": SAFE, "beam": trk["beam"], "beams": sty["beams"], "floor": sty["floor"],
+             "lines": [line["upper_line_src"], line["lower_line_src"]],
+             "pattern_ms": {"lines": list(LINES_MS), "fill_end": 950, "label": [LABEL_MS, DRAW_MS]}}
         wjson(run / "render.json", R)
         # ---------------------------------------------------------------- framing gates before any pixel is rendered
         run_py(CONDA_PY, [str(HERE / "render.py"), "--run", str(run), "--ffmpeg", str(FFMPEG), "--probe"], "probe")
@@ -731,8 +828,8 @@ def main(argv=None) -> int:
             return 0
         # ---------------------------------------------------------------- full render
         fr_dir = run / "frames_png"
-        t_hidef = int(round((T["t_hide"] + 0.5) * FPS))
-        t_drawf = int(round((T["d2_out"] + 0.55) * FPS))
+        t_hidef = int(round((T["t_hide"] + 0.35) * FPS))
+        t_drawf = int(round((T["d2_out"] + 0.75) * FPS))
         save = sorted({0, t_hidef, t_drawf, n - 1} | set(range(0, n, 10)))
         if not (a.skip_render and (run / "video_noaudio.mp4").is_file()):
             if fr_dir.exists():
@@ -745,22 +842,23 @@ def main(argv=None) -> int:
         # ---------------------------------------------------------------- sound
         kit = make_kit()
         sil = ep.get("pre_impact_silence_s", 0.3)
-        pen_at = T["d2_out"] + LINES_MS[0] / 1000
+        pen_at = T["d2_out"] + LINES_MS[0] / 1000 / T["slow"]
         if pen_at + PENCIL_MID_S + 0.02 > T["impact"] - sil:
             raise InputError(f"the Show draw sound ({pen_at:.2f}+{PENCIL_MID_S}) runs into the pre-impact silence")
         cues = [{"sfx": "sub_boom", "at": 0.0, "gain_db": -16},
                 {"sfx": "pencil_hook", "at": 0.0, "gain_db": -8},                         # the hook draw-on (0.5x)
                 {"sfx": "tick", "at": T["hook_label"], "gain_db": -14},                   # its label pop + light event
-                {"sfx": "whoosh", "at": T["head_out0"] + 0.05, "gain_db": -15},
+                {"sfx": "whoosh", "at": T["hook_out"] - 0.1, "gain_db": -15},             # the push to the banner
                 {"sfx": "pop", "at": T["t_hide"], "gain_db": -3},
                 {"sfx": "pop", "at": T["t_show"], "gain_db": -3},
-                {"sfx": "pencil_mid", "at": pen_at, "gain_db": -8},                       # the replay (real speed)
+                {"sfx": "pencil_mid", "at": pen_at, "gain_db": -8},                       # the Show draw-on (0.5x)
                 {"sfx": "glass_snap", "at": T["impact"], "gain_db": -1},                  # the one impact
-                {"sfx": "whoosh", "at": T["shape"] - 0.4, "gain_db": -15},
                 {"sfx": "pop", "at": T["t_hide_b"], "gain_db": -5},
-                {"sfx": "tick", "at": T["brand_big"] + 0.12, "gain_db": -18},
                 {"sfx": "pop", "at": T["t_show_b"], "gain_db": -5},
-                {"sfx": "pencil_mid", "at": T["d3_out"] + LINES_MS[0] / 1000, "gain_db": -11},
+                {"sfx": "whoosh", "at": T["shape"] + 0.05, "gain_db": -16},               # the push to the words
+                {"sfx": "pencil_short", "at": T["d3_out"] + LINES_MS[0] / 1000, "gain_db": -11},   # real speed
+                {"sfx": "tick", "at": T["label_b"], "gain_db": -15},
+                {"sfx": "whoosh", "at": T["brand2"] + 0.05, "gain_db": -16},              # pull back, pill grows
                 {"sfx": "pop", "at": T["t_hide_end"], "gain_db": -6},
                 {"sfx": "pop", "at": T["t_show_end"], "gain_db": -6}]
         pre = run / "mix_pre.wav"
@@ -822,6 +920,7 @@ def main(argv=None) -> int:
             "source_fps_during_draw_ons": {"hook (draw-on 1, slow motion from real frames)": best["draw_on_1"],
                                            "Show replay (draw-on 2, real speed)": best["draw_on_2_show"],
                                            "second Show (draw-on 3, real speed)": best["draw_on_3_show_b"],
+                                           "last Show (draw-on 4, 0.5x into the loop)": best["draw_on_4_show_end"],
                                            "slow_motion": {"speed": T["slow"], **trk["slow"]},
                                            "real_speed_segments": trk["real_speed_range"],
                                            "warnings": best["warnings"]},
@@ -998,10 +1097,14 @@ def qa(run, ep, R, T, lines, frames, final, trk, take_out, tk, best, res, saved)
     q["loop"] = {"first_vs_last_mean_abs_diff": round(float(np.abs(f0 - fl_).mean()), 2),
                  "blurred_psnr_db": round(10 * math.log10(255 ** 2 / max(float(((blur(f0) - blur(fl_)) ** 2).mean()), 1e-9)), 2),
                  "pose_delta": {k: round(posel[k] - pose0[k], 4) for k in ("s", "yaw", "pitch", "fx", "fy", "uf")},
-                 "screen_state": {"first": "the hook draw-on in progress (lines drawing)",
-                                  "last": "a real Show tap on the hidden chart, its draw-on just starting"},
+                 "screen_state": {"first": "the hook draw-on at app time %.3f s (lines drawing)" % trk["loop_seam"]["frame0_app_s"],
+                                  "last": "the last real Show's draw-on at app time %.3f s" % trk["loop_seam"]["last_frame_app_s"]},
+                 "seam_app_step_s": round(trk["loop_seam"]["frame0_app_s"] - trk["loop_seam"]["last_frame_app_s"], 4),
+                 "source_frame_s": trk["loop_seam"]["source_frame_s"],
                  "last_show_tap_s": T["t_show_end"], "frames_after_last_tap": len(tail_src),
-                 "note": "the loop runs from the last real Show tap into frame 0's draw-on: the same app action"}
+                 "ripple_on_last_frame": any(b["role"] == "ripple" for b in fl[-1]["texts"]),
+                 "note": "the last frame is the last real Show's draw-on one source frame before frame 0's point in "
+                         "the hook draw-on: the seam is the line continuing to grow"}
     # real UI change on screen (from the track), visual changes overall
     tk_ts = np.array([f[1] - tk["t0_wall"] for f in tk["frames"]])
     idx = trk["src_idx"]
@@ -1037,13 +1140,14 @@ def qa(run, ep, R, T, lines, frames, final, trk, take_out, tk, best, res, saved)
                     "longest_without_real_ui_change_s": round(longest, 3), "from_s": round(at, 3),
                     "pixel_longest_still_s": round(lg / FPS, 3), "pixel_still_from_s": round(st / FPS, 3),
                     "camera_keyframes": len(R["cam"]), "captions": len(R["captions"]), "taps": len(R["taps"]),
-                    "events": sorted([(0.0, "draw-on (hook, 0.5x)"), (T["hook_label"], "label pops: light event"),
-                                      (T["head_out0"], "push toward the banner"),
-                                      (T["t_hide"], "real tap: Hide"), (T["t_show"], "real tap: Show"),
-                                      (T["impact"], "label pops: the impact + rim light"),
-                                      (T["shape"], "push to the words"), (T["t_hide_b"], "real tap: Hide"),
-                                      (T["brand_big"], "pull back, pill grows, URL"), (T["t_show_b"], "real tap: Show"),
-                                      (T["t_hide_end"], "real tap: Hide"), (T["t_show_end"], "real tap: Show (loop)")])}
+                    "events": sorted([(0.0, "draw-on (hook, 0.5x) + beams"), (T["hook_label"], "label pops: light event"),
+                                      (T["hook_out"], "push toward the banner"),
+                                      (T["t_hide"], "real tap: Hide"), (T["t_show"], "real tap: Show (0.5x draw-on, glide)"),
+                                      (T["impact"], "label pops: the impact + rim light + beam flare"),
+                                      (T["t_hide_b"], "real tap: Hide"), (T["t_show_b"], "real tap: Show (real speed)"),
+                                      (T["shape"], "push to the app's words"), (T["label_b"], "label pops on 'prediction'"),
+                                      (T["brand_big"], "pull back, pill grows, URL"),
+                                      (T["t_hide_end"], "real tap: Hide"), (T["t_show_end"], "real tap: Show (loop, 0.5x)")])}
     # words
     script = [ln["say"] for ln in lines] + [c["show"] for ln in lines for c in ln["chunks"]] + R["text"]["headline"] + \
         [R["text"]["site"], R["text"]["disclaimer"]]
@@ -1059,8 +1163,9 @@ def qa(run, ep, R, T, lines, frames, final, trk, take_out, tk, best, res, saved)
                       "outside": len(fp["hero_outside"]), "examples": fp["hero_outside"][:8],
                       "app_ui_min_x": round(min(min(p[0] for p in h["quad"]) for f in fl for h in f["hero"] if not h.get("zone")), 1),
                       "app_ui_max_x": round(max(max(p[0] for p in h["quad"]) for f in fl for h in f["hero"] if not h.get("zone")), 1),
-                      "phone_body_x": [round(min(min(p[0] for p in h["quad"]) for f in fl for h in f["hero"] if h.get("zone")), 1),
-                                       round(max(max(p[0] for p in h["quad"]) for f in fl for h in f["hero"] if h.get("zone")), 1)]}
+                      "phone_body_x": [round(min(min(p[0] for p in h["quad"]) for f in fl for h in f["hero"] if h.get("zone") and not (h.get("skip_t") and h["skip_t"][0] <= f["t"] <= h["skip_t"][1])), 1),
+                                       round(max(max(p[0] for p in h["quad"]) for f in fl for h in f["hero"] if h.get("zone") and not (h.get("skip_t") and h["skip_t"][0] <= f["t"] <= h["skip_t"][1])), 1)],
+                      "phone_body_may_leave_frame_s": next((h.get("skip_t") for h in R["hero"] if h.get("skip_t")), None)}
     # the pre-impact silence, measured on the final file
     sd = subprocess.run([str(FFMPEG), "-hide_banner", "-i", str(final), "-af", "silencedetect=n=-35dB:d=0.25", "-f",
                          "null", "-"], capture_output=True, text=True, encoding="utf-8", errors="replace")
@@ -1074,6 +1179,7 @@ def qa(run, ep, R, T, lines, frames, final, trk, take_out, tk, best, res, saved)
     br_margin = round(br[-1] - (dur - 4.0), 3) if br else None
     q["brand_word"]["last_inside_final_4s_by_s"] = br_margin
     dmin, dmax = ep.get("duration_s", [16.0, 20.0])
+    hold = ep["timing"].get("max_hold_s", 2.6)
     gates = {
         "duration_in_range": dmin <= dur <= dmax + 0.05,
         "fps_30": abs(q["fps"] - 30) < 0.01,
@@ -1090,7 +1196,11 @@ def qa(run, ep, R, T, lines, frames, final, trk, take_out, tk, best, res, saved)
         "pre_impact_silence": bool(q["silence"]["pre_impact"]),
         "url_and_disclaimer_on_last_frame": {"end_site", "end_disclaimer"} <= last_roles,
         "no_take_warnings": not best["warnings"],
-        "real_ui_change_every_4_5s": q["changes"]["longest_without_real_ui_change_s"] <= 4.5,
+        "real_ui_change_every_%gs" % hold: q["changes"]["longest_without_real_ui_change_s"] <= hold,
+        "loop_seam_one_source_frame": 0 < q["loop"]["seam_app_step_s"] <= 2.5 * SRC_FRAME_S,
+        "no_ripple_on_last_frame": not q["loop"]["ripple_on_last_frame"],
+        "slow_speeds_0_5_0_6": all(0.49 <= x["speed"] <= 0.61 for x in trk["slow"]["segments"]),
+        "real_speeds_1_00_1_03": 0.985 <= trk["real_speed_range"][0] and trk["real_speed_range"][1] <= 1.035,
         "keepout_none_visible": q["keepout_gate"]["visible_hits"] == 0,
         "ocr_clean": not hits,
         "page_text_clean": not page_hits,
@@ -1111,6 +1221,10 @@ def qa(run, ep, R, T, lines, frames, final, trk, take_out, tk, best, res, saved)
     }
     q["gates"] = {k: bool(v) for k, v in gates.items()}
     q["pass"] = all(q["gates"].values())
+    exc = ep.get("duration_exception")
+    if exc and not q["gates"]["duration_in_range"]:
+        q["exceptions_for_lead"] = {"duration_in_range": {"range": [dmin, dmax], "duration_s": q["duration_s"], **exc}}
+        q["pass_except_lead_exceptions"] = all(v for k, v in q["gates"].items() if k != "duration_in_range")
     return q
 
 
