@@ -1,10 +1,12 @@
 {
- "schema": "rtv-filed-episode/1",
+ "schema": "rtv-filed-episode/2",
  "series": "FILED.",
  "day": 1,
  "slug": "2026-11-13-pelosi-intc",
  "member": "Nancy Pelosi",
+ "surname": "Pelosi",
  "possessive": "Pelosi's",
+ "pronoun_pos": "her",
  "bioguide": "P000197",
  "portrait": "https://unitedstates.github.io/images/congress/original/P000197.jpg",
  "page": "https://www.rapidtradeview.trade/smart-money/figures/nancy-pelosi",
@@ -26,10 +28,11 @@
  },
  "headline": [
   "{possessive} {short} {side}",
-  "IS TRAILING {bench}"
+  "SINCE IT WAS FILED"
  ],
- "headline_accent": "TRAILING",
- "sink_label": "VS SPY · SINCE THE FILING",
+ "headline_accent": "FILED",
+ "counter_label": "VS {bench}",
+ "sink_label": "VS {bench} · SINCE THE FILING",
  "slab_aspect": 0.9,
  "voice": {
   "voice": "am_michael",
@@ -43,32 +46,32 @@
  "lines": [
   {
    "id": "hook",
-   "text": "~{member_pos} {short_mixed} {side_l} is trailing {bench} by nearly {gap_near} points.",
-   "speed_mul": 1.3
+   "text": "~Since {surname} filed this {short_mixed} {side_l}, {short_mixed} trails {bench} by nearly {gap_near} points.",
+   "speed_mul": 1.32
   },
   {
    "id": "brand",
    "gap_before": 0.06,
-   "text": "@brandflip *RapidTradeView | has the filing."
+   "text": "@brandflip *RapidTradeView | has it."
   },
   {
    "id": "row",
    "gap_before": 0.12,
-   "text": "@amount Up to | *{amount_hi}, | @owner her *{owner} | account. | @traded Traded *{traded}, | @filed filed *{filed}."
+   "text": "@amount Up to *{amount_short}, | @owner {pronoun_pos} *{owner} | account. | @traded Traded *{traded}, | @filed filed *{filed}."
   },
   {
    "id": "sink",
-   "gap_before": 0.25,
-   "text": "@sink Since that | filing, | {short_mixed} is | @gapnum !{gap} points | @behind behind *{bench}."
+   "gap_before": 0.42,
+   "text": "@sink ~Since the filing, | ~{short_mixed} trails {bench} by | @gapnum ~{gap} | @behind percentage points. ^ BEHIND *{bench}"
   },
   {
    "id": "end",
-   "gap_before": 0.15,
-   "text": "Every filing, | free, | @brandend ~on RapidTradeView. | @disclaim ~Not investment advice."
+   "gap_before": 0.12,
+   "text": "@track Track | Congress filings | @brandend ~on RapidTradeView. | @disclaim ~Not investment advice."
   }
  ],
  "youtube": {
-  "title": "{possessive_mixed} {short_mixed} buy is trailing {bench} by {gap} points since the filing #Shorts",
-  "description": "{member} disclosed an {short_mixed} ({ticker}) {side_l} of {amount} in her {owner_l} account: traded {traded_iso}, filed {filed_iso}. Since that filing it is {gap} points behind {bench}, as shown on RapidTradeView. FILED. is one disclosed trade a day. Every filing, free: https://www.rapidtradeview.trade/smart-money/figures/nancy-pelosi\nNot investment advice."
+  "title": "Since {surname} filed {pronoun_pos} {short_mixed} {side_l}, {short_mixed} trails {bench} by {gap} points #Shorts",
+  "description": "{member} filed an {short_mixed} ({ticker}) {side_l} of {amount} in {pronoun_pos} {owner_l} account: traded {traded_iso}, filed {filed_iso}. Since the filing, {short_mixed} trails {bench} by {gap} percentage points (as of the {as_of} close), as shown on RapidTradeView. FILED. is one disclosed trade a day. The filings: {page}\nNot investment advice."
  }
 }

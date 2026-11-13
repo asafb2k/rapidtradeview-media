@@ -16,7 +16,7 @@ import numpy as np
 import soundfile as sf
 
 SR = 48000
-KIT_VERSION = "filed-kit/1"
+KIT_VERSION = "filed-kit/2"
 
 
 def _t(dur: float) -> np.ndarray:
@@ -95,16 +95,34 @@ def riser(seed: int = 5, dur: float = 1.1) -> np.ndarray:
     return _norm(x, 0.75)
 
 
+def _bp(x: np.ndarray, lo: float, hi: float) -> np.ndarray:
+    return _hp(_lp(x, hi), lo)
+
+
 def impact(seed: int = 6) -> np.ndarray:
-    t = _t(2.2)
+    """The sink hit, built to read on a phone speaker: a mid-range body (150 Hz-2 kHz) and a 3-6 kHz transient carry
+    it; the sub layer sits about 8 dB lower than in kit/1; the tail is gone by ~0.55 s."""
+    t = _t(0.7)
     r = _rng(seed)
-    f = 30 + 85 * np.exp(-t * 14)
-    sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 1.7)
-    crack = _lp(r.standard_normal(len(t)), 5200) * np.exp(-t * 28)
-    body = _lp(r.standard_normal(len(t)), 260) * np.exp(-t * 5) * 2.5
-    tail = _hp(_lp(r.standard_normal(len(t)), 1800), 300) * np.exp(-t * 2.2) * 0.25
-    x = np.tanh(1.9 * (1.25 * sub + 0.9 * crack + body + tail))
+    f = 42 + 80 * np.exp(-t * 16)
+    sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 7.5) * 0.4          # ~-8 dB against kit/1
+    body = _bp(r.standard_normal(len(t)), 150, 2000) * np.exp(-t * 11) * 1.6
+    knock = sum(np.sin(2 * np.pi * fr * t) * np.exp(-t * d) * a for fr, d, a in ((180, 14, 0.9), (330, 20, 0.6),
+                                                                                   (620, 30, 0.35)))
+    click = _bp(r.standard_normal(len(t)), 3000, 6000) * np.exp(-t * 90) * 1.4
+    x = np.tanh(1.7 * (sub + body + knock + click))
+    x *= np.clip((0.62 - t) / 0.12, 0, 1)                                          # done by 0.62 s
     return _norm(x, 0.95)
+
+
+def thud(seed: int = 8) -> np.ndarray:
+    """A short punch under the hook counter: low-mid knock, quick."""
+    t = _t(0.35)
+    r = _rng(seed)
+    knock = sum(np.sin(2 * np.pi * fr * t) * np.exp(-t * d) * a for fr, d, a in ((70, 16, 0.8), (140, 22, 0.8),
+                                                                                   (290, 34, 0.4)))
+    snap = _bp(r.standard_normal(len(t)), 1500, 5000) * np.exp(-t * 120) * 0.6
+    return _norm(np.tanh(1.5 * (knock + snap)), 0.9)
 
 
 def stamp(seed: int = 7) -> np.ndarray:
@@ -120,7 +138,7 @@ def stamp(seed: int = 7) -> np.ndarray:
 
 
 KIT = {"sub_boom": sub_boom, "whoosh": whoosh, "tick": tick, "swish": swish, "riser": riser, "impact": impact,
-       "stamp": stamp}
+       "stamp": stamp, "thud": thud}
 
 
 def make_kit(kit_dir: Path) -> dict[str, Path]:
@@ -234,8 +252,17 @@ def mix(voice: list[dict], cues: list[dict], duration: float, out_wav: Path, kit
             a, sr = sf.read(kit[c["sfx"]], dtype="float32")
             loaded[c["sfx"]] = _resample(a, sr)
         _place(sbus, loaded[c["sfx"]], c["at"], c.get("gain_db", 0.0))
-    # duck the effects a little under speech so words stay clear (except the impact, which owns its moment)
-    out = vbus + b + sbus * (10 ** (-8 / 20))
+    # sidechain: the effects bus ducks 7 dB under the voice (fast attack, 120 ms release), so no hit masks a word
+    venv = np.abs(vbus).astype(np.float64)
+    a_att, a_rel = np.exp(-1 / (0.005 * SR)), np.exp(-1 / (0.12 * SR))
+    e, sc = 0.0, np.empty(n)
+    for i, v in enumerate(venv):
+        c = a_att if v > e else a_rel
+        e = c * e + (1 - c) * v
+        sc[i] = e
+    ref = np.percentile(sc[sc > 1e-4], 60) if np.any(sc > 1e-4) else 1.0
+    duck_db = -7.0 * np.clip(sc / ref, 0, 1)
+    out = vbus + b + sbus * (10 ** ((-8 + duck_db) / 20)).astype(np.float32)
     peak = float(np.max(np.abs(out))) or 1.0
     if peak > 0.98:
         out = out / peak * 0.98

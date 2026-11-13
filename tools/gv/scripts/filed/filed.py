@@ -59,7 +59,10 @@ BRAND_MARK_JSON = Path("D:/Coding_projects/rapidtradeview/shared/data/brand-mark
 W, H, FPS = 1080, 1920, 30
 SAFE = (60, 200, 920, 1500)
 HOLD = {"x": 60, "w": 960, "top": 300}
-LOOP_TAIL = 0.85
+LIFT_W = 1000                       # the lifted trade row, px wide on screen (whole row, never cropped)
+FACE_TEX_H = 1280                   # the portrait crop is Lanczos-scaled once to this height (>= its size on screen)
+LOOP_TAIL = 0.8
+HIT_LEAD = 0.18
 BANNED = ("insider trading", "insider", "suspicious", "timed", "knew", "dump", "lost money", "before", "s&p 500",
           "s&p", "democrat", "republican", "party", "corrupt", "illegal", "scandal", "shady", "caught",
           "you should", "buy now", "should buy", "copy congress")
@@ -270,6 +273,9 @@ def read_slots(ep: dict, caps: dict) -> tuple[dict[str, Slot], dict]:
     s["member"] = Slot(ep["member"], ep["member"], proof_ref(caps["member"], head))
     s["possessive"] = Slot(ep["possessive"].upper(), ep["possessive"], s["member"].proof)
     s["member_pos"] = Slot(ep["member"] + "'s", ep["member"] + "'s", s["member"].proof)
+    s["surname"] = Slot(ep["surname"].upper(), ep["surname"], s["member"].proof)
+    s["pronoun_pos"] = Slot(ep["pronoun_pos"].upper(), ep["pronoun_pos"], None)
+    s["page"] = Slot(ep["page"], None, None)
     s["ticker"] = Slot(m["ticker"], " ".join(m["ticker"]), {**proof_ref(card, m["ticker"]), "row": row_line})
     s["side"] = Slot(m["side"].upper(), m["side"], {**proof_ref(card, m["side"]), "row": row_line})
     names_txt = caps["names"]["inside_text"]
@@ -293,6 +299,10 @@ def read_slots(ep: dict, caps: dict) -> tuple[dict[str, Slot], dict]:
     hi = int(amts[-1][1:].replace(",", ""))
     s["amount"] = Slot(m["amount"], None, {**proof_ref(card, m["amount"]), "row": row_line})
     s["amount_hi"] = Slot(amts[-1], words(hi) + " dollars", s["amount"].proof)
+    short = (f"${hi // 10 ** 6}M" if hi % 10 ** 6 == 0 else f"${hi // 1000}K" if hi % 1000 == 0 else amts[-1])
+    s["amount_short"] = Slot(short, words(hi) + " dollars",
+                             {**s["amount"].proof, "derived": f"upper bound of {m['amount']}, shown only while the full "
+                                                             f"range is on screen"})
     owner = {"spouse": "spouse's", "self": "own", "joint": "joint", "dependent child": "child's"}.get(m["owner"])
     if not owner:
         raise InputError(f"unknown owner {m['owner']!r}")
@@ -306,7 +316,10 @@ def read_slots(ep: dict, caps: dict) -> tuple[dict[str, Slot], dict]:
     facts = {"row": row_line, "ticker": m["ticker"], "side": m["side"], "perf": perf, "sign": sign, "gap": num,
              "traded": m["traded"], "filed": m["filed"], "amount": m["amount"], "owner": m["owner"], "lag": m["lag"]}
     latest = re.search(r"latest close \(([^)]+)\)", caps["scan"]["page_text"])
-    facts["latest_close"] = latest.group(1) if latest else None
+    if not latest:
+        raise InputError("the page does not name its latest close (needed for the as-of line)")
+    facts["latest_close"] = latest.group(1)
+    s["as_of"] = Slot(latest.group(1), None, proof_ref(caps["scan"], latest.group(0)))
     return s, facts
 
 
@@ -317,6 +330,8 @@ SLOT_RX = re.compile(r"\{([a-z_]+)\}")
 def fill(tmpl: str, slots: dict[str, Slot], mode: str, used: set) -> str:
     if re.search(r"\d", SLOT_RX.sub("", tmpl)):
         raise InputError(f"a template types a number: {tmpl!r} (numbers are slots)")
+    if re.search(r"https?://|www\.|\.trade\b", SLOT_RX.sub("", tmpl)):
+        raise InputError(f"a template types a URL: {tmpl!r} (use {{page}})")
     def rep(mm):
         k = mm.group(1)
         if k not in slots:
@@ -349,6 +364,9 @@ def build_script(ep: dict, slots: dict[str, Slot]) -> tuple[list[dict], set]:
             cap = True
             if raw.startswith("~"):
                 cap, raw = False, raw[1:]
+            cap_over = None
+            if " ^ " in raw:                       # "said words ^ CAPTION": the caption shows other words
+                raw, cap_over = raw.split(" ^ ", 1)
             accents = {}
             toks_show, toks_say = [], []
             for tok in raw.split(" "):
@@ -363,7 +381,21 @@ def build_script(ep: dict, slots: dict[str, Slot]) -> tuple[list[dict], set]:
                         accents[wd.upper().strip(",.:;")] = color
                 toks_show.append(show)
                 toks_say.append(say)
-            chunks.append({"anchor": anchor, "show": " ".join(toks_show).upper(), "say": " ".join(toks_say),
+            show_txt = " ".join(toks_show).upper()
+            if cap_over is not None:
+                accents, toks = {}, []
+                for tok in cap_over.split(" "):
+                    color = None
+                    if tok[:1] in "*!":
+                        color = "cyan" if tok[0] == "*" else "red"
+                        tok = tok[1:]
+                    sh = fill(tok, slots, "show", used)
+                    if color:
+                        for wd in sh.split(" "):
+                            accents[wd.upper().strip(",.:;")] = color
+                    toks.append(sh)
+                show_txt = " ".join(toks).upper()
+            chunks.append({"anchor": anchor, "show": show_txt, "say": " ".join(toks_say),
                            "accent": accents, "cap": cap})
         out.append({"id": line["id"], "gap_before": line.get("gap_before", 0.12), "speed_mul": line.get("speed_mul", 1.0),
                     "chunks": chunks})
@@ -515,8 +547,23 @@ def card_assets(caps: dict, run: Path, slab_aspect: float) -> dict:
         boxes[k] = t["box"]
     if len(side["targets"]) != len(tnames):
         raise InputError("the card capture did not return every target box")
+    # the trade row as its own plane: full row (ticker to the figure, both text lines), untouched pixels, Lanczos once
+    row_keys = [k for k in ("ticker", "perf", "traded_word", "traded", "filed_word", "filed", "amount", "owner", "lag")
+                if k in boxes]
+    rx0 = max(0, min(boxes[k][0] for k in row_keys) - 100)
+    rx1 = min(cw, max(boxes[k][0] + boxes[k][2] for k in row_keys) + 100)
+    ry0 = max(0, min(boxes[k][1] for k in row_keys) - 50)
+    ry1 = min(ch, max(boxes[k][1] + boxes[k][3] for k in row_keys) + 46)
+    kl = LIFT_W / (rx1 - rx0)
+    lw, lh = LIFT_W, round((ry1 - ry0) * kl)
+    im.crop((round(rx0), round(ry0), round(rx1), round(ry1))).resize((lw, lh), Image.LANCZOS).save(a / "row_lift.png")
+    h0 = hw / cw
+    orig = [HOLD["x"] + rx0 * h0, HOLD["top"] + ry0 * h0, (rx1 - rx0) * h0, (ry1 - ry0) * h0]
+    lift = [round(W / 2 - lw / 2), round(orig[1] + orig[3] / 2 - lh / 2 - 14), lw, lh]
     return {"card": "/run/assets/card.png", "card_hold": "/run/assets/card_hold.png", "card_w": cw, "card_h": ch,
-            "hold": [HOLD["x"], HOLD["top"], hw, hh], "boxes": boxes, "hold_sha256": sha256(a / "card_hold.png")}
+            "hold": [HOLD["x"], HOLD["top"], hw, hh], "boxes": boxes, "hold_sha256": sha256(a / "card_hold.png"),
+            "row": {"img": "/run/assets/row_lift.png", "crop": [rx0, ry0, rx1, ry1], "k": kl, "orig": orig,
+                    "lift": lift, "x_vs_hold": round(kl / h0, 3), "sha256": sha256(a / "row_lift.png")}}
 
 
 def face_assets(por: dict, run: Path, slab_aspect: float) -> dict:
@@ -527,13 +574,18 @@ def face_assets(por: dict, run: Path, slab_aspect: float) -> dict:
     cw = round(ch * slab_aspect)
     x0 = (w - cw) // 2
     face = im.crop((x0, 0, x0 + cw, ch))
+    scale = FACE_TEX_H / ch          # Lanczos once, to at least the on-screen size: the GPU then only scales down
+    face = face.resize((round(cw * scale), FACE_TEX_H), Image.LANCZOS)
     face.save(a / "face.png")
     dm = depth_map(a / "face.png", a / "face_depth_raw.png")
-    from PIL import ImageFilter                # a soft depth map: no hard steps at the hair line, so no halo
-    Image.open(a / "face_depth_raw.png").filter(ImageFilter.GaussianBlur(5)).save(a / "face_depth.png")
-    dm["smoothing"] = "Gaussian blur 5 px on the depth map (never on the portrait)"
+    from PIL import ImageFilter                # a soft depth map: the near layer dilated past the hair line, then
+    k = max(3, round(9 * scale) | 1)           # feathered, so the parallax seam falls on the plain background
+    Image.open(a / "face_depth_raw.png").filter(ImageFilter.MaxFilter(k)).filter(
+        ImageFilter.GaussianBlur(round(6 * scale))).save(a / "face_depth.png")
+    dm["smoothing"] = f"depth map only: dilate {k} px + Gaussian blur {round(6 * scale)} px (never on the portrait)"
     return {"face": "/run/assets/face.png", "depth": "/run/assets/face_depth.png", "crop": [x0, 0, cw, ch],
-            "src_size": [w, h], "depth_model": dm}
+            "src_size": [w, h], "depth_model": dm, "lanczos_scale": round(scale, 4),
+            "texture_size": [round(cw * scale), FACE_TEX_H]}
 
 
 # ======================================================================================== timeline
@@ -549,12 +601,13 @@ def timeline(lines: list[dict]) -> dict:
         T["lock"].append({"key": key, "t": anc[key]["t0"]})
     T["riser0"] = round(L["row"]["t1"] - 1.05, 3)
     T["cut_sink"] = round(L["row"]["t1"] + 0.02, 3)
-    T["hit"] = L["sink"]["t0"]
+    T["hit"] = round(L["sink"]["t0"] - HIT_LEAD, 3)      # the hit lands, then the voice comes in over its tail
     T["cut_row"] = round(anc["behind"]["t0"] - 0.05, 3)
     T["end0"] = round(L["end"]["t0"] - 0.08, 3)
     T["stamp"] = round(L["end"]["t0"] + 0.22, 3)
     T["brand_big"] = anc["brandend"]["t0"]
-    T["chip"] = 1.25
+    T["punch"] = 0.35
+    T["chip"] = 1.05
     T["gapnum"] = anc["gapnum"]["t0"]
     T["disclaim"] = anc["disclaim"]["t0"]
     T["speech_end"] = L["end"]["t1"]
@@ -575,9 +628,11 @@ def captions(lines: list[dict], T: dict) -> list[dict]:
             for w in c["show"].split(" "):
                 parts.append({"text": w.rstrip(",.:;"), "color": c["accent"].get(w.strip(",.:;"), "white")})
             caps.append({"t0": c["t0"], "t1": c["t1"], "parts": parts})
+    cuts = sorted(T[k] for k in ("flip0", "cut_sink", "cut_row", "end0"))
     for i, c in enumerate(caps):               # hold each caption until the next one starts (max +0.35 s)
         nxt = caps[i + 1]["t0"] if i + 1 < len(caps) else c["t1"] + 0.35
-        c["t1"] = round(min(nxt, c["t1"] + 0.35), 3)
+        cut = next((x for x in cuts if x > c["t0"] + 0.05), 1e9)   # and never across a scene cut
+        c["t1"] = round(min(nxt, c["t1"] + 0.35, cut), 3)
     return caps
 
 
@@ -651,7 +706,7 @@ def font(size: int) -> ImageFont.FreeTypeFont:
 
 
 # ======================================================================================== QA
-def qa(run: Path, ep: dict, R: dict, lines: list[dict], caps: dict, frames: dict, final: Path) -> dict:
+def qa(run: Path, ep: dict, R: dict, lines: list[dict], caps: dict, frames: dict, final: Path, yt: dict) -> dict:
     q: dict = {"checked_at": now_z()}
     pr = probe(final)
     v = next(s for s in pr["streams"] if s["codec_name"] == "h264")
@@ -750,11 +805,12 @@ def qa(run: Path, ep: dict, R: dict, lines: list[dict], caps: dict, frames: dict
                  "first_vs_last_psnr_db": round(10 * math.log10(255 ** 2 / max(float(np.mean((first - last) ** 2)), 1e-9)), 2)}
     # banned words: the script (said and shown) and the capture text shown on screen
     script_texts = [ln["say"] for ln in lines] + [c["show"] for ln in lines for c in ln["chunks"]] + R["text"]["headline"] + \
-        [R["text"][k] for k in ("counter", "sink_label", "stamp", "disclaimer", "site")]
+        [R["text"][k] for k in ("counter", "counter_label", "sink_label", "chip", "asof", "stamp", "disclaimer", "site")]
     shown_capture = caps["card"]["inside_text"].split("\n")
     q["banned_scan"] = {"script_problems": text_problems(script_texts),
                         "capture_problems": text_problems(shown_capture),
-                        "script_lines": len(script_texts), "capture_lines": len(shown_capture)}
+                        "youtube_problems": text_problems([yt["title"], yt["description"]]),
+                        "script_lines": len(script_texts), "capture_lines": len(shown_capture), "youtube_lines": 2}
     # visual changes
     ev = sorted(R["events"], key=lambda e: e["t"])
     gaps_ev = [(round(b["t"] - a_["t"], 3), a_["what"], b["what"]) for a_, b in zip(ev, ev[1:])]
@@ -772,7 +828,7 @@ def qa(run: Path, ep: dict, R: dict, lines: list[dict], caps: dict, frames: dict
                            "pixel_longest_still_s": round(longest / FPS, 3), "pixel_longest_still_from_s": round(at / FPS, 3),
                            "pixel_still_threshold": "mean abs frame diff < 0.6/255 at 108x192"}
     gates = {
-        "duration_18_22": 18.0 <= dur <= 22.5,
+        "duration_18_22": 18.0 <= dur <= 22.05,
         "fps_30": abs(q["fps"] - 30) < 0.01,
         "lufs_-14": abs(ld["integrated_lufs"] + 14) <= 0.6,
         "true_peak_le_-1": ld["true_peak_dbtp"] <= -1.0,
@@ -783,6 +839,7 @@ def qa(run: Path, ep: dict, R: dict, lines: list[dict], caps: dict, frames: dict
         "text_in_safe_zone": not out_boxes,
         "speech_from_0": allw[0]["t0"] <= 0.12,
         "no_banned": not q["banned_scan"]["script_problems"] and not q["banned_scan"]["capture_problems"],
+        "youtube_text_clean": not q["banned_scan"]["youtube_problems"],
         "events_max_gap_le_3s": q["visual_changes"]["max_gap_between_events_s"] <= 3.0,
         "words_per_s_2_7_3_0": 2.6 <= q["words_per_s"] <= 3.1,
         "loop_blurred_psnr_ge_35": q["loop"]["blurred_psnr_db"] >= 35,
@@ -845,6 +902,11 @@ def main(argv=None) -> int:
     ap.add_argument("--skip-render", action="store_true", help="reuse this run's rendered video (sound/QA iteration)")
     ap.add_argument("--only", help="render only these frame indices to frames_png (look-dev)")
     a = ap.parse_args(argv)
+    for stream in (sys.stdout, sys.stderr):    # a cp1252 console cannot print "−"
+        try:
+            stream.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
     ep = rjson(Path(a.episode))
     run = Path(a.out) if a.out else MEDIA / ".ops" / "filed" / ep["slug"]
     run.mkdir(parents=True, exist_ok=True)
@@ -863,7 +925,11 @@ def main(argv=None) -> int:
         lines, used = build_script(ep, slots)
         texts_all = [c["say"] for ln in lines for c in ln["chunks"]] + [c["show"] for ln in lines for c in ln["chunks"]]
         headline = [fill(h, slots, "show", used).upper() for h in ep["headline"]]
-        bad = text_problems(texts_all + headline) + prov
+        counter_label = fill(ep["counter_label"], slots, "show", used).upper()
+        sink_label = fill(ep["sink_label"], slots, "show", used).upper()
+        yt = {"title": fill(ep["youtube"]["title"], slots, "show", used),
+              "description": fill(ep["youtube"]["description"], slots, "show", used)}
+        bad = text_problems(texts_all + headline + [counter_label, sink_label, yt["title"], yt["description"]]) + prov
         if bad:
             raise InputError("text problems: " + "; ".join(bad))
         log.append({"facts": facts})
@@ -908,26 +974,32 @@ def main(argv=None) -> int:
             "W": W, "H": H, "fps": FPS, "duration": duration, "day": ep["day"],
             "slab_aspect": slab_aspect,
             "text": {"wordmark": "RapidTradeView", "headline": headline, "headline_accent": ep["headline_accent"],
-                     "counter": slots["gap_signed"].show, "counter_unit": "PTS",
-                     "sink_label": ep["sink_label"], "ticker": slots["ticker"].show, "bench": slots["bench"].show,
+                     "counter": slots["gap_signed"].show, "counter_unit": "PTS", "counter_label": counter_label,
+                     "sink_label": sink_label, "ticker": slots["ticker"].show, "bench": slots["bench"].show,
+                     "chip": f"{slots['ticker'].show} · {slots['side'].show}",
+                     "asof": f"AS OF THE {slots['as_of'].show.upper()} CLOSE",
                      "day": slots["day"].show, "site": "rapidtradeview.trade", "disclaimer": "Not investment advice.",
                      "stamp": "FILED.", "line_label": ep.get("line_label", "SPY")},
             "gap": gap, "sign": facts["sign"],
             "mark": brand_mark_spec(),
-            "assets": {"face": face["face"], "depth": face["depth"], "card": card["card"], "card_hold": card["card_hold"]},
-            "card": {"w": card["card_w"], "h": card["card_h"], "hold": card["hold"], "boxes": card["boxes"]},
+            "assets": {"face": face["face"], "depth": face["depth"], "card": card["card"], "card_hold": card["card_hold"],
+                       "row": card["row"]["img"]},
+            "card": {"w": card["card_w"], "h": card["card_h"], "hold": card["hold"], "boxes": card["boxes"],
+                     "row": card["row"]},
             "T": T,
             "captions": captions(lines, T),
         }
-        ev = [{"t": 0.0, "what": "monolith dolly + counter settle"}, {"t": T["chip"], "what": "ticker chip snaps in"},
+        ev = [{"t": 0.0, "what": "monolith dolly + orbit"}, {"t": T["punch"], "what": "counter punch"},
+              {"t": T["chip"], "what": "whip orbit + ticker chip slams in"},
               {"t": T["flip0"], "what": "the flip"}, {"t": T["flip1"], "what": "card lands flat"},
-              {"t": T["lock0"], "what": "push-in to row"}]
+              {"t": T["lock0"], "what": "row lifts out of the card, rest dims"}]
         ev += [{"t": l_["t"], "what": f"highlight {l_['key']}"} for l_ in T["lock"]]
         ev += [{"t": T["cut_sink"], "what": "cut: sink scene"}, {"t": T["hit"], "what": "impact: tower drops"},
                {"t": T["gapnum"], "what": "gap bracket draws + counter punch"},
                {"t": T["cut_row"], "what": "cut: real row, figure highlighted"},
-               {"t": T["cut_row"] + 0.55, "what": "push-in on the figure"}, {"t": T["end0"], "what": "cut: pull back"},
+               {"t": T["cut_row"] + 0.75, "what": "column header + as-of tag"}, {"t": T["end0"], "what": "cut: pull back"},
                {"t": T["stamp"], "what": "FILED stamp"}, {"t": T["brand_big"], "what": "brand + domain"},
+               {"t": T["brand_big"] + 0.15, "what": "domain types on"},
                {"t": T["disclaim"], "what": "disclaimer line"},
                {"t": T["loop0"], "what": "loop return"}]
         R["events"] = ev
@@ -962,11 +1034,13 @@ def main(argv=None) -> int:
         # sound
         kit = sound.make_kit(KIT_DIR)
         L = {ln["id"]: ln for ln in lines}
-        cues = [{"sfx": "sub_boom", "at": 0.0, "gain_db": -6},
-                {"sfx": "tick", "at": T["chip"], "gain_db": -6},
+        cues = [{"sfx": "sub_boom", "at": 0.0, "gain_db": -8},
+                {"sfx": "thud", "at": T["punch"], "gain_db": -3},
+                {"sfx": "whoosh", "at": T["chip"] - 0.2, "gain_db": -4},
+                {"sfx": "tick", "at": T["chip"] + 0.1, "gain_db": -2},
                 {"sfx": "whoosh", "at": T["flip0"] - 0.05, "gain_db": 0},
                 {"sfx": "tick", "at": T["flip1"], "gain_db": -8},
-                {"sfx": "whoosh", "at": T["lock0"] - 0.05, "gain_db": -8}]
+                {"sfx": "whoosh", "at": T["lock0"] - 0.05, "gain_db": -10}]
         cues += [{"sfx": "swish", "at": l_["t"], "gain_db": -4} for l_ in T["lock"]]
         riser_len = 1.1
         cues += [{"sfx": "riser", "at": T["hit"] - 0.22 - riser_len, "gain_db": -3},
@@ -974,6 +1048,7 @@ def main(argv=None) -> int:
                  {"sfx": "whoosh", "at": T["cut_row"] - 0.08, "gain_db": -8},
                  {"sfx": "swish", "at": T["cut_row"] + 0.1, "gain_db": -5},
                  {"sfx": "whoosh", "at": T["end0"] - 0.1, "gain_db": -6},
+                 {"sfx": "tick", "at": T["brand_big"] + 0.15, "gain_db": -12},
                  {"sfx": "stamp", "at": T["stamp"], "gain_db": -2},
                  {"sfx": "whoosh", "at": T["loop0"], "gain_db": -9}]
         pre = run / "mix_pre.wav"
@@ -994,7 +1069,7 @@ def main(argv=None) -> int:
         shutil.copyfile(fr_dir / "f0000.png", run / "frame0.png")
         sheet(final, run, duration)
         phone(final, run, R)
-        q = qa(run, ep, R, lines, caps, frames, final)
+        q = qa(run, ep, R, lines, caps, frames, final, yt)
         q["render"] = {k: v for k, v in rend.items()}
         q["mix"] = mixinfo
         wjson(run / "qa.json", q)
@@ -1015,7 +1090,9 @@ def main(argv=None) -> int:
             "captures": {n: {"png": c["_png"], "sha256": c["sha256"], "captured_at": c["captured_at"], "url": c["url"],
                              "shown_on_screen": n == "card"} for n, c in caps.items() if n != "targets"},
             "portrait": {k: por[k] for k in ("url", "bioguide", "member", "sha256", "fetched_at", "licence")}
-            | {"crop": face["crop"], "scaling": "none (cropped only); GPU texture sampling, no AI",
+            | {"crop": face["crop"],
+               "scaling": f"PIL Lanczos x{face['lanczos_scale']} once, to {face['texture_size']} px (at least its "
+                          f"on-screen size), then GPU trilinear minification only; no AI, no retouch",
                "depth_model": face["depth_model"]},
             "fonts": fonts,
             "audio": {"voice": {"engine": "Kokoro-82M", "licence": "Apache-2.0", "voice": vs["voice"], "speed": speed},
@@ -1026,8 +1103,6 @@ def main(argv=None) -> int:
             "mix": {"pre": mixinfo, "master": minfo},
         }
         wjson(run / "proof.json", proof)
-        yt = {"title": fill(ep["youtube"]["title"], slots, "show", set()),
-              "description": fill(ep["youtube"]["description"], slots, "show", set())}
         wjson(run / "youtube.json", yt)
         wjson(run / "build_log.json", log)
         print(json.dumps({"final": str(final), "duration": duration, "qa_pass": q["pass"], "gates": q["gates"]}, indent=1))
