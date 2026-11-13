@@ -4,7 +4,8 @@ frame is piped to the full ffmpeg as PNG (x264, CRF 16), or saved as PNG (--only
     python render.py --run RUN_DIR --ffmpeg FFMPEG.exe [--frames-dir DIR] [--only 0,60,...] [--save 0,120,...]
 
 Fake origin http://showcase.local/: /web/* = web/, /three/* = three.js, /fonts/* = the OFL fonts, /run/* = RUN_DIR,
-/take/* = RUN_DIR/take/frames (the recorded screen). Writes RUN_DIR/video_noaudio.mp4 and RUN_DIR/frames.json.
+/take/* = RUN_DIR/take/frames (the recorded screen). Writes RUN_DIR/video_noaudio.mp4 and RUN_DIR/frames.json
+(--probe: the camera and overlay framing of every frame, no pixels: RUN_DIR/probe.json).
 """
 from __future__ import annotations
 
@@ -73,6 +74,11 @@ async def run(args) -> dict:
             if err:
                 raise SystemExit("scene error: " + str(err) + " | " + " | ".join(logs[-20:]))
             rend = await pg.evaluate("window.glRenderer")
+            if args.probe:
+                t0 = time.time()
+                fr = await pg.evaluate(f"[...Array({n}).keys()].map(i => window.probeFrame(i))")
+                (run_dir / "probe.json").write_text(json.dumps({"n": n, "frames": fr}), encoding="utf-8")
+                return {"renderer": rend, "probe": True, "n": n, "seconds": round(time.time() - t0, 2)}
             out_png = Path(args.frames_dir) if args.frames_dir else None
             if out_png:
                 out_png.mkdir(parents=True, exist_ok=True)
@@ -115,6 +121,7 @@ def main():
     ap.add_argument("--frames-dir")
     ap.add_argument("--only")
     ap.add_argument("--save")
+    ap.add_argument("--probe", action="store_true", help="camera/overlay framing only, no render: RUN_DIR/probe.json")
     a = ap.parse_args()
     r = asyncio.run(run(a))
     print(json.dumps({k: v for k, v in r.items() if k != "frames"}))

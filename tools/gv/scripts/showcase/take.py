@@ -280,8 +280,14 @@ def main() -> int:
                     marks[act["name"]] = w0
                     taps.append({"name": act["name"], "sel": act["sel"], "label": label, "x": round(x, 2), "y": round(y, 2),
                                  "box": [round(bb["x"], 2), round(bb["y"], 2), round(bb["width"], 2), round(bb["height"], 2)],
-                                 "wall0": w0, "wall1": w1, "t": round(w0 - t0, 3)})
+                                 "wall0": w0, "wall1": w1, "t": round(w0 - t0, 3),
+                                 "setup": bool(act.get("setup"))})    # setup = a real tap before the part the cut uses
                     mark(f"tap {act['name']} '{label}' at {x:.1f},{y:.1f}")
+                elif kind == "check":
+                    got = pg.evaluate(act["js"])
+                    mark(f"check {act['what']}: {got}")
+                    if got != act["expect"]:
+                        raise TakeError(f"check failed: {act['what']} = {got!r}, expected {act['expect']!r}")
                 else:
                     raise TakeError("unknown action " + kind)
             badge = pg.evaluate(r"""() => { const t = document.body.innerText.match(/^\s*(\d)\/(\d)\s*$/m); return t ? t[0].trim() : null; }""")

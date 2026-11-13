@@ -16,7 +16,8 @@
    "card": "closest:.rounded-2xl|[data-testid=\"pattern-banner\"]",
    "card_hidden": "closest:.rounded-2xl|[data-testid=\"pattern-chip\"]",
    "header": "header",
-   "ticker_logo": "js:[...document.querySelectorAll('img')].find(i => { const b = i.getBoundingClientRect(); return b.top >= 0 && b.bottom <= 100 && b.width > 20 && b.width < 90; })"
+   "ticker_logo": "js:[...document.querySelectorAll('img')].find(i => { const b = i.getBoundingClientRect(); return b.top >= 0 && b.bottom <= 100 && b.width > 20 && b.width < 90; })",
+   "sma": "js:[...document.querySelectorAll('label')].find(l => l.innerText.trim() === 'SMA')"
   },
   "keepout_rx": [
    "^HOLD$",
@@ -82,7 +83,54 @@
    {
     "do": "wait_until",
     "since": "jumped",
-    "s": "1.6"
+    "s": "1.9"
+   },
+   {
+    "do": "tap",
+    "name": "setup_hide",
+    "sel": "[data-testid=\"pattern-banner\"] button",
+    "setup": true
+   },
+   {
+    "do": "wait_until",
+    "since": "setup_hide",
+    "s": "0.7"
+   },
+   {
+    "do": "tap",
+    "name": "sma_off",
+    "sel": "label:has-text(\"SMA\")",
+    "setup": true
+   },
+   {
+    "do": "wait_until",
+    "since": "sma_off",
+    "s": "0.5"
+   },
+   {
+    "do": "check",
+    "js": "() => { const l = [...document.querySelectorAll('label')].find(x => x.innerText.trim() === 'SMA'); return l ? !l.querySelector('input').checked : null; }",
+    "expect": true,
+    "what": "SMA unchecked"
+   },
+   {
+    "do": "snap",
+    "label": "setup_hidden"
+   },
+   {
+    "do": "wait_until",
+    "since": "sma_off",
+    "s": "1.2"
+   },
+   {
+    "do": "tap",
+    "name": "show1",
+    "sel": "[data-testid=\"pattern-chip\"]"
+   },
+   {
+    "do": "wait_until",
+    "since": "show1",
+    "s": "1.45"
    },
    {
     "do": "snap",
@@ -90,8 +138,8 @@
    },
    {
     "do": "wait_until",
-    "since": "jumped",
-    "s": "{hook_lead} + {t_hide}"
+    "since": "show1",
+    "s": "{src_hide_after_show1}"
    },
    {
     "do": "tap",
@@ -101,7 +149,7 @@
    {
     "do": "wait_until",
     "since": "hide",
-    "s": "0.75"
+    "s": "0.4"
    },
    {
     "do": "snap",
@@ -120,7 +168,7 @@
    {
     "do": "wait_until",
     "since": "show",
-    "s": "2.8"
+    "s": "1.5"
    },
    {
     "do": "snap",
@@ -129,7 +177,45 @@
    {
     "do": "wait_until",
     "since": "show",
-    "s": "{t_hide_end} - {t_show} - {slow_extra}"
+    "s": "{t_hide_b} - {t_show}"
+   },
+   {
+    "do": "tap",
+    "name": "hide_b",
+    "sel": "[data-testid=\"pattern-banner\"] button"
+   },
+   {
+    "do": "wait_until",
+    "since": "hide_b",
+    "s": "0.4"
+   },
+   {
+    "do": "snap",
+    "label": "hidden_b"
+   },
+   {
+    "do": "wait_until",
+    "since": "hide_b",
+    "s": "{t_show_b} - {t_hide_b}"
+   },
+   {
+    "do": "tap",
+    "name": "show_b",
+    "sel": "[data-testid=\"pattern-chip\"]"
+   },
+   {
+    "do": "wait_until",
+    "since": "show_b",
+    "s": "1.2"
+   },
+   {
+    "do": "snap",
+    "label": "shown_b"
+   },
+   {
+    "do": "wait_until",
+    "since": "show_b",
+    "s": "{t_hide_end} - {t_show_b}"
    },
    {
     "do": "tap",
@@ -139,7 +225,7 @@
    {
     "do": "wait_until",
     "since": "hide_end",
-    "s": "0.75"
+    "s": "0.4"
    },
    {
     "do": "snap",
@@ -148,16 +234,30 @@
    {
     "do": "wait_until",
     "since": "hide_end",
-    "s": "{end} - {t_hide_end} + 0.8"
+    "s": "{t_show_end} - {t_hide_end}"
+   },
+   {
+    "do": "tap",
+    "name": "show_end",
+    "sel": "[data-testid=\"pattern-chip\"]"
+   },
+   {
+    "do": "wait_until",
+    "since": "show_end",
+    "s": "1.6"
    }
   ],
   "taps_used": {
+   "hook": "show1",
    "hide": "hide",
    "show": "show",
-   "end": "hide_end"
+   "hide_b": "hide_b",
+   "show_b": "show_b",
+   "hide_end": "hide_end",
+   "show_end": "show_end"
   }
  },
- "schema": "rtv-showcase-episode/1",
+ "schema": "rtv-showcase-episode/2",
  "requires": {
   "pattern_status": "confirmed",
   "banner_words": [
@@ -182,24 +282,18 @@
  "lines": [
   {
    "id": "hook",
-   "text": "This stock | chart draws | its own | *pattern.",
-   "speed_mul": 1.06
-  },
-  {
-   "id": "brand",
-   "gap_before": 0.1,
-   "text": "That's | *RapidTradeView, | a *free | stock app.",
-   "speed_mul": 1.12
+   "text": "*RapidTradeView | draws the | chart *pattern | for you.",
+   "speed_mul": 1.0
   },
   {
    "id": "hide",
    "gap_before": 0.1,
-   "text": "Switch it *off: | the pattern's | gone."
+   "text": "@off Switch it *off: | gone."
   },
   {
    "id": "show",
    "gap_before": 0.1,
-   "text": "@tap One *tap, | and it draws | it back."
+   "text": "@tap One *tap."
   },
   {
    "id": "honest",
@@ -209,42 +303,60 @@
   },
   {
    "id": "end",
+   "gap_before": 0.1,
+   "text": "@free It's a *free | stock app: | @brand2 *RapidTradeView."
+  },
+  {
+   "id": "nia",
    "gap_before": 0.05,
-   "text": "@free *Free, on | *RapidTradeView. | @nia ~Not investment advice."
+   "text": "@nia ~Not investment advice.",
+   "speed_mul": 1.06
   }
  ],
  "slow": {
-  "draw": "show",
-  "speed": 0.5
+  "draw": "hook",
+  "speed": 0.5,
+  "note": "the hook draw-on plays at 0.5x from real frames; the Show replay plays at real speed"
  },
- "hook_app_ms": 230,
+ "hook_app_ms": 350,
  "youtube": {
   "title": "This free app draws the chart pattern for you #Shorts",
   "description": "RapidTradeView finds the chart pattern on a stock and draws it right on the chart: one tap hides it, one tap draws it back, and it says plainly it is a chart shape, not a prediction. Free at rapidtradeview.trade\nNot investment advice.\n#Shorts #stocks #charts"
  },
- "hide_by": 4.15,
- "tail_s": 0.75,
- "show_latency_guess": 0.06,
+ "tail_s": 0.45,
+ "show_latency_guess": 0.04,
  "camera": {
   "fov": 24,
   "frame0": {
    "s": 0.652,
-   "top": 480,
-   "xc": 532,
+   "top": 478,
+   "xc": 520,
    "yaw": -5.0,
-   "pitch": 3.0
+   "pitch": 4.5
+  },
+  "hook_end": {
+   "s": 0.685,
+   "top": 470,
+   "xc": 508,
+   "yaw": -2.5,
+   "pitch": 4.0
   },
   "push": {
-   "s": 0.79,
-   "top": 350,
-   "xc": 520
+   "s": 0.73,
+   "top": 385,
+   "xc": 492
+  },
+  "pull": {
+   "s": 0.695,
+   "top": 425,
+   "xc": 496
   },
   "macro": {
-   "s": 0.795,
-   "top": 350,
-   "fx": 490
+   "s": 0.738,
+   "top": 372,
+   "xc": 492,
+   "yaw": 3.0
   },
-  "glide_fx": 490,
   "punch": 0.012
  },
  "style": {
@@ -255,17 +367,18 @@
    "screen_radius": 0.085
   },
   "plinth": {
-   "w": 3.6,
+   "w": 4.2,
    "h": 3.0,
-   "d": 0.6,
-   "reflect": 0.12
+   "d": 1.4,
+   "reflect": 0.3
   },
   "pill": {
    "top": 200,
    "tile": 90,
    "pad": 11,
    "font": 54,
-   "grow": 1.22
+   "grow": 1.22,
+   "logo_ratio": 1.55
   },
   "headline": {
    "top": 318,
@@ -280,9 +393,26 @@
    "max_base": 1474
   },
   "end": {
-   "site_size": 58,
-   "site_gap": 14,
-   "disc_size": 52
+   "site_size": 64,
+   "disc_size": 46,
+   "site_below_edge": 78,
+   "site_max_base": 1418,
+   "disc_gap": 60
   }
- }
+ },
+ "show_end_before_end_s": 0.2,
+ "pre_impact_silence_s": 0.3,
+ "duration_s": [
+  13.5,
+  20.0
+ ],
+ "hero_rects": [
+  "banner",
+  "hide",
+  "not_a_prediction",
+  "banner_chip",
+  "chart",
+  "show_chip",
+  "chart_hidden"
+ ]
 }
