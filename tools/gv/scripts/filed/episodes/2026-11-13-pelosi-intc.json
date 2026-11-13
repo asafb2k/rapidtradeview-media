@@ -1,0 +1,74 @@
+{
+ "schema": "rtv-filed-episode/1",
+ "series": "FILED.",
+ "day": 1,
+ "slug": "2026-11-13-pelosi-intc",
+ "member": "Nancy Pelosi",
+ "possessive": "Pelosi's",
+ "bioguide": "P000197",
+ "portrait": "https://unitedstates.github.io/images/congress/original/P000197.jpg",
+ "page": "https://www.rapidtradeview.trade/smart-money/figures/nancy-pelosi",
+ "card_title": "Disclosed trades",
+ "card_end_text": "Members of Congress report trades",
+ "card_dpr": 6,
+ "ticker": "INTC",
+ "side": "buy",
+ "nth": 1,
+ "company": {
+  "url": "https://www.rapidtradeview.trade/stocks/I",
+  "target": "Intel Corporation",
+  "name_starts": "Intel",
+  "short": "Intel"
+ },
+ "expect": {
+  "gap_sign": "-",
+  "column": "Since filing vs SPY"
+ },
+ "headline": [
+  "{possessive} {short} {side}",
+  "IS TRAILING {bench}"
+ ],
+ "headline_accent": "TRAILING",
+ "sink_label": "VS SPY · SINCE THE FILING",
+ "slab_aspect": 0.9,
+ "voice": {
+  "voice": "am_michael",
+  "speed": 1.15,
+  "target_wps": [
+   2.85,
+   3.0
+  ]
+ },
+ "bed_under_voice_db": 19.0,
+ "lines": [
+  {
+   "id": "hook",
+   "text": "~{member_pos} {short_mixed} {side_l} is trailing {bench} by nearly {gap_near} points.",
+   "speed_mul": 1.3
+  },
+  {
+   "id": "brand",
+   "gap_before": 0.06,
+   "text": "@brandflip *RapidTradeView | has the filing."
+  },
+  {
+   "id": "row",
+   "gap_before": 0.12,
+   "text": "@amount Up to | *{amount_hi}, | @owner her *{owner} | account. | @traded Traded *{traded}, | @filed filed *{filed}."
+  },
+  {
+   "id": "sink",
+   "gap_before": 0.25,
+   "text": "@sink Since that | filing, | {short_mixed} is | @gapnum !{gap} points | @behind behind *{bench}."
+  },
+  {
+   "id": "end",
+   "gap_before": 0.15,
+   "text": "Every filing, | free, | @brandend ~on RapidTradeView. | @disclaim ~Not investment advice."
+  }
+ ],
+ "youtube": {
+  "title": "{possessive_mixed} {short_mixed} buy is trailing {bench} by {gap} points since the filing #Shorts",
+  "description": "{member} disclosed an {short_mixed} ({ticker}) {side_l} of {amount} in her {owner_l} account: traded {traded_iso}, filed {filed_iso}. Since that filing it is {gap} points behind {bench}, as shown on RapidTradeView. FILED. is one disclosed trade a day. Every filing, free: https://www.rapidtradeview.trade/smart-money/figures/nancy-pelosi\nNot investment advice."
+ }
+}
