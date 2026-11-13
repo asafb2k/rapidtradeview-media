@@ -1,0 +1,66 @@
+{
+  "schema": "rtv-member-stories/1",
+  "about": "Member-story Shorts (make_member_story.py). One entry = one video. Every number, date and amount is a {slot} read from today's capture of our live page; the lines never type one. A person reads the lines of a new entry: the text checks are deny-lists.",
+  "stories": {
+    "pelosi-intc-buy": {
+      "member": "Nancy Pelosi",
+      "pronoun": "her",
+      "bioguide": "P000197",
+      "portrait": "https://unitedstates.github.io/images/congress/original/P000197.jpg",
+      "face": [0.5, 0.36],
+      "ticker": "INTC",
+      "side": "buy",
+      "nth": 1,
+      "short": "Intel",
+      "company_from": {"capture": "names", "rx": "(?m)^INTC\\n(?P<company>[^\\n]+)$"},
+      "captures": {
+        "proof": {"url": "https://www.rapidtradeview.trade/smart-money/figures/nancy-pelosi",
+                  "top": "text:Disclosed trades", "bottom": "text:$500,001–$1,000,000#2", "pad": [10, 10],
+                  "key": ["INTC", "$500,001–$1,000,000#1"], "key_pad": [12, 14, 14], "reader": "member_row"},
+        "context": {"url": "https://www.rapidtradeview.trade/smart-money/figures/nancy-pelosi",
+                    "top": "text:=Buys", "bottom": "text:=Tickers", "pad": [26, 84],
+                    "key": ["=Buys", "=Sells"], "key_pad": [26, 22, 70],
+                    "reader": "rx", "rx": "Buys\\n(?P<buys>\\d+)\\nSells\\n(?P<sells>\\d+)\\nTickers\\n(?P<tickers>\\d+)"},
+        "names": {"url": "https://www.rapidtradeview.trade/stocks/I", "target": "Intel Corporation"}
+      },
+      "hook": {"name": "{member}", "fact": "Disclosed an {short} buy of up to {amount_hi}",
+               "say": "On RapidTradeView: {member} disclosed an {short} buy."},
+      "proof_lines": ["Traded {traded},", "filed {filed}:", "{amount},", "{owner_account}."],
+      "context_lines": ["{pronoun_cap} page lists", "{buys} buys and {sells} sells."],
+      "youtube": {
+        "title": "{member} disclosed an {short} buy of up to {amount_hi}",
+        "description": "{member}'s filing on {filed_long}: an {short} ({ticker}) purchase traded {traded_long}, {amount}, {owner_account}. See every disclosed Congress trade, free, on RapidTradeView: https://www.rapidtradeview.trade/congress-trades?utm_source=youtube&utm_medium=shorts\nNot investment advice."
+      }
+    },
+    "salazar-nvda-buy": {
+      "member": "Maria Elvira Salazar",
+      "pronoun": "her",
+      "bioguide": "S000168",
+      "portrait": "https://unitedstates.github.io/images/congress/original/S000168.jpg",
+      "face": [0.5, 0.33],
+      "ticker": "NVDA",
+      "side": "buy",
+      "nth": 1,
+      "short": "Nvidia",
+      "company_from": {"capture": "context", "rx": "(?m)^NVDA\\n(?P<company>[^\\n]+)$"},
+      "captures": {
+        "proof": {"url": "https://www.rapidtradeview.trade/smart-money/figures/maria-elvira-salazar",
+                  "top": "text:Disclosed trades", "bottom": "text:$1,001–$15,000#4", "pad": [10, 12],
+                  "key": ["NVDA#1", "$1,001–$15,000#4"], "key_pad": [12, 14, 14], "reader": "member_row"},
+        "context": {"url": "https://www.rapidtradeview.trade/congress-trades",
+                    "top": "text:Most bought stocks by Congress", "bottom": "text:first buy filing Aug 20, 2026", "pad": [12, 14],
+                    "key": ["NVDA", "members buying#1"], "key_pad": [12, 12, 30],
+                    "reader": "rx", "rx": "Most bought stocks by Congress\\nTicker\\nSince first buy filing\\n(?P<top_ticker>[A-Z.]+)\\n(?P<top_company>[^\\n]+)\\n[^\\n]+\\n(?P<members>\\d+) members buying\\n·\\n(?P<buy_filings>\\d+) buy filings",
+                    "require": {"top_ticker": "{ticker}"}}
+      },
+      "hook": {"name": "{member}", "fact": "Disclosed {rows_same} {short} buys, filed {filed}",
+               "say": "On RapidTradeView: {member} disclosed {rows_same} {short} buys."},
+      "proof_lines": ["Traded {traded},", "filed {filed},", "{amount}", "each."],
+      "context_lines": ["{short} tops the list", "of stocks Congress bought most:", "{members} members buying."],
+      "youtube": {
+        "title": "{member} disclosed {rows_same} {short} buys",
+        "description": "{member} filed {rows_same} {short} ({ticker}) purchases on {filed_long}, traded {traded_long}, {amount} each. {short} tops RapidTradeView's list of stocks Congress bought most, with {members} members buying. See every disclosed Congress trade, free: https://www.rapidtradeview.trade/congress-trades?utm_source=youtube&utm_medium=shorts\nNot investment advice."
+      }
+    }
+  }
+}
