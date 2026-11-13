@@ -1,0 +1,288 @@
+{
+ "slug": "2026-11-13-chart-pattern",
+ "series": "SHOWCASE: one RapidTradeView feature a day, its real screen in a phone",
+ "day": 1,
+ "feature": "chart pattern drawn on the chart (draw-on, Hide, Show)",
+ "one_sentence": "RapidTradeView draws the chart pattern on the chart for you.",
+ "take": {
+  "rects": {
+   "banner": "[data-testid=\"pattern-banner\"]",
+   "hide": "[data-testid=\"pattern-banner\"] button",
+   "banner_chip": "[data-testid=\"pattern-banner-chip\"]",
+   "not_a_prediction": "[data-testid=\"pattern-banner-sub\"]",
+   "show_chip": "[data-testid=\"pattern-chip\"]",
+   "chart": "up:1:[data-testid=\"pattern-banner\"]",
+   "chart_hidden": "up:1:[data-testid=\"pattern-chip\"]",
+   "card": "closest:.rounded-2xl|[data-testid=\"pattern-banner\"]",
+   "card_hidden": "closest:.rounded-2xl|[data-testid=\"pattern-chip\"]",
+   "header": "header",
+   "ticker_logo": "js:[...document.querySelectorAll('img')].find(i => { const b = i.getBoundingClientRect(); return b.top >= 0 && b.bottom <= 100 && b.width > 20 && b.width < 90; })"
+  },
+  "keepout_rx": [
+   "^HOLD$",
+   "^BUY$",
+   "^SELL$",
+   "bullish",
+   "bearish",
+   "/100",
+   "^\\d/\\d$",
+   "our record",
+   "key level",
+   "reddit",
+   "vader",
+   "elbstream",
+   "yahoo",
+   "finnhub",
+   "stocktwits",
+   "apewisdom",
+   "google news",
+   "operated by",
+   "sponsored",
+   "price target",
+   "\\([DRI]-[A-Z]{2}\\)",
+   "^[DRI] · "
+  ],
+  "keepout_block": {
+   "indicators row": [
+    "Indicators",
+    2
+   ],
+   "chart pattern card": [
+    "Chart pattern",
+    2
+   ]
+  },
+  "keepout_sel": {
+   "bottom tab bar": "nav[class*=\"fixed\"], div[class*=\"fixed\"][class*=\"bottom-0\"]"
+  },
+  "actions": [
+   {
+    "do": "wait_for",
+    "sel": "[data-testid=\"pattern-banner\"]",
+    "then_ms": 1200
+   },
+   {
+    "do": "settle_network",
+    "timeout": 12000
+   },
+   {
+    "do": "wait",
+    "s": 1.0
+   },
+   {
+    "do": "snap",
+    "label": "top"
+   },
+   {
+    "do": "jump_to",
+    "sel": "[data-testid=\"pattern-banner\"]",
+    "up": ".rounded-2xl",
+    "gap": 8
+   },
+   {
+    "do": "wait_until",
+    "since": "jumped",
+    "s": "1.6"
+   },
+   {
+    "do": "snap",
+    "label": "drawn"
+   },
+   {
+    "do": "wait_until",
+    "since": "jumped",
+    "s": "{hook_lead} + {t_hide}"
+   },
+   {
+    "do": "tap",
+    "name": "hide",
+    "sel": "[data-testid=\"pattern-banner\"] button"
+   },
+   {
+    "do": "wait_until",
+    "since": "hide",
+    "s": "0.75"
+   },
+   {
+    "do": "snap",
+    "label": "hidden"
+   },
+   {
+    "do": "wait_until",
+    "since": "hide",
+    "s": "{t_show} - {t_hide}"
+   },
+   {
+    "do": "tap",
+    "name": "show",
+    "sel": "[data-testid=\"pattern-chip\"]"
+   },
+   {
+    "do": "wait_until",
+    "since": "show",
+    "s": "2.8"
+   },
+   {
+    "do": "snap",
+    "label": "shown"
+   },
+   {
+    "do": "wait_until",
+    "since": "show",
+    "s": "{t_hide_end} - {t_show} - {slow_extra}"
+   },
+   {
+    "do": "tap",
+    "name": "hide_end",
+    "sel": "[data-testid=\"pattern-banner\"] button"
+   },
+   {
+    "do": "wait_until",
+    "since": "hide_end",
+    "s": "0.75"
+   },
+   {
+    "do": "snap",
+    "label": "end_hidden"
+   },
+   {
+    "do": "wait_until",
+    "since": "hide_end",
+    "s": "{end} - {t_hide_end} + 0.8"
+   }
+  ],
+  "taps_used": {
+   "hide": "hide",
+   "show": "show",
+   "end": "hide_end"
+  }
+ },
+ "schema": "rtv-showcase-episode/1",
+ "requires": {
+  "pattern_status": "confirmed",
+  "banner_words": [
+   "Chart shape, not a prediction"
+  ],
+  "banner_chip_starts": "Confirmed"
+ },
+ "headline": [
+  "CHART PATTERNS,",
+  "DRAWN FOR YOU"
+ ],
+ "headline_accent": "DRAWN",
+ "voice": {
+  "voice": "am_michael",
+  "speed": 1.08,
+  "target_wps": [
+   2.75,
+   2.95
+  ]
+ },
+ "bed_under_voice_db": 20.0,
+ "lines": [
+  {
+   "id": "hook",
+   "text": "This stock | chart draws | its own | *pattern.",
+   "speed_mul": 1.06
+  },
+  {
+   "id": "brand",
+   "gap_before": 0.1,
+   "text": "That's | *RapidTradeView, | a *free | stock app.",
+   "speed_mul": 1.12
+  },
+  {
+   "id": "hide",
+   "gap_before": 0.1,
+   "text": "Switch it *off: | the pattern's | gone."
+  },
+  {
+   "id": "show",
+   "gap_before": 0.1,
+   "text": "@tap One *tap, | and it draws | it back."
+  },
+  {
+   "id": "honest",
+   "gap_before": 0.12,
+   "after": "impact",
+   "text": "And it tells you | *straight: | @shape a chart shape, | not a | prediction."
+  },
+  {
+   "id": "end",
+   "gap_before": 0.05,
+   "text": "@free *Free, on | *RapidTradeView. | @nia ~Not investment advice."
+  }
+ ],
+ "slow": {
+  "draw": "show",
+  "speed": 0.5
+ },
+ "hook_app_ms": 230,
+ "youtube": {
+  "title": "This free app draws the chart pattern for you #Shorts",
+  "description": "RapidTradeView finds the chart pattern on a stock and draws it right on the chart: one tap hides it, one tap draws it back, and it says plainly it is a chart shape, not a prediction. Free at rapidtradeview.trade\nNot investment advice.\n#Shorts #stocks #charts"
+ },
+ "hide_by": 4.15,
+ "tail_s": 0.75,
+ "show_latency_guess": 0.06,
+ "camera": {
+  "fov": 24,
+  "frame0": {
+   "s": 0.652,
+   "top": 480,
+   "xc": 532,
+   "yaw": -5.0,
+   "pitch": 3.0
+  },
+  "push": {
+   "s": 0.79,
+   "top": 350,
+   "xc": 520
+  },
+  "macro": {
+   "s": 0.795,
+   "top": 350,
+   "fx": 490
+  },
+  "glide_fx": 490,
+  "punch": 0.012
+ },
+ "style": {
+  "phone": {
+   "bezel": 0.045,
+   "depth": 0.09,
+   "radius": 0.14,
+   "screen_radius": 0.085
+  },
+  "plinth": {
+   "w": 3.6,
+   "h": 3.0,
+   "d": 0.6,
+   "reflect": 0.12
+  },
+  "pill": {
+   "top": 200,
+   "tile": 90,
+   "pad": 11,
+   "font": 54,
+   "grow": 1.22
+  },
+  "headline": {
+   "top": 318,
+   "max": 62,
+   "min": 54
+  },
+  "caption": {
+   "size": 86,
+   "min": 84,
+   "below_edge": 86,
+   "max_w": 800,
+   "max_base": 1474
+  },
+  "end": {
+   "site_size": 58,
+   "site_gap": 14,
+   "disc_size": 52
+  }
+ }
+}
