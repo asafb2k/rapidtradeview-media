@@ -1,6 +1,6 @@
 ---
 name: cartoon-story-reel
-description: Make a cartoon-story Reel / Short for RapidTradeView in the one-idea format. A cartoon character hears a news item in a confusing way, opens RapidTradeView, and our real page shows the real fact; the brand is on screen the whole time. Use it to turn one facts item into a 15-20 s vertical video, generated from the item by make_story.py, or to show what one feature of the site answers (Congress trades, insider trades, concentration, portfolio, market breadth) with the site's real card whole on screen, generated from a capture made now by make_feature_story.py.
+description: Make a cartoon-story Reel / Short for RapidTradeView in the one-idea format. A cartoon character hears a news item in a confusing way, opens RapidTradeView, and our real page shows the real fact; the brand is on screen the whole time. Use it to turn one facts item into a 15-20 s vertical video, generated from the item by make_story.py, or to show what one feature of the site answers (Congress trades, insider trades, concentration, portfolio) with the site's real card whole on screen, generated from a capture made now by make_feature_story.py.
 ---
 
 # Cartoon-story Reel (format v4: one idea, brand always visible)
@@ -153,7 +153,8 @@ pill on every frame, "RapidTradeView" said in the first ~4 s and at the end).
 
 Three of the four (smart-money, concentration, portfolio) had cut the real page into FRAGMENT cards: a thin headline
 strip, one table row, the donut lifted out of its card onto a black box, values captured again at 6x. The fourth showed
-the whole Market breadth card with its chart, as the site draws it: that is the standard. So the payoff is the **site
+the whole Market breadth card with its chart, as the site draws it (the site removed that tile on 2026-11-14, and its
+feature with it): that is the standard. So the payoff is the **site
 screen**, and these rules bind every feature short:
 
 1. **The card WHOLE.** The payoff shows the site's real card or screen at phone width, exactly as the website renders it:
@@ -212,7 +213,6 @@ folder that holds a render is left as it is when the story cannot be built.
 | `insiders` (hold) | INSIDER TRADES, same section | "Insiders bought $502M!" / "And sold?" | card 976 px; stands on the BOUGHT chart, scrolls to the SOLD chart and stands there while "$3.6B sold by insiders." is read, comes back | "$3.6B" in the headline |
 | `concentration` | the head of the Portfolio Concentration card of `/sample-portfolio`: title, pill, headline, donut | "Only 9 of my 42 are chips!" / "Only?" | whole in one frame, card 955 px, no scroll | the headline "33% of your money is in 9 chip companies." |
 | `portfolio` | `/sample-portfolio` as a PAGE, from our header to the second SECTORS row | "42 holdings. Spread all over!" / "Spread where?" | page 1040 px; one scroll (about 730 px/s at its fastest, 2.3 s) from the page's top to the stop that holds the whole donut, the SECTORS heading and its first row; it stays there | that row whole, "Technology ▲ high 57% 39%" |
-| `market-breadth` | MARKET BREADTH, same section | "83% of stocks rose Monday!" / "Out of how many?" | whole in one frame, card 976 px, no scroll | "2,494" when it is read, then "83%" |
 
 (The numbers are 2026-11-10's; every one is a slot.)
 
@@ -223,18 +223,11 @@ folder that holds a render is left as it is when the story cannot be built.
 - `concentration` and `portfolio` read the **read-only sample portfolio**: say so in the post text (the concentration
   video never shows the READ-ONLY SAMPLE label), and do not post the two close together: both rest on the same donut
   (one frames title + pill + headline + donut; the other the donut above the sector list).
-- `market-breadth` is a **dated fact**: the card shows "Last session (Mon, Nov 9)" and the hook names that weekday. The
-  session must be the last US session that had closed when the page was captured, or the script stops (also the day
-  after a market holiday: the gate does not know holidays). **Before the US open the card switches to its pre-market count** ("Pre-market: 125 of the
-  500 largest up so far"; on 2026-11-10 it still showed the last session at 08:15 UTC and the pre-market count at 09:15
-  UTC, 04:15 US Eastern; pre-market trading starts at 04:00 Eastern) **and the feature stops** until the card shows a
-  closed session again: capture it before 04:00 Eastern. Post it before the next session closes, or capture
-  and render again; never later.
 - `/smart-money`, `/portfolio`, `/dashboard/<ticker>`, `/fund/<number>` and `/d/<ticker>/<date>` are sign-in only or
   count a guest view: the registry refuses them as a `url`, in any letter case. Never sign in.
-- Not in the registry: the MARKET MAP (grey while the market is closed), the Reddit buzz panel (a source brand), and
-  SECTOR ROTATION (its headline is a generated sentence whose shape changes with the day and reads as signed percentages
-  aloud: add it only with value rules that hold on every shape).
+- Not in the registry: the MARKET MAP (grey while the market is closed), the Reddit buzz panel (a source brand) and
+  MARKET MOOD (not added yet). The site removed its MARKET BREADTH and SECTOR ROTATION tiles on 2026-11-14 (the
+  `market-breadth` feature went with them).
 - Each entry carries a `post_note` (copied into `reel.json`): read it before the video is posted.
 
 One entry holds:
@@ -256,9 +249,8 @@ One entry holds:
   - A box is `page`, `el:CSS` (the first drawn element), `all:CSS` (the union of all drawn ones) or `text:TEXT` (with the
     target marks: `=` whole text node, `#N` N-th occurrence).
 - `values`: how each slot is read from the strip's text: `{"from": "page", "after": line, "offset": n, "rx": regex with
-  named groups, "as": name for the whole line, "prev"/"next": {name: regex}}`. `checks` stop a day that does not carry
-  the story: `{"value", "min" | "max" | "equals" | "more_than": other value}`, `{"pct": p, "of": [count, total]}`,
-  `{"session": {...}, "sets": {"weekday", "date"}}`.
+  named groups, "as": name for the whole line, "next": {name: regex}}`. `checks` stop a day that does not carry
+  the story: `{"value", "min" | "max" | "equals" | "more_than": other value}`.
 - `lines`: hook, hook_figure, confused, search, fact_a, fact_b. **A line never holds a number, a ticker, a name, a weekday
   or a period ("today", "this week"): those are slots.** `registry_problems` refuses a typed number, ticker, day or
   period, every capitalised word that is not in `proper_words` (the first word of a sentence included: a person or a
@@ -287,7 +279,7 @@ One entry holds:
   333), its bottom at y 1457 at the lowest. The caption band sits right under the window and ends above y 1574 (the
   platforms' bottom 18%): caption size 72, 64 or 60, whichever the room allows, at most 700 px wide, right of Pip's 88 px
   head and left of the action rail.
-- A strip that fits the stage with the card at 940 px or more is shown whole, without a scroll (breadth, concentration).
+- A strip that fits the stage with the card at 940 px or more is shown whole, without a scroll (concentration).
 - A taller strip scrolls between stops, and **the window's height is solved**: the tallest window (from 1115 px down
   to 875) for which the strip's top and the end stop are both clean (rule 6, `cartoon_qa.window_edge_hits` over the
   capture's rows), every chart is whole at a stop, a chart is whole where the key is outlined, and the end stop reaches
@@ -337,7 +329,7 @@ One entry holds:
 ### When `make_feature_story.py` stops (exit 2, no story.json)
 
 - the card, one of its parts or a value is missing, or a check fails (the page changed, or today's data does not carry
-  the story; the breadth card in its pre-market or live mode);
+  the story);
 - the page says a `refuse_if` text, or the strip shows an error, a loading word or a figure that did not compute;
 - a provider or source brand is on what the strip shows;
 - a picture on the strip did not load, or a logo's slot is empty; the card's chart is not a drawn element;

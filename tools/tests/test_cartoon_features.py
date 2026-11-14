@@ -24,12 +24,12 @@ _spec.loader.exec_module(F)
 Q, M = F.Q, F.M
 
 NOW = dt.datetime(2026, 11, 10, 9, 0, 0, tzinfo=dt.timezone.utc)
-AT = "2026-11-10T08:30:00Z"                  # 03:30 US Eastern on Tue Nov 10: the last closed session is Mon Nov 9
+AT = "2026-11-10T08:30:00Z"                  # 03:30 US Eastern on Tue Nov 10
 SITE = "https://www.rapidtradeview.trade"
 HOME, LANDS = f"{SITE}/market", f"{SITE}/#market"
 SAMPLE = f"{SITE}/sample-portfolio"
 HEADER = "RapidTradeView\n0\n/\n2\nregister/sign-in"
-ALL = ("congress", "insiders", "concentration", "portfolio", "market-breadth")
+ALL = ("congress", "insiders", "concentration", "portfolio")
 
 
 def seal(m):
@@ -72,7 +72,7 @@ def congress(sells="130", buys="76", sells_word="sells,", buys_word="buys"):
                           [{"text": sells, "box": [81.0, 125.6, 127.5, 90]}, {"text": "buys", "box": [505.9, 125.6, 155.9, 90]}],
                           {"card": [36, 20.6, 1098, 1446.9], "title": [81, 72.0, 349.7, 42.0], "headline": [81, 134.6, 1008, 77.2],
                            "chart": [81, 220.8, 1008, 984.1]},
-                          "MARKET BREADTH\nCONGRESS TRADES\n" + text + "\nINSIDER TRADES\nREDDIT BUZZ", final=LANDS, top=2418.0,
+                          "MARKET MOOD\nCONGRESS TRADES\n" + text + "\nINSIDER TRADES\nREDDIT BUZZ", final=LANDS, top=2418.0,
                           bands=CONGRESS_BANDS, images=[logo(1240, "NVDA"), logo(1240, "MU")], failed=["STLN"])}
 
 
@@ -132,19 +132,7 @@ def portfolio(bench=(943.0, 2559.4)):
                                 "header": ["header>graphic"], "row": ["button>graphic"], **DONUT})}
 
 
-def market(verb="rose", label="Last session (Mon, Nov 9)", count="2,061", total="2,494", pct="83%", at=AT):
-    text = (f"Market breadth\n·\n{label}\nShare\n{count}\nof {total} stocks {verb} —\n{pct}\n{count} up\n409 down\n{pct}\n16%\n"
-            "Up minus down, last 20 closes\n+2,000\n0\n−2,000\nOct 13\nOct 26\n+1,652\nNov 9 (Mon)")
-    return {"page": strip(HOME, [1170, 1203], text,
-                          [{"text": pct, "box": [948.4, 175.2, 128.3, 81]}, {"text": total, "box": [330.0, 175.2, 152.0, 81]}],
-                          {"card": [36, 8.7, 1098, 1187.6], "title": [81, 59.7, 326.3, 42.0], "headline": [81, 181.2, 1008, 72.4],
-                           "chart": [81, 262.6, 1008, 894.7]},
-                          "MARKET BREADTH\n" + label + "\nREDDIT BUZZ", at, final=LANDS, top=996.0,       # innerText: CSS upper-casing
-                          bands=[[60, 102], [175, 256], [270, 420], [470, 1150]])}
-
-
-METAS = {"congress": congress, "insiders": insiders, "concentration": concentration, "portfolio": portfolio,
-         "market-breadth": market}
+METAS = {"congress": congress, "insiders": insiders, "concentration": concentration, "portfolio": portfolio}
 
 
 @pytest.fixture(scope="module")
@@ -334,57 +322,6 @@ def test_values_come_from_what_is_inside_the_strip_not_what_touches_it(reg):
     assert not Q.on_capture("All trades", metas["page"])
 
 
-def test_market_values_follow_the_days_direction_and_name_the_session(reg):
-    f = Q.feature_by_id(reg, "market-breadth")
-    v = Q.feature_values(f, market("fell"))
-    assert v == {"wd": "Mon", "mon": "Nov", "day": "9", "session_line": "Last session (Mon, Nov 9)", "total": "2,494",
-                 "verb": "fell", "mid": "of 2,494 stocks fell —", "count": "2,061", "pct": "83%", "weekday": "Monday",
-                 "session_date": "2026-11-09"}
-    ln = Q.feature_lines(f, v)
-    assert ln["hook"] == "83% of stocks fell Monday!" and ln["fact_a"] == "2,061 of 2,494 stocks fell:"
-    assert ln["confused"] == "Out of how many? Checking RapidTradeView." and ln["key"] == ["83%"]
-    assert ln["first"] == ["2,494"] and ln["first_word"] == "2,494"       # the answer to "Out of how many?" is outlined first
-
-
-def test_market_refuses_a_session_that_is_not_the_last_closed_one(reg):
-    f = Q.feature_by_id(reg, "market-breadth")
-    with pytest.raises(Q.FeatureError, match="no line matches"):
-        Q.feature_values(f, market(label="Live"))
-    with pytest.raises(Q.FeatureError, match=r"'Fri, Oct 30'.*'Mon, Nov 9'"):
-        Q.feature_values(f, market(label="Last session (Fri, Oct 30)"))
-    with pytest.raises(Q.FeatureError, match="last closed session"):                # the right date, the wrong weekday
-        Q.feature_values(f, market(label="Last session (Tue, Nov 9)"))
-    # captured after Tuesday's close the card must say Tuesday; before it, Monday
-    late = "2026-11-10T21:30:00Z"                                                   # 16:30 Eastern
-    with pytest.raises(Q.FeatureError, match="'Tue, Nov 10'"):
-        Q.feature_values(f, market(at=late))
-    assert Q.feature_values(f, market(label="Last session (Tue, Nov 10)", at=late))["weekday"] == "Tuesday"
-    # a weekend capture: Friday is the last closed session
-    assert Q.feature_values(f, market(label="Last session (Fri, Nov 13)", at="2026-11-15T12:00:00Z"))["weekday"] == "Friday"
-
-
-def test_last_closed_session_knows_the_clock_change():
-    utc = dt.timezone.utc
-    assert Q.last_closed_session(dt.datetime(2026, 11, 10, 20, 59, tzinfo=utc)) == dt.date(2026, 11, 9)    # 15:59 EST
-    assert Q.last_closed_session(dt.datetime(2026, 11, 10, 21, 0, tzinfo=utc)) == dt.date(2026, 11, 10)    # 16:00 EST
-    assert Q.last_closed_session(dt.datetime(2026, 7, 14, 19, 59, tzinfo=utc)) == dt.date(2026, 7, 13)     # 15:59 EDT
-    assert Q.last_closed_session(dt.datetime(2026, 7, 14, 20, 0, tzinfo=utc)) == dt.date(2026, 7, 14)      # 16:00 EDT
-    assert Q.last_closed_session(dt.datetime(2026, 11, 9, 9, 0, tzinfo=utc)) == dt.date(2026, 11, 6)       # Monday morning
-
-
-def test_market_refuses_a_page_whose_numbers_do_not_hold(reg):
-    f = Q.feature_by_id(reg, "market-breadth")
-    with pytest.raises(Q.FeatureError, match="below 1000"):
-        Q.feature_values(f, market(count="0", total="0", pct="0%"))
-    with pytest.raises(Q.FeatureError, match="below 1000"):
-        Q.feature_values(f, market(count="3", total="4", pct="75%"))
-    with pytest.raises(Q.FeatureError, match="38% is not 2,061 of 2,494"):
-        Q.feature_values(f, market(pct="38%"))
-    with pytest.raises(Q.FeatureError, match="below 50"):                           # "12% of stocks rose" is not the headline's side
-        Q.feature_values(f, market(count="300", total="2,494", pct="12%"))
-    assert Q.feature_values(f, market(count="1,777", total="2,494", pct="71%"))["pct"] == "71%"
-
-
 def test_verbatim_is_word_for_word():
     meta = {"visible_text": "2,061\nof 2,494 stocks rose —\n83%\n2,061 up"}
     assert Q.on_capture("2,061 of 2,494 stocks rose — 83%", meta)
@@ -427,7 +364,7 @@ def test_capture_gate_refuses_stale_foreign_broken_or_branded_captures(reg):
     for word in ("No data", "Unable to load", "Service unavailable", "NaN%"):
         assert "error or loading state" in why(page(lambda p, w=word: p.update(visible_text=p["visible_text"] + "\n" + w)))
     assert "the page says" in why(page(lambda p: p.update(page_text="CONGRESS TRADES\nNo stock trades by members of Congress were disclosed from Oct 11 to Nov 9.")))
-    assert "the page lacks" in why(page(lambda p: p.update(page_text="MARKET BREADTH")))
+    assert "the page lacks" in why(page(lambda p: p.update(page_text="MARKET MOOD")))
     assert "capture missing" in why(lambda m: m.pop("page"))
     # the page the browser ended on is recorded and checked (a redirect to a sign-in page keeps the asked-for url)
     assert "the browser ended on" in why(page(lambda p: p.update(final_url=f"{SITE}/auth/signin")))
@@ -436,7 +373,9 @@ def test_capture_gate_refuses_stale_foreign_broken_or_branded_captures(reg):
     # the footer of the page may name a source: only the strip is on screen
     assert "REDDIT BUZZ" in congress()["page"]["page_text"]
     # `require` is matched without case: the page text has CSS upper-casing applied
-    assert Q.feature_capture_gate(Q.feature_by_id(reg, "market-breadth"), market(), NOW)[0]
+    upper = congress()
+    seal(dict.update(upper["page"], page_text="MARKET MOOD\nCONGRESS TRADES\nINSIDER TRADES") or upper["page"])
+    assert Q.feature_capture_gate(f, upper, NOW)[0]
 
 
 def test_capture_gate_refuses_fragments(reg):
@@ -516,9 +455,9 @@ def test_dpr_six_at_phone_width_is_still_the_page(reg):
 
 
 def test_the_market_page_is_the_home_pages_market_section(reg):
-    f = Q.feature_by_id(reg, "market-breadth")
+    f = Q.feature_by_id(reg, "congress")
     assert f["lands_on"] == LANDS
-    m = market()
+    m = congress()
     assert Q.feature_capture_gate(f, m, NOW)[0]
     for x in m.values():
         seal(dict.update(x, final_url=f"{SITE}/market") or x)       # no redirect happened: not the page we describe
@@ -554,7 +493,7 @@ def test_provider_names_are_found_through_lookalikes_and_the_wider_list(reg):
                  "Dow Jones", "Reddit", "StockTwits", "Yahoo", "Ya​hoo", "Yаhoo", "Υahoo", "Yahoo­ Finance"):
         assert Q.vendor_hits(f"Source: {name}"), name
     for clean in ("In the S&P 500 it's 39%.", "−18.3% (SPY −4.9%)", "Fred bought stocks", "Congress trades", "Insider trades",
-                  "SEC filing", "Form 4", "RapidTradeView", "Market breadth", "9 holdings"):
+                  "SEC filing", "Form 4", "RapidTradeView", "Market mood", "9 holdings"):
         assert not Q.vendor_hits(clean), clean
     f = Q.feature_by_id(reg, "congress")
     for name in ("Bloomberg", "Yаhoo", "Ya​hoo"):
@@ -652,8 +591,6 @@ def test_filled_lines_come_from_the_capture(reg):
     assert lines(s) == ["42 holdings. Spread all over!", "Spread where? Checking RapidTradeView.", "Sample portfolio: 42 holdings.",
                         "Technology is 57% of your money."]
     assert s["shots"][4]["key_number"] == ["Technology", "39%"]           # the SECTORS row whole: from its name to its benchmark
-    _f, _m, s = story_for(reg, "market-breadth")
-    assert s["shots"][0]["vo"] == "83% of stocks rose Monday!" and s["say"]["2,494"] == "two thousand four hundred ninety-four"
 
 
 def test_a_story_edited_by_hand_fails(reg):
@@ -799,24 +736,13 @@ def test_feature_item_is_built_from_the_capture(reg):
         Q.feature_item(f2, story["feature"]["values"], metas, story["item_id"])
 
 
-def test_the_market_hook_may_name_the_sessions_weekday_only(reg):
-    feature, metas, story = story_for(reg, "market-breadth")
-    item = Q.feature_item(feature, story["feature"]["values"], metas, story["item_id"])
-    assert item["traded"] == ["2026-11-09"]
-    said = {"hook": story["shots"][0]["vo"]}
-    assert Q.weekday_gate(said, item, story["post_date"])[0]
-    assert not Q.weekday_gate({"hook": "83% of stocks rose Friday!"}, item, story["post_date"])[0]
-    lines = [{"line": s["vo"], "claim": s.get("claim")} for s in story["shots"][:-1] if s.get("vo")]
-    assert Q.claim_lines_gate(lines, item, story["post_date"])[0]
-
-
 def test_fact_phrase_is_on_the_capture_and_read_aloud(reg):
-    _f, metas, story = story_for(reg, "market-breadth")
+    _f, metas, story = story_for(reg, "congress")
     script = " ".join(s["vo"] for s in story["shots"][:-1] if s.get("vo"))
     ok, det = Q.feature_fact_gate(story["fact_phrase"], metas, script)
     assert ok and det["on_captures"] == ["page"]
-    assert not Q.feature_fact_gate("2,061 of 2,494 stocks rose — 38%", metas, script)[0]
-    assert not Q.feature_fact_gate(story["fact_phrase"], metas, "83% of stocks rose! How many?")[0]
+    assert not Q.feature_fact_gate("130 sells, 67 buys", metas, script)[0]
+    assert not Q.feature_fact_gate(story["fact_phrase"], metas, "Congress made 76 buys! And sells?")[0]
     # a phrase read across the two payoff shots is still one phrase
     _f, metas, story = story_for(reg, "insiders")
     script = " ".join(s["vo"] for s in story["shots"][:-1] if s.get("vo"))
@@ -851,7 +777,7 @@ def _whole(m, L, top, name):
 
 
 def test_a_card_that_fits_the_stage_is_whole_without_a_scroll(reg):
-    for fid in ("market-breadth", "concentration"):
+    for fid in ("concentration",):
         f, m, L = _layout(reg, fid)
         sw, sh = m["page"]["png_size"]
         assert L["fits"] and L["a"] == L["b"] == L["key"] == 0 and L["dur"] == 0 and L["back"] == 0 and not L["min4"], fid
@@ -864,8 +790,8 @@ def test_a_card_that_fits_the_stage_is_whole_without_a_scroll(reg):
     assert L["card_w"] == pytest.approx(954.7, abs=0.1) and L["h"] == F.STAGE_BOTTOM - F.STAGE_TOP
     assert (m["page"]["png_size"][1] - (chart[1] + chart[3])) * L["k"] >= 20
     assert L["cap_size"] == 60 and L["cap_y"] + 52 <= Q.SITE_CAPTION_BOTTOM        # the tallest window: the smallest caption
-    _f, _m, L2 = _layout(reg, "market-breadth")
-    assert L2["cap_size"] == 72 and L2["cap_y"] < L["cap_y"]                       # a shorter window: the band moves up with it
+    _f, _m, L2 = _layout(reg, "congress")
+    assert L2["h"] < L["h"] and L2["cap_size"] > 60 and L2["cap_y"] < L["cap_y"]   # a shorter window: the band moves up with it
 
 
 def test_a_taller_card_stands_where_its_edges_cut_no_row(reg):
@@ -949,9 +875,10 @@ def test_site_layout_refuses_what_would_not_read(reg):
     m["page"]["content"] = rows([[i, i + 26] for i in range(40, 1470, 30)])   # rows 4 px apart: every edge cuts one
     with pytest.raises(M.TemplateError, match="without cutting a row"):
         F.site_layout(f, Q.feature_values(f, m), m["page"])
-    f = Q.feature_by_id(reg, "market-breadth")
-    m = market()
-    m["page"]["targets"][1]["box"] = [330.0, 1197.0, 152.0, 5]                # the first outline's text is not on the card
+    f = copy.deepcopy(f)                                                      # a first outline (key.first) under the card
+    f["key"]["first"] = {"targets": ["Most traded:"], "word": "trades"}
+    m = congress()
+    m["page"]["targets"].append({"text": "Most traded:", "box": [81.0, 1600.0, 152.0, 5]})
     with pytest.raises(M.TemplateError, match="first outline"):
         F.site_layout(f, Q.feature_values(f, m), m["page"])
 
@@ -1221,8 +1148,9 @@ def test_capture_args_ask_for_the_whole_card(reg):
     assert ("--strip-pad", "1") in pairs and ("--strip-pad-bottom", "9") in pairs       # the air the site leaves under the donut
     f = Q.feature_by_id(reg, "portfolio")
     assert F.site_targets(f, Q.feature_values(f, portfolio())) == ["=Technology", "=39%", "RapidTradeView"]
-    f = Q.feature_by_id(reg, "market-breadth")                    # the first outline's text is a target too
-    assert F.site_targets(f, Q.feature_values(f, market())) == ["=83%", "2,494"]
+    f = copy.deepcopy(Q.feature_by_id(reg, "congress"))         # the first outline's text (key.first) is a target too
+    f["key"]["first"] = {"targets": ["Most traded:"], "word": "trades"}
+    assert F.site_targets(f, Q.feature_values(f, congress())) == ["=130", "buys", "Most traded:"]
     f = Q.feature_by_id(reg, "insiders")                          # two charts: each is its own box
     args = F.capture_args(f, Q.feature_values(f, insiders()))
     assert sum(1 for x in args if x.startswith(("bought=el:", "sold=el:"))) == 2
@@ -1529,7 +1457,7 @@ def test_a_window_that_cuts_a_row_fails_edge_clear(reg, tmp_path, monkeypatch):
 
 
 def test_a_card_that_fits_is_whole_in_every_standing_frame(reg, tmp_path, monkeypatch):
-    R, st, tl, reel = _built(tmp_path, reg, "market-breadth", monkeypatch)
+    R, st, tl, reel = _built(tmp_path, reg, "concentration", monkeypatch)
     fps = _render_payoff(R, tl, reel)
     g = _frame_gates(R, st, reel, fps)
     assert all(ok for ok, _d in g.values()), {k: d for k, (ok, d) in g.items() if not ok}
@@ -1537,12 +1465,8 @@ def test_a_card_that_fits_is_whole_in_every_standing_frame(reg, tmp_path, monkey
     assert det["card_fits_the_window"] and not det["scrolled"]
     assert det["whole_in_one_frame_s"] == det["standing_s"] > 3.0                # whole, all the time it stands
     assert g["thumb_scroll"][1]["fastest_px_s"] == 0.0
-    # the total is outlined when it is read (the answer to "Out of how many?"), then the share: one outline at a time
     kd = g["key_in_place"][1]
-    assert kd["first_outlined_s"] > 0.5 and kd["readable_s"] >= 1.5 and not kd["two_outlines_at_s"]
-    firsts = [s for s in reel.site_samples if s["first"]]
-    word = next(w for w in tl.words if w.shot == 3 and w.text == "2,494")
-    assert min(s["t"] for s in firsts) == pytest.approx(word.start, abs=3 / R.FPS) and all(s["shot"] == 4 for s in firsts)
+    assert kd["readable_s"] >= 1.5 and not kd["two_outlines_at_s"]
     assert all(s["outline"][0] > 20 and s["outline"][2] < 1060 for s in reel.site_samples if s["outline"])
 
 

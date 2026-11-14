@@ -886,8 +886,6 @@ TIME_WORD_RX = re.compile(r"(?i)(?<![a-z])(?:today|tonight|tomorrow|yesterday|th
                           r"(?:last|next|past) (?:week|month|year|quarter|session)|so far|soon|" + "|".join(
                               ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")) + r")(?![a-z])")
 PHONE_MODES = ("type", "tap")
-WD3 = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-MON3 = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 INSIDE_KEY = "inside_text"               # sidecar: the text whose glyph boxes lie mostly inside the captured area
 
 
@@ -939,36 +937,6 @@ def capture_seal(meta: dict) -> str:
     return hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
 
 
-def us_eastern(utc: dt.datetime) -> dt.datetime:
-    """A UTC time as US Eastern wall time (EDT from the second Sunday of March to the first Sunday of November)."""
-    utc = utc.astimezone(dt.timezone.utc)
-
-    def sunday(month: int, n: int) -> dt.date:
-        d = dt.date(utc.year, month, 1)
-        return d + dt.timedelta(days=(6 - d.weekday()) % 7 + 7 * (n - 1))
-
-    start = dt.datetime.combine(sunday(3, 2), dt.time(7, 0), dt.timezone.utc)       # 02:00 EST
-    end = dt.datetime.combine(sunday(11, 1), dt.time(6, 0), dt.timezone.utc)        # 02:00 EDT
-    return (utc + dt.timedelta(hours=-4 if start <= utc < end else -5)).replace(tzinfo=None)
-
-
-def last_closed_session(utc: dt.datetime) -> dt.date:
-    """The last US session that had closed (16:00 Eastern) at `utc`: a weekday. Market holidays are not known here: the
-    day after one the page shows an earlier session and the feature stops (no video that day)."""
-    et = us_eastern(utc)
-    d = et.date() if (et.hour, et.minute) >= (16, 0) else et.date() - dt.timedelta(days=1)
-    while d.weekday() >= 5:
-        d -= dt.timedelta(days=1)
-    return d
-
-
-def captured_at(meta: dict) -> dt.datetime:
-    try:
-        return dt.datetime.strptime(str(meta.get("captured_at")), "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
-    except ValueError as e:
-        raise FeatureError(f"captured_at {meta.get('captured_at')!r} is not a UTC timestamp") from e
-
-
 def load_features(path=None) -> dict:
     p = Path(path) if path else FEATURES_FILE
     try:
@@ -996,10 +964,7 @@ def _value_names(f: dict) -> set[str]:
         out |= set(re.findall(r"\(\?P<([a-z_][a-z0-9_]*)>", str(v.get("rx", ""))))
         if v.get("as"):
             out.add(v["as"])
-        for k in ("prev", "next"):
-            out |= set((v.get(k) or {}).keys())
-    for chk in f.get("checks") or []:                   # a session check also sets the weekday and the date it read
-        out |= {str(n) for n in (chk.get("sets") or {}).values()}
+        out |= set((v.get("next") or {}).keys())
     return out
 
 
@@ -1241,41 +1206,8 @@ def _check(chk: dict, vals: dict, metas: dict) -> None:
     """One registry check on the values read. Kinds:
       {"value": v, "min" | "max": n, "equals": text}   the value as a number / as text
       {"value": v, "more_than": w}                      the value is larger than another value of the page
-      {"pct": p, "of": [count, total], "tol": 1.0}      p is count / total as a percent (the page's own arithmetic holds)
-      {"session": {"wd", "mon", "day"}, "from": capture, "sets": {"weekday", "date"}}
-                                                        the page's session label ("Mon, Nov 9") is the last US session
-                                                        that had closed when the capture was made; sets the weekday's full
-                                                        name and the ISO date as values
     A failed check raises FeatureError: the day (or the page) does not carry the story."""
     why = chk.get("why", "the story does not hold")
-    if "session" in chk:
-        names = chk["session"]
-        try:
-            wd, mon, day = (str(vals[names[k]]) for k in ("wd", "mon", "day"))
-        except KeyError as e:
-            raise FeatureError(f"session check: no value {e}") from e
-        if chk.get("from") not in metas:
-            raise FeatureError(f"session check reads capture {chk.get('from')!r}, which was not made")
-        want = last_closed_session(captured_at(metas[chk["from"]]))
-        label = f"{wd}, {mon} {int(_number(day, 'day'))}"
-        want_label = f"{WD3[want.weekday()]}, {MON3[want.month - 1]} {want.day}"
-        if label != want_label:
-            raise FeatureError(f"the page's session is {label!r}, the last closed session before the capture is "
-                               f"{want_label!r}: {why}")
-        sets = chk.get("sets") or {}
-        if sets.get("weekday"):
-            vals[sets["weekday"]] = WEEKDAYS[want.weekday()]
-        if sets.get("date"):
-            vals[sets["date"]] = want.isoformat()
-        return
-    if "pct" in chk:
-        try:
-            p, a, b = (_number(vals[k], k) for k in (chk["pct"], chk["of"][0], chk["of"][1]))
-        except KeyError as e:
-            raise FeatureError(f"pct check: no value {e}") from e
-        if b <= 0 or a > b or abs(100.0 * a / b - p) > float(chk.get("tol", 1.0)):
-            raise FeatureError(f"{vals[chk['pct']]} is not {vals[chk['of'][0]]} of {vals[chk['of'][1]]}: {why}")
-        return
     v = vals.get(chk.get("value"))
     if v is None:
         raise FeatureError(f"check on {chk.get('value')!r}: no such value")
@@ -1297,7 +1229,7 @@ def feature_values(feature: dict, metas: dict) -> dict:
     """The slot values, read from the captures' visible text by the registry's rules. A rule: {"from": capture,
     "after": line (optional; the search starts below the first line equal to it), "offset": n (optional; the n-th line
     below `after` must match, else any later line may), "rx": a regex the whole line must match (named groups become
-    values), "as": name for the whole line, "prev" / "next": {name: rx} for the line just above / below}. Nothing is
+    values), "as": name for the whole line, "next": {name: rx} for the line just below}. Nothing is
     guessed: a rule that finds no line, or a failed check (_check), raises FeatureError."""
     vals: dict = {}
     for rule in feature.get("values") or []:
@@ -1321,11 +1253,10 @@ def feature_values(feature: dict, metas: dict) -> dict:
         got = {k: v for k, v in m.groupdict().items() if v is not None}
         if rule.get("as"):
             got[rule["as"]] = lines[i]
-        for where, j in (("prev", i - 1), ("next", i + 1)):
-            for name, pat in (rule.get(where) or {}).items():
-                if not (0 <= j < len(lines)) or not re.fullmatch(pat, lines[j]):
-                    raise FeatureError(f"capture {cap}: the line {where} to {lines[i]!r} does not match {pat!r}")
-                got[name] = lines[j]
+        for name, pat in (rule.get("next") or {}).items():
+            if not (i + 1 < len(lines)) or not re.fullmatch(pat, lines[i + 1]):
+                raise FeatureError(f"capture {cap}: the line next to {lines[i]!r} does not match {pat!r}")
+            got[name] = lines[i + 1]
         for k, v in got.items():
             if k in vals and vals[k] != v:
                 raise FeatureError(f"value {k} is read twice and differs: {vals[k]!r} / {v!r}")
@@ -1399,11 +1330,9 @@ def feature_item(feature: dict, values: dict, metas: dict, item_id: str) -> dict
     phrase = fill(feature["fact_phrase"], values)
     if not any(on_capture(phrase, m) for m in metas.values()):
         raise FeatureError(f"the fact phrase {phrase!r} is not on a capture")
-    dates = [values[c["sets"]["date"]] for c in feature.get("checks") or []
-             if (c.get("sets") or {}).get("date") in values]       # the page's session day: its weekday may be named
     return {"item_id": item_id, "type": "feature", "feature": feature["id"], "page_url": feature["url"],
             "ticker": values.get(feature.get("ticker") or ""), "name": values.get(feature.get("name") or ""),
-            "allowed_numbers": numbers, "facts_text": phrase, "traded": dates,
+            "allowed_numbers": numbers, "facts_text": phrase,
             "phrasings": [{"id": sid, "text": text} for sid, text in srcs.items()]}
 
 
