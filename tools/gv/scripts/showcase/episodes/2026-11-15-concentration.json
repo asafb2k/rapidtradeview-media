@@ -6,203 +6,894 @@
  "day": 3,
  "feature": "Portfolio Concentration on the sample portfolio: one line on where the money really is, a two-ring donut (inner ring the holdings, outer ring their sectors) and a sector list next to the wider market; a sector tap changes the donut's centre and opens the row, including holdings that sit inside funds ('via <fund>')",
  "one_sentence": "RapidTradeView shows where your money really is.",
- "headline": {"words": ["Where", "your", "money", "really", "is"], "accent": ["really"], "size": 64, "track": -0.02},
- "voice": {"voice": "am_michael", "speed": 1.0, "target_wps": [2.7, 3.0], "pinned_speed": 0.92,
-           "pinned_note": "pinned so the one command reproduces the cut from a fresh folder: 2.97 words/s overall; the hook runs at 1.14x so 'Tap a sector.' lands 0.18 s after the press at 2.60 s"},
+ "headline": {
+  "words": [
+   "Where",
+   "your",
+   "money",
+   "really",
+   "is"
+  ],
+  "accent": [
+   "really"
+  ],
+  "size": 64,
+  "track": -0.02
+ },
+ "voice": {
+  "voice": "am_michael",
+  "speed": 1.0,
+  "target_wps": [
+   2.7,
+   3.0
+  ],
+  "pinned_speed": 0.92,
+  "pinned_note": "pinned so the one command reproduces the cut from a fresh folder; every line at 0.92 except the hook at 1.14x (0.92 x 1.14 = 1.05) so 'Tap a sector.' lands within 0.2 s of the press at ~2.6 s (the hook runs ~3.4 words/s: a miss against the brief's ~2.7-3.0, reported)"
+ },
  "bed_under_voice_db": 20.0,
  "lines": [
-  {"id": "hook", "text": "@brand1 ~RapidTradeView shows | ~where your money | ~really is.", "speed_mul": 1.14},
-  {"id": "tap", "gap_before": 0.03, "text": "@tap Tap a sector."},
-  {"id": "read1", "gap_before": 0.22, "text": "@read1 Your share, | next to | the *wider *market."},
-  {"id": "read2", "gap_before": 0.25, "text": "@read2 It even looks | inside your funds."},
-  {"id": "line", "gap_before": 0.25, "text": "@line On the sample: | a *third | in nine | chip companies."},
-  {"id": "end", "gap_before": 0.25, "text": "@try Try the sample, | @free ~free, on | @brand2 ~RapidTradeView."},
-  {"id": "nia", "gap_before": 0.08, "text": "@nia ~Not investment advice.", "speed_mul": 1.04}
+  {
+   "id": "hook",
+   "text": "@brand1 ~RapidTradeView shows | ~where your money | ~really is.",
+   "speed_mul": 1.14
+  },
+  {
+   "id": "tap",
+   "gap_before": 0.03,
+   "text": "@tap Tap a sector."
+  },
+  {
+   "id": "read1",
+   "gap_before": 0.22,
+   "text": "@read1 Your share, | next to | the *wider *market."
+  },
+  {
+   "id": "funds",
+   "gap_before": 0.25,
+   "text": "@funds It even looks | inside your funds."
+  },
+  {
+   "id": "line",
+   "gap_before": 0.2,
+   "text": "@line On the sample: | a *third | in nine | chip companies."
+  },
+  {
+   "id": "end",
+   "gap_before": 0.2,
+   "text": "@try Try it *free | @brand2 ~on RapidTradeView."
+  },
+  {
+   "id": "nia",
+   "gap_before": 0.1,
+   "text": "@nia ~Not investment advice."
+  }
  ],
  "take": {
-  "source": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes/take1",
+  "source": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes/take2",
   "all_takes": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes",
-  "app": {"package": "com.rapidtradeview.app", "version": "1.27.16", "versionCode": 26111301},
-  "device": {"avd": "rtv_smart_money_1258_20260912", "serial": "emulator-5558", "screen": [1080, 2400], "density": 420,
-             "ui": "dark, guest (not signed in), demo-mode status bar 9:41 (one wifi icon, battery, no notification icons)"},
+  "app": {
+   "package": "com.rapidtradeview.app",
+   "version": "1.27.16",
+   "versionCode": 26111301
+  },
+  "device": {
+   "avd": "rtv_smart_money_1258_20260912",
+   "serial": "emulator-5558",
+   "screen": [
+    1080,
+    2400
+   ],
+   "density": 420,
+   "ui": "dark, guest (not signed in), demo-mode status bar 9:41 (one wifi icon, battery, no notification icons)"
+  },
   "record": {
-   "setup": "Portfolio tab as a guest -> 'Explore sample portfolio' -> a slow 1000 px pan then a 70 px pan so the Portfolio Concentration card's top edge sits right under the status bar (title at y 110-167, donut 426-1109, sector rows from 1204); no row open",
+   "setup": "Portfolio tab as a guest -> 'Explore sample portfolio' -> a slow 1000 px pan, a 70 px pan and small corrections (measured against take 1's first frame: offset 0) so the Portfolio Concentration card's top edge sits right under the status bar (title at y 110-167, donut 426-1109, sector rows from 1204); no row open. Rehearsed without recording: a 472 px pan over 2400 ms moves the page 455 px both ways (the rest is touch slop, no fling), so the second pan returns to the exact first position",
    "actions": [
-    {"do": "record_start"},
-    {"do": "sleep", "s": 2.6},
-    {"do": "press", "x": 450, "y": 1262, "name": "tap_sector"},
-    {"do": "sleep", "s": 3.2},
-    {"do": "press", "x": 240, "y": 620, "name": "tap_ring"},
-    {"do": "sleep", "s": 3.4},
-    {"do": "press", "x": 240, "y": 620, "name": "tap_restore"},
-    {"do": "sleep", "s": 2.4},
-    {"do": "record_stop"}
+    {
+     "do": "record_start"
+    },
+    {
+     "do": "sleep",
+     "s": 2.6
+    },
+    {
+     "do": "press",
+     "x": 450,
+     "y": 1262,
+     "name": "tap_sector"
+    },
+    {
+     "do": "sleep",
+     "s": 2.4
+    },
+    {
+     "do": "pan",
+     "x": 540,
+     "y": 1900,
+     "dx": 0,
+     "dy": -472,
+     "ms": 2400,
+     "name": "scroll_up"
+    },
+    {
+     "do": "sleep",
+     "s": 2.2
+    },
+    {
+     "do": "pan",
+     "x": 540,
+     "y": 1428,
+     "dx": 0,
+     "dy": 472,
+     "ms": 2400,
+     "name": "scroll_down"
+    },
+    {
+     "do": "sleep",
+     "s": 2.6
+    },
+    {
+     "do": "press",
+     "x": 450,
+     "y": 1262,
+     "name": "tap_restore"
+    },
+    {
+     "do": "sleep",
+     "s": 2.4
+    },
+    {
+     "do": "record_stop"
+    }
    ]
   },
-  "events": ["tap_sector", "tap_ring", "tap_restore"],
+  "events": [
+   "tap_sector",
+   "scroll_up",
+   "scroll_down",
+   "tap_restore"
+  ],
   "event_quiet_s": 0.6,
   "change_thresh": 0.15,
   "settle": "last_before_next",
   "what_each_tap_does": {
-   "tap_sector (Technology row)": "the donut's centre changes from 'TOTAL $198.8K 42 holdings' to 'TECHNOLOGY 57% S&P 500: 39%', every other sector dims in both rings and in the list, and the row opens to its 18 holdings, two of them 'via QQQ 3.5%' and 'via VOO 3.4%' (the part held inside those funds); instant re-render, no animation",
-   "tap_ring (the blue Communication Services segment of the outer ring)": "the selection moves to that sector: the centre reads 'COMMUNICATION S... 8.2% S&P 500: 9.5%', only the blue segments stay lit, the Technology row closes and the Communication Services row opens (GOOGL 3.1%, META 2.3%, NFLX 1.2%, via VOO 0.8%, via QQQ 0.8%); instant",
-   "tap_restore (the same segment again)": "deselects: the donut is fully lit again with 'TOTAL $198.8K', every row closed (the take's first state, so the video loops); instant",
-   "explored, not recorded": "tapping an open sector row closes it and restores the first state; an industry-group row ('Chip companies') opens its holdings list but does not change the donut; the expand arrow is part of the row (same tap)"
+   "tap_sector (Technology row, pressed at 450,1262)": "the donut's centre changes from 'TOTAL $198.8K 42 holdings' to 'TECHNOLOGY 57% S&P 500: 39%', every other sector dims in both rings and in the list, and the row opens to its 18 holdings, two of them 'via QQQ 3.5%' and 'via VOO 3.4%' (the part held inside those funds); instant re-render, no animation",
+   "scroll_up (a real 472 px pan over 2400 ms from 540,1900)": "the page moves up 455 px: the donut's top goes under the status bar, its centre stays on screen, and the open row's holdings rise so 'via QQQ 3.5%' and 'via VOO 3.4%' sit at y 1207-1306; the app's scrollbar shows and fades ~0.4 s after the scroll",
+   "scroll_down (the same pan reversed from 540,1428)": "the page moves back down 455 px, to exactly the first position (measured from the pixels: offset 0)",
+   "tap_restore (the Technology row again, pressed at 450,1262)": "the row closes and the card is back in its first state (TOTAL, every colour lit, every row closed), so the video loops; instant",
+   "explored, not recorded": "tapping a ring segment selects that sector (centre and row change the same way; recorded in take 1); tapping the same segment again deselects; the 'Chip companies' industry row opens its holdings list but does not change the donut; the expand arrow is part of the row (same tap)"
   },
   "states": {
    "rest": {
-    "text": ["Portfolio Concentration", "Concentrated", "33% of your money is in 9 chip companies.",
-             "Technology is 57% of your money. In the S&P 500 it's 39%.",
-             "Inner ring: your 42 holdings · outer ring: their sectors", "TOTAL", "$198.8K", "42 holdings", "SECTORS",
-             "you · S&P 500", "Technology", "▲ high", "57%", "39%", "Consumer Cyclical", "10%", "9.3%",
-             "Financial Services", "8.4%", "12%", "Communication Services", "8.2%", "9.5%", "Healthcare", "6.1%", "9.3%",
-             "Consumer Defensive", "3.9%", "4.5%", "Show all (11)", "BIGGEST INDUSTRY GROUPS", "Chip companies 9 holdings",
-             "▲ high", "33%", "Software 6 holdings", "12%"],
+    "text": [
+     "Portfolio Concentration",
+     "Concentrated",
+     "33% of your money is in 9 chip companies.",
+     "Technology is 57% of your money. In the S&P 500 it's 39%.",
+     "Inner ring: your 42 holdings · outer ring: their sectors",
+     "TOTAL",
+     "$198.8K",
+     "42 holdings",
+     "SECTORS",
+     "you · S&P 500",
+     "Technology",
+     "▲ high",
+     "57%",
+     "39%",
+     "Consumer Cyclical",
+     "10%",
+     "9.3%",
+     "Financial Services",
+     "8.4%",
+     "12%",
+     "Communication Services",
+     "8.2%",
+     "9.5%",
+     "Healthcare",
+     "6.1%",
+     "9.3%",
+     "Consumer Defensive",
+     "3.9%",
+     "4.5%",
+     "Show all (11)",
+     "BIGGEST INDUSTRY GROUPS",
+     "Chip companies 9 holdings",
+     "▲ high",
+     "33%",
+     "Software 6 holdings",
+     "12%"
+    ],
     "rects": {
-     "card_title": [81, 110, 523, 167], "concentrated_chip": [731, 110, 972, 167],
-     "headline_line": [81, 202, 999, 255], "sub_line": [81, 276, 999, 324], "ring_caption": [81, 366, 999, 409],
-     "donut": [199, 426, 881, 1109], "donut_centre": [393, 691, 687, 843], "sectors_header": [81, 1150, 999, 1193],
-     "row_technology": [81, 1204, 999, 1320], "row_consumer_cyclical": [81, 1319, 999, 1434],
-     "row_financial": [81, 1435, 999, 1551], "row_communication": [81, 1550, 999, 1665],
-     "row_healthcare": [81, 1666, 999, 1782], "row_consumer_defensive": [81, 1781, 999, 1896],
-     "show_all_sectors": [81, 1897, 287, 2013], "industry_header": [81, 2054, 567, 2097],
-     "row_chip_companies": [81, 2108, 999, 2224], "row_software": [81, 2223, 999, 2338]
+     "card_title": [
+      81,
+      110,
+      523,
+      167
+     ],
+     "concentrated_chip": [
+      731,
+      110,
+      972,
+      167
+     ],
+     "headline_line": [
+      81,
+      202,
+      999,
+      255
+     ],
+     "sub_line": [
+      81,
+      276,
+      999,
+      324
+     ],
+     "ring_caption": [
+      81,
+      366,
+      999,
+      409
+     ],
+     "donut": [
+      199,
+      426,
+      881,
+      1109
+     ],
+     "donut_centre": [
+      393,
+      691,
+      687,
+      843
+     ],
+     "sectors_header": [
+      81,
+      1150,
+      999,
+      1193
+     ],
+     "row_technology": [
+      81,
+      1204,
+      999,
+      1320
+     ],
+     "row_consumer_cyclical": [
+      81,
+      1319,
+      999,
+      1434
+     ],
+     "row_financial": [
+      81,
+      1435,
+      999,
+      1551
+     ],
+     "row_communication": [
+      81,
+      1550,
+      999,
+      1665
+     ],
+     "row_healthcare": [
+      81,
+      1666,
+      999,
+      1782
+     ],
+     "row_consumer_defensive": [
+      81,
+      1781,
+      999,
+      1896
+     ],
+     "show_all_sectors": [
+      81,
+      1897,
+      287,
+      2013
+     ],
+     "industry_header": [
+      81,
+      2054,
+      567,
+      2097
+     ],
+     "row_chip_companies": [
+      81,
+      2108,
+      999,
+      2224
+     ],
+     "row_software": [
+      81,
+      2223,
+      999,
+      2338
+     ]
     },
     "keepout": {
-     "footnote 'S&P 500 mix: SPY holdings' (fund named as a source)": [81, 3227, 999, 3362],
-     "holdings cards with other companies' logos (list below the card)": [42, 3433, 1038, 4760]
+     "footnote 'S&P 500 mix: SPY holdings' (fund named as a source)": [
+      81,
+      3227,
+      999,
+      3362
+     ],
+     "holdings cards with other companies' logos (list below the card)": [
+      42,
+      3433,
+      1038,
+      4760
+     ]
     }
    },
    "technology_open": {
-    "span": ["tap_sector.start", "tap_ring.start"],
-    "text": ["TECHNOLOGY", "57%", "S&P 500: 39%", "Technology", "▲ high", "57%", "39%", "NVDA 7.3%", "MSFT 5.8%",
-             "AVGO 5.3%", "AAPL 4.9%", "AMD 4.4%", "TSM 4.3%", "via QQQ 3.5%", "via VOO 3.4%", "MU 3.3%", "ASML 2.6%",
-             "AMAT 2.4%", "LRCX 2.0%", "ORCL 2.0%", "QCOM 1.6%", "CRM 1.3%", "NOW 1.1%", "PLTR 1.0%", "ADBE 1.0%"],
+    "span": [
+     "tap_sector.start",
+     "tap_restore.start"
+    ],
+    "text": [
+     "TECHNOLOGY",
+     "57%",
+     "S&P 500: 39%",
+     "Technology",
+     "▲ high",
+     "57%",
+     "39%",
+     "NVDA 7.3%",
+     "MSFT 5.8%",
+     "AVGO 5.3%",
+     "AAPL 4.9%",
+     "AMD 4.4%",
+     "TSM 4.3%",
+     "via QQQ 3.5%",
+     "via VOO 3.4%",
+     "MU 3.3%",
+     "ASML 2.6%",
+     "AMAT 2.4%",
+     "LRCX 2.0%",
+     "ORCL 2.0%",
+     "QCOM 1.6%",
+     "CRM 1.3%",
+     "NOW 1.1%",
+     "PLTR 1.0%",
+     "ADBE 1.0%",
+     "Consumer Cyclical",
+     "10%",
+     "9.3%",
+     "Financial Services",
+     "8.4%",
+     "12%",
+     "Communication Services",
+     "8.2%",
+     "9.5%",
+     "Healthcare",
+     "6.1%",
+     "9.3%",
+     "SECTORS",
+     "you · S&P 500"
+    ],
     "rects": {
-     "card_title": [81, 110, 523, 167], "headline_line": [81, 202, 999, 255], "donut": [199, 426, 881, 1109],
-     "donut_centre": [442, 691, 638, 843], "row_technology": [81, 1204, 999, 1320],
-     "tech_holdings_list": [160, 1335, 998, 2306], "via_qqq": [160, 1662, 998, 1706], "via_voo": [160, 1717, 998, 1761]
+     "card_title": [
+      81,
+      110,
+      523,
+      167
+     ],
+     "headline_line": [
+      81,
+      202,
+      999,
+      255
+     ],
+     "donut": [
+      199,
+      426,
+      881,
+      1109
+     ],
+     "donut_centre": [
+      442,
+      691,
+      638,
+      843
+     ],
+     "row_technology": [
+      81,
+      1204,
+      999,
+      1320
+     ],
+     "tech_holdings_list": [
+      160,
+      1335,
+      998,
+      2306
+     ],
+     "via_qqq": [
+      160,
+      1662,
+      998,
+      1706
+     ],
+     "via_voo": [
+      160,
+      1717,
+      998,
+      1761
+     ]
     },
     "keepout": {
-     "footnote 'S&P 500 mix: SPY holdings' (rest position; lower in this state)": [81, 3227, 999, 3362],
-     "holdings cards with logos (rest position; lower in this state)": [42, 3433, 1038, 4760]
-    }
-   },
-   "communication_open": {
-    "span": ["tap_ring.start", "tap_restore.start"],
-    "text": ["COMMUNICATION SERVICES", "8.2%", "S&P 500: 9.5%", "Communication Services", "8.2%", "9.5%",
-             "GOOGL 3.1%", "META 2.3%", "NFLX 1.2%", "via VOO 0.8%", "via QQQ 0.8%"],
-    "rects": {
-     "card_title": [81, 110, 523, 167], "headline_line": [81, 202, 999, 255], "donut": [199, 426, 881, 1109],
-     "donut_centre": [393, 691, 687, 843], "row_communication": [81, 1550, 999, 1665],
-     "comm_holdings_list": [160, 1681, 998, 1943], "via_voo": [160, 1845, 998, 1889], "via_qqq": [160, 1899, 998, 1943]
+     "footnote 'S&P 500 mix: SPY holdings' (rest position; lower in this state; minus the 455 px scroll still below the screen)": [
+      81,
+      3227,
+      999,
+      3362
+     ],
+     "holdings cards with logos (rest position; lower in this state; minus the 455 px scroll still below the screen)": [
+      42,
+      3433,
+      1038,
+      4760
+     ]
     },
-    "keepout": {
-     "footnote 'S&P 500 mix: SPY holdings' (rest position; lower in this state)": [81, 3227, 999, 3362],
-     "holdings cards with logos (rest position; lower in this state)": [42, 3433, 1038, 4760]
-    }
+    "scroll_events": [
+     "scroll_up",
+     "scroll_down"
+    ],
+    "scroll_max": 455
    }
   },
-  "keepout_note": "logged from accessibility snapshots after the take: the page scrolled down 1204 and 2409 px (measured by matching screenshots), rects shifted back to the take's scroll; in the take they lie below the 2400 px screen, so the projection gate cannot fail here and OCR of every recorded frame is the real guard",
+  "keepout_note": "logged from accessibility snapshots: the rest page scrolled 1204 and 2409 px down (take 1) and the Technology state at the take's 0 and 455 px scroll (take 2); rects are in the unscrolled frame and the engine shifts them by each recorded frame's scroll offset from the pixels; at 455 px the footnote and the logo cards are still more than 300 px below the screen, so the projection gate cannot fail and OCR of every recorded frame used is the real guard",
   "snapshots": {
-   "rest": [{"path": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes/snapshots/snap_rest.json", "scroll": 0}],
-   "technology_open": [{"path": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes/snapshots/snap_tech.json", "scroll": 0}],
-   "communication_open": [{"path": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes/snapshots/snap_comm.json", "scroll": 0}]
+   "rest": [
+    {
+     "path": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes/snapshots/snap_rest.json",
+     "scroll": 0
+    }
+   ],
+   "technology_open": [
+    {
+     "path": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes/snapshots/snap_tech.json",
+     "scroll": 0
+    },
+    {
+     "path": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-15-concentration/takes/snapshots/snap_tech_scrolled.json",
+     "scroll": 455
+    }
+   ]
   },
-  "takes_note": "1 take recorded (limit 3) after rehearsing every gesture by hand without recording; all on the read-only sample portfolio as a guest (no sign-in, no app data changed)"
+  "takes_note": "2 takes recorded (limit 3). Take 1 (11-14 ~15:42 UTC: Technology row, ring segment, ring segment again) was used by the first cut; review round 1 asked for the fund lines readable inside y 1500 while 'inside your funds' is spoken, which this card's layout allows only with a real scroll, so take 2 (11-14 ~16:29 UTC, used) adds a 455 px scroll up and back after the Technology tap; the gestures were rehearsed by hand without recording first. Same read-only sample portfolio as a guest; no sign-in, no app data changed",
+  "scroll_probe": {
+   "x": [
+    0,
+    1060
+   ],
+   "y": [
+    600,
+    2300
+   ],
+   "note": "x stops at 1060: the app's scrollbar (x 1069-1079) fades after each scroll"
+  }
  },
  "taps": [
-  {"event": "tap_sector", "at": [450, 1262], "rect": [81, 1204, 999, 1320], "disc_at": [445, 1262], "d_mul": 1.0},
-  {"event": "tap_ring", "at": [240, 620], "rect": [205, 587, 315, 750], "disc_at": [245, 622], "d_mul": 0.65},
-  {"event": "tap_restore", "at": [240, 620], "rect": [205, 587, 315, 750], "disc_at": [245, 622], "d_mul": 0.65}
+  {
+   "event": "tap_sector",
+   "at": [
+    450,
+    1262
+   ],
+   "rect": [
+    81,
+    1204,
+    999,
+    1320
+   ],
+   "disc_at": [
+    445,
+    1262
+   ],
+   "d_mul": 1.0
+  },
+  {
+   "event": "tap_restore",
+   "at": [
+    450,
+    1262
+   ],
+   "rect": [
+    81,
+    1204,
+    999,
+    1320
+   ],
+   "disc_at": [
+    445,
+    1262
+   ],
+   "d_mul": 1.0
+  }
  ],
  "poses": {
-  "frame0": {"z": 1.86, "uv": [540, 1200], "A": [513, 1389.5], "yaw": -12.0},
-  "whole": {"z": 1.0, "uv": [540, 1200], "A": [540, 894.0], "yaw": -4.0},
-  "whole_drift": {"z": 1.012, "uv": [540, 1200], "A": [540, 900.8], "yaw": -4.6},
-  "read1": {"z": 1.85, "uv": [540, 1200], "A": [508, 1375.8], "yaw": -3.0},
-  "read1_drift": {"z": 1.862, "uv": [540, 1200], "A": [507, 1382.6], "yaw": -2.4},
-  "read2": {"z": 1.27, "uv": [540, 1200], "A": [540, 1046.4], "yaw": -3.0},
-  "read2_drift": {"z": 1.28, "uv": [540, 1200], "A": [540, 1052.0], "yaw": -2.6},
-  "line": {"z": 2.0, "uv": [540, 1200], "A": [540, 1461.0], "yaw": -2.0},
-  "line_drift": {"z": 2.03, "uv": [540, 1200], "A": [540, 1478.0], "yaw": -1.5},
-  "end": {"z": 0.85, "uv": [540, 1200], "A": [540, 816.8], "yaw": -4.0},
-  "end_drift": {"z": 0.89, "uv": [540, 1200], "A": [540, 839.5], "yaw": -6.5}
+  "frame0": {
+   "z": 1.86,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    513,
+    1389.5
+   ],
+   "yaw": -12.0
+  },
+  "whole": {
+   "z": 1.0,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    540,
+    894.0
+   ],
+   "yaw": -4.0
+  },
+  "whole_drift": {
+   "z": 1.012,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    540,
+    900.8
+   ],
+   "yaw": -4.6
+  },
+  "read1": {
+   "z": 1.85,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    509,
+    1375.8
+   ],
+   "yaw": -3.0
+  },
+  "read1_drift": {
+   "z": 1.858,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    508.5,
+    1380.5
+   ],
+   "yaw": -2.4
+  },
+  "line": {
+   "z": 2.0,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    540,
+    1461.0
+   ],
+   "yaw": -2.0
+  },
+  "line_drift": {
+   "z": 2.025,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    540,
+    1475.0
+   ],
+   "yaw": -1.5
+  },
+  "end": {
+   "z": 0.86,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    540,
+    822.5
+   ],
+   "yaw": -4.0
+  },
+  "end_drift": {
+   "z": 0.89,
+   "uv": [
+    540,
+    1200
+   ],
+   "A": [
+    540,
+    839.5
+   ],
+   "yaw": -6.5
+  }
  },
  "moves": [
-  {"name": "hook_pull", "from": "frame0", "to": "whole", "t0": "0", "dur": 0.9, "ease": "hook"},
-  {"name": "whole_drift", "to": "whole_drift", "t0": "{hook_pull_end}", "dur": "{v_tap_sector} + 0.35 - {hook_pull_end}", "ease": "sio"},
-  {"name": "read1_push", "to": "read1", "t0": "{whole_drift_end}", "dur": 0.55, "ease": "io2"},
-  {"name": "read1_drift", "to": "read1_drift", "t0": "{read1_push_end}", "dur": "{v_tap_ring} + 0.6 - {read1_push_end}", "ease": "lin"},
-  {"name": "read2_pull", "to": "read2", "t0": "{read1_drift_end}", "dur": 0.55, "ease": "io2"},
-  {"name": "read2_drift", "to": "read2_drift", "t0": "{read2_pull_end}", "dur": "{line} - 0.1 - {read2_pull_end}", "ease": "lin"},
-  {"name": "line_push", "to": "line", "t0": "{read2_drift_end}", "dur": 0.55, "ease": "io2"},
-  {"name": "line_drift", "to": "line_drift", "t0": "{line_push_end}", "dur": "{line_t1} + 0.6 - {line_push_end}", "ease": "lin"},
-  {"name": "end_pull", "to": "end", "t0": "{line_drift_end}", "dur": 0.7, "ease": "io2"},
-  {"name": "end_drift", "to": "end_drift", "t0": "{end_pull_end}", "dur": "{loop_push_t0} - {end_pull_end}", "ease": "lin"},
-  {"name": "loop_push", "to": "frame0", "t0": "{end} - 0.7", "dur": 0.7, "ease": "sio"}
+  {
+   "name": "hook_pull",
+   "from": "frame0",
+   "to": "whole",
+   "t0": "0",
+   "dur": 0.9,
+   "ease": "hook"
+  },
+  {
+   "name": "whole_drift",
+   "to": "whole_drift",
+   "t0": "{hook_pull_end}",
+   "dur": "{v_tap_sector} + 0.85 - {hook_pull_end}",
+   "ease": "sio"
+  },
+  {
+   "name": "read1_push",
+   "to": "read1",
+   "t0": "{whole_drift_end}",
+   "dur": 0.55,
+   "ease": "io2"
+  },
+  {
+   "name": "read1_drift",
+   "to": "read1_drift",
+   "t0": "{read1_push_end}",
+   "dur": "{v_scroll_down} - {read1_push_end}",
+   "ease": "lin"
+  },
+  {
+   "name": "line_push",
+   "to": "line",
+   "t0": "{v_scroll_down_end}",
+   "dur": 0.5,
+   "ease": "io2"
+  },
+  {
+   "name": "line_drift",
+   "to": "line_drift",
+   "t0": "{line_push_end}",
+   "dur": "M({line_t1} - 0.2, {line_push_end} + 1.6) - {line_push_end}",
+   "ease": "lin"
+  },
+  {
+   "name": "end_pull",
+   "to": "end",
+   "t0": "{line_drift_end}",
+   "dur": 0.7,
+   "ease": "io2"
+  },
+  {
+   "name": "end_drift",
+   "to": "end_drift",
+   "t0": "{end_pull_end}",
+   "dur": "{loop_push_t0} - {end_pull_end}",
+   "ease": "lin"
+  },
+  {
+   "name": "loop_push",
+   "to": "frame0",
+   "t0": "{end} - 0.8",
+   "dur": 0.7,
+   "ease": "sio"
+  }
  ],
  "source_map": [
-  {"at": "{tap} - 0.18", "event": "tap_sector", "from": "tap"},
-  {"at": "{read2} - 0.2", "event": "tap_ring", "from": "tap"},
-  {"at": "{end_pull_end} + 0.45", "event": "tap_restore", "from": "tap"}
+  {
+   "at": "{tap} - 0.18",
+   "event": "tap_sector",
+   "from": "tap"
+  },
+  {
+   "at": "{read1_push_end} + 1.25",
+   "event": "scroll_up",
+   "from": "start",
+   "retime": "even",
+   "peak_px": 22
+  },
+  {
+   "at": "{funds_t1} + 0.12",
+   "event": "scroll_down",
+   "from": "start",
+   "retime": "even",
+   "peak_px": 22
+  },
+  {
+   "at": "{end_pull_end} + 0.5",
+   "event": "tap_restore",
+   "from": "tap"
+  }
  ],
- "tap": {"lead": 0.15, "pop": 0.1, "ripple": 0.1, "fade_after": 0.1, "d_frac": 0.12, "fade_in_frac": 0.4},
- "overlay": {
-  "pill": {"top": 170, "h": 60},
-  "headline_top": 246,
-  "chip": {"size": 42, "top": 256, "padx": 0.42, "pady": 0.22},
-  "url": {"text": "rapidtradeview.trade", "size": 60},
-  "disc": {"text": "Not investment advice.", "size": 38},
-  "end_gap": 24,
-  "end_poses": ["end", "end_drift"],
-  "headline_show": [["-1", "{tap} - 0.1"]],
-  "accent_sample": {"file": "D:/Coding_projects/rapidtradeview-media/.ops/app-showcase/2026-11-14-moves-like/take/frames/f0019.png",
-                    "rect": [200, 1880, 980, 2000],
-                    "note": "this card shows no green text, so the accent is sampled from the same app's own '+x%' green in day 2's recorded sheet (app 1.27.16)"},
-  "disc_in": "{url_in}",
-  "end_chip": {"text": "Not investment advice.", "t0": "{text_out} - 0.15"}
+ "tap": {
+  "lead": 0.15,
+  "pop": 0.1,
+  "ripple": 0.1,
+  "fade_after": 0.1,
+  "d_frac": 0.12,
+  "fade_in_frac": 0.4,
+  "ring_px": 3.5
  },
- "sheen": {"wide": 0.0, "read": 0.0},
- "duration_s": [14.0, 18.0],
+ "overlay": {
+  "pill": {
+   "top": 170,
+   "h": 60
+  },
+  "headline_top": 246,
+  "chip": {
+   "size": 42,
+   "top": 256,
+   "padx": 0.42,
+   "pady": 0.22
+  },
+  "url": {
+   "text": "rapidtradeview.trade",
+   "size": 60
+  },
+  "disc": {
+   "text": "Not investment advice.",
+   "size": 38
+  },
+  "end_gap": 24,
+  "end_poses": [
+   "end",
+   "end_drift"
+  ],
+  "headline_show": [
+   [
+    "-1",
+    "{tap} - 0.1"
+   ]
+  ],
+  "accent_sample": {
+   "hex": "#3ac29f",
+   "note": "the app's own '+x%' green, sampled 11-14 (median of the bright green text pixels in rect 200,1880-980,2000) from day 2's recorded frame 2026-11-14-moves-like/take/frames/f0019.png (same app 1.27.16); this card shows no green text"
+  },
+  "disc_in": "{url_in}",
+  "end_chip": {
+   "text": "Not investment advice.",
+   "t0": "{text_out} - 0.15"
+  }
+ },
+ "sheen": {
+  "wide": 0.0,
+  "read": 0.0
+ },
+ "duration_s": [
+  14.0,
+  18.0
+ ],
  "youtube": {
   "title": "This free app shows where your money really is #Shorts",
   "description": "RapidTradeView's Portfolio Concentration card shows where the money in a portfolio really sits: one line, a two-ring donut of holdings and sectors, and each sector next to the wider market. Tap a sector to see what is behind it, even inside funds. Try it free on the sample portfolio at rapidtradeview.trade\nNot investment advice.\n#Shorts #investing #stockmarket #portfolio"
  },
  "times": {
   "url_in": "{end_pull_end} + 0.05",
-  "end": "{nia_t1} + 0.95",
+  "end": "{nia_t1} + 0.65",
   "text_out": "{loop_push_t0}"
  },
  "key_frames": {
   "whole": "{hook_pull_end}",
   "whole_hold": "{whole_drift_end} - 0.4",
   "tap": "{v_tap_sector} + 0.2",
-  "read1": "{read1_push_end} + 1.2",
-  "ring": "{v_tap_ring} + 0.3",
-  "read2": "{read2_pull_end} + 0.7",
-  "line": "{line_push_end} + 1.0",
+  "read1": "{read1_push_end} + 0.9",
+  "funds": "{v_scroll_down} - 0.3",
+  "line": "{line_push_end} + 0.8",
   "end": "{url_in} + 1.4",
   "restore": "{v_tap_restore} + 0.2"
  },
- "check6": ["frame0", "whole_hold", "tap", "read1", "line", "last"],
+ "check6": [
+  "frame0",
+  "whole_hold",
+  "tap",
+  "read1",
+  "line",
+  "last"
+ ],
  "qa": {
-  "text_size": ["frame0", "whole", "read1", "read2", "line", "end"],
-  "phone": ["frame0", "whole_hold", "read1", "read2", "line", "end"],
-  "floor": ["whole", "whole_hold", "end", "restore"],
-  "colour": ["whole_hold", "read1", "read2", "line", "end", "last"],
+  "text_size": [
+   "frame0",
+   "whole",
+   "read1",
+   "funds",
+   "line",
+   "end"
+  ],
+  "phone": [
+   "frame0",
+   "whole_hold",
+   "read1",
+   "funds",
+   "line",
+   "end"
+  ],
+  "floor": [
+   "whole",
+   "whole_hold",
+   "end",
+   "restore"
+  ],
+  "colour": [
+   "whole_hold",
+   "read1",
+   "funds",
+   "line",
+   "end",
+   "last"
+  ],
   "body_cap_px": 24,
-  "budget": {"whole_share": 0.35, "readable_share": 0.40},
-  "voice_press": [["tap_sector", "tap"]]
+  "budget": {
+   "whole_share": 0.35,
+   "readable_share": 0.4
+  },
+  "voice_press": [
+   [
+    "tap_sector",
+    "tap"
+   ]
+  ]
  },
  "holds": [
-  ["whole phone (still pose + slow drift)", "{hook_pull_end}", "{whole_drift_end}", 1.2],
-  ["read1 (donut centre + the open Technology row: you vs the wider market)", "{read1_push_end}", "{read1_drift_end}"],
-  ["read2 (the open Communication Services row with its 'via' fund lines)", "{read2_pull_end}", "{read2_drift_end}"],
-  ["the line (the card's own headline sentence)", "{line_push_end}", "{line_drift_end}", 1.5],
-  ["end card (URL)", "{url_in}", "{text_out} - 0.15", 2.0],
-  ["end card (Not investment advice.)", "{url_in}", "{text_out} - 0.15", 2.0]
+  [
+   "whole phone (still pose + slow drift, tap 1 inside it)",
+   "{hook_pull_end}",
+   "{whole_drift_end}",
+   1.2
+  ],
+  [
+   "read1 (donut centre + the open Technology row: you vs the wider market), before the scroll",
+   "{read1_push_end}",
+   "{v_scroll_up}"
+  ],
+  [
+   "funds (the 'via QQQ' / 'via VOO' rows inside y 1500 at read size), scroll landed to scroll back",
+   "{v_scroll_up_end}",
+   "{v_scroll_down}"
+  ],
+  [
+   "the line (the card's own headline sentence, Technology lit)",
+   "{line_push_end}",
+   "{line_drift_end}",
+   1.5
+  ],
+  [
+   "end card (URL)",
+   "{url_in}",
+   "{text_out} - 0.15",
+   2.0
+  ],
+  [
+   "end card (Not investment advice.)",
+   "{url_in}",
+   "{text_out} - 0.15",
+   2.0
+  ]
  ],
- "sfx": {"slides": [], "no_whoosh": ["whole_drift", "read1_drift", "read2_drift", "line_drift", "end_drift"]},
- "encode": {"crf": 13}
+ "sfx": {
+  "slides": [
+   "scroll_up",
+   "scroll_down"
+  ],
+  "no_whoosh": [
+   "whole_drift",
+   "read1_drift",
+   "line_drift",
+   "end_drift"
+  ]
+ },
+ "encode": {
+  "crf": 13
+ }
 }

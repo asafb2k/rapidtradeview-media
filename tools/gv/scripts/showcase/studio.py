@@ -22,7 +22,8 @@ the voice anchors and the source map, the source map placing each recorded gestu
 "taps" (one touch disc per recorded tap), take.states with spans for the rects and keep-outs, key_frames, check6, holds
 and "qa" (which key frames each measurement reads, the body text size, the runtime budget, voice-to-press pairs).
 Day 2 (2026-11-14-moves-like.json, no "taps"/"qa") still renders frame-identical; day 3 (2026-11-15-concentration.json)
-is three instant taps on one card.
+is a tap, a real scroll up and back (a state may list several "scroll_events"; a source-map entry with "peak_px" shows a
+scroll eased at that pace, real frames only) and a restore tap on one card.
 """
 from __future__ import annotations
 
@@ -217,12 +218,16 @@ def ingest_take(ep: dict, run: Path) -> dict:
                 float(np.abs(small[e["i"]] - small[ref])[y0 // 4:y1 // 4, x0 // 4:x1 // 4].mean()) >= 0.8]
         o["tap"] = cand[0]["pts"] if cand else o["start"]
         o["tap_frame"] = cand[0]["file"] if cand else o["first_frame"]
-    # scroll offset of every frame (rows matched against the settled sheet before the scroll)
+    # scroll offset of every frame (rows matched against the settled screen before the first scroll). A state lists one
+    # "scroll_event" (day 2: the in-sheet scroll) or several "scroll_events" (day 3: up, hold, back down); every frame
+    # from the first scroll to the next non-scroll gesture gets its offset from the pixels.
     scroll = {}
-    scr_states = [v for v in tk["states"].values() if v.get("scroll_event") in ev]
+    scr_states = [v for v in tk["states"].values()
+                  if [x for x in (v.get("scroll_events") or [v.get("scroll_event")]) if x in ev]]
     if scr_states:
-        se = scr_states[0]["scroll_event"]
-        nxt = [ev[n]["start"] for n in tk["events"] if ev[n]["start"] > ev[se]["start"]]
+        ses = [x for x in (scr_states[0].get("scroll_events") or [scr_states[0]["scroll_event"]]) if x in ev]
+        se = ses[0]
+        nxt = [ev[n]["start"] for n in tk["events"] if ev[n]["start"] > ev[se]["start"] and n not in ses]
         base_i = max(e["i"] for e in log if e["pts"] < ev[se]["start"])
         sp = tk["scroll_probe"]
         ref = np.asarray(Image.open(files[base_i]).convert("L"), np.float32)[:, sp["x"][0]:sp["x"][1]].mean(1)
@@ -239,9 +244,10 @@ def ingest_take(ep: dict, run: Path) -> dict:
                 if err < best:
                     best, bo = err, off
             scroll[e["file"]] = bo
-        ev[se]["offset_max"] = max(scroll.values()) if scroll else 0
-        settled = [e for e in log if e["file"] in scroll and e["pts"] <= ev[se]["end"] + 1e-6]
-        ev[se]["offset_settled"] = scroll[settled[-1]["file"]] if settled else 0
+        for x in ses:
+            ev[x]["offset_max"] = max(scroll.values()) if scroll else 0
+            settled = [e for e in log if e["file"] in scroll and e["pts"] <= ev[x]["end"] + 1e-6]
+            ev[x]["offset_settled"] = scroll[settled[-1]["file"]] if settled else 0
     unique = [e for e in log[1:] if e["diff"] > 0.02]
     fps_motion = []
     for name in tk["events"]:
@@ -294,22 +300,70 @@ def evalx(s, env: dict) -> float | None:
     return float(eval(s, {"__builtins__": {}}, {"M": max}))  # noqa: S307 (digits, + - * /, max only)
 
 
-def retime_scroll(take: dict, ev_name: str) -> list[float]:
+def retime_scroll(take: dict, ev_name: str, step_px: float = 14, peak_px: float | None = None) -> list[float]:
     """A real scroll shown at an even on-screen speed with real frames only: pick a subsequence of the recorded frames
     (each output frame a different recorded frame, so no frozen frames and no interpolation) whose per-frame scroll steps
-    change as little as possible (DP on the step differences, from rest), capped near 14 capture px per output frame;
-    then the recorded overscroll settle frames, each once. Returns the source pts per output frame."""
+    change as little as possible (DP on the step differences, from rest), capped near `step_px` capture px per output
+    frame; then the recorded overscroll settle frames, each once. Either direction (offsets rising or falling). Returns
+    the source pts per output frame."""
     sc = take["scroll"]
     e = take["events"][ev_name]
     pts_of = dict(zip(take["files"], take["pts"]))
-    names = sorted(sc, key=lambda f: pts_of[f])
+    names = sorted((f for f in sc if e["start"] - 1e-6 <= pts_of[f] <= e["end"] + 1e-6), key=lambda f: pts_of[f])
     base = max((f for f in take["files"] if pts_of[f] < e["start"]), key=lambda f: pts_of[f])
-    off = [0] + [sc[f] for f in names]
+    b0 = sc.get(base, 0)
+    sgn = 1 if sc[names[-1]] >= b0 else -1
+    off = [0] + [(sc[f] - b0) * sgn for f in names]
     names = [base] + names
+    sc = {f: (sc[f] - b0) * sgn for f in names if f in sc}
     top = int(np.argmax(off))
     mono = off[:top + 1]
     m_ = len(mono)
-    dc = lambda d, pd: (d - pd) ** 2 + 5 * max(0, d - 14) ** 2  # noqa: E731
+    if peak_px:
+        # day 3+: an eased real scroll at a chosen pace. Targets follow 0.5 - 0.5 cos (peak step = peak_px capture px
+        # per output frame); each output frame takes the recorded frame nearest its target, always a later one than
+        # the previous pick (no repeats, nothing synthesised)
+        nfr = max(2, math.ceil(mono[-1] * math.pi / (2 * peak_px)))
+        path, last = [], 0
+        for k in range(1, nfr + 1):
+            tgt = mono[-1] * (0.5 - 0.5 * math.cos(math.pi * k / nfr))
+            j = min(range(last + 1, m_), key=lambda q: abs(mono[q] - tgt)) if last + 1 < m_ else None
+            if j is None:
+                break
+            path.append(j)
+            last = j
+            if j == m_ - 1:
+                break
+        if path[-1] != m_ - 1:
+            path.append(m_ - 1)
+        # a step of <= 1 px reads as a frozen frame: drop such picks; the rest frame replaces a pick within 1 px of it
+        kept = [path[0]]
+        for j in path[1:]:
+            if mono[j] - mono[kept[-1]] > 1:
+                kept.append(j)
+            elif j == m_ - 1:
+                kept[-1] = j
+        path = kept
+    else:
+        path = _retime_dp(mono, step_px)
+    # the overscroll settle: each recorded frame once, skipping one within 1 px of the last kept one (a 0-1 px repaint
+    # reads as a frozen frame on screen), always ending on the settled frame (it replaces a kept frame within 1 px)
+    settle, last_off = [], off[top]
+    tail = [f for f in names[top + 1:] if pts_of[f] <= e["end"] + 1e-6]
+    for k, f in enumerate(tail):
+        if abs(sc[f] - last_off) > 1 or k == len(tail) - 1:
+            if k == len(tail) - 1 and settle and abs(sc[f] - last_off) <= 1:
+                settle[-1] = f
+            else:
+                settle.append(f)
+            last_off = sc[f]
+    return [pts_of[names[p]] for p in path] + [pts_of[f] for f in settle]
+
+
+def _retime_dp(mono: list, step_px: float) -> list[int]:
+    """Day 2's pick: steps that change as little as possible (DP from rest), capped near step_px."""
+    m_ = len(mono)
+    dc = lambda d, pd: (d - pd) ** 2 + 5 * max(0, d - step_px) ** 2  # noqa: E731
     best = np.full((m_, m_), 1e18)
     prev = -np.ones((m_, m_), int)
     for i in range(1, m_):
@@ -327,19 +381,7 @@ def retime_scroll(take: dict, ev_name: str) -> list[float]:
     path = [m_ - 1, j]
     while path[-1] != 0:
         path.append(int(prev[path[-1], path[-2]]))
-    path = path[::-1][1:]
-    # the overscroll settle: each recorded frame once, skipping one within 1 px of the last kept one (a 0-1 px repaint
-    # reads as a frozen frame on screen), always ending on the settled frame (it replaces a kept frame within 1 px)
-    settle, last_off = [], off[top]
-    tail = [f for f in names[top + 1:] if pts_of[f] <= e["end"] + 1e-6]
-    for k, f in enumerate(tail):
-        if abs(sc[f] - last_off) > 1 or k == len(tail) - 1:
-            if k == len(tail) - 1 and settle and abs(sc[f] - last_off) <= 1:
-                settle[-1] = f
-            else:
-                settle.append(f)
-            last_off = sc[f]
-    return [pts_of[names[p]] for p in path] + [pts_of[f] for f in settle]
+    return path[::-1][1:]
 
 
 def timeline(ep: dict, lines: list[dict], take: dict) -> dict:
@@ -375,11 +417,13 @@ def timeline(ep: dict, lines: list[dict], take: dict) -> dict:
             at = evalx(s_["at"], T)
             if at is None:
                 continue
+            if s_.get("peak_px"):           # day 3+: an eased scroll starts on an output frame, so its first pick shows
+                at = math.ceil(at * FPS - 1e-6) / FPS
             e = ev[s_["event"]]
             src = e["tap"] if s_["from"] == "tap" else e["start"]
             ent = {"at": round(at, 4), "src": src, "event": s_["event"], "settled": e.get("hold", e["end"])}
             if s_.get("retime") == "even":
-                ent["frames"] = retime_scroll(take, s_["event"])
+                ent["frames"] = retime_scroll(take, s_["event"], s_.get("step_px", 14), s_.get("peak_px"))
                 T["v_" + s_["event"] + "_end"] = at + len(ent["frames"]) / FPS
             else:
                 T["v_" + s_["event"] + "_end"] = at + (e["end"] - src)
@@ -432,9 +476,11 @@ def src_time(t: float, T: dict, take: dict) -> float:
         return first["src"] - 0.05          # the still card before the tap (no frame is written while nothing changes)
     k = max(i for i, s in enumerate(sm) if s["at"] <= t + 1e-9)
     e = sm[k]
-    if "frames" in e:                        # a retimed real scroll: one recorded frame per output frame, then held
-        j = int(round((t - e["at"]) * FPS))
-        return e["frames"][min(max(j, 0), len(e["frames"]) - 1)] + 1e-4
+    if "frames" in e:                        # a retimed real scroll: one recorded frame per output frame, then the
+        j = int(round((t - e["at"]) * FPS))  # repaints after it (the scrollbar fading) at real speed to the rest frame
+        if j < len(e["frames"]):
+            return e["frames"][max(j, 0)] + 1e-4
+        return min(e["frames"][-1] + (t - e["at"] - (len(e["frames"]) - 1) / FPS), max(e["settled"], e["frames"][-1]) + 1e-4)
     # real speed, then hold the event's settled frame (its last changed frame) until the next real gesture
     return min(e["src"] + (t - e["at"]), e["settled"] + 1e-4)
 
@@ -465,7 +511,10 @@ def tap_state(t: float, ep: dict, T: dict) -> dict | None:
         rip = d / tp["ripple"] if 0 < d < tp["ripple"] else 0.0
         # the disc sits in the tapped element's empty area (the real press point is logged in the gesture log)
         u, vv = tq["disc_at"]
-        return {"u": u, "v": vv, "scale": round(press * tq["d_mul"], 4), "alpha": round(alpha, 4), "ripple": round(rip, 4)}
+        st = {"u": u, "v": vv, "scale": round(press * tq["d_mul"], 4), "alpha": round(alpha, 4), "ripple": round(rip, 4)}
+        if tp.get("ring_px"):              # day 3+: a ring this wide at full alpha from the first frame; only the fill fades
+            st["ring_px"], st["ring_full"] = tp["ring_px"], True
+        return st
     return None
 
 
@@ -567,6 +616,8 @@ def disclaimer_alpha(t: float, ep: dict, T: dict, caps, accent, end_y) -> float:
 def sample_accent(ep: dict, run: Path, take: dict) -> str:
     """The app's own green: median of the bright green text pixels in the sheet (its '+x%' figures)."""
     smp = ep["overlay"]["accent_sample"]
+    if "hex" in smp:           # sampled once from a recorded frame of the same app and stored (smp["note"] says where)
+        return smp["hex"]
     if "file" in smp:          # a recorded frame of the same app that shows its green (when this take shows none)
         f = Path(smp["file"])
     else:
@@ -667,9 +718,10 @@ def rects_for_frame(ep: dict, take: dict, s: float, fname: str) -> tuple[str, di
         if "span" not in v or not (at(v["span"][0]) <= s < at(v["span"][1])):
             continue
         off = 0
-        se = v.get("scroll_event")
-        if se and se in ev:
-            off = take["scroll"].get(fname, ev[se].get("offset_settled", 0) if s >= ev[se]["start"] else 0)
+        ses = [x for x in (v.get("scroll_events") or [v.get("scroll_event")]) if x and x in ev]
+        if ses:
+            done = [x for x in ses if s >= ev[x]["start"]]
+            off = take["scroll"].get(fname, ev[done[-1]].get("offset_settled", 0) if done else 0)
         sh = lambda r: [r[0], r[1] - off, r[2], r[3] - off]  # noqa: E731
         return name, {k: sh(r) for k, r in v["rects"].items()}, {k: sh(r) for k, r in v["keepout"].items()}, off
     d = default[0]
@@ -959,15 +1011,17 @@ def build(ep: dict, run: Path, a, t_start: float) -> int:
     q = qa(run, ep, T, lines, frames_meta, overlay_boxes, key, final, dfiles, take, accent, end_y, minfo, rinfo, caps, ph)
     q["words_gate"] = word_gate
     q["keepout_scan"] = ko_scan
-    sm_ = [s for s in T["srcmap"] if "frames" in s]
-    if sm_:
-        st_ = [take["files"].index(frame_at(x, take)) for x in sm_[0]["frames"]]
-        q["scroll_retime"] = {"event": sm_[0]["event"], "output_frames": len(st_), "distinct_source_frames": len(set(st_)),
-                              "source_frames_used": [take["files"][k] for k in st_],
-                              "rule": "each output frame a different recorded frame (no repeats, no interpolation)"}
+    rts = []
+    for sm1 in [s for s in T["srcmap"] if "frames" in s]:
+        st_ = [take["files"].index(frame_at(x, take)) for x in sm1["frames"]]
+        rts.append({"event": sm1["event"], "output_frames": len(st_), "distinct_source_frames": len(set(st_)),
+                    "source_frames_used": [take["files"][k] for k in st_],
+                    "rule": "each output frame a different recorded frame (no repeats, no interpolation)"})
         if len(set(st_)) != len(st_):
-            q["fails"].append("retimed scroll repeats a source frame")
+            q["fails"].append(f"retimed scroll {sm1['event']} repeats a source frame")
             q["passed"] = False
+    if rts:
+        q["scroll_retime"] = rts[0] if len(rts) == 1 else rts
     q["render_minutes"] = render_min
     q["build_minutes"] = round((time.time() - t_start) / 60, 2)
     wjson(run / "qa.json", q)
@@ -1101,7 +1155,9 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
                                 "real_press_px": tq["at"], "tapped_element_rect": tq["rect"],
                                 "disc_inside_element": tq["rect"][0] <= tq["disc_at"][0] <= tq["rect"][2] and
                                 tq["rect"][1] <= tq["disc_at"][1] <= tq["rect"][3],
-                                "first_frame_alpha": (first or {}).get("alpha", 0)})
+                                "first_frame_alpha": (first or {}).get("alpha", 0),
+                                "first_frame_ring_alpha": 1.0 if (first or {}).get("ring_full") else
+                                min(1.0, 2 * (first or {}).get("alpha", 0))})
         if late:
             fails.append(f"touch disc on {tq['event']} still visible > 0.1 s after the UI starts to change")
     if len(q["touch_disc"]) == 1:
@@ -1211,9 +1267,26 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
         sr = f["screen_rect"]
         sc = f["px_per_cap"][0]
         found = 0
-        for (u, vv) in [(300, 60), (540, 2380), (60, 1500), (1020, 1000), (540, 300), (200, 1800), (900, 1650)]:
+        # fixed points (mostly the app's black) plus up to 6 flat patches of other colours found on this capture frame
+        # (ring colours, chips), so the check is not only the background
+        fixed = [(300, 60), (540, 2380), (60, 1500), (1020, 1000), (540, 300), (200, 1800), (900, 1650)]
+        flat = lambda a: float(np.ptp(a.reshape(-1, 3), 0).max()) if a.size else 1e9  # noqa: E731  (per channel)
+        auto, cols_ = [], []
+        for vv in range(120, 2280, 20):
+            for u in range(40, 1041, 20):
+                pc = cap[vv - 20:vv + 21, u - 20:u + 21]     # flat over 41x41 capture px, so the yawed sample lands inside
+                if flat(pc) > 3:                             # (the recording's own coding noise is 1-3 levels)
+                    continue
+                c0 = pc.reshape(-1, 3).mean(0)
+                if c0.max() - c0.min() < 25 and c0.max() > 40 or (c0.max() < 40):   # skip greys and the black ground
+                    continue
+                if all(np.abs(c0 - c1).max() > 30 for c1 in cols_):
+                    cols_.append(c0)
+                    auto.append((u, vv))
+        auto = [p for p in sorted(auto, key=lambda p: -float(np.ptp(cap[p[1], p[0]]))) if p not in fixed][:6]
+        for (u, vv) in fixed + auto:
             pc = cap[vv - 8:vv + 9, u - 8:u + 9]
-            if pc.size == 0 or pc.max() - pc.min() > 0:
+            if pc.size == 0 or flat(pc) > (0 if (u, vv) in fixed else 3):
                 continue
             x = sr[0] + u * (sr[2] - sr[0]) / 1080
             y = sr[1] + vv * (sr[3] - sr[1]) / 2400
@@ -1243,15 +1316,18 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
                          "recorded_ui_change": ui_change})
     q["pop_scan"] = {"mean_diff_max": round(float(d.max()), 2), "spikes": pops}
     # retimed scroll: every output frame inside it must differ from the previous one (no frozen frame = no judder)
+    smooth = []
     for s_ in [s for s in T["srcmap"] if "frames" in s]:
-        i0 = int(math.ceil(s_["at"] * FPS - 1e-6))
+        i0 = int(math.ceil(round(s_["at"] * FPS, 2) - 1e-6))   # srcmap "at" is rounded to 4 decimals
         i1 = i0 + len(s_["frames"])
         seg = [round(float(d[i - 1]), 3) for i in range(i0 + 1, min(i1, len(d) + 1))]
         frozen = [i0 + 1 + k for k, x in enumerate(seg) if x < 0.05]
-        q["scroll_smoothness"] = {"frames": [i0, i1], "adjacent_diffs": seg, "frozen_frames": frozen,
-                                  "diff_min": min(seg) if seg else None, "diff_max": max(seg) if seg else None}
+        smooth.append({"event": s_["event"], "frames": [i0, i1], "adjacent_diffs": seg, "frozen_frames": frozen,
+                       "diff_min": min(seg) if seg else None, "diff_max": max(seg) if seg else None})
         if frozen:
-            fails.append(f"retimed scroll has {len(frozen)} frozen frames")
+            fails.append(f"retimed scroll {s_['event']} has {len(frozen)} frozen frames")
+    if smooth:
+        q["scroll_smoothness"] = smooth[0] if len(smooth) == 1 else smooth
     if any(not p["recorded_ui_change"] for p in pops):
         fails.append("one-frame pop not caused by a recorded UI change")
     # mid-push blur frame
@@ -1321,6 +1397,19 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
     q["longest_still_s"] = {"seconds": round(longest / FPS, 2), "from_s": round((start + 1) / FPS, 2),
                             "rule": "no frame with mean diff > 0.25/255 (108x192 grey decode) and phone travel < 0.3 px/frame",
                             "pixels_only_longest_s": round(_longest(d > 0.25) / FPS, 2)}
+    # the app itself: stretches where the recorded frame on screen does not change (camera moves and overlays ignored)
+    ui_ch = [fm[i]["screen"] != fm[i - 1]["screen"] for i in range(1, n)]
+    runs, cur, st0 = [], 0, 0
+    for i, c in enumerate(ui_ch + [True]):
+        if c:
+            if cur:
+                runs.append((round(cur / FPS, 2), round(st0 / FPS, 2), round((st0 + cur) / FPS, 2)))
+            cur, st0 = 0, i + 1
+        else:
+            cur += 1
+    q["no_ui_change_stretches"] = {"rule": "output frames showing the same recorded frame in a row (camera and overlays "
+                                           "ignored); [seconds, from_s, to_s], longest first",
+                                   "stretches": sorted(runs, reverse=True)[:8]}
     if longest / FPS > 1.5:
         fails.append(f"{longest / FPS:.2f} s without a visible change")
     # text gate, two parts. (1) The screen: every distinct recorded frame the render uses, OCR'd at capture resolution
@@ -1419,6 +1508,28 @@ def takes_disclosure(tk: dict) -> dict:
     return {"n": len(rows), "limit_in_brief": 3, "over_limit": len(rows) > 3, "takes": rows, "note": tk.get("takes_note")}
 
 
+def still_vs_take(take: dict, T: dict) -> list[dict]:
+    """How long each settled app state stays on screen in the video against how long it stood still in the take (from
+    the event's last change to the next gesture; after the last gesture, to the end of the recording by the host log)."""
+    sm, ev, out = T["srcmap"], take["events"], []
+    stop = None
+    hl = take.get("host_log") or []
+    t_on = [h["host_ms"] for h in hl if h["what"] == "record_start_done"]
+    t_off = [h["host_ms"] for h in hl if h["what"] == "record_stop_call"]
+    if t_on and t_off:
+        stop = (t_off[0] - t_on[0]) / 1000
+    for k, s in enumerate(sm):
+        e = ev[s["event"]]
+        v_end = T["v_" + s["event"] + "_end"]
+        nxt_out = sm[k + 1]["at"] if k + 1 < len(sm) else T["end"]
+        nxt_src = (ev[sm[k + 1]["event"]]["tap"] if "tap" in ev[sm[k + 1]["event"]] else ev[sm[k + 1]["event"]]["start"]) \
+            if k + 1 < len(sm) else stop
+        out.append({"state_after": s["event"], "video_s": round(nxt_out - v_end, 2),
+                    "take_s": round(nxt_src - e["end"], 2) if nxt_src is not None else None,
+                    "longer_in_video": (nxt_src is not None and nxt_out - v_end > nxt_src - e["end"] + 0.05)})
+    return out
+
+
 def proof(run, ep, take, T, accent, mixinfo, rinfo, q):
     tk = ep["take"]
     pr = {
@@ -1426,7 +1537,13 @@ def proof(run, ep, take, T, accent, mixinfo, rinfo, q):
         "app": tk["app"], "device": tk["device"], "stock_opened": tk.get("stock"),
         "capture": {"recorded_at_host_ms": take["host_log"][0]["host_ms"] if take["host_log"] else None,
                     "recorder": "agent-device record --scope device --quality high --hide-touches (Android screenrecord)",
-                    "unique_frames": take["unique_frames"], "duration_s": take["duration"], "fps_in_motion": take["fps_motion"],
+                    "recorded_frames": len(take["pts"]),
+                    "unique_frames": take["unique_frames"],
+                    "frame_count_definitions": {
+                        "recorded_frames": "every frame the recorder wrote (it writes only when the screen changes)",
+                        "unique_frames": "recorded frames that differ from the previous one by > 0.02/255 mean (1/4-scale "
+                                         "grey), plus the first; repaint-only frames are counted in recorded_frames only"},
+                    "duration_s": take["duration"], "fps_in_motion": take["fps_motion"],
                     "note": "the recorder writes a frame only when the screen changes; still stretches are one frame"},
         "screen_text_read_from_device": {k: v["text"] for k, v in tk["states"].items()},
         "record_setup": tk.get("record", {}).get("setup"),
@@ -1437,7 +1554,8 @@ def proof(run, ep, take, T, accent, mixinfo, rinfo, q):
             "rule": "every screen pixel is a recorded frame; holds repeat the event's settled frame; the in-sheet scroll is "
                     "shown one distinct recorded frame per output frame (chosen for an even speed), never interpolated",
             "srcmap": [{k: (v if k != "frames" else len(v)) for k, v in s.items()} for s in T["srcmap"]],
-            "scroll_retime": q.get("scroll_retime")},
+            "scroll_retime": q.get("scroll_retime"),
+            "still_states_output_vs_take": still_vs_take(take, T)},
         "takes_recorded": takes_disclosure(tk),
         "keepout_scan_of_device_snapshots": q.get("keepout_scan"),
         "touch_disc": q.get("touch_disc"),

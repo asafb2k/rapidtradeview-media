@@ -116,14 +116,14 @@ const tap = new THREE.Mesh(new THREE.PlaneGeometry(TAP_MM, TAP_MM), new THREE.Me
 tap.position.z = ZG + 0.12; tap.visible = false; phone.add(tap);
 function drawTap(st, sPx) {   // st: {scale, alpha, ripple 0..1}; sPx = output px per mm (ring 2 px, shadow 12 px)
   const g = tapCv.getContext("2d"), k = 512 / TAP_MM; g.clearRect(0, 0, 512, 512);
-  const r = (SPEC.tap_d_mm / 2) * k * (st.scale ?? 1), ring = 2 / sPx * k;
+  const r = (SPEC.tap_d_mm / 2) * k * (st.scale ?? 1), ring = (st.ring_px ?? 2) / sPx * k;
   g.save(); g.translate(256, 256);
   if (st.ripple > 0 && st.ripple < 1) { g.globalAlpha = st.alpha * (1 - st.ripple) * 0.85; g.strokeStyle = "#fff"; g.lineWidth = ring;
     g.beginPath(); g.arc(0, 0, r * (1 + 1.3 * st.ripple), 0, 7); g.stroke(); }
   g.globalAlpha = st.alpha;
   g.shadowColor = "rgba(0,0,0,0.25)"; g.shadowBlur = 12 / sPx * k;
   g.fillStyle = "rgba(255,255,255,0.80)"; g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill();
-  g.shadowColor = "transparent"; g.globalAlpha = Math.min(1, 2 * st.alpha); g.strokeStyle = "rgba(255,255,255,0.95)"; g.lineWidth = ring;
+  g.shadowColor = "transparent"; g.globalAlpha = st.ring_full ? 1 : Math.min(1, 2 * st.alpha); g.strokeStyle = "rgba(255,255,255,0.95)"; g.lineWidth = ring;
   g.beginPath(); g.arc(0, 0, r + ring / 2, 0, 7); g.stroke();
   g.restore(); tapTex.needsUpdate = true;
 }
