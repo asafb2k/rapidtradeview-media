@@ -16,6 +16,13 @@ uses at capture resolution (the screen) and every 10th output frame (our overlay
 frame (sub-frames blur the camera only, never two app frames); nothing we draw overlaps the phone screen; overlay text
 stays inside x 60-920, y 170-1500; 'Not investment advice.' stays on screen from the end card to the last frame.
 Exit: 0 built and QA passed, 1 built but a QA gate failed (files kept), 2 input/take error (no video).
+
+The episode owns its shape: poses (capture point uv placed at output A, zoom z, yaw), moves and times as expressions over
+the voice anchors and the source map, the source map placing each recorded gesture (take.events, timed from the pixels),
+"taps" (one touch disc per recorded tap), take.states with spans for the rects and keep-outs, key_frames, check6, holds
+and "qa" (which key frames each measurement reads, the body text size, the runtime budget, voice-to-press pairs).
+Day 2 (2026-11-14-moves-like.json, no "taps"/"qa") still renders frame-identical; day 3 (2026-11-15-concentration.json)
+is three instant taps on one card.
 """
 from __future__ import annotations
 
@@ -42,7 +49,8 @@ W, H, FPS = 1080, 1920, 30
 SAFE = (60, 200, 920, 1500)
 OCR_PS1 = HERE / "ocr.ps1"
 BANNED = ("buy", "sell", "profit", "returns", "guarantee", "guaranteed", "will rise", "go up", "moon", "beat the market",
-          "introducing", "new", "update", "now live", "you should", "signal", "predict", "predicts", "forecast", "tip")
+          "introducing", "new", "update", "now live", "you should", "signal", "predict", "predicts", "forecast", "tip",
+          "too much", "risky", "s&p", "spy")
 OCR_BAD = ("HOLD", "BULLISH", "BEARISH", "FREE STOCK", "0/2", "1/2", "2/2", "OUR RECORD", "KEY LEVEL", "/100", "EDGAR",
            "SOURCE:", "SPONSOR")
 PRICE_RX = re.compile(r"\$\s?\d|\b\d+\.\d\d\b")
@@ -119,6 +127,26 @@ def voice(ep: dict, run: Path) -> tuple[list[dict], list[dict], float]:
 
 
 # ================================================================================================ take
+def taps_of(ep: dict) -> list[dict]:
+    """Every recorded tap the video shows a touch disc for: [{event, at (real press, capture px), rect (the tapped
+    element: its press highlight dates the tap), disc_at, d_mul}]. Episodes from day 3 list them in ep["taps"]; day 2's
+    single tap (take.tap_at / take.tap_rect / tap.disc_at on the first event) is read the old way."""
+    if "taps" in ep:
+        return [{"event": t["event"], "at": t["at"], "rect": t["rect"], "disc_at": t.get("disc_at", t["at"]),
+                 "d_mul": t.get("d_mul", 1.0)} for t in ep["taps"]]
+    tk = ep["take"]
+    return [{"event": tk["events"][0], "at": tk["tap_at"], "rect": tk["tap_rect"],
+             "disc_at": ep["tap"].get("disc_at", tk["tap_at"]), "d_mul": 1.0}]
+
+
+def qa_cfg(ep: dict) -> dict:
+    """Which key frames each QA measurement reads (day 2's names are the defaults, so its episode needs no change)."""
+    d = {"text_size": ["frame0", "read1", "read2_same", "read2_rows", "whole", "end"],
+         "phone": ["frame0", "tap", "read1", "read2_rows", "end"], "floor": ["whole", "whole_hold", "end", "close"],
+         "colour": ["whole", "read1", "read2_rows", "end", "last"], "body_cap_px": 26, "budget": {}, "voice_press": []}
+    return {**d, **ep.get("qa", {})}
+
+
 def probe_pts(mp4: Path) -> list[float]:
     r = subprocess.run([str(FFPROBE), "-v", "error", "-select_streams", "v", "-show_entries", "frame=pts_time", "-of",
                         "csv=p=0", str(mp4)], capture_output=True, text=True)
@@ -150,12 +178,11 @@ def ingest_take(ep: dict, run: Path) -> dict:
     if len(files) != len(pts):
         raise InputError(f"take frames {len(files)} != pts {len(pts)}")
     small = [np.asarray(Image.open(p).convert("L"), np.int16)[::4, ::4] for p in files]
-    x0, y0, x1, y1 = tk["tap_rect"]
-    log = [{"i": 0, "file": files[0].name, "pts": pts[0], "diff": 0.0, "tap_row": 0.0}]
+    taps = taps_of(ep)
+    log = [{"i": 0, "file": files[0].name, "pts": pts[0], "diff": 0.0}]
     for i in range(1, len(files)):
         d = float(np.abs(small[i] - small[i - 1]).mean())
-        rr = float(np.abs(small[i] - small[0])[y0 // 4:y1 // 4, x0 // 4:x1 // 4].mean())
-        log.append({"i": i, "file": files[i].name, "pts": round(pts[i], 6), "diff": round(d, 3), "tap_row": round(rr, 3)})
+        log.append({"i": i, "file": files[i].name, "pts": round(pts[i], 6), "diff": round(d, 3)})
     thr, quiet = tk["change_thresh"], tk["event_quiet_s"]
     ch = [e for e in log[1:] if e["diff"] >= thr]
     clusters = []
@@ -173,11 +200,23 @@ def ingest_take(ep: dict, run: Path) -> dict:
         last = c[-1]["i"]
         ev[name] = {"start": c[0]["pts"], "end": c[-1]["pts"], "first_frame": c[0]["file"], "last_frame": log[last]["file"],
                     "frames": len(c)}
-    # the tap: the first frame in the open cluster's window where the tapped row changes (its press highlight)
-    o = ev[tk["events"][0]]
-    cand = [e for e in log if o["start"] - 0.4 <= e["pts"] <= o["end"] and e["tap_row"] >= 0.8]
-    ev[tk["events"][0]]["tap"] = cand[0]["pts"] if cand else o["start"]
-    ev[tk["events"][0]]["tap_frame"] = cand[0]["file"] if cand else o["first_frame"]
+    # "settle": "last_before_next" (day 3+) holds the last recorded frame before the next gesture (repaints under the
+    # change threshold included: the true rest state); default holds the cluster's last frame (day 2)
+    if tk.get("settle") == "last_before_next":
+        starts = [ev[n]["start"] for n in tk["events"]]
+        for k, name in enumerate(tk["events"]):
+            lim = starts[k + 1] if k + 1 < len(starts) else 1e18
+            ev[name]["hold"] = max(e["pts"] for e in log if e["pts"] < lim - 1e-6)
+    # each tap: the first frame in its event's window where the tapped element changes (its press highlight), compared
+    # with the last frame before that window
+    for tp in taps:
+        o = ev[tp["event"]]
+        x0, y0, x1, y1 = tp["rect"]
+        ref = max((e["i"] for e in log if e["pts"] < o["start"] - 0.4), default=0)
+        cand = [e for e in log if o["start"] - 0.4 <= e["pts"] <= o["end"] and
+                float(np.abs(small[e["i"]] - small[ref])[y0 // 4:y1 // 4, x0 // 4:x1 // 4].mean()) >= 0.8]
+        o["tap"] = cand[0]["pts"] if cand else o["start"]
+        o["tap_frame"] = cand[0]["file"] if cand else o["first_frame"]
     # scroll offset of every frame (rows matched against the settled sheet before the scroll)
     scroll = {}
     scr_states = [v for v in tk["states"].values() if v.get("scroll_event") in ev]
@@ -217,8 +256,9 @@ def ingest_take(ep: dict, run: Path) -> dict:
            "fps_motion": fps_motion, "unique_frames": len(unique) + 1, "duration": pts[-1],
            "host_log": host, "telemetry": tele}
     wjson(td / "frame_log.json", {"frames": log, "fps_motion": fps_motion})
-    gest = [{"gesture": "tap (row press highlight, first changed frame)", "t": ev[tk["events"][0]]["tap"],
-             "frame": ev[tk["events"][0]]["tap_frame"], "at_px": tk["tap_at"]}]
+    gest = [{"gesture": f"tap on {tp['event']} (press highlight / first changed frame in the tapped element)",
+             "t": ev[tp["event"]]["tap"], "frame": ev[tp["event"]]["tap_frame"], "at_px": tp["at"], "element_rect": tp["rect"]}
+            for tp in taps]
     for name in tk["events"]:
         gest.append({"gesture": name, "t_first_change": ev[name]["start"], "t_last_change": ev[name]["end"],
                      "first_frame": ev[name]["first_frame"], "frames": ev[name]["frames"]})
@@ -337,7 +377,7 @@ def timeline(ep: dict, lines: list[dict], take: dict) -> dict:
                 continue
             e = ev[s_["event"]]
             src = e["tap"] if s_["from"] == "tap" else e["start"]
-            ent = {"at": round(at, 4), "src": src, "event": s_["event"], "settled": e["end"]}
+            ent = {"at": round(at, 4), "src": src, "event": s_["event"], "settled": e.get("hold", e["end"])}
             if s_.get("retime") == "even":
                 ent["frames"] = retime_scroll(take, s_["event"])
                 T["v_" + s_["event"] + "_end"] = at + len(ent["frames"]) / FPS
@@ -405,22 +445,28 @@ def frame_at(s: float, take: dict) -> str:
     return take["files"][i]
 
 
+def tap_time(T: dict, tp: dict) -> float:
+    """Output time of a tap: its event's source-map entry (which plays from the tap frame)."""
+    return T["v_" + tp["event"]]
+
+
 def tap_state(t: float, ep: dict, T: dict) -> dict | None:
     tp = ep["tap"]
-    v = T["v_tap"]
-    d = t - v
-    if d < -tp["lead"] or d > tp["fade_after"]:
-        return None
-    # in over `lead` before the tap; the finger lifts as the sheet starts to move: out within `fade_after` of the tap
-    fin = tp["lead"] * tp.get("fade_in_frac", 1.0)
-    alpha = min(1.0, (d + tp["lead"]) / fin) if d < 0 else max(0.0, 1 - max(0.0, d - 0.05) / (tp["fade_after"] - 0.05))
-    press = 1.0
-    if 0 <= d <= tp["pop"]:
-        press = 1 - 0.1 * math.sin(math.pi * d / tp["pop"])
-    rip = d / tp["ripple"] if 0 < d < tp["ripple"] else 0.0
-    # the disc sits in the tapped row's empty band (the real press point is tap_at, logged in the gesture log)
-    u, vv = tp.get("disc_at", ep["take"]["tap_at"])
-    return {"u": u, "v": vv, "scale": round(press, 4), "alpha": round(alpha, 4), "ripple": round(rip, 4)}
+    for tq in taps_of(ep):
+        d = t - tap_time(T, tq)
+        if d < -tp["lead"] or d > tp["fade_after"]:
+            continue
+        # in over `lead` before the tap; the finger lifts as the UI starts to move: out within `fade_after` of the tap
+        fin = tp["lead"] * tp.get("fade_in_frac", 1.0)
+        alpha = min(1.0, (d + tp["lead"]) / fin) if d < 0 else max(0.0, 1 - max(0.0, d - 0.05) / (tp["fade_after"] - 0.05))
+        press = 1.0
+        if 0 <= d <= tp["pop"]:
+            press = 1 - 0.1 * math.sin(math.pi * d / tp["pop"])
+        rip = d / tp["ripple"] if 0 < d < tp["ripple"] else 0.0
+        # the disc sits in the tapped element's empty area (the real press point is logged in the gesture log)
+        u, vv = tq["disc_at"]
+        return {"u": u, "v": vv, "scale": round(press * tq["d_mul"], 4), "alpha": round(alpha, 4), "ripple": round(rip, 4)}
+    return None
 
 
 # ================================================================================================ overlay
@@ -521,8 +567,10 @@ def disclaimer_alpha(t: float, ep: dict, T: dict, caps, accent, end_y) -> float:
 def sample_accent(ep: dict, run: Path, take: dict) -> str:
     """The app's own green: median of the bright green text pixels in the sheet (its '+x%' figures)."""
     smp = ep["overlay"]["accent_sample"]
-    ev = take["events"][smp["after_event"]]
-    f = run / "take" / "frames" / frame_at(ev["end"] + 0.05, take)
+    if "file" in smp:          # a recorded frame of the same app that shows its green (when this take shows none)
+        f = Path(smp["file"])
+    else:
+        f = run / "take" / "frames" / frame_at(take["events"][smp["after_event"]]["end"] + 0.05, take)
     a = np.asarray(Image.open(f).convert("RGB"), np.int16)
     x0, y0, x1, y1 = smp["rect"]
     reg = a[y0:y1, x0:x1].reshape(-1, 3)
@@ -708,7 +756,7 @@ def build(ep: dict, run: Path, a, t_start: float) -> int:
               ep["overlay"]["url"]["text"], ep["overlay"]["disc"]["text"]]
     # every ticker-like token the app shows in this take (all states' screen text) plus the stock opened: we never write
     # or say one ourselves (case-sensitive: the app's own all-caps labels are in the set too, which only makes it stricter)
-    tickers = {ep["take"]["stock"].upper()}
+    tickers = {ep["take"]["stock"].upper()} if ep["take"].get("stock") else set()
     for st_ in ep["take"]["states"].values():
         for s_ in st_["text"]:
             tickers |= set(TICKER_RX.findall(s_))
@@ -758,10 +806,8 @@ def build(ep: dict, run: Path, a, t_start: float) -> int:
 
     # end-card text slots: under the end pose's phone
     o = ep["overlay"]
-    pe = ep["poses"]["end"]
-    end_bottom = pe["A"][1] + pe["z"] * PHONE_H_WHOLE / 2
-    pd = ep["poses"]["end_drift"]
-    end_bottom = max(end_bottom, pd["A"][1] + pd["z"] * PHONE_H_WHOLE / 2)
+    end_bottom = max(ep["poses"][nm]["A"][1] + ep["poses"][nm]["z"] * PHONE_H_WHOLE / 2
+                     for nm in o.get("end_poses", ["end", "end_drift"]))
     url_top = round(end_bottom + o["end_gap"])
     disc_top = round(url_top + o["url"]["size"] * 0.727 + o["url"]["size"] * 0.21 + 30)
     end_y = {"url": url_top, "disc": disc_top}
@@ -854,7 +900,7 @@ def build(ep: dict, run: Path, a, t_start: float) -> int:
     kit = S.make_kit(F.KIT_DIR)
     from showcase import make_kit as sc_kit  # noqa: E402  (the series' numpy pop)
     kit = {**kit, **sc_kit()}
-    cues = [{"sfx": "pop", "at": T["v_tap"] + 1 / FPS, "gain_db": -4.0}]
+    cues = [{"sfx": "pop", "at": tap_time(T, tq) + 1 / FPS, "gain_db": -4.0} for tq in taps_of(ep)]
     for evn in ep["sfx"]["slides"]:              # the app's own sheet slides (visible causes)
         cues.append({"sfx": "swish", "at": T["v_" + evn] + 0.04, "gain_db": -12.5})
     last_w = -9.0
@@ -888,12 +934,12 @@ def build(ep: dict, run: Path, a, t_start: float) -> int:
         sheet_items.append((f"{k / FPS:.1f}s", Image.open(dfiles[k])))
     contact(sheet_items, run / "sheet.png", tw=216, cols=9, lab=20)
     ph_items = []
-    for nm in ["frame0", "tap", "read1", "read2_rows", "end"]:
+    for nm in qa_cfg(ep)["phone"]:
         lossless = run / "frames" / f"f{key[nm]:04d}.png"
         im = shorts_overlay(Image.open(lossless if lossless.is_file() else dfiles[key[nm]]).convert("RGB")).resize(
             (360, 640), Image.LANCZOS)
         ph_items.append((f"{nm} {key[nm] / FPS:.1f}s", im))
-    sh = Image.new("RGB", (5 * 360 + 4 * 8, 640 + 34), (20, 20, 24))
+    sh = Image.new("RGB", (len(ph_items) * 368 - 8, 640 + 34), (20, 20, 24))
     for k, (lab, im) in enumerate(ph_items):
         sh.paste(im, (k * 368, 34))
         ImageDraw.Draw(sh).text((k * 368 + 6, 4), lab, font=F.font(22), fill=(255, 255, 255))
@@ -1036,31 +1082,75 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
         fails.append("'Not investment advice.' not shown through to the last frame")
     # the touch disc: gone within 0.1 s of the sheet's first visible movement (first source frame after the tap whose
     # change is >= 1.0 mean)
-    tev = take["events"][ep["take"]["events"][0]]
-    mv_src = min([e["pts"] for e in take["log"] if e["pts"] > tev["tap"] and e["diff"] >= 1.0] or [tev["tap"]])
-    t_move = T["v_tap"] + (mv_src - tev["tap"])
-    late = [round(t, 3) for t in np.arange(t_move + 0.1, t_move + 0.6, 1 / 120) if (tap_state(t, ep, T) or {}).get("alpha", 0) > 0]
-    q["touch_disc"] = {"sheet_first_moves_s": round(t_move, 3), "disc_gone_by_s": round(T["v_tap"] + ep["tap"]["fade_after"], 3),
-                       "visible_after_move_plus_0.1": late[:5], "at_capture_px": ep["tap"].get("disc_at"),
-                       "real_press_px": ep["take"]["tap_at"]}
-    if late:
-        fails.append("touch disc still visible > 0.1 s after the sheet starts to move")
-    # readable share and the smallest app text
+    qc = qa_cfg(ep)
+    q["touch_disc"] = []
+    for tq in taps_of(ep):
+        tev = take["events"][tq["event"]]
+        vt = tap_time(T, tq)
+        # the UI's first visible movement after the press (a later frame within 0.5 s whose change is >= 1.0 mean); an
+        # instant re-render (no later moving frame) moves on the tap frame itself
+        mv_src = min([e["pts"] for e in take["log"] if tev["tap"] < e["pts"] <= tev["tap"] + 0.5 and e["diff"] >= 1.0]
+                     or [tev["tap"]])
+        t_move = vt + (mv_src - tev["tap"])
+        late = [round(t, 3) for t in np.arange(t_move + 0.1, t_move + 0.6, 1 / 120)
+                if (tap_state(t, ep, T) or {}).get("alpha", 0) > 0]
+        first = tap_state(vt - ep["tap"]["lead"] + 1 / FPS, ep, T)
+        q["touch_disc"].append({"event": tq["event"], "press_s": round(vt, 3), "ui_first_moves_s": round(t_move, 3),
+                                "disc_gone_by_s": round(vt + ep["tap"]["fade_after"], 3),
+                                "visible_after_move_plus_0.1": late[:5], "at_capture_px": tq["disc_at"],
+                                "real_press_px": tq["at"], "tapped_element_rect": tq["rect"],
+                                "disc_inside_element": tq["rect"][0] <= tq["disc_at"][0] <= tq["rect"][2] and
+                                tq["rect"][1] <= tq["disc_at"][1] <= tq["rect"][3],
+                                "first_frame_alpha": (first or {}).get("alpha", 0)})
+        if late:
+            fails.append(f"touch disc on {tq['event']} still visible > 0.1 s after the UI starts to change")
+    if len(q["touch_disc"]) == 1:
+        q["touch_disc"] = q["touch_disc"][0]
+    # readable share and the smallest app text (body = the app's body text cap height in capture px, qa.body_cap_px)
     rd = [f for f in fm if f["z"] >= 1.2]
     q["readable"] = {"rule": "pose zoom >= 1.2x the whole-phone scale (screen >= 0.56 output px per capture px)",
                      "frames": len(rd), "share": round(len(rd) / n, 3)}
-    st = ep["take"]["states"]
+    body = qc["body_cap_px"]
+    rd20 = [f for f in rd if body * f["px_per_cap"][1] >= 20 - 1e-6]
+    q["readable_20px"] = {"rule": f"zoom >= 1.2x and the app's body text ({body} capture px cap height) >= 20 output px",
+                          "frames": len(rd20), "share": round(len(rd20) / n, 3)}
+    wh = [f for f in fm if f["phone_rect"][0] >= 0 and f["phone_rect"][1] >= 0 and f["phone_rect"][2] <= W
+          and f["phone_rect"][3] <= H]
+    whs = [f for f in wh if f["phone_rect"][0] >= SAFE[0] and f["phone_rect"][1] >= SAFE[1] and f["phone_rect"][2] <= SAFE[2]
+           and f["phone_rect"][3] <= SAFE[3]]
+    q["whole_phone_share"] = {"in_frame": {"frames": len(wh), "share": round(len(wh) / n, 3)},
+                              "inside_x60_920_y200_1500": {"frames": len(whs), "share": round(len(whs) / n, 3)}}
     smallest = {}
-    for nm in ["frame0", "read1", "read2_same", "read2_rows", "whole", "end"]:
+    for nm in qc["text_size"]:
         f = fm[key[nm]]
         sc = f["px_per_cap"][1]
-        smallest[nm] = {"t": f["t"], "out_px_per_capture_px": round(sc, 3),
+        smallest[nm] = {"t": f["t"], "z": f["z"], "out_px_per_capture_px": round(sc, 3),
                         "line_box_px": {"14sp body (42 px box)": round(42 * sc, 1), "16sp (51-57 px box)": round(54 * sc, 1),
                                         "title (66 px box)": round(66 * sc, 1)},
-                        "cap_height_px_body_14sp": round(26 * sc, 1)}
+                        "cap_height_px_body_14sp": round(26 * sc, 1),
+                        f"cap_height_px_body ({body} capture px)": round(body * sc, 1)}
     q["text_size"] = smallest
-    if q["readable"]["share"] < 0.5:
-        fails.append(f"readable share {q['readable']['share']}")
+    bud = qc["budget"]
+    if not bud:                                  # day 2's rule
+        if q["readable"]["share"] < 0.5:
+            fails.append(f"readable share {q['readable']['share']}")
+    else:
+        if q["whole_phone_share"]["in_frame"]["share"] < bud["whole_share"]:
+            fails.append(f"whole phone in frame {q['whole_phone_share']['in_frame']['share']} of the runtime "
+                         f"(needs {bud['whole_share']})")
+        if q["readable_20px"]["share"] < bud["readable_share"]:
+            fails.append(f"readable (>=1.2x and body >= 20 px) {q['readable_20px']['share']} of the runtime "
+                         f"(needs {bud['readable_share']})")
+    # the voice names an action within 0.2 s of the press it names
+    vp = []
+    for ev_name, anchor in qc["voice_press"]:
+        tq = [x for x in taps_of(ep) if x["event"] == ev_name][0]
+        off = T[anchor] - tap_time(T, tq)
+        vp.append({"tap": ev_name, "voice_anchor": anchor, "press_s": round(tap_time(T, tq), 3), "voice_s": round(T[anchor], 3),
+                   "offset_s": round(off, 3)})
+        if abs(off) > 0.2 + 1e-6:
+            fails.append(f"voice '{anchor}' {off:+.2f} s from the press on {ev_name} (limit 0.2)")
+    q["voice_to_press"] = vp
     # keep-out projection gate: any keep-out rect inside the screen and the output frame on any frame
     ko = []
     for f in fm:
@@ -1111,7 +1201,7 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
         fails.append("overlay text outside x 60-920 / y 170-1500")
     # colour check: flat UI patches of the screen vs the capture frame shown (still frames only)
     cc = []
-    for nm in ["whole", "read1", "read2_rows", "end", "last"]:
+    for nm in qa_cfg(ep)["colour"]:
         i = key[nm]
         f = fm[i]
         if f["subs"] > 1 or not (run / "frames" / f"f{i:04d}.png").is_file():
@@ -1196,7 +1286,7 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
         shutil.copy2(dfiles[iu], run / "qa_mid_ui.png")
     # ground: the floor band (y 1500-1920, outside the phone) never darker than (7, 13, 12) on the whole-phone and end frames
     flo = []
-    for nm in ("whole", "whole_hold", "end", "close"):
+    for nm in qa_cfg(ep)["floor"]:
         if nm not in key:
             continue
         i = key[nm]
@@ -1215,9 +1305,10 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
     q["first_vs_last"] = {"mean_abs_diff": round(float(np.abs(f0 - fl).mean()), 2),
                           "last_pose": {"z": fm[-1]["z"], "yaw": fm[-1]["yaw"]}, "first_pose": {"z": fm[0]["z"], "yaw": fm[0]["yaw"]}}
     # first real UI change and the longest stretch without a visible change
-    q["first_ui_change_s"] = round(T["v_tap"], 3)
-    if T["v_tap"] > 2.6:
-        fails.append(f"first real UI change at {T['v_tap']:.2f} s (target ~2.5, limit 2.6)")
+    first_ui = min(s_["at"] for s_ in T["srcmap"])
+    q["first_ui_change_s"] = round(first_ui, 3)
+    if first_ui > 2.6 + 1e-6:
+        fails.append(f"first real UI change at {first_ui:.2f} s (target ~2.5, limit 2.6)")
     # a frame changes visibly when its pixels change (> 0.25/255 mean on the grey decode) or the camera moves the phone
     # by >= 0.3 px (probe travel over the frame interval: a slow move counts, a held pose does not)
     mv = np.array([f["travel_px"] * 2 >= 0.3 for f in fm[1:]])     # travel is over half a frame (the shutter)
@@ -1254,7 +1345,9 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
             tx = o.get(p.name, "")
             up = tx.upper()
             for b in OCR_BAD:
-                if b in up:
+                # whole words only: the app's own "holdings" contains HOLD, the verdict chip is the word HOLD
+                rx = (r"(?<![A-Z])" if b[0].isalpha() else "") + re.escape(b) + (r"(?![A-Z])" if b[-1].isalpha() else "")
+                if re.search(rx, up):
                     hits.append({"frame": p.name, "found": b})
             for w in F.PROVIDER_WORDS:
                 if re.search(r"(?<![a-z])" + re.escape(w) + r"(?![a-z])", tx.lower()):
@@ -1275,11 +1368,15 @@ def qa(run, ep, T, lines, fm, boxes, key, final, dfiles, take, accent, end_y, mi
         fails.append("text gate did not run")
     # words
     allw = " ".join(ln["say"] for ln in lines) + " " + " ".join(" ".join(w["t"] for w in c["words"]) for c in caps)
-    q["banned_scan"] = {"spoken_and_captions": allw, "hits": []}
+    low = allw.lower()
+    bh = [w for w in BANNED + F.PROVIDER_WORDS if re.search(r"(?<![a-z])" + re.escape(w) + r"(?![a-z])", low)]
+    q["banned_scan"] = {"spoken_and_captions": allw, "hits": bh}
+    if bh:
+        fails.append(f"banned words spoken or captioned: {bh}")
     q["punch_hole"] = ph
     q["render"] = {k: rinfo.get(k) for k in ("gpu", "float_blend", "n", "seconds", "sec_per_frame")}
-    q["timeline"] = {"tap": T["v_tap"], "open_end": T["v_open_end"], "scroll": T.get("v_scroll"),
-                     "scroll_end": T.get("v_scroll_end"), "close": T.get("v_close"), "end": T["end"],
+    q["timeline"] = {**{k: round(v, 3) for k, v in T.items() if k.startswith("v_") and isinstance(v, (int, float))},
+                     "end": T["end"],
                      "moves": [(m["name"], m["t0"], round(m["t0"] + m["dur"], 3)) for m in T["moves"]]}
     q["fails"] = fails
     q["passed"] = not fails
@@ -1326,12 +1423,15 @@ def proof(run, ep, take, T, accent, mixinfo, rinfo, q):
     tk = ep["take"]
     pr = {
         "built_at": now_z(), "episode": ep["slug"], "feature": ep["feature"],
-        "app": tk["app"], "device": tk["device"], "stock_opened": tk["stock"],
+        "app": tk["app"], "device": tk["device"], "stock_opened": tk.get("stock"),
         "capture": {"recorded_at_host_ms": take["host_log"][0]["host_ms"] if take["host_log"] else None,
                     "recorder": "agent-device record --scope device --quality high --hide-touches (Android screenrecord)",
                     "unique_frames": take["unique_frames"], "duration_s": take["duration"], "fps_in_motion": take["fps_motion"],
                     "note": "the recorder writes a frame only when the screen changes; still stretches are one frame"},
         "screen_text_read_from_device": {k: v["text"] for k, v in tk["states"].items()},
+        "record_setup": tk.get("record", {}).get("setup"),
+        "what_each_tap_does": tk.get("what_each_tap_does"),
+        "keepout_note": tk.get("keepout_note"),
         "gesture_log": rjson(run / "take" / "gesture_log.json"),
         "timing_of_the_real_frames": {
             "rule": "every screen pixel is a recorded frame; holds repeat the event's settled frame; the in-sheet scroll is "

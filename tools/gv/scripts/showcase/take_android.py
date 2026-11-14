@@ -16,9 +16,10 @@ import subprocess
 import time
 from pathlib import Path
 
-DEMO = [["enter"], ["clock", "-e", "hhmm", "0941"], ["battery", "-e", "level", "100", "-e", "plugged", "false"],
+# "exit" first: entering on top of a stale demo state left a second wifi icon on day 3's emulator (11-14)
+DEMO = [["exit"], ["enter"], ["clock", "-e", "hhmm", "0941"], ["battery", "-e", "level", "100", "-e", "plugged", "false"],
         ["network", "-e", "wifi", "show", "-e", "level", "4", "-e", "fully", "true"], ["network", "-e", "mobile", "hide"],
-        ["notifications", "-e", "visible", "false"]]
+        ["network", "-e", "ethernet", "hide"], ["notifications", "-e", "visible", "false"]]
 
 
 def demo(adb: str, serial: str, on: bool) -> None:
