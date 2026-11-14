@@ -58,8 +58,8 @@ through grok_review.wording_reasons, the Growth post audit. Pure functions, no I
    parentheses likewise. Each must match the item's ticker_sectors ($GOOGL is Communication Services, not Technology).
 4. Scoped numbers: an item may require words next to some of its numbers (`scoped_numbers`: the 30-day insider totals are
    "open-market" buys / sells "by officers and directors").
-5. Card message (`card_message`): words a post may not use because its attached card says the opposite (breadth: a card
-   headlining a broad decline never goes with "narrow", "concentrated", "the typical stock was flat").
+5. Breadth reading (`breadth_reading`): words a breadth post may not use because the day's counts of all tracked stocks
+   say the opposite (a broad decline never goes with "narrow", "concentrated", "the typical stock was flat").
 6. Direction (`moves`): a gain / loss verb never sits beside a number or a company / sector that moved the other way.
 """
 from __future__ import annotations
@@ -2130,15 +2130,15 @@ def scope_reasons(item: dict, text: str, strip_allowed) -> list[str]:
     return out
 
 
-def card_reasons(item: dict, text: str) -> list[str]:
-    cm = item.get("card_message") or {}
-    bad = cm.get("never")
+def breadth_reasons(item: dict, text: str) -> list[str]:
+    br = item.get("breadth_reading") or {}
+    bad = br.get("never")
     if not bad:
         return []
     m = re.search(bad, text, re.IGNORECASE)
     if not m:
         return []
-    return [f"card: the attached card says {cm.get('says') or 'otherwise'}; the text must not contradict it "
+    return [f"breadth: the day's counts say {br.get('says') or 'otherwise'}; the text must not contradict them "
             f"({m.group(0)!r})"]
 
 
@@ -2333,7 +2333,7 @@ def content_reasons(item: dict, text: str, strip_allowed=None, allowlist: bool =
     # numbers and direction words tied to their subjects (section 2c; the facts_text is where the ties come from)
     bind = binding_reasons(item, text) + chart_reasons(item, text) if allowlist and "claim_phrases" in item else []
     out = (index_reasons(item.get("type"), text, item_names(item)) + compare
-           + sector_reasons(item, text) + card_reasons(item, text) + window_reasons(item, text)
+           + sector_reasons(item, text) + breadth_reasons(item, text) + window_reasons(item, text)
            + direction_reasons(item, text) + bind)
     if strip_allowed is not None:
         out += scope_reasons(item, text, strip_allowed)

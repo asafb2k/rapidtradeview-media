@@ -2,6 +2,7 @@
 Run: python -m pytest tools/tests -q (offline: the fixture is the API's own answers, read 2026-10-18)."""
 import datetime as dt
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -111,12 +112,12 @@ def test_p7_breadth_divergence_and_basket():
     assert "1,631 of 2,497 US stocks" in b["facts_text"] and "+1,212 on Oct 15" in b["facts_text"]
     for n in ("1,631", "2,497", "65%", "+1,212"):
         assert n in b["allowed_numbers"], n
-    # the card headlines 65% of all tracked stocks down (broad): the median / risers of the 500 ("the typical stock was
-    # flat", narrow) would contradict it, so they are not offered and the narrow words are barred
+    # 65% of all tracked stocks fell (broad): the median / risers of the 500 ("the typical stock was flat", narrow) would
+    # contradict the counts, so they are not offered and the narrow words are barred
     assert b["narrative"] == "broad" and "median" not in b["facts_text"]
     for n in ("−0.03%", "221", "445"):
         assert n not in b["allowed_numbers"], n
-    assert "typical" in b["card_message"]["never"]
+    assert "typical" in b["breadth_reading"]["never"]
     k = one(mk.basket_week(M, SUN)[0])
     assert k["mean_5d"] == pytest.approx(-5.0425, abs=1e-3) and k["risers"] == 1
     assert "−5.04%" in k["allowed_numbers"] and "$AAPL +2.03%" in k["facts_text"]
@@ -195,6 +196,10 @@ def test_market_items_become_facts_items_with_cards_and_anchors():
     assert mm["card"]["file"].startswith("market-map-2026-10-16-")
     maps = {i["card"]["file"] for i in items if i.get("card") and i["card"]["panel"] == "map"}
     assert len(maps) == 1                                   # one pinned file per panel and data
+    # the site removed its breadth and sector tiles (2026-11-14): no card, the page link is the market map
+    for it in (i for i in items if i["type"] in ("sector_rotation", "breadth_day")):
+        assert it["card"] is None and it["media"] == [] and it["page_url"].endswith("#map"), it["item_id"]
+    assert not any(re.search(r"#(?:breadth|sectors)|/market/card/(?:breadth|sectors)", json.dumps(i)) for i in items)
     pv = next(i for i in items if i["type"] == "earnings_week_preview")
     # the week's own card (Growth PILLARS section 9 ask 8), never the /earnings hub card
     assert pv["media"][0]["url"] == "https://www.rapidtradeview.trade/earnings/this-week/opengraph-image" and "card" not in pv
@@ -321,9 +326,9 @@ def test_pin_cards_prepare_and_apply(tmp_path, monkeypatch):
     work = tmp_path / "work"
     assert pc.prepare(path, tmp_path, "2026-10-18", work, read=lambda panel: M) == 10
     files = (work / "pin-cards-files.txt").read_text(encoding="utf-8").split()
-    assert sorted(Path(f).name.split("-")[1] for f in files) == ["breadth", "map", "sectors"]
+    assert sorted(Path(f).name.split("-")[1] for f in files) == ["map"]
     assert all(f.startswith("v/2026-10-18/cards/market-") for f in files)
-    assert len(calls) == 2 * 3 + 1                            # warm-up + the kept GET per panel; buzz failed at warm-up
+    assert len(calls) == 2 * 1 + 1                            # warm-up + the kept GET per panel; buzz failed at warm-up
     monkeypatch.setattr(pc, "served", lambda url: True)
     assert pc.apply(path, work, 5, True) == 0
     out = json.loads(path.read_text(encoding="utf-8"))

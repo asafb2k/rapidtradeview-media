@@ -61,7 +61,8 @@ move in a morning file, an earnings result past its release day, an item of an e
 Round 7 (HQ 2026-10-19): every item carries phrasings (2-3 validator-checked phrasings per fact, ids
 "<fact key>.<variant>", phrasings.py; fact_phrases / claim_phrases are their flat lists) and rotation (the phrasing / hook
 ids its type used in the last 5 own posts per platform; each phrasing's recent_on); rules.verbatim.hooks is the closed
-list of hook sentences (post_vocab.HOOKS). Card consistency: basket_week has no card (and stays out of the top 8), a
+list of hook sentences (post_vocab.HOOKS). Card consistency: basket_week has no card (and stays out of the top 8),
+sector_rotation and breadth_day have none since the site removed their tiles (2026-11-14; their page link is the map), a
 mega_mover keeps the map card only when the map card labels its ticker with its move (map_layout.py), the week preview
 uses /earnings/this-week's card; map items carry priced / total and a coverage phrase; market_move / mega_mover name a
 non-mega context mover (crypto-linked left out). The earnings week counts weeks_ahead from the API's UTC week.
@@ -75,7 +76,7 @@ the data with exact numbers, window and scope, that state every comparison / ran
 any ranking language, or any word outside the plain vocabulary of post_vocab.py, must be one of them verbatim),
 subject_numbers (each number of its facts_text / claim phrases tied to its company / sector: claims.binding_reasons),
 claims (the older structured reading, kept for direction / dates),
-ticker_sectors / ticker_names (from the market map) and, where needed, scoped_numbers and card_message; each item's
+ticker_sectors / ticker_names (from the market map) and, where needed, scoped_numbers and breadth_reading; each item's
 claim_phrases and angles pass every post check (one that fails is dropped) and its facts_text every check but the
 allowlist (an item whose facts_text fails is not published: errors "self-check: ..."). Caps are map-first: an item's market_cap_usd is
 the market map's when the company is in it (market_cap_source "market_map"; the feed's own value stays in
@@ -1445,7 +1446,8 @@ def market_item(target: dt.date, spec: dict) -> dict:
         fields["media"] = [{"url": f"{SITE}/earnings/this-week/opengraph-image", "kind": "image",
                             "alt": " ".join(str(spec.get("facts_text") or "").split())}]
     elif spec["type"] in mk.PANEL_OF and not spec.get("panel"):
-        # a map type without its own card (basket_week; a mega_mover the map does not label): no card, no stand-in image
+        # a map type without its own card (basket_week, sector_rotation, breadth_day; a mega_mover the map does not
+        # label): no card, no stand-in image
         # (HQ 2026-10-19 round 7: an item's card depicts its own claim and window)
         fields["card"], fields["media"] = None, []
     if spec.get("panel"):
@@ -2468,7 +2470,8 @@ def build_facts(target: dt.date, api, fame: dict, now: dt.datetime | None = None
                         "with the benchmark, as 'vs SPY'); 'the 10 largest US-listed companies', not 'US companies'; a "
                         "5-session window is worded as the item's when field says ('in the week to Oct 16', 'last week'); "
                         "the 30-day insider totals are 'open-market buys / sells by officers and directors over 30 days in "
-                        "our feed'; a post never contradicts its card (card_message); market items: no 'crash', "
+                        "our feed'; a breadth post never contradicts the day's breadth reading (breadth_reading); market "
+                        "items: no 'crash', "
                         "'bloodbath', 'dump'"),
             "cards": ("a market item's media is its pinned share card (card.url, a file on our Pages site, the same numbers "
                       "the item states); never the live /market/card/ URL, never another day's card; no link in the main "

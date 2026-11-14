@@ -216,7 +216,7 @@ def test_inbox_variety_state_is_written_after_an_approve(tmp_path):
 
 # ---------------------------------------------------------------------------
 # HQ review 2026-10-18: universe wording on every item type, backed comparisons only, sector attribution, scopes,
-# the card's message, the week window. Every item's own facts_text and angles pass the same checks.
+# the breadth reading, the week window. Every item's own facts_text and angles pass the same checks.
 
 def threads(it, text):
     return draft(it, text, platform="threads", reply_text="")
@@ -326,11 +326,11 @@ def test_sector_attribution():
     assert gr.review(draft(mm, t), DOC, NOW) == ("APPROVE", [])
 
 
-def test_breadth_text_does_not_contradict_its_card():
+def test_breadth_text_does_not_contradict_the_counts():
     b = item("breadth_day")
     v, why = gr.review(draft(b, "1,631 of 2,497 US stocks fell on Friday, but the damage was concentrated in $GOOGL, "
                                 "$MSFT and $NVDA. Not investment advice."), DOC, NOW)
-    assert v == "REJECT" and any("card" in r for r in why)
+    assert v == "REJECT" and any("breadth: the day's counts say" in r for r in why)
     v, why = gr.review(draft(b, "The 500 largest US-listed stocks moved −1.21% on Friday, yet the median company moved "
                                 "−0.03%. Not investment advice."), DOC, NOW)
     assert v == "REJECT"
@@ -582,7 +582,7 @@ def test_round3_claim_cases():
 
 
 # Allowlist (HQ 2026-10-19): the round-4 review's cases (pairs, ordered lists, order words, synonyms, comparisons, ratios,
-# scope, window, streaks, breadth direction, card words, direction verbs / nouns), allowlist probes, and honest drafts
+# scope, window, streaks, breadth direction, breadth words, direction verbs / nouns), allowlist probes, and honest drafts
 # built from claim phrases (fixtures/allowlist_cases_2026-10-19.json).
 ALLOW_CASES = json.loads((TOOLS / "tests" / "fixtures" / "allowlist_cases_2026-10-19.json").read_text(encoding="utf-8"))
 

@@ -52,7 +52,7 @@ default (what Grok reads) or a local v/ directory. Checks:
     again, double, more than, beat, missed, ...) only as one of the item's claim_phrases verbatim (HQ 2026-10-19
     allowlist; an item from an older facts file without claim_phrases keeps its `claims` reading); no company put in a
     sector its ticker_sectors entry does not show; scoped numbers (the 30-day insider totals: "open-market", "officers
-    and directors"); nothing that contradicts the item's card (card_message);
+    and directors"); nothing that contradicts the day's breadth reading (breadth_reading);
   - G-N1 holdout: until 2026-11-21 (New York date of the review, as facts.py and select_stories date things) no
     string anywhere in the draft (every field, nested ones and keys included) carries "/earnings/reports/" (an
     earnings report page of either arm); comments likewise;
@@ -400,17 +400,17 @@ def market_total_numbers(item: dict) -> list[str]:
 def wording_reasons(item: dict, text: str, platform: str | None = None, audit: bool = True) -> list[str]:
     """Content rules every post of every item type passes (HQ 2026-10-18 review fixes; tools/claims.py): never the S&P
     for our universe (only a picks post may compare "vs SPY"); comparatives / superlatives only as the item's claims back
-    them; no company put in a sector it is not in; scoped numbers carry their scope; no contradiction of the card.
+    them; no company put in a sector it is not in; scoped numbers carry their scope; no contradiction of the breadth reading.
     P1 / P2 / P6 / P7 also: "all 500" only when all 500 were priced; a market total says "500 largest". The Growth post
     audit calls this too (one rule set). audit=True (the default: the Growth audit's call of posts already published)
     keeps the hook-word reading of non-fact sentences; the validator (review, phrase_reasons) passes audit=False: closed
     hook sentences only, whatever the item (review round 7b)."""
     if cl.verbatim_mode(item):
         # HQ 2026-10-19 verbatim facts rule (claims.py section 2d): every factual sentence is one of the item's pre-verified
-        # phrases, every other sentence a fact-free hook; the S&P / scope / card rules still read the whole text
+        # phrases, every other sentence a fact-free hook; the S&P / scope / breadth rules still read the whole text
         out = (cl.verbatim_reasons(item, text, platform=platform, audit=audit)
                + cl.index_reasons(item.get("type"), text, cl.item_names(item))
-               + cl.card_reasons(item, text) + cl.scope_reasons(item, text, strip_allowed))
+               + cl.breadth_reasons(item, text) + cl.scope_reasons(item, text, strip_allowed))
     else:
         out = cl.content_reasons(item, text, strip_allowed)
     # every item type (Growth PILLARS section 9 ask 4): "the stock market" as a subject, "every company" without coverage

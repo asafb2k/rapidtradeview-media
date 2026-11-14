@@ -88,7 +88,9 @@ by an audience rank (recognisability, magnitude, freshness, novelty from our own
 gated (weekend replay, small caps, cooldowns) and carry `pillar`, `context_numbers`, `context_tickers`, `angles` and
 `cooldown`. A market item's image is its share card pinned to Pages by `tools/pin_cards.py` (`Invoke-PinCards` in
 `Publish-Facts`): `v/<date>/cards/market-<panel>-<data date>-<fingerprint>.png`, downloaded once per panel and data with the
-QA header; an item whose card is not served is left out. The preflight pass refreshes facts until 17:45 ET on weekdays
+QA header; an item whose card is not served is left out. basket_week, sector_rotation and breadth_day have no card
+(card null, media []; the site removed its breadth and sector tiles on 2026-11-14, so those two link to the home page's
+`#map`). The preflight pass refreshes facts until 17:45 ET on weekdays
 (the map publishes the session about 16:50 ET). `tools/grok_review.py` checks the new rules (cashtags and numbers from
 tickers / allowed_numbers plus the context lists, the market-wording guard, the pinned card) and the variety lint (warn
 first, reject a repeat the same day; state `D:/rtv-ops/tracks/growth/research/grok-variety-state.json`).
@@ -103,8 +105,8 @@ comparatives and superlatives (led, biggest, worst, most, only, first, ...) only
 companies / sectors per sentence; no company put in a sector its `ticker_sectors` entry does not show; the 30-day insider
 totals say "open-market" and "officers and directors" (`scoped_numbers`); a 5-session item's window follows the build date
 (`when`: "this week" only on a weekday of that week, "last week", else "in the week to Oct 16"); a breadth post never
-contradicts its card (`card_message`: a card headlining a broad decline bars "narrow", "concentrated", "typical",
-"median"). Variety in facts: the first 8 items (`top8`) hold at most 2 session-map items, at most one small cap, no lead
+contradicts the day's counts (`breadth_reading`: a broad decline of all tracked stocks bars "narrow", "concentrated",
+"typical", "median"). Variety in facts: the first 8 items (`top8`) hold at most 2 session-map items, at most one small cap, no lead
 ticker or headline number twice (`headline`), and 4+ pillars when the day has them (`top8_out` says why an item is
 below); the novelty term, the cooldown gate and the validator's rule 7 compare lead tickers across pillars
 (`post_history` headline_tickers). Caps are map-first for every item type (`market_cap_feed_usd` keeps the feed's value).

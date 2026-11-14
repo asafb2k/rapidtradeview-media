@@ -23,7 +23,7 @@ Usage (conda python), as tools/daily_common.ps1 Invoke-PinCards runs it:
 Pruning: market-*.png files under v/<date>/cards older than PRUNE_DAYS are deleted (in prepare, listed for git add).
 
 Card date check (HQ 2026-10-19 round 7, Growth PILLARS section 9 ask 6; card consistency): a card is pinned only when
-  - the item's card.date is the item's own session date (map / breadth / sectors: session_date; buzz: price_session);
+  - the item's card.date is the item's own session date (map: session_date; buzz: price_session);
   - the data the card route draws - the same /market/pictures or /market/flows read, its date line computed as
     panels.ts cardDate computes it - shows that date and the item's data fingerprint, read right BEFORE the warm-up and
     right AFTER the kept GET (the data did not move while the card rendered);
@@ -158,7 +158,7 @@ FLOW_PANELS = ("congress", "insiders", "buzz")
 
 def card_date_of(panel: str, m: "mk.Market") -> str | None:
     """The ISO date a share card's date line prints (panels.ts cardDate), from the same reads the card route makes."""
-    if panel in ("map", "breadth", "sectors"):
+    if panel == "map":
         return (m.p or {}).get("session_date")
     f = m.f or {}
     if panel == "buzz":
@@ -186,7 +186,7 @@ def read_market(panel: str, api_base: str = ss.API) -> "mk.Market":
 def item_session(it: dict) -> str | None:
     """The session the item's claim is about (None for the flow panels: their card date is the newest filing)."""
     c = it.get("card") or {}
-    if c.get("panel") in ("map", "breadth", "sectors"):
+    if c.get("panel") == "map":
         return it.get("session_date")
     if c.get("panel") == "buzz":
         return it.get("price_session")

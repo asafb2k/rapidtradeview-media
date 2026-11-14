@@ -10,9 +10,9 @@ two GETs per facts pass on our own public API (both serve stored closes and stor
 Item types (pillar, the share card a post carries, the trigger: the item is emitted only when it fires):
   market_move      P1  map       |cap-weighted 1d move| >= MOVE_TRIGGER and priced cap share >= MIN_CAP_SHARE
   mega_mover       P2  map       the largest |$ move| >= MEGA_USD, or a top-100 name |1d| >= MEGA_PCT (top 20: MEGA_PCT_TOP20)
-  sector_rotation  P6  sectors   day: best-worst 1d >= ROT_DAY_PP with a sector >= +1% and one <= -1%;
+  sector_rotation  P6  none      day: best-worst 1d >= ROT_DAY_PP with a sector >= +1% and one <= -1%;
                                  week (session is a Friday): best-worst 5d >= ROT_WEEK_PP
-  breadth_day      P7  breadth   advancers:decliners >= BREADTH_RATIO either way, or a divergence (|cap-weighted move| >=
+  breadth_day      P7  none      advancers:decliners >= BREADTH_RATIO either way, or a divergence (|cap-weighted move| >=
                                  DIVERGENCE_MOVE while the median company is the other sign or within FLAT_MEDIAN)
   basket_week      P7  map       session is a Friday and the 10 largest, equal-weighted over 5 sessions, moved >= BASKET_MIN
   congress_flow    P3a congress  weekly (Saturday and Monday facts) or a 500-largest name new in the top 5
@@ -62,7 +62,7 @@ ROT_MOVE_MIN = 1.0         # panels.ts MOVE_MIN
 BREADTH_RATIO = 2.0        # P7
 DIVERGENCE_MOVE = 0.5
 FLAT_MEDIAN = 0.1
-BROAD_SHARE = 60          # breadth: >= 60% of all tracked stocks moved with the market = a broad day (the card)
+BROAD_SHARE = 60          # breadth: >= 60% of all tracked stocks moved with the market = a broad day
 BASKET_N = 10
 BASKET_MIN = 2.0
 BUZZ_MIN_MENTIONS = 20     # panels.ts BUZZ_MIN_MENTIONS / BUZZ_MIN_AVG / BUZZ_MIN_RATIO / BUZZ_HOT_RATIO
@@ -83,14 +83,17 @@ FLOW_WEEKLY_DAYS = (5, 0)  # Saturday, Monday (date.weekday())
 TIERS = ((200e9, "mega"), (10e9, "large"), (2e9, "mid"), (300e6, "small"))
 
 # Share cards (frontend /market/card/<panel>, 1080x1350) and the home page's section anchors.
-CARD_PANELS = ("map", "breadth", "sectors", "congress", "insiders", "buzz")
-PANEL_OF = {"market_move": "map", "mega_mover": "map", "basket_week": "map", "sector_rotation": "sectors",
-            "breadth_day": "breadth", "congress_flow": "congress", "insider_flow": "insiders", "reddit_buzz": "buzz"}
+CARD_PANELS = ("map", "congress", "insiders", "buzz")
+# The home page anchor of each type's page link. The site removed its breadth and sector tiles on 2026-11-14 (web
+# PR #606, Market Mood): sector_rotation and breadth_day link to the market map, the closest live visual (it groups the
+# companies by sector).
+PANEL_OF = {"market_move": "map", "mega_mover": "map", "basket_week": "map", "sector_rotation": "map",
+            "breadth_day": "map", "congress_flow": "congress", "insider_flow": "insiders", "reddit_buzz": "buzz"}
 # The share card each type is pinned to (HQ 2026-10-19 round 7, card consistency: an item's card depicts the item's own
-# claim and window). PANEL_OF above stays the home page anchor of each type's page link. basket_week has no card until a
-# basket card exists (the one-day map is not its 5-session claim: Grok preflight #582); a mega_mover keeps the map card
-# only when the map card labels its ticker with its move (map_layout.labelled), else its card is null.
-CARD_PANEL_OF = {k: v for k, v in PANEL_OF.items() if k != "basket_week"}
+# claim and window). basket_week has no card until a basket card exists (the one-day map is not its 5-session claim: Grok
+# preflight #582); sector_rotation and breadth_day have none since their cards were removed (2026-11-14); a mega_mover
+# keeps the map card only when the map card labels its ticker with its move (map_layout.labelled), else its card is null.
+CARD_PANEL_OF = {k: v for k, v in PANEL_OF.items() if k not in ("basket_week", "sector_rotation", "breadth_day")}
 # Crypto-linked companies (Growth PILLARS risk 9: off-limits as the context mover a market item adds; stocks and ETFs
 # only, and a post about one reads as crypto talk). Map symbols, Yahoo style.
 CRYPTO_LINKED = frozenset("""
@@ -242,7 +245,7 @@ def panel_fingerprint(m: "Market", panel: str) -> str:
     """The data a share card draws, hashed: the card file is pinned under it, so every item of the same panel and data
     shares one pinned file, and new data (a late close, a new filing, a new Reddit capture) pins a new one."""
     p, f = m.p or {}, m.f or {}
-    if panel in ("map", "breadth", "sectors"):
+    if panel == "map":
         t, b = p.get("totals") or {}, p.get("breadth") or {}
         return fingerprint(panel, p.get("session_date"), round((t.get("usd_change_sum") or 0) / 1e8), t.get("priced_count"),
                            b.get("advancers"), b.get("decliners"))
@@ -964,8 +967,7 @@ def sector_rotation(m: Market, target: dt.date) -> tuple[list[dict], str | None]
                          headline=headline([movers[k]["ticker"] for k in (b0[0], w0[0]) if k in movers],
                                            [*pct_forms(all500, (1,)), *pct_forms(b0[1], (1,)), *pct_forms(w0[1], (1,))]),
                          magnitude=min(3.0, spread / lim * 1.5),
-                         trigger=f"{win}: best minus worst {js_fixed(spread, 1)} pp >= {lim} pp",
-                         fingerprint=fingerprint(m.session, win, [round(r[1], 2) for r in named]), card_date=m.session))
+                         trigger=f"{win}: best minus worst {js_fixed(spread, 1)} pp >= {lim} pp"))
     return out, (None if out else "; ".join(quiet))
 
 
@@ -992,10 +994,10 @@ def breadth_day(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
     share = round(100 * (dec if fell else adv) / total)
     priced = t.get("priced_count") or len(m.priced())
     down = pct < 0
-    # The breadth card headlines all ~2,500 tracked stocks ("1,631 of 2,497 stocks fell - 65%"). When most of them moved
-    # with the market (BROAD_SHARE), the post may not call the day narrow or the typical stock flat (it would contradict
-    # its own card); the median / risers of the 500 are then left out of the numbers. Otherwise the narrow reading
-    # (the 500's median against the cap-weighted move) is the story, and "broad" is the word it may not use.
+    # The day's reading of all ~2,500 tracked stocks ("1,631 of 2,497 stocks fell - 65%"). When most of them moved with
+    # the market (BROAD_SHARE), the post may not call the day narrow or the typical stock flat (the counts say otherwise);
+    # the median / risers of the 500 are then left out of the numbers. Otherwise the narrow reading (the 500's median
+    # against the cap-weighted move) is the story, and "broad" is the word it may not use (breadth_reading).
     with_mkt = dec if down else adv
     side_share = round(100 * with_mkt / total)
     narrative = "broad" if side_share >= BROAD_SHARE else "narrow"
@@ -1050,30 +1052,29 @@ def breadth_day(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
         angles = [f"{dec if fell else adv:,} of {total:,} US stocks {'fell' if fell else 'rose'} {when}.",
                   f"The 500 largest moved {signed_pct(pct)}, yet the typical one moved {signed_pct(med)}.",
                   f"How many of the 500 largest rose {when}? {up500} of {priced} priced."]
-        card = {"says": f"{dec if fell else adv:,} of {total:,} US stocks {'fell' if fell else 'rose'} ({share}%): a split day",
-                "never": r"\b(?:broad(?:-based)?|widespread|across the board|sweeping)\b|\beverything\s+(?:fell|rose|sold)\b"}
+        reading = {"says": f"{dec if fell else adv:,} of {total:,} US stocks {'fell' if fell else 'rose'} ({share}%): a split day",
+                   "never": r"\b(?:broad(?:-based)?|widespread|across the board|sweeping)\b|\beverything\s+(?:fell|rose|sold)\b"}
     else:
         angles = [f"{with_mkt:,} of {total:,} US stocks {'fell' if down else 'rose'} {when}.",
                   f"{side_share}% of US stocks {'fell' if down else 'rose'} {when}.",
                   (f"{lead_in(when.replace('on ', ''))} came a day after the strongest up day of the last {n_series} closes."
                    if peak else f"The 500 largest moved {signed_pct(pct)} {when}, and most US stocks moved with them.")]
-        card = {"says": f"{with_mkt:,} of {total:,} US stocks {'fell' if down else 'rose'} ({side_share}%): a broad move",
-                "never": (r"\b(?:narrow\w*|concentrat\w*|typical|median|handful|under the surface)\b"
-                          r"|\bfew\s+(?:giants|names|stocks|companies|big)\b|\bonly\s+(?:a\s+few|the\s+giants|the\s+biggest)\b"
-                          # r4 review: "The giants did all the damage", "a Big Tech selloff, not a broad one"
-                          r"|\bgiants?\b|\bmega[\s-]?caps?\b|\bbig\s+tech\b|\bnot\s+(?:a\s+|that\s+|so\s+)?broad"
-                          r"|\ball\s+the\s+damage\b|\baverage\s+(?:stock|company|name)\b|\bheld\s+up\b")}
+        reading = {"says": f"{with_mkt:,} of {total:,} US stocks {'fell' if down else 'rose'} ({side_share}%): a broad move",
+                   "never": (r"\b(?:narrow\w*|concentrat\w*|typical|median|handful|under the surface)\b"
+                             r"|\bfew\s+(?:giants|names|stocks|companies|big)\b|\bonly\s+(?:a\s+few|the\s+giants|the\s+biggest)\b"
+                             # r4 review: "The giants did all the damage", "a Big Tech selloff, not a broad one"
+                             r"|\bgiants?\b|\bmega[\s-]?caps?\b|\bbig\s+tech\b|\bnot\s+(?:a\s+|that\s+|so\s+)?broad"
+                             r"|\ball\s+the\s+damage\b|\baverage\s+(?:stock|company|name)\b|\bheld\s+up\b")}
     mag = min(3.0, max((ratio - 1), abs(pct) / MOVE_TRIGGER * 1.5 if diverge else 0))
     return [_spec("breadth_day", f"breadth_day:{m.session}", session_date=m.session, when=when,
                   tickers=[d["ticker"] for d in drags],
                   breadth={"advancers": adv, "decliners": dec, "unchanged": unch, "total": total, "share_pct": share},
                   median_500=round(med, 4), risers_500=up500, priced_500=priced, cap_weighted_pct=pct, drags=drags,
-                  signal=kind, narrative=narrative, card_message=card, facts_text=text, allowed_numbers=allowed,
+                  signal=kind, narrative=narrative, breadth_reading=reading, facts_text=text, allowed_numbers=allowed,
                   angles=angles, claims=claims, claim_phrases=phrases, magnitude=mag,
                   headline=headline([d["ticker"] for d in drags], [*count_forms(with_mkt), f"{share}%", *pct_forms(pct)]),
                   trigger=(f"divergence: cap-weighted {signed_pct(pct)} vs median {signed_pct(med)}" if diverge
-                           else f"advancers:decliners {js_fixed(ratio, 2)} >= {BREADTH_RATIO}"),
-                  fingerprint=fingerprint(m.session, adv, dec, round(med, 3)), card_date=m.session)], None
+                           else f"advancers:decliners {js_fixed(ratio, 2)} >= {BREADTH_RATIO}"))], None
 
 
 def basket_week(m: Market, target: dt.date) -> tuple[list[dict], str | None]:
