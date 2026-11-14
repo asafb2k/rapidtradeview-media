@@ -11,6 +11,7 @@ import pytest
 TOOLS = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(TOOLS / "tests"))
+import claims as cl  # noqa: E402
 import facts as fx  # noqa: E402
 import grok_review as gr  # noqa: E402
 import manifest as mf  # noqa: E402
@@ -337,6 +338,9 @@ def test_breadth_text_does_not_contradict_the_counts():
     ok = ("1,631 of 2,497 US stocks fell on Friday (65%). $GOOGL was the biggest dollar drag among the 500 largest "
           "US-listed companies on Friday (−$105.5B). Not investment advice.")
     assert gr.review(draft(b, ok), DOC, NOW) == ("APPROVE", [])
+    # facts files up to 2026-11-13 carry the same reading as card_message: a re-audit still runs the guard
+    old = {k: v for k, v in b.items() if k != "breadth_reading"} | {"card_message": b["breadth_reading"]}
+    assert cl.breadth_reasons(old, "the damage was concentrated in three names")[0].startswith("breadth: the day's counts")
 
 
 def test_insider_totals_carry_their_scope():

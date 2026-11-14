@@ -82,14 +82,12 @@ FLOW_WEEKLY_DAYS = (5, 0)  # Saturday, Monday (date.weekday())
 # Cap tiers (recognisability): mega >= $200B, large >= $10B, mid >= $2B, small >= $300M, micro below.
 TIERS = ((200e9, "mega"), (10e9, "large"), (2e9, "mid"), (300e6, "small"))
 
-# Share cards (frontend /market/card/<panel>, 1080x1350) and the home page's section anchors.
-CARD_PANELS = ("map", "congress", "insiders", "buzz")
 # The home page anchor of each type's page link. The site removed its breadth and sector tiles on 2026-11-14 (web
 # PR #606, Market Mood): sector_rotation and breadth_day link to the market map, the closest live visual (it groups the
 # companies by sector).
 PANEL_OF = {"market_move": "map", "mega_mover": "map", "basket_week": "map", "sector_rotation": "map",
             "breadth_day": "map", "congress_flow": "congress", "insider_flow": "insiders", "reddit_buzz": "buzz"}
-# The share card each type is pinned to (HQ 2026-10-19 round 7, card consistency: an item's card depicts the item's own
+# The share card (frontend /market/card/<panel>, 1080x1350) each type is pinned to (HQ 2026-10-19 round 7, card consistency: an item's card depicts the item's own
 # claim and window). basket_week has no card until a basket card exists (the one-day map is not its 5-session claim: Grok
 # preflight #582); sector_rotation and breadth_day have none since their cards were removed (2026-11-14); a mega_mover
 # keeps the map card only when the map card labels its ticker with its move (map_layout.labelled), else its card is null.
@@ -246,9 +244,8 @@ def panel_fingerprint(m: "Market", panel: str) -> str:
     shares one pinned file, and new data (a late close, a new filing, a new Reddit capture) pins a new one."""
     p, f = m.p or {}, m.f or {}
     if panel == "map":
-        t, b = p.get("totals") or {}, p.get("breadth") or {}
-        return fingerprint(panel, p.get("session_date"), round((t.get("usd_change_sum") or 0) / 1e8), t.get("priced_count"),
-                           b.get("advancers"), b.get("decliners"))
+        t = p.get("totals") or {}   # what the map card draws: the session, the total $ move, the priced count
+        return fingerprint(panel, p.get("session_date"), round((t.get("usd_change_sum") or 0) / 1e8), t.get("priced_count"))
     if panel == "congress":
         c = f.get("congress") or {}
         return fingerprint(panel, c.get("last_disclosure"), c.get("totals"),

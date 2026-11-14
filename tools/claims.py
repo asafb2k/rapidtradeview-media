@@ -2131,7 +2131,8 @@ def scope_reasons(item: dict, text: str, strip_allowed) -> list[str]:
 
 
 def breadth_reasons(item: dict, text: str) -> list[str]:
-    br = item.get("breadth_reading") or {}
+    # facts files up to 2026-11-13 name the field card_message: a re-audit of a post of one still runs the guard
+    br = item.get("breadth_reading") or item.get("card_message") or {}
     bad = br.get("never")
     if not bad:
         return []

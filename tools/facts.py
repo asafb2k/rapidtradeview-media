@@ -61,8 +61,9 @@ move in a morning file, an earnings result past its release day, an item of an e
 Round 7 (HQ 2026-10-19): every item carries phrasings (2-3 validator-checked phrasings per fact, ids
 "<fact key>.<variant>", phrasings.py; fact_phrases / claim_phrases are their flat lists) and rotation (the phrasing / hook
 ids its type used in the last 5 own posts per platform; each phrasing's recent_on); rules.verbatim.hooks is the closed
-list of hook sentences (post_vocab.HOOKS). Card consistency: basket_week has no card (and stays out of the top 8),
-sector_rotation and breadth_day have none since the site removed their tiles (2026-11-14; their page link is the map), a
+list of hook sentences (post_vocab.HOOKS). Card consistency: basket_week has no card, nor have
+sector_rotation and breadth_day since the site removed their tiles (2026-11-14; their page link is the map): all three
+stay out of the top 8 (TOP_NEEDS_CARD); a
 mega_mover keeps the map card only when the map card labels its ticker with its move (map_layout.py), the week preview
 uses /earnings/this-week's card; map items carry priced / total and a coverage phrase; market_move / mega_mover name a
 non-mega context mover (crypto-linked left out). The earnings week counts weeks_ahead from the API's UTC week.
@@ -2095,8 +2096,9 @@ def apply_gates(items: list[dict], target: dt.date, fame: dict, history: list[di
 TOP_N = 8                    # the menu Grok reads first
 TOP_MAP_MAX = 2              # session-map items among them
 TOP_MAP_TYPES = mk.WORDING_TYPES
-# Types kept out of the top 8 while they have no card of their own (HQ 2026-10-19 round 7, Growth 10-18 ~20:40Z).
-TOP_NEEDS_CARD = ("basket_week",)
+# Types kept out of the top 8 while they have no card of their own (HQ 2026-10-19 round 7, Growth 10-18 ~20:40Z): a
+# basket card does not exist, and the site removed the breadth and sector tiles on 2026-11-14 (web PR #606).
+TOP_NEEDS_CARD = ("basket_week", "sector_rotation", "breadth_day")
 TOP_PILLARS_MIN = 4
 
 
@@ -2108,7 +2110,7 @@ def top_block(it: dict, top: list[dict]) -> str | None:
     """Why `it` may not join `top` (None: it may): a second small / micro cap, a third session-map item, or a headline
     ticker / number another top item already leads with."""
     if it.get("type") in TOP_NEEDS_CARD and not it.get("card"):
-        return "no_card: no share card shows this item's claim yet (a basket card does not exist)"
+        return "no_card: no share card shows this item's claim (its type has no card of its own)"
     if it.get("cap_tier") in ("small", "micro") and any(t.get("cap_tier") in ("small", "micro") for t in top):
         return "small_cap: a second small / micro cap"
     if it.get("type") in TOP_MAP_TYPES and sum(1 for t in top if t.get("type") in TOP_MAP_TYPES) >= TOP_MAP_MAX:

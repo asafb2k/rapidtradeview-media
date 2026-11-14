@@ -62,7 +62,8 @@ WARMUP_S = 15
 PRUNE_DAYS = 30
 SLEEP = time.sleep
 BUILD_PATH = "/market/card/build"
-BUILD_SUFFIX = re.compile(r"-b[0-9a-f]{7}(?=\.png$)")
+# after the 8-hex fingerprint only: a fingerprint itself may read "b" + 7 hex ("-babc4c0c.png" carries no build)
+BUILD_SUFFIX = re.compile(r"(?<=-[0-9a-f]{8})-b[0-9a-f]{7}(?=\.png$)")
 
 
 def card_items(facts: dict) -> list[dict]:

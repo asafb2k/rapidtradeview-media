@@ -515,6 +515,22 @@ def test_basket_week_has_no_card_and_stays_out_of_the_top_8():
     assert items[0]["top8"] is False and items[0]["top8_out"].startswith("no_card") and counts["no_card"] == 1
 
 
+def test_cardless_sector_and_breadth_items_stay_out_of_the_top_8():
+    """The site removed its breadth and sector tiles (2026-11-14): those items have no card, so no image a post may
+    carry; like basket_week they stay below the top 8 (Grok's menu) however high they rank."""
+    items, *_, m = fx.market_items(FixtureApi(), SUN, NOW_SUN, None)
+    fx.enrich(items, m)
+    cardless = [i for i in items if i["type"] in ("sector_rotation", "breadth_day")]
+    assert {i["type"] for i in cardless} == {"sector_rotation", "breadth_day"}
+    assert all(i["card"] is None and i["media"] == [] for i in cardless)
+    rest = [i for i in items if i not in cardless]
+    out, counts = fx.diversify_top(cardless + rest)          # ranked first, still out
+    for i in out:
+        if i["type"] in ("sector_rotation", "breadth_day"):
+            assert i["top8"] is False and i["top8_out"].startswith("no_card"), i["item_id"]
+    assert counts["no_card"] >= len(cardless) and any(i["top8"] for i in out)
+
+
 def test_week_preview_uses_the_this_week_card():
     pv_ = vitem("earnings_week_preview")
     assert pv_["media"][0]["url"].endswith("/earnings/this-week/opengraph-image") and not pv_.get("card")
@@ -567,6 +583,8 @@ def test_pin_cards_repins_after_a_card_build_change(tmp_path, monkeypatch):
     base = _card_item()["card"]["file"]
     assert pc.with_build(base, "abc1234") == base[:-4] + "-babc1234.png" and pc.with_build(base, None) == base
     assert pc.data_name(pc.with_build(base, "abc1234")) == base
+    assert pc.data_name("market-map-2026-10-16-babc4c0c.png") == "market-map-2026-10-16-babc4c0c.png"   # a fingerprint, no build
+    assert pc.data_name("market-map-2026-10-16-babc4c0c-b1234567.png") == "market-map-2026-10-16-babc4c0c.png"
 
     def run(day, build):
         path = tmp_path / "facts.json"

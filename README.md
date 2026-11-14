@@ -90,7 +90,7 @@ gated (weekend replay, small caps, cooldowns) and carry `pillar`, `context_numbe
 `Publish-Facts`): `v/<date>/cards/market-<panel>-<data date>-<fingerprint>.png`, downloaded once per panel and data with the
 QA header; an item whose card is not served is left out. basket_week, sector_rotation and breadth_day have no card
 (card null, media []; the site removed its breadth and sector tiles on 2026-11-14, so those two link to the home page's
-`#map`). The preflight pass refreshes facts until 17:45 ET on weekdays
+`#map`) and stay out of the top 8 (`top8_out` "no_card: ..."). The preflight pass refreshes facts until 17:45 ET on weekdays
 (the map publishes the session about 16:50 ET). `tools/grok_review.py` checks the new rules (cashtags and numbers from
 tickers / allowed_numbers plus the context lists, the market-wording guard, the pinned card) and the variety lint (warn
 first, reject a repeat the same day; state `D:/rtv-ops/tracks/growth/research/grok-variety-state.json`).
