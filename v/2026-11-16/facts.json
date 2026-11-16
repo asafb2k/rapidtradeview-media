@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-16",
-  "generated_at": "2026-11-16T12:00:02Z",
-  "as_of": "2026-11-16T12:00:02Z",
+  "generated_at": "2026-11-16T12:30:02Z",
+  "as_of": "2026-11-16T12:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 6,
     "form4_buy": 1,
-    "earnings_result": 2,
+    "earnings_result": 7,
     "earnings_upcoming": 21,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -886,7 +886,7 @@
     "market_move": 0,
     "mega_mover": 1,
     "congress_flow": 1,
-    "insider_flow": 0,
+    "insider_flow": 1,
     "reddit_buzz": 0,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -943,18 +943,20 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3739,
-      "recent_ready": 177,
+      "archive_reports": 3746,
+      "recent_ready": 183,
       "outside_24h": 173,
       "unreadable": 0,
-      "not_compared": 2,
+      "not_compared": 3,
       "not_compared_metrics": [
         "BXDC: eps_adjusted (ffo_measure)",
+        "PRLD: revenue (basis_mismatch)",
         "PAYP: revenue (basis_mismatch)"
       ],
-      "consensus_mismatch_hold": 2,
+      "consensus_mismatch_hold": 3,
       "held": [
         "BXDC: eps_adjusted (ffo_measure) and nothing else compared (report data to check)",
+        "PRLD: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "PAYP: revenue (basis_mismatch) and nothing else compared (report data to check)"
       ]
     },
@@ -971,7 +973,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 28,
+      "tickers_in_items": 33,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -985,7 +987,7 @@
     "market": {
       "market_session": "2026-11-13",
       "priced_cap_share": 0.9989495812361494,
-      "flows_as_of": "2026-11-16T12:00:15.351666+00:00"
+      "flows_as_of": "2026-11-16T12:30:20.253438+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -997,7 +999,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 44
+        "angles_dropped": 51
       },
       "top8": {
         "stale": 7,
@@ -1005,22 +1007,20 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 10,
-        "ranked_below": 20,
+        "ranked_below": 25,
         "pillars": 3
       }
     },
     "card_unpinned": {
-      "dropped": 2,
+      "dropped": 1,
       "reasons": [
-        "insider_flow RCL: share card not pinned (the card's data changed since the facts read (before the GET))",
-        "mega_mover AMD: share card not pinned (the card draws 2026-11-16T11:47:44.013959+00:00 (X-Card-Date), the item 2026-11-13)"
+        "mega_mover AMD: share card not pinned (the card draws 2026-11-16T12:17:44.601817+00:00 (X-Card-Date), the item 2026-11-13)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: insider_flow RCL: share card not pinned (the card's data changed since the facts read (before the GET))",
-    "not published: mega_mover AMD: share card not pinned (the card draws 2026-11-16T11:47:44.013959+00:00 (X-Card-Date), the item 2026-11-13)"
+    "not published: mega_mover AMD: share card not pinned (the card draws 2026-11-16T12:17:44.601817+00:00 (X-Card-Date), the item 2026-11-13)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1051,7 +1051,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 19,
+  "api_requests": 36,
   "items": [
     {
       "item_id": "2026-11-16-congress-flow-NVDA-26185d",
@@ -1362,6 +1362,654 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-16-insider-flow-RCL-ca465f",
+      "type": "insider_flow",
+      "ticker": "RCL",
+      "tickers": [
+        "RCL",
+        "SYK",
+        "SNOW",
+        "KMI"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-insider-flow-RCL-ca465f",
+      "allowed_numbers": [
+        "$499M",
+        "+$499M",
+        "$499.0M",
+        "+$499.0M",
+        "$4.9B",
+        "+$4.9B",
+        "$5B",
+        "+$5B",
+        "30",
+        "342",
+        "595",
+        "500",
+        "2026-10-17",
+        "Oct 17, 2026",
+        "Oct 17",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16",
+        "$305M",
+        "+$305M",
+        "$304.8M",
+        "+$304.8M",
+        "$179M",
+        "+$179M",
+        "$178.9M",
+        "+$178.9M",
+        "$142M",
+        "+$142M",
+        "$142.5M",
+        "+$142.5M",
+        "$15.0M",
+        "+$15.0M",
+        "$15M",
+        "+$15M",
+        "3",
+        "1",
+        "4",
+        "9.9",
+        "$1"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Officers and directors reported $499M of open-market buys and $4.9B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 17 to Nov 16; 342 companies with buys, 595 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $305M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M.",
+      "dedupe_key": "insider_flow:2026-11-16:RCL",
+      "claim_phrases": [
+        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($305M).",
+        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($305M).",
+        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($305M): $RCL.",
+        "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+        "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+        "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($142M).",
+        "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($142M).",
+        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($142M): $SNOW.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($305M), $SYK ($179M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($305M), $SYK ($179M).",
+        "$RCL ($305M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($305M), $SYK ($179M), $SNOW ($142M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($305M), $SYK ($179M), $SNOW ($142M).",
+        "$RCL ($305M), $SYK ($179M) and $SNOW ($142M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "$KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M).",
+        "Over 30 days in our feed, $KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($15.0M).",
+        "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M): $KMI.",
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $9.9.",
+        "Officers and directors sold $9.9 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $9.9 on the open market for every $1 they bought."
+      ],
+      "pillar": "P3",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "RCL",
+            "SYK",
+            "SNOW"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "sell|sold",
+          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $SYK, $SNOW"
+        },
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "KMI"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "buy|bought",
+          "says": "largest open-market buyers among the 500 largest, in order: $KMI"
+        }
+      ],
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$499M",
+            "+$499M",
+            "$499.0M",
+            "+$499.0M",
+            "$4.9B",
+            "+$4.9B",
+            "$5B",
+            "+$5B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals ($499M bought, $4.9B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "RCL",
+          "SYK",
+          "SNOW"
+        ],
+        "numbers": [
+          "$4.9B",
+          "$499M"
+        ]
+      },
+      "window": {
+        "from": "2026-10-17",
+        "to": "2026-11-16",
+        "days": 30
+      },
+      "bought_usd": 498991325.76,
+      "sold_usd": 4927051065.39,
+      "buy_companies": 342,
+      "sell_companies": 595,
+      "top_sellers_500": [
+        {
+          "ticker": "RCL",
+          "name": "Royal Caribbean Cruises Ltd.",
+          "sector": "Consumer Cyclical",
+          "total_usd": 304809986.12,
+          "insider_count": 3,
+          "roles": {
+            "officer": 1,
+            "director": 2
+          },
+          "row_count": 64,
+          "first_trade": "2026-10-28",
+          "last_trade": "2026-11-12"
+        },
+        {
+          "ticker": "SYK",
+          "name": "Stryker Corporation",
+          "sector": "Healthcare",
+          "total_usd": 178924730.95,
+          "insider_count": 1,
+          "roles": {
+            "officer": 0,
+            "director": 1
+          },
+          "row_count": 6,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        },
+        {
+          "ticker": "SNOW",
+          "name": "Snowflake Inc.",
+          "sector": "Technology",
+          "total_usd": 142463816.16,
+          "insider_count": 4,
+          "roles": {
+            "officer": 1,
+            "director": 3
+          },
+          "row_count": 43,
+          "first_trade": "2026-10-19",
+          "last_trade": "2026-11-06"
+        }
+      ],
+      "top_buyers_500": [
+        {
+          "ticker": "KMI",
+          "name": "Kinder Morgan, Inc.",
+          "sector": "Energy",
+          "total_usd": 14994200.0,
+          "insider_count": 1,
+          "roles": {
+            "officer": 1,
+            "director": 0
+          },
+          "row_count": 1,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        }
+      ],
+      "angles": [
+        "Officers and directors sold $4.9B and bought $499M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $499M of open-market buys and $4.9B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $4.9B of open-market sells and $499M of open-market buys."
+      ],
+      "market_cap_usd": 86122965803.7878,
+      "magnitude": 2.538880595178804,
+      "trigger": "weekly (Monday facts)",
+      "top5": [
+        "RCL",
+        "SYK",
+        "SNOW",
+        "AXP",
+        "ILMN"
+      ],
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "card": {
+        "panel": "insiders",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-16/cards/market-insiders-2026-11-16-f4a13216-b116ab8b.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
+        "date": "2026-11-16",
+        "fingerprint": "f4a13216",
+        "file": "market-insiders-2026-11-16-f4a13216.png",
+        "sha256": "6e51969cb08606d230fa66f5c4ae7f11eaf0b1eacd696422446049d6bd155c7a"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-16/cards/market-insiders-2026-11-16-f4a13216-b116ab8b.png",
+          "kind": "image",
+          "alt": "Officers and directors reported $499M of open-market buys and $4.9B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 17 to Nov 16; 342 companies with buys, 595 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $305M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "ticker_sectors": {
+        "RCL": "Consumer Cyclical",
+        "SYK": "Healthcare",
+        "SNOW": "Technology",
+        "KMI": "Energy"
+      },
+      "ticker_names": {
+        "RCL": "Royal Caribbean Cruises Ltd.",
+        "SYK": "Stryker Corporation",
+        "SNOW": "Snowflake Inc.",
+        "KMI": "Kinder Morgan, Inc."
+      },
+      "fact_phrases": [
+        "Officers and directors reported $499M of open-market buys and $4.9B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $4.9B of open-market sells and $499M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $499M of open-market buys and $4.9B of open-market sells.",
+        "Officers and directors sold $4.9B and bought $499M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $4.9B and bought $499M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 342 companies had open-market buys by officers and directors and 595 had open-market sells.",
+        "595 companies had open-market sells by officers and directors and 342 had open-market buys over 30 days in our feed.",
+        "Officers and directors of $RCL sold $305M on the open market over 30 days in our feed (3 insiders).",
+        "3 insiders at $RCL sold $305M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $RCL sold $305M on the open market (3 insiders).",
+        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+        "Officers and directors of $SNOW sold $142M on the open market over 30 days in our feed (4 insiders).",
+        "4 insiders at $SNOW sold $142M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SNOW sold $142M on the open market (4 insiders).",
+        "Officers and directors of $KMI bought $15.0M on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors of $KMI bought $15.0M on the open market."
+      ],
+      "phrasings": [
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($305M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($305M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($305M): $RCL.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.a",
+          "fact": "insiderflo-c019d4",
+          "variant": "a",
+          "text": "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.t",
+          "fact": "insiderflo-c019d4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.o",
+          "fact": "insiderflo-c019d4",
+          "variant": "o",
+          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.a",
+          "fact": "insiderflo-1641a4",
+          "variant": "a",
+          "text": "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($142M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.t",
+          "fact": "insiderflo-1641a4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($142M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.o",
+          "fact": "insiderflo-1641a4",
+          "variant": "o",
+          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($142M): $SNOW.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.a",
+          "fact": "insiderflo-2a8e57",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($305M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.t",
+          "fact": "insiderflo-2a8e57",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($305M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.l",
+          "fact": "insiderflo-2a8e57",
+          "variant": "l",
+          "text": "$RCL ($305M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.a",
+          "fact": "insiderflo-76de2d",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($305M), $SYK ($179M), $SNOW ($142M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.t",
+          "fact": "insiderflo-76de2d",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($305M), $SYK ($179M), $SNOW ($142M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.l",
+          "fact": "insiderflo-76de2d",
+          "variant": "l",
+          "text": "$RCL ($305M), $SYK ($179M) and $SNOW ($142M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($15.0M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M): $KMI.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.a",
+          "fact": "insiderflo-eeeffc",
+          "variant": "a",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $9.9.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h1",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h1",
+          "text": "Officers and directors sold $9.9 for every $1 they bought on the open market over 30 days in our feed.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h2",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h2",
+          "text": "Over 30 days in our feed, officers and directors sold $9.9 on the open market for every $1 they bought.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-de8c5a.a",
+          "fact": "insiderflo-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $499M of open-market buys and $4.9B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.h1",
+          "fact": "insiderflo-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $4.9B of open-market sells and $499M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.t",
+          "fact": "insiderflo-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $499M of open-market buys and $4.9B of open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.a",
+          "fact": "insiderflo-cc7b17",
+          "variant": "a",
+          "text": "Officers and directors sold $4.9B and bought $499M of their own companies' stock on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.t",
+          "fact": "insiderflo-cc7b17",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors sold $4.9B and bought $499M of their own companies' stock on the open market.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.a",
+          "fact": "insiderflo-ca45c6",
+          "variant": "a",
+          "text": "Over 30 days in our feed, 342 companies had open-market buys by officers and directors and 595 had open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.h1",
+          "fact": "insiderflo-ca45c6",
+          "variant": "h1",
+          "text": "595 companies had open-market sells by officers and directors and 342 had open-market buys over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $RCL sold $305M on the open market over 30 days in our feed (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "3 insiders at $RCL sold $305M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $RCL sold $305M on the open market (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $SNOW sold $142M on the open market over 30 days in our feed (4 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "4 insiders at $SNOW sold $142M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SNOW sold $142M on the open market (4 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-04cc5b.a",
+          "fact": "insiderflo-04cc5b",
+          "variant": "a",
+          "text": "Officers and directors of $KMI bought $15.0M on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-04cc5b.t",
+          "fact": "insiderflo-04cc5b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $KMI bought $15.0M on the open market.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$499M": "+",
+          "$499.0M": "+",
+          "$4.9B": "+",
+          "$5B": "+",
+          "$305M": "+",
+          "$304.8M": "+",
+          "$179M": "+",
+          "$178.9M": "+",
+          "$142M": "+",
+          "$142.5M": "+",
+          "$15.0M": "+",
+          "$15M": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "RCL": [
+          [
+            "$",
+            305.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            9.9,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "SYK": [
+          [
+            "$",
+            179.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "SNOW": [
+          [
+            "$",
+            142.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "KMI": [
+          [
+            "$",
+            15.0,
+            1,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 11.04,
+      "rank_why": "insider_flow 4; large cap $86.12B +2.5; magnitude (market) +2.54; today 2026-11-16 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-16-form4-buy-STWD-5e091f",
       "type": "form4_buy",
       "ticker": "STWD",
@@ -1417,10 +2065,10 @@
       "in_500": false,
       "context_numbers": [
         "$4.2B",
-        "$498M",
-        "+$498M",
-        "$497.6M",
-        "+$497.6M",
+        "$499M",
+        "+$499M",
+        "$499.0M",
+        "+$499.0M",
         "$4.9B",
         "+$4.9B",
         "$5B",
@@ -1442,10 +2090,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$498M",
-            "+$498M",
-            "$497.6M",
-            "+$497.6M",
+            "$499M",
+            "+$499M",
+            "$499.0M",
+            "+$499.0M",
             "$4.9B",
             "+$4.9B",
             "$5B",
@@ -1461,7 +2109,7 @@
       "context": {
         "market_cap": "$4.2B",
         "insiders_30d": {
-          "bought": "$498M",
+          "bought": "$499M",
           "sold": "$4.9B",
           "days": 30
         }
@@ -1485,9 +2133,9 @@
         "On a Form 4 filed Nov 13, Barry S. Sternlicht (CEO, Chairman of the Board at Starwood Property Trust, Inc.) reported an open-market purchase of $STWD totaling $9.89M.",
         "Barry S. Sternlicht's $STWD purchase was traded Nov 11 and reported on a Form 4 filed Nov 13.",
         "Traded Nov 11, Barry S. Sternlicht's $STWD purchase was reported on a Form 4 filed Nov 13.",
-        "Officers and directors reported $498M of open-market buys and $4.9B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $4.9B of open-market sells and $498M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $498M of open-market buys and $4.9B of open-market sells."
+        "Officers and directors reported $499M of open-market buys and $4.9B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $4.9B of open-market sells and $499M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $499M of open-market buys and $4.9B of open-market sells."
       ],
       "phrasings": [
         {
@@ -1585,28 +2233,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $498M of open-market buys and $4.9B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $499M of open-market buys and $4.9B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $4.9B of open-market sells and $498M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $4.9B of open-market sells and $499M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $498M of open-market buys and $4.9B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $499M of open-market buys and $4.9B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$498M": "+",
-          "$497.6M": "+",
+          "$499M": "+",
+          "$499.0M": "+",
           "$4.9B": "+",
           "$5B": "+"
         },
@@ -9123,6 +9771,1146 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "repeat: leads with $DIS like 2026-11-16-earnings-tomorrow-roundup-LIST-6946ef",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-IVVD-1a21d5",
+      "type": "earnings_result",
+      "ticker": "IVVD",
+      "tickers": [
+        "IVVD"
+      ],
+      "name": "Invivyd, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1832038/000119312526462025/ivvd-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IVVD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-IVVD-1a21d5#earnings-history",
+      "allowed_numbers": [
+        "$15.4M",
+        "$15.0M",
+        "$411K",
+        "−$0.10",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Invivyd, Inc. (IVVD) published Q3 2026 results on 2026-11-16: Revenue beat. Revenue $15.4M vs $15.0M consensus (Beat by $411K). GAAP EPS −$0.10.",
+      "dedupe_key": "report:ivvd-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $15.0M consensus.",
+        "$IVVD beat the Q3 2026 revenue consensus: $15.4M vs $15.0M.",
+        "$IVVD Q3 2026 revenue: $15.4M vs $15.0M consensus (beat by $411K).",
+        "$IVVD Q3 2026 revenue $15.4M, beat by $411K.",
+        "revenue $15.4M vs $15.0M consensus (beat by $411K).",
+        "revenue $15.4M vs $15.0M (beat by $411K).",
+        "$IVVD beat Q3 2026 revenue estimates by $411K.",
+        "$IVVD beat the Q3 revenue consensus: $15.4M vs $15.0M.",
+        "$IVVD Q3 revenue: $15.4M vs $15.0M consensus (beat by $411K).",
+        "$IVVD Q3 revenue $15.4M, beat by $411K.",
+        "$IVVD beat Q3 revenue estimates by $411K.",
+        "$IVVD beat Q3 2026 estimates.",
+        "$IVVD beat Q3 estimates."
+      ],
+      "report_id": "ivvd-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T12:10:18.324615+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$15.4M",
+          "consensus": "$15.0M",
+          "label": "Beat by $411K",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.10"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IVVD/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for IVVD: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "IVVD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Invivyd, Inc. ($IVVD) published Q3 2026 results on Nov 16.",
+        "$IVVD (Invivyd, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Invivyd, Inc. ($IVVD) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Invivyd, Inc. ($IVVD) published Q3 2026 results on Nov 16.",
+        "$IVVD (Invivyd, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Invivyd, Inc. ($IVVD) published Q3 2026 results.",
+        "$IVVD published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $IVVD came out on Nov 16.",
+        "On Nov 16, $IVVD published Q3 2026 results.",
+        "$IVVD Q3 2026 revenue: $15.4M vs $15.0M consensus.",
+        "$IVVD reported Q3 2026 revenue of $15.4M vs $15.0M consensus.",
+        "$IVVD Q3 2026 revenue was $15.4M.",
+        "Q3 2026 revenue at $IVVD was $15.4M.",
+        "$IVVD Q3 2026 GAAP EPS: −$0.10.",
+        "$IVVD reported Q3 2026 GAAP EPS of −$0.10.",
+        "$IVVD Q3 2026 GAAP EPS was −$0.10.",
+        "Q3 2026 GAAP EPS at $IVVD was −$0.10."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $15.0M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$IVVD beat the Q3 2026 revenue consensus: $15.4M vs $15.0M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$IVVD Q3 2026 revenue: $15.4M vs $15.0M consensus (beat by $411K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$IVVD Q3 2026 revenue $15.4M, beat by $411K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $15.4M vs $15.0M consensus (beat by $411K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $15.4M vs $15.0M (beat by $411K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$IVVD beat Q3 2026 revenue estimates by $411K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$IVVD beat the Q3 revenue consensus: $15.4M vs $15.0M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$IVVD Q3 revenue: $15.4M vs $15.0M consensus (beat by $411K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$IVVD Q3 revenue $15.4M, beat by $411K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$IVVD beat Q3 revenue estimates by $411K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$IVVD beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$IVVD beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Invivyd, Inc. ($IVVD) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$IVVD (Invivyd, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Invivyd, Inc. ($IVVD) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$IVVD published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $IVVD came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $IVVD published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$IVVD Q3 2026 revenue: $15.4M vs $15.0M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$IVVD reported Q3 2026 revenue of $15.4M vs $15.0M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$IVVD Q3 2026 revenue was $15.4M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $IVVD was $15.4M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$IVVD Q3 2026 GAAP EPS: −$0.10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$IVVD reported Q3 2026 GAAP EPS of −$0.10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$IVVD Q3 2026 GAAP EPS was −$0.10.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $IVVD was −$0.10.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.10": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "IVVD": [
+          [
+            "$",
+            15.4,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            15.0,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            411.0,
+            0,
+            1000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-TIL-fcc613",
+      "type": "earnings_result",
+      "ticker": "TIL",
+      "tickers": [
+        "TIL"
+      ],
+      "name": "Instil Bio, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1789769/000178976926000064/q3-26er.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TIL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-TIL-fcc613#earnings-history",
+      "allowed_numbers": [
+        "−$0.48",
+        "−$0.17",
+        "$0.31",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Instil Bio, Inc. (TIL) published Q3 2026 results on 2026-11-16: EPS miss. Non-GAAP net loss per share, basic and diluted −$0.48 vs −$0.17 consensus (Missed by $0.31).",
+      "dedupe_key": "report:til-2026-q3",
+      "claim_phrases": [
+        "EPS came in below the −$0.17 consensus.",
+        "$TIL missed the Q3 2026 EPS consensus: −$0.48 vs −$0.17.",
+        "$TIL Q3 2026 EPS: −$0.48 vs −$0.17 consensus (missed by $0.31).",
+        "$TIL Q3 2026 EPS −$0.48, missed by $0.31.",
+        "EPS −$0.48 vs −$0.17 consensus (missed by $0.31).",
+        "EPS −$0.48 vs −$0.17 (missed by $0.31).",
+        "$TIL missed Q3 2026 EPS estimates by $0.31.",
+        "$TIL missed the Q3 EPS consensus: −$0.48 vs −$0.17.",
+        "$TIL Q3 EPS: −$0.48 vs −$0.17 consensus (missed by $0.31).",
+        "$TIL Q3 EPS −$0.48, missed by $0.31.",
+        "$TIL missed Q3 EPS estimates by $0.31.",
+        "$TIL missed Q3 2026 estimates.",
+        "$TIL missed Q3 estimates."
+      ],
+      "report_id": "til-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T12:02:21.353532+00:00",
+      "tile_label": "EPS miss",
+      "tile_state": "miss",
+      "results": {
+        "eps": {
+          "basis": "Non-GAAP net loss per share, basic and diluted",
+          "reported": "−$0.48",
+          "consensus": "−$0.17",
+          "label": "Missed by $0.31",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TIL/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for TIL: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "TIL"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Instil Bio, Inc. ($TIL) published Q3 2026 results on Nov 16.",
+        "$TIL (Instil Bio, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Instil Bio, Inc. ($TIL) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Instil Bio, Inc. ($TIL) published Q3 2026 results on Nov 16.",
+        "$TIL (Instil Bio, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Instil Bio, Inc. ($TIL) published Q3 2026 results.",
+        "$TIL published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $TIL came out on Nov 16.",
+        "On Nov 16, $TIL published Q3 2026 results.",
+        "$TIL Q3 2026 Non-GAAP net loss per share, basic and diluted: −$0.48 vs −$0.17 consensus.",
+        "$TIL reported Q3 2026 Non-GAAP net loss per share, basic and diluted of −$0.48 vs −$0.17 consensus.",
+        "$TIL Q3 2026 Non-GAAP net loss per share, basic and diluted was −$0.48.",
+        "Q3 2026 Non-GAAP net loss per share, basic and diluted at $TIL was −$0.48."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the −$0.17 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3982e5.a",
+          "fact": "earningsre-3982e5",
+          "variant": "a",
+          "text": "$TIL missed the Q3 2026 EPS consensus: −$0.48 vs −$0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cf8f92.a",
+          "fact": "earningsre-cf8f92",
+          "variant": "a",
+          "text": "$TIL Q3 2026 EPS: −$0.48 vs −$0.17 consensus (missed by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1ed72e.a",
+          "fact": "earningsre-1ed72e",
+          "variant": "a",
+          "text": "$TIL Q3 2026 EPS −$0.48, missed by $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS −$0.48 vs −$0.17 consensus (missed by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS −$0.48 vs −$0.17 (missed by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54e1d8.a",
+          "fact": "earningsre-54e1d8",
+          "variant": "a",
+          "text": "$TIL missed Q3 2026 EPS estimates by $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-355c5f.a",
+          "fact": "earningsre-355c5f",
+          "variant": "a",
+          "text": "$TIL missed the Q3 EPS consensus: −$0.48 vs −$0.17.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-83f6a0.a",
+          "fact": "earningsre-83f6a0",
+          "variant": "a",
+          "text": "$TIL Q3 EPS: −$0.48 vs −$0.17 consensus (missed by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d4f8ff.a",
+          "fact": "earningsre-d4f8ff",
+          "variant": "a",
+          "text": "$TIL Q3 EPS −$0.48, missed by $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4ffa7a.a",
+          "fact": "earningsre-4ffa7a",
+          "variant": "a",
+          "text": "$TIL missed Q3 EPS estimates by $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$TIL missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$TIL missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Instil Bio, Inc. ($TIL) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$TIL (Instil Bio, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Instil Bio, Inc. ($TIL) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$TIL published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $TIL came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $TIL published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-2573b0.a",
+          "fact": "earningsre-2573b0",
+          "variant": "a",
+          "text": "$TIL Q3 2026 Non-GAAP net loss per share, basic and diluted: −$0.48 vs −$0.17 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-2573b0.h1",
+          "fact": "earningsre-2573b0",
+          "variant": "h1",
+          "text": "$TIL reported Q3 2026 Non-GAAP net loss per share, basic and diluted of −$0.48 vs −$0.17 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-255c67.a",
+          "fact": "earningsre-255c67",
+          "variant": "a",
+          "text": "$TIL Q3 2026 Non-GAAP net loss per share, basic and diluted was −$0.48.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-255c67.h1",
+          "fact": "earningsre-255c67",
+          "variant": "h1",
+          "text": "Q3 2026 Non-GAAP net loss per share, basic and diluted at $TIL was −$0.48.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.48": "-",
+          "$0.17": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "TIL": [
+          [
+            "$",
+            0.48,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.17,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.31,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-MPLT-5d958f",
+      "type": "earnings_result",
+      "ticker": "MPLT",
+      "tickers": [
+        "MPLT"
+      ],
+      "name": "MapLight Therapeutics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1770069/000119312526462061/mplt-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MPLT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-MPLT-5d958f#earnings-history",
+      "allowed_numbers": [
+        "−$0.97",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "MapLight Therapeutics, Inc. (MPLT) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.97.",
+      "dedupe_key": "report:mplt-2026-q3",
+      "claim_phrases": [],
+      "report_id": "mplt-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T12:26:13.488522+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.97"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MPLT/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for MPLT: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "MPLT"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "MapLight Therapeutics, Inc. ($MPLT) published Q3 2026 results on Nov 16.",
+        "$MPLT (MapLight Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, MapLight Therapeutics, Inc. ($MPLT) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "MapLight Therapeutics, Inc. ($MPLT) published Q3 2026 results on Nov 16.",
+        "$MPLT (MapLight Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, MapLight Therapeutics, Inc. ($MPLT) published Q3 2026 results.",
+        "$MPLT published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $MPLT came out on Nov 16.",
+        "On Nov 16, $MPLT published Q3 2026 results.",
+        "$MPLT Q3 2026 GAAP EPS: −$0.97.",
+        "$MPLT reported Q3 2026 GAAP EPS of −$0.97.",
+        "$MPLT Q3 2026 GAAP EPS was −$0.97.",
+        "Q3 2026 GAAP EPS at $MPLT was −$0.97."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "MapLight Therapeutics, Inc. ($MPLT) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$MPLT (MapLight Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, MapLight Therapeutics, Inc. ($MPLT) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$MPLT published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $MPLT came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $MPLT published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$MPLT Q3 2026 GAAP EPS: −$0.97.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$MPLT reported Q3 2026 GAAP EPS of −$0.97.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$MPLT Q3 2026 GAAP EPS was −$0.97.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $MPLT was −$0.97.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.97": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-LRMR-715bab",
+      "type": "earnings_result",
+      "ticker": "LRMR",
+      "tickers": [
+        "LRMR"
+      ],
+      "name": "Larimar Therapeutics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1374690/000119312526462054/lrmr-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/LRMR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-LRMR-715bab#earnings-history",
+      "allowed_numbers": [
+        "−$0.29",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Larimar Therapeutics, Inc. (LRMR) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.29.",
+      "dedupe_key": "report:lrmr-2026-q3",
+      "claim_phrases": [],
+      "report_id": "lrmr-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T12:20:20.229612+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.29"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/LRMR/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for LRMR: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "LRMR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Larimar Therapeutics, Inc. ($LRMR) published Q3 2026 results on Nov 16.",
+        "$LRMR (Larimar Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Larimar Therapeutics, Inc. ($LRMR) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Larimar Therapeutics, Inc. ($LRMR) published Q3 2026 results on Nov 16.",
+        "$LRMR (Larimar Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Larimar Therapeutics, Inc. ($LRMR) published Q3 2026 results.",
+        "$LRMR published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $LRMR came out on Nov 16.",
+        "On Nov 16, $LRMR published Q3 2026 results.",
+        "$LRMR Q3 2026 GAAP EPS: −$0.29.",
+        "$LRMR reported Q3 2026 GAAP EPS of −$0.29.",
+        "$LRMR Q3 2026 GAAP EPS was −$0.29.",
+        "Q3 2026 GAAP EPS at $LRMR was −$0.29."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Larimar Therapeutics, Inc. ($LRMR) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$LRMR (Larimar Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Larimar Therapeutics, Inc. ($LRMR) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$LRMR published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $LRMR came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $LRMR published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$LRMR Q3 2026 GAAP EPS: −$0.29.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$LRMR reported Q3 2026 GAAP EPS of −$0.29.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$LRMR Q3 2026 GAAP EPS was −$0.29.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $LRMR was −$0.29.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.29": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-AIRJ-4ebafd",
+      "type": "earnings_result",
+      "ticker": "AIRJ",
+      "tickers": [
+        "AIRJ"
+      ],
+      "name": "AirJoule Technologies Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1855474/000185547426000003/airj-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AIRJ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-AIRJ-4ebafd#earnings-history",
+      "allowed_numbers": [
+        "−$0.27",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "AirJoule Technologies Corporation (AIRJ) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.27.",
+      "dedupe_key": "report:airj-2026-q3",
+      "claim_phrases": [],
+      "report_id": "airj-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T12:08:13.274123+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.27"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AIRJ/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for AIRJ: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "AIRJ"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "AirJoule Technologies Corporation ($AIRJ) published Q3 2026 results on Nov 16.",
+        "$AIRJ (AirJoule Technologies Corporation) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, AirJoule Technologies Corporation ($AIRJ) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "AirJoule Technologies Corporation ($AIRJ) published Q3 2026 results on Nov 16.",
+        "$AIRJ (AirJoule Technologies Corporation) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, AirJoule Technologies Corporation ($AIRJ) published Q3 2026 results.",
+        "$AIRJ published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $AIRJ came out on Nov 16.",
+        "On Nov 16, $AIRJ published Q3 2026 results.",
+        "$AIRJ Q3 2026 GAAP EPS: −$0.27.",
+        "$AIRJ reported Q3 2026 GAAP EPS of −$0.27.",
+        "$AIRJ Q3 2026 GAAP EPS was −$0.27.",
+        "Q3 2026 GAAP EPS at $AIRJ was −$0.27."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "AirJoule Technologies Corporation ($AIRJ) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$AIRJ (AirJoule Technologies Corporation) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, AirJoule Technologies Corporation ($AIRJ) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$AIRJ published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $AIRJ came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $AIRJ published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$AIRJ Q3 2026 GAAP EPS: −$0.27.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$AIRJ reported Q3 2026 GAAP EPS of −$0.27.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$AIRJ Q3 2026 GAAP EPS was −$0.27.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $AIRJ was −$0.27.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.27": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
