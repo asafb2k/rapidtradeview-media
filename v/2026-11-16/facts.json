@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-16",
-  "generated_at": "2026-11-16T20:15:02Z",
-  "as_of": "2026-11-16T20:15:02Z",
+  "generated_at": "2026-11-16T21:45:02Z",
+  "as_of": "2026-11-16T21:45:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 6,
     "form4_buy": 1,
-    "earnings_result": 17,
+    "earnings_result": 28,
     "earnings_upcoming": 21,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -942,22 +942,37 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3759,
-      "recent_ready": 195,
+      "archive_reports": 3777,
+      "recent_ready": 213,
       "outside_24h": 174,
       "unreadable": 0,
-      "not_compared": 4,
+      "not_compared": 12,
       "not_compared_metrics": [
         "BXDC: eps_adjusted (ffo_measure)",
+        "DARE: revenue (basis_mismatch)",
+        "IMDX: revenue (basis_mismatch)",
+        "INFQ: revenue (basis_mismatch)",
+        "POWL: revenue (basis_mismatch)",
         "PRLD: revenue (basis_mismatch)",
+        "RCAT: revenue (basis_mismatch)",
+        "SHAZ: revenue (basis_mismatch)",
+        "SLNH: revenue (basis_mismatch)",
         "VERI: revenue (basis_mismatch)",
+        "WKHS: revenue (basis_mismatch)",
         "PAYP: revenue (basis_mismatch)"
       ],
-      "consensus_mismatch_hold": 4,
+      "consensus_mismatch_hold": 11,
       "held": [
         "BXDC: eps_adjusted (ffo_measure) and nothing else compared (report data to check)",
+        "DARE: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "INFQ: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "POWL: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "PRLD: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "RCAT: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "SHAZ: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "SLNH: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "VERI: revenue (basis_mismatch) and nothing else compared (report data to check)",
+        "WKHS: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "PAYP: revenue (basis_mismatch) and nothing else compared (report data to check)"
       ]
     },
@@ -974,7 +989,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 44,
+      "tickers_in_items": 55,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -988,7 +1003,7 @@
     "market": {
       "market_session": "2026-11-13",
       "priced_cap_share": 0.9989495812361494,
-      "flows_as_of": "2026-11-16T20:15:26.499939+00:00"
+      "flows_as_of": "2026-11-16T21:45:33.021556+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1000,7 +1015,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 67
+        "angles_dropped": 84
       },
       "top8": {
         "stale": 6,
@@ -1008,7 +1023,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 9,
-        "ranked_below": 38,
+        "ranked_below": 49,
         "pillars": 4
       }
     }
@@ -1045,7 +1060,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 50,
+  "api_requests": 68,
   "items": [
     {
       "item_id": "2026-11-16-congress-flow-NVDA-26185d",
@@ -11084,6 +11099,1978 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-16-earnings-result-STEM-8934a3",
+      "type": "earnings_result",
+      "ticker": "STEM",
+      "tickers": [
+        "STEM"
+      ],
+      "name": "Stem, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1758766/000175876626000092/exhibit99-8xkx20261116xq32.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/STEM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-STEM-8934a3#earnings-history",
+      "allowed_numbers": [
+        "$36.7M",
+        "$39.2M",
+        "$2.5M",
+        "−$1.51",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Stem, Inc. (STEM) published Q3 2026 results on 2026-11-16: Revenue miss. Revenue $36.7M vs $39.2M consensus (Missed by $2.5M). GAAP EPS −$1.51.",
+      "dedupe_key": "report:stem-2026-q3",
+      "claim_phrases": [
+        "revenue came in below the $39.2M consensus.",
+        "$STEM missed the Q3 2026 revenue consensus: $36.7M vs $39.2M.",
+        "$STEM Q3 2026 revenue: $36.7M vs $39.2M consensus (missed by $2.5M).",
+        "$STEM Q3 2026 revenue $36.7M, missed by $2.5M.",
+        "revenue $36.7M vs $39.2M consensus (missed by $2.5M).",
+        "revenue $36.7M vs $39.2M (missed by $2.5M).",
+        "$STEM missed Q3 2026 revenue estimates by $2.5M.",
+        "$STEM missed the Q3 revenue consensus: $36.7M vs $39.2M.",
+        "$STEM Q3 revenue: $36.7M vs $39.2M consensus (missed by $2.5M).",
+        "$STEM Q3 revenue $36.7M, missed by $2.5M.",
+        "$STEM missed Q3 revenue estimates by $2.5M.",
+        "$STEM missed Q3 2026 estimates.",
+        "$STEM missed Q3 estimates."
+      ],
+      "report_id": "stem-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:32:41.992585+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$36.7M",
+          "consensus": "$39.2M",
+          "label": "Missed by $2.5M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$1.51"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/STEM/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for STEM: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "STEM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Stem, Inc. ($STEM) published Q3 2026 results on Nov 16.",
+        "$STEM (Stem, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Stem, Inc. ($STEM) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Stem, Inc. ($STEM) published Q3 2026 results on Nov 16.",
+        "$STEM (Stem, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Stem, Inc. ($STEM) published Q3 2026 results.",
+        "$STEM published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $STEM came out on Nov 16.",
+        "On Nov 16, $STEM published Q3 2026 results.",
+        "$STEM Q3 2026 revenue: $36.7M vs $39.2M consensus.",
+        "$STEM reported Q3 2026 revenue of $36.7M vs $39.2M consensus.",
+        "$STEM Q3 2026 revenue was $36.7M.",
+        "Q3 2026 revenue at $STEM was $36.7M.",
+        "$STEM Q3 2026 GAAP EPS: −$1.51.",
+        "$STEM reported Q3 2026 GAAP EPS of −$1.51.",
+        "$STEM Q3 2026 GAAP EPS was −$1.51.",
+        "Q3 2026 GAAP EPS at $STEM was −$1.51."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $39.2M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-39974b.a",
+          "fact": "earningsre-39974b",
+          "variant": "a",
+          "text": "$STEM missed the Q3 2026 revenue consensus: $36.7M vs $39.2M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-832d86.a",
+          "fact": "earningsre-832d86",
+          "variant": "a",
+          "text": "$STEM Q3 2026 revenue: $36.7M vs $39.2M consensus (missed by $2.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1c6ba4.a",
+          "fact": "earningsre-1c6ba4",
+          "variant": "a",
+          "text": "$STEM Q3 2026 revenue $36.7M, missed by $2.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $36.7M vs $39.2M consensus (missed by $2.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $36.7M vs $39.2M (missed by $2.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3da506.a",
+          "fact": "earningsre-3da506",
+          "variant": "a",
+          "text": "$STEM missed Q3 2026 revenue estimates by $2.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b5f6a9.a",
+          "fact": "earningsre-b5f6a9",
+          "variant": "a",
+          "text": "$STEM missed the Q3 revenue consensus: $36.7M vs $39.2M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f542e8.a",
+          "fact": "earningsre-f542e8",
+          "variant": "a",
+          "text": "$STEM Q3 revenue: $36.7M vs $39.2M consensus (missed by $2.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-90244e.a",
+          "fact": "earningsre-90244e",
+          "variant": "a",
+          "text": "$STEM Q3 revenue $36.7M, missed by $2.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-01ded6.a",
+          "fact": "earningsre-01ded6",
+          "variant": "a",
+          "text": "$STEM missed Q3 revenue estimates by $2.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$STEM missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$STEM missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Stem, Inc. ($STEM) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$STEM (Stem, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Stem, Inc. ($STEM) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$STEM published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $STEM came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $STEM published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$STEM Q3 2026 revenue: $36.7M vs $39.2M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$STEM reported Q3 2026 revenue of $36.7M vs $39.2M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$STEM Q3 2026 revenue was $36.7M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $STEM was $36.7M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$STEM Q3 2026 GAAP EPS: −$1.51.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$STEM reported Q3 2026 GAAP EPS of −$1.51.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$STEM Q3 2026 GAAP EPS was −$1.51.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $STEM was −$1.51.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$1.51": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "STEM": [
+          [
+            "$",
+            36.7,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            39.2,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            2.5,
+            1,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-IMDX-c3077a",
+      "type": "earnings_result",
+      "ticker": "IMDX",
+      "tickers": [
+        "IMDX"
+      ],
+      "name": "Insight Molecular Diagnostics Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1642380/000149315226052323/ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IMDX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-IMDX-c3077a#earnings-history",
+      "allowed_numbers": [
+        "−$0.19",
+        "−$0.22",
+        "$0.03",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Insight Molecular Diagnostics Inc. (IMDX) published Q3 2026 results on 2026-11-16. Non-GAAP net loss per share −$0.19 vs −$0.22 consensus (Beat by $0.03).",
+      "dedupe_key": "report:imdx-2026-q3",
+      "claim_phrases": [
+        "EPS came in above the −$0.22 consensus.",
+        "$IMDX beat the Q3 2026 EPS consensus: −$0.19 vs −$0.22.",
+        "$IMDX Q3 2026 EPS: −$0.19 vs −$0.22 consensus (beat by $0.03).",
+        "$IMDX Q3 2026 EPS −$0.19, beat by $0.03.",
+        "EPS −$0.19 vs −$0.22 consensus (beat by $0.03).",
+        "EPS −$0.19 vs −$0.22 (beat by $0.03).",
+        "$IMDX beat Q3 2026 EPS estimates by $0.03.",
+        "Non-GAAP net loss per share came in above the −$0.22 consensus.",
+        "$IMDX beat the Q3 2026 Non-GAAP net loss per share consensus: −$0.19 vs −$0.22.",
+        "$IMDX Q3 2026 Non-GAAP net loss per share: −$0.19 vs −$0.22 consensus (beat by $0.03).",
+        "$IMDX Q3 2026 Non-GAAP net loss per share −$0.19, beat by $0.03.",
+        "Non-GAAP net loss per share −$0.19 vs −$0.22 consensus (beat by $0.03).",
+        "Non-GAAP net loss per share −$0.19 vs −$0.22 (beat by $0.03).",
+        "$IMDX beat Q3 2026 Non-GAAP net loss per share estimates by $0.03.",
+        "$IMDX beat the Q3 EPS consensus: −$0.19 vs −$0.22.",
+        "$IMDX Q3 EPS: −$0.19 vs −$0.22 consensus (beat by $0.03).",
+        "$IMDX Q3 EPS −$0.19, beat by $0.03.",
+        "$IMDX beat Q3 EPS estimates by $0.03.",
+        "$IMDX beat the Q3 Non-GAAP net loss per share consensus: −$0.19 vs −$0.22.",
+        "$IMDX Q3 Non-GAAP net loss per share: −$0.19 vs −$0.22 consensus (beat by $0.03).",
+        "$IMDX Q3 Non-GAAP net loss per share −$0.19, beat by $0.03.",
+        "$IMDX beat Q3 Non-GAAP net loss per share estimates by $0.03.",
+        "$IMDX beat Q3 2026 estimates.",
+        "$IMDX beat Q3 estimates."
+      ],
+      "report_id": "imdx-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:32:26.524317+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "eps": {
+          "basis": "Non-GAAP net loss per share",
+          "reported": "−$0.19",
+          "consensus": "−$0.22",
+          "label": "Beat by $0.03",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IMDX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for IMDX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "IMDX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Insight Molecular Diagnostics Inc. ($IMDX) published Q3 2026 results on Nov 16.",
+        "$IMDX (Insight Molecular Diagnostics Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Insight Molecular Diagnostics Inc. ($IMDX) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Insight Molecular Diagnostics Inc. ($IMDX) published Q3 2026 results on Nov 16.",
+        "$IMDX (Insight Molecular Diagnostics Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Insight Molecular Diagnostics Inc. ($IMDX) published Q3 2026 results.",
+        "$IMDX published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $IMDX came out on Nov 16.",
+        "On Nov 16, $IMDX published Q3 2026 results.",
+        "$IMDX Q3 2026 Non-GAAP net loss per share: −$0.19 vs −$0.22 consensus.",
+        "$IMDX reported Q3 2026 Non-GAAP net loss per share of −$0.19 vs −$0.22 consensus.",
+        "$IMDX Q3 2026 Non-GAAP net loss per share was −$0.19.",
+        "Q3 2026 Non-GAAP net loss per share at $IMDX was −$0.19."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the −$0.22 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$IMDX beat the Q3 2026 EPS consensus: −$0.19 vs −$0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$IMDX Q3 2026 EPS: −$0.19 vs −$0.22 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$IMDX Q3 2026 EPS −$0.19, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS −$0.19 vs −$0.22 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS −$0.19 vs −$0.22 (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$IMDX beat Q3 2026 EPS estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-651b6b.a",
+          "fact": "earningsre-651b6b",
+          "variant": "a",
+          "text": "Non-GAAP net loss per share came in above the −$0.22 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0c03eb.a",
+          "fact": "earningsre-0c03eb",
+          "variant": "a",
+          "text": "$IMDX beat the Q3 2026 Non-GAAP net loss per share consensus: −$0.19 vs −$0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-73388d.a",
+          "fact": "earningsre-73388d",
+          "variant": "a",
+          "text": "$IMDX Q3 2026 Non-GAAP net loss per share: −$0.19 vs −$0.22 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70b1ec.a",
+          "fact": "earningsre-70b1ec",
+          "variant": "a",
+          "text": "$IMDX Q3 2026 Non-GAAP net loss per share −$0.19, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-59d60f.a",
+          "fact": "earningsre-59d60f",
+          "variant": "a",
+          "text": "Non-GAAP net loss per share −$0.19 vs −$0.22 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-03503a.a",
+          "fact": "earningsre-03503a",
+          "variant": "a",
+          "text": "Non-GAAP net loss per share −$0.19 vs −$0.22 (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a06d.a",
+          "fact": "earningsre-96a06d",
+          "variant": "a",
+          "text": "$IMDX beat Q3 2026 Non-GAAP net loss per share estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$IMDX beat the Q3 EPS consensus: −$0.19 vs −$0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$IMDX Q3 EPS: −$0.19 vs −$0.22 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$IMDX Q3 EPS −$0.19, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$IMDX beat Q3 EPS estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f9528a.a",
+          "fact": "earningsre-f9528a",
+          "variant": "a",
+          "text": "$IMDX beat the Q3 Non-GAAP net loss per share consensus: −$0.19 vs −$0.22.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d8b73d.a",
+          "fact": "earningsre-d8b73d",
+          "variant": "a",
+          "text": "$IMDX Q3 Non-GAAP net loss per share: −$0.19 vs −$0.22 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6f5aa4.a",
+          "fact": "earningsre-6f5aa4",
+          "variant": "a",
+          "text": "$IMDX Q3 Non-GAAP net loss per share −$0.19, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-ccade1.a",
+          "fact": "earningsre-ccade1",
+          "variant": "a",
+          "text": "$IMDX beat Q3 Non-GAAP net loss per share estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$IMDX beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$IMDX beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Insight Molecular Diagnostics Inc. ($IMDX) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$IMDX (Insight Molecular Diagnostics Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Insight Molecular Diagnostics Inc. ($IMDX) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$IMDX published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $IMDX came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $IMDX published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5fb166.a",
+          "fact": "earningsre-5fb166",
+          "variant": "a",
+          "text": "$IMDX Q3 2026 Non-GAAP net loss per share: −$0.19 vs −$0.22 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5fb166.h1",
+          "fact": "earningsre-5fb166",
+          "variant": "h1",
+          "text": "$IMDX reported Q3 2026 Non-GAAP net loss per share of −$0.19 vs −$0.22 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-24f95d.a",
+          "fact": "earningsre-24f95d",
+          "variant": "a",
+          "text": "$IMDX Q3 2026 Non-GAAP net loss per share was −$0.19.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-24f95d.h1",
+          "fact": "earningsre-24f95d",
+          "variant": "h1",
+          "text": "Q3 2026 Non-GAAP net loss per share at $IMDX was −$0.19.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.19": "-",
+          "$0.22": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "IMDX": [
+          [
+            "$",
+            0.19,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.22,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.03,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-GPRO-540a27",
+      "type": "earnings_result",
+      "ticker": "GPRO",
+      "tickers": [
+        "GPRO"
+      ],
+      "name": "GoPro, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1500435/000150043526000075/gpro2026-9x30ex991xer.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/GPRO?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-GPRO-540a27#earnings-history",
+      "allowed_numbers": [
+        "$96.2M",
+        "−$0.24",
+        "−$0.14",
+        "$0.10",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "GoPro, Inc. (GPRO) published Q3 2026 results on 2026-11-16: EPS miss. Revenue $96.2M. Non-GAAP diluted net loss per share −$0.24 vs −$0.14 consensus (Missed by $0.10).",
+      "dedupe_key": "report:gpro-2026-q3",
+      "claim_phrases": [
+        "EPS came in below the −$0.14 consensus.",
+        "$GPRO missed the Q3 2026 EPS consensus: −$0.24 vs −$0.14.",
+        "$GPRO Q3 2026 EPS: −$0.24 vs −$0.14 consensus (missed by $0.10).",
+        "$GPRO Q3 2026 EPS −$0.24, missed by $0.10.",
+        "EPS −$0.24 vs −$0.14 consensus (missed by $0.10).",
+        "EPS −$0.24 vs −$0.14 (missed by $0.10).",
+        "$GPRO missed Q3 2026 EPS estimates by $0.10.",
+        "Non-GAAP diluted net loss per share came in below the −$0.14 consensus.",
+        "$GPRO missed the Q3 2026 Non-GAAP diluted net loss per share consensus: −$0.24 vs −$0.14.",
+        "$GPRO Q3 2026 Non-GAAP diluted net loss per share: −$0.24 vs −$0.14 consensus (missed by $0.10).",
+        "$GPRO Q3 2026 Non-GAAP diluted net loss per share −$0.24, missed by $0.10.",
+        "Non-GAAP diluted net loss per share −$0.24 vs −$0.14 consensus (missed by $0.10).",
+        "Non-GAAP diluted net loss per share −$0.24 vs −$0.14 (missed by $0.10).",
+        "$GPRO missed Q3 2026 Non-GAAP diluted net loss per share estimates by $0.10.",
+        "$GPRO missed the Q3 EPS consensus: −$0.24 vs −$0.14.",
+        "$GPRO Q3 EPS: −$0.24 vs −$0.14 consensus (missed by $0.10).",
+        "$GPRO Q3 EPS −$0.24, missed by $0.10.",
+        "$GPRO missed Q3 EPS estimates by $0.10.",
+        "$GPRO missed the Q3 Non-GAAP diluted net loss per share consensus: −$0.24 vs −$0.14.",
+        "$GPRO Q3 Non-GAAP diluted net loss per share: −$0.24 vs −$0.14 consensus (missed by $0.10).",
+        "$GPRO Q3 Non-GAAP diluted net loss per share −$0.24, missed by $0.10.",
+        "$GPRO missed Q3 Non-GAAP diluted net loss per share estimates by $0.10.",
+        "$GPRO missed Q3 2026 estimates.",
+        "$GPRO missed Q3 estimates."
+      ],
+      "report_id": "gpro-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:30:47.855130+00:00",
+      "tile_label": "EPS miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$96.2M"
+        },
+        "eps": {
+          "basis": "Non-GAAP diluted net loss per share",
+          "reported": "−$0.24",
+          "consensus": "−$0.14",
+          "label": "Missed by $0.10",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/GPRO/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for GPRO: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "GPRO"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "GoPro, Inc. ($GPRO) published Q3 2026 results on Nov 16.",
+        "$GPRO (GoPro, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, GoPro, Inc. ($GPRO) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "GoPro, Inc. ($GPRO) published Q3 2026 results on Nov 16.",
+        "$GPRO (GoPro, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, GoPro, Inc. ($GPRO) published Q3 2026 results.",
+        "$GPRO published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $GPRO came out on Nov 16.",
+        "On Nov 16, $GPRO published Q3 2026 results.",
+        "$GPRO Q3 2026 revenue: $96.2M.",
+        "$GPRO reported Q3 2026 revenue of $96.2M.",
+        "$GPRO Q3 2026 revenue was $96.2M.",
+        "Q3 2026 revenue at $GPRO was $96.2M.",
+        "$GPRO Q3 2026 Non-GAAP diluted net loss per share: −$0.24 vs −$0.14 consensus.",
+        "$GPRO reported Q3 2026 Non-GAAP diluted net loss per share of −$0.24 vs −$0.14 consensus.",
+        "$GPRO Q3 2026 Non-GAAP diluted net loss per share was −$0.24.",
+        "Q3 2026 Non-GAAP diluted net loss per share at $GPRO was −$0.24."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the −$0.14 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3982e5.a",
+          "fact": "earningsre-3982e5",
+          "variant": "a",
+          "text": "$GPRO missed the Q3 2026 EPS consensus: −$0.24 vs −$0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cf8f92.a",
+          "fact": "earningsre-cf8f92",
+          "variant": "a",
+          "text": "$GPRO Q3 2026 EPS: −$0.24 vs −$0.14 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1ed72e.a",
+          "fact": "earningsre-1ed72e",
+          "variant": "a",
+          "text": "$GPRO Q3 2026 EPS −$0.24, missed by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS −$0.24 vs −$0.14 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS −$0.24 vs −$0.14 (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54e1d8.a",
+          "fact": "earningsre-54e1d8",
+          "variant": "a",
+          "text": "$GPRO missed Q3 2026 EPS estimates by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-87b0be.a",
+          "fact": "earningsre-87b0be",
+          "variant": "a",
+          "text": "Non-GAAP diluted net loss per share came in below the −$0.14 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-38d646.a",
+          "fact": "earningsre-38d646",
+          "variant": "a",
+          "text": "$GPRO missed the Q3 2026 Non-GAAP diluted net loss per share consensus: −$0.24 vs −$0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-a95a20.a",
+          "fact": "earningsre-a95a20",
+          "variant": "a",
+          "text": "$GPRO Q3 2026 Non-GAAP diluted net loss per share: −$0.24 vs −$0.14 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-750560.a",
+          "fact": "earningsre-750560",
+          "variant": "a",
+          "text": "$GPRO Q3 2026 Non-GAAP diluted net loss per share −$0.24, missed by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1bd432.a",
+          "fact": "earningsre-1bd432",
+          "variant": "a",
+          "text": "Non-GAAP diluted net loss per share −$0.24 vs −$0.14 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-eb7dde.a",
+          "fact": "earningsre-eb7dde",
+          "variant": "a",
+          "text": "Non-GAAP diluted net loss per share −$0.24 vs −$0.14 (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0d5091.a",
+          "fact": "earningsre-0d5091",
+          "variant": "a",
+          "text": "$GPRO missed Q3 2026 Non-GAAP diluted net loss per share estimates by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-355c5f.a",
+          "fact": "earningsre-355c5f",
+          "variant": "a",
+          "text": "$GPRO missed the Q3 EPS consensus: −$0.24 vs −$0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-83f6a0.a",
+          "fact": "earningsre-83f6a0",
+          "variant": "a",
+          "text": "$GPRO Q3 EPS: −$0.24 vs −$0.14 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d4f8ff.a",
+          "fact": "earningsre-d4f8ff",
+          "variant": "a",
+          "text": "$GPRO Q3 EPS −$0.24, missed by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4ffa7a.a",
+          "fact": "earningsre-4ffa7a",
+          "variant": "a",
+          "text": "$GPRO missed Q3 EPS estimates by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-913110.a",
+          "fact": "earningsre-913110",
+          "variant": "a",
+          "text": "$GPRO missed the Q3 Non-GAAP diluted net loss per share consensus: −$0.24 vs −$0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-a09d74.a",
+          "fact": "earningsre-a09d74",
+          "variant": "a",
+          "text": "$GPRO Q3 Non-GAAP diluted net loss per share: −$0.24 vs −$0.14 consensus (missed by $0.10).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1245e0.a",
+          "fact": "earningsre-1245e0",
+          "variant": "a",
+          "text": "$GPRO Q3 Non-GAAP diluted net loss per share −$0.24, missed by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-a99957.a",
+          "fact": "earningsre-a99957",
+          "variant": "a",
+          "text": "$GPRO missed Q3 Non-GAAP diluted net loss per share estimates by $0.10.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$GPRO missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$GPRO missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "GoPro, Inc. ($GPRO) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$GPRO (GoPro, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, GoPro, Inc. ($GPRO) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$GPRO published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $GPRO came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $GPRO published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$GPRO Q3 2026 revenue: $96.2M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$GPRO reported Q3 2026 revenue of $96.2M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$GPRO Q3 2026 revenue was $96.2M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $GPRO was $96.2M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-faeafa.a",
+          "fact": "earningsre-faeafa",
+          "variant": "a",
+          "text": "$GPRO Q3 2026 Non-GAAP diluted net loss per share: −$0.24 vs −$0.14 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-faeafa.h1",
+          "fact": "earningsre-faeafa",
+          "variant": "h1",
+          "text": "$GPRO reported Q3 2026 Non-GAAP diluted net loss per share of −$0.24 vs −$0.14 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-51644e.a",
+          "fact": "earningsre-51644e",
+          "variant": "a",
+          "text": "$GPRO Q3 2026 Non-GAAP diluted net loss per share was −$0.24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-51644e.h1",
+          "fact": "earningsre-51644e",
+          "variant": "h1",
+          "text": "Q3 2026 Non-GAAP diluted net loss per share at $GPRO was −$0.24.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.24": "-",
+          "$0.14": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "GPRO": [
+          [
+            "$",
+            0.24,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.14,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.1,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-OMER-5f296e",
+      "type": "earnings_result",
+      "ticker": "OMER",
+      "tickers": [
+        "OMER"
+      ],
+      "name": "Omeros Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1285819/000143774926037166/ex_1011405.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/OMER?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-OMER-5f296e#earnings-history",
+      "allowed_numbers": [
+        "$35.9M",
+        "$37.3M",
+        "$1.33M",
+        "$0.06",
+        "−$0.02",
+        "$0.08",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Omeros Corporation (OMER) published Q3 2026 results on 2026-11-16: Mixed vs estimates. Revenue $35.9M vs $37.3M consensus (Missed by $1.33M). non-GAAP adjusted net income $0.06 vs −$0.02 consensus (Beat by $0.08).",
+      "dedupe_key": "report:omer-2026-q3",
+      "claim_phrases": [
+        "revenue came in below the $37.3M consensus.",
+        "$OMER missed the Q3 2026 revenue consensus: $35.9M vs $37.3M.",
+        "$OMER Q3 2026 revenue: $35.9M vs $37.3M consensus (missed by $1.33M).",
+        "$OMER Q3 2026 revenue $35.9M, missed by $1.33M.",
+        "revenue $35.9M vs $37.3M consensus (missed by $1.33M).",
+        "revenue $35.9M vs $37.3M (missed by $1.33M).",
+        "$OMER missed Q3 2026 revenue estimates by $1.33M.",
+        "$OMER missed the Q3 revenue consensus: $35.9M vs $37.3M.",
+        "$OMER Q3 revenue: $35.9M vs $37.3M consensus (missed by $1.33M).",
+        "$OMER Q3 revenue $35.9M, missed by $1.33M.",
+        "$OMER missed Q3 revenue estimates by $1.33M.",
+        "EPS came in above the −$0.02 consensus.",
+        "$OMER beat the Q3 2026 EPS consensus: $0.06 vs −$0.02.",
+        "$OMER Q3 2026 EPS: $0.06 vs −$0.02 consensus (beat by $0.08).",
+        "$OMER Q3 2026 EPS $0.06, beat by $0.08.",
+        "EPS $0.06 vs −$0.02 consensus (beat by $0.08).",
+        "EPS $0.06 vs −$0.02 (beat by $0.08).",
+        "$OMER beat Q3 2026 EPS estimates by $0.08.",
+        "non-GAAP adjusted net income came in above the −$0.02 consensus.",
+        "$OMER beat the Q3 2026 non-GAAP adjusted net income consensus: $0.06 vs −$0.02.",
+        "$OMER Q3 2026 non-GAAP adjusted net income: $0.06 vs −$0.02 consensus (beat by $0.08).",
+        "$OMER Q3 2026 non-GAAP adjusted net income $0.06, beat by $0.08.",
+        "non-GAAP adjusted net income $0.06 vs −$0.02 consensus (beat by $0.08).",
+        "non-GAAP adjusted net income $0.06 vs −$0.02 (beat by $0.08).",
+        "$OMER beat Q3 2026 non-GAAP adjusted net income estimates by $0.08.",
+        "$OMER beat the Q3 EPS consensus: $0.06 vs −$0.02.",
+        "$OMER Q3 EPS: $0.06 vs −$0.02 consensus (beat by $0.08).",
+        "$OMER Q3 EPS $0.06, beat by $0.08.",
+        "$OMER beat Q3 EPS estimates by $0.08.",
+        "$OMER beat the Q3 non-GAAP adjusted net income consensus: $0.06 vs −$0.02.",
+        "$OMER Q3 non-GAAP adjusted net income: $0.06 vs −$0.02 consensus (beat by $0.08).",
+        "$OMER Q3 non-GAAP adjusted net income $0.06, beat by $0.08.",
+        "$OMER beat Q3 non-GAAP adjusted net income estimates by $0.08."
+      ],
+      "report_id": "omer-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:30:28.545132+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$35.9M",
+          "consensus": "$37.3M",
+          "label": "Missed by $1.33M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "non-GAAP adjusted net income",
+          "reported": "$0.06",
+          "consensus": "−$0.02",
+          "label": "Beat by $0.08",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/OMER/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for OMER: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "OMER"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Omeros Corporation ($OMER) published Q3 2026 results on Nov 16.",
+        "$OMER (Omeros Corporation) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Omeros Corporation ($OMER) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Omeros Corporation ($OMER) published Q3 2026 results on Nov 16.",
+        "$OMER (Omeros Corporation) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Omeros Corporation ($OMER) published Q3 2026 results.",
+        "$OMER published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $OMER came out on Nov 16.",
+        "On Nov 16, $OMER published Q3 2026 results.",
+        "$OMER Q3 2026 revenue: $35.9M vs $37.3M consensus.",
+        "$OMER reported Q3 2026 revenue of $35.9M vs $37.3M consensus.",
+        "$OMER Q3 2026 revenue was $35.9M.",
+        "Q3 2026 revenue at $OMER was $35.9M.",
+        "$OMER Q3 2026 non-GAAP adjusted net income: $0.06 vs −$0.02 consensus.",
+        "$OMER reported Q3 2026 non-GAAP adjusted net income of $0.06 vs −$0.02 consensus.",
+        "$OMER Q3 2026 non-GAAP adjusted net income was $0.06.",
+        "Q3 2026 non-GAAP adjusted net income at $OMER was $0.06."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $37.3M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-39974b.a",
+          "fact": "earningsre-39974b",
+          "variant": "a",
+          "text": "$OMER missed the Q3 2026 revenue consensus: $35.9M vs $37.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-832d86.a",
+          "fact": "earningsre-832d86",
+          "variant": "a",
+          "text": "$OMER Q3 2026 revenue: $35.9M vs $37.3M consensus (missed by $1.33M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1c6ba4.a",
+          "fact": "earningsre-1c6ba4",
+          "variant": "a",
+          "text": "$OMER Q3 2026 revenue $35.9M, missed by $1.33M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $35.9M vs $37.3M consensus (missed by $1.33M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $35.9M vs $37.3M (missed by $1.33M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3da506.a",
+          "fact": "earningsre-3da506",
+          "variant": "a",
+          "text": "$OMER missed Q3 2026 revenue estimates by $1.33M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b5f6a9.a",
+          "fact": "earningsre-b5f6a9",
+          "variant": "a",
+          "text": "$OMER missed the Q3 revenue consensus: $35.9M vs $37.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f542e8.a",
+          "fact": "earningsre-f542e8",
+          "variant": "a",
+          "text": "$OMER Q3 revenue: $35.9M vs $37.3M consensus (missed by $1.33M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-90244e.a",
+          "fact": "earningsre-90244e",
+          "variant": "a",
+          "text": "$OMER Q3 revenue $35.9M, missed by $1.33M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-01ded6.a",
+          "fact": "earningsre-01ded6",
+          "variant": "a",
+          "text": "$OMER missed Q3 revenue estimates by $1.33M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the −$0.02 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$OMER beat the Q3 2026 EPS consensus: $0.06 vs −$0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$OMER Q3 2026 EPS: $0.06 vs −$0.02 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$OMER Q3 2026 EPS $0.06, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.06 vs −$0.02 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.06 vs −$0.02 (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$OMER beat Q3 2026 EPS estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-95a48f.a",
+          "fact": "earningsre-95a48f",
+          "variant": "a",
+          "text": "non-GAAP adjusted net income came in above the −$0.02 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4354da.a",
+          "fact": "earningsre-4354da",
+          "variant": "a",
+          "text": "$OMER beat the Q3 2026 non-GAAP adjusted net income consensus: $0.06 vs −$0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-67f0e5.a",
+          "fact": "earningsre-67f0e5",
+          "variant": "a",
+          "text": "$OMER Q3 2026 non-GAAP adjusted net income: $0.06 vs −$0.02 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-2b047b.a",
+          "fact": "earningsre-2b047b",
+          "variant": "a",
+          "text": "$OMER Q3 2026 non-GAAP adjusted net income $0.06, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9ceee5.a",
+          "fact": "earningsre-9ceee5",
+          "variant": "a",
+          "text": "non-GAAP adjusted net income $0.06 vs −$0.02 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d4b52a.a",
+          "fact": "earningsre-d4b52a",
+          "variant": "a",
+          "text": "non-GAAP adjusted net income $0.06 vs −$0.02 (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e34a5d.a",
+          "fact": "earningsre-e34a5d",
+          "variant": "a",
+          "text": "$OMER beat Q3 2026 non-GAAP adjusted net income estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$OMER beat the Q3 EPS consensus: $0.06 vs −$0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$OMER Q3 EPS: $0.06 vs −$0.02 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$OMER Q3 EPS $0.06, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$OMER beat Q3 EPS estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-73fc40.a",
+          "fact": "earningsre-73fc40",
+          "variant": "a",
+          "text": "$OMER beat the Q3 non-GAAP adjusted net income consensus: $0.06 vs −$0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f52c03.a",
+          "fact": "earningsre-f52c03",
+          "variant": "a",
+          "text": "$OMER Q3 non-GAAP adjusted net income: $0.06 vs −$0.02 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-45d08c.a",
+          "fact": "earningsre-45d08c",
+          "variant": "a",
+          "text": "$OMER Q3 non-GAAP adjusted net income $0.06, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-be65cf.a",
+          "fact": "earningsre-be65cf",
+          "variant": "a",
+          "text": "$OMER beat Q3 non-GAAP adjusted net income estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Omeros Corporation ($OMER) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$OMER (Omeros Corporation) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Omeros Corporation ($OMER) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$OMER published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $OMER came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $OMER published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$OMER Q3 2026 revenue: $35.9M vs $37.3M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$OMER reported Q3 2026 revenue of $35.9M vs $37.3M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$OMER Q3 2026 revenue was $35.9M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $OMER was $35.9M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-793a5c.a",
+          "fact": "earningsre-793a5c",
+          "variant": "a",
+          "text": "$OMER Q3 2026 non-GAAP adjusted net income: $0.06 vs −$0.02 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-793a5c.h1",
+          "fact": "earningsre-793a5c",
+          "variant": "h1",
+          "text": "$OMER reported Q3 2026 non-GAAP adjusted net income of $0.06 vs −$0.02 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-910647.a",
+          "fact": "earningsre-910647",
+          "variant": "a",
+          "text": "$OMER Q3 2026 non-GAAP adjusted net income was $0.06.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-910647.h1",
+          "fact": "earningsre-910647",
+          "variant": "h1",
+          "text": "Q3 2026 non-GAAP adjusted net income at $OMER was $0.06.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.02": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "OMER": [
+          [
+            "$",
+            35.9,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            37.3,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.33,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.06,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.02,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.08,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-ACM-c43a68",
+      "type": "earnings_result",
+      "ticker": "ACM",
+      "tickers": [
+        "ACM"
+      ],
+      "name": "AECOM",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/868857/000110465926128300/tm2629784d1_ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ACM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-ACM-c43a68#earnings-history",
+      "allowed_numbers": [
+        "$3.88B",
+        "$4.1B",
+        "$220M",
+        "$0.99",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "AECOM (ACM) published FY2026 (Q4) results on 2026-11-16: Revenue miss. Revenue $3.88B vs $4.1B consensus (Missed by $220M). GAAP EPS $0.99.",
+      "dedupe_key": "report:acm-2026-q4",
+      "claim_phrases": [
+        "revenue came in below the $4.1B consensus.",
+        "$ACM missed the FY2026 (Q4) revenue consensus: $3.88B vs $4.1B.",
+        "$ACM FY2026 (Q4) revenue: $3.88B vs $4.1B consensus (missed by $220M).",
+        "$ACM FY2026 (Q4) revenue $3.88B, missed by $220M.",
+        "revenue $3.88B vs $4.1B consensus (missed by $220M).",
+        "revenue $3.88B vs $4.1B (missed by $220M).",
+        "$ACM missed FY2026 (Q4) revenue estimates by $220M.",
+        "$ACM missed FY2026 (Q4) estimates."
+      ],
+      "report_id": "acm-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:30:22.477058+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$3.88B",
+          "consensus": "$4.1B",
+          "label": "Missed by $220M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.99"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ACM/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for ACM: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ACM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "AECOM ($ACM) published FY2026 (Q4) results on Nov 16.",
+        "$ACM (AECOM) reported FY2026 (Q4) results on Nov 16.",
+        "On Nov 16, AECOM ($ACM) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "AECOM ($ACM) published FY2026 (Q4) results on Nov 16.",
+        "$ACM (AECOM) reported FY2026 (Q4) results on Nov 16.",
+        "On Nov 16, AECOM ($ACM) published FY2026 (Q4) results.",
+        "$ACM published FY2026 (Q4) results on Nov 16.",
+        "FY2026 (Q4) results from $ACM came out on Nov 16.",
+        "On Nov 16, $ACM published FY2026 (Q4) results.",
+        "$ACM FY2026 (Q4) revenue: $3.88B vs $4.1B consensus.",
+        "$ACM reported FY2026 (Q4) revenue of $3.88B vs $4.1B consensus.",
+        "$ACM FY2026 (Q4) revenue was $3.88B.",
+        "FY2026 (Q4) revenue at $ACM was $3.88B.",
+        "$ACM FY2026 (Q4) GAAP EPS: $0.99.",
+        "$ACM reported FY2026 (Q4) GAAP EPS of $0.99.",
+        "$ACM FY2026 (Q4) GAAP EPS was $0.99.",
+        "FY2026 (Q4) GAAP EPS at $ACM was $0.99."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $4.1B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9087c6.a",
+          "fact": "earningsre-9087c6",
+          "variant": "a",
+          "text": "$ACM missed the FY2026 (Q4) revenue consensus: $3.88B vs $4.1B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-37dbea.a",
+          "fact": "earningsre-37dbea",
+          "variant": "a",
+          "text": "$ACM FY2026 (Q4) revenue: $3.88B vs $4.1B consensus (missed by $220M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bff5fa.a",
+          "fact": "earningsre-bff5fa",
+          "variant": "a",
+          "text": "$ACM FY2026 (Q4) revenue $3.88B, missed by $220M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $3.88B vs $4.1B consensus (missed by $220M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $3.88B vs $4.1B (missed by $220M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b91b42.a",
+          "fact": "earningsre-b91b42",
+          "variant": "a",
+          "text": "$ACM missed FY2026 (Q4) revenue estimates by $220M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-822636.a",
+          "fact": "earningsre-822636",
+          "variant": "a",
+          "text": "$ACM missed FY2026 (Q4) estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "AECOM ($ACM) published FY2026 (Q4) results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$ACM (AECOM) reported FY2026 (Q4) results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 16, AECOM ($ACM) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$ACM published FY2026 (Q4) results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $ACM came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 16, $ACM published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$ACM FY2026 (Q4) revenue: $3.88B vs $4.1B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$ACM reported FY2026 (Q4) revenue of $3.88B vs $4.1B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$ACM FY2026 (Q4) revenue was $3.88B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $ACM was $3.88B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6a3801.a",
+          "fact": "earningsre-6a3801",
+          "variant": "a",
+          "text": "$ACM FY2026 (Q4) GAAP EPS: $0.99.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6a3801.h1",
+          "fact": "earningsre-6a3801",
+          "variant": "h1",
+          "text": "$ACM reported FY2026 (Q4) GAAP EPS of $0.99.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.a",
+          "fact": "earningsre-1df3d9",
+          "variant": "a",
+          "text": "$ACM FY2026 (Q4) GAAP EPS was $0.99.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.h1",
+          "fact": "earningsre-1df3d9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) GAAP EPS at $ACM was $0.99.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "ACM": [
+          [
+            "$",
+            3.88,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            4.1,
+            1,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            220.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-16-earnings-result-VENU-240391",
       "type": "earnings_result",
       "ticker": "VENU",
@@ -13077,6 +15064,1074 @@
           ]
         ]
       },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-HYFM-67ff23",
+      "type": "earnings_result",
+      "ticker": "HYFM",
+      "tickers": [
+        "HYFM"
+      ],
+      "name": "Hydrofarm Holdings Group, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1695295/000143774926037201/ex_1006538.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/HYFM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-HYFM-67ff23#earnings-history",
+      "allowed_numbers": [
+        "$14.5M",
+        "−$1.61",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Hydrofarm Holdings Group, Inc. (HYFM) published Q3 2026 results on 2026-11-16: Published. Revenue $14.5M. GAAP EPS −$1.61.",
+      "dedupe_key": "report:hyfm-2026-q3",
+      "claim_phrases": [],
+      "report_id": "hyfm-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:40:20.719778+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$14.5M"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$1.61"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/HYFM/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for HYFM: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "HYFM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Hydrofarm Holdings Group, Inc. ($HYFM) published Q3 2026 results on Nov 16.",
+        "$HYFM (Hydrofarm Holdings Group, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Hydrofarm Holdings Group, Inc. ($HYFM) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Hydrofarm Holdings Group, Inc. ($HYFM) published Q3 2026 results on Nov 16.",
+        "$HYFM (Hydrofarm Holdings Group, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Hydrofarm Holdings Group, Inc. ($HYFM) published Q3 2026 results.",
+        "$HYFM published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $HYFM came out on Nov 16.",
+        "On Nov 16, $HYFM published Q3 2026 results.",
+        "$HYFM Q3 2026 revenue: $14.5M.",
+        "$HYFM reported Q3 2026 revenue of $14.5M.",
+        "$HYFM Q3 2026 revenue was $14.5M.",
+        "Q3 2026 revenue at $HYFM was $14.5M.",
+        "$HYFM Q3 2026 GAAP EPS: −$1.61.",
+        "$HYFM reported Q3 2026 GAAP EPS of −$1.61.",
+        "$HYFM Q3 2026 GAAP EPS was −$1.61.",
+        "Q3 2026 GAAP EPS at $HYFM was −$1.61."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Hydrofarm Holdings Group, Inc. ($HYFM) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$HYFM (Hydrofarm Holdings Group, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Hydrofarm Holdings Group, Inc. ($HYFM) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$HYFM published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $HYFM came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $HYFM published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$HYFM Q3 2026 revenue: $14.5M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$HYFM reported Q3 2026 revenue of $14.5M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$HYFM Q3 2026 revenue was $14.5M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $HYFM was $14.5M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$HYFM Q3 2026 GAAP EPS: −$1.61.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$HYFM reported Q3 2026 GAAP EPS of −$1.61.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$HYFM Q3 2026 GAAP EPS was −$1.61.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $HYFM was −$1.61.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$1.61": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-IDAI-2f7a06",
+      "type": "earnings_result",
+      "ticker": "IDAI",
+      "tickers": [
+        "IDAI"
+      ],
+      "name": "T Stamp Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1718939/000171893926000071/a3q2026pressreleaseex-991i.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IDAI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-IDAI-2f7a06#earnings-history",
+      "allowed_numbers": [
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "T Stamp Inc. (IDAI) published Q3 2026 results on 2026-11-16: Published.",
+      "dedupe_key": "report:idai-2026-q3",
+      "claim_phrases": [],
+      "report_id": "idai-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:32:44.701925+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IDAI/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for IDAI: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "IDAI"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "T Stamp Inc. ($IDAI) published Q3 2026 results on Nov 16.",
+        "$IDAI (T Stamp Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, T Stamp Inc. ($IDAI) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "T Stamp Inc. ($IDAI) published Q3 2026 results on Nov 16.",
+        "$IDAI (T Stamp Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, T Stamp Inc. ($IDAI) published Q3 2026 results.",
+        "$IDAI published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $IDAI came out on Nov 16.",
+        "On Nov 16, $IDAI published Q3 2026 results."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-ea22fb.a",
+          "fact": "earningsre-ea22fb",
+          "variant": "a",
+          "text": "T Stamp Inc. ($IDAI) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-ea22fb.h1",
+          "fact": "earningsre-ea22fb",
+          "variant": "h1",
+          "text": "$IDAI (T Stamp Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-ea22fb.t",
+          "fact": "earningsre-ea22fb",
+          "variant": "t",
+          "text": "On Nov 16, T Stamp Inc. ($IDAI) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$IDAI published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $IDAI came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $IDAI published Q3 2026 results.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-ACRV-e3ed3c",
+      "type": "earnings_result",
+      "ticker": "ACRV",
+      "tickers": [
+        "ACRV"
+      ],
+      "name": "Acrivon Therapeutics, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1781174/000119312526463444/acrv-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ACRV?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-ACRV-e3ed3c#earnings-history",
+      "allowed_numbers": [
+        "−$0.42",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Acrivon Therapeutics, Inc. (ACRV) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.42.",
+      "dedupe_key": "report:acrv-2026-q3",
+      "claim_phrases": [],
+      "report_id": "acrv-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:32:32.491319+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.42"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ACRV/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for ACRV: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ACRV"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Acrivon Therapeutics, Inc. ($ACRV) published Q3 2026 results on Nov 16.",
+        "$ACRV (Acrivon Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Acrivon Therapeutics, Inc. ($ACRV) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Acrivon Therapeutics, Inc. ($ACRV) published Q3 2026 results on Nov 16.",
+        "$ACRV (Acrivon Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Acrivon Therapeutics, Inc. ($ACRV) published Q3 2026 results.",
+        "$ACRV published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $ACRV came out on Nov 16.",
+        "On Nov 16, $ACRV published Q3 2026 results.",
+        "$ACRV Q3 2026 GAAP EPS: −$0.42.",
+        "$ACRV reported Q3 2026 GAAP EPS of −$0.42.",
+        "$ACRV Q3 2026 GAAP EPS was −$0.42.",
+        "Q3 2026 GAAP EPS at $ACRV was −$0.42."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Acrivon Therapeutics, Inc. ($ACRV) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$ACRV (Acrivon Therapeutics, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Acrivon Therapeutics, Inc. ($ACRV) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$ACRV published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $ACRV came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $ACRV published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$ACRV Q3 2026 GAAP EPS: −$0.42.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$ACRV reported Q3 2026 GAAP EPS of −$0.42.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$ACRV Q3 2026 GAAP EPS was −$0.42.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $ACRV was −$0.42.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.42": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-EP-7da808",
+      "type": "earnings_result",
+      "ticker": "EP",
+      "tickers": [
+        "EP"
+      ],
+      "name": "Empire Petroleum Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/887396/000107261326000900/exh_99.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/EP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-EP-7da808#earnings-history",
+      "allowed_numbers": [
+        "$10.4M",
+        "−$0.08",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Empire Petroleum Corporation (EP) published Q3 2026 results on 2026-11-16: Published. Revenue $10.4M. Adjusted Net Loss Per Common Share −$0.08.",
+      "dedupe_key": "report:ep-2026-q3",
+      "claim_phrases": [],
+      "report_id": "ep-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:31:02.165468+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$10.4M"
+        },
+        "eps": {
+          "basis": "Adjusted Net Loss Per Common Share",
+          "reported": "−$0.08"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/EP/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for EP: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "EP"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Empire Petroleum Corporation ($EP) published Q3 2026 results on Nov 16.",
+        "$EP (Empire Petroleum Corporation) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Empire Petroleum Corporation ($EP) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Empire Petroleum Corporation ($EP) published Q3 2026 results on Nov 16.",
+        "$EP (Empire Petroleum Corporation) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Empire Petroleum Corporation ($EP) published Q3 2026 results.",
+        "$EP published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $EP came out on Nov 16.",
+        "On Nov 16, $EP published Q3 2026 results.",
+        "$EP Q3 2026 revenue: $10.4M.",
+        "$EP reported Q3 2026 revenue of $10.4M.",
+        "$EP Q3 2026 revenue was $10.4M.",
+        "Q3 2026 revenue at $EP was $10.4M.",
+        "$EP Q3 2026 Adjusted Net Loss Per Common Share: −$0.08.",
+        "$EP reported Q3 2026 Adjusted Net Loss Per Common Share of −$0.08.",
+        "$EP Q3 2026 Adjusted Net Loss Per Common Share was −$0.08.",
+        "Q3 2026 Adjusted Net Loss Per Common Share at $EP was −$0.08."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Empire Petroleum Corporation ($EP) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$EP (Empire Petroleum Corporation) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Empire Petroleum Corporation ($EP) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$EP published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $EP came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $EP published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$EP Q3 2026 revenue: $10.4M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$EP reported Q3 2026 revenue of $10.4M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$EP Q3 2026 revenue was $10.4M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $EP was $10.4M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$EP Q3 2026 Adjusted Net Loss Per Common Share: −$0.08.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$EP reported Q3 2026 Adjusted Net Loss Per Common Share of −$0.08.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$EP Q3 2026 Adjusted Net Loss Per Common Share was −$0.08.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted Net Loss Per Common Share at $EP was −$0.08.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.08": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-SMID-2a4ef5",
+      "type": "earnings_result",
+      "ticker": "SMID",
+      "tickers": [
+        "SMID"
+      ],
+      "name": "Smith-Midland Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/924719/000165495426009852/smid_ex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SMID?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-SMID-2a4ef5#earnings-history",
+      "allowed_numbers": [
+        "$22.8M",
+        "$0.56",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Smith-Midland Corporation (SMID) published Q3 2026 results on 2026-11-16: Published. Revenue $22.8M. GAAP EPS $0.56.",
+      "dedupe_key": "report:smid-2026-q3",
+      "claim_phrases": [],
+      "report_id": "smid-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:30:56.330809+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$22.8M"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.56"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SMID/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SMID: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SMID"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Smith-Midland Corporation ($SMID) published Q3 2026 results on Nov 16.",
+        "$SMID (Smith-Midland Corporation) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Smith-Midland Corporation ($SMID) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Smith-Midland Corporation ($SMID) published Q3 2026 results on Nov 16.",
+        "$SMID (Smith-Midland Corporation) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Smith-Midland Corporation ($SMID) published Q3 2026 results.",
+        "$SMID published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $SMID came out on Nov 16.",
+        "On Nov 16, $SMID published Q3 2026 results.",
+        "$SMID Q3 2026 revenue: $22.8M.",
+        "$SMID reported Q3 2026 revenue of $22.8M.",
+        "$SMID Q3 2026 revenue was $22.8M.",
+        "Q3 2026 revenue at $SMID was $22.8M.",
+        "$SMID Q3 2026 GAAP EPS: $0.56.",
+        "$SMID reported Q3 2026 GAAP EPS of $0.56.",
+        "$SMID Q3 2026 GAAP EPS was $0.56.",
+        "Q3 2026 GAAP EPS at $SMID was $0.56."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Smith-Midland Corporation ($SMID) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$SMID (Smith-Midland Corporation) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Smith-Midland Corporation ($SMID) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$SMID published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $SMID came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $SMID published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$SMID Q3 2026 revenue: $22.8M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$SMID reported Q3 2026 revenue of $22.8M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$SMID Q3 2026 revenue was $22.8M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $SMID was $22.8M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$SMID Q3 2026 GAAP EPS: $0.56.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$SMID reported Q3 2026 GAAP EPS of $0.56.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$SMID Q3 2026 GAAP EPS was $0.56.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $SMID was $0.56.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-16-earnings-result-ORIC-98ea8a",
+      "type": "earnings_result",
+      "ticker": "ORIC",
+      "tickers": [
+        "ORIC"
+      ],
+      "name": "ORIC Pharmaceuticals, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1796280/000119312526463506/oric-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ORIC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-16-earnings-result-ORIC-98ea8a#earnings-history",
+      "allowed_numbers": [
+        "−$0.44",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "ORIC Pharmaceuticals, Inc. (ORIC) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.44.",
+      "dedupe_key": "report:oric-2026-q3",
+      "claim_phrases": [],
+      "report_id": "oric-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:30:32.037669+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.44"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ORIC/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for ORIC: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ORIC"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
+        "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
+        "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results.",
+        "$ORIC published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $ORIC came out on Nov 16.",
+        "On Nov 16, $ORIC published Q3 2026 results.",
+        "$ORIC Q3 2026 GAAP EPS: −$0.44.",
+        "$ORIC reported Q3 2026 GAAP EPS of −$0.44.",
+        "$ORIC Q3 2026 GAAP EPS was −$0.44.",
+        "Q3 2026 GAAP EPS at $ORIC was −$0.44."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$ORIC published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $ORIC came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $ORIC published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$ORIC Q3 2026 GAAP EPS: −$0.44.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$ORIC reported Q3 2026 GAAP EPS of −$0.44.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$ORIC Q3 2026 GAAP EPS was −$0.44.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $ORIC was −$0.44.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.44": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
