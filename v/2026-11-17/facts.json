@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-17",
-  "generated_at": "2026-11-17T20:45:02Z",
-  "as_of": "2026-11-17T20:45:02Z",
+  "generated_at": "2026-11-17T21:15:02Z",
+  "as_of": "2026-11-17T21:15:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,8 +875,8 @@
   },
   "counts": {
     "congress_trade": 5,
-    "form4_buy": 1,
-    "earnings_result": 33,
+    "form4_buy": 0,
+    "earnings_result": 39,
     "earnings_upcoming": 24,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -896,6 +896,7 @@
   },
   "reasons": {
     "ptr_summary": "3 member summary(ies) lost to a higher-ranked congress_trade of the same filer (left_out.per_filer_cap)",
+    "form4_buy": "no material open-market Form 4 buy ($1M+ or a famous executive) filed in the last 5 weekdays",
     "sector_rotation": "day: no sector up 1.0%+ and one down 1.0%+; week: the session is not a Friday",
     "basket_week": "the session is not a Friday (the basket is a week-in-review item)",
     "reddit_buzz": "the most unusual, $ASTS, is 1.7x usual (< 3.0x; 2.0x for a top-20 name)",
@@ -933,18 +934,19 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 17,
-      "below_minimum": 16,
+      "filings_passing_filters": 18,
+      "below_minimum": 18,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3820,
-      "recent_ready": 224,
+      "archive_reports": 3826,
+      "recent_ready": 230,
       "outside_24h": 182,
       "unreadable": 0,
-      "not_compared": 14,
+      "not_compared": 15,
       "not_compared_metrics": [
+        "GBDC: eps_adjusted (eps_basis_mismatch)",
         "GFF: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
         "OCSL: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
         "SR: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
@@ -983,7 +985,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 60,
+      "tickers_in_items": 66,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -997,7 +999,7 @@
     "market": {
       "market_session": "2026-11-16",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-17T20:45:32.047722+00:00"
+      "flows_as_of": "2026-11-17T21:15:34.109444+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1006,7 +1008,7 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 92
+        "angles_dropped": 95
       },
       "top8": {
         "stale": 5,
@@ -1014,7 +1016,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 7,
-        "ranked_below": 58,
+        "ranked_below": 63,
         "pillars": 4
       }
     }
@@ -1051,7 +1053,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 67,
+  "api_requests": 72,
   "items": [
     {
       "item_id": "2026-11-17-insider-flow-RCL-897a8b",
@@ -1071,17 +1073,17 @@
       "source_url": null,
       "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-insider-flow-RCL-897a8b",
       "allowed_numbers": [
-        "$525M",
-        "+$525M",
-        "$524.9M",
-        "+$524.9M",
+        "$526M",
+        "+$526M",
+        "$525.7M",
+        "+$525.7M",
         "$5.1B",
         "+$5.1B",
         "$5B",
         "+$5B",
         "30",
         "396",
-        "620",
+        "622",
         "500",
         "2026-10-18",
         "Oct 18, 2026",
@@ -1108,13 +1110,13 @@
         "3",
         "1",
         "4",
-        "9.8",
+        "9.7",
         "$1"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 396 companies with buys, 620 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M.",
+      "facts_text": "Officers and directors reported $526M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 396 companies with buys, 622 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M.",
       "dedupe_key": "insider_flow:2026-11-17:RCL",
       "claim_phrases": [
         "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
@@ -1135,9 +1137,9 @@
         "$KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M).",
         "Over 30 days in our feed, $KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($15.0M).",
         "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M): $KMI.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $9.8.",
-        "Officers and directors sold $9.8 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $9.8 on the open market for every $1 they bought."
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $9.7.",
+        "Officers and directors sold $9.7 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $9.7 on the open market for every $1 they bought."
       ],
       "pillar": "P3",
       "claims": [
@@ -1193,10 +1195,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$525M",
-            "+$525M",
-            "$524.9M",
-            "+$524.9M",
+            "$526M",
+            "+$526M",
+            "$525.7M",
+            "+$525.7M",
             "$5.1B",
             "+$5.1B",
             "$5B",
@@ -1206,7 +1208,7 @@
             "officers?\\s+and\\s+directors?",
             "open[-\\s]market"
           ],
-          "say": "the 30-day totals ($525M bought, $5.1B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+          "say": "the 30-day totals ($526M bought, $5.1B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
         }
       ],
       "headline": {
@@ -1217,7 +1219,7 @@
         ],
         "numbers": [
           "$5.1B",
-          "$525M"
+          "$526M"
         ]
       },
       "window": {
@@ -1225,10 +1227,10 @@
         "to": "2026-11-17",
         "days": 30
       },
-      "bought_usd": 524855002.36,
-      "sold_usd": 5119316971.89,
+      "bought_usd": 525732234.87,
+      "sold_usd": 5123925186.39,
       "buy_companies": 396,
-      "sell_companies": 620,
+      "sell_companies": 622,
       "top_sellers_500": [
         {
           "ticker": "RCL",
@@ -1290,12 +1292,12 @@
         }
       ],
       "angles": [
-        "Officers and directors sold $5.1B and bought $525M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $525M of open-market buys."
+        "Officers and directors sold $5.1B and bought $526M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $526M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $526M of open-market buys."
       ],
       "market_cap_usd": 86465328598.3741,
-      "magnitude": 2.5638180307819853,
+      "magnitude": 2.5644041700822777,
       "trigger": "$MSI entered the top 5",
       "top5": [
         "RCL",
@@ -1309,18 +1311,18 @@
       "banned_words": [],
       "card": {
         "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-20e1c0a7-b9d2b480.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-75abe45b-b9d2b480.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
         "date": "2026-11-17",
-        "fingerprint": "20e1c0a7",
-        "file": "market-insiders-2026-11-17-20e1c0a7.png",
-        "sha256": "086dfb3edc1b1a47a9b0c98bf26d5c6ca24d95fe0836374d146cfe64cc07e23f"
+        "fingerprint": "75abe45b",
+        "file": "market-insiders-2026-11-17-75abe45b.png",
+        "sha256": "665dad6568ab4a06d3b95058beed1b00a5618498a78e12f66cd7fb4c687830f3"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-20e1c0a7-b9d2b480.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-75abe45b-b9d2b480.png",
           "kind": "image",
-          "alt": "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 396 companies with buys, 620 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M."
+          "alt": "Officers and directors reported $526M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 396 companies with buys, 622 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M."
         }
       ],
       "market_cap_source": "market_map",
@@ -1339,13 +1341,13 @@
         "KMI": "Kinder Morgan, Inc."
       },
       "fact_phrases": [
-        "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $525M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $525M of open-market buys and $5.1B of open-market sells.",
-        "Officers and directors sold $5.1B and bought $525M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $5.1B and bought $525M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 396 companies had open-market buys by officers and directors and 620 had open-market sells.",
-        "620 companies had open-market sells by officers and directors and 396 had open-market buys over 30 days in our feed.",
+        "Officers and directors reported $526M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $526M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $526M of open-market buys and $5.1B of open-market sells.",
+        "Officers and directors sold $5.1B and bought $526M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $5.1B and bought $526M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 396 companies had open-market buys by officers and directors and 622 had open-market sells.",
+        "622 companies had open-market sells by officers and directors and 396 had open-market buys over 30 days in our feed.",
         "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
         "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
         "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
@@ -1489,70 +1491,70 @@
           "id": "insiderflo-eeeffc.a",
           "fact": "insiderflo-eeeffc",
           "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $9.8.",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $9.7.",
           "claim": true
         },
         {
           "id": "insiderflo-eeeffc.h1",
           "fact": "insiderflo-eeeffc",
           "variant": "h1",
-          "text": "Officers and directors sold $9.8 for every $1 they bought on the open market over 30 days in our feed.",
+          "text": "Officers and directors sold $9.7 for every $1 they bought on the open market over 30 days in our feed.",
           "claim": true
         },
         {
           "id": "insiderflo-eeeffc.h2",
           "fact": "insiderflo-eeeffc",
           "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $9.8 on the open market for every $1 they bought.",
+          "text": "Over 30 days in our feed, officers and directors sold $9.7 on the open market for every $1 they bought.",
           "claim": true
         },
         {
           "id": "insiderflo-de8c5a.a",
           "fact": "insiderflo-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $526M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.h1",
           "fact": "insiderflo-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $525M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $526M of open-market buys.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.t",
           "fact": "insiderflo-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $525M of open-market buys and $5.1B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $526M of open-market buys and $5.1B of open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.a",
           "fact": "insiderflo-cc7b17",
           "variant": "a",
-          "text": "Officers and directors sold $5.1B and bought $525M of their own companies' stock on the open market over 30 days in our feed.",
+          "text": "Officers and directors sold $5.1B and bought $526M of their own companies' stock on the open market over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.t",
           "fact": "insiderflo-cc7b17",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $5.1B and bought $525M of their own companies' stock on the open market.",
+          "text": "Over 30 days in our feed, officers and directors sold $5.1B and bought $526M of their own companies' stock on the open market.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.a",
           "fact": "insiderflo-ca45c6",
           "variant": "a",
-          "text": "Over 30 days in our feed, 396 companies had open-market buys by officers and directors and 620 had open-market sells.",
+          "text": "Over 30 days in our feed, 396 companies had open-market buys by officers and directors and 622 had open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.h1",
           "fact": "insiderflo-ca45c6",
           "variant": "h1",
-          "text": "620 companies had open-market sells by officers and directors and 396 had open-market buys over 30 days in our feed.",
+          "text": "622 companies had open-market sells by officers and directors and 396 had open-market buys over 30 days in our feed.",
           "claim": false
         },
         {
@@ -1635,8 +1637,8 @@
       ],
       "moves": {
         "numbers": {
-          "$525M": "+",
-          "$524.9M": "+",
+          "$526M": "+",
+          "$525.7M": "+",
           "$5.1B": "+",
           "$5B": "+",
           "$333M": "+",
@@ -1661,7 +1663,7 @@
           ],
           [
             "$",
-            9.8,
+            9.7,
             1,
             1.0,
             0
@@ -8529,263 +8531,201 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-17-form4-buy-PAM-dc93e5",
-      "type": "form4_buy",
-      "ticker": "PAM",
+      "item_id": "2026-11-17-earnings-result-GBDC-2abbf6",
+      "type": "earnings_result",
+      "ticker": "GBDC",
       "tickers": [
-        "PAM"
+        "GBDC"
       ],
-      "name": "Damian Miguel Mindlin",
-      "office": "Vicepresident at Pampa Energía S.A.",
-      "amount_text": "$1.26M",
-      "traded": [
-        "2026-11-12"
-      ],
-      "filed": "2026-11-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1469395/000202891626000015/0002028916-26-000015-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/mindlin-damian-miguel-2028916?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-form4-buy-PAM-dc93e5#trades",
+      "name": "Golub Capital BDC, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-17",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1476765/000147676526000083/gbdcfy202610-kearningsprxex.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/GBDC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-GBDC-2abbf6#earnings-history",
       "allowed_numbers": [
-        "$1.26M",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16",
-        "2026-11-12",
-        "Nov 12, 2026",
-        "Nov 12"
+        "$187M",
+        "$188M",
+        "−$851K",
+        "Q4 2026",
+        "Q4",
+        "FY2026",
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of PAM totaling $1.26M on a Form 4 filed 2026-11-16, traded 2026-11-12.",
-      "dedupe_key": "form4:0002028916-26-000015:PAM",
-      "claim_phrases": [],
-      "company": "Pampa Energía S.A.",
-      "side": "buy",
-      "accession": "0002028916-26-000015",
-      "rows": 1,
-      "figure_slug": "mindlin-damian-miguel-2028916",
-      "amount_top_usd": 1264060.0,
-      "market_cap_usd": 3417240576.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$1.26M"
+      "facts_text": "Golub Capital BDC, Inc. (GBDC) published Q4 2026 results on 2026-11-17. Revenue $187M vs $188M consensus (In line (−$851K)).",
+      "dedupe_key": "report:gbdc-2026-q4",
+      "claim_phrases": [
+        "$GBDC Q4 2026 revenue was in line with the consensus: $187M vs $188M.",
+        "$GBDC Q4 revenue was in line with the consensus: $187M vs $188M."
       ],
+      "report_id": "gbdc-2026-q4",
+      "fiscal_label": "Q4 2026",
+      "release_date": "2026-11-17",
+      "published_at": "2026-11-17T21:06:55.022223+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "revenue": {
+          "reported": "$187M",
+          "consensus": "$188M",
+          "label": "In line (−$851K)",
+          "verdict": "in_line"
+        }
+      },
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/mindlin-damian-miguel-2028916/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/GBDC/opengraph-image",
           "kind": "image",
-          "alt": "Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of PAM totaling $1.26M on a Form 4 filed 2026-11-16, traded 2026-11-12."
+          "alt": "RapidTradeView research card for GBDC: recent price, trend, analyst and filing summary."
         }
       ],
-      "rank": 6.6,
-      "rank_why": "form4_buy 2; mid cap $3.42B +1; magnitude (top $1.26M) +2.1; filed 2026-11-16 (age 1) +1.5",
-      "pillar": "P3",
-      "cap_tier": "mid",
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-17 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
       "in_500": false,
-      "context_numbers": [
-        "$3.4B",
-        "$525M",
-        "+$525M",
-        "$524.9M",
-        "+$524.9M",
-        "$5.1B",
-        "+$5.1B",
-        "$5B",
-        "+$5B",
-        "30"
-      ],
+      "context_numbers": [],
       "context_tickers": [],
       "trigger": null,
       "card": null,
       "claims": [],
       "headline": {
         "tickers": [
-          "PAM"
+          "GBDC"
         ],
         "numbers": []
       },
       "ticker_sectors": {},
       "ticker_names": {},
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$525M",
-            "+$525M",
-            "$524.9M",
-            "+$524.9M",
-            "$5.1B",
-            "+$5.1B",
-            "$5B",
-            "+$5B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$3.4B",
-        "insiders_30d": {
-          "bought": "$525M",
-          "sold": "$5.1B",
-          "days": 30
-        }
-      },
       "angles": [
-        "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.26M of $PAM on the open market (Form 4, filed Nov 16).",
-        "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.26M of $PAM on the open market (Form 4, filed Nov 16).",
-        "An open-market purchase of $PAM totaling $1.26M by Pampa Energía S.A. vicepresident Damian Miguel Mindlin was reported on a Form 4 filed Nov 16."
+        "Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results on Nov 17.",
+        "$GBDC (Golub Capital BDC, Inc.) reported Q4 2026 results on Nov 17.",
+        "On Nov 17, Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results."
       ],
       "fact_phrases": [
-        "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.26M of $PAM on the open market (Form 4, filed Nov 16).",
-        "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.26M of $PAM on the open market (Form 4, filed Nov 16).",
-        "An open-market purchase of $PAM totaling $1.26M by Pampa Energía S.A. vicepresident Damian Miguel Mindlin was reported on a Form 4 filed Nov 16.",
-        "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.26M of $PAM on the open market.",
-        "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.26M of $PAM on the open market.",
-        "On the open market, Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.26M of $PAM.",
-        "Damian Miguel Mindlin bought $1.26M of $PAM on the open market.",
-        "On the open market, Damian Miguel Mindlin bought $1.26M of $PAM.",
-        "Damian Miguel Mindlin made an open-market purchase of $PAM: $1.26M.",
-        "Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.26M on a Form 4 filed Nov 16.",
-        "On a Form 4 filed Nov 16, Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.26M.",
-        "Damian Miguel Mindlin's $PAM purchase was traded Nov 12 and reported on a Form 4 filed Nov 16.",
-        "Traded Nov 12, Damian Miguel Mindlin's $PAM purchase was reported on a Form 4 filed Nov 16.",
-        "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $525M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $525M of open-market buys and $5.1B of open-market sells."
+        "Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results on Nov 17.",
+        "$GBDC (Golub Capital BDC, Inc.) reported Q4 2026 results on Nov 17.",
+        "On Nov 17, Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results.",
+        "$GBDC published Q4 2026 results on Nov 17.",
+        "Q4 2026 results from $GBDC came out on Nov 17.",
+        "On Nov 17, $GBDC published Q4 2026 results.",
+        "$GBDC Q4 2026 revenue: $187M vs $188M consensus.",
+        "$GBDC reported Q4 2026 revenue of $187M vs $188M consensus.",
+        "$GBDC Q4 2026 revenue was $187M.",
+        "Q4 2026 revenue at $GBDC was $187M."
       ],
       "phrasings": [
         {
-          "id": "form4buy-431131.a",
-          "fact": "form4buy-431131",
+          "id": "earningsre-0a67cc.a",
+          "fact": "earningsre-0a67cc",
           "variant": "a",
-          "text": "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.26M of $PAM on the open market (Form 4, filed Nov 16).",
-          "claim": false
+          "text": "$GBDC Q4 2026 revenue was in line with the consensus: $187M vs $188M.",
+          "claim": true
         },
         {
-          "id": "form4buy-431131.h1",
-          "fact": "form4buy-431131",
-          "variant": "h1",
-          "text": "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.26M of $PAM on the open market (Form 4, filed Nov 16).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-431131.h2",
-          "fact": "form4buy-431131",
-          "variant": "h2",
-          "text": "An open-market purchase of $PAM totaling $1.26M by Pampa Energía S.A. vicepresident Damian Miguel Mindlin was reported on a Form 4 filed Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-c024fe.a",
-          "fact": "form4buy-c024fe",
+          "id": "earningsre-5b24bf.a",
+          "fact": "earningsre-5b24bf",
           "variant": "a",
-          "text": "Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.26M of $PAM on the open market.",
-          "claim": false
+          "text": "$GBDC Q4 revenue was in line with the consensus: $187M vs $188M.",
+          "claim": true
         },
         {
-          "id": "form4buy-c024fe.h1",
-          "fact": "form4buy-c024fe",
-          "variant": "h1",
-          "text": "Damian Miguel Mindlin, vicepresident at Pampa Energía S.A., bought $1.26M of $PAM on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-c024fe.h2",
-          "fact": "form4buy-c024fe",
-          "variant": "h2",
-          "text": "On the open market, Pampa Energía S.A. vicepresident Damian Miguel Mindlin bought $1.26M of $PAM.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
           "variant": "a",
-          "text": "Damian Miguel Mindlin bought $1.26M of $PAM on the open market.",
+          "text": "Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results on Nov 17.",
           "claim": false
         },
         {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
           "variant": "h1",
-          "text": "On the open market, Damian Miguel Mindlin bought $1.26M of $PAM.",
+          "text": "$GBDC (Golub Capital BDC, Inc.) reported Q4 2026 results on Nov 17.",
           "claim": false
         },
         {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "Damian Miguel Mindlin made an open-market purchase of $PAM: $1.26M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.a",
-          "fact": "form4buy-39fdef",
-          "variant": "a",
-          "text": "Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.26M on a Form 4 filed Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.h1",
-          "fact": "form4buy-39fdef",
-          "variant": "h1",
-          "text": "On a Form 4 filed Nov 16, Damian Miguel Mindlin (Vicepresident at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $1.26M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "Damian Miguel Mindlin's $PAM purchase was traded Nov 12 and reported on a Form 4 filed Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Nov 12, Damian Miguel Mindlin's $PAM purchase was reported on a Form 4 filed Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $525M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $525M of open-market buys and $5.1B of open-market sells.",
+          "text": "On Nov 17, Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$GBDC published Q4 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q4 2026 results from $GBDC came out on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 17, $GBDC published Q4 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$GBDC Q4 2026 revenue: $187M vs $188M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$GBDC reported Q4 2026 revenue of $187M vs $188M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$GBDC Q4 2026 revenue was $187M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q4 2026 revenue at $GBDC was $187M.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$525M": "+",
-          "$524.9M": "+",
-          "$5.1B": "+",
-          "$5B": "+"
+          "$851K": "-"
         },
         "subjects": {}
       },
       "subject_numbers": {
-        "PAM": [
+        "GBDC": [
           [
             "$",
-            3.4,
-            1,
-            1000000000.0,
+            187.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            188.0,
+            0,
+            1000000.0,
             0
           ]
         ]
@@ -9707,6 +9647,501 @@
           ]
         ]
       },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-17-earnings-result-RIME-91b1f6",
+      "type": "earnings_result",
+      "ticker": "RIME",
+      "tickers": [
+        "RIME"
+      ],
+      "name": "Algorhythm Holdings, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-17",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/923601/000149315226052740/ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RIME?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-RIME-91b1f6#earnings-history",
+      "allowed_numbers": [
+        "$2.1M",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Algorhythm Holdings, Inc. (RIME) published Q3 2026 results on 2026-11-17: Published. Revenue $2.1M.",
+      "dedupe_key": "report:rime-2026-q3",
+      "claim_phrases": [],
+      "report_id": "rime-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-17",
+      "published_at": "2026-11-17T21:01:20.059681+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$2.1M"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/RIME/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for RIME: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-17 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "RIME"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results on Nov 17.",
+        "$RIME (Algorhythm Holdings, Inc.) reported Q3 2026 results on Nov 17.",
+        "On Nov 17, Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results on Nov 17.",
+        "$RIME (Algorhythm Holdings, Inc.) reported Q3 2026 results on Nov 17.",
+        "On Nov 17, Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results.",
+        "$RIME published Q3 2026 results on Nov 17.",
+        "Q3 2026 results from $RIME came out on Nov 17.",
+        "On Nov 17, $RIME published Q3 2026 results.",
+        "$RIME Q3 2026 revenue: $2.1M.",
+        "$RIME reported Q3 2026 revenue of $2.1M.",
+        "$RIME Q3 2026 revenue was $2.1M.",
+        "Q3 2026 revenue at $RIME was $2.1M."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$RIME (Algorhythm Holdings, Inc.) reported Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 17, Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$RIME published Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $RIME came out on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 17, $RIME published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$RIME Q3 2026 revenue: $2.1M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$RIME reported Q3 2026 revenue of $2.1M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$RIME Q3 2026 revenue was $2.1M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $RIME was $2.1M.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-17-earnings-result-PULM-ef3c85",
+      "type": "earnings_result",
+      "ticker": "PULM",
+      "tickers": [
+        "PULM"
+      ],
+      "name": "Pulmatrix, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-17",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1574235/000149315226052739/ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/PULM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-PULM-ef3c85#earnings-history",
+      "allowed_numbers": [
+        "−$0.34",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Pulmatrix, Inc. (PULM) published Q3 2026 results on 2026-11-17: Published. GAAP EPS −$0.34.",
+      "dedupe_key": "report:pulm-2026-q3",
+      "claim_phrases": [],
+      "report_id": "pulm-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-17",
+      "published_at": "2026-11-17T21:01:18.751733+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.34"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/PULM/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for PULM: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-17 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "PULM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Pulmatrix, Inc. ($PULM) published Q3 2026 results on Nov 17.",
+        "$PULM (Pulmatrix, Inc.) reported Q3 2026 results on Nov 17.",
+        "On Nov 17, Pulmatrix, Inc. ($PULM) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Pulmatrix, Inc. ($PULM) published Q3 2026 results on Nov 17.",
+        "$PULM (Pulmatrix, Inc.) reported Q3 2026 results on Nov 17.",
+        "On Nov 17, Pulmatrix, Inc. ($PULM) published Q3 2026 results.",
+        "$PULM published Q3 2026 results on Nov 17.",
+        "Q3 2026 results from $PULM came out on Nov 17.",
+        "On Nov 17, $PULM published Q3 2026 results.",
+        "$PULM Q3 2026 GAAP EPS: −$0.34.",
+        "$PULM reported Q3 2026 GAAP EPS of −$0.34.",
+        "$PULM Q3 2026 GAAP EPS was −$0.34.",
+        "Q3 2026 GAAP EPS at $PULM was −$0.34."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Pulmatrix, Inc. ($PULM) published Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$PULM (Pulmatrix, Inc.) reported Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 17, Pulmatrix, Inc. ($PULM) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$PULM published Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $PULM came out on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 17, $PULM published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$PULM Q3 2026 GAAP EPS: −$0.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$PULM reported Q3 2026 GAAP EPS of −$0.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$PULM Q3 2026 GAAP EPS was −$0.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $PULM was −$0.34.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.34": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-17-earnings-result-CD-35e0d5",
+      "type": "earnings_result",
+      "ticker": "CD",
+      "tickers": [
+        "CD"
+      ],
+      "name": "Chaince Digital Holdings Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-17",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1527762/000149315226052781/ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-CD-35e0d5#earnings-history",
+      "allowed_numbers": [
+        "$1.81M",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Chaince Digital Holdings Inc. (CD) published Q3 2026 results on 2026-11-17: Published. Revenue $1.81M.",
+      "dedupe_key": "report:cd-2026-q3",
+      "claim_phrases": [],
+      "report_id": "cd-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-17",
+      "published_at": "2026-11-17T21:01:02.175339+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$1.81M"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CD/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CD: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-17 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Chaince Digital Holdings Inc. ($CD) published Q3 2026 results on Nov 17.",
+        "$CD (Chaince Digital Holdings Inc.) reported Q3 2026 results on Nov 17.",
+        "On Nov 17, Chaince Digital Holdings Inc. ($CD) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Chaince Digital Holdings Inc. ($CD) published Q3 2026 results on Nov 17.",
+        "$CD (Chaince Digital Holdings Inc.) reported Q3 2026 results on Nov 17.",
+        "On Nov 17, Chaince Digital Holdings Inc. ($CD) published Q3 2026 results.",
+        "$CD published Q3 2026 results on Nov 17.",
+        "Q3 2026 results from $CD came out on Nov 17.",
+        "On Nov 17, $CD published Q3 2026 results.",
+        "$CD Q3 2026 revenue: $1.81M.",
+        "$CD reported Q3 2026 revenue of $1.81M.",
+        "$CD Q3 2026 revenue was $1.81M.",
+        "Q3 2026 revenue at $CD was $1.81M."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Chaince Digital Holdings Inc. ($CD) published Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$CD (Chaince Digital Holdings Inc.) reported Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 17, Chaince Digital Holdings Inc. ($CD) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$CD published Q3 2026 results on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $CD came out on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 17, $CD published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$CD Q3 2026 revenue: $1.81M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$CD reported Q3 2026 revenue of $1.81M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$CD Q3 2026 revenue was $1.81M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $CD was $1.81M.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
@@ -14931,6 +15366,176 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-17-earnings-result-SACH-dac78b",
+      "type": "earnings_result",
+      "ticker": "SACH",
+      "tickers": [
+        "SACH"
+      ],
+      "name": "Sachem Capital Corp.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-17",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1682220/000168222026000075/sach-q326resultsx8kx991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SACH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-SACH-dac78b#earnings-history",
+      "allowed_numbers": [
+        "−$0.07",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16",
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Sachem Capital Corp. (SACH) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.07.",
+      "dedupe_key": "report:sach-2026-q3",
+      "claim_phrases": [],
+      "report_id": "sach-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-17T21:12:53.079843+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.07"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SACH/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SACH: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.5,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SACH"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Sachem Capital Corp. ($SACH) published Q3 2026 results on Nov 16.",
+        "$SACH (Sachem Capital Corp.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Sachem Capital Corp. ($SACH) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Sachem Capital Corp. ($SACH) published Q3 2026 results on Nov 16.",
+        "$SACH (Sachem Capital Corp.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Sachem Capital Corp. ($SACH) published Q3 2026 results.",
+        "$SACH published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $SACH came out on Nov 16.",
+        "On Nov 16, $SACH published Q3 2026 results.",
+        "$SACH Q3 2026 GAAP EPS: −$0.07.",
+        "$SACH reported Q3 2026 GAAP EPS of −$0.07.",
+        "$SACH Q3 2026 GAAP EPS was −$0.07.",
+        "Q3 2026 GAAP EPS at $SACH was −$0.07."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Sachem Capital Corp. ($SACH) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$SACH (Sachem Capital Corp.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Sachem Capital Corp. ($SACH) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$SACH published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $SACH came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $SACH published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$SACH Q3 2026 GAAP EPS: −$0.07.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$SACH reported Q3 2026 GAAP EPS of −$0.07.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$SACH Q3 2026 GAAP EPS was −$0.07.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $SACH was −$0.07.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.07": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-17-earnings-result-USAS-5967c2",
       "type": "earnings_result",
       "ticker": "USAS",
@@ -18263,6 +18868,212 @@
       ],
       "moves": {
         "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-17-earnings-result-DYNR-484f8e",
+      "type": "earnings_result",
+      "ticker": "DYNR",
+      "tickers": [
+        "DYNR"
+      ],
+      "name": "DynaResource, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-17",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1111741/000119312526465082/dynr-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DYNR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-DYNR-484f8e#earnings-history",
+      "allowed_numbers": [
+        "$10.1M",
+        "−$1380837.00",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-15",
+        "Nov 15, 2026",
+        "Nov 15",
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "DynaResource, Inc. (DYNR) published Q3 2026 results on 2026-11-15: Published. Revenue $10.1M. Adjusted EBITDA −$1380837.00.",
+      "dedupe_key": "report:dynr-2026-q3",
+      "claim_phrases": [],
+      "report_id": "dynr-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-15",
+      "published_at": "2026-11-17T21:01:03.380474+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$10.1M"
+        },
+        "eps": {
+          "basis": "Adjusted EBITDA",
+          "reported": "−$1380837.00"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/DYNR/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for DYNR: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-15 (age 2) +1",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DYNR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "DynaResource, Inc. ($DYNR) published Q3 2026 results on Nov 15.",
+        "$DYNR (DynaResource, Inc.) reported Q3 2026 results on Nov 15.",
+        "On Nov 15, DynaResource, Inc. ($DYNR) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "DynaResource, Inc. ($DYNR) published Q3 2026 results on Nov 15.",
+        "$DYNR (DynaResource, Inc.) reported Q3 2026 results on Nov 15.",
+        "On Nov 15, DynaResource, Inc. ($DYNR) published Q3 2026 results.",
+        "$DYNR published Q3 2026 results on Nov 15.",
+        "Q3 2026 results from $DYNR came out on Nov 15.",
+        "On Nov 15, $DYNR published Q3 2026 results.",
+        "$DYNR Q3 2026 revenue: $10.1M.",
+        "$DYNR reported Q3 2026 revenue of $10.1M.",
+        "$DYNR Q3 2026 revenue was $10.1M.",
+        "Q3 2026 revenue at $DYNR was $10.1M.",
+        "$DYNR Q3 2026 Adjusted EBITDA: −$1380837.00.",
+        "$DYNR reported Q3 2026 Adjusted EBITDA of −$1380837.00.",
+        "$DYNR Q3 2026 Adjusted EBITDA was −$1380837.00.",
+        "Q3 2026 Adjusted EBITDA at $DYNR was −$1380837.00."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "DynaResource, Inc. ($DYNR) published Q3 2026 results on Nov 15.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$DYNR (DynaResource, Inc.) reported Q3 2026 results on Nov 15.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 15, DynaResource, Inc. ($DYNR) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$DYNR published Q3 2026 results on Nov 15.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $DYNR came out on Nov 15.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 15, $DYNR published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$DYNR Q3 2026 revenue: $10.1M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$DYNR reported Q3 2026 revenue of $10.1M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$DYNR Q3 2026 revenue was $10.1M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $DYNR was $10.1M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$DYNR Q3 2026 Adjusted EBITDA: −$1380837.00.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$DYNR reported Q3 2026 Adjusted EBITDA of −$1380837.00.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$DYNR Q3 2026 Adjusted EBITDA was −$1380837.00.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted EBITDA at $DYNR was −$1380837.00.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$1380837.00": "-"
+        },
         "subjects": {}
       },
       "subject_numbers": {},
