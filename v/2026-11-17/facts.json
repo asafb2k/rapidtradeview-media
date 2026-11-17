@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-17",
-  "generated_at": "2026-11-17T15:00:02Z",
-  "as_of": "2026-11-17T15:00:02Z",
+  "generated_at": "2026-11-17T15:30:02Z",
+  "as_of": "2026-11-17T15:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 0,
-    "insider_flow": 0,
+    "insider_flow": 1,
     "reddit_buzz": 0,
     "earnings_week_preview": 0,
     "earnings_reaction": 1,
@@ -986,7 +986,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 58,
+      "tickers_in_items": 59,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -1000,7 +1000,7 @@
     "market": {
       "market_session": "2026-11-16",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-17T15:00:31.818433+00:00"
+      "flows_as_of": "2026-11-17T15:30:30.601432+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1016,21 +1016,14 @@
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 8,
-        "ranked_below": 53,
+        "repeat": 7,
+        "ranked_below": 54,
         "pillars": 3
       }
-    },
-    "card_unpinned": {
-      "dropped": 1,
-      "reasons": [
-        "insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))"
-      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError",
-    "not published: insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))"
+    "post history: FileNotFoundError"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1063,6 +1056,654 @@
   },
   "api_requests": 63,
   "items": [
+    {
+      "item_id": "2026-11-17-insider-flow-RCL-897a8b",
+      "type": "insider_flow",
+      "ticker": "RCL",
+      "tickers": [
+        "RCL",
+        "SYK",
+        "SNOW",
+        "KMI"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-insider-flow-RCL-897a8b",
+      "allowed_numbers": [
+        "$523M",
+        "+$523M",
+        "$523.4M",
+        "+$523.4M",
+        "$5.1B",
+        "+$5.1B",
+        "$5B",
+        "+$5B",
+        "30",
+        "389",
+        "618",
+        "500",
+        "2026-10-18",
+        "Oct 18, 2026",
+        "Oct 18",
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17",
+        "$333M",
+        "+$333M",
+        "$333.2M",
+        "+$333.2M",
+        "$179M",
+        "+$179M",
+        "$178.9M",
+        "+$178.9M",
+        "$142M",
+        "+$142M",
+        "$142.5M",
+        "+$142.5M",
+        "$15.0M",
+        "+$15.0M",
+        "$15M",
+        "+$15M",
+        "3",
+        "1",
+        "4",
+        "9.8",
+        "$1"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Officers and directors reported $523M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 389 companies with buys, 618 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M.",
+      "dedupe_key": "insider_flow:2026-11-17:RCL",
+      "claim_phrases": [
+        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+        "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+        "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+        "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($142M).",
+        "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($142M).",
+        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($142M): $SNOW.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+        "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $SNOW ($142M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $SNOW ($142M).",
+        "$RCL ($333M), $SYK ($179M) and $SNOW ($142M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "$KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M).",
+        "Over 30 days in our feed, $KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($15.0M).",
+        "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M): $KMI.",
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $9.8.",
+        "Officers and directors sold $9.8 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $9.8 on the open market for every $1 they bought."
+      ],
+      "pillar": "P3",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "RCL",
+            "SYK",
+            "SNOW"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "sell|sold",
+          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $SYK, $SNOW"
+        },
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "KMI"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "buy|bought",
+          "says": "largest open-market buyers among the 500 largest, in order: $KMI"
+        }
+      ],
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$523M",
+            "+$523M",
+            "$523.4M",
+            "+$523.4M",
+            "$5.1B",
+            "+$5.1B",
+            "$5B",
+            "+$5B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals ($523M bought, $5.1B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "RCL",
+          "SYK",
+          "SNOW"
+        ],
+        "numbers": [
+          "$5.1B",
+          "$523M"
+        ]
+      },
+      "window": {
+        "from": "2026-10-18",
+        "to": "2026-11-17",
+        "days": 30
+      },
+      "bought_usd": 523439922.55,
+      "sold_usd": 5118830514.95,
+      "buy_companies": 389,
+      "sell_companies": 618,
+      "top_sellers_500": [
+        {
+          "ticker": "RCL",
+          "name": "Royal Caribbean Cruises Ltd.",
+          "sector": "Consumer Cyclical",
+          "total_usd": 333233640.82,
+          "insider_count": 3,
+          "roles": {
+            "officer": 1,
+            "director": 2
+          },
+          "row_count": 72,
+          "first_trade": "2026-10-28",
+          "last_trade": "2026-11-13"
+        },
+        {
+          "ticker": "SYK",
+          "name": "Stryker Corporation",
+          "sector": "Healthcare",
+          "total_usd": 178924730.95,
+          "insider_count": 1,
+          "roles": {
+            "officer": 0,
+            "director": 1
+          },
+          "row_count": 6,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        },
+        {
+          "ticker": "SNOW",
+          "name": "Snowflake Inc.",
+          "sector": "Technology",
+          "total_usd": 142463816.16,
+          "insider_count": 4,
+          "roles": {
+            "officer": 1,
+            "director": 3
+          },
+          "row_count": 43,
+          "first_trade": "2026-10-19",
+          "last_trade": "2026-11-06"
+        }
+      ],
+      "top_buyers_500": [
+        {
+          "ticker": "KMI",
+          "name": "Kinder Morgan, Inc.",
+          "sector": "Energy",
+          "total_usd": 14994200.0,
+          "insider_count": 1,
+          "roles": {
+            "officer": 1,
+            "director": 0
+          },
+          "row_count": 1,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        }
+      ],
+      "angles": [
+        "Officers and directors sold $5.1B and bought $523M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $523M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $523M of open-market buys."
+      ],
+      "market_cap_usd": 86465328598.3741,
+      "magnitude": 2.563756125374247,
+      "trigger": "$MSI entered the top 5",
+      "top5": [
+        "RCL",
+        "SYK",
+        "SNOW",
+        "AXP",
+        "MSI"
+      ],
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "card": {
+        "panel": "insiders",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-7530ad70-b9d2b480.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
+        "date": "2026-11-17",
+        "fingerprint": "7530ad70",
+        "file": "market-insiders-2026-11-17-7530ad70.png",
+        "sha256": "4918c9fe9dd4f27431c2de5ec9aa4a91c5e21e5932c8568da39fd308a0ef7401"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-7530ad70-b9d2b480.png",
+          "kind": "image",
+          "alt": "Officers and directors reported $523M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 389 companies with buys, 618 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "ticker_sectors": {
+        "RCL": "Consumer Cyclical",
+        "SYK": "Healthcare",
+        "SNOW": "Technology",
+        "KMI": "Energy"
+      },
+      "ticker_names": {
+        "RCL": "Royal Caribbean Cruises Ltd.",
+        "SYK": "Stryker Corporation",
+        "SNOW": "Snowflake Inc.",
+        "KMI": "Kinder Morgan, Inc."
+      },
+      "fact_phrases": [
+        "Officers and directors reported $523M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $523M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $523M of open-market buys and $5.1B of open-market sells.",
+        "Officers and directors sold $5.1B and bought $523M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $5.1B and bought $523M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 389 companies had open-market buys by officers and directors and 618 had open-market sells.",
+        "618 companies had open-market sells by officers and directors and 389 had open-market buys over 30 days in our feed.",
+        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+        "Officers and directors of $SNOW sold $142M on the open market over 30 days in our feed (4 insiders).",
+        "4 insiders at $SNOW sold $142M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SNOW sold $142M on the open market (4 insiders).",
+        "Officers and directors of $KMI bought $15.0M on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors of $KMI bought $15.0M on the open market."
+      ],
+      "phrasings": [
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.a",
+          "fact": "insiderflo-c019d4",
+          "variant": "a",
+          "text": "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.t",
+          "fact": "insiderflo-c019d4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.o",
+          "fact": "insiderflo-c019d4",
+          "variant": "o",
+          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.a",
+          "fact": "insiderflo-1641a4",
+          "variant": "a",
+          "text": "$SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($142M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.t",
+          "fact": "insiderflo-1641a4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SNOW had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($142M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.o",
+          "fact": "insiderflo-1641a4",
+          "variant": "o",
+          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($142M): $SNOW.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.a",
+          "fact": "insiderflo-2a8e57",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.t",
+          "fact": "insiderflo-2a8e57",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.l",
+          "fact": "insiderflo-2a8e57",
+          "variant": "l",
+          "text": "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.a",
+          "fact": "insiderflo-76de2d",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $SNOW ($142M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.t",
+          "fact": "insiderflo-76de2d",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $SNOW ($142M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.l",
+          "fact": "insiderflo-76de2d",
+          "variant": "l",
+          "text": "$RCL ($333M), $SYK ($179M) and $SNOW ($142M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $KMI had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($15.0M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($15.0M): $KMI.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.a",
+          "fact": "insiderflo-eeeffc",
+          "variant": "a",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $9.8.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h1",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h1",
+          "text": "Officers and directors sold $9.8 for every $1 they bought on the open market over 30 days in our feed.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h2",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h2",
+          "text": "Over 30 days in our feed, officers and directors sold $9.8 on the open market for every $1 they bought.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-de8c5a.a",
+          "fact": "insiderflo-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $523M of open-market buys and $5.1B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.h1",
+          "fact": "insiderflo-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $5.1B of open-market sells and $523M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.t",
+          "fact": "insiderflo-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $523M of open-market buys and $5.1B of open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.a",
+          "fact": "insiderflo-cc7b17",
+          "variant": "a",
+          "text": "Officers and directors sold $5.1B and bought $523M of their own companies' stock on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.t",
+          "fact": "insiderflo-cc7b17",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors sold $5.1B and bought $523M of their own companies' stock on the open market.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.a",
+          "fact": "insiderflo-ca45c6",
+          "variant": "a",
+          "text": "Over 30 days in our feed, 389 companies had open-market buys by officers and directors and 618 had open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.h1",
+          "fact": "insiderflo-ca45c6",
+          "variant": "h1",
+          "text": "618 companies had open-market sells by officers and directors and 389 had open-market buys over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $SNOW sold $142M on the open market over 30 days in our feed (4 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "4 insiders at $SNOW sold $142M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SNOW sold $142M on the open market (4 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-04cc5b.a",
+          "fact": "insiderflo-04cc5b",
+          "variant": "a",
+          "text": "Officers and directors of $KMI bought $15.0M on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-04cc5b.t",
+          "fact": "insiderflo-04cc5b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $KMI bought $15.0M on the open market.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$523M": "+",
+          "$523.4M": "+",
+          "$5.1B": "+",
+          "$5B": "+",
+          "$333M": "+",
+          "$333.2M": "+",
+          "$179M": "+",
+          "$178.9M": "+",
+          "$142M": "+",
+          "$142.5M": "+",
+          "$15.0M": "+",
+          "$15M": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "RCL": [
+          [
+            "$",
+            333.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            9.8,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "SYK": [
+          [
+            "$",
+            179.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "SNOW": [
+          [
+            "$",
+            142.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "KMI": [
+          [
+            "$",
+            15.0,
+            1,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 11.06,
+      "rank_why": "insider_flow 4; large cap $86.47B +2.5; magnitude (market) +2.56; today 2026-11-17 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
     {
       "item_id": "2026-11-17-earnings-result-DIS-18c34a",
       "type": "earnings_result",
@@ -3221,98 +3862,86 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-17-chart-pattern-ANET-7f1ce7",
+      "item_id": "2026-11-17-chart-pattern-MSFT-37074b",
       "type": "chart_pattern",
-      "ticker": "ANET",
+      "ticker": "MSFT",
       "tickers": [
-        "ANET"
+        "MSFT"
       ],
-      "name": "Arista Networks, Inc.",
+      "name": "Microsoft Corporation",
       "office": null,
       "amount_text": null,
       "traded": [],
       "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/dashboard/ANET",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ANET?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-chart-pattern-ANET-7f1ce7#pattern",
+      "source_url": "https://www.rapidtradeview.trade/dashboard/MSFT",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MSFT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-chart-pattern-MSFT-37074b#pattern",
       "allowed_numbers": [
-        "$186.17",
-        "$181.01",
-        "$217.41",
-        "$191.11",
-        "$188.53",
-        "$181.27",
-        "$168.25",
-        "$163.25",
-        "$158.34",
-        "$187.02",
-        "Nov 9",
-        "Oct 9",
-        "Oct 28",
-        "Nov 4",
-        "Sep 3",
-        "Oct 23",
-        "Nov 2",
-        "Nov 5",
+        "$517.99",
+        "$522.27",
+        "$466.32",
+        "$551.15",
+        "$559.15",
+        "$349.20",
+        "$504.96",
         "Nov 16",
+        "Jun 1",
+        "Oct 13",
+        "Nov 4",
+        "Jun 25",
+        "Nov 2",
         "2026-11-17",
         "Nov 17, 2026",
         "Nov 17",
-        "2026-09-03",
-        "Sep 3, 2026",
-        "2026-11-05",
-        "Nov 5, 2026",
-        "2026-11-09",
-        "Nov 9, 2026",
+        "2026-06-01",
+        "Jun 1, 2026",
+        "2026-11-04",
+        "Nov 4, 2026",
         "2026-11-16",
         "Nov 16, 2026",
-        "2026-10-09",
-        "Oct 9, 2026",
-        "2026-10-23",
-        "Oct 23, 2026",
-        "2026-10-28",
-        "Oct 28, 2026",
+        "2026-06-25",
+        "Jun 25, 2026",
+        "2026-10-13",
+        "Oct 13, 2026",
         "2026-11-02",
-        "Nov 2, 2026",
-        "2026-11-04",
-        "Nov 4, 2026"
+        "Nov 2, 2026"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Automatic technical analysis flagged a falling wedge on $ANET (Arista Networks, Inc.) (scan 2026-11-17): pattern 2026-09-03 to 2026-11-05. Confirmed Nov 9: closed $186.17, clearly above the upper line at $181.01.",
-      "dedupe_key": "pattern:ANET:falling_wedge:confirmed:2026-11-09",
+      "facts_text": "Automatic technical analysis flagged a rising wedge on $MSFT (Microsoft Corporation) (scan 2026-11-17): pattern 2026-06-01 to 2026-11-04. Confirmed Nov 16: closed $517.99, clearly below the lower line at $522.27.",
+      "dedupe_key": "pattern:MSFT:rising_wedge:confirmed:2026-11-16",
       "claim_phrases": [],
       "scan_date": "2026-11-17",
       "pattern": {
-        "type": "falling_wedge",
-        "name": "Falling wedge",
+        "type": "rising_wedge",
+        "name": "Rising wedge",
         "status": "confirmed",
-        "direction": "up",
-        "start": "2026-09-03",
-        "end": "2026-11-05",
-        "start_text": "Sep 3, 2026",
-        "end_text": "Nov 5, 2026",
-        "confirmed_on": "2026-11-09",
+        "direction": "down",
+        "start": "2026-06-01",
+        "end": "2026-11-04",
+        "start_text": "Jun 1, 2026",
+        "end_text": "Nov 4, 2026",
+        "confirmed_on": "2026-11-16",
         "as_of": "2026-11-16"
       },
       "levels": {
-        "key_level_name": "upper line",
-        "key_level": "$181.01",
-        "breakout_close": "$186.17"
+        "key_level_name": "lower line",
+        "key_level": "$522.27",
+        "breakout_close": "$517.99"
       },
       "page_text": {
-        "pill": "Falling wedge · Confirmed Nov 9",
-        "chip": "Confirmed Nov 9",
-        "detail": "confirmed by the Nov 9 close of $186.17, clearly above the upper line",
-        "what": "Price sliding between two falling lines that come together.",
+        "pill": "Rising wedge · Confirmed Nov 16",
+        "chip": "Confirmed Nov 16",
+        "detail": "confirmed by the Nov 16 close of $517.99, clearly below the lower line",
+        "what": "Price climbing between two rising lines that come together.",
         "key": [
-          "Confirmed Nov 9: closed $186.17, clearly above the upper line at $181.01.",
-          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back below $181.01, where the upper line was on Nov 9."
+          "Confirmed Nov 16: closed $517.99, clearly below the lower line at $522.27.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $522.27, where the lower line was on Nov 16."
         ],
         "points": [
-          "Highs $217.41 (Oct 9) → $191.11 (Oct 28) → $188.53 (Nov 4)",
-          "Lows $181.27 (Sep 3) → $168.25 (Oct 23) → $163.25 (Nov 2) → $158.34 (Nov 5)",
-          "Nov 9 closed $186.17: confirmed · last close $187.02 (Nov 16)"
+          "Highs $466.32 (Jun 1) → $551.15 (Oct 13) → $559.15 (Nov 4)",
+          "Lows $349.20 (Jun 25) → $504.96 (Nov 2)",
+          "Nov 16 closed $517.99: confirmed · last close $517.99 (Nov 16)"
         ]
       },
       "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
@@ -3322,15 +3951,15 @@
       ],
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/dashboard/ANET/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/MSFT/opengraph-image",
           "kind": "image",
-          "alt": "RapidTradeView research card for ANET: recent price, trend, analyst and filing summary."
+          "alt": "RapidTradeView research card for MSFT: recent price, trend, analyst and filing summary."
         }
       ],
       "rank": 7.5,
-      "rank_why": "chart_pattern 1; mega cap $249.26B +4; magnitude (pattern) +0.5; scan_date 2026-11-17 (age 0) +2",
+      "rank_why": "chart_pattern 1; mega cap $3890.43B +4; magnitude (pattern) +0.5; scan_date 2026-11-17 (age 0) +2",
       "pillar": "PX",
-      "market_cap_usd": 249256654314.26285,
+      "market_cap_usd": 3890434788156.744,
       "market_cap_source": "market_map",
       "cap_tier": "mega",
       "in_500": true,
@@ -3338,11 +3967,12 @@
         "2026-11-16",
         "Nov 16, 2026",
         "Nov 16",
-        "$249B",
-        "−5.21%",
-        "5.21%",
-        "−5.2%",
-        "5.2%"
+        "$3.89T",
+        "$3.9T",
+        "−1.12%",
+        "1.12%",
+        "−1.1%",
+        "1.1%"
       ],
       "context_tickers": [],
       "trigger": null,
@@ -3350,152 +3980,152 @@
       "claims": [],
       "headline": {
         "tickers": [
-          "ANET"
+          "MSFT"
         ],
         "numbers": []
       },
       "ticker_sectors": {
-        "ANET": "Technology"
+        "MSFT": "Technology"
       },
       "ticker_names": {
-        "ANET": "Arista Networks, Inc."
+        "MSFT": "Microsoft Corporation"
       },
       "context": {
-        "market_cap": "$249B",
+        "market_cap": "$3.89T",
         "market_cap_session": "2026-11-16",
         "last_session_move": {
-          "pct": "−5.21%",
+          "pct": "−1.12%",
           "session": "2026-11-16"
         }
       },
       "angles": [
-        "Automatic technical analysis flagged a falling wedge on $ANET (scan Nov 17).",
-        "A falling wedge on $ANET was flagged by automatic technical analysis (scan Nov 17).",
-        "The $ANET falling wedge pattern ran from Sep 3 to Nov 5."
+        "Automatic technical analysis flagged a rising wedge on $MSFT (scan Nov 17).",
+        "A rising wedge on $MSFT was flagged by automatic technical analysis (scan Nov 17).",
+        "The $MSFT rising wedge pattern ran from Jun 1 to Nov 4."
       ],
       "fact_phrases": [
-        "Automatic technical analysis flagged a falling wedge on $ANET (scan Nov 17).",
-        "A falling wedge on $ANET was flagged by automatic technical analysis (scan Nov 17).",
-        "The $ANET falling wedge pattern ran from Sep 3 to Nov 5.",
-        "From Sep 3 to Nov 5, $ANET formed the falling wedge pattern.",
-        "$ANET closed at $186.17 on Nov 9, above the $181.01 upper line.",
-        "On Nov 9, $ANET closed at $186.17, above the $181.01 upper line.",
-        "$ANET had a market value of $249B at the Nov 16 close.",
-        "$ANET's market value at the Nov 16 close was $249B.",
-        "At the Nov 16 close, $ANET had a market value of $249B.",
-        "$ANET moved −5.21% on Monday, Nov 16.",
-        "$ANET's move on Monday, Nov 16: −5.21%.",
-        "On Monday, Nov 16, $ANET moved −5.21%."
+        "Automatic technical analysis flagged a rising wedge on $MSFT (scan Nov 17).",
+        "A rising wedge on $MSFT was flagged by automatic technical analysis (scan Nov 17).",
+        "The $MSFT rising wedge pattern ran from Jun 1 to Nov 4.",
+        "From Jun 1 to Nov 4, $MSFT formed the rising wedge pattern.",
+        "$MSFT closed at $517.99 on Nov 16, below the $522.27 lower line.",
+        "On Nov 16, $MSFT closed at $517.99, below the $522.27 lower line.",
+        "$MSFT had a market value of $3.89T at the Nov 16 close.",
+        "$MSFT's market value at the Nov 16 close was $3.89T.",
+        "At the Nov 16 close, $MSFT had a market value of $3.89T.",
+        "$MSFT moved −1.12% on Monday, Nov 16.",
+        "$MSFT's move on Monday, Nov 16: −1.12%.",
+        "On Monday, Nov 16, $MSFT moved −1.12%."
       ],
       "phrasings": [
         {
-          "id": "chartpatte-867d18.a",
-          "fact": "chartpatte-867d18",
+          "id": "chartpatte-a109fb.a",
+          "fact": "chartpatte-a109fb",
           "variant": "a",
-          "text": "Automatic technical analysis flagged a falling wedge on $ANET (scan Nov 17).",
+          "text": "Automatic technical analysis flagged a rising wedge on $MSFT (scan Nov 17).",
           "claim": false
         },
         {
-          "id": "chartpatte-867d18.h1",
-          "fact": "chartpatte-867d18",
+          "id": "chartpatte-a109fb.h1",
+          "fact": "chartpatte-a109fb",
           "variant": "h1",
-          "text": "A falling wedge on $ANET was flagged by automatic technical analysis (scan Nov 17).",
+          "text": "A rising wedge on $MSFT was flagged by automatic technical analysis (scan Nov 17).",
           "claim": false
         },
         {
-          "id": "chartpatte-61f1c0.a",
-          "fact": "chartpatte-61f1c0",
+          "id": "chartpatte-f67373.a",
+          "fact": "chartpatte-f67373",
           "variant": "a",
-          "text": "The $ANET falling wedge pattern ran from Sep 3 to Nov 5.",
+          "text": "The $MSFT rising wedge pattern ran from Jun 1 to Nov 4.",
           "claim": false
         },
         {
-          "id": "chartpatte-61f1c0.h1",
-          "fact": "chartpatte-61f1c0",
+          "id": "chartpatte-f67373.h1",
+          "fact": "chartpatte-f67373",
           "variant": "h1",
-          "text": "From Sep 3 to Nov 5, $ANET formed the falling wedge pattern.",
+          "text": "From Jun 1 to Nov 4, $MSFT formed the rising wedge pattern.",
           "claim": false
         },
         {
-          "id": "chartpatte-a03c9e.a",
-          "fact": "chartpatte-a03c9e",
+          "id": "chartpatte-bfdf3b.a",
+          "fact": "chartpatte-bfdf3b",
           "variant": "a",
-          "text": "$ANET closed at $186.17 on Nov 9, above the $181.01 upper line.",
+          "text": "$MSFT closed at $517.99 on Nov 16, below the $522.27 lower line.",
           "claim": false
         },
         {
-          "id": "chartpatte-a03c9e.h1",
-          "fact": "chartpatte-a03c9e",
+          "id": "chartpatte-bfdf3b.h1",
+          "fact": "chartpatte-bfdf3b",
           "variant": "h1",
-          "text": "On Nov 9, $ANET closed at $186.17, above the $181.01 upper line.",
+          "text": "On Nov 16, $MSFT closed at $517.99, below the $522.27 lower line.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.a",
           "fact": "chartpatte-426192",
           "variant": "a",
-          "text": "$ANET had a market value of $249B at the Nov 16 close.",
+          "text": "$MSFT had a market value of $3.89T at the Nov 16 close.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.h1",
           "fact": "chartpatte-426192",
           "variant": "h1",
-          "text": "$ANET's market value at the Nov 16 close was $249B.",
+          "text": "$MSFT's market value at the Nov 16 close was $3.89T.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.t",
           "fact": "chartpatte-426192",
           "variant": "t",
-          "text": "At the Nov 16 close, $ANET had a market value of $249B.",
+          "text": "At the Nov 16 close, $MSFT had a market value of $3.89T.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.a",
           "fact": "chartpatte-061727",
           "variant": "a",
-          "text": "$ANET moved −5.21% on Monday, Nov 16.",
+          "text": "$MSFT moved −1.12% on Monday, Nov 16.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.h1",
           "fact": "chartpatte-061727",
           "variant": "h1",
-          "text": "$ANET's move on Monday, Nov 16: −5.21%.",
+          "text": "$MSFT's move on Monday, Nov 16: −1.12%.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.t",
           "fact": "chartpatte-061727",
           "variant": "t",
-          "text": "On Monday, Nov 16, $ANET moved −5.21%.",
+          "text": "On Monday, Nov 16, $MSFT moved −1.12%.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "5.21%": "-",
-          "5.2%": "-"
+          "1.12%": "-",
+          "1.1%": "-"
         },
         "subjects": {
-          "ANET": "down"
+          "MSFT": "down"
         }
       },
       "subject_numbers": {
-        "ANET": [
+        "MSFT": [
           [
             "%",
-            5.21,
+            1.12,
             2,
             1.0,
             -1
           ],
           [
             "$",
-            249.0,
-            0,
-            1000000000.0,
+            3.89,
+            2,
+            1000000000000.0,
             0
           ]
         ]
@@ -13554,7 +14184,7 @@
       "rank": 6.0,
       "rank_why": "moves_like 0.5; mega cap $249.26B +4; session 2026-11-16 (age 1) +1.5",
       "top8": false,
-      "top8_out": "repeat: leads with $ANET like 2026-11-17-chart-pattern-ANET-7f1ce7",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
