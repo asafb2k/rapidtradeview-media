@@ -76,11 +76,11 @@ filing's official URL in `source_urls`, and an X post of it cites at least one i
 every facts build on a weekday the runner calls `tools/indexnow_facts.py` (`Invoke-IndexNowFacts`): it pings IndexNow with
 the day's distinct landing pages (no UTM, no anchor, never an `/earnings/reports/` page), deduped over 7 days, at most
 100 a day, paused 24 h after a 429 / 403 and 6 h after any other 4xx; each send's count and status go to
-`D:\rtv-ops\tracks\growth\research\indexnow-facts.log`. The key is the site's own `<key>.txt` in the app repo's
+`D:\Coding_projects\rtv-ops\tracks\growth\research\indexnow-facts.log`. The key is the site's own `<key>.txt` in the app repo's
 `frontend/public` (never copied here). `-NoPush` / `-SelectOnly` make it a dry run.
 
 Market pillars (HQ 2026-10-18, owner: "I keep seeing the same boring niche posts"; plan
-`D:/rtv-ops/tracks/hq/social-content-2026-10-18/PLAN.md`). `tools/facts.py` also builds items about the whole market and
+`D:/Coding_projects/rtv-ops/tracks/hq/social-content-2026-10-18/PLAN.md`). `tools/facts.py` also builds items about the whole market and
 the names everyone knows from two GETs a pass on our API (`/market/pictures`, `/market/flows`; stored data, no Yahoo):
 market_move, mega_mover, congress_flow, insider_flow, reddit_buzz, earnings_week_preview, earnings_reaction,
 sector_rotation, breadth_day and basket_week (`tools/market_facts.py`; each only when its trigger fires). Items are ranked
@@ -93,7 +93,7 @@ QA header; an item whose card is not served is left out. basket_week, sector_rot
 `#map`) and stay out of the top 8 (`top8_out` "no_card: ..."). The preflight pass refreshes facts until 17:45 ET on weekdays
 (the map publishes the session about 16:50 ET). `tools/grok_review.py` checks the new rules (cashtags and numbers from
 tickers / allowed_numbers plus the context lists, the market-wording guard, the pinned card) and the variety lint (warn
-first, reject a repeat the same day; state `D:/rtv-ops/tracks/growth/research/grok-variety-state.json`).
+first, reject a repeat the same day; state `D:/Coding_projects/rtv-ops/tracks/growth/research/grok-variety-state.json`).
 
 Market pillar review fixes (HQ 2026-10-18, before the first Monday pre-market posts). One content rule set,
 `tools/claims.py`, runs in three places: the facts build checks each item's own facts_text and angles (an angle that fails

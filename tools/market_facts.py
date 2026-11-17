@@ -1,4 +1,4 @@
-"""Market pillars for the Grok facts feed (HQ 2026-10-18; D:/rtv-ops/tracks/hq/social-content-2026-10-18/PLAN.md §1-§2).
+"""Market pillars for the Grok facts feed (HQ 2026-10-18; D:/Coding_projects/rtv-ops/tracks/hq/social-content-2026-10-18/PLAN.md §1-§2).
 
 The owner (10-18): "I keep seeing the same boring niche posts." facts.json offered only single filings and single
 companies, so every post was one. This module adds items about the whole market and the names everyone knows, built from

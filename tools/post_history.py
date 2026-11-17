@@ -1,7 +1,7 @@
 """Our own published posts, resolved to their facts items (HQ 2026-10-18, social-content PLAN §2.2 novelty, §3 variety).
 
 Reads the social kit's post_log rows (table social_kit_messages, direction from_instinct, kind post_log, env prod by
-default) through D:/rtv-ops/tracks/growth/bin/instinct.py's gateway client (the key is read there, never printed), keeps
+default) through D:/Coding_projects/rtv-ops/tracks/growth/bin/instinct.py's gateway client (the key is read there, never printed), keeps
 the rows that are our own posts (a brand-account permalink, not a comment), and resolves each one to the facts item it
 used (v/<date>/facts.json by item_id): its type, pillar, primary ticker, headline tickers (the lead tickers, for the
 cooldown across pillars), filer and dedupe_key. facts.py reads this for the
@@ -23,7 +23,7 @@ import market_facts as mk  # noqa: E402
 import post_vocab as pv  # noqa: E402
 import select_stories as ss  # noqa: E402
 
-DEFAULT_INSTINCT = Path("D:/rtv-ops/tracks/growth/bin/instinct.py")
+DEFAULT_INSTINCT = Path("D:/Coding_projects/rtv-ops/tracks/growth/bin/instinct.py")
 PLATFORMS = ("x", "instagram", "threads")
 # A brand permalink of an own post (comments on Instagram / Threads carry /c/ or a reply path; X comments are told apart
 # by the body's comment words, as tracks/growth/bin/post_audit.py does).

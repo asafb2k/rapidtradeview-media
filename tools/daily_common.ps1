@@ -296,7 +296,7 @@ function Update-FactsIfDue([string]$Date, [string]$Work, [bool]$Push, [DateTime]
 function Invoke-Preflight([string]$Date, [string[]]$Select) {
     $code = Invoke-Native $script:Python (@((Join-Path $script:Tools 'manifest.py'), '--repo', $script:Repo, 'preflight', '--date', $Date, '--hold') + $Select)
     if ($code -eq 2) { return 2 }
-    if ($code -ne 0) { Log "PREFLIGHT FAILED for $Date ($($Select -join ' ')): see D:\rtv-ops\tracks\growth\research\daily-video\$Date\preflight-<slot>.json" }
+    if ($code -ne 0) { Log "PREFLIGHT FAILED for $Date ($($Select -join ' ')): see D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video\$Date\preflight-<slot>.json" }
     & git.exe -C $script:Repo diff --quiet -- "v/$Date/manifest.json"
     if ($LASTEXITCODE -ne 0) {
         if ((Invoke-Git @('add', '--', "v/$Date/manifest.json")) -ne 0) { Fail 'git add held manifest' }

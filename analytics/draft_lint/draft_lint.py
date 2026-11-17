@@ -61,7 +61,7 @@ UA = "RapidTradeView draft-lint (contact@rapidtradeview.trade)"
 LEVELS = ("real", "likely", "stop")
 SCORED = ("real", "likely")
 
-# Ticker classes: copied from D:/rtv-ops/tracks/growth/ml/run1/features_text.py (fixed a priori, the EDA's lists; that
+# Ticker classes: copied from D:/Coding_projects/rtv-ops/tracks/growth/ml/run1/features_text.py (fixed a priori, the EDA's lists; that
 # file needs numpy/pandas, this one must run alone). Keep the two in step.
 MEGACAP = {"AAPL", "MSFT", "NVDA", "GOOGL", "GOOG", "AMZN", "META", "TSLA", "AVGO", "BRK.A", "BRK.B", "LLY", "JPM",
            "V", "MA", "WMT", "ORCL", "NFLX", "XOM", "COST", "UNH"}

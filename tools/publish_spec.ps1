@@ -8,15 +8,15 @@
   what Pages serves. Nothing is written while a file or a post-package is missing.
 
 .EXAMPLE
-  powershell -NoProfile -ExecutionPolicy Bypass -File D:\rtvw\rapidtradeview-media\tools\publish_spec.ps1 -Spec D:\rtv-ops\tracks\growth\research\daily-video\2026-09-28\spec-hand.json
+  powershell -NoProfile -ExecutionPolicy Bypass -File D:\rtvw\rapidtradeview-media\tools\publish_spec.ps1 -Spec D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video\2026-09-28\spec-hand.json
 #>
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)][string]$Spec,
     [string]$Python = 'C:\Users\USER\anaconda3\envs\rapidtradingview\python.exe',
     [string]$Repo,
-    [string]$WorkRoot = 'D:\rtv-ops\tracks\growth\research\daily-video',
-    [string]$LogDir = 'D:\rtv-ops\tracks\growth\research\daily-video-logs',
+    [string]$WorkRoot = 'D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video',
+    [string]$LogDir = 'D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video-logs',
     [int]$PagesTimeoutSec = 900
 )
 $ErrorActionPreference = 'Stop'

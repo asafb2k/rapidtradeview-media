@@ -20,7 +20,7 @@ Run through `manifest.py preflight` (see there for the CLI). For each post it re
   (e) picks readiness: from 2026-09-30, a successful live check must finish by T-60. A separate receipt
       binds that first pass to the exact post, media and data, so later checks cannot invent an earlier
       ready time and cannot falsely reject unchanged picks that were verified in time.
-A report per slot goes to D:/rtv-ops/tracks/growth/research/daily-video/<date>/preflight-<slot>.json.
+A report per slot goes to D:/Coding_projects/rtv-ops/tracks/growth/research/daily-video/<date>/preflight-<slot>.json.
 """
 from __future__ import annotations
 
@@ -38,8 +38,8 @@ from zoneinfo import ZoneInfo
 import manifest as mf
 import qa_header as qa
 
-WORK_ROOT = Path("D:/rtv-ops/tracks/growth/research/daily-video")
-CATEGORIES_OUT = Path("D:/rtv-ops/tracks/growth/research/video-v6/categories")
+WORK_ROOT = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/daily-video")
+CATEGORIES_OUT = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/video-v6/categories")
 NY = ZoneInfo("America/New_York")
 UA = "RapidTradeView preflight (contact@rapidtradeview.trade)"
 

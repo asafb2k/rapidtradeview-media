@@ -91,7 +91,7 @@ def test_build_merges_and_keeps_placements(m, tmp_path):
     spec = {"date": "2026-09-27", "posts": [{
         "slot": 1, "time_et": "12:00", "category": "insider_trade", "story_id": "uber-khosrowshahi",
         "story_key": m["posts"][0]["story_key"], "tickers": ["UBER"], "people": ["Dara Khosrowshahi"],
-        "post_package": "D:/rtv-ops/tracks/growth/research/video-v6/uber-khosrowshahi/post-package.json"}]}
+        "post_package": "D:/Coding_projects/rtv-ops/tracks/growth/research/video-v6/uber-khosrowshahi/post-package.json"}]}
     if not Path(spec["posts"][0]["post_package"]).exists():
         pytest.skip("post-package not on this machine")
     # The writer only needs the three MP4s present (their URLs come from the date and story_id): stand-ins in a
@@ -110,7 +110,7 @@ def test_build_merges_and_keeps_placements(m, tmp_path):
     assert built == m
 
 
-UBER_PKG = Path("D:/rtv-ops/tracks/growth/research/video-v6/uber-khosrowshahi/post-package.json")
+UBER_PKG = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/video-v6/uber-khosrowshahi/post-package.json")
 
 
 def image_repo(tmp_path, formats=("feed_4x5", "square_1x1", "pin_2x3", "story_9x16"), ext="png"):

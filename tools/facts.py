@@ -1,4 +1,4 @@
-"""Facts feed for Grok-run brand social (D:/rtv-ops/tracks/hq/growth-roundtable-2026-10-11/GROK-SOCIAL.md §1, §3).
+"""Facts feed for Grok-run brand social (D:/Coding_projects/rtv-ops/tracks/hq/growth-roundtable-2026-10-11/GROK-SOCIAL.md §1, §3).
 
 Usage (conda python: C:/Users/USER/anaconda3/envs/rapidtradingview/python.exe):
   facts.py --date YYYY-MM-DD [--out FILE] [--print] [--as-of ISO]

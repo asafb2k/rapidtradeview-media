@@ -22,7 +22,7 @@ subcommand and defaults to this repo):
       The preflight gate (tools/preflight.py; owner rule 2026-09-28: every post ready one hour before it
       goes live): re-checks each post, its media (200 + sha256 of the local copy), date-pinned sources,
       the claims lint, every number and date against the post's data. One report per slot in
-      D:/rtv-ops/tracks/growth/research/daily-video/<date>/preflight-<slot>.json. --hold marks each
+      D:/Coding_projects/rtv-ops/tracks/growth/research/daily-video/<date>/preflight-<slot>.json. --hold marks each
       failing post "status": "held" (+ held_reason) in the manifest; nothing is deleted. Exit 0 = all
       pass, 1 = a failure, 2 = nothing to check (no manifest, or nothing due in the window).
   manifest.py check-spec --spec SPEC.json [--list-out FILE]

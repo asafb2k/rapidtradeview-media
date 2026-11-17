@@ -85,7 +85,7 @@ SITE = "https://www.rapidtradeview.trade"
 UA = "RapidTradeView daily-video selector (contact@rapidtradeview.trade)"
 PLAN_SCHEMA = "rtv-daily-plan/1"
 TOOLS = Path(__file__).resolve().parent
-DEFAULT_TRACK_RECORD = Path("D:/rtv-ops/tracks/growth/social-kit/track-record-paragraph.json")
+DEFAULT_TRACK_RECORD = Path("D:/Coding_projects/rtv-ops/tracks/growth/social-kit/track-record-paragraph.json")
 
 RECENCY_WEEKDAYS = 3
 WEEKEND_WINDOW_WEEKDAYS = 5
@@ -105,7 +105,7 @@ SET_TIMES = ("bmo", "amc", "dmh")
 # failed trades on a day no trade is chosen, so the earnings fallback comes next.
 MAX_TRADE_RENDER_FAILURES = 2
 REPORT_MIN_CAP = 10e9
-# G-N1 holdout (D:/rtv-ops/tracks/growth/bets/g-n1-holdout-prereg.md, Amendment 2 §3d / §4): until the readout our own
+# G-N1 holdout (D:/Coding_projects/rtv-ops/tracks/growth/bets/g-n1-holdout-prereg.md, Amendment 2 §3d / §4): until the readout our own
 # social and promotion never link or show an earnings REPORT page (/earnings/reports/<id>) of either arm. Dates before
 # G_N1_HOLDOUT_END are inside it. The earnings link is /dashboard/<T>#earnings-history instead.
 G_N1_HOLDOUT_END = dt.date(2026, 11, 21)

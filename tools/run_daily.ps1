@@ -20,7 +20,7 @@
   with the preflight gate (manifest.py preflight) on the slots it published, and the 15-minute
   preflight pass re-checks every post 60-90 minutes before its time. A failing post is marked "status":
   "held" in the manifest (the kit shows "do not post"); nothing is deleted. Reports:
-  D:\rtv-ops\tracks\growth\research\daily-video\<date>\preflight-<slot>.json.
+  D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video\<date>\preflight-<slot>.json.
   Weekends: one 08:00 ET run with no -Pass (slot 1). -Slots "5,7" picks slots by hand instead.
   Every pass but preflight first writes the Grok social facts feed v/<date>/facts.json (tools/facts.py) and pushes
   it on its own (Publish-Facts in daily_common.ps1), before selection, so it publishes when every video slot is
@@ -29,9 +29,9 @@
   do not change.
   A slot today's manifest already fills is never re-rendered or replaced (daily.py stories).
 
-  Everything is logged to D:\rtv-ops\tracks\growth\research\daily-video-logs\. Work files (plan,
+  Everything is logged to D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video-logs\. Work files (plan,
   per-story data.json, renders, post-packages) stay private in
-  D:\rtv-ops\tracks\growth\research\daily-video\<date>\; only the MP4s and manifest.json go to the
+  D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video\<date>\; only the MP4s and manifest.json go to the
   public media repo. Render / QA / package commands come from tools\daily_hooks.json: a step that is
   null there is a TODO, its story is skipped, and nothing is faked (No Fallbacks). Trades (Form 4
   programs, House PTRs) render through growth-video scripts\v6t-auto.py (SEC XML / PTR PDF -> TradeV6 ->
@@ -64,8 +64,8 @@ param(
     [string]$Python = 'C:\Users\USER\anaconda3\envs\rapidtradingview\python.exe',
     [string]$Node = 'node',
     [string]$Repo,
-    [string]$WorkRoot = 'D:\rtv-ops\tracks\growth\research\daily-video',
-    [string]$LogDir = 'D:\rtv-ops\tracks\growth\research\daily-video-logs',
+    [string]$WorkRoot = 'D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video',
+    [string]$LogDir = 'D:\Coding_projects\rtv-ops\tracks\growth\research\daily-video-logs',
     [string]$Hooks,
     [int]$PagesTimeoutSec = 900,
     [string]$Now

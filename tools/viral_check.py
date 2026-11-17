@@ -1,7 +1,7 @@
 """VIRAL CHECK v1: every post and every action carries the reach ingredients our data measured (owner 2026-10-23:
 "verify each and every post/action have the potential to go viral").
 
-Spec: D:/rtv-ops/tracks/growth/strategy/pillars-2026-10-18/VIRAL-CHECK.md (Growth; Grok kit directive #668). Evidence:
+Spec: D:/Coding_projects/rtv-ops/tracks/growth/strategy/pillars-2026-10-18/VIRAL-CHECK.md (Growth; Grok kit directive #668). Evidence:
 eda2 (23,006 finance-X posts, within author) and G3 (4,767 posts, 593 authors). The check cannot promise virality (who
 posts explains ~92% of view variance); it makes sure a post has every ingredient the data links to reach and none of the
 measured penalties. Standard library + tools/draft_lint.py only, so tools/grok_review.py (the draft gate) and Growth's

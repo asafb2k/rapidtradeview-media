@@ -72,14 +72,14 @@ instagram.com (instagram) single-post URL, not our brand profile (replies under 
 URL shows the handle; the rules' banned words (facts.py BANNED_WORDS, plus the facts' and the item's own) and
 self-promotion phrases; numbers and $cashtags need item_id, then must be that item's allowed_numbers / tickers; no
 disclaimer needed. Repeats: a local state file (--comment-state, $GROK_COMMENT_STATE, default
-D:/rtv-ops/tracks/growth/research/grok-comments-state.json) keeps the last 7 UTC days of approved comments: REJECT the
+D:/Coding_projects/rtv-ops/tracks/growth/research/grok-comments-state.json) keeps the last 7 UTC days of approved comments: REJECT the
 same normalized text within 7 days, >= 80% shared word 3-grams with one approved today, a target_url already
 commented, or an 11th comment on a platform in one New York day ("cap: 10 comments a day on <platform>"; Growth gate
 fixes 2026-10-26, counted from the state's approval times). --inbox writes an approved comment to the state only after
 its APPROVE answer was sent; --draft reads the state and never writes it.
 
 --inbox reads unacked from_instinct rows of social_kit_messages whose body starts with "DRAFT" (through
-D:/rtv-ops/tracks/growth/bin/instinct.py's gateway client), reviews each and answers with
+D:/Coding_projects/rtv-ops/tracks/growth/bin/instinct.py's gateway client), reviews each and answers with
   instinct.py say --kind answer --platform <p> --body -     "APPROVE <msg id> <item_id>" / "REJECT <msg id> <item_id>: reasons"
 then acks that row only. Rows that do not start with DRAFT are never read further, answered or acked. A draft whose
 facts cannot be fetched (network) is left unacked for the next run. --dry-run prints the replies; nothing is sent
@@ -135,7 +135,7 @@ import select_stories as ss  # noqa: E402
 import viral_check as vc  # noqa: E402
 
 DEFAULT_FACTS_BASE = f"{mf.PAGES_BASE}/v"
-DEFAULT_INSTINCT = Path("D:/rtv-ops/tracks/growth/bin/instinct.py")
+DEFAULT_INSTINCT = Path("D:/Coding_projects/rtv-ops/tracks/growth/bin/instinct.py")
 PYTHON = sys.executable
 UA = "RapidTradeView grok-review (contact@rapidtradeview.trade)"
 SOURCE_TYPES = ("congress_trade", "form4_buy", "ptr_summary")
@@ -224,7 +224,7 @@ IG_POST = re.compile(r"^/(?:(?P<h>[A-Za-z0-9_.]{1,30})/)?(?:p|reel|reels|tv)/(?P
 BARE_DOMAIN = re.compile(r"(?<![\w@.-])(?:[a-z0-9-]+\.)+[a-z]{2,24}(?![\w-])(?:/\S*)?", re.IGNORECASE)
 HASHTAG = re.compile(r"(?<![\w&/])[#\uff03](?=\w*[^\W\d_])\w+")
 MENTION = re.compile(r"(?<![\w@])@([A-Za-z0-9_.]{1,30})")
-DEFAULT_COMMENT_STATE = Path("D:/rtv-ops/tracks/growth/research/grok-comments-state.json")
+DEFAULT_COMMENT_STATE = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/grok-comments-state.json")
 COMMENT_STATE_ENV = "GROK_COMMENT_STATE"
 
 
@@ -1025,7 +1025,7 @@ def review_comment(draft: dict, facts: dict | None, state: CommentState | None,
 # day (a NOTES line; the verdict stands) and REJECTs a repeat breach of the same rule that day (VarietyState, written only
 # after an APPROVE answer with the warning was sent).
 
-DEFAULT_VARIETY_STATE = Path("D:/rtv-ops/tracks/growth/research/grok-variety-state.json")
+DEFAULT_VARIETY_STATE = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/grok-variety-state.json")
 VARIETY_STATE_ENV = "GROK_VARIETY_STATE"
 HISTORY_POSTS = 10           # rule 8 looks at the platform's last 10 own posts
 FIRST_WORDS = 8
@@ -1288,7 +1288,7 @@ def variety_state_path(flag: str | None = None) -> Path:
 # earlier run whose post_log row has not arrived yet, counts as a post at once: run_inbox adds every APPROVE to its
 # working history, and a sent APPROVE goes into this ledger until a post_log row of the same item on the same platform
 # (created at or after the approval) appears, or LEDGER_HOURS pass.
-DEFAULT_APPROVED_LEDGER = Path("D:/rtv-ops/tracks/growth/research/grok-approved-ledger.json")
+DEFAULT_APPROVED_LEDGER = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/grok-approved-ledger.json")
 APPROVED_LEDGER_ENV = "GROK_APPROVED_LEDGER"
 LEDGER_HOURS = 24
 

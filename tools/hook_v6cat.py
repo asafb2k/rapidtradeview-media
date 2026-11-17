@@ -52,7 +52,7 @@ import manifest as mf  # noqa: E402  (IG_REELS_ONLY_FROM, reels_only)
 import select_stories as ss  # noqa: E402  (G-N1 holdout)
 
 VIDEO_ROOT = Path("D:/rtvw/growth-video")
-CATEGORIES_OUT = Path("D:/rtv-ops/tracks/growth/research/video-v6/categories")
+CATEGORIES_OUT = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/video-v6/categories")
 VIDEO_FILES = ("reel_9x16.mp4", "feed_4x5.mp4", "square_1x1.mp4", "post-package.json")
 IMAGE_FORMATS = ("feed_4x5", "square_1x1", "pin_2x3", "story_9x16")
 REEL_FILES = ("reel_9x16.mp4", "still/reel_9x16.png", "still/reel_9x16.jpg", "vsco-instruments.json")   # copied for an image story's Reel

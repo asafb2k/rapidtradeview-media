@@ -9,12 +9,12 @@ of its items (page_url without the UTM query or the #anchor, in the file's rank 
   - HARD-EXCLUDES every /earnings/reports/ path (G-N1 holdout; also after it: report pages have their own ping) and
     anything off https://www.rapidtradeview.trade or the bare site root;
   - skips a URL already sent in the last 7 days (the state file, default
-    D:/rtv-ops/tracks/growth/research/indexnow-facts-state.json);
+    D:/Coding_projects/rtv-ops/tracks/growth/research/indexnow-facts-state.json);
   - sends at most 100 URLs a UTC day, in one POST to https://api.indexnow.org/indexnow with the site's IndexNow key;
   - pauses after any 4xx (no POST until then; the state and the log say why): 24 hours after a 429 or 403, 6 hours
     after any other 4xx (a request the endpoint rejects is not re-sent at every facts refresh);
   - writes one receipt line per send (UTC time, date, count, HTTP status) to
-    D:/rtv-ops/tracks/growth/research/indexnow-facts.log.
+    D:/Coding_projects/rtv-ops/tracks/growth/research/indexnow-facts.log.
 --dry-run prints what would be sent (the key is never printed) and writes neither the state nor the log.
 
 The key is the site's existing one: the file <key>.txt in the app repo's frontend/public (the live
@@ -49,8 +49,8 @@ DEDUPE_DAYS = 7
 PAUSE_HOURS = 24          # after a 429 / 403: the endpoint asks us to back off
 PAUSE_STATUSES = (403, 429)
 PAUSE_HOURS_OTHER_4XX = 6  # after any other 4xx (400 bad request, 422 URLs not for the key's host, ...)
-DEFAULT_STATE = Path("D:/rtv-ops/tracks/growth/research/indexnow-facts-state.json")
-DEFAULT_LOG = Path("D:/rtv-ops/tracks/growth/research/indexnow-facts.log")
+DEFAULT_STATE = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/indexnow-facts-state.json")
+DEFAULT_LOG = Path("D:/Coding_projects/rtv-ops/tracks/growth/research/indexnow-facts.log")
 DEFAULT_KEY_DIR = Path("D:/Coding_projects/rapidtradeview/frontend/public")
 KEY_NAME = re.compile(r"^([0-9a-fA-F]{8,128})\.txt$")
 UA = "RapidTradeView indexnow-facts (contact@rapidtradeview.trade)"
