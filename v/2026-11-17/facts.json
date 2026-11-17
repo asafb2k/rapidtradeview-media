@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-17",
-  "generated_at": "2026-11-17T19:45:02Z",
-  "as_of": "2026-11-17T19:45:02Z",
+  "generated_at": "2026-11-17T20:15:02Z",
+  "as_of": "2026-11-17T20:15:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -874,7 +874,7 @@
     "cards": "a market item's media is its pinned share card (card.url, a file on our Pages site, the same numbers the item states); never the live /market/card/ URL, never another day's card; no link in the main post: the UTM link goes in a self-reply"
   },
   "counts": {
-    "congress_trade": 4,
+    "congress_trade": 5,
     "form4_buy": 1,
     "earnings_result": 33,
     "earnings_upcoming": 24,
@@ -895,7 +895,7 @@
     "basket_week": 0
   },
   "reasons": {
-    "ptr_summary": "2 member summary(ies) lost to a higher-ranked congress_trade of the same filer (left_out.per_filer_cap)",
+    "ptr_summary": "3 member summary(ies) lost to a higher-ranked congress_trade of the same filer (left_out.per_filer_cap)",
     "sector_rotation": "day: no sector up 1.0%+ and one down 1.0%+; week: the session is not a Friday",
     "basket_week": "the session is not a Friday (the basket is a week-in-review item)",
     "reddit_buzz": "the most unusual, $ASTS, is 1.7x usual (< 3.0x; 2.0x for a top-20 name)",
@@ -905,7 +905,7 @@
   "left_out": {
     "congress_trade": {
       "rows_read": 50,
-      "out_of_window": 24,
+      "out_of_window": 20,
       "not_congress": 0,
       "other_side": 0,
       "late_filing_over_90d": 0,
@@ -916,7 +916,7 @@
       "no_official_source": 0
     },
     "ptr_summary": {
-      "members_filing_dates": 4,
+      "members_filing_dates": 5,
       "single_item": 2
     },
     "ptr_summary_incomplete": {
@@ -926,24 +926,24 @@
       "reasons": []
     },
     "per_filer_cap": {
-      "dropped": 16,
-      "filers": 4,
-      "dropped_congress_trade": 14,
-      "dropped_ptr_summary": 2
+      "dropped": 20,
+      "filers": 5,
+      "dropped_congress_trade": 17,
+      "dropped_ptr_summary": 3
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 18,
-      "below_minimum": 17,
+      "filings_passing_filters": 17,
+      "below_minimum": 16,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3816,
-      "recent_ready": 223,
-      "outside_24h": 180,
+      "archive_reports": 3820,
+      "recent_ready": 224,
+      "outside_24h": 182,
       "unreadable": 0,
-      "not_compared": 15,
+      "not_compared": 14,
       "not_compared_metrics": [
         "GFF: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
         "OCSL: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
@@ -951,21 +951,19 @@
         "DARE: revenue (basis_mismatch)",
         "FFAI: revenue (basis_mismatch)",
         "IMDX: revenue (basis_mismatch)",
-        "INFQ: revenue (basis_mismatch)",
-        "POWL: revenue (basis_mismatch)",
         "RCAT: revenue (basis_mismatch)",
         "SHAZ: revenue (basis_mismatch)",
         "SLNH: revenue (basis_mismatch)",
-        "WKHS: revenue (basis_mismatch)"
+        "WKHS: revenue (basis_mismatch)",
+        "USAS: revenue (unverified)"
       ],
-      "consensus_mismatch_hold": 10,
+      "consensus_mismatch_hold": 9,
       "held": [
         "GFF: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed) and nothing else compared (report data to check)",
         "OCSL: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed) and nothing else compared (report data to check)",
         "SR: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed) and nothing else compared (report data to check)",
         "DARE: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "FFAI: revenue (basis_mismatch) and nothing else compared (report data to check)",
-        "INFQ: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "RCAT: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "SHAZ: revenue (basis_mismatch) and nothing else compared (report data to check)",
         "SLNH: revenue (basis_mismatch) and nothing else compared (report data to check)",
@@ -985,7 +983,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 59,
+      "tickers_in_items": 60,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -999,7 +997,7 @@
     "market": {
       "market_session": "2026-11-16",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-17T19:45:30.810414+00:00"
+      "flows_as_of": "2026-11-17T20:15:32.854747+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1008,15 +1006,15 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 87
+        "angles_dropped": 92
       },
       "top8": {
-        "stale": 7,
+        "stale": 5,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 7,
-        "ranked_below": 55,
+        "ranked_below": 58,
         "pillars": 4
       }
     }
@@ -1039,7 +1037,7 @@
       "NVDA",
       "MU",
       "PG",
-      "V"
+      "TLH"
     ],
     "insider_sell_top5": [
       "RCL",
@@ -1053,7 +1051,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 62,
+  "api_requests": 67,
   "items": [
     {
       "item_id": "2026-11-17-insider-flow-RCL-897a8b",
@@ -1075,14 +1073,14 @@
       "allowed_numbers": [
         "$525M",
         "+$525M",
-        "$524.7M",
-        "+$524.7M",
+        "$524.9M",
+        "+$524.9M",
         "$5.1B",
         "+$5.1B",
         "$5B",
         "+$5B",
         "30",
-        "394",
+        "395",
         "620",
         "500",
         "2026-10-18",
@@ -1116,7 +1114,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 394 companies with buys, 620 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M.",
+      "facts_text": "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 395 companies with buys, 620 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M.",
       "dedupe_key": "insider_flow:2026-11-17:RCL",
       "claim_phrases": [
         "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
@@ -1197,8 +1195,8 @@
           "numbers": [
             "$525M",
             "+$525M",
-            "$524.7M",
-            "+$524.7M",
+            "$524.9M",
+            "+$524.9M",
             "$5.1B",
             "+$5.1B",
             "$5B",
@@ -1227,9 +1225,9 @@
         "to": "2026-11-17",
         "days": 30
       },
-      "bought_usd": 524679287.92,
+      "bought_usd": 524853482.36,
       "sold_usd": 5119316971.89,
-      "buy_companies": 394,
+      "buy_companies": 395,
       "sell_companies": 620,
       "top_sellers_500": [
         {
@@ -1311,18 +1309,18 @@
       "banned_words": [],
       "card": {
         "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-74400888-b9d2b480.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-53f4f5d2-b9d2b480.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
         "date": "2026-11-17",
-        "fingerprint": "74400888",
-        "file": "market-insiders-2026-11-17-74400888.png",
-        "sha256": "02775d313012aff5192305893d94de46fcdde1b4c90a36c9965acfe646f6309c"
+        "fingerprint": "53f4f5d2",
+        "file": "market-insiders-2026-11-17-53f4f5d2.png",
+        "sha256": "3d64e614785e7444c76015254e40080aba6e71de30f5e3184f8f934941f2719a"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-74400888-b9d2b480.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-17/cards/market-insiders-2026-11-17-53f4f5d2-b9d2b480.png",
           "kind": "image",
-          "alt": "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 394 companies with buys, 620 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M."
+          "alt": "Officers and directors reported $525M of open-market buys and $5.1B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 18 to Nov 17; 395 companies with buys, 620 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $SNOW $142M (4 insiders). Largest buyers among them: $KMI $15.0M."
         }
       ],
       "market_cap_source": "market_map",
@@ -1346,8 +1344,8 @@
         "Over 30 days in our feed, officers and directors reported $525M of open-market buys and $5.1B of open-market sells.",
         "Officers and directors sold $5.1B and bought $525M of their own companies' stock on the open market over 30 days in our feed.",
         "Over 30 days in our feed, officers and directors sold $5.1B and bought $525M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 394 companies had open-market buys by officers and directors and 620 had open-market sells.",
-        "620 companies had open-market sells by officers and directors and 394 had open-market buys over 30 days in our feed.",
+        "Over 30 days in our feed, 395 companies had open-market buys by officers and directors and 620 had open-market sells.",
+        "620 companies had open-market sells by officers and directors and 395 had open-market buys over 30 days in our feed.",
         "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
         "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
         "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
@@ -1547,14 +1545,14 @@
           "id": "insiderflo-ca45c6.a",
           "fact": "insiderflo-ca45c6",
           "variant": "a",
-          "text": "Over 30 days in our feed, 394 companies had open-market buys by officers and directors and 620 had open-market sells.",
+          "text": "Over 30 days in our feed, 395 companies had open-market buys by officers and directors and 620 had open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.h1",
           "fact": "insiderflo-ca45c6",
           "variant": "h1",
-          "text": "620 companies had open-market sells by officers and directors and 394 had open-market buys over 30 days in our feed.",
+          "text": "620 companies had open-market sells by officers and directors and 395 had open-market buys over 30 days in our feed.",
           "claim": false
         },
         {
@@ -1638,7 +1636,7 @@
       "moves": {
         "numbers": {
           "$525M": "+",
-          "$524.7M": "+",
+          "$524.9M": "+",
           "$5.1B": "+",
           "$5B": "+",
           "$333M": "+",
@@ -7785,425 +7783,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-17-earnings-result-BIDU-94d637",
-      "type": "earnings_result",
-      "ticker": "BIDU",
-      "tickers": [
-        "BIDU"
-      ],
-      "name": "Baidu, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1329099/000119312526462286/d767848dex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/BIDU?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-BIDU-94d637#earnings-history",
-      "allowed_numbers": [
-        "$30.81B",
-        "$30.63B",
-        "$6.78",
-        "$6.16",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Baidu, Inc. (BIDU) published Q3 2026 results on 2026-11-16: Beat estimates. Revenue $30.81B vs $30.63B consensus (Beat by RMB 177M). non-GAAP diluted earnings per ADS $6.78 vs $6.16 consensus (Beat by RMB 0.62).",
-      "dedupe_key": "report:bidu-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $30.63B consensus.",
-        "$BIDU beat the Q3 2026 revenue consensus: $30.81B vs $30.63B.",
-        "$BIDU beat the Q3 revenue consensus: $30.81B vs $30.63B.",
-        "EPS came in above the $6.16 consensus.",
-        "$BIDU beat the Q3 2026 EPS consensus: $6.78 vs $6.16.",
-        "non-GAAP diluted earnings per ADS came in above the $6.16 consensus.",
-        "$BIDU beat the Q3 2026 non-GAAP diluted earnings per ADS consensus: $6.78 vs $6.16.",
-        "$BIDU beat the Q3 EPS consensus: $6.78 vs $6.16.",
-        "$BIDU beat the Q3 non-GAAP diluted earnings per ADS consensus: $6.78 vs $6.16.",
-        "$BIDU beat Q3 2026 estimates.",
-        "$BIDU beat Q3 estimates."
-      ],
-      "report_id": "bidu-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-16",
-      "published_at": "2026-11-16T20:02:15.547917+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$30.81B",
-          "consensus": "$30.63B",
-          "label": "Beat by RMB 177M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "non-GAAP diluted earnings per ADS",
-          "reported": "$6.78",
-          "consensus": "$6.16",
-          "label": "Beat by RMB 0.62",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/BIDU/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for BIDU: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 8.5,
-      "rank_why": "earnings_result 3; large cap $26.6B +2.5; magnitude (verdict) +1.5; release_date 2026-11-16 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 26600700619.719772,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16",
-        "$26.6B",
-        "−5.37%",
-        "5.37%",
-        "−5.4%",
-        "5.4%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "BIDU"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "BIDU": "Communication Services"
-      },
-      "ticker_names": {
-        "BIDU": "Baidu, Inc."
-      },
-      "context": {
-        "market_cap": "$26.6B",
-        "market_cap_session": "2026-11-16",
-        "last_session_move": {
-          "pct": "−5.37%",
-          "session": "2026-11-16"
-        }
-      },
-      "angles": [
-        "Baidu, Inc. ($BIDU) published Q3 2026 results on Nov 16.",
-        "$BIDU (Baidu, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, Baidu, Inc. ($BIDU) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Baidu, Inc. ($BIDU) published Q3 2026 results on Nov 16.",
-        "$BIDU (Baidu, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, Baidu, Inc. ($BIDU) published Q3 2026 results.",
-        "$BIDU published Q3 2026 results on Nov 16.",
-        "Q3 2026 results from $BIDU came out on Nov 16.",
-        "On Nov 16, $BIDU published Q3 2026 results.",
-        "$BIDU Q3 2026 revenue: $30.81B vs $30.63B consensus.",
-        "$BIDU reported Q3 2026 revenue of $30.81B vs $30.63B consensus.",
-        "$BIDU Q3 2026 revenue was $30.81B.",
-        "Q3 2026 revenue at $BIDU was $30.81B.",
-        "$BIDU Q3 2026 non-GAAP diluted earnings per ADS: $6.78 vs $6.16 consensus.",
-        "$BIDU reported Q3 2026 non-GAAP diluted earnings per ADS of $6.78 vs $6.16 consensus.",
-        "$BIDU Q3 2026 non-GAAP diluted earnings per ADS was $6.78.",
-        "Q3 2026 non-GAAP diluted earnings per ADS at $BIDU was $6.78.",
-        "$BIDU had a market value of $26.6B at the Nov 16 close.",
-        "$BIDU's market value at the Nov 16 close was $26.6B.",
-        "At the Nov 16 close, $BIDU had a market value of $26.6B.",
-        "$BIDU moved −5.37% on Monday, Nov 16.",
-        "$BIDU's move on Monday, Nov 16: −5.37%.",
-        "On Monday, Nov 16, $BIDU moved −5.37%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $30.63B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$BIDU beat the Q3 2026 revenue consensus: $30.81B vs $30.63B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$BIDU beat the Q3 revenue consensus: $30.81B vs $30.63B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $6.16 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$BIDU beat the Q3 2026 EPS consensus: $6.78 vs $6.16.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-a5f585.a",
-          "fact": "earningsre-a5f585",
-          "variant": "a",
-          "text": "non-GAAP diluted earnings per ADS came in above the $6.16 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e641cb.a",
-          "fact": "earningsre-e641cb",
-          "variant": "a",
-          "text": "$BIDU beat the Q3 2026 non-GAAP diluted earnings per ADS consensus: $6.78 vs $6.16.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$BIDU beat the Q3 EPS consensus: $6.78 vs $6.16.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3c652c.a",
-          "fact": "earningsre-3c652c",
-          "variant": "a",
-          "text": "$BIDU beat the Q3 non-GAAP diluted earnings per ADS consensus: $6.78 vs $6.16.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$BIDU beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$BIDU beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Baidu, Inc. ($BIDU) published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$BIDU (Baidu, Inc.) reported Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 16, Baidu, Inc. ($BIDU) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$BIDU published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $BIDU came out on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 16, $BIDU published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$BIDU Q3 2026 revenue: $30.81B vs $30.63B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$BIDU reported Q3 2026 revenue of $30.81B vs $30.63B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$BIDU Q3 2026 revenue was $30.81B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $BIDU was $30.81B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b11df4.a",
-          "fact": "earningsre-b11df4",
-          "variant": "a",
-          "text": "$BIDU Q3 2026 non-GAAP diluted earnings per ADS: $6.78 vs $6.16 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b11df4.h1",
-          "fact": "earningsre-b11df4",
-          "variant": "h1",
-          "text": "$BIDU reported Q3 2026 non-GAAP diluted earnings per ADS of $6.78 vs $6.16 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-7be5b3.a",
-          "fact": "earningsre-7be5b3",
-          "variant": "a",
-          "text": "$BIDU Q3 2026 non-GAAP diluted earnings per ADS was $6.78.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-7be5b3.h1",
-          "fact": "earningsre-7be5b3",
-          "variant": "h1",
-          "text": "Q3 2026 non-GAAP diluted earnings per ADS at $BIDU was $6.78.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$BIDU had a market value of $26.6B at the Nov 16 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$BIDU's market value at the Nov 16 close was $26.6B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 16 close, $BIDU had a market value of $26.6B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$BIDU moved −5.37% on Monday, Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$BIDU's move on Monday, Nov 16: −5.37%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Monday, Nov 16, $BIDU moved −5.37%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "5.37%": "-",
-          "5.4%": "-"
-        },
-        "subjects": {
-          "BIDU": "down"
-        }
-      },
-      "subject_numbers": {
-        "BIDU": [
-          [
-            "$",
-            30.81,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            30.63,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            6.78,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            6.16,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            5.37,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            26.6,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-16 release posted on 2026-11-17: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-17-congress-trade-KO-02c046",
       "type": "congress_trade",
       "ticker": "KO",
@@ -8271,8 +7850,8 @@
         "0.23%",
         "+0.2%",
         "0.2%",
-        "81",
-        "125",
+        "83",
+        "127",
         "26",
         "30"
       ],
@@ -8300,8 +7879,8 @@
           "session": "2026-11-16"
         },
         "congress_30d": {
-          "buys": 81,
-          "sells": 125,
+          "buys": 83,
+          "sells": 127,
           "members": 26,
           "days": 30
         }
@@ -8324,9 +7903,9 @@
         "$KO moved +0.23% on Monday, Nov 16.",
         "$KO's move on Monday, Nov 16: +0.23%.",
         "On Monday, Nov 16, $KO moved +0.23%.",
-        "Members of Congress disclosed 81 buys and 125 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 125 sells and 81 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 81 buys and 125 sells."
+        "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells."
       ],
       "phrasings": [
         {
@@ -8417,21 +7996,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 81 buys and 125 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 125 sells and 81 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 81 buys and 125 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells.",
           "claim": false
         }
       ],
@@ -8753,8 +8332,8 @@
         "2.81%",
         "−2.8%",
         "2.8%",
-        "81",
-        "125",
+        "83",
+        "127",
         "26",
         "30"
       ],
@@ -8782,8 +8361,8 @@
           "session": "2026-11-16"
         },
         "congress_30d": {
-          "buys": 81,
-          "sells": 125,
+          "buys": 83,
+          "sells": 127,
           "members": 26,
           "days": 30
         }
@@ -8806,9 +8385,9 @@
         "$EL moved −2.81% on Monday, Nov 16.",
         "$EL's move on Monday, Nov 16: −2.81%.",
         "On Monday, Nov 16, $EL moved −2.81%.",
-        "Members of Congress disclosed 81 buys and 125 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 125 sells and 81 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 81 buys and 125 sells."
+        "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells."
       ],
       "phrasings": [
         {
@@ -8899,21 +8478,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 81 buys and 125 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 125 sells and 81 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 81 buys and 125 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells.",
           "claim": false
         }
       ],
@@ -9007,8 +8586,8 @@
         "$3.4B",
         "$525M",
         "+$525M",
-        "$524.7M",
-        "+$524.7M",
+        "$524.9M",
+        "+$524.9M",
         "$5.1B",
         "+$5.1B",
         "$5B",
@@ -9032,8 +8611,8 @@
           "numbers": [
             "$525M",
             "+$525M",
-            "$524.7M",
-            "+$524.7M",
+            "$524.9M",
+            "+$524.9M",
             "$5.1B",
             "+$5.1B",
             "$5B",
@@ -9194,7 +8773,7 @@
       "moves": {
         "numbers": {
           "$525M": "+",
-          "$524.7M": "+",
+          "$524.9M": "+",
           "$5.1B": "+",
           "$5B": "+"
         },
@@ -9228,15 +8807,13 @@
       "amount_text": null,
       "traded": [],
       "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1988894/000198889426000094/pressreleaseq32026.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1988894/000198889426000095/as-20260930_d2.htm",
       "page_url": "https://www.rapidtradeview.trade/dashboard/AS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-AS-73e521#earnings-history",
       "allowed_numbers": [
         "$2.17B",
         "$2.14B",
         "$31.4M",
-        "$0.42",
-        "$0.35",
-        "$0.07",
+        "$0.41",
         "Q3 2026",
         "Q3",
         "FY2026",
@@ -9247,7 +8824,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Amer Sports, Inc. (AS) published Q3 2026 results on 2026-11-17: Beat estimates. Revenue $2.17B vs $2.14B consensus (Beat by $31.4M). adjusted diluted earnings per share $0.42 vs $0.35 consensus (Beat by $0.07).",
+      "facts_text": "Amer Sports, Inc. (AS) published Q3 2026 results on 2026-11-17: Revenue beat. Revenue $2.17B vs $2.14B consensus (Beat by $31.4M). GAAP EPS $0.41.",
       "dedupe_key": "report:as-2026-q3",
       "claim_phrases": [
         "revenue came in above the $2.14B consensus.",
@@ -9261,36 +8838,14 @@
         "$AS Q3 revenue: $2.17B vs $2.14B consensus (beat by $31.4M).",
         "$AS Q3 revenue $2.17B, beat by $31.4M.",
         "$AS beat Q3 revenue estimates by $31.4M.",
-        "EPS came in above the $0.35 consensus.",
-        "$AS beat the Q3 2026 EPS consensus: $0.42 vs $0.35.",
-        "$AS Q3 2026 EPS: $0.42 vs $0.35 consensus (beat by $0.07).",
-        "$AS Q3 2026 EPS $0.42, beat by $0.07.",
-        "EPS $0.42 vs $0.35 consensus (beat by $0.07).",
-        "EPS $0.42 vs $0.35 (beat by $0.07).",
-        "$AS beat Q3 2026 EPS estimates by $0.07.",
-        "adjusted diluted earnings per share came in above the $0.35 consensus.",
-        "$AS beat the Q3 2026 adjusted diluted earnings per share consensus: $0.42 vs $0.35.",
-        "$AS Q3 2026 adjusted diluted earnings per share: $0.42 vs $0.35 consensus (beat by $0.07).",
-        "$AS Q3 2026 adjusted diluted earnings per share $0.42, beat by $0.07.",
-        "adjusted diluted earnings per share $0.42 vs $0.35 consensus (beat by $0.07).",
-        "adjusted diluted earnings per share $0.42 vs $0.35 (beat by $0.07).",
-        "$AS beat Q3 2026 adjusted diluted earnings per share estimates by $0.07.",
-        "$AS beat the Q3 EPS consensus: $0.42 vs $0.35.",
-        "$AS Q3 EPS: $0.42 vs $0.35 consensus (beat by $0.07).",
-        "$AS Q3 EPS $0.42, beat by $0.07.",
-        "$AS beat Q3 EPS estimates by $0.07.",
-        "$AS beat the Q3 adjusted diluted earnings per share consensus: $0.42 vs $0.35.",
-        "$AS Q3 adjusted diluted earnings per share: $0.42 vs $0.35 consensus (beat by $0.07).",
-        "$AS Q3 adjusted diluted earnings per share $0.42, beat by $0.07.",
-        "$AS beat Q3 adjusted diluted earnings per share estimates by $0.07.",
         "$AS beat Q3 2026 estimates.",
         "$AS beat Q3 estimates."
       ],
       "report_id": "as-2026-q3",
       "fiscal_label": "Q3 2026",
       "release_date": "2026-11-17",
-      "published_at": "2026-11-17T12:04:39.986220+00:00",
-      "tile_label": "Beat estimates",
+      "published_at": "2026-11-17T20:01:16.258845+00:00",
+      "tile_label": "Revenue beat",
       "tile_state": "beat",
       "results": {
         "revenue": {
@@ -9300,11 +8855,8 @@
           "verdict": "beat"
         },
         "eps": {
-          "basis": "adjusted diluted earnings per share",
-          "reported": "$0.42",
-          "consensus": "$0.35",
-          "label": "Beat by $0.07",
-          "verdict": "beat"
+          "basis": "GAAP EPS",
+          "reported": "$0.41"
         }
       },
       "media": [
@@ -9348,10 +8900,10 @@
         "$AS reported Q3 2026 revenue of $2.17B vs $2.14B consensus.",
         "$AS Q3 2026 revenue was $2.17B.",
         "Q3 2026 revenue at $AS was $2.17B.",
-        "$AS Q3 2026 adjusted diluted earnings per share: $0.42 vs $0.35 consensus.",
-        "$AS reported Q3 2026 adjusted diluted earnings per share of $0.42 vs $0.35 consensus.",
-        "$AS Q3 2026 adjusted diluted earnings per share was $0.42.",
-        "Q3 2026 adjusted diluted earnings per share at $AS was $0.42."
+        "$AS Q3 2026 GAAP EPS: $0.41.",
+        "$AS reported Q3 2026 GAAP EPS of $0.41.",
+        "$AS Q3 2026 GAAP EPS was $0.41.",
+        "Q3 2026 GAAP EPS at $AS was $0.41."
       ],
       "phrasings": [
         {
@@ -9429,160 +8981,6 @@
           "fact": "earningsre-6ea266",
           "variant": "a",
           "text": "$AS beat Q3 revenue estimates by $31.4M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $0.35 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$AS beat the Q3 2026 EPS consensus: $0.42 vs $0.35.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$AS Q3 2026 EPS: $0.42 vs $0.35 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$AS Q3 2026 EPS $0.42, beat by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $0.42 vs $0.35 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $0.42 vs $0.35 (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$AS beat Q3 2026 EPS estimates by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-acdd3d.a",
-          "fact": "earningsre-acdd3d",
-          "variant": "a",
-          "text": "adjusted diluted earnings per share came in above the $0.35 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-16bdc5.a",
-          "fact": "earningsre-16bdc5",
-          "variant": "a",
-          "text": "$AS beat the Q3 2026 adjusted diluted earnings per share consensus: $0.42 vs $0.35.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d4d8ea.a",
-          "fact": "earningsre-d4d8ea",
-          "variant": "a",
-          "text": "$AS Q3 2026 adjusted diluted earnings per share: $0.42 vs $0.35 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9c49b4.a",
-          "fact": "earningsre-9c49b4",
-          "variant": "a",
-          "text": "$AS Q3 2026 adjusted diluted earnings per share $0.42, beat by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c20dfd.a",
-          "fact": "earningsre-c20dfd",
-          "variant": "a",
-          "text": "adjusted diluted earnings per share $0.42 vs $0.35 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e9c3f5.a",
-          "fact": "earningsre-e9c3f5",
-          "variant": "a",
-          "text": "adjusted diluted earnings per share $0.42 vs $0.35 (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-29d43b.a",
-          "fact": "earningsre-29d43b",
-          "variant": "a",
-          "text": "$AS beat Q3 2026 adjusted diluted earnings per share estimates by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$AS beat the Q3 EPS consensus: $0.42 vs $0.35.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$AS Q3 EPS: $0.42 vs $0.35 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$AS Q3 EPS $0.42, beat by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$AS beat Q3 EPS estimates by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9a50bb.a",
-          "fact": "earningsre-9a50bb",
-          "variant": "a",
-          "text": "$AS beat the Q3 adjusted diluted earnings per share consensus: $0.42 vs $0.35.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f7bd30.a",
-          "fact": "earningsre-f7bd30",
-          "variant": "a",
-          "text": "$AS Q3 adjusted diluted earnings per share: $0.42 vs $0.35 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f3ae9f.a",
-          "fact": "earningsre-f3ae9f",
-          "variant": "a",
-          "text": "$AS Q3 adjusted diluted earnings per share $0.42, beat by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e0a03e.a",
-          "fact": "earningsre-e0a03e",
-          "variant": "a",
-          "text": "$AS beat Q3 adjusted diluted earnings per share estimates by $0.07.",
           "claim": true
         },
         {
@@ -9670,31 +9068,31 @@
           "claim": false
         },
         {
-          "id": "earningsre-9fa0b4.a",
-          "fact": "earningsre-9fa0b4",
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
           "variant": "a",
-          "text": "$AS Q3 2026 adjusted diluted earnings per share: $0.42 vs $0.35 consensus.",
+          "text": "$AS Q3 2026 GAAP EPS: $0.41.",
           "claim": false
         },
         {
-          "id": "earningsre-9fa0b4.h1",
-          "fact": "earningsre-9fa0b4",
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
           "variant": "h1",
-          "text": "$AS reported Q3 2026 adjusted diluted earnings per share of $0.42 vs $0.35 consensus.",
+          "text": "$AS reported Q3 2026 GAAP EPS of $0.41.",
           "claim": false
         },
         {
-          "id": "earningsre-540ff9.a",
-          "fact": "earningsre-540ff9",
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
           "variant": "a",
-          "text": "$AS Q3 2026 adjusted diluted earnings per share was $0.42.",
+          "text": "$AS Q3 2026 GAAP EPS was $0.41.",
           "claim": false
         },
         {
-          "id": "earningsre-540ff9.h1",
-          "fact": "earningsre-540ff9",
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
           "variant": "h1",
-          "text": "Q3 2026 adjusted diluted earnings per share at $AS was $0.42.",
+          "text": "Q3 2026 GAAP EPS at $AS was $0.41.",
           "claim": false
         }
       ],
@@ -9723,27 +9121,6 @@
             31.4,
             1,
             1000000.0,
-            0
-          ],
-          [
-            "$",
-            0.42,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.35,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.07,
-            2,
-            1.0,
             0
           ]
         ]
@@ -10139,8 +9516,8 @@
         "0.81%",
         "+0.8%",
         "0.8%",
-        "81",
-        "125",
+        "83",
+        "127",
         "26",
         "30"
       ],
@@ -10168,8 +9545,8 @@
           "session": "2026-11-16"
         },
         "congress_30d": {
-          "buys": 81,
-          "sells": 125,
+          "buys": 83,
+          "sells": 127,
           "members": 26,
           "days": 30
         }
@@ -10192,9 +9569,9 @@
         "$T moved +0.81% on Monday, Nov 16.",
         "$T's move on Monday, Nov 16: +0.81%.",
         "On Monday, Nov 16, $T moved +0.81%.",
-        "Members of Congress disclosed 81 buys and 125 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 125 sells and 81 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 81 buys and 125 sells."
+        "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells."
       ],
       "phrasings": [
         {
@@ -10285,21 +9662,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 81 buys and 125 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 125 sells and 81 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 81 buys and 125 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells.",
           "claim": false
         }
       ],
@@ -10847,6 +10224,396 @@
             23.17,
             2,
             1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-17-earnings-result-CUE-417b1a",
+      "type": "earnings_result",
+      "ticker": "CUE",
+      "tickers": [
+        "CUE"
+      ],
+      "name": "Cue Biopharma, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1645460/000119312526463741/cue-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CUE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-CUE-417b1a#earnings-history",
+      "allowed_numbers": [
+        "−$4.74",
+        "−$2.24",
+        "$2.50",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Cue Biopharma, Inc. (CUE) published Q3 2026 results on 2026-11-16: EPS miss. Diluted EPS (GAAP, street basis) −$4.74 vs −$2.24 consensus (Missed by $2.50).",
+      "dedupe_key": "report:cue-2026-q3",
+      "claim_phrases": [
+        "EPS came in below the −$2.24 consensus.",
+        "$CUE missed the Q3 2026 EPS consensus: −$4.74 vs −$2.24.",
+        "$CUE Q3 2026 EPS: −$4.74 vs −$2.24 consensus (missed by $2.50).",
+        "$CUE Q3 2026 EPS −$4.74, missed by $2.50.",
+        "EPS −$4.74 vs −$2.24 consensus (missed by $2.50).",
+        "EPS −$4.74 vs −$2.24 (missed by $2.50).",
+        "$CUE missed Q3 2026 EPS estimates by $2.50.",
+        "Diluted EPS (GAAP, street basis) came in below the −$2.24 consensus.",
+        "$CUE missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$4.74 vs −$2.24.",
+        "$CUE Q3 2026 Diluted EPS (GAAP, street basis): −$4.74 vs −$2.24 consensus (missed by $2.50).",
+        "$CUE Q3 2026 Diluted EPS (GAAP, street basis) −$4.74, missed by $2.50.",
+        "Diluted EPS (GAAP, street basis) −$4.74 vs −$2.24 consensus (missed by $2.50).",
+        "Diluted EPS (GAAP, street basis) −$4.74 vs −$2.24 (missed by $2.50).",
+        "$CUE missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $2.50.",
+        "$CUE missed the Q3 EPS consensus: −$4.74 vs −$2.24.",
+        "$CUE Q3 EPS: −$4.74 vs −$2.24 consensus (missed by $2.50).",
+        "$CUE Q3 EPS −$4.74, missed by $2.50.",
+        "$CUE missed Q3 EPS estimates by $2.50.",
+        "$CUE missed the Q3 Diluted EPS (GAAP, street basis) consensus: −$4.74 vs −$2.24.",
+        "$CUE Q3 Diluted EPS (GAAP, street basis): −$4.74 vs −$2.24 consensus (missed by $2.50).",
+        "$CUE Q3 Diluted EPS (GAAP, street basis) −$4.74, missed by $2.50.",
+        "$CUE missed Q3 Diluted EPS (GAAP, street basis) estimates by $2.50.",
+        "$CUE missed Q3 2026 estimates.",
+        "$CUE missed Q3 estimates."
+      ],
+      "report_id": "cue-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T23:15:16.046183+00:00",
+      "tile_label": "EPS miss",
+      "tile_state": "miss",
+      "results": {
+        "eps": {
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "−$4.74",
+          "consensus": "−$2.24",
+          "label": "Missed by $2.50",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CUE/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CUE: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CUE"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Cue Biopharma, Inc. ($CUE) published Q3 2026 results on Nov 16.",
+        "$CUE (Cue Biopharma, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Cue Biopharma, Inc. ($CUE) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Cue Biopharma, Inc. ($CUE) published Q3 2026 results on Nov 16.",
+        "$CUE (Cue Biopharma, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Cue Biopharma, Inc. ($CUE) published Q3 2026 results.",
+        "$CUE published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $CUE came out on Nov 16.",
+        "On Nov 16, $CUE published Q3 2026 results.",
+        "$CUE Q3 2026 Diluted EPS (GAAP, street basis): −$4.74 vs −$2.24 consensus.",
+        "$CUE reported Q3 2026 Diluted EPS (GAAP, street basis) of −$4.74 vs −$2.24 consensus.",
+        "$CUE Q3 2026 Diluted EPS (GAAP, street basis) was −$4.74.",
+        "Q3 2026 Diluted EPS (GAAP, street basis) at $CUE was −$4.74."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the −$2.24 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3982e5.a",
+          "fact": "earningsre-3982e5",
+          "variant": "a",
+          "text": "$CUE missed the Q3 2026 EPS consensus: −$4.74 vs −$2.24.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cf8f92.a",
+          "fact": "earningsre-cf8f92",
+          "variant": "a",
+          "text": "$CUE Q3 2026 EPS: −$4.74 vs −$2.24 consensus (missed by $2.50).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1ed72e.a",
+          "fact": "earningsre-1ed72e",
+          "variant": "a",
+          "text": "$CUE Q3 2026 EPS −$4.74, missed by $2.50.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS −$4.74 vs −$2.24 consensus (missed by $2.50).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS −$4.74 vs −$2.24 (missed by $2.50).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54e1d8.a",
+          "fact": "earningsre-54e1d8",
+          "variant": "a",
+          "text": "$CUE missed Q3 2026 EPS estimates by $2.50.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6eb967.a",
+          "fact": "earningsre-6eb967",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in below the −$2.24 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e07081.a",
+          "fact": "earningsre-e07081",
+          "variant": "a",
+          "text": "$CUE missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$4.74 vs −$2.24.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9bd402.a",
+          "fact": "earningsre-9bd402",
+          "variant": "a",
+          "text": "$CUE Q3 2026 Diluted EPS (GAAP, street basis): −$4.74 vs −$2.24 consensus (missed by $2.50).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cdde1d.a",
+          "fact": "earningsre-cdde1d",
+          "variant": "a",
+          "text": "$CUE Q3 2026 Diluted EPS (GAAP, street basis) −$4.74, missed by $2.50.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-193d52.a",
+          "fact": "earningsre-193d52",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$4.74 vs −$2.24 consensus (missed by $2.50).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-03e5ea.a",
+          "fact": "earningsre-03e5ea",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$4.74 vs −$2.24 (missed by $2.50).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-24d3f0.a",
+          "fact": "earningsre-24d3f0",
+          "variant": "a",
+          "text": "$CUE missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $2.50.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-355c5f.a",
+          "fact": "earningsre-355c5f",
+          "variant": "a",
+          "text": "$CUE missed the Q3 EPS consensus: −$4.74 vs −$2.24.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-83f6a0.a",
+          "fact": "earningsre-83f6a0",
+          "variant": "a",
+          "text": "$CUE Q3 EPS: −$4.74 vs −$2.24 consensus (missed by $2.50).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d4f8ff.a",
+          "fact": "earningsre-d4f8ff",
+          "variant": "a",
+          "text": "$CUE Q3 EPS −$4.74, missed by $2.50.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4ffa7a.a",
+          "fact": "earningsre-4ffa7a",
+          "variant": "a",
+          "text": "$CUE missed Q3 EPS estimates by $2.50.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8be676.a",
+          "fact": "earningsre-8be676",
+          "variant": "a",
+          "text": "$CUE missed the Q3 Diluted EPS (GAAP, street basis) consensus: −$4.74 vs −$2.24.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d57ced.a",
+          "fact": "earningsre-d57ced",
+          "variant": "a",
+          "text": "$CUE Q3 Diluted EPS (GAAP, street basis): −$4.74 vs −$2.24 consensus (missed by $2.50).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-239353.a",
+          "fact": "earningsre-239353",
+          "variant": "a",
+          "text": "$CUE Q3 Diluted EPS (GAAP, street basis) −$4.74, missed by $2.50.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cd2ae1.a",
+          "fact": "earningsre-cd2ae1",
+          "variant": "a",
+          "text": "$CUE missed Q3 Diluted EPS (GAAP, street basis) estimates by $2.50.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$CUE missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$CUE missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Cue Biopharma, Inc. ($CUE) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$CUE (Cue Biopharma, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Cue Biopharma, Inc. ($CUE) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$CUE published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $CUE came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $CUE published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
+          "variant": "a",
+          "text": "$CUE Q3 2026 Diluted EPS (GAAP, street basis): −$4.74 vs −$2.24 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
+          "variant": "h1",
+          "text": "$CUE reported Q3 2026 Diluted EPS (GAAP, street basis) of −$4.74 vs −$2.24 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
+          "variant": "a",
+          "text": "$CUE Q3 2026 Diluted EPS (GAAP, street basis) was −$4.74.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
+          "variant": "h1",
+          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $CUE was −$4.74.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$4.74": "-",
+          "$2.24": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CUE": [
+          [
+            "$",
+            4.74,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            2.24,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            2.5,
+            2,
+            1.0,
             0
           ]
         ]
@@ -11598,6 +11365,9 @@
       "source_url": "https://www.sec.gov/Archives/edgar/data/80420/000008042026000139/ex991-powlq4xfy2026earning.htm",
       "page_url": "https://www.rapidtradeview.trade/dashboard/POWL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-POWL-df65d8#earnings-history",
       "allowed_numbers": [
+        "$397M",
+        "$331M",
+        "$65.3M",
         "$2.23",
         "$1.56",
         "$0.67",
@@ -11612,9 +11382,16 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Powell Industries, Inc. (POWL) published FY2026 (Q4) results on 2026-11-16. Diluted EPS (GAAP, street basis) $2.23 vs $1.56 consensus (Beat by $0.67).",
+      "facts_text": "Powell Industries, Inc. (POWL) published FY2026 (Q4) results on 2026-11-16: Beat estimates. Revenue $397M vs $331M consensus (Beat by $65.3M). Diluted EPS (GAAP, street basis) $2.23 vs $1.56 consensus (Beat by $0.67).",
       "dedupe_key": "report:powl-2026-q4",
       "claim_phrases": [
+        "revenue came in above the $331M consensus.",
+        "$POWL beat the FY2026 (Q4) revenue consensus: $397M vs $331M.",
+        "$POWL FY2026 (Q4) revenue: $397M vs $331M consensus (beat by $65.3M).",
+        "$POWL FY2026 (Q4) revenue $397M, beat by $65.3M.",
+        "revenue $397M vs $331M consensus (beat by $65.3M).",
+        "revenue $397M vs $331M (beat by $65.3M).",
+        "$POWL beat FY2026 (Q4) revenue estimates by $65.3M.",
         "EPS came in above the $1.56 consensus.",
         "$POWL beat the FY2026 (Q4) EPS consensus: $2.23 vs $1.56.",
         "$POWL FY2026 (Q4) EPS: $2.23 vs $1.56 consensus (beat by $0.67).",
@@ -11635,9 +11412,15 @@
       "fiscal_label": "FY2026 (Q4)",
       "release_date": "2026-11-16",
       "published_at": "2026-11-16T21:32:23.067462+00:00",
-      "tile_label": null,
-      "tile_state": null,
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
       "results": {
+        "revenue": {
+          "reported": "$397M",
+          "consensus": "$331M",
+          "label": "Beat by $65.3M",
+          "verdict": "beat"
+        },
         "eps": {
           "basis": "Diluted EPS (GAAP, street basis)",
           "reported": "$2.23",
@@ -11683,12 +11466,65 @@
         "$POWL published FY2026 (Q4) results on Nov 16.",
         "FY2026 (Q4) results from $POWL came out on Nov 16.",
         "On Nov 16, $POWL published FY2026 (Q4) results.",
+        "$POWL FY2026 (Q4) revenue: $397M vs $331M consensus.",
+        "$POWL reported FY2026 (Q4) revenue of $397M vs $331M consensus.",
+        "$POWL FY2026 (Q4) revenue was $397M.",
+        "FY2026 (Q4) revenue at $POWL was $397M.",
         "$POWL FY2026 (Q4) Diluted EPS (GAAP, street basis): $2.23 vs $1.56 consensus.",
         "$POWL reported FY2026 (Q4) Diluted EPS (GAAP, street basis) of $2.23 vs $1.56 consensus.",
         "$POWL FY2026 (Q4) Diluted EPS (GAAP, street basis) was $2.23.",
         "FY2026 (Q4) Diluted EPS (GAAP, street basis) at $POWL was $2.23."
       ],
       "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $331M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$POWL beat the FY2026 (Q4) revenue consensus: $397M vs $331M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$POWL FY2026 (Q4) revenue: $397M vs $331M consensus (beat by $65.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$POWL FY2026 (Q4) revenue $397M, beat by $65.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $397M vs $331M consensus (beat by $65.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $397M vs $331M (beat by $65.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$POWL beat FY2026 (Q4) revenue estimates by $65.3M.",
+          "claim": true
+        },
         {
           "id": "earningsre-3ee1d9.a",
           "fact": "earningsre-3ee1d9",
@@ -11837,6 +11673,34 @@
           "claim": false
         },
         {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$POWL FY2026 (Q4) revenue: $397M vs $331M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$POWL reported FY2026 (Q4) revenue of $397M vs $331M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$POWL FY2026 (Q4) revenue was $397M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $POWL was $397M.",
+          "claim": false
+        },
+        {
           "id": "earningsre-094257.a",
           "fact": "earningsre-094257",
           "variant": "a",
@@ -11871,6 +11735,27 @@
       },
       "subject_numbers": {
         "POWL": [
+          [
+            "$",
+            397.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            331.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            65.3,
+            1,
+            1000000.0,
+            0
+          ],
           [
             "$",
             2.23,
@@ -12314,6 +12199,396 @@
           [
             "$",
             0.1,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-17-earnings-result-ORIC-98ea8a",
+      "type": "earnings_result",
+      "ticker": "ORIC",
+      "tickers": [
+        "ORIC"
+      ],
+      "name": "ORIC Pharmaceuticals, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1796280/000119312526463506/oric-ex99_1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ORIC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-ORIC-98ea8a#earnings-history",
+      "allowed_numbers": [
+        "−$0.44",
+        "−$0.38",
+        "$0.06",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "ORIC Pharmaceuticals, Inc. (ORIC) published Q3 2026 results on 2026-11-16: EPS miss. Diluted EPS (GAAP, street basis) −$0.44 vs −$0.38 consensus (Missed by $0.06).",
+      "dedupe_key": "report:oric-2026-q3",
+      "claim_phrases": [
+        "EPS came in below the −$0.38 consensus.",
+        "$ORIC missed the Q3 2026 EPS consensus: −$0.44 vs −$0.38.",
+        "$ORIC Q3 2026 EPS: −$0.44 vs −$0.38 consensus (missed by $0.06).",
+        "$ORIC Q3 2026 EPS −$0.44, missed by $0.06.",
+        "EPS −$0.44 vs −$0.38 consensus (missed by $0.06).",
+        "EPS −$0.44 vs −$0.38 (missed by $0.06).",
+        "$ORIC missed Q3 2026 EPS estimates by $0.06.",
+        "Diluted EPS (GAAP, street basis) came in below the −$0.38 consensus.",
+        "$ORIC missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$0.44 vs −$0.38.",
+        "$ORIC Q3 2026 Diluted EPS (GAAP, street basis): −$0.44 vs −$0.38 consensus (missed by $0.06).",
+        "$ORIC Q3 2026 Diluted EPS (GAAP, street basis) −$0.44, missed by $0.06.",
+        "Diluted EPS (GAAP, street basis) −$0.44 vs −$0.38 consensus (missed by $0.06).",
+        "Diluted EPS (GAAP, street basis) −$0.44 vs −$0.38 (missed by $0.06).",
+        "$ORIC missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.06.",
+        "$ORIC missed the Q3 EPS consensus: −$0.44 vs −$0.38.",
+        "$ORIC Q3 EPS: −$0.44 vs −$0.38 consensus (missed by $0.06).",
+        "$ORIC Q3 EPS −$0.44, missed by $0.06.",
+        "$ORIC missed Q3 EPS estimates by $0.06.",
+        "$ORIC missed the Q3 Diluted EPS (GAAP, street basis) consensus: −$0.44 vs −$0.38.",
+        "$ORIC Q3 Diluted EPS (GAAP, street basis): −$0.44 vs −$0.38 consensus (missed by $0.06).",
+        "$ORIC Q3 Diluted EPS (GAAP, street basis) −$0.44, missed by $0.06.",
+        "$ORIC missed Q3 Diluted EPS (GAAP, street basis) estimates by $0.06.",
+        "$ORIC missed Q3 2026 estimates.",
+        "$ORIC missed Q3 estimates."
+      ],
+      "report_id": "oric-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:30:32.037669+00:00",
+      "tile_label": "EPS miss",
+      "tile_state": "miss",
+      "results": {
+        "eps": {
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "−$0.44",
+          "consensus": "−$0.38",
+          "label": "Missed by $0.06",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ORIC/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for ORIC: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ORIC"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
+        "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
+        "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results.",
+        "$ORIC published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $ORIC came out on Nov 16.",
+        "On Nov 16, $ORIC published Q3 2026 results.",
+        "$ORIC Q3 2026 Diluted EPS (GAAP, street basis): −$0.44 vs −$0.38 consensus.",
+        "$ORIC reported Q3 2026 Diluted EPS (GAAP, street basis) of −$0.44 vs −$0.38 consensus.",
+        "$ORIC Q3 2026 Diluted EPS (GAAP, street basis) was −$0.44.",
+        "Q3 2026 Diluted EPS (GAAP, street basis) at $ORIC was −$0.44."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the −$0.38 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3982e5.a",
+          "fact": "earningsre-3982e5",
+          "variant": "a",
+          "text": "$ORIC missed the Q3 2026 EPS consensus: −$0.44 vs −$0.38.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cf8f92.a",
+          "fact": "earningsre-cf8f92",
+          "variant": "a",
+          "text": "$ORIC Q3 2026 EPS: −$0.44 vs −$0.38 consensus (missed by $0.06).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1ed72e.a",
+          "fact": "earningsre-1ed72e",
+          "variant": "a",
+          "text": "$ORIC Q3 2026 EPS −$0.44, missed by $0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS −$0.44 vs −$0.38 consensus (missed by $0.06).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS −$0.44 vs −$0.38 (missed by $0.06).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54e1d8.a",
+          "fact": "earningsre-54e1d8",
+          "variant": "a",
+          "text": "$ORIC missed Q3 2026 EPS estimates by $0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6eb967.a",
+          "fact": "earningsre-6eb967",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in below the −$0.38 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e07081.a",
+          "fact": "earningsre-e07081",
+          "variant": "a",
+          "text": "$ORIC missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$0.44 vs −$0.38.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9bd402.a",
+          "fact": "earningsre-9bd402",
+          "variant": "a",
+          "text": "$ORIC Q3 2026 Diluted EPS (GAAP, street basis): −$0.44 vs −$0.38 consensus (missed by $0.06).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cdde1d.a",
+          "fact": "earningsre-cdde1d",
+          "variant": "a",
+          "text": "$ORIC Q3 2026 Diluted EPS (GAAP, street basis) −$0.44, missed by $0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-193d52.a",
+          "fact": "earningsre-193d52",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$0.44 vs −$0.38 consensus (missed by $0.06).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-03e5ea.a",
+          "fact": "earningsre-03e5ea",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$0.44 vs −$0.38 (missed by $0.06).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-24d3f0.a",
+          "fact": "earningsre-24d3f0",
+          "variant": "a",
+          "text": "$ORIC missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-355c5f.a",
+          "fact": "earningsre-355c5f",
+          "variant": "a",
+          "text": "$ORIC missed the Q3 EPS consensus: −$0.44 vs −$0.38.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-83f6a0.a",
+          "fact": "earningsre-83f6a0",
+          "variant": "a",
+          "text": "$ORIC Q3 EPS: −$0.44 vs −$0.38 consensus (missed by $0.06).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d4f8ff.a",
+          "fact": "earningsre-d4f8ff",
+          "variant": "a",
+          "text": "$ORIC Q3 EPS −$0.44, missed by $0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4ffa7a.a",
+          "fact": "earningsre-4ffa7a",
+          "variant": "a",
+          "text": "$ORIC missed Q3 EPS estimates by $0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8be676.a",
+          "fact": "earningsre-8be676",
+          "variant": "a",
+          "text": "$ORIC missed the Q3 Diluted EPS (GAAP, street basis) consensus: −$0.44 vs −$0.38.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d57ced.a",
+          "fact": "earningsre-d57ced",
+          "variant": "a",
+          "text": "$ORIC Q3 Diluted EPS (GAAP, street basis): −$0.44 vs −$0.38 consensus (missed by $0.06).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-239353.a",
+          "fact": "earningsre-239353",
+          "variant": "a",
+          "text": "$ORIC Q3 Diluted EPS (GAAP, street basis) −$0.44, missed by $0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cd2ae1.a",
+          "fact": "earningsre-cd2ae1",
+          "variant": "a",
+          "text": "$ORIC missed Q3 Diluted EPS (GAAP, street basis) estimates by $0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$ORIC missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$ORIC missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$ORIC published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $ORIC came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $ORIC published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
+          "variant": "a",
+          "text": "$ORIC Q3 2026 Diluted EPS (GAAP, street basis): −$0.44 vs −$0.38 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
+          "variant": "h1",
+          "text": "$ORIC reported Q3 2026 Diluted EPS (GAAP, street basis) of −$0.44 vs −$0.38 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
+          "variant": "a",
+          "text": "$ORIC Q3 2026 Diluted EPS (GAAP, street basis) was −$0.44.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
+          "variant": "h1",
+          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $ORIC was −$0.44.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.44": "-",
+          "$0.38": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "ORIC": [
+          [
+            "$",
+            0.44,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.38,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.06,
             2,
             1.0,
             0
@@ -13134,6 +13409,343 @@
             "$",
             220.0,
             0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-17-earnings-result-INFQ-a8f28e",
+      "type": "earnings_result",
+      "ticker": "INFQ",
+      "tickers": [
+        "INFQ"
+      ],
+      "name": "Infleqtion, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-16",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2007825/000162828026074184/infq-20260930xex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/INFQ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-INFQ-a8f28e#earnings-history",
+      "allowed_numbers": [
+        "$9.15M",
+        "$11.0M",
+        "$1.88M",
+        "−$0.09",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Infleqtion, Inc. (INFQ) published Q3 2026 results on 2026-11-16: Revenue miss. Revenue $9.15M vs $11.0M consensus (Missed by $1.88M). GAAP EPS −$0.09.",
+      "dedupe_key": "report:infq-2026-q3",
+      "claim_phrases": [
+        "revenue came in below the $11.0M consensus.",
+        "$INFQ missed the Q3 2026 revenue consensus: $9.15M vs $11.0M.",
+        "$INFQ Q3 2026 revenue: $9.15M vs $11.0M consensus (missed by $1.88M).",
+        "$INFQ Q3 2026 revenue $9.15M, missed by $1.88M.",
+        "revenue $9.15M vs $11.0M consensus (missed by $1.88M).",
+        "revenue $9.15M vs $11.0M (missed by $1.88M).",
+        "$INFQ missed Q3 2026 revenue estimates by $1.88M.",
+        "$INFQ missed the Q3 revenue consensus: $9.15M vs $11.0M.",
+        "$INFQ Q3 revenue: $9.15M vs $11.0M consensus (missed by $1.88M).",
+        "$INFQ Q3 revenue $9.15M, missed by $1.88M.",
+        "$INFQ missed Q3 revenue estimates by $1.88M.",
+        "$INFQ missed Q3 2026 estimates.",
+        "$INFQ missed Q3 estimates."
+      ],
+      "report_id": "infq-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-16",
+      "published_at": "2026-11-16T21:30:17.599615+00:00",
+      "tile_label": "Revenue miss",
+      "tile_state": "miss",
+      "results": {
+        "revenue": {
+          "reported": "$9.15M",
+          "consensus": "$11.0M",
+          "label": "Missed by $1.88M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.09"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/INFQ/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for INFQ: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "INFQ"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Infleqtion, Inc. ($INFQ) published Q3 2026 results on Nov 16.",
+        "$INFQ (Infleqtion, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Infleqtion, Inc. ($INFQ) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Infleqtion, Inc. ($INFQ) published Q3 2026 results on Nov 16.",
+        "$INFQ (Infleqtion, Inc.) reported Q3 2026 results on Nov 16.",
+        "On Nov 16, Infleqtion, Inc. ($INFQ) published Q3 2026 results.",
+        "$INFQ published Q3 2026 results on Nov 16.",
+        "Q3 2026 results from $INFQ came out on Nov 16.",
+        "On Nov 16, $INFQ published Q3 2026 results.",
+        "$INFQ Q3 2026 revenue: $9.15M vs $11.0M consensus.",
+        "$INFQ reported Q3 2026 revenue of $9.15M vs $11.0M consensus.",
+        "$INFQ Q3 2026 revenue was $9.15M.",
+        "Q3 2026 revenue at $INFQ was $9.15M.",
+        "$INFQ Q3 2026 GAAP EPS: −$0.09.",
+        "$INFQ reported Q3 2026 GAAP EPS of −$0.09.",
+        "$INFQ Q3 2026 GAAP EPS was −$0.09.",
+        "Q3 2026 GAAP EPS at $INFQ was −$0.09."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $11.0M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-39974b.a",
+          "fact": "earningsre-39974b",
+          "variant": "a",
+          "text": "$INFQ missed the Q3 2026 revenue consensus: $9.15M vs $11.0M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-832d86.a",
+          "fact": "earningsre-832d86",
+          "variant": "a",
+          "text": "$INFQ Q3 2026 revenue: $9.15M vs $11.0M consensus (missed by $1.88M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1c6ba4.a",
+          "fact": "earningsre-1c6ba4",
+          "variant": "a",
+          "text": "$INFQ Q3 2026 revenue $9.15M, missed by $1.88M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $9.15M vs $11.0M consensus (missed by $1.88M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $9.15M vs $11.0M (missed by $1.88M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3da506.a",
+          "fact": "earningsre-3da506",
+          "variant": "a",
+          "text": "$INFQ missed Q3 2026 revenue estimates by $1.88M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b5f6a9.a",
+          "fact": "earningsre-b5f6a9",
+          "variant": "a",
+          "text": "$INFQ missed the Q3 revenue consensus: $9.15M vs $11.0M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f542e8.a",
+          "fact": "earningsre-f542e8",
+          "variant": "a",
+          "text": "$INFQ Q3 revenue: $9.15M vs $11.0M consensus (missed by $1.88M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-90244e.a",
+          "fact": "earningsre-90244e",
+          "variant": "a",
+          "text": "$INFQ Q3 revenue $9.15M, missed by $1.88M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-01ded6.a",
+          "fact": "earningsre-01ded6",
+          "variant": "a",
+          "text": "$INFQ missed Q3 revenue estimates by $1.88M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$INFQ missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$INFQ missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Infleqtion, Inc. ($INFQ) published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$INFQ (Infleqtion, Inc.) reported Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 16, Infleqtion, Inc. ($INFQ) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$INFQ published Q3 2026 results on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $INFQ came out on Nov 16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 16, $INFQ published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$INFQ Q3 2026 revenue: $9.15M vs $11.0M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$INFQ reported Q3 2026 revenue of $9.15M vs $11.0M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$INFQ Q3 2026 revenue was $9.15M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $INFQ was $9.15M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$INFQ Q3 2026 GAAP EPS: −$0.09.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$INFQ reported Q3 2026 GAAP EPS of −$0.09.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$INFQ Q3 2026 GAAP EPS was −$0.09.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $INFQ was −$0.09.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.09": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "INFQ": [
+          [
+            "$",
+            9.15,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            11.0,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.88,
+            2,
             1000000.0,
             0
           ]
@@ -14319,6 +14931,395 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-17-earnings-result-USAS-5967c2",
+      "type": "earnings_result",
+      "ticker": "USAS",
+      "tickers": [
+        "USAS"
+      ],
+      "name": "Americas Gold and Silver Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-13",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1286973/000106299326005952/exhibit99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/USAS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-USAS-5967c2#earnings-history",
+      "allowed_numbers": [
+        "−$0.02",
+        "$0.03",
+        "$0.04",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-13",
+        "Nov 13, 2026",
+        "Nov 13"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Americas Gold and Silver Corporation (USAS) published Q3 2026 results on 2026-11-13. Diluted EPS (GAAP, street basis) −$0.02 vs $0.03 consensus (Missed by $0.04).",
+      "dedupe_key": "report:usas-2026-q3",
+      "claim_phrases": [
+        "EPS came in below the $0.03 consensus.",
+        "$USAS missed the Q3 2026 EPS consensus: −$0.02 vs $0.03.",
+        "$USAS Q3 2026 EPS: −$0.02 vs $0.03 consensus (missed by $0.04).",
+        "$USAS Q3 2026 EPS −$0.02, missed by $0.04.",
+        "EPS −$0.02 vs $0.03 consensus (missed by $0.04).",
+        "EPS −$0.02 vs $0.03 (missed by $0.04).",
+        "$USAS missed Q3 2026 EPS estimates by $0.04.",
+        "Diluted EPS (GAAP, street basis) came in below the $0.03 consensus.",
+        "$USAS missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$0.02 vs $0.03.",
+        "$USAS Q3 2026 Diluted EPS (GAAP, street basis): −$0.02 vs $0.03 consensus (missed by $0.04).",
+        "$USAS Q3 2026 Diluted EPS (GAAP, street basis) −$0.02, missed by $0.04.",
+        "Diluted EPS (GAAP, street basis) −$0.02 vs $0.03 consensus (missed by $0.04).",
+        "Diluted EPS (GAAP, street basis) −$0.02 vs $0.03 (missed by $0.04).",
+        "$USAS missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.04.",
+        "$USAS missed the Q3 EPS consensus: −$0.02 vs $0.03.",
+        "$USAS Q3 EPS: −$0.02 vs $0.03 consensus (missed by $0.04).",
+        "$USAS Q3 EPS −$0.02, missed by $0.04.",
+        "$USAS missed Q3 EPS estimates by $0.04.",
+        "$USAS missed the Q3 Diluted EPS (GAAP, street basis) consensus: −$0.02 vs $0.03.",
+        "$USAS Q3 Diluted EPS (GAAP, street basis): −$0.02 vs $0.03 consensus (missed by $0.04).",
+        "$USAS Q3 Diluted EPS (GAAP, street basis) −$0.02, missed by $0.04.",
+        "$USAS missed Q3 Diluted EPS (GAAP, street basis) estimates by $0.04.",
+        "$USAS missed Q3 2026 estimates.",
+        "$USAS missed Q3 estimates."
+      ],
+      "report_id": "usas-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-13",
+      "published_at": "2026-11-17T20:11:15.483908+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "eps": {
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "−$0.02",
+          "consensus": "$0.03",
+          "label": "Missed by $0.04",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/USAS/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for USAS: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-13 (age 2) +1",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "USAS"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Americas Gold and Silver Corporation ($USAS) published Q3 2026 results on Nov 13.",
+        "$USAS (Americas Gold and Silver Corporation) reported Q3 2026 results on Nov 13.",
+        "On Nov 13, Americas Gold and Silver Corporation ($USAS) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Americas Gold and Silver Corporation ($USAS) published Q3 2026 results on Nov 13.",
+        "$USAS (Americas Gold and Silver Corporation) reported Q3 2026 results on Nov 13.",
+        "On Nov 13, Americas Gold and Silver Corporation ($USAS) published Q3 2026 results.",
+        "$USAS published Q3 2026 results on Nov 13.",
+        "Q3 2026 results from $USAS came out on Nov 13.",
+        "On Nov 13, $USAS published Q3 2026 results.",
+        "$USAS Q3 2026 Diluted EPS (GAAP, street basis): −$0.02 vs $0.03 consensus.",
+        "$USAS reported Q3 2026 Diluted EPS (GAAP, street basis) of −$0.02 vs $0.03 consensus.",
+        "$USAS Q3 2026 Diluted EPS (GAAP, street basis) was −$0.02.",
+        "Q3 2026 Diluted EPS (GAAP, street basis) at $USAS was −$0.02."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the $0.03 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3982e5.a",
+          "fact": "earningsre-3982e5",
+          "variant": "a",
+          "text": "$USAS missed the Q3 2026 EPS consensus: −$0.02 vs $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cf8f92.a",
+          "fact": "earningsre-cf8f92",
+          "variant": "a",
+          "text": "$USAS Q3 2026 EPS: −$0.02 vs $0.03 consensus (missed by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1ed72e.a",
+          "fact": "earningsre-1ed72e",
+          "variant": "a",
+          "text": "$USAS Q3 2026 EPS −$0.02, missed by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS −$0.02 vs $0.03 consensus (missed by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS −$0.02 vs $0.03 (missed by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54e1d8.a",
+          "fact": "earningsre-54e1d8",
+          "variant": "a",
+          "text": "$USAS missed Q3 2026 EPS estimates by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6eb967.a",
+          "fact": "earningsre-6eb967",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in below the $0.03 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e07081.a",
+          "fact": "earningsre-e07081",
+          "variant": "a",
+          "text": "$USAS missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$0.02 vs $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9bd402.a",
+          "fact": "earningsre-9bd402",
+          "variant": "a",
+          "text": "$USAS Q3 2026 Diluted EPS (GAAP, street basis): −$0.02 vs $0.03 consensus (missed by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cdde1d.a",
+          "fact": "earningsre-cdde1d",
+          "variant": "a",
+          "text": "$USAS Q3 2026 Diluted EPS (GAAP, street basis) −$0.02, missed by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-193d52.a",
+          "fact": "earningsre-193d52",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$0.02 vs $0.03 consensus (missed by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-03e5ea.a",
+          "fact": "earningsre-03e5ea",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) −$0.02 vs $0.03 (missed by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-24d3f0.a",
+          "fact": "earningsre-24d3f0",
+          "variant": "a",
+          "text": "$USAS missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-355c5f.a",
+          "fact": "earningsre-355c5f",
+          "variant": "a",
+          "text": "$USAS missed the Q3 EPS consensus: −$0.02 vs $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-83f6a0.a",
+          "fact": "earningsre-83f6a0",
+          "variant": "a",
+          "text": "$USAS Q3 EPS: −$0.02 vs $0.03 consensus (missed by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d4f8ff.a",
+          "fact": "earningsre-d4f8ff",
+          "variant": "a",
+          "text": "$USAS Q3 EPS −$0.02, missed by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4ffa7a.a",
+          "fact": "earningsre-4ffa7a",
+          "variant": "a",
+          "text": "$USAS missed Q3 EPS estimates by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8be676.a",
+          "fact": "earningsre-8be676",
+          "variant": "a",
+          "text": "$USAS missed the Q3 Diluted EPS (GAAP, street basis) consensus: −$0.02 vs $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d57ced.a",
+          "fact": "earningsre-d57ced",
+          "variant": "a",
+          "text": "$USAS Q3 Diluted EPS (GAAP, street basis): −$0.02 vs $0.03 consensus (missed by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-239353.a",
+          "fact": "earningsre-239353",
+          "variant": "a",
+          "text": "$USAS Q3 Diluted EPS (GAAP, street basis) −$0.02, missed by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cd2ae1.a",
+          "fact": "earningsre-cd2ae1",
+          "variant": "a",
+          "text": "$USAS missed Q3 Diluted EPS (GAAP, street basis) estimates by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0bb625.a",
+          "fact": "earningsre-0bb625",
+          "variant": "a",
+          "text": "$USAS missed Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-49ee3c.a",
+          "fact": "earningsre-49ee3c",
+          "variant": "a",
+          "text": "$USAS missed Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f01db.a",
+          "fact": "earningsre-7f01db",
+          "variant": "a",
+          "text": "Americas Gold and Silver Corporation ($USAS) published Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-7f01db.h1",
+          "fact": "earningsre-7f01db",
+          "variant": "h1",
+          "text": "$USAS (Americas Gold and Silver Corporation) reported Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-7f01db.t",
+          "fact": "earningsre-7f01db",
+          "variant": "t",
+          "text": "On Nov 13, Americas Gold and Silver Corporation ($USAS) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$USAS published Q3 2026 results on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $USAS came out on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 13, $USAS published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
+          "variant": "a",
+          "text": "$USAS Q3 2026 Diluted EPS (GAAP, street basis): −$0.02 vs $0.03 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
+          "variant": "h1",
+          "text": "$USAS reported Q3 2026 Diluted EPS (GAAP, street basis) of −$0.02 vs $0.03 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
+          "variant": "a",
+          "text": "$USAS Q3 2026 Diluted EPS (GAAP, street basis) was −$0.02.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
+          "variant": "h1",
+          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $USAS was −$0.02.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.02": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "USAS": [
+          [
+            "$",
+            0.02,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.03,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.04,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-17-earnings-result-FBDT-28b9cb",
       "type": "earnings_result",
       "ticker": "FBDT",
@@ -14847,173 +15848,6 @@
       ],
       "moves": {
         "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-17-earnings-result-CUE-417b1a",
-      "type": "earnings_result",
-      "ticker": "CUE",
-      "tickers": [
-        "CUE"
-      ],
-      "name": "Cue Biopharma, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1645460/000119312526463741/cue-ex99_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CUE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-CUE-417b1a#earnings-history",
-      "allowed_numbers": [
-        "−$4.74",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Cue Biopharma, Inc. (CUE) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$4.74.",
-      "dedupe_key": "report:cue-2026-q3",
-      "claim_phrases": [],
-      "report_id": "cue-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-16",
-      "published_at": "2026-11-16T23:15:16.046183+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$4.74"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CUE/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CUE: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CUE"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Cue Biopharma, Inc. ($CUE) published Q3 2026 results on Nov 16.",
-        "$CUE (Cue Biopharma, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, Cue Biopharma, Inc. ($CUE) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Cue Biopharma, Inc. ($CUE) published Q3 2026 results on Nov 16.",
-        "$CUE (Cue Biopharma, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, Cue Biopharma, Inc. ($CUE) published Q3 2026 results.",
-        "$CUE published Q3 2026 results on Nov 16.",
-        "Q3 2026 results from $CUE came out on Nov 16.",
-        "On Nov 16, $CUE published Q3 2026 results.",
-        "$CUE Q3 2026 GAAP EPS: −$4.74.",
-        "$CUE reported Q3 2026 GAAP EPS of −$4.74.",
-        "$CUE Q3 2026 GAAP EPS was −$4.74.",
-        "Q3 2026 GAAP EPS at $CUE was −$4.74."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Cue Biopharma, Inc. ($CUE) published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$CUE (Cue Biopharma, Inc.) reported Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 16, Cue Biopharma, Inc. ($CUE) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$CUE published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $CUE came out on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 16, $CUE published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$CUE Q3 2026 GAAP EPS: −$4.74.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$CUE reported Q3 2026 GAAP EPS of −$4.74.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$CUE Q3 2026 GAAP EPS was −$4.74.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $CUE was −$4.74.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$4.74": "-"
-        },
         "subjects": {}
       },
       "subject_numbers": {},
@@ -16252,340 +17086,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-17-earnings-result-ORIC-98ea8a",
-      "type": "earnings_result",
-      "ticker": "ORIC",
-      "tickers": [
-        "ORIC"
-      ],
-      "name": "ORIC Pharmaceuticals, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1796280/000119312526463506/oric-ex99_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ORIC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-ORIC-98ea8a#earnings-history",
-      "allowed_numbers": [
-        "−$0.44",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "ORIC Pharmaceuticals, Inc. (ORIC) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.44.",
-      "dedupe_key": "report:oric-2026-q3",
-      "claim_phrases": [],
-      "report_id": "oric-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-16",
-      "published_at": "2026-11-16T21:30:32.037669+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.44"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/ORIC/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for ORIC: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ORIC"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
-        "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
-        "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results.",
-        "$ORIC published Q3 2026 results on Nov 16.",
-        "Q3 2026 results from $ORIC came out on Nov 16.",
-        "On Nov 16, $ORIC published Q3 2026 results.",
-        "$ORIC Q3 2026 GAAP EPS: −$0.44.",
-        "$ORIC reported Q3 2026 GAAP EPS of −$0.44.",
-        "$ORIC Q3 2026 GAAP EPS was −$0.44.",
-        "Q3 2026 GAAP EPS at $ORIC was −$0.44."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$ORIC (ORIC Pharmaceuticals, Inc.) reported Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 16, ORIC Pharmaceuticals, Inc. ($ORIC) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$ORIC published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $ORIC came out on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 16, $ORIC published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$ORIC Q3 2026 GAAP EPS: −$0.44.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$ORIC reported Q3 2026 GAAP EPS of −$0.44.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$ORIC Q3 2026 GAAP EPS was −$0.44.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $ORIC was −$0.44.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.44": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-17-earnings-result-POET-ffdd43",
-      "type": "earnings_result",
-      "ticker": "POET",
-      "tickers": [
-        "POET"
-      ],
-      "name": "POET Technologies Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1437424/000117184326007469/exh_991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/POET?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-earnings-result-POET-ffdd43#earnings-history",
-      "allowed_numbers": [
-        "−$0.04",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "POET Technologies Inc. (POET) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.04.",
-      "dedupe_key": "report:poet-2026-q3",
-      "claim_phrases": [],
-      "report_id": "poet-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-16",
-      "published_at": "2026-11-16T20:02:00.278746+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.04"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/POET/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for POET: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "POET"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "POET Technologies Inc. ($POET) published Q3 2026 results on Nov 16.",
-        "$POET (POET Technologies Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, POET Technologies Inc. ($POET) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "POET Technologies Inc. ($POET) published Q3 2026 results on Nov 16.",
-        "$POET (POET Technologies Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, POET Technologies Inc. ($POET) published Q3 2026 results.",
-        "$POET published Q3 2026 results on Nov 16.",
-        "Q3 2026 results from $POET came out on Nov 16.",
-        "On Nov 16, $POET published Q3 2026 results.",
-        "$POET Q3 2026 GAAP EPS: −$0.04.",
-        "$POET reported Q3 2026 GAAP EPS of −$0.04.",
-        "$POET Q3 2026 GAAP EPS was −$0.04.",
-        "Q3 2026 GAAP EPS at $POET was −$0.04."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "POET Technologies Inc. ($POET) published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$POET (POET Technologies Inc.) reported Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 16, POET Technologies Inc. ($POET) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$POET published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $POET came out on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 16, $POET published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$POET Q3 2026 GAAP EPS: −$0.04.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$POET reported Q3 2026 GAAP EPS of −$0.04.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$POET Q3 2026 GAAP EPS was −$0.04.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $POET was −$0.04.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.04": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-16 release posted on 2026-11-17: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-17-earnings-upcoming-TJX-38cec3",
       "type": "earnings_upcoming",
       "ticker": "TJX",
@@ -17595,6 +18095,180 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "repeat: leads with $WWD like 2026-11-17-earnings-tomorrow-roundup-LIST-651148",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-17-congress-trade-MBB-65b575",
+      "type": "congress_trade",
+      "ticker": "MBB",
+      "tickers": [
+        "MBB"
+      ],
+      "name": "John Boozman",
+      "office": "U.S. Senator (R-AR)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-10-21"
+      ],
+      "filed": "2026-11-17",
+      "source_url": "https://efdsearch.senate.gov/search/view/ptr/06b7b716-bdc0-4c47-a4aa-96624e1e702c/",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/john-boozman?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-17-congress-trade-MBB-65b575#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17",
+        "2026-10-21",
+        "Oct 21, 2026",
+        "Oct 21"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Senator John Boozman (R-AR) disclosed a purchase of MBB (iShares MBS ETF), $1K–$15K, traded 2026-10-21; filed 2026-11-17 (owner: joint).",
+      "dedupe_key": "ptr:06b7b716-bdc0-4c47-a4aa-96624e1e702c:MBB:buy",
+      "claim_phrases": [],
+      "company": "iShares MBS ETF",
+      "side": "buy",
+      "owner": [
+        "joint"
+      ],
+      "figure_slug": "john-boozman",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/john-boozman/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Senator John Boozman (R-AR) disclosed a purchase of MBB (iShares MBS ETF), $1K–$15K, traded 2026-10-21; filed 2026-11-17 (owner: joint)."
+        }
+      ],
+      "rank": 5.18,
+      "rank_why": "congress_trade 2; magnitude (top $15K, buy +1) +1.18; filed 2026-11-17 (age 0) +2",
+      "pillar": "P3",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [
+        "83",
+        "127",
+        "26",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "MBB"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "context": {
+        "congress_30d": {
+          "buys": 83,
+          "sells": 127,
+          "members": 26,
+          "days": 30
+        }
+      },
+      "angles": [
+        "U.S. Senator John Boozman (R-AR) disclosed a purchase of $MBB (owner: joint), $1K–$15K (filed Nov 17).",
+        "A purchase of $MBB (owner: joint), $1K–$15K, was disclosed by U.S. Senator John Boozman (R-AR) (filed Nov 17).",
+        "John Boozman disclosed a purchase of $MBB (owner: joint), $1K–$15K."
+      ],
+      "fact_phrases": [
+        "U.S. Senator John Boozman (R-AR) disclosed a purchase of $MBB (owner: joint), $1K–$15K (filed Nov 17).",
+        "A purchase of $MBB (owner: joint), $1K–$15K, was disclosed by U.S. Senator John Boozman (R-AR) (filed Nov 17).",
+        "John Boozman disclosed a purchase of $MBB (owner: joint), $1K–$15K.",
+        "A purchase of $MBB (owner: joint), $1K–$15K, was disclosed by John Boozman.",
+        "John Boozman's $MBB purchase was traded Oct 21 and disclosed on Nov 17.",
+        "Traded Oct 21, John Boozman's $MBB purchase was disclosed on Nov 17.",
+        "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells."
+      ],
+      "phrasings": [
+        {
+          "id": "congresstr-382cff.a",
+          "fact": "congresstr-382cff",
+          "variant": "a",
+          "text": "U.S. Senator John Boozman (R-AR) disclosed a purchase of $MBB (owner: joint), $1K–$15K (filed Nov 17).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-382cff.h1",
+          "fact": "congresstr-382cff",
+          "variant": "h1",
+          "text": "A purchase of $MBB (owner: joint), $1K–$15K, was disclosed by U.S. Senator John Boozman (R-AR) (filed Nov 17).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-6884cf.a",
+          "fact": "congresstr-6884cf",
+          "variant": "a",
+          "text": "John Boozman disclosed a purchase of $MBB (owner: joint), $1K–$15K.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-6884cf.h1",
+          "fact": "congresstr-6884cf",
+          "variant": "h1",
+          "text": "A purchase of $MBB (owner: joint), $1K–$15K, was disclosed by John Boozman.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.a",
+          "fact": "congresstr-190851",
+          "variant": "a",
+          "text": "John Boozman's $MBB purchase was traded Oct 21 and disclosed on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.h1",
+          "fact": "congresstr-190851",
+          "variant": "h1",
+          "text": "Traded Oct 21, John Boozman's $MBB purchase was disclosed on Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.a",
+          "fact": "congresstr-f8938e",
+          "variant": "a",
+          "text": "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.h1",
+          "fact": "congresstr-f8938e",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.t",
+          "fact": "congresstr-f8938e",
+          "variant": "t",
+          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -18614,8 +19288,8 @@
         "0.19%",
         "+0.2%",
         "0.2%",
-        "81",
-        "125",
+        "83",
+        "127",
         "26",
         "30"
       ],
@@ -18643,8 +19317,8 @@
           "session": "2026-11-16"
         },
         "congress_30d": {
-          "buys": 81,
-          "sells": 125,
+          "buys": 83,
+          "sells": 127,
           "members": 26,
           "days": 30
         }
@@ -18667,9 +19341,9 @@
         "$SHW moved +0.19% on Monday, Nov 16.",
         "$SHW's move on Monday, Nov 16: +0.19%.",
         "On Monday, Nov 16, $SHW moved +0.19%.",
-        "Members of Congress disclosed 81 buys and 125 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 125 sells and 81 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 81 buys and 125 sells."
+        "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells."
       ],
       "phrasings": [
         {
@@ -18760,21 +19434,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 81 buys and 125 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 83 buys and 127 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 125 sells and 81 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 127 sells and 83 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 81 buys and 125 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 127 sells.",
           "claim": false
         }
       ],
