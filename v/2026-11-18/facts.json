@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-18",
-  "generated_at": "2026-11-18T12:30:02Z",
-  "as_of": "2026-11-18T12:30:02Z",
+  "generated_at": "2026-11-18T13:00:02Z",
+  "as_of": "2026-11-18T13:00:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 3,
     "form4_buy": 2,
-    "earnings_result": 18,
+    "earnings_result": 17,
     "earnings_upcoming": 21,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -941,13 +941,12 @@
     "earnings_result": {
       "archive_reports": 3842,
       "recent_ready": 94,
-      "outside_24h": 76,
+      "outside_24h": 77,
       "unreadable": 0,
-      "not_compared": 4,
+      "not_compared": 3,
       "not_compared_metrics": [
         "TGT: eps_adjusted (eps_basis_mismatch)",
         "GBDC: eps_adjusted (eps_basis_mismatch)",
-        "GFF: revenue (period_unconfirmed)",
         "USAS: revenue (unverified)"
       ]
     },
@@ -964,7 +963,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 40,
+      "tickers_in_items": 39,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -978,7 +977,7 @@
     "market": {
       "market_session": "2026-11-17",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-18T12:30:27.685146+00:00"
+      "flows_as_of": "2026-11-18T13:00:26.959507+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -987,10 +986,10 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 67
+        "angles_dropped": 64
       },
       "top8": {
-        "stale": 11,
+        "stale": 10,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
@@ -1032,7 +1031,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 55,
+  "api_requests": 54,
   "items": [
     {
       "item_id": "2026-11-18-earnings-result-NVDA-002ae4",
@@ -10754,322 +10753,6 @@
           [
             "$",
             0.06,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-17 release posted on 2026-11-18: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-18-earnings-result-GFF-132298",
-      "type": "earnings_result",
-      "ticker": "GFF",
-      "tickers": [
-        "GFF"
-      ],
-      "name": "Griffon Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/50725/000162828026074359/gffearningsreleaseq42026ex.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/GFF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-GFF-132298#earnings-history",
-      "allowed_numbers": [
-        "$1.61",
-        "$1.59",
-        "$0.02",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Griffon Corporation (GFF) published FY2026 (Q4) results on 2026-11-17. Adjusted earnings per share $1.61 vs $1.59 consensus (Beat by $0.02).",
-      "dedupe_key": "report:gff-2026-q4",
-      "claim_phrases": [
-        "EPS came in above the $1.59 consensus.",
-        "$GFF beat the FY2026 (Q4) EPS consensus: $1.61 vs $1.59.",
-        "$GFF FY2026 (Q4) EPS: $1.61 vs $1.59 consensus (beat by $0.02).",
-        "$GFF FY2026 (Q4) EPS $1.61, beat by $0.02.",
-        "EPS $1.61 vs $1.59 consensus (beat by $0.02).",
-        "EPS $1.61 vs $1.59 (beat by $0.02).",
-        "$GFF beat FY2026 (Q4) EPS estimates by $0.02.",
-        "Adjusted earnings per share came in above the $1.59 consensus.",
-        "$GFF beat the FY2026 (Q4) Adjusted earnings per share consensus: $1.61 vs $1.59.",
-        "$GFF FY2026 (Q4) Adjusted earnings per share: $1.61 vs $1.59 consensus (beat by $0.02).",
-        "$GFF FY2026 (Q4) Adjusted earnings per share $1.61, beat by $0.02.",
-        "Adjusted earnings per share $1.61 vs $1.59 consensus (beat by $0.02).",
-        "Adjusted earnings per share $1.61 vs $1.59 (beat by $0.02).",
-        "$GFF beat FY2026 (Q4) Adjusted earnings per share estimates by $0.02.",
-        "$GFF beat FY2026 (Q4) estimates."
-      ],
-      "report_id": "gff-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-17",
-      "published_at": "2026-11-17T12:52:54.929718+00:00",
-      "tile_label": null,
-      "tile_state": null,
-      "results": {
-        "eps": {
-          "basis": "Adjusted earnings per share",
-          "reported": "$1.61",
-          "consensus": "$1.59",
-          "label": "Beat by $0.02",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/GFF/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for GFF: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-17 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "GFF"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Griffon Corporation ($GFF) published FY2026 (Q4) results on Nov 17.",
-        "$GFF (Griffon Corporation) reported FY2026 (Q4) results on Nov 17.",
-        "On Nov 17, Griffon Corporation ($GFF) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "Griffon Corporation ($GFF) published FY2026 (Q4) results on Nov 17.",
-        "$GFF (Griffon Corporation) reported FY2026 (Q4) results on Nov 17.",
-        "On Nov 17, Griffon Corporation ($GFF) published FY2026 (Q4) results.",
-        "$GFF published FY2026 (Q4) results on Nov 17.",
-        "FY2026 (Q4) results from $GFF came out on Nov 17.",
-        "On Nov 17, $GFF published FY2026 (Q4) results.",
-        "$GFF FY2026 (Q4) Adjusted earnings per share: $1.61 vs $1.59 consensus.",
-        "$GFF reported FY2026 (Q4) Adjusted earnings per share of $1.61 vs $1.59 consensus.",
-        "$GFF FY2026 (Q4) Adjusted earnings per share was $1.61.",
-        "FY2026 (Q4) Adjusted earnings per share at $GFF was $1.61."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.59 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$GFF beat the FY2026 (Q4) EPS consensus: $1.61 vs $1.59.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$GFF FY2026 (Q4) EPS: $1.61 vs $1.59 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$GFF FY2026 (Q4) EPS $1.61, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.61 vs $1.59 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.61 vs $1.59 (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$GFF beat FY2026 (Q4) EPS estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-2115fc.a",
-          "fact": "earningsre-2115fc",
-          "variant": "a",
-          "text": "Adjusted earnings per share came in above the $1.59 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f7b85.a",
-          "fact": "earningsre-1f7b85",
-          "variant": "a",
-          "text": "$GFF beat the FY2026 (Q4) Adjusted earnings per share consensus: $1.61 vs $1.59.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-72b242.a",
-          "fact": "earningsre-72b242",
-          "variant": "a",
-          "text": "$GFF FY2026 (Q4) Adjusted earnings per share: $1.61 vs $1.59 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6f9878.a",
-          "fact": "earningsre-6f9878",
-          "variant": "a",
-          "text": "$GFF FY2026 (Q4) Adjusted earnings per share $1.61, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b9b8a2.a",
-          "fact": "earningsre-b9b8a2",
-          "variant": "a",
-          "text": "Adjusted earnings per share $1.61 vs $1.59 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1621e5.a",
-          "fact": "earningsre-1621e5",
-          "variant": "a",
-          "text": "Adjusted earnings per share $1.61 vs $1.59 (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-eb5571.a",
-          "fact": "earningsre-eb5571",
-          "variant": "a",
-          "text": "$GFF beat FY2026 (Q4) Adjusted earnings per share estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-232122.a",
-          "fact": "earningsre-232122",
-          "variant": "a",
-          "text": "$GFF beat FY2026 (Q4) estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "Griffon Corporation ($GFF) published FY2026 (Q4) results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$GFF (Griffon Corporation) reported FY2026 (Q4) results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 17, Griffon Corporation ($GFF) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$GFF published FY2026 (Q4) results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $GFF came out on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 17, $GFF published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-811901.a",
-          "fact": "earningsre-811901",
-          "variant": "a",
-          "text": "$GFF FY2026 (Q4) Adjusted earnings per share: $1.61 vs $1.59 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-811901.h1",
-          "fact": "earningsre-811901",
-          "variant": "h1",
-          "text": "$GFF reported FY2026 (Q4) Adjusted earnings per share of $1.61 vs $1.59 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-4f99ed.a",
-          "fact": "earningsre-4f99ed",
-          "variant": "a",
-          "text": "$GFF FY2026 (Q4) Adjusted earnings per share was $1.61.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-4f99ed.h1",
-          "fact": "earningsre-4f99ed",
-          "variant": "h1",
-          "text": "FY2026 (Q4) Adjusted earnings per share at $GFF was $1.61.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "GFF": [
-          [
-            "$",
-            1.61,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.59,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.02,
             2,
             1.0,
             0
