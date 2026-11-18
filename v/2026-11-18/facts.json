@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-18",
-  "generated_at": "2026-11-18T10:00:01Z",
-  "as_of": "2026-11-18T10:00:01Z",
+  "generated_at": "2026-11-18T12:00:02Z",
+  "as_of": "2026-11-18T12:00:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 3,
     "form4_buy": 2,
-    "earnings_result": 23,
+    "earnings_result": 20,
     "earnings_upcoming": 21,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -933,28 +933,27 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 13,
-      "below_minimum": 11,
+      "filings_passing_filters": 14,
+      "below_minimum": 12,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3835,
-      "recent_ready": 90,
-      "outside_24h": 64,
+      "archive_reports": 3836,
+      "recent_ready": 91,
+      "outside_24h": 69,
       "unreadable": 0,
-      "not_compared": 8,
+      "not_compared": 7,
       "not_compared_metrics": [
+        "TGT: eps_adjusted (eps_basis_mismatch)",
         "GBDC: eps_adjusted (eps_basis_mismatch)",
         "GFF: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
-        "OCSL: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
         "SR: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed)",
         "USAS: revenue (unverified)"
       ],
-      "consensus_mismatch_hold": 3,
+      "consensus_mismatch_hold": 2,
       "held": [
         "GFF: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed) and nothing else compared (report data to check)",
-        "OCSL: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed) and nothing else compared (report data to check)",
         "SR: revenue (period_unconfirmed), eps_adjusted (period_unconfirmed) and nothing else compared (report data to check)"
       ]
     },
@@ -971,13 +970,13 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 50,
-      "carried_over": 0,
-      "requested": 5,
-      "not_covered": 1,
+      "tickers_in_items": 42,
+      "carried_over": 5,
+      "requested": 0,
+      "not_covered": 0,
       "disabled": 0,
       "no_peer": 0,
-      "below_floor": 1,
+      "below_floor": 0,
       "stale": 0,
       "unavailable": 0,
       "unreadable": 0
@@ -985,7 +984,7 @@
     "market": {
       "market_session": "2026-11-17",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-18T10:00:31.559164+00:00"
+      "flows_as_of": "2026-11-18T12:00:25.089933+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -994,15 +993,15 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 72
+        "angles_dropped": 63
       },
       "top8": {
-        "stale": 20,
+        "stale": 16,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 9,
-        "ranked_below": 25,
+        "ranked_below": 26,
         "pillars": 4
       }
     }
@@ -1039,7 +1038,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 58,
+  "api_requests": 50,
   "items": [
     {
       "item_id": "2026-11-18-earnings-result-NVDA-002ae4",
@@ -1858,6 +1857,393 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-18-earnings-result-TGT-6de67d",
+      "type": "earnings_result",
+      "ticker": "TGT",
+      "tickers": [
+        "TGT"
+      ],
+      "name": "Target Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000051/a2026q3ex-99.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TGT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-TGT-6de67d#earnings-history",
+      "allowed_numbers": [
+        "$27.07B",
+        "$26.53B",
+        "$539M",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-18",
+        "Nov 18, 2026",
+        "Nov 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Target Corporation (TGT) published Q3 2026 results on 2026-11-18. Revenue $27.07B vs $26.53B consensus (Beat by $539M).",
+      "dedupe_key": "report:tgt-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $26.53B consensus.",
+        "$TGT beat the Q3 2026 revenue consensus: $27.07B vs $26.53B.",
+        "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
+        "$TGT Q3 2026 revenue $27.07B, beat by $539M.",
+        "revenue $27.07B vs $26.53B consensus (beat by $539M).",
+        "revenue $27.07B vs $26.53B (beat by $539M).",
+        "$TGT beat Q3 2026 revenue estimates by $539M.",
+        "$TGT beat the Q3 revenue consensus: $27.07B vs $26.53B.",
+        "$TGT Q3 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
+        "$TGT Q3 revenue $27.07B, beat by $539M.",
+        "$TGT beat Q3 revenue estimates by $539M.",
+        "$TGT beat Q3 2026 estimates.",
+        "$TGT beat Q3 estimates."
+      ],
+      "report_id": "tgt-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-18",
+      "published_at": "2026-11-18T11:48:56.715327+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "revenue": {
+          "reported": "$27.07B",
+          "consensus": "$26.53B",
+          "label": "Beat by $539M",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TGT/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for TGT: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $72.83B +2.5; magnitude (verdict) +1.5; release_date 2026-11-18 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 72832007930.7148,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17",
+        "$72.8B",
+        "−0.49%",
+        "0.49%",
+        "−0.5%",
+        "0.5%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "TGT"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "TGT": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "TGT": "Target Corporation"
+      },
+      "context": {
+        "market_cap": "$72.8B",
+        "market_cap_session": "2026-11-17",
+        "last_session_move": {
+          "pct": "−0.49%",
+          "session": "2026-11-17"
+        }
+      },
+      "angles": [
+        "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
+        "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
+        "On Nov 18, Target Corporation ($TGT) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
+        "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
+        "On Nov 18, Target Corporation ($TGT) published Q3 2026 results.",
+        "$TGT published Q3 2026 results on Nov 18.",
+        "Q3 2026 results from $TGT came out on Nov 18.",
+        "On Nov 18, $TGT published Q3 2026 results.",
+        "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus.",
+        "$TGT reported Q3 2026 revenue of $27.07B vs $26.53B consensus.",
+        "$TGT Q3 2026 revenue was $27.07B.",
+        "Q3 2026 revenue at $TGT was $27.07B.",
+        "$TGT had a market value of $72.8B at the Nov 17 close.",
+        "$TGT's market value at the Nov 17 close was $72.8B.",
+        "At the Nov 17 close, $TGT had a market value of $72.8B.",
+        "$TGT moved −0.49% on Tuesday, Nov 17.",
+        "$TGT's move on Tuesday, Nov 17: −0.49%.",
+        "On Tuesday, Nov 17, $TGT moved −0.49%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $26.53B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$TGT beat the Q3 2026 revenue consensus: $27.07B vs $26.53B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$TGT Q3 2026 revenue $27.07B, beat by $539M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $27.07B vs $26.53B consensus (beat by $539M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $27.07B vs $26.53B (beat by $539M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$TGT beat Q3 2026 revenue estimates by $539M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$TGT beat the Q3 revenue consensus: $27.07B vs $26.53B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$TGT Q3 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$TGT Q3 revenue $27.07B, beat by $539M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$TGT beat Q3 revenue estimates by $539M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$TGT beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$TGT beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 18, Target Corporation ($TGT) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$TGT published Q3 2026 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $TGT came out on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 18, $TGT published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$TGT reported Q3 2026 revenue of $27.07B vs $26.53B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$TGT Q3 2026 revenue was $27.07B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $TGT was $27.07B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$TGT had a market value of $72.8B at the Nov 17 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$TGT's market value at the Nov 17 close was $72.8B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 17 close, $TGT had a market value of $72.8B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$TGT moved −0.49% on Tuesday, Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$TGT's move on Tuesday, Nov 17: −0.49%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Tuesday, Nov 17, $TGT moved −0.49%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.49%": "-",
+          "0.5%": "-"
+        },
+        "subjects": {
+          "TGT": "down"
+        }
+      },
+      "subject_numbers": {
+        "TGT": [
+          [
+            "$",
+            27.07,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            26.53,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            539.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "%",
+            0.49,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            72.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-18-reddit-buzz-SLS-a4dab5",
       "type": "reddit_buzz",
       "ticker": "SLS",
@@ -2464,10 +2850,10 @@
       "in_500": false,
       "context_numbers": [
         "$2.2B",
-        "$587M",
-        "+$587M",
-        "$587.1M",
-        "+$587.1M",
+        "$588M",
+        "+$588M",
+        "$587.6M",
+        "+$587.6M",
         "$5.3B",
         "+$5.3B",
         "$5B",
@@ -2489,10 +2875,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$587M",
-            "+$587M",
-            "$587.1M",
-            "+$587.1M",
+            "$588M",
+            "+$588M",
+            "$587.6M",
+            "+$587.6M",
             "$5.3B",
             "+$5.3B",
             "$5B",
@@ -2508,7 +2894,7 @@
       "context": {
         "market_cap": "$2.2B",
         "insiders_30d": {
-          "bought": "$587M",
+          "bought": "$588M",
           "sold": "$5.3B",
           "days": 30
         }
@@ -2532,9 +2918,9 @@
         "On a Form 4 filed Nov 17, Sameer Bhargava (Director at StubHub Holdings, Inc.) reported an open-market purchase of $STUB totaling $1.5M.",
         "Sameer Bhargava's $STUB purchase was traded Nov 13 and reported on a Form 4 filed Nov 17.",
         "Traded Nov 13, Sameer Bhargava's $STUB purchase was reported on a Form 4 filed Nov 17.",
-        "Officers and directors reported $587M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $587M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $587M of open-market buys and $5.3B of open-market sells."
+        "Officers and directors reported $588M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $588M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $588M of open-market buys and $5.3B of open-market sells."
       ],
       "phrasings": [
         {
@@ -2632,28 +3018,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $587M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $588M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $587M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $588M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $587M of open-market buys and $5.3B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $588M of open-market buys and $5.3B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$587M": "+",
-          "$587.1M": "+",
+          "$588M": "+",
+          "$587.6M": "+",
           "$5.3B": "+",
           "$5B": "+"
         },
@@ -2727,10 +3113,10 @@
       "in_500": false,
       "context_numbers": [
         "$9.2B",
-        "$587M",
-        "+$587M",
-        "$587.1M",
-        "+$587.1M",
+        "$588M",
+        "+$588M",
+        "$587.6M",
+        "+$587.6M",
         "$5.3B",
         "+$5.3B",
         "$5B",
@@ -2752,10 +3138,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$587M",
-            "+$587M",
-            "$587.1M",
-            "+$587.1M",
+            "$588M",
+            "+$588M",
+            "$587.6M",
+            "+$587.6M",
             "$5.3B",
             "+$5.3B",
             "$5B",
@@ -2771,7 +3157,7 @@
       "context": {
         "market_cap": "$9.2B",
         "insiders_30d": {
-          "bought": "$587M",
+          "bought": "$588M",
           "sold": "$5.3B",
           "days": 30
         }
@@ -2795,9 +3181,9 @@
         "On a Form 4 filed Nov 17, Matthew Kalish (Director at DraftKings Inc.) reported an open-market purchase of $DKNG totaling $1M.",
         "Matthew Kalish's $DKNG purchase was traded Nov 17 and reported on a Form 4 filed Nov 17.",
         "Traded Nov 17, Matthew Kalish's $DKNG purchase was reported on a Form 4 filed Nov 17.",
-        "Officers and directors reported $587M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $587M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $587M of open-market buys and $5.3B of open-market sells."
+        "Officers and directors reported $588M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $588M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $588M of open-market buys and $5.3B of open-market sells."
       ],
       "phrasings": [
         {
@@ -2895,28 +3281,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $587M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $588M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $587M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $588M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $587M of open-market buys and $5.3B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $588M of open-market buys and $5.3B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$587M": "+",
-          "$587.1M": "+",
+          "$588M": "+",
+          "$587.6M": "+",
           "$5.3B": "+",
           "$5B": "+"
         },
@@ -2927,269 +3313,6 @@
           [
             "$",
             9.2,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-18-congress-trade-EL-f0809c",
-      "type": "congress_trade",
-      "ticker": "EL",
-      "tickers": [
-        "EL"
-      ],
-      "name": "Jonathan L. Jackson",
-      "office": "U.S. Representative (D-IL)",
-      "amount_text": "$1K–$15K",
-      "traded": [
-        "2026-10-12"
-      ],
-      "filed": "2026-11-13",
-      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035757.pdf",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/jonathan-l-jackson?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-congress-trade-EL-f0809c#trades",
-      "allowed_numbers": [
-        "$1K–$15K",
-        "$1K",
-        "$15K",
-        "$1,001–$15,000",
-        "$1,001",
-        "$15,000",
-        "2026-11-13",
-        "Nov 13, 2026",
-        "Nov 13",
-        "2026-10-12",
-        "Oct 12, 2026",
-        "Oct 12"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of EL (The Estée Lauder Companies Inc.), $1K–$15K, traded 2026-10-12; filed 2026-11-13 (owner: spouse).",
-      "dedupe_key": "ptr:20035757:EL:buy",
-      "claim_phrases": [],
-      "company": "The Estée Lauder Companies Inc.",
-      "side": "buy",
-      "owner": [
-        "spouse"
-      ],
-      "figure_slug": "jonathan-l-jackson",
-      "amount_exact_text": "$1,001–$15,000",
-      "rows": 1,
-      "amount_top_usd": 15000.0,
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/jonathan-l-jackson/opengraph-image",
-          "kind": "image",
-          "alt": "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of EL (The Estée Lauder Companies Inc.), $1K–$15K, traded 2026-10-12; filed 2026-11-13 (owner: spouse)."
-        }
-      ],
-      "rank": 6.18,
-      "rank_why": "congress_trade 2; large cap $39.35B +2.5; magnitude (top $15K, buy +1) +1.18; filed 2026-11-13 (age 3) +0.5",
-      "pillar": "P3",
-      "market_cap_usd": 39352713216.0,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17",
-        "$39.4B",
-        "−3.77%",
-        "3.77%",
-        "−3.8%",
-        "3.8%",
-        "83",
-        "133",
-        "27",
-        "30"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "EL"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "EL": "Consumer Defensive"
-      },
-      "ticker_names": {
-        "EL": "The Estée Lauder Companies Inc."
-      },
-      "context": {
-        "market_cap": "$39.4B",
-        "market_cap_session": "2026-11-17",
-        "last_session_move": {
-          "pct": "−3.77%",
-          "session": "2026-11-17"
-        },
-        "congress_30d": {
-          "buys": 83,
-          "sells": 133,
-          "members": 27,
-          "days": 30
-        }
-      },
-      "angles": [
-        "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of $EL (owner: spouse), $1K–$15K (filed Nov 13).",
-        "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Jonathan L. Jackson (D-IL) (filed Nov 13).",
-        "Jonathan L. Jackson disclosed a purchase of $EL (owner: spouse), $1K–$15K."
-      ],
-      "fact_phrases": [
-        "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of $EL (owner: spouse), $1K–$15K (filed Nov 13).",
-        "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Jonathan L. Jackson (D-IL) (filed Nov 13).",
-        "Jonathan L. Jackson disclosed a purchase of $EL (owner: spouse), $1K–$15K.",
-        "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by Jonathan L. Jackson.",
-        "Jonathan L. Jackson's $EL purchase was traded Oct 12 and disclosed on Nov 13.",
-        "Traded Oct 12, Jonathan L. Jackson's $EL purchase was disclosed on Nov 13.",
-        "$EL had a market value of $39.4B at the Nov 17 close.",
-        "$EL's market value at the Nov 17 close was $39.4B.",
-        "At the Nov 17 close, $EL had a market value of $39.4B.",
-        "$EL moved −3.77% on Tuesday, Nov 17.",
-        "$EL's move on Tuesday, Nov 17: −3.77%.",
-        "On Tuesday, Nov 17, $EL moved −3.77%.",
-        "Members of Congress disclosed 83 buys and 133 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 133 sells and 83 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 83 buys and 133 sells."
-      ],
-      "phrasings": [
-        {
-          "id": "congresstr-163ed7.a",
-          "fact": "congresstr-163ed7",
-          "variant": "a",
-          "text": "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of $EL (owner: spouse), $1K–$15K (filed Nov 13).",
-          "claim": false
-        },
-        {
-          "id": "congresstr-163ed7.h1",
-          "fact": "congresstr-163ed7",
-          "variant": "h1",
-          "text": "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Jonathan L. Jackson (D-IL) (filed Nov 13).",
-          "claim": false
-        },
-        {
-          "id": "congresstr-2208d1.a",
-          "fact": "congresstr-2208d1",
-          "variant": "a",
-          "text": "Jonathan L. Jackson disclosed a purchase of $EL (owner: spouse), $1K–$15K.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-2208d1.h1",
-          "fact": "congresstr-2208d1",
-          "variant": "h1",
-          "text": "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by Jonathan L. Jackson.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-190851.a",
-          "fact": "congresstr-190851",
-          "variant": "a",
-          "text": "Jonathan L. Jackson's $EL purchase was traded Oct 12 and disclosed on Nov 13.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-190851.h1",
-          "fact": "congresstr-190851",
-          "variant": "h1",
-          "text": "Traded Oct 12, Jonathan L. Jackson's $EL purchase was disclosed on Nov 13.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.a",
-          "fact": "congresstr-426192",
-          "variant": "a",
-          "text": "$EL had a market value of $39.4B at the Nov 17 close.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.h1",
-          "fact": "congresstr-426192",
-          "variant": "h1",
-          "text": "$EL's market value at the Nov 17 close was $39.4B.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.t",
-          "fact": "congresstr-426192",
-          "variant": "t",
-          "text": "At the Nov 17 close, $EL had a market value of $39.4B.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.a",
-          "fact": "congresstr-061727",
-          "variant": "a",
-          "text": "$EL moved −3.77% on Tuesday, Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.h1",
-          "fact": "congresstr-061727",
-          "variant": "h1",
-          "text": "$EL's move on Tuesday, Nov 17: −3.77%.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.t",
-          "fact": "congresstr-061727",
-          "variant": "t",
-          "text": "On Tuesday, Nov 17, $EL moved −3.77%.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.a",
-          "fact": "congresstr-f8938e",
-          "variant": "a",
-          "text": "Members of Congress disclosed 83 buys and 133 sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.h1",
-          "fact": "congresstr-f8938e",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 133 sells and 83 buys.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.t",
-          "fact": "congresstr-f8938e",
-          "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 133 sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "3.77%": "-",
-          "3.8%": "-"
-        },
-        "subjects": {
-          "EL": "down"
-        }
-      },
-      "subject_numbers": {
-        "EL": [
-          [
-            "%",
-            3.77,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            39.4,
             1,
             1000000000.0,
             0
@@ -6796,1157 +6919,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-18-earnings-result-DIS-18c34a",
-      "type": "earnings_result",
-      "ticker": "DIS",
-      "tickers": [
-        "DIS"
-      ],
-      "name": "The Walt Disney Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1744489/000174448926000065/fy2026_q4xerxex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/DIS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-DIS-18c34a#earnings-history",
-      "allowed_numbers": [
-        "$25.95B",
-        "$25.16B",
-        "$784M",
-        "$1.77",
-        "$1.68",
-        "$0.09",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The Walt Disney Company (DIS) published FY2026 (Q4) results on 2026-11-17: Beat estimates. Revenue $25.95B vs $25.16B consensus (Beat by $784M). Diluted EPS excluding certain items $1.77 vs $1.68 consensus (Beat by $0.09).",
-      "dedupe_key": "report:dis-2026-q4",
-      "claim_phrases": [
-        "revenue came in above the $25.16B consensus.",
-        "$DIS beat the FY2026 (Q4) revenue consensus: $25.95B vs $25.16B.",
-        "$DIS FY2026 (Q4) revenue: $25.95B vs $25.16B consensus (beat by $784M).",
-        "$DIS FY2026 (Q4) revenue $25.95B, beat by $784M.",
-        "revenue $25.95B vs $25.16B consensus (beat by $784M).",
-        "revenue $25.95B vs $25.16B (beat by $784M).",
-        "$DIS beat FY2026 (Q4) revenue estimates by $784M.",
-        "EPS came in above the $1.68 consensus.",
-        "$DIS beat the FY2026 (Q4) EPS consensus: $1.77 vs $1.68.",
-        "$DIS FY2026 (Q4) EPS: $1.77 vs $1.68 consensus (beat by $0.09).",
-        "$DIS FY2026 (Q4) EPS $1.77, beat by $0.09.",
-        "EPS $1.77 vs $1.68 consensus (beat by $0.09).",
-        "EPS $1.77 vs $1.68 (beat by $0.09).",
-        "$DIS beat FY2026 (Q4) EPS estimates by $0.09.",
-        "Diluted EPS excluding certain items came in above the $1.68 consensus.",
-        "$DIS beat the FY2026 (Q4) Diluted EPS excluding certain items consensus: $1.77 vs $1.68.",
-        "$DIS FY2026 (Q4) Diluted EPS excluding certain items: $1.77 vs $1.68 consensus (beat by $0.09).",
-        "$DIS FY2026 (Q4) Diluted EPS excluding certain items $1.77, beat by $0.09.",
-        "Diluted EPS excluding certain items $1.77 vs $1.68 consensus (beat by $0.09).",
-        "Diluted EPS excluding certain items $1.77 vs $1.68 (beat by $0.09).",
-        "$DIS beat FY2026 (Q4) Diluted EPS excluding certain items estimates by $0.09.",
-        "$DIS beat FY2026 (Q4) estimates."
-      ],
-      "report_id": "dis-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-17",
-      "published_at": "2026-11-17T11:32:06.142061+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$25.95B",
-          "consensus": "$25.16B",
-          "label": "Beat by $784M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Diluted EPS excluding certain items",
-          "reported": "$1.77",
-          "consensus": "$1.68",
-          "label": "Beat by $0.09",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/DIS/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for DIS: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 10.0,
-      "rank_why": "earnings_result 3; mega cap $204.96B +4; magnitude (verdict) +1.5; release_date 2026-11-17 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 204957728768.0,
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17",
-        "$205B",
-        "−1.48%",
-        "1.48%",
-        "−1.5%",
-        "1.5%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "DIS"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "DIS": "Communication Services"
-      },
-      "ticker_names": {
-        "DIS": "The Walt Disney Company"
-      },
-      "context": {
-        "market_cap": "$205B",
-        "market_cap_session": "2026-11-17",
-        "last_session_move": {
-          "pct": "−1.48%",
-          "session": "2026-11-17"
-        }
-      },
-      "angles": [
-        "The Walt Disney Company ($DIS) published FY2026 (Q4) results on Nov 17.",
-        "$DIS (The Walt Disney Company) reported FY2026 (Q4) results on Nov 17.",
-        "On Nov 17, the Walt Disney Company ($DIS) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "The Walt Disney Company ($DIS) published FY2026 (Q4) results on Nov 17.",
-        "$DIS (The Walt Disney Company) reported FY2026 (Q4) results on Nov 17.",
-        "On Nov 17, the Walt Disney Company ($DIS) published FY2026 (Q4) results.",
-        "$DIS published FY2026 (Q4) results on Nov 17.",
-        "FY2026 (Q4) results from $DIS came out on Nov 17.",
-        "On Nov 17, $DIS published FY2026 (Q4) results.",
-        "$DIS FY2026 (Q4) revenue: $25.95B vs $25.16B consensus.",
-        "$DIS reported FY2026 (Q4) revenue of $25.95B vs $25.16B consensus.",
-        "$DIS FY2026 (Q4) revenue was $25.95B.",
-        "FY2026 (Q4) revenue at $DIS was $25.95B.",
-        "$DIS FY2026 (Q4) Diluted EPS excluding certain items: $1.77 vs $1.68 consensus.",
-        "$DIS reported FY2026 (Q4) Diluted EPS excluding certain items of $1.77 vs $1.68 consensus.",
-        "$DIS FY2026 (Q4) Diluted EPS excluding certain items was $1.77.",
-        "FY2026 (Q4) Diluted EPS excluding certain items at $DIS was $1.77.",
-        "$DIS had a market value of $205B at the Nov 17 close.",
-        "$DIS's market value at the Nov 17 close was $205B.",
-        "At the Nov 17 close, $DIS had a market value of $205B.",
-        "$DIS moved −1.48% on Tuesday, Nov 17.",
-        "$DIS's move on Tuesday, Nov 17: −1.48%.",
-        "On Tuesday, Nov 17, $DIS moved −1.48%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $25.16B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fe5e72.a",
-          "fact": "earningsre-fe5e72",
-          "variant": "a",
-          "text": "$DIS beat the FY2026 (Q4) revenue consensus: $25.95B vs $25.16B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c73b4a.a",
-          "fact": "earningsre-c73b4a",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) revenue: $25.95B vs $25.16B consensus (beat by $784M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c84ebe.a",
-          "fact": "earningsre-c84ebe",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) revenue $25.95B, beat by $784M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $25.95B vs $25.16B consensus (beat by $784M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $25.95B vs $25.16B (beat by $784M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-292430.a",
-          "fact": "earningsre-292430",
-          "variant": "a",
-          "text": "$DIS beat FY2026 (Q4) revenue estimates by $784M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.68 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$DIS beat the FY2026 (Q4) EPS consensus: $1.77 vs $1.68.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) EPS: $1.77 vs $1.68 consensus (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) EPS $1.77, beat by $0.09.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.77 vs $1.68 consensus (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.77 vs $1.68 (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$DIS beat FY2026 (Q4) EPS estimates by $0.09.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f82df6.a",
-          "fact": "earningsre-f82df6",
-          "variant": "a",
-          "text": "Diluted EPS excluding certain items came in above the $1.68 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-496a0b.a",
-          "fact": "earningsre-496a0b",
-          "variant": "a",
-          "text": "$DIS beat the FY2026 (Q4) Diluted EPS excluding certain items consensus: $1.77 vs $1.68.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9fc683.a",
-          "fact": "earningsre-9fc683",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) Diluted EPS excluding certain items: $1.77 vs $1.68 consensus (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-54bec1.a",
-          "fact": "earningsre-54bec1",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) Diluted EPS excluding certain items $1.77, beat by $0.09.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f8c988.a",
-          "fact": "earningsre-f8c988",
-          "variant": "a",
-          "text": "Diluted EPS excluding certain items $1.77 vs $1.68 consensus (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-eacf72.a",
-          "fact": "earningsre-eacf72",
-          "variant": "a",
-          "text": "Diluted EPS excluding certain items $1.77 vs $1.68 (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-ef8431.a",
-          "fact": "earningsre-ef8431",
-          "variant": "a",
-          "text": "$DIS beat FY2026 (Q4) Diluted EPS excluding certain items estimates by $0.09.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-232122.a",
-          "fact": "earningsre-232122",
-          "variant": "a",
-          "text": "$DIS beat FY2026 (Q4) estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-98275e.a",
-          "fact": "earningsre-98275e",
-          "variant": "a",
-          "text": "The Walt Disney Company ($DIS) published FY2026 (Q4) results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-98275e.h1",
-          "fact": "earningsre-98275e",
-          "variant": "h1",
-          "text": "$DIS (The Walt Disney Company) reported FY2026 (Q4) results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-98275e.t",
-          "fact": "earningsre-98275e",
-          "variant": "t",
-          "text": "On Nov 17, the Walt Disney Company ($DIS) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$DIS published FY2026 (Q4) results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $DIS came out on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 17, $DIS published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.a",
-          "fact": "earningsre-8c456a",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) revenue: $25.95B vs $25.16B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.h1",
-          "fact": "earningsre-8c456a",
-          "variant": "h1",
-          "text": "$DIS reported FY2026 (Q4) revenue of $25.95B vs $25.16B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.a",
-          "fact": "earningsre-3741ca",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) revenue was $25.95B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.h1",
-          "fact": "earningsre-3741ca",
-          "variant": "h1",
-          "text": "FY2026 (Q4) revenue at $DIS was $25.95B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-2147ec.a",
-          "fact": "earningsre-2147ec",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) Diluted EPS excluding certain items: $1.77 vs $1.68 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-2147ec.h1",
-          "fact": "earningsre-2147ec",
-          "variant": "h1",
-          "text": "$DIS reported FY2026 (Q4) Diluted EPS excluding certain items of $1.77 vs $1.68 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-aca57b.a",
-          "fact": "earningsre-aca57b",
-          "variant": "a",
-          "text": "$DIS FY2026 (Q4) Diluted EPS excluding certain items was $1.77.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-aca57b.h1",
-          "fact": "earningsre-aca57b",
-          "variant": "h1",
-          "text": "FY2026 (Q4) Diluted EPS excluding certain items at $DIS was $1.77.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$DIS had a market value of $205B at the Nov 17 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$DIS's market value at the Nov 17 close was $205B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 17 close, $DIS had a market value of $205B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$DIS moved −1.48% on Tuesday, Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$DIS's move on Tuesday, Nov 17: −1.48%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Tuesday, Nov 17, $DIS moved −1.48%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "1.48%": "-",
-          "1.5%": "-"
-        },
-        "subjects": {
-          "DIS": "down"
-        }
-      },
-      "subject_numbers": {
-        "DIS": [
-          [
-            "$",
-            25.95,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            25.16,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            784.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            1.77,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.68,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.09,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            1.48,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            205.0,
-            0,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-17 release posted on 2026-11-18: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-18-earnings-result-HD-a71989",
-      "type": "earnings_result",
-      "ticker": "HD",
-      "tickers": [
-        "HD"
-      ],
-      "name": "The Home Depot, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/354950/000035495026000184/hd_exhibit991x11012026.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/HD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-HD-a71989#earnings-history",
-      "allowed_numbers": [
-        "$43.4B",
-        "$42.78B",
-        "$618M",
-        "$3.86",
-        "$3.84",
-        "$0.02",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The Home Depot, Inc. (HD) published Q3 2026 results on 2026-11-17: Beat estimates. Revenue $43.4B vs $42.78B consensus (Beat by $618M). Adjusted diluted earnings per share $3.86 vs $3.84 consensus (Beat by $0.02).",
-      "dedupe_key": "report:hd-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $42.78B consensus.",
-        "$HD beat the Q3 2026 revenue consensus: $43.4B vs $42.78B.",
-        "$HD Q3 2026 revenue: $43.4B vs $42.78B consensus (beat by $618M).",
-        "$HD Q3 2026 revenue $43.4B, beat by $618M.",
-        "revenue $43.4B vs $42.78B consensus (beat by $618M).",
-        "revenue $43.4B vs $42.78B (beat by $618M).",
-        "$HD beat Q3 2026 revenue estimates by $618M.",
-        "$HD beat the Q3 revenue consensus: $43.4B vs $42.78B.",
-        "$HD Q3 revenue: $43.4B vs $42.78B consensus (beat by $618M).",
-        "$HD Q3 revenue $43.4B, beat by $618M.",
-        "$HD beat Q3 revenue estimates by $618M.",
-        "EPS came in above the $3.84 consensus.",
-        "$HD beat the Q3 2026 EPS consensus: $3.86 vs $3.84.",
-        "$HD Q3 2026 EPS: $3.86 vs $3.84 consensus (beat by $0.02).",
-        "$HD Q3 2026 EPS $3.86, beat by $0.02.",
-        "EPS $3.86 vs $3.84 consensus (beat by $0.02).",
-        "EPS $3.86 vs $3.84 (beat by $0.02).",
-        "$HD beat Q3 2026 EPS estimates by $0.02.",
-        "Adjusted diluted earnings per share came in above the $3.84 consensus.",
-        "$HD beat the Q3 2026 Adjusted diluted earnings per share consensus: $3.86 vs $3.84.",
-        "$HD Q3 2026 Adjusted diluted earnings per share: $3.86 vs $3.84 consensus (beat by $0.02).",
-        "$HD Q3 2026 Adjusted diluted earnings per share $3.86, beat by $0.02.",
-        "Adjusted diluted earnings per share $3.86 vs $3.84 consensus (beat by $0.02).",
-        "Adjusted diluted earnings per share $3.86 vs $3.84 (beat by $0.02).",
-        "$HD beat Q3 2026 Adjusted diluted earnings per share estimates by $0.02.",
-        "$HD beat the Q3 EPS consensus: $3.86 vs $3.84.",
-        "$HD Q3 EPS: $3.86 vs $3.84 consensus (beat by $0.02).",
-        "$HD Q3 EPS $3.86, beat by $0.02.",
-        "$HD beat Q3 EPS estimates by $0.02.",
-        "$HD beat the Q3 Adjusted diluted earnings per share consensus: $3.86 vs $3.84.",
-        "$HD Q3 Adjusted diluted earnings per share: $3.86 vs $3.84 consensus (beat by $0.02).",
-        "$HD Q3 Adjusted diluted earnings per share $3.86, beat by $0.02.",
-        "$HD beat Q3 Adjusted diluted earnings per share estimates by $0.02.",
-        "$HD beat Q3 2026 estimates.",
-        "$HD beat Q3 estimates."
-      ],
-      "report_id": "hd-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-17",
-      "published_at": "2026-11-17T11:20:06.058928+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$43.4B",
-          "consensus": "$42.78B",
-          "label": "Beat by $618M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Adjusted diluted earnings per share",
-          "reported": "$3.86",
-          "consensus": "$3.84",
-          "label": "Beat by $0.02",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/HD/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for HD: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 10.0,
-      "rank_why": "earnings_result 3; mega cap $346.71B +4; magnitude (verdict) +1.5; release_date 2026-11-17 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 346707132416.0,
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17",
-        "$347B",
-        "−2.45%",
-        "2.45%",
-        "−2.4%",
-        "2.4%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "HD"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "HD": "Consumer Cyclical"
-      },
-      "ticker_names": {
-        "HD": "The Home Depot, Inc."
-      },
-      "context": {
-        "market_cap": "$347B",
-        "market_cap_session": "2026-11-17",
-        "last_session_move": {
-          "pct": "−2.45%",
-          "session": "2026-11-17"
-        }
-      },
-      "angles": [
-        "The Home Depot, Inc. ($HD) published Q3 2026 results on Nov 17.",
-        "$HD (The Home Depot, Inc.) reported Q3 2026 results on Nov 17.",
-        "On Nov 17, the Home Depot, Inc. ($HD) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "The Home Depot, Inc. ($HD) published Q3 2026 results on Nov 17.",
-        "$HD (The Home Depot, Inc.) reported Q3 2026 results on Nov 17.",
-        "On Nov 17, the Home Depot, Inc. ($HD) published Q3 2026 results.",
-        "$HD published Q3 2026 results on Nov 17.",
-        "Q3 2026 results from $HD came out on Nov 17.",
-        "On Nov 17, $HD published Q3 2026 results.",
-        "$HD Q3 2026 revenue: $43.4B vs $42.78B consensus.",
-        "$HD reported Q3 2026 revenue of $43.4B vs $42.78B consensus.",
-        "$HD Q3 2026 revenue was $43.4B.",
-        "Q3 2026 revenue at $HD was $43.4B.",
-        "$HD Q3 2026 Adjusted diluted earnings per share: $3.86 vs $3.84 consensus.",
-        "$HD reported Q3 2026 Adjusted diluted earnings per share of $3.86 vs $3.84 consensus.",
-        "$HD Q3 2026 Adjusted diluted earnings per share was $3.86.",
-        "Q3 2026 Adjusted diluted earnings per share at $HD was $3.86.",
-        "$HD had a market value of $347B at the Nov 17 close.",
-        "$HD's market value at the Nov 17 close was $347B.",
-        "At the Nov 17 close, $HD had a market value of $347B.",
-        "$HD moved −2.45% on Tuesday, Nov 17.",
-        "$HD's move on Tuesday, Nov 17: −2.45%.",
-        "On Tuesday, Nov 17, $HD moved −2.45%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $42.78B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$HD beat the Q3 2026 revenue consensus: $43.4B vs $42.78B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$HD Q3 2026 revenue: $43.4B vs $42.78B consensus (beat by $618M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$HD Q3 2026 revenue $43.4B, beat by $618M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $43.4B vs $42.78B consensus (beat by $618M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $43.4B vs $42.78B (beat by $618M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$HD beat Q3 2026 revenue estimates by $618M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$HD beat the Q3 revenue consensus: $43.4B vs $42.78B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$HD Q3 revenue: $43.4B vs $42.78B consensus (beat by $618M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$HD Q3 revenue $43.4B, beat by $618M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$HD beat Q3 revenue estimates by $618M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $3.84 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$HD beat the Q3 2026 EPS consensus: $3.86 vs $3.84.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$HD Q3 2026 EPS: $3.86 vs $3.84 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$HD Q3 2026 EPS $3.86, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $3.86 vs $3.84 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $3.86 vs $3.84 (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$HD beat Q3 2026 EPS estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-ffaa25.a",
-          "fact": "earningsre-ffaa25",
-          "variant": "a",
-          "text": "Adjusted diluted earnings per share came in above the $3.84 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d1e8a7.a",
-          "fact": "earningsre-d1e8a7",
-          "variant": "a",
-          "text": "$HD beat the Q3 2026 Adjusted diluted earnings per share consensus: $3.86 vs $3.84.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e26387.a",
-          "fact": "earningsre-e26387",
-          "variant": "a",
-          "text": "$HD Q3 2026 Adjusted diluted earnings per share: $3.86 vs $3.84 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-802f9a.a",
-          "fact": "earningsre-802f9a",
-          "variant": "a",
-          "text": "$HD Q3 2026 Adjusted diluted earnings per share $3.86, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3f523d.a",
-          "fact": "earningsre-3f523d",
-          "variant": "a",
-          "text": "Adjusted diluted earnings per share $3.86 vs $3.84 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cc1fe3.a",
-          "fact": "earningsre-cc1fe3",
-          "variant": "a",
-          "text": "Adjusted diluted earnings per share $3.86 vs $3.84 (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8911a4.a",
-          "fact": "earningsre-8911a4",
-          "variant": "a",
-          "text": "$HD beat Q3 2026 Adjusted diluted earnings per share estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$HD beat the Q3 EPS consensus: $3.86 vs $3.84.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$HD Q3 EPS: $3.86 vs $3.84 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$HD Q3 EPS $3.86, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$HD beat Q3 EPS estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-37e9f2.a",
-          "fact": "earningsre-37e9f2",
-          "variant": "a",
-          "text": "$HD beat the Q3 Adjusted diluted earnings per share consensus: $3.86 vs $3.84.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-12da86.a",
-          "fact": "earningsre-12da86",
-          "variant": "a",
-          "text": "$HD Q3 Adjusted diluted earnings per share: $3.86 vs $3.84 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-2c7861.a",
-          "fact": "earningsre-2c7861",
-          "variant": "a",
-          "text": "$HD Q3 Adjusted diluted earnings per share $3.86, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-67a421.a",
-          "fact": "earningsre-67a421",
-          "variant": "a",
-          "text": "$HD beat Q3 Adjusted diluted earnings per share estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$HD beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$HD beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b384b8.a",
-          "fact": "earningsre-b384b8",
-          "variant": "a",
-          "text": "The Home Depot, Inc. ($HD) published Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.h1",
-          "fact": "earningsre-b384b8",
-          "variant": "h1",
-          "text": "$HD (The Home Depot, Inc.) reported Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.t",
-          "fact": "earningsre-b384b8",
-          "variant": "t",
-          "text": "On Nov 17, the Home Depot, Inc. ($HD) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$HD published Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $HD came out on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 17, $HD published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$HD Q3 2026 revenue: $43.4B vs $42.78B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$HD reported Q3 2026 revenue of $43.4B vs $42.78B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$HD Q3 2026 revenue was $43.4B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $HD was $43.4B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c913a3.a",
-          "fact": "earningsre-c913a3",
-          "variant": "a",
-          "text": "$HD Q3 2026 Adjusted diluted earnings per share: $3.86 vs $3.84 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c913a3.h1",
-          "fact": "earningsre-c913a3",
-          "variant": "h1",
-          "text": "$HD reported Q3 2026 Adjusted diluted earnings per share of $3.86 vs $3.84 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-6bdf7c.a",
-          "fact": "earningsre-6bdf7c",
-          "variant": "a",
-          "text": "$HD Q3 2026 Adjusted diluted earnings per share was $3.86.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-6bdf7c.h1",
-          "fact": "earningsre-6bdf7c",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted diluted earnings per share at $HD was $3.86.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$HD had a market value of $347B at the Nov 17 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$HD's market value at the Nov 17 close was $347B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 17 close, $HD had a market value of $347B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$HD moved −2.45% on Tuesday, Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$HD's move on Tuesday, Nov 17: −2.45%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Tuesday, Nov 17, $HD moved −2.45%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "2.45%": "-",
-          "2.4%": "-"
-        },
-        "subjects": {
-          "HD": "down"
-        }
-      },
-      "subject_numbers": {
-        "HD": [
-          [
-            "$",
-            43.4,
-            1,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            42.78,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            618.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            3.86,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            3.84,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.02,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            2.45,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            347.0,
-            0,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-17 release posted on 2026-11-18: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-18-earnings-result-VIK-a9340b",
       "type": "earnings_result",
       "ticker": "VIK",
@@ -9169,6 +8141,270 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "repeat: leads with $BABA like 2026-11-18-earnings-tomorrow-roundup-LIST-de5c17",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-18-congress-trade-EL-f0809c",
+      "type": "congress_trade",
+      "ticker": "EL",
+      "tickers": [
+        "EL"
+      ],
+      "name": "Jonathan L. Jackson",
+      "office": "U.S. Representative (D-IL)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-10-12"
+      ],
+      "filed": "2026-11-13",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035757.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/jonathan-l-jackson?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-congress-trade-EL-f0809c#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-11-13",
+        "Nov 13, 2026",
+        "Nov 13",
+        "2026-10-12",
+        "Oct 12, 2026",
+        "Oct 12"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of EL (The Estée Lauder Companies Inc.), $1K–$15K, traded 2026-10-12; filed 2026-11-13 (owner: spouse).",
+      "dedupe_key": "ptr:20035757:EL:buy",
+      "claim_phrases": [],
+      "company": "The Estée Lauder Companies Inc.",
+      "side": "buy",
+      "owner": [
+        "spouse"
+      ],
+      "figure_slug": "jonathan-l-jackson",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/jonathan-l-jackson/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of EL (The Estée Lauder Companies Inc.), $1K–$15K, traded 2026-10-12; filed 2026-11-13 (owner: spouse)."
+        }
+      ],
+      "rank": 6.18,
+      "rank_why": "congress_trade 2; large cap $39.35B +2.5; magnitude (top $15K, buy +1) +1.18; filed 2026-11-13 (age 3) +0.5",
+      "pillar": "P3",
+      "market_cap_usd": 39352713216.0,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17",
+        "$39.4B",
+        "−3.77%",
+        "3.77%",
+        "−3.8%",
+        "3.8%",
+        "83",
+        "133",
+        "27",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "EL"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "EL": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "EL": "The Estée Lauder Companies Inc."
+      },
+      "context": {
+        "market_cap": "$39.4B",
+        "market_cap_session": "2026-11-17",
+        "last_session_move": {
+          "pct": "−3.77%",
+          "session": "2026-11-17"
+        },
+        "congress_30d": {
+          "buys": 83,
+          "sells": 133,
+          "members": 27,
+          "days": 30
+        }
+      },
+      "angles": [
+        "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of $EL (owner: spouse), $1K–$15K (filed Nov 13).",
+        "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Jonathan L. Jackson (D-IL) (filed Nov 13).",
+        "Jonathan L. Jackson disclosed a purchase of $EL (owner: spouse), $1K–$15K."
+      ],
+      "fact_phrases": [
+        "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of $EL (owner: spouse), $1K–$15K (filed Nov 13).",
+        "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Jonathan L. Jackson (D-IL) (filed Nov 13).",
+        "Jonathan L. Jackson disclosed a purchase of $EL (owner: spouse), $1K–$15K.",
+        "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by Jonathan L. Jackson.",
+        "Jonathan L. Jackson's $EL purchase was traded Oct 12 and disclosed on Nov 13.",
+        "Traded Oct 12, Jonathan L. Jackson's $EL purchase was disclosed on Nov 13.",
+        "$EL had a market value of $39.4B at the Nov 17 close.",
+        "$EL's market value at the Nov 17 close was $39.4B.",
+        "At the Nov 17 close, $EL had a market value of $39.4B.",
+        "$EL moved −3.77% on Tuesday, Nov 17.",
+        "$EL's move on Tuesday, Nov 17: −3.77%.",
+        "On Tuesday, Nov 17, $EL moved −3.77%.",
+        "Members of Congress disclosed 83 buys and 133 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 133 sells and 83 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 83 buys and 133 sells."
+      ],
+      "phrasings": [
+        {
+          "id": "congresstr-163ed7.a",
+          "fact": "congresstr-163ed7",
+          "variant": "a",
+          "text": "U.S. Representative Jonathan L. Jackson (D-IL) disclosed a purchase of $EL (owner: spouse), $1K–$15K (filed Nov 13).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-163ed7.h1",
+          "fact": "congresstr-163ed7",
+          "variant": "h1",
+          "text": "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Jonathan L. Jackson (D-IL) (filed Nov 13).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-2208d1.a",
+          "fact": "congresstr-2208d1",
+          "variant": "a",
+          "text": "Jonathan L. Jackson disclosed a purchase of $EL (owner: spouse), $1K–$15K.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-2208d1.h1",
+          "fact": "congresstr-2208d1",
+          "variant": "h1",
+          "text": "A purchase of $EL (owner: spouse), $1K–$15K, was disclosed by Jonathan L. Jackson.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.a",
+          "fact": "congresstr-190851",
+          "variant": "a",
+          "text": "Jonathan L. Jackson's $EL purchase was traded Oct 12 and disclosed on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.h1",
+          "fact": "congresstr-190851",
+          "variant": "h1",
+          "text": "Traded Oct 12, Jonathan L. Jackson's $EL purchase was disclosed on Nov 13.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.a",
+          "fact": "congresstr-426192",
+          "variant": "a",
+          "text": "$EL had a market value of $39.4B at the Nov 17 close.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.h1",
+          "fact": "congresstr-426192",
+          "variant": "h1",
+          "text": "$EL's market value at the Nov 17 close was $39.4B.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.t",
+          "fact": "congresstr-426192",
+          "variant": "t",
+          "text": "At the Nov 17 close, $EL had a market value of $39.4B.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.a",
+          "fact": "congresstr-061727",
+          "variant": "a",
+          "text": "$EL moved −3.77% on Tuesday, Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.h1",
+          "fact": "congresstr-061727",
+          "variant": "h1",
+          "text": "$EL's move on Tuesday, Nov 17: −3.77%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.t",
+          "fact": "congresstr-061727",
+          "variant": "t",
+          "text": "On Tuesday, Nov 17, $EL moved −3.77%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.a",
+          "fact": "congresstr-f8938e",
+          "variant": "a",
+          "text": "Members of Congress disclosed 83 buys and 133 sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.h1",
+          "fact": "congresstr-f8938e",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, members of Congress disclosed 133 sells and 83 buys.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.t",
+          "fact": "congresstr-f8938e",
+          "variant": "t",
+          "text": "Over 30 days in our feed, members of Congress disclosed 83 buys and 133 sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "3.77%": "-",
+          "3.8%": "-"
+        },
+        "subjects": {
+          "EL": "down"
+        }
+      },
+      "subject_numbers": {
+        "EL": [
+          [
+            "%",
+            3.77,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            39.4,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -13802,396 +13038,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-18-earnings-result-XBP-e21531",
-      "type": "earnings_result",
-      "ticker": "XBP",
-      "tickers": [
-        "XBP"
-      ],
-      "name": "XBP Global Holdings, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-16",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1839530/000110465926128573/xbp-ex99d1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/XBP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-XBP-e21531#earnings-history",
-      "allowed_numbers": [
-        "−$7.30",
-        "−$0.76",
-        "$6.54",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "XBP Global Holdings, Inc. (XBP) published Q3 2026 results on 2026-11-16: EPS miss. Diluted EPS (GAAP, street basis) −$7.30 vs −$0.76 consensus (Missed by $6.54).",
-      "dedupe_key": "report:xbp-2026-q3",
-      "claim_phrases": [
-        "EPS came in below the −$0.76 consensus.",
-        "$XBP missed the Q3 2026 EPS consensus: −$7.30 vs −$0.76.",
-        "$XBP Q3 2026 EPS: −$7.30 vs −$0.76 consensus (missed by $6.54).",
-        "$XBP Q3 2026 EPS −$7.30, missed by $6.54.",
-        "EPS −$7.30 vs −$0.76 consensus (missed by $6.54).",
-        "EPS −$7.30 vs −$0.76 (missed by $6.54).",
-        "$XBP missed Q3 2026 EPS estimates by $6.54.",
-        "Diluted EPS (GAAP, street basis) came in below the −$0.76 consensus.",
-        "$XBP missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$7.30 vs −$0.76.",
-        "$XBP Q3 2026 Diluted EPS (GAAP, street basis): −$7.30 vs −$0.76 consensus (missed by $6.54).",
-        "$XBP Q3 2026 Diluted EPS (GAAP, street basis) −$7.30, missed by $6.54.",
-        "Diluted EPS (GAAP, street basis) −$7.30 vs −$0.76 consensus (missed by $6.54).",
-        "Diluted EPS (GAAP, street basis) −$7.30 vs −$0.76 (missed by $6.54).",
-        "$XBP missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $6.54.",
-        "$XBP missed the Q3 EPS consensus: −$7.30 vs −$0.76.",
-        "$XBP Q3 EPS: −$7.30 vs −$0.76 consensus (missed by $6.54).",
-        "$XBP Q3 EPS −$7.30, missed by $6.54.",
-        "$XBP missed Q3 EPS estimates by $6.54.",
-        "$XBP missed the Q3 Diluted EPS (GAAP, street basis) consensus: −$7.30 vs −$0.76.",
-        "$XBP Q3 Diluted EPS (GAAP, street basis): −$7.30 vs −$0.76 consensus (missed by $6.54).",
-        "$XBP Q3 Diluted EPS (GAAP, street basis) −$7.30, missed by $6.54.",
-        "$XBP missed Q3 Diluted EPS (GAAP, street basis) estimates by $6.54.",
-        "$XBP missed Q3 2026 estimates.",
-        "$XBP missed Q3 estimates."
-      ],
-      "report_id": "xbp-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-16",
-      "published_at": "2026-11-17T11:02:08.499385+00:00",
-      "tile_label": "EPS miss",
-      "tile_state": "miss",
-      "results": {
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "−$7.30",
-          "consensus": "−$0.76",
-          "label": "Missed by $6.54",
-          "verdict": "miss"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/XBP/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for XBP: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-16 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "XBP"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "XBP Global Holdings, Inc. ($XBP) published Q3 2026 results on Nov 16.",
-        "$XBP (XBP Global Holdings, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, XBP Global Holdings, Inc. ($XBP) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "XBP Global Holdings, Inc. ($XBP) published Q3 2026 results on Nov 16.",
-        "$XBP (XBP Global Holdings, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, XBP Global Holdings, Inc. ($XBP) published Q3 2026 results.",
-        "$XBP published Q3 2026 results on Nov 16.",
-        "Q3 2026 results from $XBP came out on Nov 16.",
-        "On Nov 16, $XBP published Q3 2026 results.",
-        "$XBP Q3 2026 Diluted EPS (GAAP, street basis): −$7.30 vs −$0.76 consensus.",
-        "$XBP reported Q3 2026 Diluted EPS (GAAP, street basis) of −$7.30 vs −$0.76 consensus.",
-        "$XBP Q3 2026 Diluted EPS (GAAP, street basis) was −$7.30.",
-        "Q3 2026 Diluted EPS (GAAP, street basis) at $XBP was −$7.30."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-418b63.a",
-          "fact": "earningsre-418b63",
-          "variant": "a",
-          "text": "EPS came in below the −$0.76 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3982e5.a",
-          "fact": "earningsre-3982e5",
-          "variant": "a",
-          "text": "$XBP missed the Q3 2026 EPS consensus: −$7.30 vs −$0.76.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cf8f92.a",
-          "fact": "earningsre-cf8f92",
-          "variant": "a",
-          "text": "$XBP Q3 2026 EPS: −$7.30 vs −$0.76 consensus (missed by $6.54).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1ed72e.a",
-          "fact": "earningsre-1ed72e",
-          "variant": "a",
-          "text": "$XBP Q3 2026 EPS −$7.30, missed by $6.54.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f18190.a",
-          "fact": "earningsre-f18190",
-          "variant": "a",
-          "text": "EPS −$7.30 vs −$0.76 consensus (missed by $6.54).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-17abfe.a",
-          "fact": "earningsre-17abfe",
-          "variant": "a",
-          "text": "EPS −$7.30 vs −$0.76 (missed by $6.54).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-54e1d8.a",
-          "fact": "earningsre-54e1d8",
-          "variant": "a",
-          "text": "$XBP missed Q3 2026 EPS estimates by $6.54.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6eb967.a",
-          "fact": "earningsre-6eb967",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) came in below the −$0.76 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e07081.a",
-          "fact": "earningsre-e07081",
-          "variant": "a",
-          "text": "$XBP missed the Q3 2026 Diluted EPS (GAAP, street basis) consensus: −$7.30 vs −$0.76.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9bd402.a",
-          "fact": "earningsre-9bd402",
-          "variant": "a",
-          "text": "$XBP Q3 2026 Diluted EPS (GAAP, street basis): −$7.30 vs −$0.76 consensus (missed by $6.54).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cdde1d.a",
-          "fact": "earningsre-cdde1d",
-          "variant": "a",
-          "text": "$XBP Q3 2026 Diluted EPS (GAAP, street basis) −$7.30, missed by $6.54.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-193d52.a",
-          "fact": "earningsre-193d52",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) −$7.30 vs −$0.76 consensus (missed by $6.54).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-03e5ea.a",
-          "fact": "earningsre-03e5ea",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) −$7.30 vs −$0.76 (missed by $6.54).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-24d3f0.a",
-          "fact": "earningsre-24d3f0",
-          "variant": "a",
-          "text": "$XBP missed Q3 2026 Diluted EPS (GAAP, street basis) estimates by $6.54.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-355c5f.a",
-          "fact": "earningsre-355c5f",
-          "variant": "a",
-          "text": "$XBP missed the Q3 EPS consensus: −$7.30 vs −$0.76.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-83f6a0.a",
-          "fact": "earningsre-83f6a0",
-          "variant": "a",
-          "text": "$XBP Q3 EPS: −$7.30 vs −$0.76 consensus (missed by $6.54).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d4f8ff.a",
-          "fact": "earningsre-d4f8ff",
-          "variant": "a",
-          "text": "$XBP Q3 EPS −$7.30, missed by $6.54.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4ffa7a.a",
-          "fact": "earningsre-4ffa7a",
-          "variant": "a",
-          "text": "$XBP missed Q3 EPS estimates by $6.54.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8be676.a",
-          "fact": "earningsre-8be676",
-          "variant": "a",
-          "text": "$XBP missed the Q3 Diluted EPS (GAAP, street basis) consensus: −$7.30 vs −$0.76.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d57ced.a",
-          "fact": "earningsre-d57ced",
-          "variant": "a",
-          "text": "$XBP Q3 Diluted EPS (GAAP, street basis): −$7.30 vs −$0.76 consensus (missed by $6.54).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-239353.a",
-          "fact": "earningsre-239353",
-          "variant": "a",
-          "text": "$XBP Q3 Diluted EPS (GAAP, street basis) −$7.30, missed by $6.54.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cd2ae1.a",
-          "fact": "earningsre-cd2ae1",
-          "variant": "a",
-          "text": "$XBP missed Q3 Diluted EPS (GAAP, street basis) estimates by $6.54.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-0bb625.a",
-          "fact": "earningsre-0bb625",
-          "variant": "a",
-          "text": "$XBP missed Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-49ee3c.a",
-          "fact": "earningsre-49ee3c",
-          "variant": "a",
-          "text": "$XBP missed Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "XBP Global Holdings, Inc. ($XBP) published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$XBP (XBP Global Holdings, Inc.) reported Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 16, XBP Global Holdings, Inc. ($XBP) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$XBP published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $XBP came out on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 16, $XBP published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-5e9f86.a",
-          "fact": "earningsre-5e9f86",
-          "variant": "a",
-          "text": "$XBP Q3 2026 Diluted EPS (GAAP, street basis): −$7.30 vs −$0.76 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-5e9f86.h1",
-          "fact": "earningsre-5e9f86",
-          "variant": "h1",
-          "text": "$XBP reported Q3 2026 Diluted EPS (GAAP, street basis) of −$7.30 vs −$0.76 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1011ad.a",
-          "fact": "earningsre-1011ad",
-          "variant": "a",
-          "text": "$XBP Q3 2026 Diluted EPS (GAAP, street basis) was −$7.30.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1011ad.h1",
-          "fact": "earningsre-1011ad",
-          "variant": "h1",
-          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $XBP was −$7.30.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$7.30": "-",
-          "$0.76": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "XBP": [
-          [
-            "$",
-            7.3,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            0.76,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            6.54,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-16 release (after the close: fresh through 2026-11-17) posted on 2026-11-18: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-18-earnings-upcoming-PDD-76abcd",
       "type": "earnings_upcoming",
       "ticker": "PDD",
@@ -16334,212 +15180,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "stale: the 2026-11-13 release (after the close: fresh through 2026-11-17) posted on 2026-11-18: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-18-earnings-result-FBDT-28b9cb",
-      "type": "earnings_result",
-      "ticker": "FBDT",
-      "tickers": [
-        "FBDT"
-      ],
-      "name": "First Breach, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1892704/000149315226052641/ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/FBDT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-FBDT-28b9cb#earnings-history",
-      "allowed_numbers": [
-        "$569K",
-        "−$0.46",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "First Breach, Inc. (FBDT) published Q3 2026 results on 2026-11-16: Published. Revenue $569K. GAAP EPS −$0.46.",
-      "dedupe_key": "report:fbdt-2026-q3",
-      "claim_phrases": [],
-      "report_id": "fbdt-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-16",
-      "published_at": "2026-11-17T11:02:11.085950+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$569K"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.46"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/FBDT/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for FBDT: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "FBDT"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "First Breach, Inc. ($FBDT) published Q3 2026 results on Nov 16.",
-        "$FBDT (First Breach, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, First Breach, Inc. ($FBDT) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "First Breach, Inc. ($FBDT) published Q3 2026 results on Nov 16.",
-        "$FBDT (First Breach, Inc.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, First Breach, Inc. ($FBDT) published Q3 2026 results.",
-        "$FBDT published Q3 2026 results on Nov 16.",
-        "Q3 2026 results from $FBDT came out on Nov 16.",
-        "On Nov 16, $FBDT published Q3 2026 results.",
-        "$FBDT Q3 2026 revenue: $569K.",
-        "$FBDT reported Q3 2026 revenue of $569K.",
-        "$FBDT Q3 2026 revenue was $569K.",
-        "Q3 2026 revenue at $FBDT was $569K.",
-        "$FBDT Q3 2026 GAAP EPS: −$0.46.",
-        "$FBDT reported Q3 2026 GAAP EPS of −$0.46.",
-        "$FBDT Q3 2026 GAAP EPS was −$0.46.",
-        "Q3 2026 GAAP EPS at $FBDT was −$0.46."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "First Breach, Inc. ($FBDT) published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$FBDT (First Breach, Inc.) reported Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 16, First Breach, Inc. ($FBDT) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$FBDT published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $FBDT came out on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 16, $FBDT published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$FBDT Q3 2026 revenue: $569K.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$FBDT reported Q3 2026 revenue of $569K.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$FBDT Q3 2026 revenue was $569K.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $FBDT was $569K.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$FBDT Q3 2026 GAAP EPS: −$0.46.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$FBDT reported Q3 2026 GAAP EPS of −$0.46.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$FBDT Q3 2026 GAAP EPS was −$0.46.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $FBDT was −$0.46.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.46": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-16 release (after the close: fresh through 2026-11-17) posted on 2026-11-18: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
