@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-18",
-  "generated_at": "2026-11-18T20:15:02Z",
-  "as_of": "2026-11-18T20:15:02Z",
+  "generated_at": "2026-11-18T21:15:02Z",
+  "as_of": "2026-11-18T21:15:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 3,
     "form4_buy": 3,
-    "earnings_result": 20,
+    "earnings_result": 18,
     "earnings_upcoming": 21,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -932,20 +932,19 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 15,
-      "below_minimum": 12,
+      "filings_passing_filters": 14,
+      "below_minimum": 11,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3856,
-      "recent_ready": 99,
-      "outside_24h": 79,
+      "archive_reports": 3860,
+      "recent_ready": 103,
+      "outside_24h": 85,
       "unreadable": 0,
-      "not_compared": 2,
+      "not_compared": 1,
       "not_compared_metrics": [
-        "TGT: eps_adjusted (eps_basis_mismatch)",
-        "GBDC: eps_adjusted (eps_basis_mismatch)"
+        "TGT: eps_adjusted (eps_basis_mismatch)"
       ]
     },
     "earnings_upcoming": {
@@ -961,7 +960,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 43,
+      "tickers_in_items": 41,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -975,7 +974,7 @@
     "market": {
       "market_session": "2026-11-17",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-18T20:15:25.197534+00:00"
+      "flows_as_of": "2026-11-18T21:15:24.373927+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -984,10 +983,10 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 72
+        "angles_dropped": 76
       },
       "top8": {
-        "stale": 8,
+        "stale": 6,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
@@ -1029,7 +1028,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 50,
+  "api_requests": 48,
   "items": [
     {
       "item_id": "2026-11-18-earnings-result-NVDA-002ae4",
@@ -1848,6 +1847,632 @@
         "subjects": {}
       },
       "subject_numbers": {},
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-18-earnings-result-P-595b3b",
+      "type": "earnings_result",
+      "ticker": "P",
+      "tickers": [
+        "P"
+      ],
+      "name": "Everpure, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000110/everpure-ex991q3fy2027xpre.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/P?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-P-595b3b#earnings-history",
+      "allowed_numbers": [
+        "$1.46B",
+        "$1.33B",
+        "$128M",
+        "$0.86",
+        "$0.77",
+        "$0.09",
+        "Q3 2027",
+        "Q3",
+        "FY2027",
+        "2026-11-18",
+        "Nov 18, 2026",
+        "Nov 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Everpure, Inc. (P) published Q3 2027 results on 2026-11-18: Beat estimates. Revenue $1.46B vs $1.33B consensus (Beat by $128M). Non- GAAP results $0.86 vs $0.77 consensus (Beat by $0.09).",
+      "dedupe_key": "report:p-2027-q3",
+      "claim_phrases": [
+        "revenue came in above the $1.33B consensus.",
+        "$P beat the Q3 2027 revenue consensus: $1.46B vs $1.33B.",
+        "$P Q3 2027 revenue: $1.46B vs $1.33B consensus (beat by $128M).",
+        "$P Q3 2027 revenue $1.46B, beat by $128M.",
+        "revenue $1.46B vs $1.33B consensus (beat by $128M).",
+        "revenue $1.46B vs $1.33B (beat by $128M).",
+        "$P beat Q3 2027 revenue estimates by $128M.",
+        "$P beat the Q3 revenue consensus: $1.46B vs $1.33B.",
+        "$P Q3 revenue: $1.46B vs $1.33B consensus (beat by $128M).",
+        "$P Q3 revenue $1.46B, beat by $128M.",
+        "$P beat Q3 revenue estimates by $128M.",
+        "EPS came in above the $0.77 consensus.",
+        "$P beat the Q3 2027 EPS consensus: $0.86 vs $0.77.",
+        "$P Q3 2027 EPS: $0.86 vs $0.77 consensus (beat by $0.09).",
+        "$P Q3 2027 EPS $0.86, beat by $0.09.",
+        "EPS $0.86 vs $0.77 consensus (beat by $0.09).",
+        "EPS $0.86 vs $0.77 (beat by $0.09).",
+        "$P beat Q3 2027 EPS estimates by $0.09.",
+        "Non- GAAP results came in above the $0.77 consensus.",
+        "$P beat the Q3 2027 Non- GAAP results consensus: $0.86 vs $0.77.",
+        "$P Q3 2027 Non- GAAP results: $0.86 vs $0.77 consensus (beat by $0.09).",
+        "$P Q3 2027 Non- GAAP results $0.86, beat by $0.09.",
+        "Non- GAAP results $0.86 vs $0.77 consensus (beat by $0.09).",
+        "Non- GAAP results $0.86 vs $0.77 (beat by $0.09).",
+        "$P beat Q3 2027 Non- GAAP results estimates by $0.09.",
+        "$P beat the Q3 EPS consensus: $0.86 vs $0.77.",
+        "$P Q3 EPS: $0.86 vs $0.77 consensus (beat by $0.09).",
+        "$P Q3 EPS $0.86, beat by $0.09.",
+        "$P beat Q3 EPS estimates by $0.09.",
+        "$P beat the Q3 Non- GAAP results consensus: $0.86 vs $0.77.",
+        "$P Q3 Non- GAAP results: $0.86 vs $0.77 consensus (beat by $0.09).",
+        "$P Q3 Non- GAAP results $0.86, beat by $0.09.",
+        "$P beat Q3 Non- GAAP results estimates by $0.09.",
+        "$P beat Q3 2027 estimates.",
+        "$P beat Q3 estimates."
+      ],
+      "report_id": "p-2027-q3",
+      "fiscal_label": "Q3 2027",
+      "release_date": "2026-11-18",
+      "published_at": "2026-11-18T21:08:57.420719+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$1.46B",
+          "consensus": "$1.33B",
+          "label": "Beat by $128M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non- GAAP results",
+          "reported": "$0.86",
+          "consensus": "$0.77",
+          "label": "Beat by $0.09",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/P/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for P: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $34.55B +2.5; magnitude (verdict) +1.5; release_date 2026-11-18 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 34549003611.22417,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17",
+        "$34.5B",
+        "−1.82%",
+        "1.82%",
+        "−1.8%",
+        "1.8%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "P"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "P": "Technology"
+      },
+      "ticker_names": {
+        "P": "Everpure, Inc."
+      },
+      "context": {
+        "market_cap": "$34.5B",
+        "market_cap_session": "2026-11-17",
+        "last_session_move": {
+          "pct": "−1.82%",
+          "session": "2026-11-17"
+        }
+      },
+      "angles": [
+        "Everpure, Inc. ($P) published Q3 2027 results on Nov 18.",
+        "$P (Everpure, Inc.) reported Q3 2027 results on Nov 18.",
+        "On Nov 18, Everpure, Inc. ($P) published Q3 2027 results."
+      ],
+      "fact_phrases": [
+        "Everpure, Inc. ($P) published Q3 2027 results on Nov 18.",
+        "$P (Everpure, Inc.) reported Q3 2027 results on Nov 18.",
+        "On Nov 18, Everpure, Inc. ($P) published Q3 2027 results.",
+        "$P published Q3 2027 results on Nov 18.",
+        "Q3 2027 results from $P came out on Nov 18.",
+        "On Nov 18, $P published Q3 2027 results.",
+        "$P Q3 2027 revenue: $1.46B vs $1.33B consensus.",
+        "$P reported Q3 2027 revenue of $1.46B vs $1.33B consensus.",
+        "$P Q3 2027 revenue was $1.46B.",
+        "Q3 2027 revenue at $P was $1.46B.",
+        "$P Q3 2027 Non- GAAP results: $0.86 vs $0.77 consensus.",
+        "$P reported Q3 2027 Non- GAAP results of $0.86 vs $0.77 consensus.",
+        "$P Q3 2027 Non- GAAP results was $0.86.",
+        "Q3 2027 Non- GAAP results at $P was $0.86.",
+        "$P had a market value of $34.5B at the Nov 17 close.",
+        "$P's market value at the Nov 17 close was $34.5B.",
+        "At the Nov 17 close, $P had a market value of $34.5B.",
+        "$P moved −1.82% on Tuesday, Nov 17.",
+        "$P's move on Tuesday, Nov 17: −1.82%.",
+        "On Tuesday, Nov 17, $P moved −1.82%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $1.33B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$P beat the Q3 2027 revenue consensus: $1.46B vs $1.33B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$P Q3 2027 revenue: $1.46B vs $1.33B consensus (beat by $128M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$P Q3 2027 revenue $1.46B, beat by $128M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $1.46B vs $1.33B consensus (beat by $128M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $1.46B vs $1.33B (beat by $128M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$P beat Q3 2027 revenue estimates by $128M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$P beat the Q3 revenue consensus: $1.46B vs $1.33B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$P Q3 revenue: $1.46B vs $1.33B consensus (beat by $128M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$P Q3 revenue $1.46B, beat by $128M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$P beat Q3 revenue estimates by $128M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.77 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$P beat the Q3 2027 EPS consensus: $0.86 vs $0.77.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$P Q3 2027 EPS: $0.86 vs $0.77 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$P Q3 2027 EPS $0.86, beat by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.86 vs $0.77 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.86 vs $0.77 (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$P beat Q3 2027 EPS estimates by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-464595.a",
+          "fact": "earningsre-464595",
+          "variant": "a",
+          "text": "Non- GAAP results came in above the $0.77 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9f2547.a",
+          "fact": "earningsre-9f2547",
+          "variant": "a",
+          "text": "$P beat the Q3 2027 Non- GAAP results consensus: $0.86 vs $0.77.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-2780ed.a",
+          "fact": "earningsre-2780ed",
+          "variant": "a",
+          "text": "$P Q3 2027 Non- GAAP results: $0.86 vs $0.77 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e5e9b4.a",
+          "fact": "earningsre-e5e9b4",
+          "variant": "a",
+          "text": "$P Q3 2027 Non- GAAP results $0.86, beat by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-5d4470.a",
+          "fact": "earningsre-5d4470",
+          "variant": "a",
+          "text": "Non- GAAP results $0.86 vs $0.77 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0f181d.a",
+          "fact": "earningsre-0f181d",
+          "variant": "a",
+          "text": "Non- GAAP results $0.86 vs $0.77 (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0f4f2a.a",
+          "fact": "earningsre-0f4f2a",
+          "variant": "a",
+          "text": "$P beat Q3 2027 Non- GAAP results estimates by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$P beat the Q3 EPS consensus: $0.86 vs $0.77.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$P Q3 EPS: $0.86 vs $0.77 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$P Q3 EPS $0.86, beat by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$P beat Q3 EPS estimates by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-327f8f.a",
+          "fact": "earningsre-327f8f",
+          "variant": "a",
+          "text": "$P beat the Q3 Non- GAAP results consensus: $0.86 vs $0.77.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9a79c1.a",
+          "fact": "earningsre-9a79c1",
+          "variant": "a",
+          "text": "$P Q3 Non- GAAP results: $0.86 vs $0.77 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c5063b.a",
+          "fact": "earningsre-c5063b",
+          "variant": "a",
+          "text": "$P Q3 Non- GAAP results $0.86, beat by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-179acc.a",
+          "fact": "earningsre-179acc",
+          "variant": "a",
+          "text": "$P beat Q3 Non- GAAP results estimates by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$P beat Q3 2027 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$P beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Everpure, Inc. ($P) published Q3 2027 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$P (Everpure, Inc.) reported Q3 2027 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 18, Everpure, Inc. ($P) published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$P published Q3 2027 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2027 results from $P came out on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 18, $P published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$P Q3 2027 revenue: $1.46B vs $1.33B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$P reported Q3 2027 revenue of $1.46B vs $1.33B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$P Q3 2027 revenue was $1.46B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2027 revenue at $P was $1.46B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-96f586.a",
+          "fact": "earningsre-96f586",
+          "variant": "a",
+          "text": "$P Q3 2027 Non- GAAP results: $0.86 vs $0.77 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-96f586.h1",
+          "fact": "earningsre-96f586",
+          "variant": "h1",
+          "text": "$P reported Q3 2027 Non- GAAP results of $0.86 vs $0.77 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c1b3b3.a",
+          "fact": "earningsre-c1b3b3",
+          "variant": "a",
+          "text": "$P Q3 2027 Non- GAAP results was $0.86.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c1b3b3.h1",
+          "fact": "earningsre-c1b3b3",
+          "variant": "h1",
+          "text": "Q3 2027 Non- GAAP results at $P was $0.86.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$P had a market value of $34.5B at the Nov 17 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$P's market value at the Nov 17 close was $34.5B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 17 close, $P had a market value of $34.5B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$P moved −1.82% on Tuesday, Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$P's move on Tuesday, Nov 17: −1.82%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Tuesday, Nov 17, $P moved −1.82%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "1.82%": "-",
+          "1.8%": "-"
+        },
+        "subjects": {
+          "P": "down"
+        }
+      },
+      "subject_numbers": {
+        "P": [
+          [
+            "$",
+            1.46,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            1.33,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            128.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.86,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.77,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.09,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            1.82,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            34.5,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
       "cooldown": null,
       "top8": true,
       "rotation": null
@@ -2934,393 +3559,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-18-earnings-result-TGT-6de67d",
-      "type": "earnings_result",
-      "ticker": "TGT",
-      "tickers": [
-        "TGT"
-      ],
-      "name": "Target Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-18",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000051/a2026q3ex-99.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/TGT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-TGT-6de67d#earnings-history",
-      "allowed_numbers": [
-        "$27.07B",
-        "$26.53B",
-        "$539M",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-18",
-        "Nov 18, 2026",
-        "Nov 18"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Target Corporation (TGT) published Q3 2026 results on 2026-11-18. Revenue $27.07B vs $26.53B consensus (Beat by $539M).",
-      "dedupe_key": "report:tgt-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $26.53B consensus.",
-        "$TGT beat the Q3 2026 revenue consensus: $27.07B vs $26.53B.",
-        "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
-        "$TGT Q3 2026 revenue $27.07B, beat by $539M.",
-        "revenue $27.07B vs $26.53B consensus (beat by $539M).",
-        "revenue $27.07B vs $26.53B (beat by $539M).",
-        "$TGT beat Q3 2026 revenue estimates by $539M.",
-        "$TGT beat the Q3 revenue consensus: $27.07B vs $26.53B.",
-        "$TGT Q3 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
-        "$TGT Q3 revenue $27.07B, beat by $539M.",
-        "$TGT beat Q3 revenue estimates by $539M.",
-        "$TGT beat Q3 2026 estimates.",
-        "$TGT beat Q3 estimates."
-      ],
-      "report_id": "tgt-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-18",
-      "published_at": "2026-11-18T11:48:56.715327+00:00",
-      "tile_label": null,
-      "tile_state": null,
-      "results": {
-        "revenue": {
-          "reported": "$27.07B",
-          "consensus": "$26.53B",
-          "label": "Beat by $539M",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/TGT/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for TGT: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 9.0,
-      "rank_why": "earnings_result 3; large cap $72.83B +2.5; magnitude (verdict) +1.5; release_date 2026-11-18 (age 0) +2",
-      "pillar": "P5",
-      "market_cap_usd": 72832007930.7148,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17",
-        "$72.8B",
-        "−0.49%",
-        "0.49%",
-        "−0.5%",
-        "0.5%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "TGT"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "TGT": "Consumer Defensive"
-      },
-      "ticker_names": {
-        "TGT": "Target Corporation"
-      },
-      "context": {
-        "market_cap": "$72.8B",
-        "market_cap_session": "2026-11-17",
-        "last_session_move": {
-          "pct": "−0.49%",
-          "session": "2026-11-17"
-        }
-      },
-      "angles": [
-        "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
-        "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
-        "On Nov 18, Target Corporation ($TGT) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
-        "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
-        "On Nov 18, Target Corporation ($TGT) published Q3 2026 results.",
-        "$TGT published Q3 2026 results on Nov 18.",
-        "Q3 2026 results from $TGT came out on Nov 18.",
-        "On Nov 18, $TGT published Q3 2026 results.",
-        "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus.",
-        "$TGT reported Q3 2026 revenue of $27.07B vs $26.53B consensus.",
-        "$TGT Q3 2026 revenue was $27.07B.",
-        "Q3 2026 revenue at $TGT was $27.07B.",
-        "$TGT had a market value of $72.8B at the Nov 17 close.",
-        "$TGT's market value at the Nov 17 close was $72.8B.",
-        "At the Nov 17 close, $TGT had a market value of $72.8B.",
-        "$TGT moved −0.49% on Tuesday, Nov 17.",
-        "$TGT's move on Tuesday, Nov 17: −0.49%.",
-        "On Tuesday, Nov 17, $TGT moved −0.49%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $26.53B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$TGT beat the Q3 2026 revenue consensus: $27.07B vs $26.53B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$TGT Q3 2026 revenue $27.07B, beat by $539M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $27.07B vs $26.53B consensus (beat by $539M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $27.07B vs $26.53B (beat by $539M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$TGT beat Q3 2026 revenue estimates by $539M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$TGT beat the Q3 revenue consensus: $27.07B vs $26.53B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$TGT Q3 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$TGT Q3 revenue $27.07B, beat by $539M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$TGT beat Q3 revenue estimates by $539M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$TGT beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$TGT beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 18, Target Corporation ($TGT) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$TGT published Q3 2026 results on Nov 18.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $TGT came out on Nov 18.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 18, $TGT published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$TGT reported Q3 2026 revenue of $27.07B vs $26.53B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$TGT Q3 2026 revenue was $27.07B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $TGT was $27.07B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$TGT had a market value of $72.8B at the Nov 17 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$TGT's market value at the Nov 17 close was $72.8B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 17 close, $TGT had a market value of $72.8B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$TGT moved −0.49% on Tuesday, Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$TGT's move on Tuesday, Nov 17: −0.49%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Tuesday, Nov 17, $TGT moved −0.49%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "0.49%": "-",
-          "0.5%": "-"
-        },
-        "subjects": {
-          "TGT": "down"
-        }
-      },
-      "subject_numbers": {
-        "TGT": [
-          [
-            "$",
-            27.07,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            26.53,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            539.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "%",
-            0.49,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            72.8,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-18-reddit-buzz-SLS-a4dab5",
       "type": "reddit_buzz",
       "ticker": "SLS",
@@ -3739,10 +3977,10 @@
       "in_500": false,
       "context_numbers": [
         "$3.4B",
-        "$596M",
-        "+$596M",
-        "$596.2M",
-        "+$596.2M",
+        "$597M",
+        "+$597M",
+        "$596.7M",
+        "+$596.7M",
         "$5.3B",
         "+$5.3B",
         "$5B",
@@ -3764,10 +4002,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$596M",
-            "+$596M",
-            "$596.2M",
-            "+$596.2M",
+            "$597M",
+            "+$597M",
+            "$596.7M",
+            "+$596.7M",
             "$5.3B",
             "+$5.3B",
             "$5B",
@@ -3783,7 +4021,7 @@
       "context": {
         "market_cap": "$3.4B",
         "insiders_30d": {
-          "bought": "$596M",
+          "bought": "$597M",
           "sold": "$5.3B",
           "days": 30
         }
@@ -3807,9 +4045,9 @@
         "On a Form 4 filed Nov 18, Marcos Marcelo Mindlin (Director at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $2.06M.",
         "Marcos Marcelo Mindlin's $PAM purchase was traded Nov 17 and reported on a Form 4 filed Nov 18.",
         "Traded Nov 17, Marcos Marcelo Mindlin's $PAM purchase was reported on a Form 4 filed Nov 18.",
-        "Officers and directors reported $596M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $596M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $596M of open-market buys and $5.3B of open-market sells."
+        "Officers and directors reported $597M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $597M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $597M of open-market buys and $5.3B of open-market sells."
       ],
       "phrasings": [
         {
@@ -3907,28 +4145,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $596M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $597M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $596M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $597M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $596M of open-market buys and $5.3B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $597M of open-market buys and $5.3B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$596M": "+",
-          "$596.2M": "+",
+          "$597M": "+",
+          "$596.7M": "+",
           "$5.3B": "+",
           "$5B": "+"
         },
@@ -7545,6 +7783,394 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-18-earnings-result-TGT-6de67d",
+      "type": "earnings_result",
+      "ticker": "TGT",
+      "tickers": [
+        "TGT"
+      ],
+      "name": "Target Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000051/a2026q3ex-99.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TGT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-TGT-6de67d#earnings-history",
+      "allowed_numbers": [
+        "$27.07B",
+        "$26.53B",
+        "$539M",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-18",
+        "Nov 18, 2026",
+        "Nov 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Target Corporation (TGT) published Q3 2026 results on 2026-11-18. Revenue $27.07B vs $26.53B consensus (Beat by $539M).",
+      "dedupe_key": "report:tgt-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $26.53B consensus.",
+        "$TGT beat the Q3 2026 revenue consensus: $27.07B vs $26.53B.",
+        "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
+        "$TGT Q3 2026 revenue $27.07B, beat by $539M.",
+        "revenue $27.07B vs $26.53B consensus (beat by $539M).",
+        "revenue $27.07B vs $26.53B (beat by $539M).",
+        "$TGT beat Q3 2026 revenue estimates by $539M.",
+        "$TGT beat the Q3 revenue consensus: $27.07B vs $26.53B.",
+        "$TGT Q3 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
+        "$TGT Q3 revenue $27.07B, beat by $539M.",
+        "$TGT beat Q3 revenue estimates by $539M.",
+        "$TGT beat Q3 2026 estimates.",
+        "$TGT beat Q3 estimates."
+      ],
+      "report_id": "tgt-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-18",
+      "published_at": "2026-11-18T11:48:56.715327+00:00",
+      "tile_label": null,
+      "tile_state": null,
+      "results": {
+        "revenue": {
+          "reported": "$27.07B",
+          "consensus": "$26.53B",
+          "label": "Beat by $539M",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TGT/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for TGT: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $72.83B +2.5; magnitude (verdict) +1.5; release_date 2026-11-18 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 72832007930.7148,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17",
+        "$72.8B",
+        "−0.49%",
+        "0.49%",
+        "−0.5%",
+        "0.5%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "TGT"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "TGT": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "TGT": "Target Corporation"
+      },
+      "context": {
+        "market_cap": "$72.8B",
+        "market_cap_session": "2026-11-17",
+        "last_session_move": {
+          "pct": "−0.49%",
+          "session": "2026-11-17"
+        }
+      },
+      "angles": [
+        "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
+        "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
+        "On Nov 18, Target Corporation ($TGT) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
+        "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
+        "On Nov 18, Target Corporation ($TGT) published Q3 2026 results.",
+        "$TGT published Q3 2026 results on Nov 18.",
+        "Q3 2026 results from $TGT came out on Nov 18.",
+        "On Nov 18, $TGT published Q3 2026 results.",
+        "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus.",
+        "$TGT reported Q3 2026 revenue of $27.07B vs $26.53B consensus.",
+        "$TGT Q3 2026 revenue was $27.07B.",
+        "Q3 2026 revenue at $TGT was $27.07B.",
+        "$TGT had a market value of $72.8B at the Nov 17 close.",
+        "$TGT's market value at the Nov 17 close was $72.8B.",
+        "At the Nov 17 close, $TGT had a market value of $72.8B.",
+        "$TGT moved −0.49% on Tuesday, Nov 17.",
+        "$TGT's move on Tuesday, Nov 17: −0.49%.",
+        "On Tuesday, Nov 17, $TGT moved −0.49%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $26.53B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$TGT beat the Q3 2026 revenue consensus: $27.07B vs $26.53B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$TGT Q3 2026 revenue $27.07B, beat by $539M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $27.07B vs $26.53B consensus (beat by $539M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $27.07B vs $26.53B (beat by $539M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$TGT beat Q3 2026 revenue estimates by $539M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$TGT beat the Q3 revenue consensus: $27.07B vs $26.53B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$TGT Q3 revenue: $27.07B vs $26.53B consensus (beat by $539M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$TGT Q3 revenue $27.07B, beat by $539M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$TGT beat Q3 revenue estimates by $539M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$TGT beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$TGT beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Target Corporation ($TGT) published Q3 2026 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$TGT (Target Corporation) reported Q3 2026 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 18, Target Corporation ($TGT) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$TGT published Q3 2026 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $TGT came out on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 18, $TGT published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$TGT Q3 2026 revenue: $27.07B vs $26.53B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$TGT reported Q3 2026 revenue of $27.07B vs $26.53B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$TGT Q3 2026 revenue was $27.07B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $TGT was $27.07B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$TGT had a market value of $72.8B at the Nov 17 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$TGT's market value at the Nov 17 close was $72.8B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 17 close, $TGT had a market value of $72.8B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$TGT moved −0.49% on Tuesday, Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$TGT's move on Tuesday, Nov 17: −0.49%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Tuesday, Nov 17, $TGT moved −0.49%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.49%": "-",
+          "0.5%": "-"
+        },
+        "subjects": {
+          "TGT": "down"
+        }
+      },
+      "subject_numbers": {
+        "TGT": [
+          [
+            "$",
+            27.07,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            26.53,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            539.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "%",
+            0.49,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            72.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-18-earnings-reaction-VIK-58a529",
       "type": "earnings_reaction",
       "ticker": "VIK",
@@ -8386,10 +9012,10 @@
       "in_500": false,
       "context_numbers": [
         "$2.2B",
-        "$596M",
-        "+$596M",
-        "$596.2M",
-        "+$596.2M",
+        "$597M",
+        "+$597M",
+        "$596.7M",
+        "+$596.7M",
         "$5.3B",
         "+$5.3B",
         "$5B",
@@ -8411,10 +9037,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$596M",
-            "+$596M",
-            "$596.2M",
-            "+$596.2M",
+            "$597M",
+            "+$597M",
+            "$596.7M",
+            "+$596.7M",
             "$5.3B",
             "+$5.3B",
             "$5B",
@@ -8430,7 +9056,7 @@
       "context": {
         "market_cap": "$2.2B",
         "insiders_30d": {
-          "bought": "$596M",
+          "bought": "$597M",
           "sold": "$5.3B",
           "days": 30
         }
@@ -8454,9 +9080,9 @@
         "On a Form 4 filed Nov 17, Sameer Bhargava (Director at StubHub Holdings, Inc.) reported an open-market purchase of $STUB totaling $1.5M.",
         "Sameer Bhargava's $STUB purchase was traded Nov 13 and reported on a Form 4 filed Nov 17.",
         "Traded Nov 13, Sameer Bhargava's $STUB purchase was reported on a Form 4 filed Nov 17.",
-        "Officers and directors reported $596M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $596M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $596M of open-market buys and $5.3B of open-market sells."
+        "Officers and directors reported $597M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $597M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $597M of open-market buys and $5.3B of open-market sells."
       ],
       "phrasings": [
         {
@@ -8554,28 +9180,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $596M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $597M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $596M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $597M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $596M of open-market buys and $5.3B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $597M of open-market buys and $5.3B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$596M": "+",
-          "$596.2M": "+",
+          "$597M": "+",
+          "$596.7M": "+",
           "$5.3B": "+",
           "$5B": "+"
         },
@@ -8650,10 +9276,10 @@
       "in_500": false,
       "context_numbers": [
         "$9.2B",
-        "$596M",
-        "+$596M",
-        "$596.2M",
-        "+$596.2M",
+        "$597M",
+        "+$597M",
+        "$596.7M",
+        "+$596.7M",
         "$5.3B",
         "+$5.3B",
         "$5B",
@@ -8675,10 +9301,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$596M",
-            "+$596M",
-            "$596.2M",
-            "+$596.2M",
+            "$597M",
+            "+$597M",
+            "$596.7M",
+            "+$596.7M",
             "$5.3B",
             "+$5.3B",
             "$5B",
@@ -8694,7 +9320,7 @@
       "context": {
         "market_cap": "$9.2B",
         "insiders_30d": {
-          "bought": "$596M",
+          "bought": "$597M",
           "sold": "$5.3B",
           "days": 30
         }
@@ -8718,9 +9344,9 @@
         "On a Form 4 filed Nov 17, Matthew Kalish (Director at DraftKings Inc.) reported an open-market purchase of $DKNG totaling $1M.",
         "Matthew Kalish's $DKNG purchase was traded Nov 17 and reported on a Form 4 filed Nov 17.",
         "Traded Nov 17, Matthew Kalish's $DKNG purchase was reported on a Form 4 filed Nov 17.",
-        "Officers and directors reported $596M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $596M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $596M of open-market buys and $5.3B of open-market sells."
+        "Officers and directors reported $597M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $597M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $597M of open-market buys and $5.3B of open-market sells."
       ],
       "phrasings": [
         {
@@ -8818,28 +9444,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $596M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $597M of open-market buys and $5.3B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $596M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.3B of open-market sells and $597M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $596M of open-market buys and $5.3B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $597M of open-market buys and $5.3B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$596M": "+",
-          "$596.2M": "+",
+          "$597M": "+",
+          "$596.7M": "+",
           "$5.3B": "+",
           "$5B": "+"
         },
@@ -8852,6 +9478,1107 @@
             9.2,
             1,
             1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-18-earnings-result-UTI-76ec85",
+      "type": "earnings_result",
+      "ticker": "UTI",
+      "tickers": [
+        "UTI"
+      ],
+      "name": "Universal Technical Institute, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1261654/000126165426000021/exhibit991-q42026earningsp.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/UTI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-UTI-76ec85#earnings-history",
+      "allowed_numbers": [
+        "$236M",
+        "$235M",
+        "$846K",
+        "$0.32",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-18",
+        "Nov 18, 2026",
+        "Nov 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Universal Technical Institute, Inc. (UTI) published FY2026 (Q4) results on 2026-11-18: Revenue in line. Revenue $236M vs $235M consensus (In line (+$846K)). GAAP EPS $0.32.",
+      "dedupe_key": "report:uti-2026-q4",
+      "claim_phrases": [
+        "$UTI FY2026 (Q4) revenue was in line with the consensus: $236M vs $235M."
+      ],
+      "report_id": "uti-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-18",
+      "published_at": "2026-11-18T21:09:02.765849+00:00",
+      "tile_label": "Revenue in line",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$236M",
+          "consensus": "$235M",
+          "label": "In line (+$846K)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.32"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/UTI/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for UTI: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "UTI"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Universal Technical Institute, Inc. ($UTI) published FY2026 (Q4) results on Nov 18.",
+        "$UTI (Universal Technical Institute, Inc.) reported FY2026 (Q4) results on Nov 18.",
+        "On Nov 18, Universal Technical Institute, Inc. ($UTI) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Universal Technical Institute, Inc. ($UTI) published FY2026 (Q4) results on Nov 18.",
+        "$UTI (Universal Technical Institute, Inc.) reported FY2026 (Q4) results on Nov 18.",
+        "On Nov 18, Universal Technical Institute, Inc. ($UTI) published FY2026 (Q4) results.",
+        "$UTI published FY2026 (Q4) results on Nov 18.",
+        "FY2026 (Q4) results from $UTI came out on Nov 18.",
+        "On Nov 18, $UTI published FY2026 (Q4) results.",
+        "$UTI FY2026 (Q4) revenue: $236M vs $235M consensus.",
+        "$UTI reported FY2026 (Q4) revenue of $236M vs $235M consensus.",
+        "$UTI FY2026 (Q4) revenue was $236M.",
+        "FY2026 (Q4) revenue at $UTI was $236M.",
+        "$UTI FY2026 (Q4) GAAP EPS: $0.32.",
+        "$UTI reported FY2026 (Q4) GAAP EPS of $0.32.",
+        "$UTI FY2026 (Q4) GAAP EPS was $0.32.",
+        "FY2026 (Q4) GAAP EPS at $UTI was $0.32."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-dfb414.a",
+          "fact": "earningsre-dfb414",
+          "variant": "a",
+          "text": "$UTI FY2026 (Q4) revenue was in line with the consensus: $236M vs $235M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Universal Technical Institute, Inc. ($UTI) published FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$UTI (Universal Technical Institute, Inc.) reported FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 18, Universal Technical Institute, Inc. ($UTI) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$UTI published FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $UTI came out on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 18, $UTI published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$UTI FY2026 (Q4) revenue: $236M vs $235M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$UTI reported FY2026 (Q4) revenue of $236M vs $235M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$UTI FY2026 (Q4) revenue was $236M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $UTI was $236M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6a3801.a",
+          "fact": "earningsre-6a3801",
+          "variant": "a",
+          "text": "$UTI FY2026 (Q4) GAAP EPS: $0.32.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6a3801.h1",
+          "fact": "earningsre-6a3801",
+          "variant": "h1",
+          "text": "$UTI reported FY2026 (Q4) GAAP EPS of $0.32.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.a",
+          "fact": "earningsre-1df3d9",
+          "variant": "a",
+          "text": "$UTI FY2026 (Q4) GAAP EPS was $0.32.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.h1",
+          "fact": "earningsre-1df3d9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) GAAP EPS at $UTI was $0.32.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "UTI": [
+          [
+            "$",
+            236.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            235.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-18-earnings-result-KLIC-9466bc",
+      "type": "earnings_result",
+      "ticker": "KLIC",
+      "tickers": [
+        "KLIC"
+      ],
+      "name": "Kulicke and Soffa Industries, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/56978/000005697826000038/ex991liveq42026.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/KLIC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-KLIC-9466bc#earnings-history",
+      "allowed_numbers": [
+        "$410M",
+        "$377M",
+        "$33.5M",
+        "$1.52",
+        "$1.43",
+        "$0.09",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-18",
+        "Nov 18, 2026",
+        "Nov 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Kulicke and Soffa Industries, Inc. (KLIC) published FY2026 (Q4) results on 2026-11-18: Beat estimates. Revenue $410M vs $377M consensus (Beat by $33.5M). non-GAAP EPS $1.52 vs $1.43 consensus (Beat by $0.09).",
+      "dedupe_key": "report:klic-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $377M consensus.",
+        "$KLIC beat the FY2026 (Q4) revenue consensus: $410M vs $377M.",
+        "$KLIC FY2026 (Q4) revenue: $410M vs $377M consensus (beat by $33.5M).",
+        "$KLIC FY2026 (Q4) revenue $410M, beat by $33.5M.",
+        "revenue $410M vs $377M consensus (beat by $33.5M).",
+        "revenue $410M vs $377M (beat by $33.5M).",
+        "$KLIC beat FY2026 (Q4) revenue estimates by $33.5M.",
+        "EPS came in above the $1.43 consensus.",
+        "$KLIC beat the FY2026 (Q4) EPS consensus: $1.52 vs $1.43.",
+        "$KLIC FY2026 (Q4) EPS: $1.52 vs $1.43 consensus (beat by $0.09).",
+        "$KLIC FY2026 (Q4) EPS $1.52, beat by $0.09.",
+        "EPS $1.52 vs $1.43 consensus (beat by $0.09).",
+        "EPS $1.52 vs $1.43 (beat by $0.09).",
+        "$KLIC beat FY2026 (Q4) EPS estimates by $0.09.",
+        "non-GAAP EPS came in above the $1.43 consensus.",
+        "$KLIC beat the FY2026 (Q4) non-GAAP EPS consensus: $1.52 vs $1.43.",
+        "$KLIC FY2026 (Q4) non-GAAP EPS: $1.52 vs $1.43 consensus (beat by $0.09).",
+        "$KLIC FY2026 (Q4) non-GAAP EPS $1.52, beat by $0.09.",
+        "non-GAAP EPS $1.52 vs $1.43 consensus (beat by $0.09).",
+        "non-GAAP EPS $1.52 vs $1.43 (beat by $0.09).",
+        "$KLIC beat FY2026 (Q4) non-GAAP EPS estimates by $0.09.",
+        "$KLIC beat FY2026 (Q4) estimates."
+      ],
+      "report_id": "klic-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-18",
+      "published_at": "2026-11-18T21:08:53.803212+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$410M",
+          "consensus": "$377M",
+          "label": "Beat by $33.5M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "non-GAAP EPS",
+          "reported": "$1.52",
+          "consensus": "$1.43",
+          "label": "Beat by $0.09",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/KLIC/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for KLIC: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "KLIC"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Kulicke and Soffa Industries, Inc. ($KLIC) published FY2026 (Q4) results on Nov 18.",
+        "$KLIC (Kulicke and Soffa Industries, Inc.) reported FY2026 (Q4) results on Nov 18.",
+        "On Nov 18, Kulicke and Soffa Industries, Inc. ($KLIC) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Kulicke and Soffa Industries, Inc. ($KLIC) published FY2026 (Q4) results on Nov 18.",
+        "$KLIC (Kulicke and Soffa Industries, Inc.) reported FY2026 (Q4) results on Nov 18.",
+        "On Nov 18, Kulicke and Soffa Industries, Inc. ($KLIC) published FY2026 (Q4) results.",
+        "$KLIC published FY2026 (Q4) results on Nov 18.",
+        "FY2026 (Q4) results from $KLIC came out on Nov 18.",
+        "On Nov 18, $KLIC published FY2026 (Q4) results.",
+        "$KLIC FY2026 (Q4) revenue: $410M vs $377M consensus.",
+        "$KLIC reported FY2026 (Q4) revenue of $410M vs $377M consensus.",
+        "$KLIC FY2026 (Q4) revenue was $410M.",
+        "FY2026 (Q4) revenue at $KLIC was $410M.",
+        "$KLIC FY2026 (Q4) non-GAAP EPS: $1.52 vs $1.43 consensus.",
+        "$KLIC reported FY2026 (Q4) non-GAAP EPS of $1.52 vs $1.43 consensus.",
+        "$KLIC FY2026 (Q4) non-GAAP EPS was $1.52.",
+        "FY2026 (Q4) non-GAAP EPS at $KLIC was $1.52."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $377M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$KLIC beat the FY2026 (Q4) revenue consensus: $410M vs $377M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) revenue: $410M vs $377M consensus (beat by $33.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) revenue $410M, beat by $33.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $410M vs $377M consensus (beat by $33.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $410M vs $377M (beat by $33.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$KLIC beat FY2026 (Q4) revenue estimates by $33.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.43 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$KLIC beat the FY2026 (Q4) EPS consensus: $1.52 vs $1.43.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) EPS: $1.52 vs $1.43 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) EPS $1.52, beat by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.52 vs $1.43 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.52 vs $1.43 (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$KLIC beat FY2026 (Q4) EPS estimates by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "non-GAAP EPS came in above the $1.43 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$KLIC beat the FY2026 (Q4) non-GAAP EPS consensus: $1.52 vs $1.43.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) non-GAAP EPS: $1.52 vs $1.43 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) non-GAAP EPS $1.52, beat by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "non-GAAP EPS $1.52 vs $1.43 consensus (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "non-GAAP EPS $1.52 vs $1.43 (beat by $0.09).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$KLIC beat FY2026 (Q4) non-GAAP EPS estimates by $0.09.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-232122.a",
+          "fact": "earningsre-232122",
+          "variant": "a",
+          "text": "$KLIC beat FY2026 (Q4) estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-289e35.a",
+          "fact": "earningsre-289e35",
+          "variant": "a",
+          "text": "Kulicke and Soffa Industries, Inc. ($KLIC) published FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-289e35.h1",
+          "fact": "earningsre-289e35",
+          "variant": "h1",
+          "text": "$KLIC (Kulicke and Soffa Industries, Inc.) reported FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-289e35.t",
+          "fact": "earningsre-289e35",
+          "variant": "t",
+          "text": "On Nov 18, Kulicke and Soffa Industries, Inc. ($KLIC) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$KLIC published FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $KLIC came out on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 18, $KLIC published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) revenue: $410M vs $377M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$KLIC reported FY2026 (Q4) revenue of $410M vs $377M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) revenue was $410M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $KLIC was $410M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.a",
+          "fact": "earningsre-b47db5",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) non-GAAP EPS: $1.52 vs $1.43 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.h1",
+          "fact": "earningsre-b47db5",
+          "variant": "h1",
+          "text": "$KLIC reported FY2026 (Q4) non-GAAP EPS of $1.52 vs $1.43 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.a",
+          "fact": "earningsre-1df3d9",
+          "variant": "a",
+          "text": "$KLIC FY2026 (Q4) non-GAAP EPS was $1.52.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.h1",
+          "fact": "earningsre-1df3d9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) non-GAAP EPS at $KLIC was $1.52.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "KLIC": [
+          [
+            "$",
+            410.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            377.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            33.5,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.52,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.43,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.09,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-18-earnings-result-WWD-603b2a",
+      "type": "earnings_result",
+      "ticker": "WWD",
+      "tickers": [
+        "WWD"
+      ],
+      "name": "Woodward, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/108312/000117184326007561/exh_991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WWD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-WWD-603b2a#earnings-history",
+      "allowed_numbers": [
+        "$1.16B",
+        "$1.14B",
+        "$17.6M",
+        "$2.83",
+        "$2.52",
+        "$0.31",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-18",
+        "Nov 18, 2026",
+        "Nov 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Woodward, Inc. (WWD) published FY2026 (Q4) results on 2026-11-18: Beat estimates. Revenue $1.16B vs $1.14B consensus (Beat by $17.6M). Adjusted EPS $2.83 vs $2.52 consensus (Beat by $0.31).",
+      "dedupe_key": "report:wwd-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $1.14B consensus.",
+        "$WWD beat the FY2026 (Q4) revenue consensus: $1.16B vs $1.14B.",
+        "$WWD FY2026 (Q4) revenue: $1.16B vs $1.14B consensus (beat by $17.6M).",
+        "$WWD FY2026 (Q4) revenue $1.16B, beat by $17.6M.",
+        "revenue $1.16B vs $1.14B consensus (beat by $17.6M).",
+        "revenue $1.16B vs $1.14B (beat by $17.6M).",
+        "$WWD beat FY2026 (Q4) revenue estimates by $17.6M.",
+        "EPS came in above the $2.52 consensus.",
+        "$WWD beat the FY2026 (Q4) EPS consensus: $2.83 vs $2.52.",
+        "$WWD FY2026 (Q4) EPS: $2.83 vs $2.52 consensus (beat by $0.31).",
+        "$WWD FY2026 (Q4) EPS $2.83, beat by $0.31.",
+        "EPS $2.83 vs $2.52 consensus (beat by $0.31).",
+        "EPS $2.83 vs $2.52 (beat by $0.31).",
+        "$WWD beat FY2026 (Q4) EPS estimates by $0.31.",
+        "Adjusted EPS came in above the $2.52 consensus.",
+        "$WWD beat the FY2026 (Q4) Adjusted EPS consensus: $2.83 vs $2.52.",
+        "$WWD FY2026 (Q4) Adjusted EPS: $2.83 vs $2.52 consensus (beat by $0.31).",
+        "$WWD FY2026 (Q4) Adjusted EPS $2.83, beat by $0.31.",
+        "Adjusted EPS $2.83 vs $2.52 consensus (beat by $0.31).",
+        "Adjusted EPS $2.83 vs $2.52 (beat by $0.31).",
+        "$WWD beat FY2026 (Q4) Adjusted EPS estimates by $0.31.",
+        "$WWD beat FY2026 (Q4) estimates."
+      ],
+      "report_id": "wwd-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-18",
+      "published_at": "2026-11-18T21:02:53.137092+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$1.16B",
+          "consensus": "$1.14B",
+          "label": "Beat by $17.6M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted EPS",
+          "reported": "$2.83",
+          "consensus": "$2.52",
+          "label": "Beat by $0.31",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WWD/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for WWD: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "WWD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Woodward, Inc. ($WWD) published FY2026 (Q4) results on Nov 18.",
+        "$WWD (Woodward, Inc.) reported FY2026 (Q4) results on Nov 18.",
+        "On Nov 18, Woodward, Inc. ($WWD) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Woodward, Inc. ($WWD) published FY2026 (Q4) results on Nov 18.",
+        "$WWD (Woodward, Inc.) reported FY2026 (Q4) results on Nov 18.",
+        "On Nov 18, Woodward, Inc. ($WWD) published FY2026 (Q4) results.",
+        "$WWD published FY2026 (Q4) results on Nov 18.",
+        "FY2026 (Q4) results from $WWD came out on Nov 18.",
+        "On Nov 18, $WWD published FY2026 (Q4) results.",
+        "$WWD FY2026 (Q4) revenue: $1.16B vs $1.14B consensus.",
+        "$WWD reported FY2026 (Q4) revenue of $1.16B vs $1.14B consensus.",
+        "$WWD FY2026 (Q4) revenue was $1.16B.",
+        "FY2026 (Q4) revenue at $WWD was $1.16B.",
+        "$WWD FY2026 (Q4) Adjusted EPS: $2.83 vs $2.52 consensus.",
+        "$WWD reported FY2026 (Q4) Adjusted EPS of $2.83 vs $2.52 consensus.",
+        "$WWD FY2026 (Q4) Adjusted EPS was $2.83.",
+        "FY2026 (Q4) Adjusted EPS at $WWD was $2.83."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $1.14B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$WWD beat the FY2026 (Q4) revenue consensus: $1.16B vs $1.14B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) revenue: $1.16B vs $1.14B consensus (beat by $17.6M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) revenue $1.16B, beat by $17.6M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $1.16B vs $1.14B consensus (beat by $17.6M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $1.16B vs $1.14B (beat by $17.6M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$WWD beat FY2026 (Q4) revenue estimates by $17.6M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $2.52 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$WWD beat the FY2026 (Q4) EPS consensus: $2.83 vs $2.52.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) EPS: $2.83 vs $2.52 consensus (beat by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) EPS $2.83, beat by $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $2.83 vs $2.52 consensus (beat by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $2.83 vs $2.52 (beat by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$WWD beat FY2026 (Q4) EPS estimates by $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "Adjusted EPS came in above the $2.52 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$WWD beat the FY2026 (Q4) Adjusted EPS consensus: $2.83 vs $2.52.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) Adjusted EPS: $2.83 vs $2.52 consensus (beat by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) Adjusted EPS $2.83, beat by $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "Adjusted EPS $2.83 vs $2.52 consensus (beat by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "Adjusted EPS $2.83 vs $2.52 (beat by $0.31).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$WWD beat FY2026 (Q4) Adjusted EPS estimates by $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-232122.a",
+          "fact": "earningsre-232122",
+          "variant": "a",
+          "text": "$WWD beat FY2026 (Q4) estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Woodward, Inc. ($WWD) published FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$WWD (Woodward, Inc.) reported FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 18, Woodward, Inc. ($WWD) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$WWD published FY2026 (Q4) results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $WWD came out on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 18, $WWD published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) revenue: $1.16B vs $1.14B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$WWD reported FY2026 (Q4) revenue of $1.16B vs $1.14B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) revenue was $1.16B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $WWD was $1.16B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.a",
+          "fact": "earningsre-b47db5",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) Adjusted EPS: $2.83 vs $2.52 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.h1",
+          "fact": "earningsre-b47db5",
+          "variant": "h1",
+          "text": "$WWD reported FY2026 (Q4) Adjusted EPS of $2.83 vs $2.52 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.a",
+          "fact": "earningsre-1df3d9",
+          "variant": "a",
+          "text": "$WWD FY2026 (Q4) Adjusted EPS was $2.83.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.h1",
+          "fact": "earningsre-1df3d9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Adjusted EPS at $WWD was $2.83.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "WWD": [
+          [
+            "$",
+            1.16,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            1.14,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            17.6,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            2.83,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            2.52,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.31,
+            2,
+            1.0,
             0
           ]
         ]
@@ -11745,211 +13472,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-18-earnings-result-GBDC-2abbf6",
-      "type": "earnings_result",
-      "ticker": "GBDC",
-      "tickers": [
-        "GBDC"
-      ],
-      "name": "Golub Capital BDC, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1476765/000147676526000083/gbdcfy202610-kearningsprxex.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/GBDC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-GBDC-2abbf6#earnings-history",
-      "allowed_numbers": [
-        "$187M",
-        "$188M",
-        "−$851K",
-        "Q4 2026",
-        "Q4",
-        "FY2026",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Golub Capital BDC, Inc. (GBDC) published Q4 2026 results on 2026-11-17. Revenue $187M vs $188M consensus (In line (−$851K)).",
-      "dedupe_key": "report:gbdc-2026-q4",
-      "claim_phrases": [
-        "$GBDC Q4 2026 revenue was in line with the consensus: $187M vs $188M.",
-        "$GBDC Q4 revenue was in line with the consensus: $187M vs $188M."
-      ],
-      "report_id": "gbdc-2026-q4",
-      "fiscal_label": "Q4 2026",
-      "release_date": "2026-11-17",
-      "published_at": "2026-11-17T21:06:55.022223+00:00",
-      "tile_label": null,
-      "tile_state": null,
-      "results": {
-        "revenue": {
-          "reported": "$187M",
-          "consensus": "$188M",
-          "label": "In line (−$851K)",
-          "verdict": "in_line"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/GBDC/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for GBDC: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-17 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "GBDC"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results on Nov 17.",
-        "$GBDC (Golub Capital BDC, Inc.) reported Q4 2026 results on Nov 17.",
-        "On Nov 17, Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results."
-      ],
-      "fact_phrases": [
-        "Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results on Nov 17.",
-        "$GBDC (Golub Capital BDC, Inc.) reported Q4 2026 results on Nov 17.",
-        "On Nov 17, Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results.",
-        "$GBDC published Q4 2026 results on Nov 17.",
-        "Q4 2026 results from $GBDC came out on Nov 17.",
-        "On Nov 17, $GBDC published Q4 2026 results.",
-        "$GBDC Q4 2026 revenue: $187M vs $188M consensus.",
-        "$GBDC reported Q4 2026 revenue of $187M vs $188M consensus.",
-        "$GBDC Q4 2026 revenue was $187M.",
-        "Q4 2026 revenue at $GBDC was $187M."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-0a67cc.a",
-          "fact": "earningsre-0a67cc",
-          "variant": "a",
-          "text": "$GBDC Q4 2026 revenue was in line with the consensus: $187M vs $188M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-5b24bf.a",
-          "fact": "earningsre-5b24bf",
-          "variant": "a",
-          "text": "$GBDC Q4 revenue was in line with the consensus: $187M vs $188M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$GBDC (Golub Capital BDC, Inc.) reported Q4 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 17, Golub Capital BDC, Inc. ($GBDC) published Q4 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$GBDC published Q4 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q4 2026 results from $GBDC came out on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 17, $GBDC published Q4 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$GBDC Q4 2026 revenue: $187M vs $188M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$GBDC reported Q4 2026 revenue of $187M vs $188M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$GBDC Q4 2026 revenue was $187M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q4 2026 revenue at $GBDC was $187M.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$851K": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "GBDC": [
-          [
-            "$",
-            187.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            188.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-18-moves-like-NVDA-f2c7c3",
       "type": "moves_like",
       "ticker": "NVDA",
@@ -14415,501 +15937,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-18-earnings-result-RIME-91b1f6",
-      "type": "earnings_result",
-      "ticker": "RIME",
-      "tickers": [
-        "RIME"
-      ],
-      "name": "Algorhythm Holdings, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/923601/000149315226052740/ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RIME?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-RIME-91b1f6#earnings-history",
-      "allowed_numbers": [
-        "$2.1M",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Algorhythm Holdings, Inc. (RIME) published Q3 2026 results on 2026-11-17: Published. Revenue $2.1M.",
-      "dedupe_key": "report:rime-2026-q3",
-      "claim_phrases": [],
-      "report_id": "rime-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-17",
-      "published_at": "2026-11-17T21:01:20.059681+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$2.1M"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/RIME/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for RIME: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-17 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "RIME"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results on Nov 17.",
-        "$RIME (Algorhythm Holdings, Inc.) reported Q3 2026 results on Nov 17.",
-        "On Nov 17, Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results on Nov 17.",
-        "$RIME (Algorhythm Holdings, Inc.) reported Q3 2026 results on Nov 17.",
-        "On Nov 17, Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results.",
-        "$RIME published Q3 2026 results on Nov 17.",
-        "Q3 2026 results from $RIME came out on Nov 17.",
-        "On Nov 17, $RIME published Q3 2026 results.",
-        "$RIME Q3 2026 revenue: $2.1M.",
-        "$RIME reported Q3 2026 revenue of $2.1M.",
-        "$RIME Q3 2026 revenue was $2.1M.",
-        "Q3 2026 revenue at $RIME was $2.1M."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$RIME (Algorhythm Holdings, Inc.) reported Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 17, Algorhythm Holdings, Inc. ($RIME) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$RIME published Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $RIME came out on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 17, $RIME published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$RIME Q3 2026 revenue: $2.1M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$RIME reported Q3 2026 revenue of $2.1M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$RIME Q3 2026 revenue was $2.1M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $RIME was $2.1M.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-18-earnings-result-PULM-ef3c85",
-      "type": "earnings_result",
-      "ticker": "PULM",
-      "tickers": [
-        "PULM"
-      ],
-      "name": "Pulmatrix, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1574235/000149315226052739/ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/PULM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-PULM-ef3c85#earnings-history",
-      "allowed_numbers": [
-        "−$0.34",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Pulmatrix, Inc. (PULM) published Q3 2026 results on 2026-11-17: Published. GAAP EPS −$0.34.",
-      "dedupe_key": "report:pulm-2026-q3",
-      "claim_phrases": [],
-      "report_id": "pulm-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-17",
-      "published_at": "2026-11-17T21:01:18.751733+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.34"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/PULM/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for PULM: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-17 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "PULM"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Pulmatrix, Inc. ($PULM) published Q3 2026 results on Nov 17.",
-        "$PULM (Pulmatrix, Inc.) reported Q3 2026 results on Nov 17.",
-        "On Nov 17, Pulmatrix, Inc. ($PULM) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Pulmatrix, Inc. ($PULM) published Q3 2026 results on Nov 17.",
-        "$PULM (Pulmatrix, Inc.) reported Q3 2026 results on Nov 17.",
-        "On Nov 17, Pulmatrix, Inc. ($PULM) published Q3 2026 results.",
-        "$PULM published Q3 2026 results on Nov 17.",
-        "Q3 2026 results from $PULM came out on Nov 17.",
-        "On Nov 17, $PULM published Q3 2026 results.",
-        "$PULM Q3 2026 GAAP EPS: −$0.34.",
-        "$PULM reported Q3 2026 GAAP EPS of −$0.34.",
-        "$PULM Q3 2026 GAAP EPS was −$0.34.",
-        "Q3 2026 GAAP EPS at $PULM was −$0.34."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Pulmatrix, Inc. ($PULM) published Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$PULM (Pulmatrix, Inc.) reported Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 17, Pulmatrix, Inc. ($PULM) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$PULM published Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $PULM came out on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 17, $PULM published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$PULM Q3 2026 GAAP EPS: −$0.34.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$PULM reported Q3 2026 GAAP EPS of −$0.34.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$PULM Q3 2026 GAAP EPS was −$0.34.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $PULM was −$0.34.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.34": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-18-earnings-result-CD-35e0d5",
-      "type": "earnings_result",
-      "ticker": "CD",
-      "tickers": [
-        "CD"
-      ],
-      "name": "Chaince Digital Holdings Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1527762/000149315226052781/ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-CD-35e0d5#earnings-history",
-      "allowed_numbers": [
-        "$1.81M",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Chaince Digital Holdings Inc. (CD) published Q3 2026 results on 2026-11-17: Published. Revenue $1.81M.",
-      "dedupe_key": "report:cd-2026-q3",
-      "claim_phrases": [],
-      "report_id": "cd-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-17",
-      "published_at": "2026-11-17T21:01:02.175339+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$1.81M"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CD/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CD: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-17 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CD"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Chaince Digital Holdings Inc. ($CD) published Q3 2026 results on Nov 17.",
-        "$CD (Chaince Digital Holdings Inc.) reported Q3 2026 results on Nov 17.",
-        "On Nov 17, Chaince Digital Holdings Inc. ($CD) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Chaince Digital Holdings Inc. ($CD) published Q3 2026 results on Nov 17.",
-        "$CD (Chaince Digital Holdings Inc.) reported Q3 2026 results on Nov 17.",
-        "On Nov 17, Chaince Digital Holdings Inc. ($CD) published Q3 2026 results.",
-        "$CD published Q3 2026 results on Nov 17.",
-        "Q3 2026 results from $CD came out on Nov 17.",
-        "On Nov 17, $CD published Q3 2026 results.",
-        "$CD Q3 2026 revenue: $1.81M.",
-        "$CD reported Q3 2026 revenue of $1.81M.",
-        "$CD Q3 2026 revenue was $1.81M.",
-        "Q3 2026 revenue at $CD was $1.81M."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Chaince Digital Holdings Inc. ($CD) published Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$CD (Chaince Digital Holdings Inc.) reported Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 17, Chaince Digital Holdings Inc. ($CD) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$CD published Q3 2026 results on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $CD came out on Nov 17.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 17, $CD published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$CD Q3 2026 revenue: $1.81M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$CD reported Q3 2026 revenue of $1.81M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$CD Q3 2026 revenue was $1.81M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $CD was $1.81M.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-18-earnings-upcoming-PDD-76abcd",
       "type": "earnings_upcoming",
       "ticker": "PDD",
@@ -16496,176 +17523,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-18-earnings-result-SACH-dac78b",
-      "type": "earnings_result",
-      "ticker": "SACH",
-      "tickers": [
-        "SACH"
-      ],
-      "name": "Sachem Capital Corp.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1682220/000168222026000075/sach-q326resultsx8kx991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/SACH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-SACH-dac78b#earnings-history",
-      "allowed_numbers": [
-        "−$0.07",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Sachem Capital Corp. (SACH) published Q3 2026 results on 2026-11-16: Published. GAAP EPS −$0.07.",
-      "dedupe_key": "report:sach-2026-q3",
-      "claim_phrases": [],
-      "report_id": "sach-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-16",
-      "published_at": "2026-11-17T21:12:53.079843+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.07"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/SACH/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for SACH: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-16 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "SACH"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Sachem Capital Corp. ($SACH) published Q3 2026 results on Nov 16.",
-        "$SACH (Sachem Capital Corp.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, Sachem Capital Corp. ($SACH) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Sachem Capital Corp. ($SACH) published Q3 2026 results on Nov 16.",
-        "$SACH (Sachem Capital Corp.) reported Q3 2026 results on Nov 16.",
-        "On Nov 16, Sachem Capital Corp. ($SACH) published Q3 2026 results.",
-        "$SACH published Q3 2026 results on Nov 16.",
-        "Q3 2026 results from $SACH came out on Nov 16.",
-        "On Nov 16, $SACH published Q3 2026 results.",
-        "$SACH Q3 2026 GAAP EPS: −$0.07.",
-        "$SACH reported Q3 2026 GAAP EPS of −$0.07.",
-        "$SACH Q3 2026 GAAP EPS was −$0.07.",
-        "Q3 2026 GAAP EPS at $SACH was −$0.07."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Sachem Capital Corp. ($SACH) published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$SACH (Sachem Capital Corp.) reported Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 16, Sachem Capital Corp. ($SACH) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$SACH published Q3 2026 results on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $SACH came out on Nov 16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 16, $SACH published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$SACH Q3 2026 GAAP EPS: −$0.07.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$SACH reported Q3 2026 GAAP EPS of −$0.07.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$SACH Q3 2026 GAAP EPS was −$0.07.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $SACH was −$0.07.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.07": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-16 release (after the close: fresh through 2026-11-17) posted on 2026-11-18: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-18-picks-ready-LIST-747a69",
       "type": "picks_ready",
       "ticker": null,
@@ -16969,212 +17826,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-18-earnings-result-DYNR-484f8e",
-      "type": "earnings_result",
-      "ticker": "DYNR",
-      "tickers": [
-        "DYNR"
-      ],
-      "name": "DynaResource, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-17",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1111741/000119312526465082/dynr-ex99_1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/DYNR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-DYNR-484f8e#earnings-history",
-      "allowed_numbers": [
-        "$10.1M",
-        "−$1380837.00",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-15",
-        "Nov 15, 2026",
-        "Nov 15",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "Nov 17"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "DynaResource, Inc. (DYNR) published Q3 2026 results on 2026-11-15: Published. Revenue $10.1M. Adjusted EBITDA −$1380837.00.",
-      "dedupe_key": "report:dynr-2026-q3",
-      "claim_phrases": [],
-      "report_id": "dynr-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-15",
-      "published_at": "2026-11-17T21:01:03.380474+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$10.1M"
-        },
-        "eps": {
-          "basis": "Adjusted EBITDA",
-          "reported": "−$1380837.00"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/DYNR/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for DYNR: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-15 (age 3) +0.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "DYNR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "DynaResource, Inc. ($DYNR) published Q3 2026 results on Nov 15.",
-        "$DYNR (DynaResource, Inc.) reported Q3 2026 results on Nov 15.",
-        "On Nov 15, DynaResource, Inc. ($DYNR) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "DynaResource, Inc. ($DYNR) published Q3 2026 results on Nov 15.",
-        "$DYNR (DynaResource, Inc.) reported Q3 2026 results on Nov 15.",
-        "On Nov 15, DynaResource, Inc. ($DYNR) published Q3 2026 results.",
-        "$DYNR published Q3 2026 results on Nov 15.",
-        "Q3 2026 results from $DYNR came out on Nov 15.",
-        "On Nov 15, $DYNR published Q3 2026 results.",
-        "$DYNR Q3 2026 revenue: $10.1M.",
-        "$DYNR reported Q3 2026 revenue of $10.1M.",
-        "$DYNR Q3 2026 revenue was $10.1M.",
-        "Q3 2026 revenue at $DYNR was $10.1M.",
-        "$DYNR Q3 2026 Adjusted EBITDA: −$1380837.00.",
-        "$DYNR reported Q3 2026 Adjusted EBITDA of −$1380837.00.",
-        "$DYNR Q3 2026 Adjusted EBITDA was −$1380837.00.",
-        "Q3 2026 Adjusted EBITDA at $DYNR was −$1380837.00."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "DynaResource, Inc. ($DYNR) published Q3 2026 results on Nov 15.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$DYNR (DynaResource, Inc.) reported Q3 2026 results on Nov 15.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 15, DynaResource, Inc. ($DYNR) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$DYNR published Q3 2026 results on Nov 15.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $DYNR came out on Nov 15.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 15, $DYNR published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$DYNR Q3 2026 revenue: $10.1M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$DYNR reported Q3 2026 revenue of $10.1M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$DYNR Q3 2026 revenue was $10.1M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $DYNR was $10.1M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$DYNR Q3 2026 Adjusted EBITDA: −$1380837.00.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$DYNR reported Q3 2026 Adjusted EBITDA of −$1380837.00.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$DYNR Q3 2026 Adjusted EBITDA was −$1380837.00.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted EBITDA at $DYNR was −$1380837.00.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$1380837.00": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-15 release (after the close: fresh through 2026-11-17) posted on 2026-11-18: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
