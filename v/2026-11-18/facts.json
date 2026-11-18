@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-18",
-  "generated_at": "2026-11-18T14:00:02Z",
-  "as_of": "2026-11-18T14:00:02Z",
+  "generated_at": "2026-11-18T14:30:02Z",
+  "as_of": "2026-11-18T14:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 3,
     "form4_buy": 2,
-    "earnings_result": 20,
+    "earnings_result": 21,
     "earnings_upcoming": 21,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -933,14 +933,14 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 14,
-      "below_minimum": 12,
+      "filings_passing_filters": 15,
+      "below_minimum": 13,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3845,
-      "recent_ready": 97,
+      "archive_reports": 3846,
+      "recent_ready": 98,
       "outside_24h": 77,
       "unreadable": 0,
       "not_compared": 3,
@@ -963,7 +963,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 42,
+      "tickers_in_items": 43,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -977,7 +977,7 @@
     "market": {
       "market_session": "2026-11-17",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-18T14:00:27.891228+00:00"
+      "flows_as_of": "2026-11-18T14:30:28.005270+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -986,15 +986,15 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 69
+        "angles_dropped": 72
       },
       "top8": {
         "stale": 10,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 9,
-        "ranked_below": 32,
+        "repeat": 6,
+        "ranked_below": 36,
         "pillars": 4
       }
     }
@@ -1031,7 +1031,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 57,
+  "api_requests": 58,
   "items": [
     {
       "item_id": "2026-11-18-earnings-result-NVDA-002ae4",
@@ -1845,6 +1845,456 @@
         "subjects": {}
       },
       "subject_numbers": {},
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-18-earnings-result-TJX-1153bc",
+      "type": "earnings_result",
+      "ticker": "TJX",
+      "tickers": [
+        "TJX"
+      ],
+      "name": "The TJX Companies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-18",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/109198/000010919826000058/tjxq3fy27earningspressrele.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/TJX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-result-TJX-1153bc#earnings-history",
+      "allowed_numbers": [
+        "$15.95B",
+        "$15.85B",
+        "$103M",
+        "$1.34",
+        "Q3 2027",
+        "Q3",
+        "FY2027",
+        "2026-11-18",
+        "Nov 18, 2026",
+        "Nov 18"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The TJX Companies, Inc. (TJX) published Q3 2027 results on 2026-11-18: Mixed vs estimates. Revenue $15.95B vs $15.85B consensus (Beat by $103M). adjusted diluted earnings per share $1.34 vs $1.34 consensus (In line).",
+      "dedupe_key": "report:tjx-2027-q3",
+      "claim_phrases": [
+        "revenue came in above the $15.85B consensus.",
+        "$TJX beat the Q3 2027 revenue consensus: $15.95B vs $15.85B.",
+        "$TJX Q3 2027 revenue: $15.95B vs $15.85B consensus (beat by $103M).",
+        "$TJX Q3 2027 revenue $15.95B, beat by $103M.",
+        "revenue $15.95B vs $15.85B consensus (beat by $103M).",
+        "revenue $15.95B vs $15.85B (beat by $103M).",
+        "$TJX beat Q3 2027 revenue estimates by $103M.",
+        "$TJX beat the Q3 revenue consensus: $15.95B vs $15.85B.",
+        "$TJX Q3 revenue: $15.95B vs $15.85B consensus (beat by $103M).",
+        "$TJX Q3 revenue $15.95B, beat by $103M.",
+        "$TJX beat Q3 revenue estimates by $103M.",
+        "$TJX Q3 2027 EPS was in line with the consensus: $1.34 vs $1.34.",
+        "$TJX Q3 2027 adjusted diluted earnings per share was in line with the consensus: $1.34 vs $1.34.",
+        "$TJX Q3 EPS was in line with the consensus: $1.34 vs $1.34.",
+        "$TJX Q3 adjusted diluted earnings per share was in line with the consensus: $1.34 vs $1.34."
+      ],
+      "report_id": "tjx-2027-q3",
+      "fiscal_label": "Q3 2027",
+      "release_date": "2026-11-18",
+      "published_at": "2026-11-18T14:22:51.013858+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$15.95B",
+          "consensus": "$15.85B",
+          "label": "Beat by $103M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "adjusted diluted earnings per share",
+          "reported": "$1.34",
+          "consensus": "$1.34",
+          "label": "In line",
+          "verdict": "in_line"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/TJX/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for TJX: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $144.82B +2.5; magnitude (verdict) +1.5; release_date 2026-11-18 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 144815694909.32632,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-17",
+        "Nov 17, 2026",
+        "Nov 17",
+        "$144.8B",
+        "−0.95%",
+        "0.95%",
+        "−0.9%",
+        "0.9%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "TJX"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "TJX": "Consumer Cyclical"
+      },
+      "ticker_names": {
+        "TJX": "The TJX Companies, Inc."
+      },
+      "context": {
+        "market_cap": "$144.8B",
+        "market_cap_session": "2026-11-17",
+        "last_session_move": {
+          "pct": "−0.95%",
+          "session": "2026-11-17"
+        }
+      },
+      "angles": [
+        "The TJX Companies, Inc. ($TJX) published Q3 2027 results on Nov 18.",
+        "$TJX (The TJX Companies, Inc.) reported Q3 2027 results on Nov 18.",
+        "On Nov 18, the TJX Companies, Inc. ($TJX) published Q3 2027 results."
+      ],
+      "fact_phrases": [
+        "The TJX Companies, Inc. ($TJX) published Q3 2027 results on Nov 18.",
+        "$TJX (The TJX Companies, Inc.) reported Q3 2027 results on Nov 18.",
+        "On Nov 18, the TJX Companies, Inc. ($TJX) published Q3 2027 results.",
+        "$TJX published Q3 2027 results on Nov 18.",
+        "Q3 2027 results from $TJX came out on Nov 18.",
+        "On Nov 18, $TJX published Q3 2027 results.",
+        "$TJX Q3 2027 revenue: $15.95B vs $15.85B consensus.",
+        "$TJX reported Q3 2027 revenue of $15.95B vs $15.85B consensus.",
+        "$TJX Q3 2027 revenue was $15.95B.",
+        "Q3 2027 revenue at $TJX was $15.95B.",
+        "$TJX Q3 2027 adjusted diluted earnings per share: $1.34 vs $1.34 consensus.",
+        "$TJX reported Q3 2027 adjusted diluted earnings per share of $1.34 vs $1.34 consensus.",
+        "$TJX Q3 2027 adjusted diluted earnings per share was $1.34.",
+        "Q3 2027 adjusted diluted earnings per share at $TJX was $1.34.",
+        "$TJX had a market value of $144.8B at the Nov 17 close.",
+        "$TJX's market value at the Nov 17 close was $144.8B.",
+        "At the Nov 17 close, $TJX had a market value of $144.8B.",
+        "$TJX moved −0.95% on Tuesday, Nov 17.",
+        "$TJX's move on Tuesday, Nov 17: −0.95%.",
+        "On Tuesday, Nov 17, $TJX moved −0.95%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $15.85B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$TJX beat the Q3 2027 revenue consensus: $15.95B vs $15.85B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$TJX Q3 2027 revenue: $15.95B vs $15.85B consensus (beat by $103M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$TJX Q3 2027 revenue $15.95B, beat by $103M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $15.95B vs $15.85B consensus (beat by $103M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $15.95B vs $15.85B (beat by $103M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$TJX beat Q3 2027 revenue estimates by $103M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$TJX beat the Q3 revenue consensus: $15.95B vs $15.85B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$TJX Q3 revenue: $15.95B vs $15.85B consensus (beat by $103M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$TJX Q3 revenue $15.95B, beat by $103M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$TJX beat Q3 revenue estimates by $103M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-046e29.a",
+          "fact": "earningsre-046e29",
+          "variant": "a",
+          "text": "$TJX Q3 2027 EPS was in line with the consensus: $1.34 vs $1.34.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4733de.a",
+          "fact": "earningsre-4733de",
+          "variant": "a",
+          "text": "$TJX Q3 2027 adjusted diluted earnings per share was in line with the consensus: $1.34 vs $1.34.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-daf14f.a",
+          "fact": "earningsre-daf14f",
+          "variant": "a",
+          "text": "$TJX Q3 EPS was in line with the consensus: $1.34 vs $1.34.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-949a14.a",
+          "fact": "earningsre-949a14",
+          "variant": "a",
+          "text": "$TJX Q3 adjusted diluted earnings per share was in line with the consensus: $1.34 vs $1.34.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b384b8.a",
+          "fact": "earningsre-b384b8",
+          "variant": "a",
+          "text": "The TJX Companies, Inc. ($TJX) published Q3 2027 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b384b8.h1",
+          "fact": "earningsre-b384b8",
+          "variant": "h1",
+          "text": "$TJX (The TJX Companies, Inc.) reported Q3 2027 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b384b8.t",
+          "fact": "earningsre-b384b8",
+          "variant": "t",
+          "text": "On Nov 18, the TJX Companies, Inc. ($TJX) published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$TJX published Q3 2027 results on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2027 results from $TJX came out on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 18, $TJX published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$TJX Q3 2027 revenue: $15.95B vs $15.85B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$TJX reported Q3 2027 revenue of $15.95B vs $15.85B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$TJX Q3 2027 revenue was $15.95B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2027 revenue at $TJX was $15.95B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-9fa0b4.a",
+          "fact": "earningsre-9fa0b4",
+          "variant": "a",
+          "text": "$TJX Q3 2027 adjusted diluted earnings per share: $1.34 vs $1.34 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-9fa0b4.h1",
+          "fact": "earningsre-9fa0b4",
+          "variant": "h1",
+          "text": "$TJX reported Q3 2027 adjusted diluted earnings per share of $1.34 vs $1.34 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-540ff9.a",
+          "fact": "earningsre-540ff9",
+          "variant": "a",
+          "text": "$TJX Q3 2027 adjusted diluted earnings per share was $1.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-540ff9.h1",
+          "fact": "earningsre-540ff9",
+          "variant": "h1",
+          "text": "Q3 2027 adjusted diluted earnings per share at $TJX was $1.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$TJX had a market value of $144.8B at the Nov 17 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$TJX's market value at the Nov 17 close was $144.8B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 17 close, $TJX had a market value of $144.8B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$TJX moved −0.95% on Tuesday, Nov 17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$TJX's move on Tuesday, Nov 17: −0.95%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Tuesday, Nov 17, $TJX moved −0.95%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.95%": "-",
+          "0.9%": "-"
+        },
+        "subjects": {
+          "TJX": "down"
+        }
+      },
+      "subject_numbers": {
+        "TJX": [
+          [
+            "$",
+            15.95,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            15.85,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            103.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.34,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            0.95,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            144.8,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
       "cooldown": null,
       "top8": true,
       "rotation": null
@@ -3227,193 +3677,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-18-earnings-tomorrow-roundup-LIST-3a35c6",
-      "type": "earnings_tomorrow_roundup",
-      "ticker": null,
-      "tickers": [
-        "INTU",
-        "ROST",
-        "KEYS",
-        "ESTC"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-tomorrow-roundup-LIST-3a35c6",
-      "allowed_numbers": [
-        "2026-11-19",
-        "Nov 19, 2026",
-        "Nov 19",
-        "after the close"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Reporting earnings on 2026-11-19, after the close (confirmed dates): $INTU (Intuit Inc.), $ROST (Ross Stores, Inc.), $KEYS (Keysight Technologies, Inc.), $ESTC (Elastic N.V.) and more.",
-      "dedupe_key": "roundup:2026-11-19:amc",
-      "claim_phrases": [],
-      "names": {
-        "INTU": "Intuit Inc.",
-        "ROST": "Ross Stores, Inc.",
-        "KEYS": "Keysight Technologies, Inc.",
-        "ESTC": "Elastic N.V."
-      },
-      "report_date": "2026-11-19",
-      "hour": "amc",
-      "hour_text": "after the close",
-      "reporters_in_session": 9,
-      "market_cap_usd": 92346073088.0,
-      "item_ids": [
-        "2026-11-18-earnings-upcoming-INTU-ca3f1f",
-        "2026-11-18-earnings-upcoming-ROST-94425c",
-        "2026-11-18-earnings-upcoming-KEYS-687c68",
-        "2026-11-18-earnings-upcoming-ESTC-670f04"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/earnings/tomorrow/opengraph-image",
-          "kind": "image",
-          "alt": "Reporting earnings on 2026-11-19, after the close (confirmed dates): $INTU (Intuit Inc.), $ROST (Ross Stores, Inc.), $KEYS (Keysight Technologies, Inc.), $ESTC (Elastic N.V.) and more."
-        }
-      ],
-      "rank": 7.5,
-      "rank_why": "earnings_tomorrow_roundup 2; large cap $92.35B +2.5; magnitude (roundup) +1; today 2026-11-18 (age 0) +2",
-      "pillar": "P5",
-      "cap_tier": "large",
-      "in_500": null,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "INTU",
-          "ROST",
-          "KEYS"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "INTU": "Technology",
-        "ROST": "Consumer Cyclical",
-        "KEYS": "Technology"
-      },
-      "ticker_names": {
-        "INTU": "Intuit Inc.",
-        "ROST": "Ross Stores, Inc.",
-        "KEYS": "Keysight Technologies, Inc."
-      },
-      "angles": [
-        "$INTU, $ROST, $KEYS and $ESTC report earnings on Thursday, Nov 19, after the close (confirmed dates).",
-        "On Thursday, Nov 19, after the close: $INTU, $ROST, $KEYS and $ESTC report earnings (confirmed dates).",
-        "Reporting earnings on Thursday, Nov 19, after the close (confirmed dates): $INTU, $ROST, $KEYS and $ESTC."
-      ],
-      "fact_phrases": [
-        "$INTU, $ROST, $KEYS and $ESTC report earnings on Thursday, Nov 19, after the close (confirmed dates).",
-        "On Thursday, Nov 19, after the close: $INTU, $ROST, $KEYS and $ESTC report earnings (confirmed dates).",
-        "Reporting earnings on Thursday, Nov 19, after the close (confirmed dates): $INTU, $ROST, $KEYS and $ESTC.",
-        "$INTU (Intuit Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
-        "$INTU (Intuit Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
-        "$ROST (Ross Stores, Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
-        "$ROST (Ross Stores, Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
-        "$KEYS (Keysight Technologies, Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
-        "$KEYS (Keysight Technologies, Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
-        "$ESTC (Elastic N.V.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
-        "$ESTC (Elastic N.V.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date)."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsto-8fc41c.a",
-          "fact": "earningsto-8fc41c",
-          "variant": "a",
-          "text": "$INTU, $ROST, $KEYS and $ESTC report earnings on Thursday, Nov 19, after the close (confirmed dates).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-8fc41c.h1",
-          "fact": "earningsto-8fc41c",
-          "variant": "h1",
-          "text": "On Thursday, Nov 19, after the close: $INTU, $ROST, $KEYS and $ESTC report earnings (confirmed dates).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-8fc41c.h2",
-          "fact": "earningsto-8fc41c",
-          "variant": "h2",
-          "text": "Reporting earnings on Thursday, Nov 19, after the close (confirmed dates): $INTU, $ROST, $KEYS and $ESTC.",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.a",
-          "fact": "earningsto-c03042",
-          "variant": "a",
-          "text": "$INTU (Intuit Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.h1",
-          "fact": "earningsto-c03042",
-          "variant": "h1",
-          "text": "$INTU (Intuit Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.a",
-          "fact": "earningsto-c03042",
-          "variant": "a",
-          "text": "$ROST (Ross Stores, Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.h1",
-          "fact": "earningsto-c03042",
-          "variant": "h1",
-          "text": "$ROST (Ross Stores, Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.a",
-          "fact": "earningsto-c03042",
-          "variant": "a",
-          "text": "$KEYS (Keysight Technologies, Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.h1",
-          "fact": "earningsto-c03042",
-          "variant": "h1",
-          "text": "$KEYS (Keysight Technologies, Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.a",
-          "fact": "earningsto-c03042",
-          "variant": "a",
-          "text": "$ESTC (Elastic N.V.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-c03042.h1",
-          "fact": "earningsto-c03042",
-          "variant": "h1",
-          "text": "$ESTC (Elastic N.V.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-18-form4-buy-STUB-ff96dd",
       "type": "form4_buy",
       "ticker": "STUB",
@@ -3471,8 +3734,8 @@
         "$2.2B",
         "$588M",
         "+$588M",
-        "$587.9M",
-        "+$587.9M",
+        "$588.2M",
+        "+$588.2M",
         "$5.3B",
         "+$5.3B",
         "$5B",
@@ -3496,8 +3759,8 @@
           "numbers": [
             "$588M",
             "+$588M",
-            "$587.9M",
-            "+$587.9M",
+            "$588.2M",
+            "+$588.2M",
             "$5.3B",
             "+$5.3B",
             "$5B",
@@ -3658,7 +3921,7 @@
       "moves": {
         "numbers": {
           "$588M": "+",
-          "$587.9M": "+",
+          "$588.2M": "+",
           "$5.3B": "+",
           "$5B": "+"
         },
@@ -7437,6 +7700,194 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-18-earnings-tomorrow-roundup-LIST-3a35c6",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "INTU",
+        "ROST",
+        "KEYS",
+        "ESTC"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-18-earnings-tomorrow-roundup-LIST-3a35c6",
+      "allowed_numbers": [
+        "2026-11-19",
+        "Nov 19, 2026",
+        "Nov 19",
+        "after the close"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-11-19, after the close (confirmed dates): $INTU (Intuit Inc.), $ROST (Ross Stores, Inc.), $KEYS (Keysight Technologies, Inc.), $ESTC (Elastic N.V.) and more.",
+      "dedupe_key": "roundup:2026-11-19:amc",
+      "claim_phrases": [],
+      "names": {
+        "INTU": "Intuit Inc.",
+        "ROST": "Ross Stores, Inc.",
+        "KEYS": "Keysight Technologies, Inc.",
+        "ESTC": "Elastic N.V."
+      },
+      "report_date": "2026-11-19",
+      "hour": "amc",
+      "hour_text": "after the close",
+      "reporters_in_session": 9,
+      "market_cap_usd": 92346073088.0,
+      "item_ids": [
+        "2026-11-18-earnings-upcoming-INTU-ca3f1f",
+        "2026-11-18-earnings-upcoming-ROST-94425c",
+        "2026-11-18-earnings-upcoming-KEYS-687c68",
+        "2026-11-18-earnings-upcoming-ESTC-670f04"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/tomorrow/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-11-19, after the close (confirmed dates): $INTU (Intuit Inc.), $ROST (Ross Stores, Inc.), $KEYS (Keysight Technologies, Inc.), $ESTC (Elastic N.V.) and more."
+        }
+      ],
+      "rank": 7.5,
+      "rank_why": "earnings_tomorrow_roundup 2; large cap $92.35B +2.5; magnitude (roundup) +1; today 2026-11-18 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "large",
+      "in_500": null,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "INTU",
+          "ROST",
+          "KEYS"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "INTU": "Technology",
+        "ROST": "Consumer Cyclical",
+        "KEYS": "Technology"
+      },
+      "ticker_names": {
+        "INTU": "Intuit Inc.",
+        "ROST": "Ross Stores, Inc.",
+        "KEYS": "Keysight Technologies, Inc."
+      },
+      "angles": [
+        "$INTU, $ROST, $KEYS and $ESTC report earnings on Thursday, Nov 19, after the close (confirmed dates).",
+        "On Thursday, Nov 19, after the close: $INTU, $ROST, $KEYS and $ESTC report earnings (confirmed dates).",
+        "Reporting earnings on Thursday, Nov 19, after the close (confirmed dates): $INTU, $ROST, $KEYS and $ESTC."
+      ],
+      "fact_phrases": [
+        "$INTU, $ROST, $KEYS and $ESTC report earnings on Thursday, Nov 19, after the close (confirmed dates).",
+        "On Thursday, Nov 19, after the close: $INTU, $ROST, $KEYS and $ESTC report earnings (confirmed dates).",
+        "Reporting earnings on Thursday, Nov 19, after the close (confirmed dates): $INTU, $ROST, $KEYS and $ESTC.",
+        "$INTU (Intuit Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
+        "$INTU (Intuit Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
+        "$ROST (Ross Stores, Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
+        "$ROST (Ross Stores, Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
+        "$KEYS (Keysight Technologies, Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
+        "$KEYS (Keysight Technologies, Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
+        "$ESTC (Elastic N.V.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
+        "$ESTC (Elastic N.V.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date)."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsto-8fc41c.a",
+          "fact": "earningsto-8fc41c",
+          "variant": "a",
+          "text": "$INTU, $ROST, $KEYS and $ESTC report earnings on Thursday, Nov 19, after the close (confirmed dates).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-8fc41c.h1",
+          "fact": "earningsto-8fc41c",
+          "variant": "h1",
+          "text": "On Thursday, Nov 19, after the close: $INTU, $ROST, $KEYS and $ESTC report earnings (confirmed dates).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-8fc41c.h2",
+          "fact": "earningsto-8fc41c",
+          "variant": "h2",
+          "text": "Reporting earnings on Thursday, Nov 19, after the close (confirmed dates): $INTU, $ROST, $KEYS and $ESTC.",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.a",
+          "fact": "earningsto-c03042",
+          "variant": "a",
+          "text": "$INTU (Intuit Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.h1",
+          "fact": "earningsto-c03042",
+          "variant": "h1",
+          "text": "$INTU (Intuit Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.a",
+          "fact": "earningsto-c03042",
+          "variant": "a",
+          "text": "$ROST (Ross Stores, Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.h1",
+          "fact": "earningsto-c03042",
+          "variant": "h1",
+          "text": "$ROST (Ross Stores, Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.a",
+          "fact": "earningsto-c03042",
+          "variant": "a",
+          "text": "$KEYS (Keysight Technologies, Inc.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.h1",
+          "fact": "earningsto-c03042",
+          "variant": "h1",
+          "text": "$KEYS (Keysight Technologies, Inc.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.a",
+          "fact": "earningsto-c03042",
+          "variant": "a",
+          "text": "$ESTC (Elastic N.V.) reports earnings on Thursday, Nov 19, after the close (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-c03042.h1",
+          "fact": "earningsto-c03042",
+          "variant": "h1",
+          "text": "$ESTC (Elastic N.V.) is scheduled to report earnings on Thursday, Nov 19, after the close (confirmed date).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-18-earnings-upcoming-WMT-8934d2",
       "type": "earnings_upcoming",
       "ticker": "WMT",
@@ -7927,8 +8378,8 @@
         "$9.2B",
         "$588M",
         "+$588M",
-        "$587.9M",
-        "+$587.9M",
+        "$588.2M",
+        "+$588.2M",
         "$5.3B",
         "+$5.3B",
         "$5B",
@@ -7952,8 +8403,8 @@
           "numbers": [
             "$588M",
             "+$588M",
-            "$587.9M",
-            "+$587.9M",
+            "$588.2M",
+            "+$588.2M",
             "$5.3B",
             "+$5.3B",
             "$5B",
@@ -8114,7 +8565,7 @@
       "moves": {
         "numbers": {
           "$588M": "+",
-          "$587.9M": "+",
+          "$588.2M": "+",
           "$5.3B": "+",
           "$5B": "+"
         },
@@ -14763,7 +15214,7 @@
       },
       "cooldown": null,
       "top8": false,
-      "top8_out": "repeat: leads with $INTU like 2026-11-18-earnings-tomorrow-roundup-LIST-3a35c6",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -15199,7 +15650,7 @@
       },
       "cooldown": null,
       "top8": false,
-      "top8_out": "repeat: leads with $ROST like 2026-11-18-earnings-tomorrow-roundup-LIST-3a35c6",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -15416,7 +15867,7 @@
       },
       "cooldown": null,
       "top8": false,
-      "top8_out": "repeat: leads with $KEYS like 2026-11-18-earnings-tomorrow-roundup-LIST-3a35c6",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
