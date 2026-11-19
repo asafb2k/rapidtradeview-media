@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-19",
-  "generated_at": "2026-11-19T14:30:02Z",
-  "as_of": "2026-11-19T14:30:02Z",
+  "generated_at": "2026-11-19T15:00:02Z",
+  "as_of": "2026-11-19T15:00:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -934,8 +934,8 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 19,
-      "below_minimum": 15,
+      "filings_passing_filters": 18,
+      "below_minimum": 13,
       "not_open_market": 0,
       "no_sec_index": 0
     },
@@ -963,7 +963,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 31,
+      "tickers_in_items": 32,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -977,19 +977,20 @@
     "market": {
       "market_session": "2026-11-18",
       "priced_cap_share": 1.0,
-      "flows_as_of": "2026-11-19T14:30:25.969473+00:00"
+      "flows_as_of": "2026-11-19T15:00:26.224047+00:00"
     },
     "gates": {
       "weekend_replay": 0,
-      "small_cap": 2,
+      "small_cap": 3,
       "cooldown": 0,
       "reasons": [
+        "form4_buy EFC: small cap under $2B and a buy under $10M",
         "form4_buy FUN: small cap under $2B and a buy under $10M",
         "form4_buy BPRE: small cap under $2B and a buy under $10M"
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 94
+        "angles_dropped": 97
       },
       "top8": {
         "stale": 6,
@@ -1216,17 +1217,17 @@
       "banned_words": [],
       "card": {
         "panel": "buzz",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-19/cards/market-buzz-2026-11-18-ae291e0b-b993182f-live.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-19/cards/market-buzz-2026-11-18-ae291e0b-bd53e963-live.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/buzz",
         "date": "2026-11-18",
         "fingerprint": "ae291e0b",
         "file": "market-buzz-2026-11-18-ae291e0b.png",
-        "sha256": "63b19c8e539fc1171caa315309f8f471f12c51ecc395f7b25bbb9e8dc3579c65",
+        "sha256": "19469fdfe1f2d1e409d86a2106698710a2f5e89b5adc8448435ebbfbed101c16",
         "live": true
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-19/cards/market-buzz-2026-11-18-ae291e0b-b993182f-live.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-19/cards/market-buzz-2026-11-18-ae291e0b-bd53e963-live.png",
           "kind": "image",
           "alt": "Reddit mentions of $AMZN (Amazon.com, Inc.): 76 vs a usual day average of 26 (3.0× usual; capture Nov 19). The stock moved +3.82% on Wednesday, Nov 18. Also running hot: $SPCX 2.3×. 7 of the 10 most-mentioned stocks with a close for Nov 18 rose that day."
         }
@@ -1535,6 +1536,11 @@
           "url": "https://www.rapidtradeview.trade/dashboard/WMT/opengraph-image",
           "kind": "image",
           "alt": "RapidTradeView research card for WMT: recent price, trend, analyst and filing summary."
+        },
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-19/cards/2026-11-19-earnings-result-WMT-4f9b32/reel_9x16.mp4",
+          "kind": "reel",
+          "alt": "Walmart Inc. (WMT) published Q3 2027 results on 2026-11-19: Beat estimates. Revenue $188.8B vs $187.25B consensus (Beat by $1.55B). Adjusted EPS $0.65 vs $0.64 consensus (Beat by $0.01)."
         }
       ],
       "rank": 10.5,
@@ -2162,6 +2168,11 @@
           "url": "https://www.rapidtradeview.trade/dashboard/PANW/opengraph-image",
           "kind": "image",
           "alt": "RapidTradeView research card for PANW: recent price, trend, analyst and filing summary."
+        },
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-19/cards/2026-11-19-earnings-result-PANW-24539d/reel_9x16.mp4",
+          "kind": "reel",
+          "alt": "Palo Alto Networks, Inc. (PANW) published Q1 2027 results on 2026-11-18: Beat estimates. Revenue $3.44B vs $3.31B consensus (Beat by $138M). Non-GAAP net income per share, diluted $1.05 vs $0.97 consensus (Beat by $0.08)."
         }
       ],
       "rank": 10.0,
@@ -3631,8 +3642,8 @@
         "$6.0B",
         "$624M",
         "+$624M",
-        "$623.7M",
-        "+$623.7M",
+        "$624.1M",
+        "+$624.1M",
         "$5.6B",
         "+$5.6B",
         "$6B",
@@ -3656,8 +3667,8 @@
           "numbers": [
             "$624M",
             "+$624M",
-            "$623.7M",
-            "+$623.7M",
+            "$624.1M",
+            "+$624.1M",
             "$5.6B",
             "+$5.6B",
             "$6B",
@@ -3818,7 +3829,7 @@
       "moves": {
         "numbers": {
           "$624M": "+",
-          "$623.7M": "+",
+          "$624.1M": "+",
           "$5.6B": "+",
           "$6B": "+"
         },
@@ -3897,8 +3908,8 @@
         "$4.2B",
         "$624M",
         "+$624M",
-        "$623.7M",
-        "+$623.7M",
+        "$624.1M",
+        "+$624.1M",
         "$5.6B",
         "+$5.6B",
         "$6B",
@@ -3922,8 +3933,8 @@
           "numbers": [
             "$624M",
             "+$624M",
-            "$623.7M",
-            "+$623.7M",
+            "$624.1M",
+            "+$624.1M",
             "$5.6B",
             "+$5.6B",
             "$6B",
@@ -4084,7 +4095,7 @@
       "moves": {
         "numbers": {
           "$624M": "+",
-          "$623.7M": "+",
+          "$624.1M": "+",
           "$5.6B": "+",
           "$6B": "+"
         },
