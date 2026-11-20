@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-20",
-  "generated_at": "2026-11-20T21:15:02Z",
-  "as_of": "2026-11-20T21:15:02Z",
+  "generated_at": "2026-11-20T21:45:02Z",
+  "as_of": "2026-11-20T21:45:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,8 +875,8 @@
   },
   "counts": {
     "congress_trade": 4,
-    "form4_buy": 0,
-    "earnings_result": 10,
+    "form4_buy": 1,
+    "earnings_result": 7,
     "earnings_upcoming": 10,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -895,7 +895,6 @@
     "basket_week": 0
   },
   "reasons": {
-    "form4_buy": "no material open-market Form 4 buy ($1M+ or a famous executive) filed in the last 5 weekdays",
     "sector_rotation": "day: best minus worst sector 2.3 pp < 3.0 pp; week: the session is not a Friday",
     "basket_week": "the session is not a Friday (the basket is a week-in-review item)",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
@@ -933,7 +932,7 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 15,
+      "filings_passing_filters": 16,
       "below_minimum": 15,
       "not_open_market": 0,
       "no_sec_index": 0
@@ -941,7 +940,7 @@
     "earnings_result": {
       "archive_reports": 3942,
       "recent_ready": 119,
-      "outside_24h": 107,
+      "outside_24h": 110,
       "unreadable": 0,
       "not_compared": 2,
       "not_compared_metrics": [
@@ -967,7 +966,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 22,
+      "tickers_in_items": 20,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -981,7 +980,7 @@
     "market": {
       "market_session": "2026-11-19",
       "priced_cap_share": 0.9832036276226034,
-      "flows_as_of": "2026-11-20T21:15:15.255540+00:00"
+      "flows_as_of": "2026-11-20T21:45:14.751221+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -990,7 +989,7 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 49
+        "angles_dropped": 43
       },
       "top8": {
         "stale": 8,
@@ -998,7 +997,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 5,
-        "ranked_below": 20,
+        "ranked_below": 18,
         "pillars": 4
       }
     }
@@ -1035,8 +1034,271 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 27,
+  "api_requests": 25,
   "items": [
+    {
+      "item_id": "2026-11-20-form4-buy-GLXY-78454b",
+      "type": "form4_buy",
+      "ticker": "GLXY",
+      "tickers": [
+        "GLXY"
+      ],
+      "name": "Michael Novogratz",
+      "office": "Chief Executive Officer at Galaxy Digital",
+      "amount_text": "$4.82M",
+      "traded": [
+        "2026-11-20"
+      ],
+      "filed": "2026-11-20",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1859392/000138061526000016/0001380615-26-000016-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/novogratz-michael-1380615?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-20-form4-buy-GLXY-78454b#trades",
+      "allowed_numbers": [
+        "$4.82M",
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of GLXY totaling $4.82M on a Form 4 filed 2026-11-20, traded 2026-11-20.",
+      "dedupe_key": "form4:0001380615-26-000016:GLXY",
+      "claim_phrases": [],
+      "company": "Galaxy Digital",
+      "side": "buy",
+      "accession": "0001380615-26-000016",
+      "rows": 1,
+      "figure_slug": "novogratz-michael-1380615",
+      "amount_top_usd": 4820278.37,
+      "market_cap_usd": 15516198912.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$4.82M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/novogratz-michael-1380615/opengraph-image",
+          "kind": "image",
+          "alt": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of GLXY totaling $4.82M on a Form 4 filed 2026-11-20, traded 2026-11-20."
+        }
+      ],
+      "rank": 11.18,
+      "rank_why": "form4_buy 2; large cap $15.52B +2.5; known name Chief Executive (title) +2; magnitude (top $4.82M) +2.68; filed 2026-11-20 (age 0) +2",
+      "pillar": "P3",
+      "cap_tier": "large",
+      "in_500": false,
+      "context_numbers": [
+        "$15.5B",
+        "$653M",
+        "+$653M",
+        "$653.3M",
+        "+$653.3M",
+        "$5.8B",
+        "+$5.8B",
+        "$6B",
+        "+$6B",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "GLXY"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$653M",
+            "+$653M",
+            "$653.3M",
+            "+$653.3M",
+            "$5.8B",
+            "+$5.8B",
+            "$6B",
+            "+$6B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "context": {
+        "market_cap": "$15.5B",
+        "insiders_30d": {
+          "bought": "$653M",
+          "sold": "$5.8B",
+          "days": 30
+        }
+      },
+      "angles": [
+        "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
+        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
+        "An open-market purchase of $GLXY totaling $4.82M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 20."
+      ],
+      "fact_phrases": [
+        "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
+        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
+        "An open-market purchase of $GLXY totaling $4.82M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 20.",
+        "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market.",
+        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market.",
+        "On the open market, Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY.",
+        "Michael Novogratz bought $4.82M of $GLXY on the open market.",
+        "On the open market, Michael Novogratz bought $4.82M of $GLXY.",
+        "Michael Novogratz made an open-market purchase of $GLXY: $4.82M.",
+        "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M on a Form 4 filed Nov 20.",
+        "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
+        "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
+        "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
+        "Officers and directors reported $653M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $653M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $653M of open-market buys and $5.8B of open-market sells."
+      ],
+      "phrasings": [
+        {
+          "id": "form4buy-32f205.a",
+          "fact": "form4buy-32f205",
+          "variant": "a",
+          "text": "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-32f205.h1",
+          "fact": "form4buy-32f205",
+          "variant": "h1",
+          "text": "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-32f205.h2",
+          "fact": "form4buy-32f205",
+          "variant": "h2",
+          "text": "An open-market purchase of $GLXY totaling $4.82M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-f88823.a",
+          "fact": "form4buy-f88823",
+          "variant": "a",
+          "text": "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-f88823.h1",
+          "fact": "form4buy-f88823",
+          "variant": "h1",
+          "text": "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-f88823.h2",
+          "fact": "form4buy-f88823",
+          "variant": "h2",
+          "text": "On the open market, Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.a",
+          "fact": "form4buy-1bee24",
+          "variant": "a",
+          "text": "Michael Novogratz bought $4.82M of $GLXY on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h1",
+          "fact": "form4buy-1bee24",
+          "variant": "h1",
+          "text": "On the open market, Michael Novogratz bought $4.82M of $GLXY.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h2",
+          "fact": "form4buy-1bee24",
+          "variant": "h2",
+          "text": "Michael Novogratz made an open-market purchase of $GLXY: $4.82M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-39fdef.a",
+          "fact": "form4buy-39fdef",
+          "variant": "a",
+          "text": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M on a Form 4 filed Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-39fdef.h1",
+          "fact": "form4buy-39fdef",
+          "variant": "h1",
+          "text": "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.a",
+          "fact": "form4buy-bfe464",
+          "variant": "a",
+          "text": "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.h1",
+          "fact": "form4buy-bfe464",
+          "variant": "h1",
+          "text": "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.a",
+          "fact": "form4buy-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $653M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.h1",
+          "fact": "form4buy-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $653M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.t",
+          "fact": "form4buy-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $653M of open-market buys and $5.8B of open-market sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$653M": "+",
+          "$653.3M": "+",
+          "$5.8B": "+",
+          "$6B": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "GLXY": [
+          [
+            "$",
+            15.5,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
     {
       "item_id": "2026-11-20-earnings-result-BABA-9375fd",
       "type": "earnings_result",
@@ -3159,207 +3421,6 @@
           ]
         ]
       },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-20-earnings-result-MOG-A-f8de85",
-      "type": "earnings_result",
-      "ticker": "MOG-A",
-      "tickers": [
-        "MOG-A"
-      ],
-      "name": "Moog Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-20",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/67887/000162828026075170/ex991-112026.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/MOG-A?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-20-earnings-result-MOG-A-f8de85#earnings-history",
-      "allowed_numbers": [
-        "$1.25B",
-        "$3.37",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-20",
-        "Nov 20, 2026",
-        "Nov 20"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Moog Inc. (MOG-A) published FY2026 (Q4) results on 2026-11-20: Published. Revenue $1.25B. Adjusted diluted net earnings per share $3.37.",
-      "dedupe_key": "report:mog-a-2026-q4",
-      "claim_phrases": [],
-      "report_id": "mog-a-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-20",
-      "published_at": "2026-11-20T13:42:31.197450+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$1.25B"
-        },
-        "eps": {
-          "basis": "Adjusted diluted net earnings per share",
-          "reported": "$3.37"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/MOG-A/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for MOG-A: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-20 (age 0) +2",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "MOG.A"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Moog Inc. ($MOG-A) published FY2026 (Q4) results on Nov 20.",
-        "$MOG-A (Moog Inc.) reported FY2026 (Q4) results on Nov 20.",
-        "On Nov 20, Moog Inc. ($MOG-A) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "Moog Inc. ($MOG-A) published FY2026 (Q4) results on Nov 20.",
-        "$MOG-A (Moog Inc.) reported FY2026 (Q4) results on Nov 20.",
-        "On Nov 20, Moog Inc. ($MOG-A) published FY2026 (Q4) results.",
-        "$MOG-A published FY2026 (Q4) results on Nov 20.",
-        "FY2026 (Q4) results from $MOG-A came out on Nov 20.",
-        "On Nov 20, $MOG-A published FY2026 (Q4) results.",
-        "$MOG-A FY2026 (Q4) revenue: $1.25B.",
-        "$MOG-A reported FY2026 (Q4) revenue of $1.25B.",
-        "$MOG-A FY2026 (Q4) revenue was $1.25B.",
-        "FY2026 (Q4) revenue at $MOG-A was $1.25B.",
-        "$MOG-A FY2026 (Q4) Adjusted diluted net earnings per share: $3.37.",
-        "$MOG-A reported FY2026 (Q4) Adjusted diluted net earnings per share of $3.37.",
-        "$MOG-A FY2026 (Q4) Adjusted diluted net earnings per share was $3.37.",
-        "FY2026 (Q4) Adjusted diluted net earnings per share at $MOG-A was $3.37."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "Moog Inc. ($MOG-A) published FY2026 (Q4) results on Nov 20.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$MOG-A (Moog Inc.) reported FY2026 (Q4) results on Nov 20.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 20, Moog Inc. ($MOG-A) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$MOG-A published FY2026 (Q4) results on Nov 20.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $MOG-A came out on Nov 20.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 20, $MOG-A published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f047e6.a",
-          "fact": "earningsre-f047e6",
-          "variant": "a",
-          "text": "$MOG-A FY2026 (Q4) revenue: $1.25B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f047e6.h1",
-          "fact": "earningsre-f047e6",
-          "variant": "h1",
-          "text": "$MOG-A reported FY2026 (Q4) revenue of $1.25B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.a",
-          "fact": "earningsre-3741ca",
-          "variant": "a",
-          "text": "$MOG-A FY2026 (Q4) revenue was $1.25B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.h1",
-          "fact": "earningsre-3741ca",
-          "variant": "h1",
-          "text": "FY2026 (Q4) revenue at $MOG-A was $1.25B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-dedcb8.a",
-          "fact": "earningsre-dedcb8",
-          "variant": "a",
-          "text": "$MOG-A FY2026 (Q4) Adjusted diluted net earnings per share: $3.37.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-dedcb8.h1",
-          "fact": "earningsre-dedcb8",
-          "variant": "h1",
-          "text": "$MOG-A reported FY2026 (Q4) Adjusted diluted net earnings per share of $3.37.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f18f1c.a",
-          "fact": "earningsre-f18f1c",
-          "variant": "a",
-          "text": "$MOG-A FY2026 (Q4) Adjusted diluted net earnings per share was $3.37.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f18f1c.h1",
-          "fact": "earningsre-f18f1c",
-          "variant": "h1",
-          "text": "FY2026 (Q4) Adjusted diluted net earnings per share at $MOG-A was $3.37.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
       "cooldown": null,
       "top8": true,
       "rotation": null
@@ -7415,6 +7476,208 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-20-earnings-result-MOG-A-f8de85",
+      "type": "earnings_result",
+      "ticker": "MOG-A",
+      "tickers": [
+        "MOG-A"
+      ],
+      "name": "Moog Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-20",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/67887/000162828026075170/ex991-112026.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/MOG-A?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-20-earnings-result-MOG-A-f8de85#earnings-history",
+      "allowed_numbers": [
+        "$1.25B",
+        "$3.37",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Moog Inc. (MOG-A) published FY2026 (Q4) results on 2026-11-20: Published. Revenue $1.25B. Adjusted diluted net earnings per share $3.37.",
+      "dedupe_key": "report:mog-a-2026-q4",
+      "claim_phrases": [],
+      "report_id": "mog-a-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-20",
+      "published_at": "2026-11-20T13:42:31.197450+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$1.25B"
+        },
+        "eps": {
+          "basis": "Adjusted diluted net earnings per share",
+          "reported": "$3.37"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/MOG-A/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for MOG-A: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-20 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "MOG.A"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Moog Inc. ($MOG-A) published FY2026 (Q4) results on Nov 20.",
+        "$MOG-A (Moog Inc.) reported FY2026 (Q4) results on Nov 20.",
+        "On Nov 20, Moog Inc. ($MOG-A) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Moog Inc. ($MOG-A) published FY2026 (Q4) results on Nov 20.",
+        "$MOG-A (Moog Inc.) reported FY2026 (Q4) results on Nov 20.",
+        "On Nov 20, Moog Inc. ($MOG-A) published FY2026 (Q4) results.",
+        "$MOG-A published FY2026 (Q4) results on Nov 20.",
+        "FY2026 (Q4) results from $MOG-A came out on Nov 20.",
+        "On Nov 20, $MOG-A published FY2026 (Q4) results.",
+        "$MOG-A FY2026 (Q4) revenue: $1.25B.",
+        "$MOG-A reported FY2026 (Q4) revenue of $1.25B.",
+        "$MOG-A FY2026 (Q4) revenue was $1.25B.",
+        "FY2026 (Q4) revenue at $MOG-A was $1.25B.",
+        "$MOG-A FY2026 (Q4) Adjusted diluted net earnings per share: $3.37.",
+        "$MOG-A reported FY2026 (Q4) Adjusted diluted net earnings per share of $3.37.",
+        "$MOG-A FY2026 (Q4) Adjusted diluted net earnings per share was $3.37.",
+        "FY2026 (Q4) Adjusted diluted net earnings per share at $MOG-A was $3.37."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Moog Inc. ($MOG-A) published FY2026 (Q4) results on Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$MOG-A (Moog Inc.) reported FY2026 (Q4) results on Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 20, Moog Inc. ($MOG-A) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$MOG-A published FY2026 (Q4) results on Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $MOG-A came out on Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 20, $MOG-A published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f047e6.a",
+          "fact": "earningsre-f047e6",
+          "variant": "a",
+          "text": "$MOG-A FY2026 (Q4) revenue: $1.25B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f047e6.h1",
+          "fact": "earningsre-f047e6",
+          "variant": "h1",
+          "text": "$MOG-A reported FY2026 (Q4) revenue of $1.25B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$MOG-A FY2026 (Q4) revenue was $1.25B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $MOG-A was $1.25B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-dedcb8.a",
+          "fact": "earningsre-dedcb8",
+          "variant": "a",
+          "text": "$MOG-A FY2026 (Q4) Adjusted diluted net earnings per share: $3.37.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-dedcb8.h1",
+          "fact": "earningsre-dedcb8",
+          "variant": "h1",
+          "text": "$MOG-A reported FY2026 (Q4) Adjusted diluted net earnings per share of $3.37.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f18f1c.a",
+          "fact": "earningsre-f18f1c",
+          "variant": "a",
+          "text": "$MOG-A FY2026 (Q4) Adjusted diluted net earnings per share was $3.37.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f18f1c.h1",
+          "fact": "earningsre-f18f1c",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Adjusted diluted net earnings per share at $MOG-A was $3.37.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-20-earnings-result-EARN-053dd7",
       "type": "earnings_result",
       "ticker": "EARN",
@@ -7790,1246 +8053,6 @@
           [
             "$",
             0.02,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-20-earnings-result-POST-de8a34",
-      "type": "earnings_result",
-      "ticker": "POST",
-      "tickers": [
-        "POST"
-      ],
-      "name": "Post Holdings, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-19",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1530950/000153095026000100/ex99-1q42026er.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/POST?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-20-earnings-result-POST-de8a34#earnings-history",
-      "allowed_numbers": [
-        "$1.95B",
-        "$2.0B",
-        "$44.3M",
-        "$1.84",
-        "$1.77",
-        "$0.07",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-19",
-        "Nov 19, 2026",
-        "Nov 19"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Post Holdings, Inc. (POST) published FY2026 (Q4) results on 2026-11-19: Mixed vs estimates. Revenue $1.95B vs $2.0B consensus (Missed by $44.3M). Adjusted diluted earnings per common share (non-GAAP) $1.84 vs $1.77 consensus (Beat by $0.07).",
-      "dedupe_key": "report:post-2026-q4",
-      "claim_phrases": [
-        "revenue came in below the $2.0B consensus.",
-        "$POST missed the FY2026 (Q4) revenue consensus: $1.95B vs $2.0B.",
-        "$POST FY2026 (Q4) revenue: $1.95B vs $2.0B consensus (missed by $44.3M).",
-        "$POST FY2026 (Q4) revenue $1.95B, missed by $44.3M.",
-        "revenue $1.95B vs $2.0B consensus (missed by $44.3M).",
-        "revenue $1.95B vs $2.0B (missed by $44.3M).",
-        "$POST missed FY2026 (Q4) revenue estimates by $44.3M.",
-        "EPS came in above the $1.77 consensus.",
-        "$POST beat the FY2026 (Q4) EPS consensus: $1.84 vs $1.77.",
-        "$POST FY2026 (Q4) EPS: $1.84 vs $1.77 consensus (beat by $0.07).",
-        "$POST FY2026 (Q4) EPS $1.84, beat by $0.07.",
-        "EPS $1.84 vs $1.77 consensus (beat by $0.07).",
-        "EPS $1.84 vs $1.77 (beat by $0.07).",
-        "$POST beat FY2026 (Q4) EPS estimates by $0.07."
-      ],
-      "report_id": "post-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-19",
-      "published_at": "2026-11-19T21:20:32.306418+00:00",
-      "tile_label": "Mixed vs estimates",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$1.95B",
-          "consensus": "$2.0B",
-          "label": "Missed by $44.3M",
-          "verdict": "miss"
-        },
-        "eps": {
-          "basis": "Adjusted diluted earnings per common share (non-GAAP)",
-          "reported": "$1.84",
-          "consensus": "$1.77",
-          "label": "Beat by $0.07",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/POST/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for POST: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-19 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "POST"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Post Holdings, Inc. ($POST) published FY2026 (Q4) results on Nov 19.",
-        "$POST (Post Holdings, Inc.) reported FY2026 (Q4) results on Nov 19.",
-        "On Nov 19, Post Holdings, Inc. ($POST) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "Post Holdings, Inc. ($POST) published FY2026 (Q4) results on Nov 19.",
-        "$POST (Post Holdings, Inc.) reported FY2026 (Q4) results on Nov 19.",
-        "On Nov 19, Post Holdings, Inc. ($POST) published FY2026 (Q4) results.",
-        "$POST published FY2026 (Q4) results on Nov 19.",
-        "FY2026 (Q4) results from $POST came out on Nov 19.",
-        "On Nov 19, $POST published FY2026 (Q4) results.",
-        "$POST FY2026 (Q4) revenue: $1.95B vs $2.0B consensus.",
-        "$POST reported FY2026 (Q4) revenue of $1.95B vs $2.0B consensus.",
-        "$POST FY2026 (Q4) revenue was $1.95B.",
-        "FY2026 (Q4) revenue at $POST was $1.95B.",
-        "$POST FY2026 (Q4) Adjusted diluted earnings per common share (non-GAAP): $1.84 vs $1.77 consensus.",
-        "$POST reported FY2026 (Q4) Adjusted diluted earnings per common share (non-GAAP) of $1.84 vs $1.77 consensus.",
-        "$POST FY2026 (Q4) Adjusted diluted earnings per common share (non-GAAP) was $1.84.",
-        "FY2026 (Q4) Adjusted diluted earnings per common share (non-GAAP) at $POST was $1.84."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-d07e43.a",
-          "fact": "earningsre-d07e43",
-          "variant": "a",
-          "text": "revenue came in below the $2.0B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9087c6.a",
-          "fact": "earningsre-9087c6",
-          "variant": "a",
-          "text": "$POST missed the FY2026 (Q4) revenue consensus: $1.95B vs $2.0B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-37dbea.a",
-          "fact": "earningsre-37dbea",
-          "variant": "a",
-          "text": "$POST FY2026 (Q4) revenue: $1.95B vs $2.0B consensus (missed by $44.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bff5fa.a",
-          "fact": "earningsre-bff5fa",
-          "variant": "a",
-          "text": "$POST FY2026 (Q4) revenue $1.95B, missed by $44.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-96a577.a",
-          "fact": "earningsre-96a577",
-          "variant": "a",
-          "text": "revenue $1.95B vs $2.0B consensus (missed by $44.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7c4659.a",
-          "fact": "earningsre-7c4659",
-          "variant": "a",
-          "text": "revenue $1.95B vs $2.0B (missed by $44.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b91b42.a",
-          "fact": "earningsre-b91b42",
-          "variant": "a",
-          "text": "$POST missed FY2026 (Q4) revenue estimates by $44.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.77 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$POST beat the FY2026 (Q4) EPS consensus: $1.84 vs $1.77.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$POST FY2026 (Q4) EPS: $1.84 vs $1.77 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$POST FY2026 (Q4) EPS $1.84, beat by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.84 vs $1.77 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.84 vs $1.77 (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$POST beat FY2026 (Q4) EPS estimates by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "Post Holdings, Inc. ($POST) published FY2026 (Q4) results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$POST (Post Holdings, Inc.) reported FY2026 (Q4) results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 19, Post Holdings, Inc. ($POST) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$POST published FY2026 (Q4) results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $POST came out on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 19, $POST published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.a",
-          "fact": "earningsre-8c456a",
-          "variant": "a",
-          "text": "$POST FY2026 (Q4) revenue: $1.95B vs $2.0B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.h1",
-          "fact": "earningsre-8c456a",
-          "variant": "h1",
-          "text": "$POST reported FY2026 (Q4) revenue of $1.95B vs $2.0B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.a",
-          "fact": "earningsre-3741ca",
-          "variant": "a",
-          "text": "$POST FY2026 (Q4) revenue was $1.95B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.h1",
-          "fact": "earningsre-3741ca",
-          "variant": "h1",
-          "text": "FY2026 (Q4) revenue at $POST was $1.95B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-4c125f.a",
-          "fact": "earningsre-4c125f",
-          "variant": "a",
-          "text": "$POST FY2026 (Q4) Adjusted diluted earnings per common share (non-GAAP): $1.84 vs $1.77 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-4c125f.h1",
-          "fact": "earningsre-4c125f",
-          "variant": "h1",
-          "text": "$POST reported FY2026 (Q4) Adjusted diluted earnings per common share (non-GAAP) of $1.84 vs $1.77 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-02865a.a",
-          "fact": "earningsre-02865a",
-          "variant": "a",
-          "text": "$POST FY2026 (Q4) Adjusted diluted earnings per common share (non-GAAP) was $1.84.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-02865a.h1",
-          "fact": "earningsre-02865a",
-          "variant": "h1",
-          "text": "FY2026 (Q4) Adjusted diluted earnings per common share (non-GAAP) at $POST was $1.84.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "POST": [
-          [
-            "$",
-            1.95,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            2.0,
-            1,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            44.3,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            1.84,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.77,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.07,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-20-earnings-result-ESE-b1c6e3",
-      "type": "earnings_result",
-      "ticker": "ESE",
-      "tickers": [
-        "ESE"
-      ],
-      "name": "ESCO Technologies Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-19",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/866706/000110465926130152/tm2629609d1_ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ESE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-20-earnings-result-ESE-b1c6e3#earnings-history",
-      "allowed_numbers": [
-        "$384M",
-        "$376M",
-        "$8.39M",
-        "$2.67",
-        "$2.60",
-        "$0.07",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-19",
-        "Nov 19, 2026",
-        "Nov 19"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "ESCO Technologies Inc. (ESE) published FY2026 (Q4) results on 2026-11-19: Beat estimates. Revenue $384M vs $376M consensus (Beat by $8.39M). As Adjusted Basis $2.67 vs $2.60 consensus (Beat by $0.07).",
-      "dedupe_key": "report:ese-2026-q4",
-      "claim_phrases": [
-        "revenue came in above the $376M consensus.",
-        "$ESE beat the FY2026 (Q4) revenue consensus: $384M vs $376M.",
-        "$ESE FY2026 (Q4) revenue: $384M vs $376M consensus (beat by $8.39M).",
-        "$ESE FY2026 (Q4) revenue $384M, beat by $8.39M.",
-        "revenue $384M vs $376M consensus (beat by $8.39M).",
-        "revenue $384M vs $376M (beat by $8.39M).",
-        "$ESE beat FY2026 (Q4) revenue estimates by $8.39M.",
-        "EPS came in above the $2.60 consensus.",
-        "$ESE beat the FY2026 (Q4) EPS consensus: $2.67 vs $2.60.",
-        "$ESE FY2026 (Q4) EPS: $2.67 vs $2.60 consensus (beat by $0.07).",
-        "$ESE FY2026 (Q4) EPS $2.67, beat by $0.07.",
-        "EPS $2.67 vs $2.60 consensus (beat by $0.07).",
-        "EPS $2.67 vs $2.60 (beat by $0.07).",
-        "$ESE beat FY2026 (Q4) EPS estimates by $0.07.",
-        "As Adjusted Basis came in above the $2.60 consensus.",
-        "$ESE beat the FY2026 (Q4) As Adjusted Basis consensus: $2.67 vs $2.60.",
-        "$ESE FY2026 (Q4) As Adjusted Basis: $2.67 vs $2.60 consensus (beat by $0.07).",
-        "$ESE FY2026 (Q4) As Adjusted Basis $2.67, beat by $0.07.",
-        "As Adjusted Basis $2.67 vs $2.60 consensus (beat by $0.07).",
-        "As Adjusted Basis $2.67 vs $2.60 (beat by $0.07).",
-        "$ESE beat FY2026 (Q4) As Adjusted Basis estimates by $0.07.",
-        "$ESE beat FY2026 (Q4) estimates."
-      ],
-      "report_id": "ese-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-19",
-      "published_at": "2026-11-19T21:18:42.850964+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$384M",
-          "consensus": "$376M",
-          "label": "Beat by $8.39M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "As Adjusted Basis",
-          "reported": "$2.67",
-          "consensus": "$2.60",
-          "label": "Beat by $0.07",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/ESE/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for ESE: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-19 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ESE"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "ESCO Technologies Inc. ($ESE) published FY2026 (Q4) results on Nov 19.",
-        "$ESE (ESCO Technologies Inc.) reported FY2026 (Q4) results on Nov 19.",
-        "On Nov 19, ESCO Technologies Inc. ($ESE) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "ESCO Technologies Inc. ($ESE) published FY2026 (Q4) results on Nov 19.",
-        "$ESE (ESCO Technologies Inc.) reported FY2026 (Q4) results on Nov 19.",
-        "On Nov 19, ESCO Technologies Inc. ($ESE) published FY2026 (Q4) results.",
-        "$ESE published FY2026 (Q4) results on Nov 19.",
-        "FY2026 (Q4) results from $ESE came out on Nov 19.",
-        "On Nov 19, $ESE published FY2026 (Q4) results.",
-        "$ESE FY2026 (Q4) revenue: $384M vs $376M consensus.",
-        "$ESE reported FY2026 (Q4) revenue of $384M vs $376M consensus.",
-        "$ESE FY2026 (Q4) revenue was $384M.",
-        "FY2026 (Q4) revenue at $ESE was $384M.",
-        "$ESE FY2026 (Q4) As Adjusted Basis: $2.67 vs $2.60 consensus.",
-        "$ESE reported FY2026 (Q4) As Adjusted Basis of $2.67 vs $2.60 consensus.",
-        "$ESE FY2026 (Q4) As Adjusted Basis was $2.67.",
-        "FY2026 (Q4) As Adjusted Basis at $ESE was $2.67."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $376M consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fe5e72.a",
-          "fact": "earningsre-fe5e72",
-          "variant": "a",
-          "text": "$ESE beat the FY2026 (Q4) revenue consensus: $384M vs $376M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c73b4a.a",
-          "fact": "earningsre-c73b4a",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) revenue: $384M vs $376M consensus (beat by $8.39M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c84ebe.a",
-          "fact": "earningsre-c84ebe",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) revenue $384M, beat by $8.39M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $384M vs $376M consensus (beat by $8.39M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $384M vs $376M (beat by $8.39M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-292430.a",
-          "fact": "earningsre-292430",
-          "variant": "a",
-          "text": "$ESE beat FY2026 (Q4) revenue estimates by $8.39M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $2.60 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$ESE beat the FY2026 (Q4) EPS consensus: $2.67 vs $2.60.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) EPS: $2.67 vs $2.60 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) EPS $2.67, beat by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $2.67 vs $2.60 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $2.67 vs $2.60 (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$ESE beat FY2026 (Q4) EPS estimates by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "As Adjusted Basis came in above the $2.60 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$ESE beat the FY2026 (Q4) As Adjusted Basis consensus: $2.67 vs $2.60.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) As Adjusted Basis: $2.67 vs $2.60 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) As Adjusted Basis $2.67, beat by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "As Adjusted Basis $2.67 vs $2.60 consensus (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "As Adjusted Basis $2.67 vs $2.60 (beat by $0.07).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$ESE beat FY2026 (Q4) As Adjusted Basis estimates by $0.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-232122.a",
-          "fact": "earningsre-232122",
-          "variant": "a",
-          "text": "$ESE beat FY2026 (Q4) estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "ESCO Technologies Inc. ($ESE) published FY2026 (Q4) results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$ESE (ESCO Technologies Inc.) reported FY2026 (Q4) results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 19, ESCO Technologies Inc. ($ESE) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$ESE published FY2026 (Q4) results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $ESE came out on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 19, $ESE published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.a",
-          "fact": "earningsre-8c456a",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) revenue: $384M vs $376M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.h1",
-          "fact": "earningsre-8c456a",
-          "variant": "h1",
-          "text": "$ESE reported FY2026 (Q4) revenue of $384M vs $376M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.a",
-          "fact": "earningsre-3741ca",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) revenue was $384M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.h1",
-          "fact": "earningsre-3741ca",
-          "variant": "h1",
-          "text": "FY2026 (Q4) revenue at $ESE was $384M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b47db5.a",
-          "fact": "earningsre-b47db5",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) As Adjusted Basis: $2.67 vs $2.60 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b47db5.h1",
-          "fact": "earningsre-b47db5",
-          "variant": "h1",
-          "text": "$ESE reported FY2026 (Q4) As Adjusted Basis of $2.67 vs $2.60 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1df3d9.a",
-          "fact": "earningsre-1df3d9",
-          "variant": "a",
-          "text": "$ESE FY2026 (Q4) As Adjusted Basis was $2.67.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1df3d9.h1",
-          "fact": "earningsre-1df3d9",
-          "variant": "h1",
-          "text": "FY2026 (Q4) As Adjusted Basis at $ESE was $2.67.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "ESE": [
-          [
-            "$",
-            384.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            376.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            8.39,
-            2,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            2.67,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            2.6,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.07,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-20-earnings-result-GAP-a868c9",
-      "type": "earnings_result",
-      "ticker": "GAP",
-      "tickers": [
-        "GAP"
-      ],
-      "name": "The Gap, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-19",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/39911/000162828026075088/q32026eprexhibit991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/GAP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-20-earnings-result-GAP-a868c9#earnings-history",
-      "allowed_numbers": [
-        "$4.01B",
-        "−$2.7M",
-        "$0.82",
-        "$0.78",
-        "$0.04",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-19",
-        "Nov 19, 2026",
-        "Nov 19"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The Gap, Inc. (GAP) published Q3 2026 results on 2026-11-19: Mixed vs estimates. Revenue $4.01B vs $4.01B consensus (In line (−$2.7M)). adjusted diluted earnings per share $0.82 vs $0.78 consensus (Beat by $0.04).",
-      "dedupe_key": "report:gap-2026-q3",
-      "claim_phrases": [
-        "$GAP Q3 2026 revenue was in line with the consensus: $4.01B vs $4.01B.",
-        "$GAP Q3 revenue was in line with the consensus: $4.01B vs $4.01B.",
-        "EPS came in above the $0.78 consensus.",
-        "$GAP beat the Q3 2026 EPS consensus: $0.82 vs $0.78.",
-        "$GAP Q3 2026 EPS: $0.82 vs $0.78 consensus (beat by $0.04).",
-        "$GAP Q3 2026 EPS $0.82, beat by $0.04.",
-        "EPS $0.82 vs $0.78 consensus (beat by $0.04).",
-        "EPS $0.82 vs $0.78 (beat by $0.04).",
-        "$GAP beat Q3 2026 EPS estimates by $0.04.",
-        "adjusted diluted earnings per share came in above the $0.78 consensus.",
-        "$GAP beat the Q3 2026 adjusted diluted earnings per share consensus: $0.82 vs $0.78.",
-        "$GAP Q3 2026 adjusted diluted earnings per share: $0.82 vs $0.78 consensus (beat by $0.04).",
-        "$GAP Q3 2026 adjusted diluted earnings per share $0.82, beat by $0.04.",
-        "adjusted diluted earnings per share $0.82 vs $0.78 consensus (beat by $0.04).",
-        "adjusted diluted earnings per share $0.82 vs $0.78 (beat by $0.04).",
-        "$GAP beat Q3 2026 adjusted diluted earnings per share estimates by $0.04.",
-        "$GAP beat the Q3 EPS consensus: $0.82 vs $0.78.",
-        "$GAP Q3 EPS: $0.82 vs $0.78 consensus (beat by $0.04).",
-        "$GAP Q3 EPS $0.82, beat by $0.04.",
-        "$GAP beat Q3 EPS estimates by $0.04.",
-        "$GAP beat the Q3 adjusted diluted earnings per share consensus: $0.82 vs $0.78.",
-        "$GAP Q3 adjusted diluted earnings per share: $0.82 vs $0.78 consensus (beat by $0.04).",
-        "$GAP Q3 adjusted diluted earnings per share $0.82, beat by $0.04.",
-        "$GAP beat Q3 adjusted diluted earnings per share estimates by $0.04."
-      ],
-      "report_id": "gap-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-19",
-      "published_at": "2026-11-19T21:18:40.182717+00:00",
-      "tile_label": "Mixed vs estimates",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$4.01B",
-          "consensus": "$4.01B",
-          "label": "In line (−$2.7M)",
-          "verdict": "in_line"
-        },
-        "eps": {
-          "basis": "adjusted diluted earnings per share",
-          "reported": "$0.82",
-          "consensus": "$0.78",
-          "label": "Beat by $0.04",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/GAP/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for GAP: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-19 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "GAP"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "The Gap, Inc. ($GAP) published Q3 2026 results on Nov 19.",
-        "$GAP (The Gap, Inc.) reported Q3 2026 results on Nov 19.",
-        "On Nov 19, the Gap, Inc. ($GAP) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "The Gap, Inc. ($GAP) published Q3 2026 results on Nov 19.",
-        "$GAP (The Gap, Inc.) reported Q3 2026 results on Nov 19.",
-        "On Nov 19, the Gap, Inc. ($GAP) published Q3 2026 results.",
-        "$GAP published Q3 2026 results on Nov 19.",
-        "Q3 2026 results from $GAP came out on Nov 19.",
-        "On Nov 19, $GAP published Q3 2026 results.",
-        "$GAP Q3 2026 revenue: $4.01B vs $4.01B consensus.",
-        "$GAP reported Q3 2026 revenue of $4.01B vs $4.01B consensus.",
-        "$GAP Q3 2026 revenue was $4.01B.",
-        "Q3 2026 revenue at $GAP was $4.01B.",
-        "$GAP Q3 2026 adjusted diluted earnings per share: $0.82 vs $0.78 consensus.",
-        "$GAP reported Q3 2026 adjusted diluted earnings per share of $0.82 vs $0.78 consensus.",
-        "$GAP Q3 2026 adjusted diluted earnings per share was $0.82.",
-        "Q3 2026 adjusted diluted earnings per share at $GAP was $0.82."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-0a67cc.a",
-          "fact": "earningsre-0a67cc",
-          "variant": "a",
-          "text": "$GAP Q3 2026 revenue was in line with the consensus: $4.01B vs $4.01B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-5b24bf.a",
-          "fact": "earningsre-5b24bf",
-          "variant": "a",
-          "text": "$GAP Q3 revenue was in line with the consensus: $4.01B vs $4.01B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $0.78 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$GAP beat the Q3 2026 EPS consensus: $0.82 vs $0.78.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$GAP Q3 2026 EPS: $0.82 vs $0.78 consensus (beat by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$GAP Q3 2026 EPS $0.82, beat by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $0.82 vs $0.78 consensus (beat by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $0.82 vs $0.78 (beat by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$GAP beat Q3 2026 EPS estimates by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-acdd3d.a",
-          "fact": "earningsre-acdd3d",
-          "variant": "a",
-          "text": "adjusted diluted earnings per share came in above the $0.78 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-16bdc5.a",
-          "fact": "earningsre-16bdc5",
-          "variant": "a",
-          "text": "$GAP beat the Q3 2026 adjusted diluted earnings per share consensus: $0.82 vs $0.78.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d4d8ea.a",
-          "fact": "earningsre-d4d8ea",
-          "variant": "a",
-          "text": "$GAP Q3 2026 adjusted diluted earnings per share: $0.82 vs $0.78 consensus (beat by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9c49b4.a",
-          "fact": "earningsre-9c49b4",
-          "variant": "a",
-          "text": "$GAP Q3 2026 adjusted diluted earnings per share $0.82, beat by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c20dfd.a",
-          "fact": "earningsre-c20dfd",
-          "variant": "a",
-          "text": "adjusted diluted earnings per share $0.82 vs $0.78 consensus (beat by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e9c3f5.a",
-          "fact": "earningsre-e9c3f5",
-          "variant": "a",
-          "text": "adjusted diluted earnings per share $0.82 vs $0.78 (beat by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-29d43b.a",
-          "fact": "earningsre-29d43b",
-          "variant": "a",
-          "text": "$GAP beat Q3 2026 adjusted diluted earnings per share estimates by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$GAP beat the Q3 EPS consensus: $0.82 vs $0.78.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$GAP Q3 EPS: $0.82 vs $0.78 consensus (beat by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$GAP Q3 EPS $0.82, beat by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$GAP beat Q3 EPS estimates by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9a50bb.a",
-          "fact": "earningsre-9a50bb",
-          "variant": "a",
-          "text": "$GAP beat the Q3 adjusted diluted earnings per share consensus: $0.82 vs $0.78.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f7bd30.a",
-          "fact": "earningsre-f7bd30",
-          "variant": "a",
-          "text": "$GAP Q3 adjusted diluted earnings per share: $0.82 vs $0.78 consensus (beat by $0.04).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f3ae9f.a",
-          "fact": "earningsre-f3ae9f",
-          "variant": "a",
-          "text": "$GAP Q3 adjusted diluted earnings per share $0.82, beat by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e0a03e.a",
-          "fact": "earningsre-e0a03e",
-          "variant": "a",
-          "text": "$GAP beat Q3 adjusted diluted earnings per share estimates by $0.04.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b384b8.a",
-          "fact": "earningsre-b384b8",
-          "variant": "a",
-          "text": "The Gap, Inc. ($GAP) published Q3 2026 results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.h1",
-          "fact": "earningsre-b384b8",
-          "variant": "h1",
-          "text": "$GAP (The Gap, Inc.) reported Q3 2026 results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.t",
-          "fact": "earningsre-b384b8",
-          "variant": "t",
-          "text": "On Nov 19, the Gap, Inc. ($GAP) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$GAP published Q3 2026 results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $GAP came out on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 19, $GAP published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$GAP Q3 2026 revenue: $4.01B vs $4.01B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$GAP reported Q3 2026 revenue of $4.01B vs $4.01B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$GAP Q3 2026 revenue was $4.01B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $GAP was $4.01B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-9fa0b4.a",
-          "fact": "earningsre-9fa0b4",
-          "variant": "a",
-          "text": "$GAP Q3 2026 adjusted diluted earnings per share: $0.82 vs $0.78 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-9fa0b4.h1",
-          "fact": "earningsre-9fa0b4",
-          "variant": "h1",
-          "text": "$GAP reported Q3 2026 adjusted diluted earnings per share of $0.82 vs $0.78 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-540ff9.a",
-          "fact": "earningsre-540ff9",
-          "variant": "a",
-          "text": "$GAP Q3 2026 adjusted diluted earnings per share was $0.82.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-540ff9.h1",
-          "fact": "earningsre-540ff9",
-          "variant": "h1",
-          "text": "Q3 2026 adjusted diluted earnings per share at $GAP was $0.82.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$2.7M": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "GAP": [
-          [
-            "$",
-            4.01,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            0.82,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.78,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.04,
             2,
             1.0,
             0
