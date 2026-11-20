@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-20",
-  "generated_at": "2026-11-20T15:30:02Z",
-  "as_of": "2026-11-20T15:30:02Z",
+  "generated_at": "2026-11-20T19:15:02Z",
+  "as_of": "2026-11-20T19:15:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -878,7 +878,7 @@
     "form4_buy": 0,
     "earnings_result": 16,
     "earnings_upcoming": 10,
-    "picks_ready": 0,
+    "picks_ready": 1,
     "chart_pattern": 1,
     "moves_like": 3,
     "earnings_tomorrow_roundup": 1,
@@ -896,7 +896,6 @@
   },
   "reasons": {
     "form4_buy": "no material open-market Form 4 buy ($1M+ or a famous executive) filed in the last 5 weekdays",
-    "picks_ready": "the published list (2026-11-19) expires 2026-11-20T19:00:00+00:00 before the 15:00 ET slot; today's list publishes at 2:00 PM ET",
     "sector_rotation": "day: best minus worst sector 2.3 pp < 3.0 pp; week: the session is not a Friday",
     "basket_week": "the session is not a Friday (the basket is a week-in-review item)",
     "congress_flow": "not due (weekly on Saturday / Monday, or when a 500-largest name enters the top 5)",
@@ -981,7 +980,7 @@
     "market": {
       "market_session": "2026-11-19",
       "priced_cap_share": 0.9832036276226034,
-      "flows_as_of": "2026-11-20T15:30:16.445182+00:00"
+      "flows_as_of": "2026-11-20T19:15:17.205006+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -998,7 +997,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 5,
-        "ranked_below": 21,
+        "ranked_below": 22,
         "pillars": 4
       }
     }
@@ -1035,7 +1034,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 29,
+  "api_requests": 30,
   "items": [
     {
       "item_id": "2026-11-20-earnings-result-BABA-9375fd",
@@ -13028,6 +13027,138 @@
           "fact": "earningsre-d3e15f",
           "variant": "h1",
           "text": "Q3 2026 GAAP EPS at $HAFN was $0.34.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-20-picks-ready-LIST-61b7cd",
+      "type": "picks_ready",
+      "ticker": null,
+      "tickers": [
+        "DY",
+        "TTMI"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/picks/2026-11-20",
+      "page_url": "https://www.rapidtradeview.trade/picks/2026-11-20?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-20-picks-ready-LIST-61b7cd",
+      "allowed_numbers": [
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20",
+        "2"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The RapidTradeView daily picks list for 2026-11-20 is published; the public picks are DY, TTMI.",
+      "dedupe_key": "picks:2026-11-20",
+      "claim_phrases": [],
+      "trade_date": "2026-11-20",
+      "valid_until": "2026-11-23T19:00:00+00:00",
+      "picks": [
+        {
+          "ticker": "DY",
+          "direction": "bullish"
+        },
+        {
+          "ticker": "TTMI",
+          "direction": "bullish"
+        }
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/picks/2026-11-20/opengraph-image",
+          "kind": "image",
+          "alt": "The RapidTradeView daily picks list for 2026-11-20 is published; the public picks are DY, TTMI."
+        }
+      ],
+      "rank": 5.0,
+      "rank_why": "picks_ready 2; magnitude (picks) +1; today 2026-11-20 (age 0) +2",
+      "pillar": "P0",
+      "cap_tier": "unknown",
+      "in_500": null,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DY",
+          "TTMI"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "The RapidTradeView daily picks list for Nov 20 is published.",
+        "The Nov 20 RapidTradeView daily picks list is out.",
+        "The public picks on the RapidTradeView list for Nov 20 are $DY and $TTMI."
+      ],
+      "fact_phrases": [
+        "The RapidTradeView daily picks list for Nov 20 is published.",
+        "The Nov 20 RapidTradeView daily picks list is out.",
+        "The public picks on the RapidTradeView list for Nov 20 are $DY and $TTMI.",
+        "$DY and $TTMI are the public picks on the RapidTradeView list for Nov 20.",
+        "Every pick is graded in public on the RapidTradeView scoreboard.",
+        "The RapidTradeView scoreboard grades every pick in public."
+      ],
+      "phrasings": [
+        {
+          "id": "picksready-5b66f8.a",
+          "fact": "picksready-5b66f8",
+          "variant": "a",
+          "text": "The RapidTradeView daily picks list for Nov 20 is published.",
+          "claim": false
+        },
+        {
+          "id": "picksready-5b66f8.h1",
+          "fact": "picksready-5b66f8",
+          "variant": "h1",
+          "text": "The Nov 20 RapidTradeView daily picks list is out.",
+          "claim": false
+        },
+        {
+          "id": "picksready-1a93d0.a",
+          "fact": "picksready-1a93d0",
+          "variant": "a",
+          "text": "The public picks on the RapidTradeView list for Nov 20 are $DY and $TTMI.",
+          "claim": false
+        },
+        {
+          "id": "picksready-1a93d0.h1",
+          "fact": "picksready-1a93d0",
+          "variant": "h1",
+          "text": "$DY and $TTMI are the public picks on the RapidTradeView list for Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "picksready-72bc90.a",
+          "fact": "picksready-72bc90",
+          "variant": "a",
+          "text": "Every pick is graded in public on the RapidTradeView scoreboard.",
+          "claim": false
+        },
+        {
+          "id": "picksready-72bc90.h1",
+          "fact": "picksready-72bc90",
+          "variant": "h1",
+          "text": "The RapidTradeView scoreboard grades every pick in public.",
           "claim": false
         }
       ],
