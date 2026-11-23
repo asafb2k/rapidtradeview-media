@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-23",
-  "generated_at": "2026-11-23T10:00:01Z",
-  "as_of": "2026-11-23T10:00:01Z",
+  "generated_at": "2026-11-23T12:00:02Z",
+  "as_of": "2026-11-23T12:00:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 5,
     "form4_buy": 1,
-    "earnings_result": 2,
+    "earnings_result": 3,
     "earnings_upcoming": 22,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -886,7 +886,7 @@
     "market_move": 0,
     "mega_mover": 1,
     "congress_flow": 1,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 0,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -930,14 +930,14 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 20,
-      "below_minimum": 19,
+      "filings_passing_filters": 19,
+      "below_minimum": 18,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3986,
-      "recent_ready": 51,
+      "archive_reports": 3987,
+      "recent_ready": 52,
       "outside_24h": 49,
       "unreadable": 0
     },
@@ -954,9 +954,9 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 31,
-      "carried_over": 0,
-      "requested": 5,
+      "tickers_in_items": 27,
+      "carried_over": 5,
+      "requested": 0,
       "not_covered": 0,
       "disabled": 0,
       "no_peer": 0,
@@ -968,7 +968,7 @@
     "market": {
       "market_session": "2026-11-20",
       "priced_cap_share": 0.9822412681933844,
-      "flows_as_of": "2026-11-23T10:00:14.233930+00:00"
+      "flows_as_of": "2026-11-23T12:00:13.932458+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -977,30 +977,32 @@
       "reasons": [],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 37
+        "angles_dropped": 40
       },
       "top8": {
         "stale": 8,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 12,
-        "ranked_below": 20,
+        "repeat": 9,
+        "ranked_below": 24,
         "pillars": 3
       }
     },
     "card_unpinned": {
-      "dropped": 2,
+      "dropped": 3,
       "reasons": [
-        "market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T09:47:13.950636+00:00 (X-Card-Date), the item 2026-11-20)",
-        "mega_mover NVDA: share card not pinned (the card draws 2026-11-23T09:47:13.950636+00:00 (X-Card-Date), the item 2026-11-20)"
+        "insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))",
+        "market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T11:47:08.992759+00:00 (X-Card-Date), the item 2026-11-20)",
+        "mega_mover NVDA: share card not pinned (the card draws 2026-11-23T11:47:08.992759+00:00 (X-Card-Date), the item 2026-11-20)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T09:47:13.950636+00:00 (X-Card-Date), the item 2026-11-20)",
-    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-23T09:47:13.950636+00:00 (X-Card-Date), the item 2026-11-20)"
+    "not published: insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))",
+    "not published: market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T11:47:08.992759+00:00 (X-Card-Date), the item 2026-11-20)",
+    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-23T11:47:08.992759+00:00 (X-Card-Date), the item 2026-11-20)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1031,7 +1033,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 22,
+  "api_requests": 18,
   "items": [
     {
       "item_id": "2026-11-23-congress-flow-NVDA-575db3",
@@ -1342,558 +1344,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-23-insider-flow-RCL-ed5243",
-      "type": "insider_flow",
-      "ticker": "RCL",
-      "tickers": [
-        "RCL",
-        "SYK",
-        "MSI"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-insider-flow-RCL-ed5243",
-      "allowed_numbers": [
-        "$681M",
-        "+$681M",
-        "$681.5M",
-        "+$681.5M",
-        "$5.7B",
-        "+$5.7B",
-        "$6B",
-        "+$6B",
-        "30",
-        "505",
-        "713",
-        "500",
-        "2026-10-24",
-        "Oct 24, 2026",
-        "Oct 24",
-        "2026-11-20",
-        "Nov 20, 2026",
-        "Nov 20",
-        "$333M",
-        "+$333M",
-        "$333.2M",
-        "+$333.2M",
-        "$179M",
-        "+$179M",
-        "$178.9M",
-        "+$178.9M",
-        "$153M",
-        "+$153M",
-        "$153.4M",
-        "+$153.4M",
-        "3",
-        "1",
-        "9",
-        "8.4",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $681M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 20; 505 companies with buys, 713 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
-      "dedupe_key": "insider_flow:2026-11-20:RCL",
-      "claim_phrases": [
-        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-        "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
-        "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
-        "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
-        "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
-        "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
-        "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.4.",
-        "Officers and directors sold $8.4 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $8.4 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "RCL",
-            "SYK",
-            "MSI"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $SYK, $MSI"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$681M",
-            "+$681M",
-            "$681.5M",
-            "+$681.5M",
-            "$5.7B",
-            "+$5.7B",
-            "$6B",
-            "+$6B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($681M bought, $5.7B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "RCL",
-          "SYK",
-          "MSI"
-        ],
-        "numbers": [
-          "$5.7B",
-          "$681M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-24",
-        "to": "2026-11-23",
-        "days": 30
-      },
-      "bought_usd": 681498463.54,
-      "sold_usd": 5743961097.63,
-      "buy_companies": 505,
-      "sell_companies": 713,
-      "top_sellers_500": [
-        {
-          "ticker": "RCL",
-          "name": "Royal Caribbean Cruises Ltd.",
-          "sector": "Consumer Cyclical",
-          "total_usd": 333233640.82,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 72,
-          "first_trade": "2026-10-28",
-          "last_trade": "2026-11-13"
-        },
-        {
-          "ticker": "SYK",
-          "name": "Stryker Corporation",
-          "sector": "Healthcare",
-          "total_usd": 178924730.95,
-          "insider_count": 1,
-          "roles": {
-            "officer": 0,
-            "director": 1
-          },
-          "row_count": 6,
-          "first_trade": "2026-11-06",
-          "last_trade": "2026-11-06"
-        },
-        {
-          "ticker": "MSI",
-          "name": "Motorola Solutions, Inc.",
-          "sector": "Technology",
-          "total_usd": 153435696.77,
-          "insider_count": 9,
-          "roles": {
-            "officer": 9,
-            "director": 0
-          },
-          "row_count": 72,
-          "first_trade": "2026-11-06",
-          "last_trade": "2026-11-16"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $5.7B and bought $681M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $681M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $681M of open-market buys."
-      ],
-      "market_cap_usd": 81083813419.83096,
-      "magnitude": 2.638817234819201,
-      "trigger": "weekly (Monday facts)",
-      "top5": [
-        "RCL",
-        "SYK",
-        "MSI",
-        "AXP",
-        "SNOW"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-20-fd746d63-b65789f4.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-20",
-        "fingerprint": "fd746d63",
-        "file": "market-insiders-2026-11-20-fd746d63.png",
-        "sha256": "bf9031cfa461b30cf014ddc9295f92346581d999a8062e2201c631b7f1c80d33"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-20-fd746d63-b65789f4.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $681M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 20; 505 companies with buys, 713 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "ticker_sectors": {
-        "RCL": "Consumer Cyclical",
-        "SYK": "Healthcare",
-        "MSI": "Technology"
-      },
-      "ticker_names": {
-        "RCL": "Royal Caribbean Cruises Ltd.",
-        "SYK": "Stryker Corporation",
-        "MSI": "Motorola Solutions, Inc."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $681M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $681M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $681M of open-market buys and $5.7B of open-market sells.",
-        "Officers and directors sold $5.7B and bought $681M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $5.7B and bought $681M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 505 companies had open-market buys by officers and directors and 713 had open-market sells.",
-        "713 companies had open-market sells by officers and directors and 505 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
-        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
-        "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
-        "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.4.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $8.4 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $8.4 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $681M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $681M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $681M of open-market buys and $5.7B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $5.7B and bought $681M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $5.7B and bought $681M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 505 companies had open-market buys by officers and directors and 713 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "713 companies had open-market sells by officers and directors and 505 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.a",
-          "fact": "insiderflo-942c9b",
-          "variant": "a",
-          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.h1",
-          "fact": "insiderflo-942c9b",
-          "variant": "h1",
-          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.t",
-          "fact": "insiderflo-942c9b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$681M": "+",
-          "$681.5M": "+",
-          "$5.7B": "+",
-          "$6B": "+",
-          "$333M": "+",
-          "$333.2M": "+",
-          "$179M": "+",
-          "$178.9M": "+",
-          "$153M": "+",
-          "$153.4M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "RCL": [
-          [
-            "$",
-            333.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            8.4,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "SYK": [
-          [
-            "$",
-            179.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "MSI": [
-          [
-            "$",
-            153.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 11.14,
-      "rank_why": "insider_flow 4; large cap $81.08B +2.5; magnitude (market) +2.64; today 2026-11-23 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-23-form4-buy-GLXY-78454b",
       "type": "form4_buy",
       "ticker": "GLXY",
@@ -1946,10 +1396,10 @@
       "in_500": false,
       "context_numbers": [
         "$15.5B",
-        "$681M",
-        "+$681M",
-        "$681.5M",
-        "+$681.5M",
+        "$682M",
+        "+$682M",
+        "$682.3M",
+        "+$682.3M",
         "$5.7B",
         "+$5.7B",
         "$6B",
@@ -1971,10 +1421,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$681M",
-            "+$681M",
-            "$681.5M",
-            "+$681.5M",
+            "$682M",
+            "+$682M",
+            "$682.3M",
+            "+$682.3M",
             "$5.7B",
             "+$5.7B",
             "$6B",
@@ -1990,7 +1440,7 @@
       "context": {
         "market_cap": "$15.5B",
         "insiders_30d": {
-          "bought": "$681M",
+          "bought": "$682M",
           "sold": "$5.7B",
           "days": 30
         }
@@ -2014,9 +1464,9 @@
         "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
         "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
         "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
-        "Officers and directors reported $681M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $681M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $681M of open-market buys and $5.7B of open-market sells."
+        "Officers and directors reported $682M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $682M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $682M of open-market buys and $5.7B of open-market sells."
       ],
       "phrasings": [
         {
@@ -2114,28 +1564,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $681M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $682M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $681M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $682M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $681M of open-market buys and $5.7B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $682M of open-market buys and $5.7B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$681M": "+",
-          "$681.5M": "+",
+          "$682M": "+",
+          "$682.3M": "+",
           "$5.7B": "+",
           "$6B": "+"
         },
@@ -2147,6 +1597,544 @@
             "$",
             15.5,
             1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-earnings-result-CRWD-d12ce4",
+      "type": "earnings_result",
+      "ticker": "CRWD",
+      "tickers": [
+        "CRWD"
+      ],
+      "name": "CrowdStrike Holdings, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1535527/000153552726000035/crwd-20261123xex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CRWD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-earnings-result-CRWD-d12ce4#earnings-history",
+      "allowed_numbers": [
+        "$1.58B",
+        "$1.53B",
+        "$54.9M",
+        "$0.34",
+        "$0.31",
+        "$0.03",
+        "Q3 2027",
+        "Q3",
+        "FY2027",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "CrowdStrike Holdings, Inc. (CRWD) published Q3 2027 results on 2026-11-23: Beat estimates. Revenue $1.58B vs $1.53B consensus (Beat by $54.9M). Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted $0.34 vs $0.31 consensus (Beat by $0.03).",
+      "dedupe_key": "report:crwd-2027-q3",
+      "claim_phrases": [
+        "revenue came in above the $1.53B consensus.",
+        "$CRWD beat the Q3 2027 revenue consensus: $1.58B vs $1.53B.",
+        "$CRWD Q3 2027 revenue: $1.58B vs $1.53B consensus (beat by $54.9M).",
+        "$CRWD Q3 2027 revenue $1.58B, beat by $54.9M.",
+        "revenue $1.58B vs $1.53B consensus (beat by $54.9M).",
+        "revenue $1.58B vs $1.53B (beat by $54.9M).",
+        "$CRWD beat Q3 2027 revenue estimates by $54.9M.",
+        "$CRWD beat the Q3 revenue consensus: $1.58B vs $1.53B.",
+        "$CRWD Q3 revenue: $1.58B vs $1.53B consensus (beat by $54.9M).",
+        "$CRWD Q3 revenue $1.58B, beat by $54.9M.",
+        "$CRWD beat Q3 revenue estimates by $54.9M.",
+        "EPS came in above the $0.31 consensus.",
+        "$CRWD beat the Q3 2027 EPS consensus: $0.34 vs $0.31.",
+        "$CRWD Q3 2027 EPS: $0.34 vs $0.31 consensus (beat by $0.03).",
+        "$CRWD Q3 2027 EPS $0.34, beat by $0.03.",
+        "EPS $0.34 vs $0.31 consensus (beat by $0.03).",
+        "EPS $0.34 vs $0.31 (beat by $0.03).",
+        "$CRWD beat Q3 2027 EPS estimates by $0.03.",
+        "$CRWD beat the Q3 EPS consensus: $0.34 vs $0.31.",
+        "$CRWD Q3 EPS: $0.34 vs $0.31 consensus (beat by $0.03).",
+        "$CRWD Q3 EPS $0.34, beat by $0.03.",
+        "$CRWD beat Q3 EPS estimates by $0.03.",
+        "$CRWD beat Q3 2027 estimates.",
+        "$CRWD beat Q3 estimates."
+      ],
+      "report_id": "crwd-2027-q3",
+      "fiscal_label": "Q3 2027",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-23T11:06:43.463303+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$1.58B",
+          "consensus": "$1.53B",
+          "label": "Beat by $54.9M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted",
+          "reported": "$0.34",
+          "consensus": "$0.31",
+          "label": "Beat by $0.03",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CRWD/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CRWD: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 10.5,
+      "rank_why": "earnings_result 3; mega cap $249.29B +4; magnitude (verdict) +1.5; release_date 2026-11-23 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 249287188968.48853,
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20",
+        "$249B",
+        "−5.76%",
+        "5.76%",
+        "−5.8%",
+        "5.8%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CRWD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "CRWD": "Technology"
+      },
+      "ticker_names": {
+        "CRWD": "CrowdStrike Holdings, Inc."
+      },
+      "context": {
+        "market_cap": "$249B",
+        "market_cap_session": "2026-11-20",
+        "last_session_move": {
+          "pct": "−5.76%",
+          "session": "2026-11-20"
+        }
+      },
+      "angles": [
+        "CrowdStrike Holdings, Inc. ($CRWD) published Q3 2027 results on Nov 23.",
+        "$CRWD (CrowdStrike Holdings, Inc.) reported Q3 2027 results on Nov 23.",
+        "On Nov 23, CrowdStrike Holdings, Inc. ($CRWD) published Q3 2027 results."
+      ],
+      "fact_phrases": [
+        "CrowdStrike Holdings, Inc. ($CRWD) published Q3 2027 results on Nov 23.",
+        "$CRWD (CrowdStrike Holdings, Inc.) reported Q3 2027 results on Nov 23.",
+        "On Nov 23, CrowdStrike Holdings, Inc. ($CRWD) published Q3 2027 results.",
+        "$CRWD published Q3 2027 results on Nov 23.",
+        "Q3 2027 results from $CRWD came out on Nov 23.",
+        "On Nov 23, $CRWD published Q3 2027 results.",
+        "$CRWD Q3 2027 revenue: $1.58B vs $1.53B consensus.",
+        "$CRWD reported Q3 2027 revenue of $1.58B vs $1.53B consensus.",
+        "$CRWD Q3 2027 revenue was $1.58B.",
+        "Q3 2027 revenue at $CRWD was $1.58B.",
+        "$CRWD Q3 2027 Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted: $0.34 vs $0.31 consensus.",
+        "$CRWD reported Q3 2027 Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted of $0.34 vs $0.31 consensus.",
+        "$CRWD Q3 2027 Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted was $0.34.",
+        "Q3 2027 Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted at $CRWD was $0.34.",
+        "$CRWD had a market value of $249B at the Nov 20 close.",
+        "$CRWD's market value at the Nov 20 close was $249B.",
+        "At the Nov 20 close, $CRWD had a market value of $249B.",
+        "$CRWD moved −5.76% on Friday, Nov 20.",
+        "$CRWD's move on Friday, Nov 20: −5.76%.",
+        "On Friday, Nov 20, $CRWD moved −5.76%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $1.53B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$CRWD beat the Q3 2027 revenue consensus: $1.58B vs $1.53B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$CRWD Q3 2027 revenue: $1.58B vs $1.53B consensus (beat by $54.9M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$CRWD Q3 2027 revenue $1.58B, beat by $54.9M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $1.58B vs $1.53B consensus (beat by $54.9M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $1.58B vs $1.53B (beat by $54.9M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$CRWD beat Q3 2027 revenue estimates by $54.9M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$CRWD beat the Q3 revenue consensus: $1.58B vs $1.53B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$CRWD Q3 revenue: $1.58B vs $1.53B consensus (beat by $54.9M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$CRWD Q3 revenue $1.58B, beat by $54.9M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$CRWD beat Q3 revenue estimates by $54.9M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.31 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$CRWD beat the Q3 2027 EPS consensus: $0.34 vs $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$CRWD Q3 2027 EPS: $0.34 vs $0.31 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$CRWD Q3 2027 EPS $0.34, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.34 vs $0.31 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.34 vs $0.31 (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$CRWD beat Q3 2027 EPS estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$CRWD beat the Q3 EPS consensus: $0.34 vs $0.31.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$CRWD Q3 EPS: $0.34 vs $0.31 consensus (beat by $0.03).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$CRWD Q3 EPS $0.34, beat by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$CRWD beat Q3 EPS estimates by $0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$CRWD beat Q3 2027 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$CRWD beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "CrowdStrike Holdings, Inc. ($CRWD) published Q3 2027 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$CRWD (CrowdStrike Holdings, Inc.) reported Q3 2027 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 23, CrowdStrike Holdings, Inc. ($CRWD) published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$CRWD published Q3 2027 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2027 results from $CRWD came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 23, $CRWD published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$CRWD Q3 2027 revenue: $1.58B vs $1.53B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$CRWD reported Q3 2027 revenue of $1.58B vs $1.53B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$CRWD Q3 2027 revenue was $1.58B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2027 revenue at $CRWD was $1.58B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-0bc596.a",
+          "fact": "earningsre-0bc596",
+          "variant": "a",
+          "text": "$CRWD Q3 2027 Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted: $0.34 vs $0.31 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-0bc596.h1",
+          "fact": "earningsre-0bc596",
+          "variant": "h1",
+          "text": "$CRWD reported Q3 2027 Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted of $0.34 vs $0.31 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-570a37.a",
+          "fact": "earningsre-570a37",
+          "variant": "a",
+          "text": "$CRWD Q3 2027 Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted was $0.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-570a37.h1",
+          "fact": "earningsre-570a37",
+          "variant": "h1",
+          "text": "Q3 2027 Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted at $CRWD was $0.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$CRWD had a market value of $249B at the Nov 20 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$CRWD's market value at the Nov 20 close was $249B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 20 close, $CRWD had a market value of $249B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$CRWD moved −5.76% on Friday, Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$CRWD's move on Friday, Nov 20: −5.76%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Friday, Nov 20, $CRWD moved −5.76%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "5.76%": "-",
+          "5.8%": "-"
+        },
+        "subjects": {
+          "CRWD": "down"
+        }
+      },
+      "subject_numbers": {
+        "CRWD": [
+          [
+            "$",
+            0.34,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.31,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.03,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.58,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            1.53,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            54.9,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "%",
+            5.76,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            249.0,
+            0,
             1000000000.0,
             0
           ]
@@ -2893,191 +2881,6 @@
           ]
         ]
       },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-23-earnings-tomorrow-roundup-LIST-706cc5",
-      "type": "earnings_tomorrow_roundup",
-      "ticker": null,
-      "tickers": [
-        "ADI",
-        "MDT",
-        "DLTR",
-        "BBY"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
-      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-earnings-tomorrow-roundup-LIST-706cc5",
-      "allowed_numbers": [
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24",
-        "before the open"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Reporting earnings on 2026-11-24, before the open (confirmed dates): $ADI (Analog Devices, Inc.), $MDT (Medtronic plc), $DLTR (Dollar Tree, Inc.), $BBY (Best Buy Co., Inc.) and more.",
-      "dedupe_key": "roundup:2026-11-24:bmo",
-      "claim_phrases": [],
-      "names": {
-        "ADI": "Analog Devices, Inc.",
-        "MDT": "Medtronic plc",
-        "DLTR": "Dollar Tree, Inc.",
-        "BBY": "Best Buy Co., Inc."
-      },
-      "report_date": "2026-11-24",
-      "hour": "bmo",
-      "hour_text": "before the open",
-      "reporters_in_session": 14,
-      "market_cap_usd": 192842514432.0,
-      "item_ids": [
-        "2026-11-23-earnings-upcoming-ADI-c42432",
-        "2026-11-23-earnings-upcoming-MDT-1f0d5b",
-        "2026-11-23-earnings-upcoming-DLTR-8e4da7",
-        "2026-11-23-earnings-upcoming-BBY-7eb836"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/earnings/tomorrow/opengraph-image",
-          "kind": "image",
-          "alt": "Reporting earnings on 2026-11-24, before the open (confirmed dates): $ADI (Analog Devices, Inc.), $MDT (Medtronic plc), $DLTR (Dollar Tree, Inc.), $BBY (Best Buy Co., Inc.) and more."
-        }
-      ],
-      "rank": 7.5,
-      "rank_why": "earnings_tomorrow_roundup 2; large cap $192.84B +2.5; magnitude (roundup) +1; today 2026-11-23 (age 0) +2",
-      "pillar": "P5",
-      "cap_tier": "large",
-      "in_500": null,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ADI",
-          "MDT",
-          "DLTR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "ADI": "Technology",
-        "MDT": "Healthcare"
-      },
-      "ticker_names": {
-        "ADI": "Analog Devices, Inc.",
-        "MDT": "Medtronic plc"
-      },
-      "angles": [
-        "$ADI, $MDT, $DLTR and $BBY report earnings on Tuesday, Nov 24, before the open (confirmed dates).",
-        "On Tuesday, Nov 24, before the open: $ADI, $MDT, $DLTR and $BBY report earnings (confirmed dates).",
-        "Reporting earnings on Tuesday, Nov 24, before the open (confirmed dates): $ADI, $MDT, $DLTR and $BBY."
-      ],
-      "fact_phrases": [
-        "$ADI, $MDT, $DLTR and $BBY report earnings on Tuesday, Nov 24, before the open (confirmed dates).",
-        "On Tuesday, Nov 24, before the open: $ADI, $MDT, $DLTR and $BBY report earnings (confirmed dates).",
-        "Reporting earnings on Tuesday, Nov 24, before the open (confirmed dates): $ADI, $MDT, $DLTR and $BBY.",
-        "$ADI (Analog Devices, Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
-        "$ADI (Analog Devices, Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
-        "$MDT (Medtronic plc) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
-        "$MDT (Medtronic plc) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
-        "$DLTR (Dollar Tree, Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
-        "$DLTR (Dollar Tree, Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
-        "$BBY (Best Buy Co., Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
-        "$BBY (Best Buy Co., Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date)."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsto-73af92.a",
-          "fact": "earningsto-73af92",
-          "variant": "a",
-          "text": "$ADI, $MDT, $DLTR and $BBY report earnings on Tuesday, Nov 24, before the open (confirmed dates).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-73af92.h1",
-          "fact": "earningsto-73af92",
-          "variant": "h1",
-          "text": "On Tuesday, Nov 24, before the open: $ADI, $MDT, $DLTR and $BBY report earnings (confirmed dates).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-73af92.h2",
-          "fact": "earningsto-73af92",
-          "variant": "h2",
-          "text": "Reporting earnings on Tuesday, Nov 24, before the open (confirmed dates): $ADI, $MDT, $DLTR and $BBY.",
-          "claim": false
-        },
-        {
-          "id": "earningsto-0535b5.a",
-          "fact": "earningsto-0535b5",
-          "variant": "a",
-          "text": "$ADI (Analog Devices, Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-0535b5.h1",
-          "fact": "earningsto-0535b5",
-          "variant": "h1",
-          "text": "$ADI (Analog Devices, Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-26e722.a",
-          "fact": "earningsto-26e722",
-          "variant": "a",
-          "text": "$MDT (Medtronic plc) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-26e722.h1",
-          "fact": "earningsto-26e722",
-          "variant": "h1",
-          "text": "$MDT (Medtronic plc) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-0535b5.a",
-          "fact": "earningsto-0535b5",
-          "variant": "a",
-          "text": "$DLTR (Dollar Tree, Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-0535b5.h1",
-          "fact": "earningsto-0535b5",
-          "variant": "h1",
-          "text": "$DLTR (Dollar Tree, Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-39b546.a",
-          "fact": "earningsto-39b546",
-          "variant": "a",
-          "text": "$BBY (Best Buy Co., Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
-          "claim": false
-        },
-        {
-          "id": "earningsto-39b546.h1",
-          "fact": "earningsto-39b546",
-          "variant": "h1",
-          "text": "$BBY (Best Buy Co., Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
       "cooldown": null,
       "top8": true,
       "rotation": null
@@ -8154,6 +7957,192 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-23-earnings-tomorrow-roundup-LIST-706cc5",
+      "type": "earnings_tomorrow_roundup",
+      "ticker": null,
+      "tickers": [
+        "ADI",
+        "MDT",
+        "DLTR",
+        "BBY"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": "https://www.rapidtradeview.trade/earnings/tomorrow",
+      "page_url": "https://www.rapidtradeview.trade/earnings/tomorrow?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-earnings-tomorrow-roundup-LIST-706cc5",
+      "allowed_numbers": [
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24",
+        "before the open"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Reporting earnings on 2026-11-24, before the open (confirmed dates): $ADI (Analog Devices, Inc.), $MDT (Medtronic plc), $DLTR (Dollar Tree, Inc.), $BBY (Best Buy Co., Inc.) and more.",
+      "dedupe_key": "roundup:2026-11-24:bmo",
+      "claim_phrases": [],
+      "names": {
+        "ADI": "Analog Devices, Inc.",
+        "MDT": "Medtronic plc",
+        "DLTR": "Dollar Tree, Inc.",
+        "BBY": "Best Buy Co., Inc."
+      },
+      "report_date": "2026-11-24",
+      "hour": "bmo",
+      "hour_text": "before the open",
+      "reporters_in_session": 14,
+      "market_cap_usd": 192842514432.0,
+      "item_ids": [
+        "2026-11-23-earnings-upcoming-ADI-c42432",
+        "2026-11-23-earnings-upcoming-MDT-1f0d5b",
+        "2026-11-23-earnings-upcoming-DLTR-8e4da7",
+        "2026-11-23-earnings-upcoming-BBY-7eb836"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/earnings/tomorrow/opengraph-image",
+          "kind": "image",
+          "alt": "Reporting earnings on 2026-11-24, before the open (confirmed dates): $ADI (Analog Devices, Inc.), $MDT (Medtronic plc), $DLTR (Dollar Tree, Inc.), $BBY (Best Buy Co., Inc.) and more."
+        }
+      ],
+      "rank": 7.5,
+      "rank_why": "earnings_tomorrow_roundup 2; large cap $192.84B +2.5; magnitude (roundup) +1; today 2026-11-23 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "large",
+      "in_500": null,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ADI",
+          "MDT",
+          "DLTR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "ADI": "Technology",
+        "MDT": "Healthcare"
+      },
+      "ticker_names": {
+        "ADI": "Analog Devices, Inc.",
+        "MDT": "Medtronic plc"
+      },
+      "angles": [
+        "$ADI, $MDT, $DLTR and $BBY report earnings on Tuesday, Nov 24, before the open (confirmed dates).",
+        "On Tuesday, Nov 24, before the open: $ADI, $MDT, $DLTR and $BBY report earnings (confirmed dates).",
+        "Reporting earnings on Tuesday, Nov 24, before the open (confirmed dates): $ADI, $MDT, $DLTR and $BBY."
+      ],
+      "fact_phrases": [
+        "$ADI, $MDT, $DLTR and $BBY report earnings on Tuesday, Nov 24, before the open (confirmed dates).",
+        "On Tuesday, Nov 24, before the open: $ADI, $MDT, $DLTR and $BBY report earnings (confirmed dates).",
+        "Reporting earnings on Tuesday, Nov 24, before the open (confirmed dates): $ADI, $MDT, $DLTR and $BBY.",
+        "$ADI (Analog Devices, Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
+        "$ADI (Analog Devices, Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
+        "$MDT (Medtronic plc) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
+        "$MDT (Medtronic plc) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
+        "$DLTR (Dollar Tree, Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
+        "$DLTR (Dollar Tree, Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
+        "$BBY (Best Buy Co., Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
+        "$BBY (Best Buy Co., Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date)."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsto-73af92.a",
+          "fact": "earningsto-73af92",
+          "variant": "a",
+          "text": "$ADI, $MDT, $DLTR and $BBY report earnings on Tuesday, Nov 24, before the open (confirmed dates).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-73af92.h1",
+          "fact": "earningsto-73af92",
+          "variant": "h1",
+          "text": "On Tuesday, Nov 24, before the open: $ADI, $MDT, $DLTR and $BBY report earnings (confirmed dates).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-73af92.h2",
+          "fact": "earningsto-73af92",
+          "variant": "h2",
+          "text": "Reporting earnings on Tuesday, Nov 24, before the open (confirmed dates): $ADI, $MDT, $DLTR and $BBY.",
+          "claim": false
+        },
+        {
+          "id": "earningsto-0535b5.a",
+          "fact": "earningsto-0535b5",
+          "variant": "a",
+          "text": "$ADI (Analog Devices, Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-0535b5.h1",
+          "fact": "earningsto-0535b5",
+          "variant": "h1",
+          "text": "$ADI (Analog Devices, Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-26e722.a",
+          "fact": "earningsto-26e722",
+          "variant": "a",
+          "text": "$MDT (Medtronic plc) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-26e722.h1",
+          "fact": "earningsto-26e722",
+          "variant": "h1",
+          "text": "$MDT (Medtronic plc) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-0535b5.a",
+          "fact": "earningsto-0535b5",
+          "variant": "a",
+          "text": "$DLTR (Dollar Tree, Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-0535b5.h1",
+          "fact": "earningsto-0535b5",
+          "variant": "h1",
+          "text": "$DLTR (Dollar Tree, Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-39b546.a",
+          "fact": "earningsto-39b546",
+          "variant": "a",
+          "text": "$BBY (Best Buy Co., Inc.) reports earnings on Tuesday, Nov 24, before the open (confirmed date).",
+          "claim": false
+        },
+        {
+          "id": "earningsto-39b546.h1",
+          "fact": "earningsto-39b546",
+          "variant": "h1",
+          "text": "$BBY (Best Buy Co., Inc.) is scheduled to report earnings on Tuesday, Nov 24, before the open (confirmed date).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-23-moves-like-GS-1e8e61",
       "type": "moves_like",
       "ticker": "GS",
@@ -10117,7 +10106,7 @@
       },
       "cooldown": null,
       "top8": false,
-      "top8_out": "repeat: leads with $ADI like 2026-11-23-earnings-tomorrow-roundup-LIST-706cc5",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -10335,7 +10324,7 @@
       },
       "cooldown": null,
       "top8": false,
-      "top8_out": "repeat: leads with $MDT like 2026-11-23-earnings-tomorrow-roundup-LIST-706cc5",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -11128,7 +11117,7 @@
       },
       "cooldown": null,
       "top8": false,
-      "top8_out": "repeat: leads with $DLTR like 2026-11-23-earnings-tomorrow-roundup-LIST-706cc5",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
@@ -12535,7 +12524,7 @@
       "subject_numbers": {},
       "cooldown": null,
       "top8": false,
-      "top8_out": "repeat: leads with $SYK like 2026-11-23-insider-flow-RCL-ed5243",
+      "top8_out": "repeat: leads with $SYK like 2026-11-23-insider-flow-RCL-e5ed34",
       "rotation": null
     },
     {
