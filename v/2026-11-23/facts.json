@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-23",
-  "generated_at": "2026-11-23T15:30:02Z",
-  "as_of": "2026-11-23T15:30:02Z",
+  "generated_at": "2026-11-23T16:30:02Z",
+  "as_of": "2026-11-23T16:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 1,
-    "insider_flow": 0,
+    "insider_flow": 1,
     "reddit_buzz": 0,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -930,8 +930,8 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 20,
-      "below_minimum": 17,
+      "filings_passing_filters": 19,
+      "below_minimum": 16,
       "not_open_market": 0,
       "no_sec_index": 0
     },
@@ -954,7 +954,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 29,
+      "tickers_in_items": 30,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -968,7 +968,7 @@
     "market": {
       "market_session": "2026-11-20",
       "priced_cap_share": 0.9822412681933844,
-      "flows_as_of": "2026-11-23T15:30:14.196964+00:00"
+      "flows_as_of": "2026-11-23T16:30:14.821510+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -986,21 +986,14 @@
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 9,
-        "ranked_below": 26,
+        "repeat": 8,
+        "ranked_below": 27,
         "pillars": 3
       }
-    },
-    "card_unpinned": {
-      "dropped": 1,
-      "reasons": [
-        "insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-23/cards/market-insiders-2026-11-23-18be71a2-b903d705.png (old data))"
-      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError",
-    "not published: insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-23/cards/market-insiders-2026-11-23-18be71a2-b903d705.png (old data))"
+    "post history: FileNotFoundError"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1342,6 +1335,558 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-23-insider-flow-RCL-e5ed34",
+      "type": "insider_flow",
+      "ticker": "RCL",
+      "tickers": [
+        "RCL",
+        "SYK",
+        "MSI"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-insider-flow-RCL-e5ed34",
+      "allowed_numbers": [
+        "$715M",
+        "+$715M",
+        "$715.3M",
+        "+$715.3M",
+        "$5.7B",
+        "+$5.7B",
+        "$6B",
+        "+$6B",
+        "30",
+        "512",
+        "714",
+        "500",
+        "2026-10-24",
+        "Oct 24, 2026",
+        "Oct 24",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$333M",
+        "+$333M",
+        "$333.2M",
+        "+$333.2M",
+        "$179M",
+        "+$179M",
+        "$178.9M",
+        "+$178.9M",
+        "$153M",
+        "+$153M",
+        "$153.4M",
+        "+$153.4M",
+        "3",
+        "1",
+        "9",
+        "8.0",
+        "$1"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 512 companies with buys, 714 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
+      "dedupe_key": "insider_flow:2026-11-23:RCL",
+      "claim_phrases": [
+        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+        "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+        "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+        "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
+        "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
+        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+        "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+        "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.0.",
+        "Officers and directors sold $8.0 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $8.0 on the open market for every $1 they bought."
+      ],
+      "pillar": "P3",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "RCL",
+            "SYK",
+            "MSI"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "sell|sold",
+          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $SYK, $MSI"
+        }
+      ],
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$715M",
+            "+$715M",
+            "$715.3M",
+            "+$715.3M",
+            "$5.7B",
+            "+$5.7B",
+            "$6B",
+            "+$6B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals ($715M bought, $5.7B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "RCL",
+          "SYK",
+          "MSI"
+        ],
+        "numbers": [
+          "$5.7B",
+          "$715M"
+        ]
+      },
+      "window": {
+        "from": "2026-10-24",
+        "to": "2026-11-23",
+        "days": 30
+      },
+      "bought_usd": 715257654.37,
+      "sold_usd": 5744559441.09,
+      "buy_companies": 512,
+      "sell_companies": 714,
+      "top_sellers_500": [
+        {
+          "ticker": "RCL",
+          "name": "Royal Caribbean Cruises Ltd.",
+          "sector": "Consumer Cyclical",
+          "total_usd": 333233640.82,
+          "insider_count": 3,
+          "roles": {
+            "officer": 1,
+            "director": 2
+          },
+          "row_count": 72,
+          "first_trade": "2026-10-28",
+          "last_trade": "2026-11-13"
+        },
+        {
+          "ticker": "SYK",
+          "name": "Stryker Corporation",
+          "sector": "Healthcare",
+          "total_usd": 178924730.95,
+          "insider_count": 1,
+          "roles": {
+            "officer": 0,
+            "director": 1
+          },
+          "row_count": 6,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        },
+        {
+          "ticker": "MSI",
+          "name": "Motorola Solutions, Inc.",
+          "sector": "Technology",
+          "total_usd": 153435696.77,
+          "insider_count": 9,
+          "roles": {
+            "officer": 9,
+            "director": 0
+          },
+          "row_count": 72,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-16"
+        }
+      ],
+      "top_buyers_500": [],
+      "angles": [
+        "Officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys."
+      ],
+      "market_cap_usd": 81083813419.83096,
+      "magnitude": 2.638885091405866,
+      "trigger": "weekly (Monday facts)",
+      "top5": [
+        "RCL",
+        "SYK",
+        "MSI",
+        "AXP",
+        "SNOW"
+      ],
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "card": {
+        "panel": "insiders",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-ba76819f-b903d705.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
+        "date": "2026-11-23",
+        "fingerprint": "ba76819f",
+        "file": "market-insiders-2026-11-23-ba76819f.png",
+        "sha256": "54820f1d076774b31674c20663f781bdd10e65a2bf34ab965dea20d8d6ffcbc0"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-ba76819f-b903d705.png",
+          "kind": "image",
+          "alt": "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 512 companies with buys, 714 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "ticker_sectors": {
+        "RCL": "Consumer Cyclical",
+        "SYK": "Healthcare",
+        "MSI": "Technology"
+      },
+      "ticker_names": {
+        "RCL": "Royal Caribbean Cruises Ltd.",
+        "SYK": "Stryker Corporation",
+        "MSI": "Motorola Solutions, Inc."
+      },
+      "fact_phrases": [
+        "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $715M of open-market buys and $5.7B of open-market sells.",
+        "Officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 512 companies had open-market buys by officers and directors and 714 had open-market sells.",
+        "714 companies had open-market sells by officers and directors and 512 had open-market buys over 30 days in our feed.",
+        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+        "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
+        "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders)."
+      ],
+      "phrasings": [
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.a",
+          "fact": "insiderflo-c019d4",
+          "variant": "a",
+          "text": "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.t",
+          "fact": "insiderflo-c019d4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.o",
+          "fact": "insiderflo-c019d4",
+          "variant": "o",
+          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.a",
+          "fact": "insiderflo-1641a4",
+          "variant": "a",
+          "text": "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.t",
+          "fact": "insiderflo-1641a4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.o",
+          "fact": "insiderflo-1641a4",
+          "variant": "o",
+          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.a",
+          "fact": "insiderflo-2a8e57",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.t",
+          "fact": "insiderflo-2a8e57",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.l",
+          "fact": "insiderflo-2a8e57",
+          "variant": "l",
+          "text": "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.a",
+          "fact": "insiderflo-76de2d",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.t",
+          "fact": "insiderflo-76de2d",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.l",
+          "fact": "insiderflo-76de2d",
+          "variant": "l",
+          "text": "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.a",
+          "fact": "insiderflo-eeeffc",
+          "variant": "a",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.0.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h1",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h1",
+          "text": "Officers and directors sold $8.0 for every $1 they bought on the open market over 30 days in our feed.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h2",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h2",
+          "text": "Over 30 days in our feed, officers and directors sold $8.0 on the open market for every $1 they bought.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-de8c5a.a",
+          "fact": "insiderflo-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.h1",
+          "fact": "insiderflo-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.t",
+          "fact": "insiderflo-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $715M of open-market buys and $5.7B of open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.a",
+          "fact": "insiderflo-cc7b17",
+          "variant": "a",
+          "text": "Officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.t",
+          "fact": "insiderflo-cc7b17",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.a",
+          "fact": "insiderflo-ca45c6",
+          "variant": "a",
+          "text": "Over 30 days in our feed, 512 companies had open-market buys by officers and directors and 714 had open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.h1",
+          "fact": "insiderflo-ca45c6",
+          "variant": "h1",
+          "text": "714 companies had open-market sells by officers and directors and 512 had open-market buys over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$715M": "+",
+          "$715.3M": "+",
+          "$5.7B": "+",
+          "$6B": "+",
+          "$333M": "+",
+          "$333.2M": "+",
+          "$179M": "+",
+          "$178.9M": "+",
+          "$153M": "+",
+          "$153.4M": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "RCL": [
+          [
+            "$",
+            333.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            8.0,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "SYK": [
+          [
+            "$",
+            179.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "MSI": [
+          [
+            "$",
+            153.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 11.14,
+      "rank_why": "insider_flow 4; large cap $81.08B +2.5; magnitude (market) +2.64; today 2026-11-23 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-23-form4-buy-GLXY-78454b",
       "type": "form4_buy",
       "ticker": "GLXY",
@@ -1396,8 +1941,8 @@
         "$15.5B",
         "$715M",
         "+$715M",
-        "$715.2M",
-        "+$715.2M",
+        "$715.3M",
+        "+$715.3M",
         "$5.7B",
         "+$5.7B",
         "$6B",
@@ -1421,8 +1966,8 @@
           "numbers": [
             "$715M",
             "+$715M",
-            "$715.2M",
-            "+$715.2M",
+            "$715.3M",
+            "+$715.3M",
             "$5.7B",
             "+$5.7B",
             "$6B",
@@ -1583,7 +2128,7 @@
       "moves": {
         "numbers": {
           "$715M": "+",
-          "$715.2M": "+",
+          "$715.3M": "+",
           "$5.7B": "+",
           "$6B": "+"
         },
@@ -3231,52 +3776,44 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-23-chart-pattern-UNH-b82426",
+      "item_id": "2026-11-23-chart-pattern-DIS-da023c",
       "type": "chart_pattern",
-      "ticker": "UNH",
+      "ticker": "DIS",
       "tickers": [
-        "UNH"
+        "DIS"
       ],
-      "name": "UnitedHealth Group Incorporated",
+      "name": "The Walt Disney Company",
       "office": null,
       "amount_text": null,
       "traded": [],
       "filed": null,
-      "source_url": "https://www.rapidtradeview.trade/dashboard/UNH",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/UNH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-chart-pattern-UNH-b82426#pattern",
+      "source_url": "https://www.rapidtradeview.trade/dashboard/DIS",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DIS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-chart-pattern-DIS-da023c#pattern",
       "allowed_numbers": [
-        "$389.68",
-        "$398.84",
-        "$426.55",
-        "$415.72",
-        "$415.19",
-        "$362.60",
-        "$392.50",
-        "$388.00",
-        "$330.48",
-        "Nov 17",
-        "Oct 22",
+        "$117.98",
+        "$118.65",
+        "$109.42",
+        "$120.80",
+        "$123.37",
+        "$101.15",
+        "$113.79",
+        "Nov 20",
+        "Sep 14",
         "Nov 5",
-        "Nov 16",
+        "Nov 18",
         "Oct 1",
-        "Nov 4",
         "Nov 6",
-        "Nov 19",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "2026-09-14",
+        "Sep 14, 2026",
+        "2026-11-18",
+        "Nov 18, 2026",
         "2026-11-20",
         "Nov 20, 2026",
-        "Nov 20",
         "2026-10-01",
         "Oct 1, 2026",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "2026-11-17",
-        "Nov 17, 2026",
-        "2026-11-19",
-        "Nov 19, 2026",
-        "2026-10-22",
-        "Oct 22, 2026",
-        "2026-11-04",
-        "Nov 4, 2026",
         "2026-11-05",
         "Nov 5, 2026",
         "2026-11-06",
@@ -3285,40 +3822,40 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Automatic technical analysis flagged a symmetrical triangle on $UNH (UnitedHealth Group Incorporated) (scan 2026-11-20): pattern 2026-10-01 to 2026-11-16. Confirmed Nov 17: closed $389.68, clearly below the lower line at $398.84.",
-      "dedupe_key": "pattern:UNH:symmetrical_triangle:confirmed:2026-11-17",
+      "facts_text": "Automatic technical analysis flagged a rising wedge on $DIS (The Walt Disney Company) (scan 2026-11-23): pattern 2026-09-14 to 2026-11-18. Confirmed Nov 20: closed $117.98, clearly below the lower line at $118.65.",
+      "dedupe_key": "pattern:DIS:rising_wedge:confirmed:2026-11-20",
       "claim_phrases": [],
-      "scan_date": "2026-11-20",
+      "scan_date": "2026-11-23",
       "pattern": {
-        "type": "symmetrical_triangle",
-        "name": "Symmetrical triangle",
+        "type": "rising_wedge",
+        "name": "Rising wedge",
         "status": "confirmed",
         "direction": "down",
-        "start": "2026-10-01",
-        "end": "2026-11-16",
-        "start_text": "Oct 1, 2026",
-        "end_text": "Nov 16, 2026",
-        "confirmed_on": "2026-11-17",
-        "as_of": "2026-11-19"
+        "start": "2026-09-14",
+        "end": "2026-11-18",
+        "start_text": "Sep 14, 2026",
+        "end_text": "Nov 18, 2026",
+        "confirmed_on": "2026-11-20",
+        "as_of": "2026-11-20"
       },
       "levels": {
         "key_level_name": "lower line",
-        "key_level": "$398.84",
-        "breakout_close": "$389.68"
+        "key_level": "$118.65",
+        "breakout_close": "$117.98"
       },
       "page_text": {
-        "pill": "Symmetrical triangle · Confirmed Nov 17",
-        "chip": "Confirmed Nov 17",
-        "detail": "confirmed by the Nov 17 close of $389.68, clearly below the lower line",
-        "what": "Swings that get narrower between a falling line across the highs and a rising line across the lows.",
+        "pill": "Rising wedge · Confirmed Nov 20",
+        "chip": "Confirmed Nov 20",
+        "detail": "confirmed by the Nov 20 close of $117.98, clearly below the lower line",
+        "what": "Price climbing between two rising lines that come together.",
         "key": [
-          "Confirmed Nov 17: closed $389.68, clearly below the lower line at $398.84.",
-          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $398.84, where the lower line was on Nov 17."
+          "Confirmed Nov 20: closed $117.98, clearly below the lower line at $118.65.",
+          "Shows for 10 trading days after the breakout; stops sooner if a daily close falls back above $118.65, where the lower line was on Nov 20."
         ],
         "points": [
-          "Highs $426.55 (Oct 22) → $415.72 (Nov 5) → $415.19 (Nov 16)",
-          "Lows $362.60 (Oct 1) → $392.50 (Nov 4) → $388.00 (Nov 6)",
-          "Nov 17 closed $389.68: confirmed · last close $330.48 (Nov 19)"
+          "Highs $109.42 (Sep 14) → $120.80 (Nov 5) → $123.37 (Nov 18)",
+          "Lows $101.15 (Oct 1) → $113.79 (Nov 6)",
+          "Nov 20 closed $117.98: confirmed · last close $117.98 (Nov 20)"
         ]
       },
       "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
@@ -3328,15 +3865,15 @@
       ],
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/dashboard/UNH/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/DIS/opengraph-image",
           "kind": "image",
-          "alt": "RapidTradeView research card for UNH: recent price, trend, analyst and filing summary."
+          "alt": "RapidTradeView research card for DIS: recent price, trend, analyst and filing summary."
         }
       ],
-      "rank": 7.0,
-      "rank_why": "chart_pattern 1; mega cap $296.12B +4; magnitude (pattern) +0.5; scan_date 2026-11-20 (age 1) +1.5",
+      "rank": 7.5,
+      "rank_why": "chart_pattern 1; mega cap $207.63B +4; magnitude (pattern) +0.5; scan_date 2026-11-23 (age 0) +2",
       "pillar": "PX",
-      "market_cap_usd": 296117538242.4032,
+      "market_cap_usd": 207634093381.22998,
       "market_cap_source": "market_map",
       "cap_tier": "mega",
       "in_500": true,
@@ -3344,11 +3881,11 @@
         "2026-11-20",
         "Nov 20, 2026",
         "Nov 20",
-        "$296B",
-        "+2.84%",
-        "2.84%",
-        "+2.8%",
-        "2.8%"
+        "$208B",
+        "−1.89%",
+        "1.89%",
+        "−1.9%",
+        "1.9%"
       ],
       "context_tickers": [],
       "trigger": null,
@@ -3356,150 +3893,150 @@
       "claims": [],
       "headline": {
         "tickers": [
-          "UNH"
+          "DIS"
         ],
         "numbers": []
       },
       "ticker_sectors": {
-        "UNH": "Healthcare"
+        "DIS": "Communication Services"
       },
       "ticker_names": {
-        "UNH": "UnitedHealth Group Incorporated"
+        "DIS": "The Walt Disney Company"
       },
       "context": {
-        "market_cap": "$296B",
+        "market_cap": "$208B",
         "market_cap_session": "2026-11-20",
         "last_session_move": {
-          "pct": "+2.84%",
+          "pct": "−1.89%",
           "session": "2026-11-20"
         }
       },
       "angles": [
-        "Automatic technical analysis flagged a symmetrical triangle on $UNH (scan Nov 20).",
-        "A symmetrical triangle on $UNH was flagged by automatic technical analysis (scan Nov 20).",
-        "The $UNH symmetrical triangle pattern ran from Oct 1 to Nov 16."
+        "Automatic technical analysis flagged a rising wedge on $DIS (scan Nov 23).",
+        "A rising wedge on $DIS was flagged by automatic technical analysis (scan Nov 23).",
+        "The $DIS rising wedge pattern ran from Sep 14 to Nov 18."
       ],
       "fact_phrases": [
-        "Automatic technical analysis flagged a symmetrical triangle on $UNH (scan Nov 20).",
-        "A symmetrical triangle on $UNH was flagged by automatic technical analysis (scan Nov 20).",
-        "The $UNH symmetrical triangle pattern ran from Oct 1 to Nov 16.",
-        "From Oct 1 to Nov 16, $UNH formed the symmetrical triangle pattern.",
-        "$UNH closed at $389.68 on Nov 17, below the $398.84 lower line.",
-        "On Nov 17, $UNH closed at $389.68, below the $398.84 lower line.",
-        "$UNH had a market value of $296B at the Nov 20 close.",
-        "$UNH's market value at the Nov 20 close was $296B.",
-        "At the Nov 20 close, $UNH had a market value of $296B.",
-        "$UNH moved +2.84% on Friday, Nov 20.",
-        "$UNH's move on Friday, Nov 20: +2.84%.",
-        "On Friday, Nov 20, $UNH moved +2.84%."
+        "Automatic technical analysis flagged a rising wedge on $DIS (scan Nov 23).",
+        "A rising wedge on $DIS was flagged by automatic technical analysis (scan Nov 23).",
+        "The $DIS rising wedge pattern ran from Sep 14 to Nov 18.",
+        "From Sep 14 to Nov 18, $DIS formed the rising wedge pattern.",
+        "$DIS closed at $117.98 on Nov 20, below the $118.65 lower line.",
+        "On Nov 20, $DIS closed at $117.98, below the $118.65 lower line.",
+        "$DIS had a market value of $208B at the Nov 20 close.",
+        "$DIS's market value at the Nov 20 close was $208B.",
+        "At the Nov 20 close, $DIS had a market value of $208B.",
+        "$DIS moved −1.89% on Friday, Nov 20.",
+        "$DIS's move on Friday, Nov 20: −1.89%.",
+        "On Friday, Nov 20, $DIS moved −1.89%."
       ],
       "phrasings": [
         {
-          "id": "chartpatte-ffb640.a",
-          "fact": "chartpatte-ffb640",
+          "id": "chartpatte-a109fb.a",
+          "fact": "chartpatte-a109fb",
           "variant": "a",
-          "text": "Automatic technical analysis flagged a symmetrical triangle on $UNH (scan Nov 20).",
+          "text": "Automatic technical analysis flagged a rising wedge on $DIS (scan Nov 23).",
           "claim": false
         },
         {
-          "id": "chartpatte-ffb640.h1",
-          "fact": "chartpatte-ffb640",
+          "id": "chartpatte-a109fb.h1",
+          "fact": "chartpatte-a109fb",
           "variant": "h1",
-          "text": "A symmetrical triangle on $UNH was flagged by automatic technical analysis (scan Nov 20).",
+          "text": "A rising wedge on $DIS was flagged by automatic technical analysis (scan Nov 23).",
           "claim": false
         },
         {
-          "id": "chartpatte-afe847.a",
-          "fact": "chartpatte-afe847",
+          "id": "chartpatte-f67373.a",
+          "fact": "chartpatte-f67373",
           "variant": "a",
-          "text": "The $UNH symmetrical triangle pattern ran from Oct 1 to Nov 16.",
+          "text": "The $DIS rising wedge pattern ran from Sep 14 to Nov 18.",
           "claim": false
         },
         {
-          "id": "chartpatte-afe847.h1",
-          "fact": "chartpatte-afe847",
+          "id": "chartpatte-f67373.h1",
+          "fact": "chartpatte-f67373",
           "variant": "h1",
-          "text": "From Oct 1 to Nov 16, $UNH formed the symmetrical triangle pattern.",
+          "text": "From Sep 14 to Nov 18, $DIS formed the rising wedge pattern.",
           "claim": false
         },
         {
           "id": "chartpatte-bfdf3b.a",
           "fact": "chartpatte-bfdf3b",
           "variant": "a",
-          "text": "$UNH closed at $389.68 on Nov 17, below the $398.84 lower line.",
+          "text": "$DIS closed at $117.98 on Nov 20, below the $118.65 lower line.",
           "claim": false
         },
         {
           "id": "chartpatte-bfdf3b.h1",
           "fact": "chartpatte-bfdf3b",
           "variant": "h1",
-          "text": "On Nov 17, $UNH closed at $389.68, below the $398.84 lower line.",
+          "text": "On Nov 20, $DIS closed at $117.98, below the $118.65 lower line.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.a",
           "fact": "chartpatte-426192",
           "variant": "a",
-          "text": "$UNH had a market value of $296B at the Nov 20 close.",
+          "text": "$DIS had a market value of $208B at the Nov 20 close.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.h1",
           "fact": "chartpatte-426192",
           "variant": "h1",
-          "text": "$UNH's market value at the Nov 20 close was $296B.",
+          "text": "$DIS's market value at the Nov 20 close was $208B.",
           "claim": false
         },
         {
           "id": "chartpatte-426192.t",
           "fact": "chartpatte-426192",
           "variant": "t",
-          "text": "At the Nov 20 close, $UNH had a market value of $296B.",
+          "text": "At the Nov 20 close, $DIS had a market value of $208B.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.a",
           "fact": "chartpatte-061727",
           "variant": "a",
-          "text": "$UNH moved +2.84% on Friday, Nov 20.",
+          "text": "$DIS moved −1.89% on Friday, Nov 20.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.h1",
           "fact": "chartpatte-061727",
           "variant": "h1",
-          "text": "$UNH's move on Friday, Nov 20: +2.84%.",
+          "text": "$DIS's move on Friday, Nov 20: −1.89%.",
           "claim": false
         },
         {
           "id": "chartpatte-061727.t",
           "fact": "chartpatte-061727",
           "variant": "t",
-          "text": "On Friday, Nov 20, $UNH moved +2.84%.",
+          "text": "On Friday, Nov 20, $DIS moved −1.89%.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "2.84%": "+",
-          "2.8%": "+"
+          "1.89%": "-",
+          "1.9%": "-"
         },
         "subjects": {
-          "UNH": "up"
+          "DIS": "down"
         }
       },
       "subject_numbers": {
-        "UNH": [
+        "DIS": [
           [
             "%",
-            2.84,
+            1.89,
             2,
             1.0,
-            1
+            -1
           ],
           [
             "$",
-            296.0,
+            208.0,
             0,
             1000000000.0,
             0
@@ -10410,8 +10947,8 @@
         "$987M",
         "$715M",
         "+$715M",
-        "$715.2M",
-        "+$715.2M",
+        "$715.3M",
+        "+$715.3M",
         "$5.7B",
         "+$5.7B",
         "$6B",
@@ -10435,8 +10972,8 @@
           "numbers": [
             "$715M",
             "+$715M",
-            "$715.2M",
-            "+$715.2M",
+            "$715.3M",
+            "+$715.3M",
             "$5.7B",
             "+$5.7B",
             "$6B",
@@ -10597,7 +11134,7 @@
       "moves": {
         "numbers": {
           "$715M": "+",
-          "$715.2M": "+",
+          "$715.3M": "+",
           "$5.7B": "+",
           "$6B": "+"
         },
@@ -11617,7 +12154,7 @@
       "rank": 6.0,
       "rank_why": "moves_like 0.5; mega cap $296.12B +4; session 2026-11-20 (age 1) +1.5",
       "top8": false,
-      "top8_out": "repeat: leads with $UNH like 2026-11-23-chart-pattern-UNH-b82426",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
