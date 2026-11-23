@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-23",
-  "generated_at": "2026-11-23T14:30:02Z",
-  "as_of": "2026-11-23T14:30:02Z",
+  "generated_at": "2026-11-23T15:00:02Z",
+  "as_of": "2026-11-23T15:00:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,7 +875,7 @@
   },
   "counts": {
     "congress_trade": 5,
-    "form4_buy": 1,
+    "form4_buy": 2,
     "earnings_result": 3,
     "earnings_upcoming": 22,
     "picks_ready": 0,
@@ -930,7 +930,7 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 19,
+      "filings_passing_filters": 20,
       "below_minimum": 17,
       "not_open_market": 0,
       "no_sec_index": 0
@@ -954,7 +954,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 28,
+      "tickers_in_items": 29,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -968,7 +968,7 @@
     "market": {
       "market_session": "2026-11-20",
       "priced_cap_share": 0.9822412681933844,
-      "flows_as_of": "2026-11-23T14:30:13.679225+00:00"
+      "flows_as_of": "2026-11-23T15:00:14.710638+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -979,7 +979,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 43
+        "angles_dropped": 46
       },
       "top8": {
         "stale": 7,
@@ -987,7 +987,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 9,
-        "ranked_below": 25,
+        "ranked_below": 26,
         "pillars": 3
       }
     }
@@ -1024,7 +1024,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 21,
+  "api_requests": 22,
   "items": [
     {
       "item_id": "2026-11-23-congress-flow-NVDA-575db3",
@@ -1351,16 +1351,16 @@
       "source_url": null,
       "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-insider-flow-RCL-e5ed34",
       "allowed_numbers": [
-        "$685M",
-        "+$685M",
-        "$684.7M",
-        "+$684.7M",
+        "$715M",
+        "+$715M",
+        "$715.2M",
+        "+$715.2M",
         "$5.7B",
         "+$5.7B",
         "$6B",
         "+$6B",
         "30",
-        "510",
+        "511",
         "714",
         "500",
         "2026-10-24",
@@ -1384,13 +1384,13 @@
         "3",
         "1",
         "9",
-        "8.4",
+        "8.0",
         "$1"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 510 companies with buys, 714 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
+      "facts_text": "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 511 companies with buys, 714 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
       "dedupe_key": "insider_flow:2026-11-23:RCL",
       "claim_phrases": [
         "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
@@ -1408,9 +1408,9 @@
         "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
         "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
         "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.4.",
-        "Officers and directors sold $8.4 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $8.4 on the open market for every $1 they bought."
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.0.",
+        "Officers and directors sold $8.0 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $8.0 on the open market for every $1 they bought."
       ],
       "pillar": "P3",
       "claims": [
@@ -1443,10 +1443,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$685M",
-            "+$685M",
-            "$684.7M",
-            "+$684.7M",
+            "$715M",
+            "+$715M",
+            "$715.2M",
+            "+$715.2M",
             "$5.7B",
             "+$5.7B",
             "$6B",
@@ -1456,7 +1456,7 @@
             "officers?\\s+and\\s+directors?",
             "open[-\\s]market"
           ],
-          "say": "the 30-day totals ($685M bought, $5.7B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+          "say": "the 30-day totals ($715M bought, $5.7B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
         }
       ],
       "headline": {
@@ -1467,7 +1467,7 @@
         ],
         "numbers": [
           "$5.7B",
-          "$685M"
+          "$715M"
         ]
       },
       "window": {
@@ -1475,9 +1475,9 @@
         "to": "2026-11-23",
         "days": 30
       },
-      "bought_usd": 684699889.76,
+      "bought_usd": 715154372.67,
       "sold_usd": 5744273538.34,
-      "buy_companies": 510,
+      "buy_companies": 511,
       "sell_companies": 714,
       "top_sellers_500": [
         {
@@ -1525,9 +1525,9 @@
       ],
       "top_buyers_500": [],
       "angles": [
-        "Officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys."
+        "Officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys."
       ],
       "market_cap_usd": 81083813419.83096,
       "magnitude": 2.638852668795075,
@@ -1544,18 +1544,18 @@
       "banned_words": [],
       "card": {
         "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-f7ee407c-b903d705.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-18be71a2-b903d705.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
         "date": "2026-11-23",
-        "fingerprint": "f7ee407c",
-        "file": "market-insiders-2026-11-23-f7ee407c.png",
-        "sha256": "92518690043cf3aa43736795b9a91c2a5bc83cac9f2b7ddf8883b8474183b185"
+        "fingerprint": "18be71a2",
+        "file": "market-insiders-2026-11-23-18be71a2.png",
+        "sha256": "54acfaa5531dce5de15b2463307ea1a23b0b292603c281c01c08c4df5213e80c"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-f7ee407c-b903d705.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-18be71a2-b903d705.png",
           "kind": "image",
-          "alt": "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 510 companies with buys, 714 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
+          "alt": "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 511 companies with buys, 714 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
         }
       ],
       "market_cap_source": "market_map",
@@ -1572,13 +1572,13 @@
         "MSI": "Motorola Solutions, Inc."
       },
       "fact_phrases": [
-        "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $685M of open-market buys and $5.7B of open-market sells.",
-        "Officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 510 companies had open-market buys by officers and directors and 714 had open-market sells.",
-        "714 companies had open-market sells by officers and directors and 510 had open-market buys over 30 days in our feed.",
+        "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $715M of open-market buys and $5.7B of open-market sells.",
+        "Officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 511 companies had open-market buys by officers and directors and 714 had open-market sells.",
+        "714 companies had open-market sells by officers and directors and 511 had open-market buys over 30 days in our feed.",
         "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
         "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
         "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
@@ -1699,70 +1699,70 @@
           "id": "insiderflo-eeeffc.a",
           "fact": "insiderflo-eeeffc",
           "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.4.",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.0.",
           "claim": true
         },
         {
           "id": "insiderflo-eeeffc.h1",
           "fact": "insiderflo-eeeffc",
           "variant": "h1",
-          "text": "Officers and directors sold $8.4 for every $1 they bought on the open market over 30 days in our feed.",
+          "text": "Officers and directors sold $8.0 for every $1 they bought on the open market over 30 days in our feed.",
           "claim": true
         },
         {
           "id": "insiderflo-eeeffc.h2",
           "fact": "insiderflo-eeeffc",
           "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $8.4 on the open market for every $1 they bought.",
+          "text": "Over 30 days in our feed, officers and directors sold $8.0 on the open market for every $1 they bought.",
           "claim": true
         },
         {
           "id": "insiderflo-de8c5a.a",
           "fact": "insiderflo-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.h1",
           "fact": "insiderflo-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.t",
           "fact": "insiderflo-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $685M of open-market buys and $5.7B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $715M of open-market buys and $5.7B of open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.a",
           "fact": "insiderflo-cc7b17",
           "variant": "a",
-          "text": "Officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market over 30 days in our feed.",
+          "text": "Officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.t",
           "fact": "insiderflo-cc7b17",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market.",
+          "text": "Over 30 days in our feed, officers and directors sold $5.7B and bought $715M of their own companies' stock on the open market.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.a",
           "fact": "insiderflo-ca45c6",
           "variant": "a",
-          "text": "Over 30 days in our feed, 510 companies had open-market buys by officers and directors and 714 had open-market sells.",
+          "text": "Over 30 days in our feed, 511 companies had open-market buys by officers and directors and 714 had open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.h1",
           "fact": "insiderflo-ca45c6",
           "variant": "h1",
-          "text": "714 companies had open-market sells by officers and directors and 510 had open-market buys over 30 days in our feed.",
+          "text": "714 companies had open-market sells by officers and directors and 511 had open-market buys over 30 days in our feed.",
           "claim": false
         },
         {
@@ -1831,8 +1831,8 @@
       ],
       "moves": {
         "numbers": {
-          "$685M": "+",
-          "$684.7M": "+",
+          "$715M": "+",
+          "$715.2M": "+",
           "$5.7B": "+",
           "$6B": "+",
           "$333M": "+",
@@ -1855,7 +1855,7 @@
           ],
           [
             "$",
-            8.4,
+            8.0,
             1,
             1.0,
             0
@@ -1939,10 +1939,10 @@
       "in_500": false,
       "context_numbers": [
         "$15.5B",
-        "$685M",
-        "+$685M",
-        "$684.7M",
-        "+$684.7M",
+        "$715M",
+        "+$715M",
+        "$715.2M",
+        "+$715.2M",
         "$5.7B",
         "+$5.7B",
         "$6B",
@@ -1964,10 +1964,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$685M",
-            "+$685M",
-            "$684.7M",
-            "+$684.7M",
+            "$715M",
+            "+$715M",
+            "$715.2M",
+            "+$715.2M",
             "$5.7B",
             "+$5.7B",
             "$6B",
@@ -1983,7 +1983,7 @@
       "context": {
         "market_cap": "$15.5B",
         "insiders_30d": {
-          "bought": "$685M",
+          "bought": "$715M",
           "sold": "$5.7B",
           "days": 30
         }
@@ -2007,9 +2007,9 @@
         "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
         "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
         "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
-        "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $685M of open-market buys and $5.7B of open-market sells."
+        "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $715M of open-market buys and $5.7B of open-market sells."
       ],
       "phrasings": [
         {
@@ -2107,28 +2107,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $685M of open-market buys and $5.7B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $715M of open-market buys and $5.7B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$685M": "+",
-          "$684.7M": "+",
+          "$715M": "+",
+          "$715.2M": "+",
           "$5.7B": "+",
           "$6B": "+"
         },
@@ -2234,6 +2234,11 @@
           "url": "https://www.rapidtradeview.trade/dashboard/CRWD/opengraph-image",
           "kind": "image",
           "alt": "RapidTradeView research card for CRWD: recent price, trend, analyst and filing summary."
+        },
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/2026-11-23-earnings-result-CRWD-d12ce4/reel_9x16.mp4",
+          "kind": "reel",
+          "alt": "CrowdStrike Holdings, Inc. (CRWD) published Q3 2027 results on 2026-11-23: Beat estimates. Revenue $1.58B vs $1.53B consensus (Beat by $54.9M). Non-GAAP net income per share attributable to CrowdStrike common stockholders, diluted $0.34 vs $0.31 consensus (Beat by $0.03)."
         }
       ],
       "rank": 10.5,
@@ -3235,6 +3240,11 @@
           "url": "https://www.rapidtradeview.trade/dashboard/ZS/opengraph-image",
           "kind": "image",
           "alt": "RapidTradeView research card for ZS: recent price, trend, analyst and filing summary."
+        },
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/2026-11-23-earnings-result-ZS-eaf0d7/reel_9x16.mp4",
+          "kind": "reel",
+          "alt": "Zscaler, Inc. (ZS) published Q1 2027 results on 2026-11-23: Beat estimates. Revenue $949M vs $938M consensus (Beat by $11.2M). Non-GAAP net income per share, diluted $1.23 vs $1.16 consensus (Beat by $0.07)."
         }
       ],
       "rank": 9.0,
@@ -10882,6 +10892,280 @@
         "subjects": {}
       },
       "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-form4-buy-BORR-f1060a",
+      "type": "form4_buy",
+      "ticker": "BORR",
+      "tickers": [
+        "BORR"
+      ],
+      "name": "Tor Olav Troim",
+      "office": "Director at Borr Drilling Limited",
+      "amount_text": "$30.45M",
+      "traded": [
+        "2026-11-20"
+      ],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1715497/000162828026075382/0001628280-26-075382-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-form4-buy-BORR-f1060a#trades",
+      "allowed_numbers": [
+        "$30.45M",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $30.45M on a Form 4 filed 2026-11-23, traded 2026-11-20.",
+      "dedupe_key": "form4:0001628280-26-075382:BORR",
+      "claim_phrases": [],
+      "company": "Borr Drilling Limited",
+      "side": "buy",
+      "accession": "0001628280-26-075382",
+      "rows": 1,
+      "figure_slug": "troim-tor-olav-1709630",
+      "amount_top_usd": 30451500.0,
+      "market_cap_usd": 986548224.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$30.45M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/troim-tor-olav-1709630/opengraph-image",
+          "kind": "image",
+          "alt": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of BORR totaling $30.45M on a Form 4 filed 2026-11-23, traded 2026-11-20."
+        }
+      ],
+      "rank": 7.0,
+      "rank_why": "form4_buy 2; small cap $986.55M +0; magnitude (top $30.45M) +3; filed 2026-11-23 (age 0) +2",
+      "pillar": "P3",
+      "cap_tier": "small",
+      "in_500": false,
+      "context_numbers": [
+        "$987M",
+        "$715M",
+        "+$715M",
+        "$715.2M",
+        "+$715.2M",
+        "$5.7B",
+        "+$5.7B",
+        "$6B",
+        "+$6B",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "BORR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$715M",
+            "+$715M",
+            "$715.2M",
+            "+$715.2M",
+            "$5.7B",
+            "+$5.7B",
+            "$6B",
+            "+$6B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "context": {
+        "market_cap": "$987M",
+        "insiders_30d": {
+          "bought": "$715M",
+          "sold": "$5.7B",
+          "days": 30
+        }
+      },
+      "angles": [
+        "Borr Drilling Limited director Tor Olav Troim bought $30.45M of $BORR on the open market (Form 4, filed Nov 23).",
+        "Tor Olav Troim, director at Borr Drilling Limited, bought $30.45M of $BORR on the open market (Form 4, filed Nov 23).",
+        "An open-market purchase of $BORR totaling $30.45M by Borr Drilling Limited director Tor Olav Troim was reported on a Form 4 filed Nov 23."
+      ],
+      "fact_phrases": [
+        "Borr Drilling Limited director Tor Olav Troim bought $30.45M of $BORR on the open market (Form 4, filed Nov 23).",
+        "Tor Olav Troim, director at Borr Drilling Limited, bought $30.45M of $BORR on the open market (Form 4, filed Nov 23).",
+        "An open-market purchase of $BORR totaling $30.45M by Borr Drilling Limited director Tor Olav Troim was reported on a Form 4 filed Nov 23.",
+        "Borr Drilling Limited director Tor Olav Troim bought $30.45M of $BORR on the open market.",
+        "Tor Olav Troim, director at Borr Drilling Limited, bought $30.45M of $BORR on the open market.",
+        "On the open market, Borr Drilling Limited director Tor Olav Troim bought $30.45M of $BORR.",
+        "Tor Olav Troim bought $30.45M of $BORR on the open market.",
+        "On the open market, Tor Olav Troim bought $30.45M of $BORR.",
+        "Tor Olav Troim made an open-market purchase of $BORR: $30.45M.",
+        "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of $BORR totaling $30.45M on a Form 4 filed Nov 23.",
+        "On a Form 4 filed Nov 23, Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of $BORR totaling $30.45M.",
+        "Tor Olav Troim's $BORR purchase was traded Nov 20 and reported on a Form 4 filed Nov 23.",
+        "Traded Nov 20, Tor Olav Troim's $BORR purchase was reported on a Form 4 filed Nov 23.",
+        "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $715M of open-market buys and $5.7B of open-market sells."
+      ],
+      "phrasings": [
+        {
+          "id": "form4buy-3a6ae8.a",
+          "fact": "form4buy-3a6ae8",
+          "variant": "a",
+          "text": "Borr Drilling Limited director Tor Olav Troim bought $30.45M of $BORR on the open market (Form 4, filed Nov 23).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-3a6ae8.h1",
+          "fact": "form4buy-3a6ae8",
+          "variant": "h1",
+          "text": "Tor Olav Troim, director at Borr Drilling Limited, bought $30.45M of $BORR on the open market (Form 4, filed Nov 23).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-3a6ae8.h2",
+          "fact": "form4buy-3a6ae8",
+          "variant": "h2",
+          "text": "An open-market purchase of $BORR totaling $30.45M by Borr Drilling Limited director Tor Olav Troim was reported on a Form 4 filed Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-736a9f.a",
+          "fact": "form4buy-736a9f",
+          "variant": "a",
+          "text": "Borr Drilling Limited director Tor Olav Troim bought $30.45M of $BORR on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-736a9f.h1",
+          "fact": "form4buy-736a9f",
+          "variant": "h1",
+          "text": "Tor Olav Troim, director at Borr Drilling Limited, bought $30.45M of $BORR on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-736a9f.h2",
+          "fact": "form4buy-736a9f",
+          "variant": "h2",
+          "text": "On the open market, Borr Drilling Limited director Tor Olav Troim bought $30.45M of $BORR.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.a",
+          "fact": "form4buy-1bee24",
+          "variant": "a",
+          "text": "Tor Olav Troim bought $30.45M of $BORR on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h1",
+          "fact": "form4buy-1bee24",
+          "variant": "h1",
+          "text": "On the open market, Tor Olav Troim bought $30.45M of $BORR.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h2",
+          "fact": "form4buy-1bee24",
+          "variant": "h2",
+          "text": "Tor Olav Troim made an open-market purchase of $BORR: $30.45M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-39fdef.a",
+          "fact": "form4buy-39fdef",
+          "variant": "a",
+          "text": "Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of $BORR totaling $30.45M on a Form 4 filed Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-39fdef.h1",
+          "fact": "form4buy-39fdef",
+          "variant": "h1",
+          "text": "On a Form 4 filed Nov 23, Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of $BORR totaling $30.45M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.a",
+          "fact": "form4buy-bfe464",
+          "variant": "a",
+          "text": "Tor Olav Troim's $BORR purchase was traded Nov 20 and reported on a Form 4 filed Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.h1",
+          "fact": "form4buy-bfe464",
+          "variant": "h1",
+          "text": "Traded Nov 20, Tor Olav Troim's $BORR purchase was reported on a Form 4 filed Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.a",
+          "fact": "form4buy-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $715M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.h1",
+          "fact": "form4buy-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $715M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.t",
+          "fact": "form4buy-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $715M of open-market buys and $5.7B of open-market sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$715M": "+",
+          "$715.2M": "+",
+          "$5.7B": "+",
+          "$6B": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "BORR": [
+          [
+            "$",
+            30.45,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            987.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
