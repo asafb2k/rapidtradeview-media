@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-23",
-  "generated_at": "2026-11-23T13:30:02Z",
-  "as_of": "2026-11-23T13:30:02Z",
+  "generated_at": "2026-11-23T14:30:02Z",
+  "as_of": "2026-11-23T14:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -883,10 +883,10 @@
     "moves_like": 5,
     "earnings_tomorrow_roundup": 2,
     "ptr_summary": 1,
-    "market_move": 0,
-    "mega_mover": 1,
+    "market_move": 1,
+    "mega_mover": 2,
     "congress_flow": 1,
-    "insider_flow": 0,
+    "insider_flow": 1,
     "reddit_buzz": 0,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -930,8 +930,8 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 20,
-      "below_minimum": 18,
+      "filings_passing_filters": 19,
+      "below_minimum": 17,
       "not_open_market": 0,
       "no_sec_index": 0
     },
@@ -968,7 +968,7 @@
     "market": {
       "market_session": "2026-11-20",
       "priced_cap_share": 0.9822412681933844,
-      "flows_as_of": "2026-11-23T13:30:13.755434+00:00"
+      "flows_as_of": "2026-11-23T14:30:13.679225+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -990,21 +990,10 @@
         "ranked_below": 25,
         "pillars": 3
       }
-    },
-    "card_unpinned": {
-      "dropped": 3,
-      "reasons": [
-        "insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))",
-        "market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T13:17:21.503461+00:00 (X-Card-Date), the item 2026-11-20)",
-        "mega_mover NVDA: share card not pinned (the card draws 2026-11-23T13:17:21.503461+00:00 (X-Card-Date), the item 2026-11-20)"
-      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError",
-    "not published: insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))",
-    "not published: market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T13:17:21.503461+00:00 (X-Card-Date), the item 2026-11-20)",
-    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-23T13:17:21.503461+00:00 (X-Card-Date), the item 2026-11-20)"
+    "post history: FileNotFoundError"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1346,6 +1335,558 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-23-insider-flow-RCL-e5ed34",
+      "type": "insider_flow",
+      "ticker": "RCL",
+      "tickers": [
+        "RCL",
+        "SYK",
+        "MSI"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-insider-flow-RCL-e5ed34",
+      "allowed_numbers": [
+        "$685M",
+        "+$685M",
+        "$684.7M",
+        "+$684.7M",
+        "$5.7B",
+        "+$5.7B",
+        "$6B",
+        "+$6B",
+        "30",
+        "510",
+        "714",
+        "500",
+        "2026-10-24",
+        "Oct 24, 2026",
+        "Oct 24",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$333M",
+        "+$333M",
+        "$333.2M",
+        "+$333.2M",
+        "$179M",
+        "+$179M",
+        "$178.9M",
+        "+$178.9M",
+        "$153M",
+        "+$153M",
+        "$153.4M",
+        "+$153.4M",
+        "3",
+        "1",
+        "9",
+        "8.4",
+        "$1"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 510 companies with buys, 714 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
+      "dedupe_key": "insider_flow:2026-11-23:RCL",
+      "claim_phrases": [
+        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+        "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+        "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+        "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
+        "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
+        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+        "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+        "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.4.",
+        "Officers and directors sold $8.4 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $8.4 on the open market for every $1 they bought."
+      ],
+      "pillar": "P3",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "RCL",
+            "SYK",
+            "MSI"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "sell|sold",
+          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $SYK, $MSI"
+        }
+      ],
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$685M",
+            "+$685M",
+            "$684.7M",
+            "+$684.7M",
+            "$5.7B",
+            "+$5.7B",
+            "$6B",
+            "+$6B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals ($685M bought, $5.7B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "RCL",
+          "SYK",
+          "MSI"
+        ],
+        "numbers": [
+          "$5.7B",
+          "$685M"
+        ]
+      },
+      "window": {
+        "from": "2026-10-24",
+        "to": "2026-11-23",
+        "days": 30
+      },
+      "bought_usd": 684699889.76,
+      "sold_usd": 5744273538.34,
+      "buy_companies": 510,
+      "sell_companies": 714,
+      "top_sellers_500": [
+        {
+          "ticker": "RCL",
+          "name": "Royal Caribbean Cruises Ltd.",
+          "sector": "Consumer Cyclical",
+          "total_usd": 333233640.82,
+          "insider_count": 3,
+          "roles": {
+            "officer": 1,
+            "director": 2
+          },
+          "row_count": 72,
+          "first_trade": "2026-10-28",
+          "last_trade": "2026-11-13"
+        },
+        {
+          "ticker": "SYK",
+          "name": "Stryker Corporation",
+          "sector": "Healthcare",
+          "total_usd": 178924730.95,
+          "insider_count": 1,
+          "roles": {
+            "officer": 0,
+            "director": 1
+          },
+          "row_count": 6,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        },
+        {
+          "ticker": "MSI",
+          "name": "Motorola Solutions, Inc.",
+          "sector": "Technology",
+          "total_usd": 153435696.77,
+          "insider_count": 9,
+          "roles": {
+            "officer": 9,
+            "director": 0
+          },
+          "row_count": 72,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-16"
+        }
+      ],
+      "top_buyers_500": [],
+      "angles": [
+        "Officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys."
+      ],
+      "market_cap_usd": 81083813419.83096,
+      "magnitude": 2.638852668795075,
+      "trigger": "weekly (Monday facts)",
+      "top5": [
+        "RCL",
+        "SYK",
+        "MSI",
+        "AXP",
+        "SNOW"
+      ],
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "card": {
+        "panel": "insiders",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-f7ee407c-b903d705.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
+        "date": "2026-11-23",
+        "fingerprint": "f7ee407c",
+        "file": "market-insiders-2026-11-23-f7ee407c.png",
+        "sha256": "92518690043cf3aa43736795b9a91c2a5bc83cac9f2b7ddf8883b8474183b185"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-f7ee407c-b903d705.png",
+          "kind": "image",
+          "alt": "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 510 companies with buys, 714 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "ticker_sectors": {
+        "RCL": "Consumer Cyclical",
+        "SYK": "Healthcare",
+        "MSI": "Technology"
+      },
+      "ticker_names": {
+        "RCL": "Royal Caribbean Cruises Ltd.",
+        "SYK": "Stryker Corporation",
+        "MSI": "Motorola Solutions, Inc."
+      },
+      "fact_phrases": [
+        "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $685M of open-market buys and $5.7B of open-market sells.",
+        "Officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 510 companies had open-market buys by officers and directors and 714 had open-market sells.",
+        "714 companies had open-market sells by officers and directors and 510 had open-market buys over 30 days in our feed.",
+        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+        "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
+        "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders)."
+      ],
+      "phrasings": [
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.a",
+          "fact": "insiderflo-c019d4",
+          "variant": "a",
+          "text": "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.t",
+          "fact": "insiderflo-c019d4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.o",
+          "fact": "insiderflo-c019d4",
+          "variant": "o",
+          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.a",
+          "fact": "insiderflo-1641a4",
+          "variant": "a",
+          "text": "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.t",
+          "fact": "insiderflo-1641a4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.o",
+          "fact": "insiderflo-1641a4",
+          "variant": "o",
+          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.a",
+          "fact": "insiderflo-2a8e57",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.t",
+          "fact": "insiderflo-2a8e57",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.l",
+          "fact": "insiderflo-2a8e57",
+          "variant": "l",
+          "text": "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.a",
+          "fact": "insiderflo-76de2d",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.t",
+          "fact": "insiderflo-76de2d",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.l",
+          "fact": "insiderflo-76de2d",
+          "variant": "l",
+          "text": "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.a",
+          "fact": "insiderflo-eeeffc",
+          "variant": "a",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.4.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h1",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h1",
+          "text": "Officers and directors sold $8.4 for every $1 they bought on the open market over 30 days in our feed.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h2",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h2",
+          "text": "Over 30 days in our feed, officers and directors sold $8.4 on the open market for every $1 they bought.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-de8c5a.a",
+          "fact": "insiderflo-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.h1",
+          "fact": "insiderflo-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.t",
+          "fact": "insiderflo-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $685M of open-market buys and $5.7B of open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.a",
+          "fact": "insiderflo-cc7b17",
+          "variant": "a",
+          "text": "Officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.t",
+          "fact": "insiderflo-cc7b17",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors sold $5.7B and bought $685M of their own companies' stock on the open market.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.a",
+          "fact": "insiderflo-ca45c6",
+          "variant": "a",
+          "text": "Over 30 days in our feed, 510 companies had open-market buys by officers and directors and 714 had open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.h1",
+          "fact": "insiderflo-ca45c6",
+          "variant": "h1",
+          "text": "714 companies had open-market sells by officers and directors and 510 had open-market buys over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$685M": "+",
+          "$684.7M": "+",
+          "$5.7B": "+",
+          "$6B": "+",
+          "$333M": "+",
+          "$333.2M": "+",
+          "$179M": "+",
+          "$178.9M": "+",
+          "$153M": "+",
+          "$153.4M": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "RCL": [
+          [
+            "$",
+            333.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            8.4,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "SYK": [
+          [
+            "$",
+            179.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "MSI": [
+          [
+            "$",
+            153.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 11.14,
+      "rank_why": "insider_flow 4; large cap $81.08B +2.5; magnitude (market) +2.64; today 2026-11-23 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-23-form4-buy-GLXY-78454b",
       "type": "form4_buy",
       "ticker": "GLXY",
@@ -1398,10 +1939,10 @@
       "in_500": false,
       "context_numbers": [
         "$15.5B",
-        "$684M",
-        "+$684M",
-        "$684.4M",
-        "+$684.4M",
+        "$685M",
+        "+$685M",
+        "$684.7M",
+        "+$684.7M",
         "$5.7B",
         "+$5.7B",
         "$6B",
@@ -1423,10 +1964,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$684M",
-            "+$684M",
-            "$684.4M",
-            "+$684.4M",
+            "$685M",
+            "+$685M",
+            "$684.7M",
+            "+$684.7M",
             "$5.7B",
             "+$5.7B",
             "$6B",
@@ -1442,7 +1983,7 @@
       "context": {
         "market_cap": "$15.5B",
         "insiders_30d": {
-          "bought": "$684M",
+          "bought": "$685M",
           "sold": "$5.7B",
           "days": 30
         }
@@ -1466,9 +2007,9 @@
         "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
         "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
         "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
-        "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $684M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $684M of open-market buys and $5.7B of open-market sells."
+        "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $685M of open-market buys and $5.7B of open-market sells."
       ],
       "phrasings": [
         {
@@ -1566,28 +2107,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $685M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $684M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $685M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $684M of open-market buys and $5.7B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $685M of open-market buys and $5.7B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$684M": "+",
-          "$684.4M": "+",
+          "$685M": "+",
+          "$684.7M": "+",
           "$5.7B": "+",
           "$6B": "+"
         },
@@ -3502,6 +4043,1984 @@
       },
       "cooldown": null,
       "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-market-move-LIST-cf0c76",
+      "type": "market_move",
+      "ticker": null,
+      "tickers": [
+        "NVDA",
+        "AVGO",
+        "TSM",
+        "SPCX"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-market-move-LIST-cf0c76#map",
+      "allowed_numbers": [
+        "$3.12T",
+        "−$3.12T",
+        "$3.1T",
+        "−$3.1T",
+        "−3.94%",
+        "3.94%",
+        "−3.9%",
+        "3.9%",
+        "500",
+        "495",
+        "98.2%",
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20",
+        "−14.01%",
+        "14.01%",
+        "−14.0%",
+        "14.0%",
+        "$494B",
+        "−$494B",
+        "$493.8B",
+        "−$493.8B",
+        "−12.19%",
+        "12.19%",
+        "−12.2%",
+        "12.2%",
+        "$202B",
+        "−$202B",
+        "$201.6B",
+        "−$201.6B",
+        "−9.48%",
+        "9.48%",
+        "−9.5%",
+        "9.5%",
+        "$173.1B",
+        "−$173.1B",
+        "$173B",
+        "−$173B",
+        "−7.69%",
+        "7.69%",
+        "−7.7%",
+        "7.7%",
+        "$144.5B",
+        "−$144.5B",
+        "$145B",
+        "−$145B",
+        "$1.99T",
+        "−$1.99T",
+        "$2.0T",
+        "−$2.0T",
+        "−7.37%",
+        "7.37%",
+        "−7.4%",
+        "7.4%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "The 500 largest US-listed stocks lost about $3.1T on Friday (−3.94%; 495 of 500 priced, 98.2% of market value). Biggest dollar drops: $NVDA −$494B (−14.01%, Technology), $AVGO −$202B (−12.19%, Technology), $TSM −$173.1B (−9.48%, Technology), $SPCX −$144.5B (−7.69%, Industrials). Technology −$1.99T (−7.37%) led the move. Technology's biggest dollar drops: $NVDA −14.01%, $AVGO −12.19%, $TSM −9.48%.",
+      "dedupe_key": "market_move:2026-11-20",
+      "claim_phrases": [
+        "$NVDA had the biggest dollar drop among the 500 largest US-listed companies on Friday (−$494B).",
+        "On Friday, $NVDA had the biggest dollar drop among the 500 largest US-listed companies (−$494B).",
+        "The biggest dollar drop among the 500 largest US-listed companies on Friday (−$494B): $NVDA.",
+        "$AVGO had the second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$202B).",
+        "On Friday, $AVGO had the second-biggest dollar drop among the 500 largest US-listed companies (−$202B).",
+        "The second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$202B): $AVGO.",
+        "$TSM had the third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$173.1B).",
+        "On Friday, $TSM had the third-biggest dollar drop among the 500 largest US-listed companies (−$173.1B).",
+        "The third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$173.1B): $TSM.",
+        "$SPCX had the fourth-biggest dollar drop among the 500 largest US-listed companies on Friday (−$144.5B).",
+        "On Friday, $SPCX had the fourth-biggest dollar drop among the 500 largest US-listed companies (−$144.5B).",
+        "The fourth-biggest dollar drop among the 500 largest US-listed companies on Friday (−$144.5B): $SPCX.",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+        "On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+        "$NVDA (−$494B), $AVGO (−$202B) and $TSM (−$173.1B) were the biggest dollar drops among the 500 largest US-listed companies on Friday, in that order.",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B), $SPCX (−$144.5B).",
+        "On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B), $SPCX (−$144.5B).",
+        "$NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B) and $SPCX (−$144.5B) were the biggest dollar drops among the 500 largest US-listed companies on Friday, in that order.",
+        "Technology had the biggest dollar drop of any sector on Friday (−$1.99T).",
+        "On Friday, Technology had the biggest dollar drop of any sector (−$1.99T).",
+        "Technology had the biggest dollar drop of any sector on Friday, a move of −$1.99T.",
+        "Technology was the worst sector on Friday (−7.37%).",
+        "On Friday, Technology was the worst sector (−7.37%).",
+        "Technology was the worst sector on Friday, a move of −7.37%.",
+        "$NVDA had the biggest dollar drop in Technology on Friday (−$494B).",
+        "On Friday, $NVDA had the biggest dollar drop in Technology (−$494B).",
+        "The biggest dollar drop in Technology on Friday (−$494B): $NVDA.",
+        "$AVGO had the second-biggest dollar drop in Technology on Friday (−$202B).",
+        "On Friday, $AVGO had the second-biggest dollar drop in Technology (−$202B).",
+        "The second-biggest dollar drop in Technology on Friday (−$202B): $AVGO.",
+        "$TSM had the third-biggest dollar drop in Technology on Friday (−$173.1B).",
+        "On Friday, $TSM had the third-biggest dollar drop in Technology (−$173.1B).",
+        "The third-biggest dollar drop in Technology on Friday (−$173.1B): $TSM.",
+        "Technology's biggest dollar drops on Friday, in order: $NVDA (−$494B), $AVGO (−$202B).",
+        "On Friday, Technology's biggest dollar drops, in order: $NVDA (−$494B), $AVGO (−$202B).",
+        "$NVDA (−$494B) and $AVGO (−$202B) were Technology's biggest dollar drops on Friday, in that order.",
+        "Technology's biggest dollar drops on Friday, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+        "On Friday, Technology's biggest dollar drops, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+        "$NVDA (−$494B), $AVGO (−$202B) and $TSM (−$173.1B) were Technology's biggest dollar drops on Friday, in that order."
+      ],
+      "pillar": "P1",
+      "session_date": "2026-11-20",
+      "when": "on Friday",
+      "context_tickers": [
+        "ARM"
+      ],
+      "context_mover": {
+        "ticker": "ARM",
+        "name": "Arm Holdings plc",
+        "sector": "Technology",
+        "pct": -14.093808206807024,
+        "usd": -26717901428.731903,
+        "cap": 189571910137.302,
+        "pct_text": "−14.09%",
+        "usd_text": "−$26.7B"
+      },
+      "context_numbers": [
+        "−14.09%",
+        "14.09%",
+        "−14.1%",
+        "14.1%",
+        "$26.7B",
+        "−$26.7B",
+        "$27B",
+        "−$27B"
+      ],
+      "totals": {
+        "usd_change_sum": -3119497992580.8643,
+        "usd_text": "$3.1T",
+        "pct_change": -3.941242665308077,
+        "pct_text": "−3.94%",
+        "priced": 495,
+        "total": 500,
+        "priced_cap_share": 0.9822
+      },
+      "movers": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "sector": "Technology",
+          "pct": -14.008768324428,
+          "usd": -493806153001.3325,
+          "cap": 3524979081424.6724,
+          "pct_text": "−14.01%",
+          "usd_text": "−$494B"
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "sector": "Technology",
+          "pct": -12.185201211596697,
+          "usd": -201638133427.7987,
+          "cap": 1654778857782.8242,
+          "pct_text": "−12.19%",
+          "usd_text": "−$202B"
+        },
+        {
+          "ticker": "TSM",
+          "name": "Taiwan Semiconductor Manufacturing Company Limited",
+          "sector": "Technology",
+          "pct": -9.480530546167177,
+          "usd": -173124460963.5,
+          "cap": 1826105196544.0,
+          "pct_text": "−9.48%",
+          "usd_text": "−$173.1B"
+        },
+        {
+          "ticker": "SPCX",
+          "name": "Space Exploration Technologies Corp.",
+          "sector": "Industrials",
+          "pct": -7.6861951889041435,
+          "usd": -144502522015.8439,
+          "cap": 1880026703256.8865,
+          "pct_text": "−7.69%",
+          "usd_text": "−$144.5B"
+        }
+      ],
+      "lead_sector": {
+        "sector": "Technology",
+        "pct": -7.372934144135974,
+        "usd": -1991419342728.3916,
+        "movers": [
+          {
+            "ticker": "NVDA",
+            "name": "NVIDIA Corporation",
+            "sector": "Technology",
+            "pct": -14.008768324428,
+            "usd": -493806153001.3325,
+            "cap": 3524979081424.6724,
+            "pct_text": "−14.01%",
+            "usd_text": "−$494B"
+          },
+          {
+            "ticker": "AVGO",
+            "name": "Broadcom Inc.",
+            "sector": "Technology",
+            "pct": -12.185201211596697,
+            "usd": -201638133427.7987,
+            "cap": 1654778857782.8242,
+            "pct_text": "−12.19%",
+            "usd_text": "−$202B"
+          },
+          {
+            "ticker": "TSM",
+            "name": "Taiwan Semiconductor Manufacturing Company Limited",
+            "sector": "Technology",
+            "pct": -9.480530546167177,
+            "usd": -173124460963.5,
+            "cap": 1826105196544.0,
+            "pct_text": "−9.48%",
+            "usd_text": "−$173.1B"
+          }
+        ]
+      },
+      "counter_sector": null,
+      "angles": [
+        "The 500 largest US-listed stocks lost about $3.1T on Friday.",
+        "The 500 largest US-listed stocks lost about $3.1T of market value on Friday (−3.94%).",
+        "About $3.1T of market value came off the 500 largest US-listed stocks on Friday (−3.94%)."
+      ],
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "NVDA",
+            "AVGO",
+            "TSM",
+            "SPCX"
+          ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "biggest dollar drops on Friday, in order: $NVDA, $AVGO, $TSM, $SPCX"
+        },
+        {
+          "words": [
+            "led"
+          ],
+          "subjects": [
+            "Technology"
+          ],
+          "kind": "sector",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": null,
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "Technology led the move / the drop (largest sector dollar move)"
+        },
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top"
+          ],
+          "subjects": [
+            "Technology"
+          ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "Technology had the biggest sector dollar drop"
+        },
+        {
+          "words": [
+            "worst",
+            "biggest",
+            "top",
+            "led",
+            "most"
+          ],
+          "subjects": [
+            "Technology"
+          ],
+          "kind": "sector",
+          "polarity": "worst",
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": "pct_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": null,
+          "says": "Technology was the worst sector by % on Friday"
+        },
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "NVDA",
+            "AVGO",
+            "TSM"
+          ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [
+            "Technology"
+          ],
+          "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "Technology's biggest dollar drops, in order: $NVDA, $AVGO, $TSM"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "NVDA",
+          "AVGO",
+          "TSM"
+        ],
+        "numbers": [
+          "$3.1T",
+          "3.94%",
+          "3.9%"
+        ]
+      },
+      "magnitude": 3.0,
+      "trigger": "|move| 3.94% >= 0.75%, cap share 0.982 >= 0.95",
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "priced": 495,
+      "total": 500,
+      "card": {
+        "panel": "map",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-map-2026-11-20-719bbe6d-b903d705.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/map",
+        "date": "2026-11-20",
+        "fingerprint": "719bbe6d",
+        "file": "market-map-2026-11-20-719bbe6d.png",
+        "sha256": "e03e674bce9419c7903a3aeedbb3a180025cb0c000d54cb77428968349ba3f5b"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-map-2026-11-20-719bbe6d-b903d705.png",
+          "kind": "image",
+          "alt": "The 500 largest US-listed stocks lost about $3.1T on Friday (−3.94%; 495 of 500 priced, 98.2% of market value). Biggest dollar drops: $NVDA −$494B (−14.01%, Technology), $AVGO −$202B (−12.19%, Technology), $TSM −$173.1B (−9.48%, Technology), $SPCX −$144.5B (−7.69%, Industrials). Technology −$1.99T (−7.37%) led the move. Technology's biggest dollar drops: $NVDA −14.01%, $AVGO −12.19%, $TSM −9.48%."
+        }
+      ],
+      "cap_tier": "market",
+      "in_500": null,
+      "ticker_sectors": {
+        "NVDA": "Technology",
+        "AVGO": "Technology",
+        "TSM": "Technology",
+        "SPCX": "Industrials",
+        "ARM": "Technology"
+      },
+      "ticker_names": {
+        "NVDA": "NVIDIA Corporation",
+        "AVGO": "Broadcom Inc.",
+        "TSM": "Taiwan Semiconductor Manufacturing Company Limited",
+        "SPCX": "Space Exploration Technologies Corp.",
+        "ARM": "Arm Holdings plc"
+      },
+      "fact_phrases": [
+        "The 500 largest US-listed stocks lost about $3.1T of market value on Friday (−3.94%).",
+        "About $3.1T of market value came off the 500 largest US-listed stocks on Friday (−3.94%).",
+        "The market value of the 500 largest US-listed stocks fell about $3.1T on Friday (−3.94%).",
+        "The 500 largest US-listed stocks lost about $3.1T on Friday.",
+        "About $3.1T came off the 500 largest US-listed stocks on Friday.",
+        "On Friday, the 500 largest US-listed stocks lost about $3.1T.",
+        "The 500 largest US-listed stocks moved −3.94% on Friday, weighted by market value.",
+        "Weighted by market value, the 500 largest US-listed stocks moved −3.94% on Friday.",
+        "On Friday, the 500 largest US-listed stocks moved −3.94%, weighted by market value.",
+        "495 of the 500 largest US-listed stocks had a price on Friday, 98.2% of their market value.",
+        "The 495 of the 500 largest US-listed stocks with a price on Friday hold 98.2% of their market value.",
+        "Of the 500 largest US-listed stocks, 495 had a price on Friday, 98.2% of their market value.",
+        "$NVDA lost $494B of market value on Friday (−14.01%).",
+        "$NVDA's market value fell $494B on Friday (−14.01%).",
+        "On Friday, $NVDA lost $494B of market value (−14.01%).",
+        "$NVDA moved −14.01% on Friday.",
+        "$NVDA's move on Friday: −14.01%.",
+        "On Friday, $NVDA moved −14.01%.",
+        "$AVGO lost $202B of market value on Friday (−12.19%).",
+        "$AVGO's market value fell $202B on Friday (−12.19%).",
+        "On Friday, $AVGO lost $202B of market value (−12.19%).",
+        "$AVGO moved −12.19% on Friday.",
+        "$AVGO's move on Friday: −12.19%.",
+        "On Friday, $AVGO moved −12.19%.",
+        "$TSM lost $173.1B of market value on Friday (−9.48%).",
+        "$TSM's market value fell $173.1B on Friday (−9.48%).",
+        "On Friday, $TSM lost $173.1B of market value (−9.48%).",
+        "$TSM moved −9.48% on Friday.",
+        "$TSM's move on Friday: −9.48%.",
+        "On Friday, $TSM moved −9.48%.",
+        "$SPCX lost $144.5B of market value on Friday (−7.69%).",
+        "$SPCX's market value fell $144.5B on Friday (−7.69%).",
+        "On Friday, $SPCX lost $144.5B of market value (−7.69%).",
+        "$SPCX moved −7.69% on Friday.",
+        "$SPCX's move on Friday: −7.69%.",
+        "On Friday, $SPCX moved −7.69%.",
+        "Technology lost $1.99T of market value on Friday (−7.37%).",
+        "The market value of Technology stocks fell $1.99T on Friday (−7.37%).",
+        "On Friday, Technology lost $1.99T of market value (−7.37%).",
+        "Technology moved −7.37% on Friday.",
+        "On Friday, Technology moved −7.37%.",
+        "$ARM lost $26.7B of market value on Friday (−14.09%).",
+        "$ARM's market value fell $26.7B on Friday (−14.09%).",
+        "On Friday, $ARM lost $26.7B of market value (−14.09%).",
+        "$ARM moved −14.09% on Friday.",
+        "$ARM's move on Friday: −14.09%.",
+        "On Friday, $ARM moved −14.09%."
+      ],
+      "phrasings": [
+        {
+          "id": "marketmove-05d738.a",
+          "fact": "marketmove-05d738",
+          "variant": "a",
+          "text": "$NVDA had the biggest dollar drop among the 500 largest US-listed companies on Friday (−$494B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-05d738.t",
+          "fact": "marketmove-05d738",
+          "variant": "t",
+          "text": "On Friday, $NVDA had the biggest dollar drop among the 500 largest US-listed companies (−$494B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-05d738.o",
+          "fact": "marketmove-05d738",
+          "variant": "o",
+          "text": "The biggest dollar drop among the 500 largest US-listed companies on Friday (−$494B): $NVDA.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-25e8a9.a",
+          "fact": "marketmove-25e8a9",
+          "variant": "a",
+          "text": "$AVGO had the second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-25e8a9.t",
+          "fact": "marketmove-25e8a9",
+          "variant": "t",
+          "text": "On Friday, $AVGO had the second-biggest dollar drop among the 500 largest US-listed companies (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-25e8a9.o",
+          "fact": "marketmove-25e8a9",
+          "variant": "o",
+          "text": "The second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$202B): $AVGO.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-be9b94.a",
+          "fact": "marketmove-be9b94",
+          "variant": "a",
+          "text": "$TSM had the third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-be9b94.t",
+          "fact": "marketmove-be9b94",
+          "variant": "t",
+          "text": "On Friday, $TSM had the third-biggest dollar drop among the 500 largest US-listed companies (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-be9b94.o",
+          "fact": "marketmove-be9b94",
+          "variant": "o",
+          "text": "The third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$173.1B): $TSM.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-5daac9.a",
+          "fact": "marketmove-5daac9",
+          "variant": "a",
+          "text": "$SPCX had the fourth-biggest dollar drop among the 500 largest US-listed companies on Friday (−$144.5B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-5daac9.t",
+          "fact": "marketmove-5daac9",
+          "variant": "t",
+          "text": "On Friday, $SPCX had the fourth-biggest dollar drop among the 500 largest US-listed companies (−$144.5B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-5daac9.o",
+          "fact": "marketmove-5daac9",
+          "variant": "o",
+          "text": "The fourth-biggest dollar drop among the 500 largest US-listed companies on Friday (−$144.5B): $SPCX.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-520f2a.a",
+          "fact": "marketmove-520f2a",
+          "variant": "a",
+          "text": "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-520f2a.t",
+          "fact": "marketmove-520f2a",
+          "variant": "t",
+          "text": "On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-520f2a.l",
+          "fact": "marketmove-520f2a",
+          "variant": "l",
+          "text": "$NVDA (−$494B), $AVGO (−$202B) and $TSM (−$173.1B) were the biggest dollar drops among the 500 largest US-listed companies on Friday, in that order.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-01a3f5.a",
+          "fact": "marketmove-01a3f5",
+          "variant": "a",
+          "text": "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B), $SPCX (−$144.5B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-01a3f5.t",
+          "fact": "marketmove-01a3f5",
+          "variant": "t",
+          "text": "On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B), $SPCX (−$144.5B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-01a3f5.l",
+          "fact": "marketmove-01a3f5",
+          "variant": "l",
+          "text": "$NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B) and $SPCX (−$144.5B) were the biggest dollar drops among the 500 largest US-listed companies on Friday, in that order.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-839b1d.a",
+          "fact": "marketmove-839b1d",
+          "variant": "a",
+          "text": "Technology had the biggest dollar drop of any sector on Friday (−$1.99T).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-839b1d.t",
+          "fact": "marketmove-839b1d",
+          "variant": "t",
+          "text": "On Friday, Technology had the biggest dollar drop of any sector (−$1.99T).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-839b1d.m",
+          "fact": "marketmove-839b1d",
+          "variant": "m",
+          "text": "Technology had the biggest dollar drop of any sector on Friday, a move of −$1.99T.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-2bcd1b.a",
+          "fact": "marketmove-2bcd1b",
+          "variant": "a",
+          "text": "Technology was the worst sector on Friday (−7.37%).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-2bcd1b.t",
+          "fact": "marketmove-2bcd1b",
+          "variant": "t",
+          "text": "On Friday, Technology was the worst sector (−7.37%).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-2bcd1b.m",
+          "fact": "marketmove-2bcd1b",
+          "variant": "m",
+          "text": "Technology was the worst sector on Friday, a move of −7.37%.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-fbed5f.a",
+          "fact": "marketmove-fbed5f",
+          "variant": "a",
+          "text": "$NVDA had the biggest dollar drop in Technology on Friday (−$494B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-fbed5f.t",
+          "fact": "marketmove-fbed5f",
+          "variant": "t",
+          "text": "On Friday, $NVDA had the biggest dollar drop in Technology (−$494B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-fbed5f.o",
+          "fact": "marketmove-fbed5f",
+          "variant": "o",
+          "text": "The biggest dollar drop in Technology on Friday (−$494B): $NVDA.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-54079b.a",
+          "fact": "marketmove-54079b",
+          "variant": "a",
+          "text": "$AVGO had the second-biggest dollar drop in Technology on Friday (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-54079b.t",
+          "fact": "marketmove-54079b",
+          "variant": "t",
+          "text": "On Friday, $AVGO had the second-biggest dollar drop in Technology (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-54079b.o",
+          "fact": "marketmove-54079b",
+          "variant": "o",
+          "text": "The second-biggest dollar drop in Technology on Friday (−$202B): $AVGO.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-f205af.a",
+          "fact": "marketmove-f205af",
+          "variant": "a",
+          "text": "$TSM had the third-biggest dollar drop in Technology on Friday (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-f205af.t",
+          "fact": "marketmove-f205af",
+          "variant": "t",
+          "text": "On Friday, $TSM had the third-biggest dollar drop in Technology (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-f205af.o",
+          "fact": "marketmove-f205af",
+          "variant": "o",
+          "text": "The third-biggest dollar drop in Technology on Friday (−$173.1B): $TSM.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-543fb2.a",
+          "fact": "marketmove-543fb2",
+          "variant": "a",
+          "text": "Technology's biggest dollar drops on Friday, in order: $NVDA (−$494B), $AVGO (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-543fb2.t",
+          "fact": "marketmove-543fb2",
+          "variant": "t",
+          "text": "On Friday, Technology's biggest dollar drops, in order: $NVDA (−$494B), $AVGO (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-543fb2.l",
+          "fact": "marketmove-543fb2",
+          "variant": "l",
+          "text": "$NVDA (−$494B) and $AVGO (−$202B) were Technology's biggest dollar drops on Friday, in that order.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-94922f.a",
+          "fact": "marketmove-94922f",
+          "variant": "a",
+          "text": "Technology's biggest dollar drops on Friday, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-94922f.t",
+          "fact": "marketmove-94922f",
+          "variant": "t",
+          "text": "On Friday, Technology's biggest dollar drops, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "marketmove-94922f.l",
+          "fact": "marketmove-94922f",
+          "variant": "l",
+          "text": "$NVDA (−$494B), $AVGO (−$202B) and $TSM (−$173.1B) were Technology's biggest dollar drops on Friday, in that order.",
+          "claim": true
+        },
+        {
+          "id": "marketmove-13c5b6.a",
+          "fact": "marketmove-13c5b6",
+          "variant": "a",
+          "text": "The 500 largest US-listed stocks lost about $3.1T of market value on Friday (−3.94%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-13c5b6.h1",
+          "fact": "marketmove-13c5b6",
+          "variant": "h1",
+          "text": "About $3.1T of market value came off the 500 largest US-listed stocks on Friday (−3.94%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-13c5b6.h2",
+          "fact": "marketmove-13c5b6",
+          "variant": "h2",
+          "text": "The market value of the 500 largest US-listed stocks fell about $3.1T on Friday (−3.94%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-9d143c.a",
+          "fact": "marketmove-9d143c",
+          "variant": "a",
+          "text": "The 500 largest US-listed stocks lost about $3.1T on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-9d143c.h1",
+          "fact": "marketmove-9d143c",
+          "variant": "h1",
+          "text": "About $3.1T came off the 500 largest US-listed stocks on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-9d143c.t",
+          "fact": "marketmove-9d143c",
+          "variant": "t",
+          "text": "On Friday, the 500 largest US-listed stocks lost about $3.1T.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-c269f7.a",
+          "fact": "marketmove-c269f7",
+          "variant": "a",
+          "text": "The 500 largest US-listed stocks moved −3.94% on Friday, weighted by market value.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-c269f7.h1",
+          "fact": "marketmove-c269f7",
+          "variant": "h1",
+          "text": "Weighted by market value, the 500 largest US-listed stocks moved −3.94% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-c269f7.h2",
+          "fact": "marketmove-c269f7",
+          "variant": "h2",
+          "text": "On Friday, the 500 largest US-listed stocks moved −3.94%, weighted by market value.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-5ee4a4.a",
+          "fact": "marketmove-5ee4a4",
+          "variant": "a",
+          "text": "495 of the 500 largest US-listed stocks had a price on Friday, 98.2% of their market value.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-5ee4a4.h1",
+          "fact": "marketmove-5ee4a4",
+          "variant": "h1",
+          "text": "The 495 of the 500 largest US-listed stocks with a price on Friday hold 98.2% of their market value.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-5ee4a4.f",
+          "fact": "marketmove-5ee4a4",
+          "variant": "f",
+          "text": "Of the 500 largest US-listed stocks, 495 had a price on Friday, 98.2% of their market value.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.a",
+          "fact": "marketmove-70ed55",
+          "variant": "a",
+          "text": "$NVDA lost $494B of market value on Friday (−14.01%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.h1",
+          "fact": "marketmove-70ed55",
+          "variant": "h1",
+          "text": "$NVDA's market value fell $494B on Friday (−14.01%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.t",
+          "fact": "marketmove-70ed55",
+          "variant": "t",
+          "text": "On Friday, $NVDA lost $494B of market value (−14.01%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.a",
+          "fact": "marketmove-061727",
+          "variant": "a",
+          "text": "$NVDA moved −14.01% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.h1",
+          "fact": "marketmove-061727",
+          "variant": "h1",
+          "text": "$NVDA's move on Friday: −14.01%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.t",
+          "fact": "marketmove-061727",
+          "variant": "t",
+          "text": "On Friday, $NVDA moved −14.01%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.a",
+          "fact": "marketmove-70ed55",
+          "variant": "a",
+          "text": "$AVGO lost $202B of market value on Friday (−12.19%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.h1",
+          "fact": "marketmove-70ed55",
+          "variant": "h1",
+          "text": "$AVGO's market value fell $202B on Friday (−12.19%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.t",
+          "fact": "marketmove-70ed55",
+          "variant": "t",
+          "text": "On Friday, $AVGO lost $202B of market value (−12.19%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.a",
+          "fact": "marketmove-061727",
+          "variant": "a",
+          "text": "$AVGO moved −12.19% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.h1",
+          "fact": "marketmove-061727",
+          "variant": "h1",
+          "text": "$AVGO's move on Friday: −12.19%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.t",
+          "fact": "marketmove-061727",
+          "variant": "t",
+          "text": "On Friday, $AVGO moved −12.19%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.a",
+          "fact": "marketmove-70ed55",
+          "variant": "a",
+          "text": "$TSM lost $173.1B of market value on Friday (−9.48%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.h1",
+          "fact": "marketmove-70ed55",
+          "variant": "h1",
+          "text": "$TSM's market value fell $173.1B on Friday (−9.48%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.t",
+          "fact": "marketmove-70ed55",
+          "variant": "t",
+          "text": "On Friday, $TSM lost $173.1B of market value (−9.48%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.a",
+          "fact": "marketmove-061727",
+          "variant": "a",
+          "text": "$TSM moved −9.48% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.h1",
+          "fact": "marketmove-061727",
+          "variant": "h1",
+          "text": "$TSM's move on Friday: −9.48%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.t",
+          "fact": "marketmove-061727",
+          "variant": "t",
+          "text": "On Friday, $TSM moved −9.48%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.a",
+          "fact": "marketmove-70ed55",
+          "variant": "a",
+          "text": "$SPCX lost $144.5B of market value on Friday (−7.69%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.h1",
+          "fact": "marketmove-70ed55",
+          "variant": "h1",
+          "text": "$SPCX's market value fell $144.5B on Friday (−7.69%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.t",
+          "fact": "marketmove-70ed55",
+          "variant": "t",
+          "text": "On Friday, $SPCX lost $144.5B of market value (−7.69%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.a",
+          "fact": "marketmove-061727",
+          "variant": "a",
+          "text": "$SPCX moved −7.69% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.h1",
+          "fact": "marketmove-061727",
+          "variant": "h1",
+          "text": "$SPCX's move on Friday: −7.69%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.t",
+          "fact": "marketmove-061727",
+          "variant": "t",
+          "text": "On Friday, $SPCX moved −7.69%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-b6a886.a",
+          "fact": "marketmove-b6a886",
+          "variant": "a",
+          "text": "Technology lost $1.99T of market value on Friday (−7.37%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-b6a886.h1",
+          "fact": "marketmove-b6a886",
+          "variant": "h1",
+          "text": "The market value of Technology stocks fell $1.99T on Friday (−7.37%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-b6a886.t",
+          "fact": "marketmove-b6a886",
+          "variant": "t",
+          "text": "On Friday, Technology lost $1.99T of market value (−7.37%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-66368f.a",
+          "fact": "marketmove-66368f",
+          "variant": "a",
+          "text": "Technology moved −7.37% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-66368f.t",
+          "fact": "marketmove-66368f",
+          "variant": "t",
+          "text": "On Friday, Technology moved −7.37%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.a",
+          "fact": "marketmove-70ed55",
+          "variant": "a",
+          "text": "$ARM lost $26.7B of market value on Friday (−14.09%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.h1",
+          "fact": "marketmove-70ed55",
+          "variant": "h1",
+          "text": "$ARM's market value fell $26.7B on Friday (−14.09%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-70ed55.t",
+          "fact": "marketmove-70ed55",
+          "variant": "t",
+          "text": "On Friday, $ARM lost $26.7B of market value (−14.09%).",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.a",
+          "fact": "marketmove-061727",
+          "variant": "a",
+          "text": "$ARM moved −14.09% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.h1",
+          "fact": "marketmove-061727",
+          "variant": "h1",
+          "text": "$ARM's move on Friday: −14.09%.",
+          "claim": false
+        },
+        {
+          "id": "marketmove-061727.t",
+          "fact": "marketmove-061727",
+          "variant": "t",
+          "text": "On Friday, $ARM moved −14.09%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$3.12T": "-",
+          "$3.1T": "-",
+          "3.94%": "-",
+          "3.9%": "-",
+          "14.01%": "-",
+          "14.0%": "-",
+          "$494B": "-",
+          "$493.8B": "-",
+          "12.19%": "-",
+          "12.2%": "-",
+          "$202B": "-",
+          "$201.6B": "-",
+          "9.48%": "-",
+          "9.5%": "-",
+          "$173.1B": "-",
+          "$173B": "-",
+          "7.69%": "-",
+          "7.7%": "-",
+          "$144.5B": "-",
+          "$145B": "-",
+          "$1.99T": "-",
+          "$2.0T": "-",
+          "7.37%": "-",
+          "7.4%": "-",
+          "14.09%": "-",
+          "14.1%": "-",
+          "$26.7B": "-",
+          "$27B": "-"
+        },
+        "subjects": {
+          "Technology": "down"
+        }
+      },
+      "subject_numbers": {
+        "#U500": [
+          [
+            "$",
+            3.1,
+            1,
+            1000000000000.0,
+            0
+          ],
+          [
+            "%",
+            3.94,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "NVDA": [
+          [
+            "$",
+            494.0,
+            0,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            14.01,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "AVGO": [
+          [
+            "$",
+            202.0,
+            0,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            12.19,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "TSM": [
+          [
+            "$",
+            173.1,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            9.48,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "SPCX": [
+          [
+            "$",
+            144.5,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            7.69,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "Technology": [
+          [
+            "$",
+            1.99,
+            2,
+            1000000000000.0,
+            -1
+          ],
+          [
+            "%",
+            7.37,
+            2,
+            1.0,
+            -1
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 12.5,
+      "rank_why": "market_move 4; market-level +4; magnitude (market) +3; session_date 2026-11-20 (age 1) +1.5",
+      "top8": false,
+      "top8_out": "stale: a price move of the 2026-11-20 session posted on 2026-11-23: same session day only, after the close (owner 10-22) (#652)",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-mega-mover-NVDA-b71ecf",
+      "type": "mega_mover",
+      "ticker": "NVDA",
+      "tickers": [
+        "NVDA",
+        "AVGO",
+        "TSM"
+      ],
+      "name": "NVIDIA Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-mega-mover-NVDA-b71ecf#map",
+      "allowed_numbers": [
+        "−14.01%",
+        "14.01%",
+        "−14.0%",
+        "14.0%",
+        "$494B",
+        "−$494B",
+        "$493.8B",
+        "−$493.8B",
+        "500",
+        "3",
+        "#3",
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20",
+        "−12.19%",
+        "12.19%",
+        "−12.2%",
+        "12.2%",
+        "$202B",
+        "−$202B",
+        "$201.6B",
+        "−$201.6B",
+        "−9.48%",
+        "9.48%",
+        "−9.5%",
+        "9.5%",
+        "$173.1B",
+        "−$173.1B",
+        "$173B",
+        "−$173B",
+        "1",
+        "#1",
+        "100",
+        "495"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "$NVDA (NVIDIA Corporation) lost $494B of market value on Friday, −14.01%: the biggest dollar drop among the 500 largest US-listed companies (#3 by market cap). Next: $AVGO −$202B (−12.19%), $TSM −$173.1B (−9.48%).",
+      "dedupe_key": "mega_mover:2026-11-20:NVDA",
+      "claim_phrases": [
+        "$NVDA had the biggest dollar drop among the 500 largest US-listed companies on Friday (−$494B).",
+        "On Friday, $NVDA had the biggest dollar drop among the 500 largest US-listed companies (−$494B).",
+        "The biggest dollar drop among the 500 largest US-listed companies on Friday (−$494B): $NVDA.",
+        "$AVGO had the second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$202B).",
+        "On Friday, $AVGO had the second-biggest dollar drop among the 500 largest US-listed companies (−$202B).",
+        "The second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$202B): $AVGO.",
+        "$TSM had the third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$173.1B).",
+        "On Friday, $TSM had the third-biggest dollar drop among the 500 largest US-listed companies (−$173.1B).",
+        "The third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$173.1B): $TSM.",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B).",
+        "On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order: $NVDA (−$494B), $AVGO (−$202B).",
+        "$NVDA (−$494B) and $AVGO (−$202B) were the biggest dollar drops among the 500 largest US-listed companies on Friday, in that order.",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+        "On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+        "$NVDA (−$494B), $AVGO (−$202B) and $TSM (−$173.1B) were the biggest dollar drops among the 500 largest US-listed companies on Friday, in that order.",
+        "$NVDA had the biggest dollar move among the 500 largest US-listed companies on Friday (−$494B).",
+        "On Friday, $NVDA had the biggest dollar move among the 500 largest US-listed companies (−$494B).",
+        "The biggest dollar move among the 500 largest US-listed companies on Friday (−$494B): $NVDA.",
+        "$NVDA was #3 by market cap among the 500 largest US-listed companies on Friday.",
+        "By market cap, $NVDA was #3 among the 500 largest US-listed companies on Friday.",
+        "$NVDA ranked #3 by market cap among the 500 largest US-listed companies on Friday.",
+        "$NVDA is one of the 100 largest US-listed companies by market cap (#3).",
+        "By market cap, $NVDA is one of the 100 largest US-listed companies (#3).",
+        "$NVDA ranks #3 by market cap, one of the 100 largest US-listed companies."
+      ],
+      "pillar": "P2",
+      "context_tickers": [
+        "ARM"
+      ],
+      "context_mover": {
+        "ticker": "ARM",
+        "name": "Arm Holdings plc",
+        "sector": "Technology",
+        "pct": -14.093808206807024,
+        "usd": -26717901428.731903,
+        "cap": 189571910137.302,
+        "pct_text": "−14.09%",
+        "usd_text": "−$26.7B"
+      },
+      "context_numbers": [
+        "−14.09%",
+        "14.09%",
+        "−14.1%",
+        "14.1%",
+        "$26.7B",
+        "−$26.7B",
+        "$27B",
+        "−$27B"
+      ],
+      "map_labelled": true,
+      "session_date": "2026-11-20",
+      "when": "on Friday",
+      "mover": {
+        "ticker": "NVDA",
+        "name": "NVIDIA Corporation",
+        "sector": "Technology",
+        "pct": -14.008768324428,
+        "usd": -493806153001.3325,
+        "cap": 3524979081424.6724,
+        "pct_text": "−14.01%",
+        "usd_text": "−$494B"
+      },
+      "rank_by_cap": 3,
+      "rank_by_usd": 1,
+      "next_movers": [
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "sector": "Technology",
+          "pct": -12.185201211596697,
+          "usd": -201638133427.7987,
+          "cap": 1654778857782.8242,
+          "pct_text": "−12.19%",
+          "usd_text": "−$202B"
+        },
+        {
+          "ticker": "TSM",
+          "name": "Taiwan Semiconductor Manufacturing Company Limited",
+          "sector": "Technology",
+          "pct": -9.480530546167177,
+          "usd": -173124460963.5,
+          "cap": 1826105196544.0,
+          "pct_text": "−9.48%",
+          "usd_text": "−$173.1B"
+        }
+      ],
+      "angles": [
+        "$NVDA had the biggest dollar move among the 500 largest US-listed companies on Friday (−$494B).",
+        "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B).",
+        "$NVDA lost $494B of market value on Friday (−14.01%)."
+      ],
+      "magnitude": 3.0,
+      "trigger": "|$ move| $494B >= $50.0B",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top",
+            "led"
+          ],
+          "subjects": [
+            "NVDA"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": 1,
+          "within": [],
+          "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "$NVDA: the biggest dollar drop among the 500 largest US-listed companies on Friday"
+        },
+        {
+          "words": [
+            "biggest",
+            "most",
+            "top"
+          ],
+          "subjects": [
+            "NVDA",
+            "AVGO",
+            "TSM"
+          ],
+          "kind": "stock",
+          "polarity": "worst",
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_change",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": "down",
+          "needs": "dollars?|market value|market cap|\\$\\d",
+          "says": "the biggest dollar drops, in order: $NVDA, $AVGO, $TSM"
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "NVDA"
+        ],
+        "numbers": [
+          "$494B",
+          "14.01%",
+          "14.0%"
+        ]
+      },
+      "market_cap_usd": 3524979081424.6724,
+      "banned_words": [
+        "crash",
+        "crashed",
+        "crashing",
+        "bloodbath",
+        "dump",
+        "dumps",
+        "dumped",
+        "dumping",
+        "s&p 500",
+        "s&p",
+        "the index",
+        "plunge",
+        "plunged",
+        "plunging"
+      ],
+      "priced": 495,
+      "total": 500,
+      "card": {
+        "panel": "map",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-map-2026-11-20-719bbe6d-b903d705.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/map",
+        "date": "2026-11-20",
+        "fingerprint": "719bbe6d",
+        "file": "market-map-2026-11-20-719bbe6d.png",
+        "sha256": "e03e674bce9419c7903a3aeedbb3a180025cb0c000d54cb77428968349ba3f5b"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-map-2026-11-20-719bbe6d-b903d705.png",
+          "kind": "image",
+          "alt": "$NVDA (NVIDIA Corporation) lost $494B of market value on Friday, −14.01%: the biggest dollar drop among the 500 largest US-listed companies (#3 by market cap). Next: $AVGO −$202B (−12.19%), $TSM −$173.1B (−9.48%)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "ticker_sectors": {
+        "NVDA": "Technology",
+        "AVGO": "Technology",
+        "TSM": "Technology",
+        "ARM": "Technology"
+      },
+      "ticker_names": {
+        "NVDA": "NVIDIA Corporation",
+        "AVGO": "Broadcom Inc.",
+        "TSM": "Taiwan Semiconductor Manufacturing Company Limited",
+        "ARM": "Arm Holdings plc"
+      },
+      "fact_phrases": [
+        "$NVDA lost $494B of market value on Friday (−14.01%).",
+        "$NVDA's market value fell $494B on Friday (−14.01%).",
+        "On Friday, $NVDA lost $494B of market value (−14.01%).",
+        "$NVDA moved −14.01% on Friday.",
+        "$NVDA's move on Friday: −14.01%.",
+        "On Friday, $NVDA moved −14.01%.",
+        "$AVGO lost $202B of market value on Friday (−12.19%).",
+        "$AVGO's market value fell $202B on Friday (−12.19%).",
+        "On Friday, $AVGO lost $202B of market value (−12.19%).",
+        "$AVGO moved −12.19% on Friday.",
+        "$AVGO's move on Friday: −12.19%.",
+        "On Friday, $AVGO moved −12.19%.",
+        "$TSM lost $173.1B of market value on Friday (−9.48%).",
+        "$TSM's market value fell $173.1B on Friday (−9.48%).",
+        "On Friday, $TSM lost $173.1B of market value (−9.48%).",
+        "$TSM moved −9.48% on Friday.",
+        "$TSM's move on Friday: −9.48%.",
+        "On Friday, $TSM moved −9.48%.",
+        "NVIDIA Corporation ($NVDA) moved −14.01% on Friday.",
+        "$NVDA (NVIDIA Corporation) moved −14.01% on Friday.",
+        "On Friday, NVIDIA Corporation ($NVDA) moved −14.01%.",
+        "$ARM lost $26.7B of market value on Friday (−14.09%).",
+        "$ARM's market value fell $26.7B on Friday (−14.09%).",
+        "On Friday, $ARM lost $26.7B of market value (−14.09%).",
+        "$ARM moved −14.09% on Friday.",
+        "$ARM's move on Friday: −14.09%.",
+        "On Friday, $ARM moved −14.09%.",
+        "495 of the 500 largest US-listed stocks had a price on Friday, Nov 20.",
+        "On Friday, Nov 20, 495 of the 500 largest US-listed stocks had a price.",
+        "Of the 500 largest US-listed stocks, 495 had a price on Friday, Nov 20."
+      ],
+      "phrasings": [
+        {
+          "id": "megamover-05d738.a",
+          "fact": "megamover-05d738",
+          "variant": "a",
+          "text": "$NVDA had the biggest dollar drop among the 500 largest US-listed companies on Friday (−$494B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-05d738.t",
+          "fact": "megamover-05d738",
+          "variant": "t",
+          "text": "On Friday, $NVDA had the biggest dollar drop among the 500 largest US-listed companies (−$494B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-05d738.o",
+          "fact": "megamover-05d738",
+          "variant": "o",
+          "text": "The biggest dollar drop among the 500 largest US-listed companies on Friday (−$494B): $NVDA.",
+          "claim": true
+        },
+        {
+          "id": "megamover-25e8a9.a",
+          "fact": "megamover-25e8a9",
+          "variant": "a",
+          "text": "$AVGO had the second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-25e8a9.t",
+          "fact": "megamover-25e8a9",
+          "variant": "t",
+          "text": "On Friday, $AVGO had the second-biggest dollar drop among the 500 largest US-listed companies (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-25e8a9.o",
+          "fact": "megamover-25e8a9",
+          "variant": "o",
+          "text": "The second-biggest dollar drop among the 500 largest US-listed companies on Friday (−$202B): $AVGO.",
+          "claim": true
+        },
+        {
+          "id": "megamover-be9b94.a",
+          "fact": "megamover-be9b94",
+          "variant": "a",
+          "text": "$TSM had the third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-be9b94.t",
+          "fact": "megamover-be9b94",
+          "variant": "t",
+          "text": "On Friday, $TSM had the third-biggest dollar drop among the 500 largest US-listed companies (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-be9b94.o",
+          "fact": "megamover-be9b94",
+          "variant": "o",
+          "text": "The third-biggest dollar drop among the 500 largest US-listed companies on Friday (−$173.1B): $TSM.",
+          "claim": true
+        },
+        {
+          "id": "megamover-54915b.a",
+          "fact": "megamover-54915b",
+          "variant": "a",
+          "text": "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-54915b.t",
+          "fact": "megamover-54915b",
+          "variant": "t",
+          "text": "On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order: $NVDA (−$494B), $AVGO (−$202B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-54915b.l",
+          "fact": "megamover-54915b",
+          "variant": "l",
+          "text": "$NVDA (−$494B) and $AVGO (−$202B) were the biggest dollar drops among the 500 largest US-listed companies on Friday, in that order.",
+          "claim": true
+        },
+        {
+          "id": "megamover-520f2a.a",
+          "fact": "megamover-520f2a",
+          "variant": "a",
+          "text": "The biggest dollar drops among the 500 largest US-listed companies on Friday, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-520f2a.t",
+          "fact": "megamover-520f2a",
+          "variant": "t",
+          "text": "On Friday, the biggest dollar drops among the 500 largest US-listed companies, in order: $NVDA (−$494B), $AVGO (−$202B), $TSM (−$173.1B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-520f2a.l",
+          "fact": "megamover-520f2a",
+          "variant": "l",
+          "text": "$NVDA (−$494B), $AVGO (−$202B) and $TSM (−$173.1B) were the biggest dollar drops among the 500 largest US-listed companies on Friday, in that order.",
+          "claim": true
+        },
+        {
+          "id": "megamover-ee5182.a",
+          "fact": "megamover-ee5182",
+          "variant": "a",
+          "text": "$NVDA had the biggest dollar move among the 500 largest US-listed companies on Friday (−$494B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-ee5182.t",
+          "fact": "megamover-ee5182",
+          "variant": "t",
+          "text": "On Friday, $NVDA had the biggest dollar move among the 500 largest US-listed companies (−$494B).",
+          "claim": true
+        },
+        {
+          "id": "megamover-ee5182.o",
+          "fact": "megamover-ee5182",
+          "variant": "o",
+          "text": "The biggest dollar move among the 500 largest US-listed companies on Friday (−$494B): $NVDA.",
+          "claim": true
+        },
+        {
+          "id": "megamover-9d26c5.a",
+          "fact": "megamover-9d26c5",
+          "variant": "a",
+          "text": "$NVDA was #3 by market cap among the 500 largest US-listed companies on Friday.",
+          "claim": true
+        },
+        {
+          "id": "megamover-9d26c5.h1",
+          "fact": "megamover-9d26c5",
+          "variant": "h1",
+          "text": "By market cap, $NVDA was #3 among the 500 largest US-listed companies on Friday.",
+          "claim": true
+        },
+        {
+          "id": "megamover-9d26c5.h2",
+          "fact": "megamover-9d26c5",
+          "variant": "h2",
+          "text": "$NVDA ranked #3 by market cap among the 500 largest US-listed companies on Friday.",
+          "claim": true
+        },
+        {
+          "id": "megamover-86965e.a",
+          "fact": "megamover-86965e",
+          "variant": "a",
+          "text": "$NVDA is one of the 100 largest US-listed companies by market cap (#3).",
+          "claim": true
+        },
+        {
+          "id": "megamover-86965e.h1",
+          "fact": "megamover-86965e",
+          "variant": "h1",
+          "text": "By market cap, $NVDA is one of the 100 largest US-listed companies (#3).",
+          "claim": true
+        },
+        {
+          "id": "megamover-86965e.h2",
+          "fact": "megamover-86965e",
+          "variant": "h2",
+          "text": "$NVDA ranks #3 by market cap, one of the 100 largest US-listed companies.",
+          "claim": true
+        },
+        {
+          "id": "megamover-70ed55.a",
+          "fact": "megamover-70ed55",
+          "variant": "a",
+          "text": "$NVDA lost $494B of market value on Friday (−14.01%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.h1",
+          "fact": "megamover-70ed55",
+          "variant": "h1",
+          "text": "$NVDA's market value fell $494B on Friday (−14.01%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.t",
+          "fact": "megamover-70ed55",
+          "variant": "t",
+          "text": "On Friday, $NVDA lost $494B of market value (−14.01%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.a",
+          "fact": "megamover-061727",
+          "variant": "a",
+          "text": "$NVDA moved −14.01% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.h1",
+          "fact": "megamover-061727",
+          "variant": "h1",
+          "text": "$NVDA's move on Friday: −14.01%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.t",
+          "fact": "megamover-061727",
+          "variant": "t",
+          "text": "On Friday, $NVDA moved −14.01%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.a",
+          "fact": "megamover-70ed55",
+          "variant": "a",
+          "text": "$AVGO lost $202B of market value on Friday (−12.19%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.h1",
+          "fact": "megamover-70ed55",
+          "variant": "h1",
+          "text": "$AVGO's market value fell $202B on Friday (−12.19%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.t",
+          "fact": "megamover-70ed55",
+          "variant": "t",
+          "text": "On Friday, $AVGO lost $202B of market value (−12.19%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.a",
+          "fact": "megamover-061727",
+          "variant": "a",
+          "text": "$AVGO moved −12.19% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.h1",
+          "fact": "megamover-061727",
+          "variant": "h1",
+          "text": "$AVGO's move on Friday: −12.19%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.t",
+          "fact": "megamover-061727",
+          "variant": "t",
+          "text": "On Friday, $AVGO moved −12.19%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.a",
+          "fact": "megamover-70ed55",
+          "variant": "a",
+          "text": "$TSM lost $173.1B of market value on Friday (−9.48%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.h1",
+          "fact": "megamover-70ed55",
+          "variant": "h1",
+          "text": "$TSM's market value fell $173.1B on Friday (−9.48%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.t",
+          "fact": "megamover-70ed55",
+          "variant": "t",
+          "text": "On Friday, $TSM lost $173.1B of market value (−9.48%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.a",
+          "fact": "megamover-061727",
+          "variant": "a",
+          "text": "$TSM moved −9.48% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.h1",
+          "fact": "megamover-061727",
+          "variant": "h1",
+          "text": "$TSM's move on Friday: −9.48%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.t",
+          "fact": "megamover-061727",
+          "variant": "t",
+          "text": "On Friday, $TSM moved −9.48%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-92f028.a",
+          "fact": "megamover-92f028",
+          "variant": "a",
+          "text": "NVIDIA Corporation ($NVDA) moved −14.01% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "megamover-92f028.h1",
+          "fact": "megamover-92f028",
+          "variant": "h1",
+          "text": "$NVDA (NVIDIA Corporation) moved −14.01% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "megamover-92f028.t",
+          "fact": "megamover-92f028",
+          "variant": "t",
+          "text": "On Friday, NVIDIA Corporation ($NVDA) moved −14.01%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.a",
+          "fact": "megamover-70ed55",
+          "variant": "a",
+          "text": "$ARM lost $26.7B of market value on Friday (−14.09%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.h1",
+          "fact": "megamover-70ed55",
+          "variant": "h1",
+          "text": "$ARM's market value fell $26.7B on Friday (−14.09%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-70ed55.t",
+          "fact": "megamover-70ed55",
+          "variant": "t",
+          "text": "On Friday, $ARM lost $26.7B of market value (−14.09%).",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.a",
+          "fact": "megamover-061727",
+          "variant": "a",
+          "text": "$ARM moved −14.09% on Friday.",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.h1",
+          "fact": "megamover-061727",
+          "variant": "h1",
+          "text": "$ARM's move on Friday: −14.09%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-061727.t",
+          "fact": "megamover-061727",
+          "variant": "t",
+          "text": "On Friday, $ARM moved −14.09%.",
+          "claim": false
+        },
+        {
+          "id": "megamover-fc3644.a",
+          "fact": "megamover-fc3644",
+          "variant": "a",
+          "text": "495 of the 500 largest US-listed stocks had a price on Friday, Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "megamover-fc3644.h1",
+          "fact": "megamover-fc3644",
+          "variant": "h1",
+          "text": "On Friday, Nov 20, 495 of the 500 largest US-listed stocks had a price.",
+          "claim": false
+        },
+        {
+          "id": "megamover-fc3644.f",
+          "fact": "megamover-fc3644",
+          "variant": "f",
+          "text": "Of the 500 largest US-listed stocks, 495 had a price on Friday, Nov 20.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "14.01%": "-",
+          "14.0%": "-",
+          "$494B": "-",
+          "$493.8B": "-",
+          "12.19%": "-",
+          "12.2%": "-",
+          "$202B": "-",
+          "$201.6B": "-",
+          "9.48%": "-",
+          "9.5%": "-",
+          "$173.1B": "-",
+          "$173B": "-",
+          "14.09%": "-",
+          "14.1%": "-",
+          "$26.7B": "-",
+          "$27B": "-"
+        },
+        "subjects": {
+          "NVDA": "down",
+          "AVGO": "down",
+          "TSM": "down"
+        }
+      },
+      "subject_numbers": {
+        "NVDA": [
+          [
+            "$",
+            494.0,
+            0,
+            1000000000.0,
+            0
+          ],
+          [
+            "%",
+            14.01,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            494.0,
+            0,
+            1000000000.0,
+            -1
+          ]
+        ],
+        "AVGO": [
+          [
+            "$",
+            202.0,
+            0,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            12.19,
+            2,
+            1.0,
+            -1
+          ]
+        ],
+        "TSM": [
+          [
+            "$",
+            173.1,
+            1,
+            1000000000.0,
+            -1
+          ],
+          [
+            "%",
+            9.48,
+            2,
+            1.0,
+            -1
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 12.5,
+      "rank_why": "mega_mover 4; mega cap $3524.98B +4; magnitude (market) +3; session_date 2026-11-20 (age 1) +1.5",
+      "top8": false,
+      "top8_out": "stale: a price move of the 2026-11-20 session posted on 2026-11-23: same session day only, after the close (owner 10-22) (#652)",
       "rotation": null
     },
     {
