@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-23",
-  "generated_at": "2026-11-23T22:15:02Z",
-  "as_of": "2026-11-23T22:15:02Z",
+  "generated_at": "2026-11-23T22:45:02Z",
+  "as_of": "2026-11-23T22:45:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -875,7 +875,7 @@
   },
   "counts": {
     "congress_trade": 7,
-    "form4_buy": 3,
+    "form4_buy": 2,
     "earnings_result": 9,
     "earnings_upcoming": 22,
     "picks_ready": 1,
@@ -930,8 +930,8 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 18,
-      "below_minimum": 14,
+      "filings_passing_filters": 19,
+      "below_minimum": 15,
       "not_open_market": 0,
       "no_sec_index": 0
     },
@@ -958,7 +958,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 40,
+      "tickers_in_items": 41,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -972,14 +972,15 @@
     "market": {
       "market_session": "2026-11-23",
       "priced_cap_share": 0.979891174728185,
-      "flows_as_of": "2026-11-23T22:15:18.960137+00:00"
+      "flows_as_of": "2026-11-23T22:45:17.245390+00:00"
     },
     "gates": {
       "weekend_replay": 0,
-      "small_cap": 1,
+      "small_cap": 2,
       "cooldown": 0,
       "reasons": [
-        "form4_buy HOS: small cap under $2B and a buy under $10M"
+        "form4_buy HOS: small cap under $2B and a buy under $10M",
+        "form4_buy BPRE: small cap under $2B and a buy under $10M"
       ],
       "self_check": {
         "items_not_built": 0,
@@ -990,7 +991,7 @@
         "no_card": 2,
         "small_cap": 0,
         "session_map": 1,
-        "repeat": 8,
+        "repeat": 7,
         "ranked_below": 40,
         "pillars": 4
       }
@@ -1028,7 +1029,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 28,
+  "api_requests": 29,
   "items": [
     {
       "item_id": "2026-11-23-market-move-LIST-91ae85",
@@ -3146,17 +3147,17 @@
       "source_url": null,
       "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-insider-flow-RCL-e5ed34",
       "allowed_numbers": [
-        "$729M",
-        "+$729M",
-        "$728.9M",
-        "+$728.9M",
+        "$732M",
+        "+$732M",
+        "$732.3M",
+        "+$732.3M",
         "$5.8B",
         "+$5.8B",
         "$6B",
         "+$6B",
         "30",
-        "524",
-        "715",
+        "533",
+        "719",
         "500",
         "2026-10-24",
         "Oct 24, 2026",
@@ -3185,7 +3186,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 524 companies with buys, 715 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
+      "facts_text": "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 533 companies with buys, 719 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
       "dedupe_key": "insider_flow:2026-11-23:RCL",
       "claim_phrases": [
         "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
@@ -3238,10 +3239,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$729M",
-            "+$729M",
-            "$728.9M",
-            "+$728.9M",
+            "$732M",
+            "+$732M",
+            "$732.3M",
+            "+$732.3M",
             "$5.8B",
             "+$5.8B",
             "$6B",
@@ -3251,7 +3252,7 @@
             "officers?\\s+and\\s+directors?",
             "open[-\\s]market"
           ],
-          "say": "the 30-day totals ($729M bought, $5.8B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+          "say": "the 30-day totals ($732M bought, $5.8B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
         }
       ],
       "headline": {
@@ -3262,7 +3263,7 @@
         ],
         "numbers": [
           "$5.8B",
-          "$729M"
+          "$732M"
         ]
       },
       "window": {
@@ -3270,10 +3271,10 @@
         "to": "2026-11-23",
         "days": 30
       },
-      "bought_usd": 728925938.56,
-      "sold_usd": 5784924420.25,
-      "buy_companies": 524,
-      "sell_companies": 715,
+      "bought_usd": 732294284.8,
+      "sold_usd": 5800226822.74,
+      "buy_companies": 533,
+      "sell_companies": 719,
       "top_sellers_500": [
         {
           "ticker": "RCL",
@@ -3320,12 +3321,12 @@
       ],
       "top_buyers_500": [],
       "angles": [
-        "Officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys."
+        "Officers and directors sold $5.8B and bought $732M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $732M of open-market buys."
       ],
       "market_cap_usd": 79299782294.9414,
-      "magnitude": 2.6434465339335222,
+      "magnitude": 2.645167466018081,
       "trigger": "weekly (Monday facts)",
       "top5": [
         "RCL",
@@ -3339,18 +3340,18 @@
       "banned_words": [],
       "card": {
         "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-4cb0ac1c-b24fbd4f.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-54f226db-b24fbd4f.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
         "date": "2026-11-23",
-        "fingerprint": "4cb0ac1c",
-        "file": "market-insiders-2026-11-23-4cb0ac1c.png",
-        "sha256": "1391da63d76da011c39e826a83db5ea45a31ade5a2b25db6179e2820dc352990"
+        "fingerprint": "54f226db",
+        "file": "market-insiders-2026-11-23-54f226db.png",
+        "sha256": "548fcd3fc4ed4d35ce2c3b59278d4c430e83846ceb6d5d571d7590f4c2fe8097"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-4cb0ac1c-b24fbd4f.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-54f226db-b24fbd4f.png",
           "kind": "image",
-          "alt": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 524 companies with buys, 715 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
+          "alt": "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 533 companies with buys, 719 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
         }
       ],
       "market_cap_source": "market_map",
@@ -3367,13 +3368,13 @@
         "MSI": "Motorola Solutions, Inc."
       },
       "fact_phrases": [
-        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
-        "Officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 524 companies had open-market buys by officers and directors and 715 had open-market sells.",
-        "715 companies had open-market sells by officers and directors and 524 had open-market buys over 30 days in our feed.",
+        "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $732M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $732M of open-market buys and $5.8B of open-market sells.",
+        "Officers and directors sold $5.8B and bought $732M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $5.8B and bought $732M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 533 companies had open-market buys by officers and directors and 719 had open-market sells.",
+        "719 companies had open-market sells by officers and directors and 533 had open-market buys over 30 days in our feed.",
         "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
         "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
         "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
@@ -3515,49 +3516,49 @@
           "id": "insiderflo-de8c5a.a",
           "fact": "insiderflo-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.h1",
           "fact": "insiderflo-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $732M of open-market buys.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.t",
           "fact": "insiderflo-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $732M of open-market buys and $5.8B of open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.a",
           "fact": "insiderflo-cc7b17",
           "variant": "a",
-          "text": "Officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market over 30 days in our feed.",
+          "text": "Officers and directors sold $5.8B and bought $732M of their own companies' stock on the open market over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.t",
           "fact": "insiderflo-cc7b17",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market.",
+          "text": "Over 30 days in our feed, officers and directors sold $5.8B and bought $732M of their own companies' stock on the open market.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.a",
           "fact": "insiderflo-ca45c6",
           "variant": "a",
-          "text": "Over 30 days in our feed, 524 companies had open-market buys by officers and directors and 715 had open-market sells.",
+          "text": "Over 30 days in our feed, 533 companies had open-market buys by officers and directors and 719 had open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.h1",
           "fact": "insiderflo-ca45c6",
           "variant": "h1",
-          "text": "715 companies had open-market sells by officers and directors and 524 had open-market buys over 30 days in our feed.",
+          "text": "719 companies had open-market sells by officers and directors and 533 had open-market buys over 30 days in our feed.",
           "claim": false
         },
         {
@@ -3626,8 +3627,8 @@
       ],
       "moves": {
         "numbers": {
-          "$729M": "+",
-          "$728.9M": "+",
+          "$732M": "+",
+          "$732.3M": "+",
           "$5.8B": "+",
           "$6B": "+",
           "$333M": "+",
@@ -3676,271 +3677,8 @@
         ]
       },
       "cooldown": null,
-      "rank": 11.14,
-      "rank_why": "insider_flow 4; large cap $79.3B +2.5; magnitude (market) +2.64; today 2026-11-23 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-23-form4-buy-GLXY-78454b",
-      "type": "form4_buy",
-      "ticker": "GLXY",
-      "tickers": [
-        "GLXY"
-      ],
-      "name": "Michael Novogratz",
-      "office": "Chief Executive Officer at Galaxy Digital",
-      "amount_text": "$4.82M",
-      "traded": [
-        "2026-11-20"
-      ],
-      "filed": "2026-11-20",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1859392/000138061526000016/0001380615-26-000016-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/novogratz-michael-1380615?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-form4-buy-GLXY-78454b#trades",
-      "allowed_numbers": [
-        "$4.82M",
-        "2026-11-20",
-        "Nov 20, 2026",
-        "Nov 20"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of GLXY totaling $4.82M on a Form 4 filed 2026-11-20, traded 2026-11-20.",
-      "dedupe_key": "form4:0001380615-26-000016:GLXY",
-      "claim_phrases": [],
-      "company": "Galaxy Digital",
-      "side": "buy",
-      "accession": "0001380615-26-000016",
-      "rows": 1,
-      "figure_slug": "novogratz-michael-1380615",
-      "amount_top_usd": 4820278.37,
-      "market_cap_usd": 15516198912.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$4.82M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/novogratz-michael-1380615/opengraph-image",
-          "kind": "image",
-          "alt": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of GLXY totaling $4.82M on a Form 4 filed 2026-11-20, traded 2026-11-20."
-        }
-      ],
-      "rank": 10.68,
-      "rank_why": "form4_buy 2; large cap $15.52B +2.5; known name Chief Executive (title) +2; magnitude (top $4.82M) +2.68; filed 2026-11-20 (age 1) +1.5",
-      "pillar": "P3",
-      "cap_tier": "large",
-      "in_500": false,
-      "context_numbers": [
-        "$15.5B",
-        "$729M",
-        "+$729M",
-        "$728.9M",
-        "+$728.9M",
-        "$5.8B",
-        "+$5.8B",
-        "$6B",
-        "+$6B",
-        "30"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "GLXY"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$729M",
-            "+$729M",
-            "$728.9M",
-            "+$728.9M",
-            "$5.8B",
-            "+$5.8B",
-            "$6B",
-            "+$6B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$15.5B",
-        "insiders_30d": {
-          "bought": "$729M",
-          "sold": "$5.8B",
-          "days": 30
-        }
-      },
-      "angles": [
-        "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
-        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
-        "An open-market purchase of $GLXY totaling $4.82M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 20."
-      ],
-      "fact_phrases": [
-        "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
-        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
-        "An open-market purchase of $GLXY totaling $4.82M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 20.",
-        "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market.",
-        "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market.",
-        "On the open market, Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY.",
-        "Michael Novogratz bought $4.82M of $GLXY on the open market.",
-        "On the open market, Michael Novogratz bought $4.82M of $GLXY.",
-        "Michael Novogratz made an open-market purchase of $GLXY: $4.82M.",
-        "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M on a Form 4 filed Nov 20.",
-        "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
-        "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
-        "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
-        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells."
-      ],
-      "phrasings": [
-        {
-          "id": "form4buy-32f205.a",
-          "fact": "form4buy-32f205",
-          "variant": "a",
-          "text": "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-32f205.h1",
-          "fact": "form4buy-32f205",
-          "variant": "h1",
-          "text": "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market (Form 4, filed Nov 20).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-32f205.h2",
-          "fact": "form4buy-32f205",
-          "variant": "h2",
-          "text": "An open-market purchase of $GLXY totaling $4.82M by Galaxy Digital chief executive officer Michael Novogratz was reported on a Form 4 filed Nov 20.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-f88823.a",
-          "fact": "form4buy-f88823",
-          "variant": "a",
-          "text": "Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-f88823.h1",
-          "fact": "form4buy-f88823",
-          "variant": "h1",
-          "text": "Michael Novogratz, chief executive officer at Galaxy Digital, bought $4.82M of $GLXY on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-f88823.h2",
-          "fact": "form4buy-f88823",
-          "variant": "h2",
-          "text": "On the open market, Galaxy Digital chief executive officer Michael Novogratz bought $4.82M of $GLXY.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
-          "variant": "a",
-          "text": "Michael Novogratz bought $4.82M of $GLXY on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
-          "variant": "h1",
-          "text": "On the open market, Michael Novogratz bought $4.82M of $GLXY.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "Michael Novogratz made an open-market purchase of $GLXY: $4.82M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.a",
-          "fact": "form4buy-39fdef",
-          "variant": "a",
-          "text": "Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M on a Form 4 filed Nov 20.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-39fdef.h1",
-          "fact": "form4buy-39fdef",
-          "variant": "h1",
-          "text": "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$729M": "+",
-          "$728.9M": "+",
-          "$5.8B": "+",
-          "$6B": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "GLXY": [
-          [
-            "$",
-            15.5,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
+      "rank": 11.15,
+      "rank_why": "insider_flow 4; large cap $79.3B +2.5; magnitude (market) +2.65; today 2026-11-23 (age 0) +2",
       "top8": true,
       "rotation": null
     },
@@ -5895,6 +5633,269 @@
             31.8,
             1,
             1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-congress-trade-AAPL-8c8a6a",
+      "type": "congress_trade",
+      "ticker": "AAPL",
+      "tickers": [
+        "AAPL"
+      ],
+      "name": "Ed Case",
+      "office": "U.S. Representative (D-HI)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-11-16"
+      ],
+      "filed": "2026-11-21",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20036891.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/ed-case?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-congress-trade-AAPL-8c8a6a#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-11-21",
+        "Nov 21, 2026",
+        "Nov 21",
+        "2026-11-16",
+        "Nov 16, 2026",
+        "Nov 16"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Ed Case (D-HI) disclosed a purchase of AAPL (Apple Inc.), $1K–$15K, traded 2026-11-16; filed 2026-11-21 (owner: spouse).",
+      "dedupe_key": "ptr:20036891:AAPL:buy",
+      "claim_phrases": [],
+      "company": "Apple Inc.",
+      "side": "buy",
+      "owner": [
+        "spouse"
+      ],
+      "figure_slug": "ed-case",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/ed-case/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Ed Case (D-HI) disclosed a purchase of AAPL (Apple Inc.), $1K–$15K, traded 2026-11-16; filed 2026-11-21 (owner: spouse)."
+        }
+      ],
+      "rank": 8.68,
+      "rank_why": "congress_trade 2; mega cap $4978.14B +4; magnitude (top $15K, buy +1) +1.18; filed 2026-11-21 (age 1) +1.5",
+      "pillar": "P3",
+      "market_cap_usd": 4978144275855.58,
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$4.98T",
+        "$5.0T",
+        "+1.90%",
+        "1.90%",
+        "+1.9%",
+        "1.9%",
+        "68",
+        "134",
+        "30"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "AAPL"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "AAPL": "Technology"
+      },
+      "ticker_names": {
+        "AAPL": "Apple Inc."
+      },
+      "context": {
+        "market_cap": "$4.98T",
+        "market_cap_session": "2026-11-23",
+        "last_session_move": {
+          "pct": "+1.90%",
+          "session": "2026-11-23"
+        },
+        "congress_30d": {
+          "buys": 68,
+          "sells": 134,
+          "members": 30,
+          "days": 30
+        }
+      },
+      "angles": [
+        "U.S. Representative Ed Case (D-HI) disclosed a purchase of $AAPL (owner: spouse), $1K–$15K (filed Nov 21).",
+        "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Ed Case (D-HI) (filed Nov 21).",
+        "Ed Case disclosed a purchase of $AAPL (owner: spouse), $1K–$15K."
+      ],
+      "fact_phrases": [
+        "U.S. Representative Ed Case (D-HI) disclosed a purchase of $AAPL (owner: spouse), $1K–$15K (filed Nov 21).",
+        "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Ed Case (D-HI) (filed Nov 21).",
+        "Ed Case disclosed a purchase of $AAPL (owner: spouse), $1K–$15K.",
+        "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by Ed Case.",
+        "Ed Case's $AAPL purchase was traded Nov 16 and disclosed on Nov 21.",
+        "Traded Nov 16, Ed Case's $AAPL purchase was disclosed on Nov 21.",
+        "$AAPL had a market value of $4.98T at the Nov 23 close.",
+        "$AAPL's market value at the Nov 23 close was $4.98T.",
+        "At the Nov 23 close, $AAPL had a market value of $4.98T.",
+        "$AAPL moved +1.90% on Monday, Nov 23.",
+        "$AAPL's move on Monday, Nov 23: +1.90%.",
+        "On Monday, Nov 23, $AAPL moved +1.90%.",
+        "Members of Congress disclosed 68 buys and 134 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 134 sells and 68 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 68 buys and 134 sells."
+      ],
+      "phrasings": [
+        {
+          "id": "congresstr-163ed7.a",
+          "fact": "congresstr-163ed7",
+          "variant": "a",
+          "text": "U.S. Representative Ed Case (D-HI) disclosed a purchase of $AAPL (owner: spouse), $1K–$15K (filed Nov 21).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-163ed7.h1",
+          "fact": "congresstr-163ed7",
+          "variant": "h1",
+          "text": "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Ed Case (D-HI) (filed Nov 21).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-2208d1.a",
+          "fact": "congresstr-2208d1",
+          "variant": "a",
+          "text": "Ed Case disclosed a purchase of $AAPL (owner: spouse), $1K–$15K.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-2208d1.h1",
+          "fact": "congresstr-2208d1",
+          "variant": "h1",
+          "text": "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by Ed Case.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.a",
+          "fact": "congresstr-190851",
+          "variant": "a",
+          "text": "Ed Case's $AAPL purchase was traded Nov 16 and disclosed on Nov 21.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.h1",
+          "fact": "congresstr-190851",
+          "variant": "h1",
+          "text": "Traded Nov 16, Ed Case's $AAPL purchase was disclosed on Nov 21.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.a",
+          "fact": "congresstr-426192",
+          "variant": "a",
+          "text": "$AAPL had a market value of $4.98T at the Nov 23 close.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.h1",
+          "fact": "congresstr-426192",
+          "variant": "h1",
+          "text": "$AAPL's market value at the Nov 23 close was $4.98T.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.t",
+          "fact": "congresstr-426192",
+          "variant": "t",
+          "text": "At the Nov 23 close, $AAPL had a market value of $4.98T.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.a",
+          "fact": "congresstr-061727",
+          "variant": "a",
+          "text": "$AAPL moved +1.90% on Monday, Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.h1",
+          "fact": "congresstr-061727",
+          "variant": "h1",
+          "text": "$AAPL's move on Monday, Nov 23: +1.90%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.t",
+          "fact": "congresstr-061727",
+          "variant": "t",
+          "text": "On Monday, Nov 23, $AAPL moved +1.90%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.a",
+          "fact": "congresstr-f8938e",
+          "variant": "a",
+          "text": "Members of Congress disclosed 68 buys and 134 sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.h1",
+          "fact": "congresstr-f8938e",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, members of Congress disclosed 134 sells and 68 buys.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.t",
+          "fact": "congresstr-f8938e",
+          "variant": "t",
+          "text": "Over 30 days in our feed, members of Congress disclosed 68 buys and 134 sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "1.90%": "+",
+          "1.9%": "+"
+        },
+        "subjects": {
+          "AAPL": "up"
+        }
+      },
+      "subject_numbers": {
+        "AAPL": [
+          [
+            "%",
+            1.9,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            4.98,
+            2,
+            1000000000000.0,
             0
           ]
         ]
@@ -10097,270 +10098,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-23-congress-trade-AAPL-8c8a6a",
-      "type": "congress_trade",
-      "ticker": "AAPL",
-      "tickers": [
-        "AAPL"
-      ],
-      "name": "Ed Case",
-      "office": "U.S. Representative (D-HI)",
-      "amount_text": "$1K–$15K",
-      "traded": [
-        "2026-11-16"
-      ],
-      "filed": "2026-11-21",
-      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20036891.pdf",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/ed-case?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-congress-trade-AAPL-8c8a6a#trades",
-      "allowed_numbers": [
-        "$1K–$15K",
-        "$1K",
-        "$15K",
-        "$1,001–$15,000",
-        "$1,001",
-        "$15,000",
-        "2026-11-21",
-        "Nov 21, 2026",
-        "Nov 21",
-        "2026-11-16",
-        "Nov 16, 2026",
-        "Nov 16"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "U.S. Representative Ed Case (D-HI) disclosed a purchase of AAPL (Apple Inc.), $1K–$15K, traded 2026-11-16; filed 2026-11-21 (owner: spouse).",
-      "dedupe_key": "ptr:20036891:AAPL:buy",
-      "claim_phrases": [],
-      "company": "Apple Inc.",
-      "side": "buy",
-      "owner": [
-        "spouse"
-      ],
-      "figure_slug": "ed-case",
-      "amount_exact_text": "$1,001–$15,000",
-      "rows": 1,
-      "amount_top_usd": 15000.0,
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/ed-case/opengraph-image",
-          "kind": "image",
-          "alt": "U.S. Representative Ed Case (D-HI) disclosed a purchase of AAPL (Apple Inc.), $1K–$15K, traded 2026-11-16; filed 2026-11-21 (owner: spouse)."
-        }
-      ],
-      "rank": 8.68,
-      "rank_why": "congress_trade 2; mega cap $4978.14B +4; magnitude (top $15K, buy +1) +1.18; filed 2026-11-21 (age 1) +1.5",
-      "pillar": "P3",
-      "market_cap_usd": 4978144275855.58,
-      "market_cap_source": "market_map",
-      "cap_tier": "mega",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23",
-        "$4.98T",
-        "$5.0T",
-        "+1.90%",
-        "1.90%",
-        "+1.9%",
-        "1.9%",
-        "68",
-        "134",
-        "30"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "AAPL"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "AAPL": "Technology"
-      },
-      "ticker_names": {
-        "AAPL": "Apple Inc."
-      },
-      "context": {
-        "market_cap": "$4.98T",
-        "market_cap_session": "2026-11-23",
-        "last_session_move": {
-          "pct": "+1.90%",
-          "session": "2026-11-23"
-        },
-        "congress_30d": {
-          "buys": 68,
-          "sells": 134,
-          "members": 30,
-          "days": 30
-        }
-      },
-      "angles": [
-        "U.S. Representative Ed Case (D-HI) disclosed a purchase of $AAPL (owner: spouse), $1K–$15K (filed Nov 21).",
-        "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Ed Case (D-HI) (filed Nov 21).",
-        "Ed Case disclosed a purchase of $AAPL (owner: spouse), $1K–$15K."
-      ],
-      "fact_phrases": [
-        "U.S. Representative Ed Case (D-HI) disclosed a purchase of $AAPL (owner: spouse), $1K–$15K (filed Nov 21).",
-        "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Ed Case (D-HI) (filed Nov 21).",
-        "Ed Case disclosed a purchase of $AAPL (owner: spouse), $1K–$15K.",
-        "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by Ed Case.",
-        "Ed Case's $AAPL purchase was traded Nov 16 and disclosed on Nov 21.",
-        "Traded Nov 16, Ed Case's $AAPL purchase was disclosed on Nov 21.",
-        "$AAPL had a market value of $4.98T at the Nov 23 close.",
-        "$AAPL's market value at the Nov 23 close was $4.98T.",
-        "At the Nov 23 close, $AAPL had a market value of $4.98T.",
-        "$AAPL moved +1.90% on Monday, Nov 23.",
-        "$AAPL's move on Monday, Nov 23: +1.90%.",
-        "On Monday, Nov 23, $AAPL moved +1.90%.",
-        "Members of Congress disclosed 68 buys and 134 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 134 sells and 68 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 68 buys and 134 sells."
-      ],
-      "phrasings": [
-        {
-          "id": "congresstr-163ed7.a",
-          "fact": "congresstr-163ed7",
-          "variant": "a",
-          "text": "U.S. Representative Ed Case (D-HI) disclosed a purchase of $AAPL (owner: spouse), $1K–$15K (filed Nov 21).",
-          "claim": false
-        },
-        {
-          "id": "congresstr-163ed7.h1",
-          "fact": "congresstr-163ed7",
-          "variant": "h1",
-          "text": "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Ed Case (D-HI) (filed Nov 21).",
-          "claim": false
-        },
-        {
-          "id": "congresstr-2208d1.a",
-          "fact": "congresstr-2208d1",
-          "variant": "a",
-          "text": "Ed Case disclosed a purchase of $AAPL (owner: spouse), $1K–$15K.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-2208d1.h1",
-          "fact": "congresstr-2208d1",
-          "variant": "h1",
-          "text": "A purchase of $AAPL (owner: spouse), $1K–$15K, was disclosed by Ed Case.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-190851.a",
-          "fact": "congresstr-190851",
-          "variant": "a",
-          "text": "Ed Case's $AAPL purchase was traded Nov 16 and disclosed on Nov 21.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-190851.h1",
-          "fact": "congresstr-190851",
-          "variant": "h1",
-          "text": "Traded Nov 16, Ed Case's $AAPL purchase was disclosed on Nov 21.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.a",
-          "fact": "congresstr-426192",
-          "variant": "a",
-          "text": "$AAPL had a market value of $4.98T at the Nov 23 close.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.h1",
-          "fact": "congresstr-426192",
-          "variant": "h1",
-          "text": "$AAPL's market value at the Nov 23 close was $4.98T.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.t",
-          "fact": "congresstr-426192",
-          "variant": "t",
-          "text": "At the Nov 23 close, $AAPL had a market value of $4.98T.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.a",
-          "fact": "congresstr-061727",
-          "variant": "a",
-          "text": "$AAPL moved +1.90% on Monday, Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.h1",
-          "fact": "congresstr-061727",
-          "variant": "h1",
-          "text": "$AAPL's move on Monday, Nov 23: +1.90%.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-061727.t",
-          "fact": "congresstr-061727",
-          "variant": "t",
-          "text": "On Monday, Nov 23, $AAPL moved +1.90%.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.a",
-          "fact": "congresstr-f8938e",
-          "variant": "a",
-          "text": "Members of Congress disclosed 68 buys and 134 sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.h1",
-          "fact": "congresstr-f8938e",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 134 sells and 68 buys.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-f8938e.t",
-          "fact": "congresstr-f8938e",
-          "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 68 buys and 134 sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "1.90%": "+",
-          "1.9%": "+"
-        },
-        "subjects": {
-          "AAPL": "up"
-        }
-      },
-      "subject_numbers": {
-        "AAPL": [
-          [
-            "%",
-            1.9,
-            2,
-            1.0,
-            1
-          ],
-          [
-            "$",
-            4.98,
-            2,
-            1000000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-23-congress-trade-MSFT-2d72a9",
       "type": "congress_trade",
       "ticker": "MSFT",
@@ -10705,10 +10442,10 @@
       "in_500": false,
       "context_numbers": [
         "$3.3B",
-        "$729M",
-        "+$729M",
-        "$728.9M",
-        "+$728.9M",
+        "$732M",
+        "+$732M",
+        "$732.3M",
+        "+$732.3M",
         "$5.8B",
         "+$5.8B",
         "$6B",
@@ -10730,10 +10467,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$729M",
-            "+$729M",
-            "$728.9M",
-            "+$728.9M",
+            "$732M",
+            "+$732M",
+            "$732.3M",
+            "+$732.3M",
             "$5.8B",
             "+$5.8B",
             "$6B",
@@ -10749,7 +10486,7 @@
       "context": {
         "market_cap": "$3.3B",
         "insiders_30d": {
-          "bought": "$729M",
+          "bought": "$732M",
           "sold": "$5.8B",
           "days": 30
         }
@@ -10773,9 +10510,9 @@
         "On a Form 4 filed Nov 23, Marcos Marcelo Mindlin (Director at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $3.74M.",
         "Marcos Marcelo Mindlin's $PAM purchase was traded Nov 19 and reported on a Form 4 filed Nov 23.",
         "Traded Nov 19, Marcos Marcelo Mindlin's $PAM purchase was reported on a Form 4 filed Nov 23.",
-        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells."
+        "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $732M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $732M of open-market buys and $5.8B of open-market sells."
       ],
       "phrasings": [
         {
@@ -10873,28 +10610,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $732M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $732M of open-market buys and $5.8B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$729M": "+",
-          "$728.9M": "+",
+          "$732M": "+",
+          "$732.3M": "+",
           "$5.8B": "+",
           "$6B": "+"
         },
@@ -11433,10 +11170,10 @@
       "in_500": false,
       "context_numbers": [
         "$987M",
-        "$729M",
-        "+$729M",
-        "$728.9M",
-        "+$728.9M",
+        "$732M",
+        "+$732M",
+        "$732.3M",
+        "+$732.3M",
         "$5.8B",
         "+$5.8B",
         "$6B",
@@ -11458,10 +11195,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$729M",
-            "+$729M",
-            "$728.9M",
-            "+$728.9M",
+            "$732M",
+            "+$732M",
+            "$732.3M",
+            "+$732.3M",
             "$5.8B",
             "+$5.8B",
             "$6B",
@@ -11477,7 +11214,7 @@
       "context": {
         "market_cap": "$987M",
         "insiders_30d": {
-          "bought": "$729M",
+          "bought": "$732M",
           "sold": "$5.8B",
           "days": 30
         }
@@ -11501,9 +11238,9 @@
         "On a Form 4 filed Nov 23, Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of $BORR totaling $30.45M.",
         "Tor Olav Troim's $BORR purchase was traded Nov 20 and reported on a Form 4 filed Nov 23.",
         "Traded Nov 20, Tor Olav Troim's $BORR purchase was reported on a Form 4 filed Nov 23.",
-        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells."
+        "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $732M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $732M of open-market buys and $5.8B of open-market sells."
       ],
       "phrasings": [
         {
@@ -11601,28 +11338,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $732M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $732M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $732M of open-market buys and $5.8B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$729M": "+",
-          "$728.9M": "+",
+          "$732M": "+",
+          "$732.3M": "+",
           "$5.8B": "+",
           "$6B": "+"
         },
@@ -20197,7 +19934,7 @@
       "rank": 2.0,
       "rank_why": "moves_like 0.5; session 2026-11-20 (age 1) +1.5",
       "top8": false,
-      "top8_out": "repeat: leads with $GLXY like 2026-11-23-form4-buy-GLXY-78454b",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
