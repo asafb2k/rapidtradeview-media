@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-23",
-  "generated_at": "2026-11-23T12:30:02Z",
-  "as_of": "2026-11-23T12:30:02Z",
+  "generated_at": "2026-11-23T13:00:02Z",
+  "as_of": "2026-11-23T13:00:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 5,
     "form4_buy": 1,
-    "earnings_result": 2,
+    "earnings_result": 3,
     "earnings_upcoming": 22,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -886,7 +886,7 @@
     "market_move": 0,
     "mega_mover": 1,
     "congress_flow": 1,
-    "insider_flow": 0,
+    "insider_flow": 1,
     "reddit_buzz": 0,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -930,14 +930,14 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 19,
+      "filings_passing_filters": 20,
       "below_minimum": 18,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3991,
-      "recent_ready": 52,
+      "archive_reports": 3992,
+      "recent_ready": 53,
       "outside_24h": 50,
       "unreadable": 0
     },
@@ -954,7 +954,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 26,
+      "tickers_in_items": 28,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -968,16 +968,18 @@
     "market": {
       "market_session": "2026-11-20",
       "priced_cap_share": 0.9822412681933844,
-      "flows_as_of": "2026-11-23T12:30:12.779995+00:00"
+      "flows_as_of": "2026-11-23T13:00:13.722614+00:00"
     },
     "gates": {
       "weekend_replay": 0,
-      "small_cap": 0,
+      "small_cap": 1,
       "cooldown": 0,
-      "reasons": [],
+      "reasons": [
+        "form4_buy HOS: small cap under $2B and a buy under $10M"
+      ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 37
+        "angles_dropped": 43
       },
       "top8": {
         "stale": 7,
@@ -985,24 +987,22 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 9,
-        "ranked_below": 24,
+        "ranked_below": 25,
         "pillars": 3
       }
     },
     "card_unpinned": {
-      "dropped": 3,
+      "dropped": 2,
       "reasons": [
-        "insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))",
-        "market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T12:17:52.950310+00:00 (X-Card-Date), the item 2026-11-20)",
-        "mega_mover NVDA: share card not pinned (the card draws 2026-11-23T12:17:52.950310+00:00 (X-Card-Date), the item 2026-11-20)"
+        "market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T12:48:06.460559+00:00 (X-Card-Date), the item 2026-11-20)",
+        "mega_mover NVDA: share card not pinned (the card draws 2026-11-23T12:48:06.460559+00:00 (X-Card-Date), the item 2026-11-20)"
       ]
     }
   },
   "errors": [
     "post history: FileNotFoundError",
-    "not published: insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))",
-    "not published: market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T12:17:52.950310+00:00 (X-Card-Date), the item 2026-11-20)",
-    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-23T12:17:52.950310+00:00 (X-Card-Date), the item 2026-11-20)"
+    "not published: market_move 2026-11-23-market-move-LIST-cf0c76: share card not pinned (the card draws 2026-11-23T12:48:06.460559+00:00 (X-Card-Date), the item 2026-11-20)",
+    "not published: mega_mover NVDA: share card not pinned (the card draws 2026-11-23T12:48:06.460559+00:00 (X-Card-Date), the item 2026-11-20)"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1033,7 +1033,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 19,
+  "api_requests": 21,
   "items": [
     {
       "item_id": "2026-11-23-congress-flow-NVDA-575db3",
@@ -1344,6 +1344,558 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-23-insider-flow-RCL-e5ed34",
+      "type": "insider_flow",
+      "ticker": "RCL",
+      "tickers": [
+        "RCL",
+        "SYK",
+        "MSI"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-insider-flow-RCL-e5ed34",
+      "allowed_numbers": [
+        "$684M",
+        "+$684M",
+        "$683.7M",
+        "+$683.7M",
+        "$5.7B",
+        "+$5.7B",
+        "$6B",
+        "+$6B",
+        "30",
+        "507",
+        "713",
+        "500",
+        "2026-10-24",
+        "Oct 24, 2026",
+        "Oct 24",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$333M",
+        "+$333M",
+        "$333.2M",
+        "+$333.2M",
+        "$179M",
+        "+$179M",
+        "$178.9M",
+        "+$178.9M",
+        "$153M",
+        "+$153M",
+        "$153.4M",
+        "+$153.4M",
+        "3",
+        "1",
+        "9",
+        "8.4",
+        "$1"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 507 companies with buys, 713 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
+      "dedupe_key": "insider_flow:2026-11-23:RCL",
+      "claim_phrases": [
+        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+        "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+        "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+        "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
+        "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
+        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+        "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+        "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.4.",
+        "Officers and directors sold $8.4 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $8.4 on the open market for every $1 they bought."
+      ],
+      "pillar": "P3",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "RCL",
+            "SYK",
+            "MSI"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "sell|sold",
+          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $SYK, $MSI"
+        }
+      ],
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$684M",
+            "+$684M",
+            "$683.7M",
+            "+$683.7M",
+            "$5.7B",
+            "+$5.7B",
+            "$6B",
+            "+$6B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals ($684M bought, $5.7B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "RCL",
+          "SYK",
+          "MSI"
+        ],
+        "numbers": [
+          "$5.7B",
+          "$684M"
+        ]
+      },
+      "window": {
+        "from": "2026-10-24",
+        "to": "2026-11-23",
+        "days": 30
+      },
+      "bought_usd": 683722817.67,
+      "sold_usd": 5743961097.63,
+      "buy_companies": 507,
+      "sell_companies": 713,
+      "top_sellers_500": [
+        {
+          "ticker": "RCL",
+          "name": "Royal Caribbean Cruises Ltd.",
+          "sector": "Consumer Cyclical",
+          "total_usd": 333233640.82,
+          "insider_count": 3,
+          "roles": {
+            "officer": 1,
+            "director": 2
+          },
+          "row_count": 72,
+          "first_trade": "2026-10-28",
+          "last_trade": "2026-11-13"
+        },
+        {
+          "ticker": "SYK",
+          "name": "Stryker Corporation",
+          "sector": "Healthcare",
+          "total_usd": 178924730.95,
+          "insider_count": 1,
+          "roles": {
+            "officer": 0,
+            "director": 1
+          },
+          "row_count": 6,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        },
+        {
+          "ticker": "MSI",
+          "name": "Motorola Solutions, Inc.",
+          "sector": "Technology",
+          "total_usd": 153435696.77,
+          "insider_count": 9,
+          "roles": {
+            "officer": 9,
+            "director": 0
+          },
+          "row_count": 72,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-16"
+        }
+      ],
+      "top_buyers_500": [],
+      "angles": [
+        "Officers and directors sold $5.7B and bought $684M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $684M of open-market buys."
+      ],
+      "market_cap_usd": 81083813419.83096,
+      "magnitude": 2.638817234819201,
+      "trigger": "weekly (Monday facts)",
+      "top5": [
+        "RCL",
+        "SYK",
+        "MSI",
+        "AXP",
+        "SNOW"
+      ],
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "card": {
+        "panel": "insiders",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-707709ff-b903d705.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
+        "date": "2026-11-23",
+        "fingerprint": "707709ff",
+        "file": "market-insiders-2026-11-23-707709ff.png",
+        "sha256": "002b98fe48c2dff782341746f9d5f1d77db695f3866844364ad1812c25d1e735"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-707709ff-b903d705.png",
+          "kind": "image",
+          "alt": "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 507 companies with buys, 713 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "ticker_sectors": {
+        "RCL": "Consumer Cyclical",
+        "SYK": "Healthcare",
+        "MSI": "Technology"
+      },
+      "ticker_names": {
+        "RCL": "Royal Caribbean Cruises Ltd.",
+        "SYK": "Stryker Corporation",
+        "MSI": "Motorola Solutions, Inc."
+      },
+      "fact_phrases": [
+        "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $684M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $684M of open-market buys and $5.7B of open-market sells.",
+        "Officers and directors sold $5.7B and bought $684M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $5.7B and bought $684M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 507 companies had open-market buys by officers and directors and 713 had open-market sells.",
+        "713 companies had open-market sells by officers and directors and 507 had open-market buys over 30 days in our feed.",
+        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+        "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
+        "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders)."
+      ],
+      "phrasings": [
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.a",
+          "fact": "insiderflo-c019d4",
+          "variant": "a",
+          "text": "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.t",
+          "fact": "insiderflo-c019d4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.o",
+          "fact": "insiderflo-c019d4",
+          "variant": "o",
+          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.a",
+          "fact": "insiderflo-1641a4",
+          "variant": "a",
+          "text": "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.t",
+          "fact": "insiderflo-1641a4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.o",
+          "fact": "insiderflo-1641a4",
+          "variant": "o",
+          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.a",
+          "fact": "insiderflo-2a8e57",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.t",
+          "fact": "insiderflo-2a8e57",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.l",
+          "fact": "insiderflo-2a8e57",
+          "variant": "l",
+          "text": "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.a",
+          "fact": "insiderflo-76de2d",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.t",
+          "fact": "insiderflo-76de2d",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.l",
+          "fact": "insiderflo-76de2d",
+          "variant": "l",
+          "text": "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.a",
+          "fact": "insiderflo-eeeffc",
+          "variant": "a",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.4.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h1",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h1",
+          "text": "Officers and directors sold $8.4 for every $1 they bought on the open market over 30 days in our feed.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h2",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h2",
+          "text": "Over 30 days in our feed, officers and directors sold $8.4 on the open market for every $1 they bought.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-de8c5a.a",
+          "fact": "insiderflo-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.h1",
+          "fact": "insiderflo-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $684M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.t",
+          "fact": "insiderflo-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $684M of open-market buys and $5.7B of open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.a",
+          "fact": "insiderflo-cc7b17",
+          "variant": "a",
+          "text": "Officers and directors sold $5.7B and bought $684M of their own companies' stock on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.t",
+          "fact": "insiderflo-cc7b17",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors sold $5.7B and bought $684M of their own companies' stock on the open market.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.a",
+          "fact": "insiderflo-ca45c6",
+          "variant": "a",
+          "text": "Over 30 days in our feed, 507 companies had open-market buys by officers and directors and 713 had open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.h1",
+          "fact": "insiderflo-ca45c6",
+          "variant": "h1",
+          "text": "713 companies had open-market sells by officers and directors and 507 had open-market buys over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$684M": "+",
+          "$683.7M": "+",
+          "$5.7B": "+",
+          "$6B": "+",
+          "$333M": "+",
+          "$333.2M": "+",
+          "$179M": "+",
+          "$178.9M": "+",
+          "$153M": "+",
+          "$153.4M": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "RCL": [
+          [
+            "$",
+            333.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            8.4,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "SYK": [
+          [
+            "$",
+            179.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "MSI": [
+          [
+            "$",
+            153.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 11.14,
+      "rank_why": "insider_flow 4; large cap $81.08B +2.5; magnitude (market) +2.64; today 2026-11-23 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-23-form4-buy-GLXY-78454b",
       "type": "form4_buy",
       "ticker": "GLXY",
@@ -1396,10 +1948,10 @@
       "in_500": false,
       "context_numbers": [
         "$15.5B",
-        "$682M",
-        "+$682M",
-        "$682.4M",
-        "+$682.4M",
+        "$684M",
+        "+$684M",
+        "$683.7M",
+        "+$683.7M",
         "$5.7B",
         "+$5.7B",
         "$6B",
@@ -1421,10 +1973,10 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$682M",
-            "+$682M",
-            "$682.4M",
-            "+$682.4M",
+            "$684M",
+            "+$684M",
+            "$683.7M",
+            "+$683.7M",
             "$5.7B",
             "+$5.7B",
             "$6B",
@@ -1440,7 +1992,7 @@
       "context": {
         "market_cap": "$15.5B",
         "insiders_30d": {
-          "bought": "$682M",
+          "bought": "$684M",
           "sold": "$5.7B",
           "days": 30
         }
@@ -1464,9 +2016,9 @@
         "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
         "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
         "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
-        "Officers and directors reported $682M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $682M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $682M of open-market buys and $5.7B of open-market sells."
+        "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $684M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $684M of open-market buys and $5.7B of open-market sells."
       ],
       "phrasings": [
         {
@@ -1564,28 +2116,28 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $682M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $684M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $682M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $684M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $682M of open-market buys and $5.7B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $684M of open-market buys and $5.7B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$682M": "+",
-          "$682.4M": "+",
+          "$684M": "+",
+          "$683.7M": "+",
           "$5.7B": "+",
           "$6B": "+"
         },
@@ -2597,81 +3149,119 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-23-congress-trade-MSFT-2d72a9",
-      "type": "congress_trade",
-      "ticker": "MSFT",
+      "item_id": "2026-11-23-earnings-result-ZS-eaf0d7",
+      "type": "earnings_result",
+      "ticker": "ZS",
       "tickers": [
-        "MSFT"
+        "ZS"
       ],
-      "name": "Michael A. Rulli",
-      "office": "U.S. Representative (R-OH)",
-      "amount_text": "$1K–$15K",
-      "traded": [
-        "2026-11-04"
-      ],
-      "filed": "2026-11-18",
-      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20036855.pdf",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/michael-a-rulli?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-congress-trade-MSFT-2d72a9#trades",
+      "name": "Zscaler, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1713683/000119312526470942/d255961dex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ZS?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-earnings-result-ZS-eaf0d7#earnings-history",
       "allowed_numbers": [
-        "$1K–$15K",
-        "$1K",
-        "$15K",
-        "$1,001–$15,000",
-        "$1,001",
-        "$15,000",
-        "2026-11-18",
-        "Nov 18, 2026",
-        "Nov 18",
-        "2026-11-04",
-        "Nov 4, 2026",
-        "Nov 4"
+        "$949M",
+        "$938M",
+        "$11.2M",
+        "$1.23",
+        "$1.16",
+        "$0.07",
+        "Q1 2027",
+        "Q1",
+        "FY2027",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of MSFT (Microsoft Corporation), $1K–$15K, traded 2026-11-04; filed 2026-11-18.",
-      "dedupe_key": "ptr:20036855:MSFT:buy",
-      "claim_phrases": [],
-      "company": "Microsoft Corporation",
-      "side": "buy",
-      "owner": [
-        "self"
+      "facts_text": "Zscaler, Inc. (ZS) published Q1 2027 results on 2026-11-23: Beat estimates. Revenue $949M vs $938M consensus (Beat by $11.2M). Non-GAAP net income per share, diluted $1.23 vs $1.16 consensus (Beat by $0.07).",
+      "dedupe_key": "report:zs-2027-q1",
+      "claim_phrases": [
+        "revenue came in above the $938M consensus.",
+        "$ZS beat the Q1 2027 revenue consensus: $949M vs $938M.",
+        "$ZS Q1 2027 revenue: $949M vs $938M consensus (beat by $11.2M).",
+        "$ZS Q1 2027 revenue $949M, beat by $11.2M.",
+        "revenue $949M vs $938M consensus (beat by $11.2M).",
+        "revenue $949M vs $938M (beat by $11.2M).",
+        "$ZS beat Q1 2027 revenue estimates by $11.2M.",
+        "$ZS beat the Q1 revenue consensus: $949M vs $938M.",
+        "$ZS Q1 revenue: $949M vs $938M consensus (beat by $11.2M).",
+        "$ZS Q1 revenue $949M, beat by $11.2M.",
+        "$ZS beat Q1 revenue estimates by $11.2M.",
+        "EPS came in above the $1.16 consensus.",
+        "$ZS beat the Q1 2027 EPS consensus: $1.23 vs $1.16.",
+        "$ZS Q1 2027 EPS: $1.23 vs $1.16 consensus (beat by $0.07).",
+        "$ZS Q1 2027 EPS $1.23, beat by $0.07.",
+        "EPS $1.23 vs $1.16 consensus (beat by $0.07).",
+        "EPS $1.23 vs $1.16 (beat by $0.07).",
+        "$ZS beat Q1 2027 EPS estimates by $0.07.",
+        "Non-GAAP net income per share, diluted came in above the $1.16 consensus.",
+        "$ZS beat the Q1 2027 Non-GAAP net income per share, diluted consensus: $1.23 vs $1.16.",
+        "$ZS Q1 2027 Non-GAAP net income per share, diluted: $1.23 vs $1.16 consensus (beat by $0.07).",
+        "$ZS Q1 2027 Non-GAAP net income per share, diluted $1.23, beat by $0.07.",
+        "Non-GAAP net income per share, diluted $1.23 vs $1.16 consensus (beat by $0.07).",
+        "Non-GAAP net income per share, diluted $1.23 vs $1.16 (beat by $0.07).",
+        "$ZS beat Q1 2027 Non-GAAP net income per share, diluted estimates by $0.07.",
+        "$ZS beat the Q1 EPS consensus: $1.23 vs $1.16.",
+        "$ZS Q1 EPS: $1.23 vs $1.16 consensus (beat by $0.07).",
+        "$ZS Q1 EPS $1.23, beat by $0.07.",
+        "$ZS beat Q1 EPS estimates by $0.07.",
+        "$ZS beat the Q1 Non-GAAP net income per share, diluted consensus: $1.23 vs $1.16.",
+        "$ZS Q1 Non-GAAP net income per share, diluted: $1.23 vs $1.16 consensus (beat by $0.07).",
+        "$ZS Q1 Non-GAAP net income per share, diluted $1.23, beat by $0.07.",
+        "$ZS beat Q1 Non-GAAP net income per share, diluted estimates by $0.07.",
+        "$ZS beat Q1 2027 estimates.",
+        "$ZS beat Q1 estimates."
       ],
-      "figure_slug": "michael-a-rulli",
-      "amount_exact_text": "$1,001–$15,000",
-      "rows": 1,
-      "amount_top_usd": 15000.0,
+      "report_id": "zs-2027-q1",
+      "fiscal_label": "Q1 2027",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-23T12:35:22.078721+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$949M",
+          "consensus": "$938M",
+          "label": "Beat by $11.2M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP net income per share, diluted",
+          "reported": "$1.23",
+          "consensus": "$1.16",
+          "label": "Beat by $0.07",
+          "verdict": "beat"
+        }
+      },
       "media": [
         {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/michael-a-rulli/opengraph-image",
+          "url": "https://www.rapidtradeview.trade/dashboard/ZS/opengraph-image",
           "kind": "image",
-          "alt": "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of MSFT (Microsoft Corporation), $1K–$15K, traded 2026-11-04; filed 2026-11-18."
+          "alt": "RapidTradeView research card for ZS: recent price, trend, analyst and filing summary."
         }
       ],
-      "rank": 7.68,
-      "rank_why": "congress_trade 2; mega cap $3700.47B +4; magnitude (top $15K, buy +1) +1.18; filed 2026-11-18 (age 3) +0.5",
-      "pillar": "P3",
-      "market_cap_usd": 3700472732187.7256,
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $33.54B +2.5; magnitude (verdict) +1.5; release_date 2026-11-23 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 33541984256.0,
       "market_cap_source": "market_map",
-      "cap_tier": "mega",
+      "cap_tier": "large",
       "in_500": true,
       "context_numbers": [
         "2026-11-20",
         "Nov 20, 2026",
         "Nov 20",
-        "$3.70T",
-        "$3.7T",
-        "−2.77%",
-        "2.77%",
-        "−2.8%",
-        "2.8%",
-        "67",
-        "133",
-        "28",
-        "30",
-        "5",
-        "1",
-        "4"
+        "$33.5B",
+        "−5.29%",
+        "5.29%",
+        "−5.3%",
+        "5.3%"
       ],
       "context_tickers": [],
       "trigger": null,
@@ -2679,204 +3269,503 @@
       "claims": [],
       "headline": {
         "tickers": [
-          "MSFT"
+          "ZS"
         ],
         "numbers": []
       },
       "ticker_sectors": {
-        "MSFT": "Technology"
+        "ZS": "Technology"
       },
       "ticker_names": {
-        "MSFT": "Microsoft Corporation"
+        "ZS": "Zscaler, Inc."
       },
       "context": {
-        "market_cap": "$3.70T",
+        "market_cap": "$33.5B",
         "market_cap_session": "2026-11-20",
         "last_session_move": {
-          "pct": "−2.77%",
+          "pct": "−5.29%",
           "session": "2026-11-20"
-        },
-        "congress_30d": {
-          "buys": 67,
-          "sells": 133,
-          "members": 28,
-          "days": 30
-        },
-        "ticker_congress_30d": {
-          "trades": 5,
-          "members": 5,
-          "buys": 1,
-          "sells": 4
         }
       },
       "angles": [
-        "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of $MSFT, $1K–$15K (filed Nov 18).",
-        "A purchase of $MSFT, $1K–$15K, was disclosed by U.S. Representative Michael A. Rulli (R-OH) (filed Nov 18).",
-        "Michael A. Rulli disclosed a purchase of $MSFT, $1K–$15K."
+        "Zscaler, Inc. ($ZS) published Q1 2027 results on Nov 23.",
+        "$ZS (Zscaler, Inc.) reported Q1 2027 results on Nov 23.",
+        "On Nov 23, Zscaler, Inc. ($ZS) published Q1 2027 results."
       ],
       "fact_phrases": [
-        "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of $MSFT, $1K–$15K (filed Nov 18).",
-        "A purchase of $MSFT, $1K–$15K, was disclosed by U.S. Representative Michael A. Rulli (R-OH) (filed Nov 18).",
-        "Michael A. Rulli disclosed a purchase of $MSFT, $1K–$15K.",
-        "A purchase of $MSFT, $1K–$15K, was disclosed by Michael A. Rulli.",
-        "Michael A. Rulli's $MSFT purchase was traded Nov 4 and disclosed on Nov 18.",
-        "Traded Nov 4, Michael A. Rulli's $MSFT purchase was disclosed on Nov 18.",
-        "$MSFT had a market value of $3.70T at the Nov 20 close.",
-        "$MSFT's market value at the Nov 20 close was $3.70T.",
-        "At the Nov 20 close, $MSFT had a market value of $3.70T.",
-        "$MSFT moved −2.77% on Friday, Nov 20.",
-        "$MSFT's move on Friday, Nov 20: −2.77%.",
-        "On Friday, Nov 20, $MSFT moved −2.77%.",
-        "Members of Congress disclosed 67 buys and 133 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 133 sells and 67 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 67 buys and 133 sells.",
-        "Members of Congress disclosed 5 trades in $MSFT over 30 days in our feed: 1 buys and 4 sells by 5 members.",
-        "5 members of Congress disclosed 5 trades in $MSFT over 30 days in our feed: 1 buys and 4 sells."
+        "Zscaler, Inc. ($ZS) published Q1 2027 results on Nov 23.",
+        "$ZS (Zscaler, Inc.) reported Q1 2027 results on Nov 23.",
+        "On Nov 23, Zscaler, Inc. ($ZS) published Q1 2027 results.",
+        "$ZS published Q1 2027 results on Nov 23.",
+        "Q1 2027 results from $ZS came out on Nov 23.",
+        "On Nov 23, $ZS published Q1 2027 results.",
+        "$ZS Q1 2027 revenue: $949M vs $938M consensus.",
+        "$ZS reported Q1 2027 revenue of $949M vs $938M consensus.",
+        "$ZS Q1 2027 revenue was $949M.",
+        "Q1 2027 revenue at $ZS was $949M.",
+        "$ZS Q1 2027 Non-GAAP net income per share, diluted: $1.23 vs $1.16 consensus.",
+        "$ZS reported Q1 2027 Non-GAAP net income per share, diluted of $1.23 vs $1.16 consensus.",
+        "$ZS Q1 2027 Non-GAAP net income per share, diluted was $1.23.",
+        "Q1 2027 Non-GAAP net income per share, diluted at $ZS was $1.23.",
+        "$ZS had a market value of $33.5B at the Nov 20 close.",
+        "$ZS's market value at the Nov 20 close was $33.5B.",
+        "At the Nov 20 close, $ZS had a market value of $33.5B.",
+        "$ZS moved −5.29% on Friday, Nov 20.",
+        "$ZS's move on Friday, Nov 20: −5.29%.",
+        "On Friday, Nov 20, $ZS moved −5.29%."
       ],
       "phrasings": [
         {
-          "id": "congresstr-fca6ef.a",
-          "fact": "congresstr-fca6ef",
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
           "variant": "a",
-          "text": "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of $MSFT, $1K–$15K (filed Nov 18).",
-          "claim": false
+          "text": "revenue came in above the $938M consensus.",
+          "claim": true
         },
         {
-          "id": "congresstr-fca6ef.h1",
-          "fact": "congresstr-fca6ef",
-          "variant": "h1",
-          "text": "A purchase of $MSFT, $1K–$15K, was disclosed by U.S. Representative Michael A. Rulli (R-OH) (filed Nov 18).",
-          "claim": false
-        },
-        {
-          "id": "congresstr-0486e5.a",
-          "fact": "congresstr-0486e5",
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
           "variant": "a",
-          "text": "Michael A. Rulli disclosed a purchase of $MSFT, $1K–$15K.",
-          "claim": false
+          "text": "$ZS beat the Q1 2027 revenue consensus: $949M vs $938M.",
+          "claim": true
         },
         {
-          "id": "congresstr-0486e5.h1",
-          "fact": "congresstr-0486e5",
-          "variant": "h1",
-          "text": "A purchase of $MSFT, $1K–$15K, was disclosed by Michael A. Rulli.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-190851.a",
-          "fact": "congresstr-190851",
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
           "variant": "a",
-          "text": "Michael A. Rulli's $MSFT purchase was traded Nov 4 and disclosed on Nov 18.",
-          "claim": false
+          "text": "$ZS Q1 2027 revenue: $949M vs $938M consensus (beat by $11.2M).",
+          "claim": true
         },
         {
-          "id": "congresstr-190851.h1",
-          "fact": "congresstr-190851",
-          "variant": "h1",
-          "text": "Traded Nov 4, Michael A. Rulli's $MSFT purchase was disclosed on Nov 18.",
-          "claim": false
-        },
-        {
-          "id": "congresstr-426192.a",
-          "fact": "congresstr-426192",
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
           "variant": "a",
-          "text": "$MSFT had a market value of $3.70T at the Nov 20 close.",
+          "text": "$ZS Q1 2027 revenue $949M, beat by $11.2M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $949M vs $938M consensus (beat by $11.2M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $949M vs $938M (beat by $11.2M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$ZS beat Q1 2027 revenue estimates by $11.2M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$ZS beat the Q1 revenue consensus: $949M vs $938M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$ZS Q1 revenue: $949M vs $938M consensus (beat by $11.2M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$ZS Q1 revenue $949M, beat by $11.2M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$ZS beat Q1 revenue estimates by $11.2M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.16 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$ZS beat the Q1 2027 EPS consensus: $1.23 vs $1.16.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$ZS Q1 2027 EPS: $1.23 vs $1.16 consensus (beat by $0.07).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$ZS Q1 2027 EPS $1.23, beat by $0.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.23 vs $1.16 consensus (beat by $0.07).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.23 vs $1.16 (beat by $0.07).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$ZS beat Q1 2027 EPS estimates by $0.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-a46621.a",
+          "fact": "earningsre-a46621",
+          "variant": "a",
+          "text": "Non-GAAP net income per share, diluted came in above the $1.16 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f21380.a",
+          "fact": "earningsre-f21380",
+          "variant": "a",
+          "text": "$ZS beat the Q1 2027 Non-GAAP net income per share, diluted consensus: $1.23 vs $1.16.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cc1d4c.a",
+          "fact": "earningsre-cc1d4c",
+          "variant": "a",
+          "text": "$ZS Q1 2027 Non-GAAP net income per share, diluted: $1.23 vs $1.16 consensus (beat by $0.07).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-72066d.a",
+          "fact": "earningsre-72066d",
+          "variant": "a",
+          "text": "$ZS Q1 2027 Non-GAAP net income per share, diluted $1.23, beat by $0.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c091ee.a",
+          "fact": "earningsre-c091ee",
+          "variant": "a",
+          "text": "Non-GAAP net income per share, diluted $1.23 vs $1.16 consensus (beat by $0.07).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-667770.a",
+          "fact": "earningsre-667770",
+          "variant": "a",
+          "text": "Non-GAAP net income per share, diluted $1.23 vs $1.16 (beat by $0.07).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6667df.a",
+          "fact": "earningsre-6667df",
+          "variant": "a",
+          "text": "$ZS beat Q1 2027 Non-GAAP net income per share, diluted estimates by $0.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$ZS beat the Q1 EPS consensus: $1.23 vs $1.16.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$ZS Q1 EPS: $1.23 vs $1.16 consensus (beat by $0.07).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$ZS Q1 EPS $1.23, beat by $0.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$ZS beat Q1 EPS estimates by $0.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-092639.a",
+          "fact": "earningsre-092639",
+          "variant": "a",
+          "text": "$ZS beat the Q1 Non-GAAP net income per share, diluted consensus: $1.23 vs $1.16.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-5d7d3a.a",
+          "fact": "earningsre-5d7d3a",
+          "variant": "a",
+          "text": "$ZS Q1 Non-GAAP net income per share, diluted: $1.23 vs $1.16 consensus (beat by $0.07).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8c3c4a.a",
+          "fact": "earningsre-8c3c4a",
+          "variant": "a",
+          "text": "$ZS Q1 Non-GAAP net income per share, diluted $1.23, beat by $0.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c1541d.a",
+          "fact": "earningsre-c1541d",
+          "variant": "a",
+          "text": "$ZS beat Q1 Non-GAAP net income per share, diluted estimates by $0.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$ZS beat Q1 2027 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$ZS beat Q1 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Zscaler, Inc. ($ZS) published Q1 2027 results on Nov 23.",
           "claim": false
         },
         {
-          "id": "congresstr-426192.h1",
-          "fact": "congresstr-426192",
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
           "variant": "h1",
-          "text": "$MSFT's market value at the Nov 20 close was $3.70T.",
+          "text": "$ZS (Zscaler, Inc.) reported Q1 2027 results on Nov 23.",
           "claim": false
         },
         {
-          "id": "congresstr-426192.t",
-          "fact": "congresstr-426192",
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
           "variant": "t",
-          "text": "At the Nov 20 close, $MSFT had a market value of $3.70T.",
+          "text": "On Nov 23, Zscaler, Inc. ($ZS) published Q1 2027 results.",
           "claim": false
         },
         {
-          "id": "congresstr-061727.a",
-          "fact": "congresstr-061727",
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
           "variant": "a",
-          "text": "$MSFT moved −2.77% on Friday, Nov 20.",
+          "text": "$ZS published Q1 2027 results on Nov 23.",
           "claim": false
         },
         {
-          "id": "congresstr-061727.h1",
-          "fact": "congresstr-061727",
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
           "variant": "h1",
-          "text": "$MSFT's move on Friday, Nov 20: −2.77%.",
+          "text": "Q1 2027 results from $ZS came out on Nov 23.",
           "claim": false
         },
         {
-          "id": "congresstr-061727.t",
-          "fact": "congresstr-061727",
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
           "variant": "t",
-          "text": "On Friday, Nov 20, $MSFT moved −2.77%.",
+          "text": "On Nov 23, $ZS published Q1 2027 results.",
           "claim": false
         },
         {
-          "id": "congresstr-f8938e.a",
-          "fact": "congresstr-f8938e",
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
           "variant": "a",
-          "text": "Members of Congress disclosed 67 buys and 133 sells over 30 days in our feed.",
+          "text": "$ZS Q1 2027 revenue: $949M vs $938M consensus.",
           "claim": false
         },
         {
-          "id": "congresstr-f8938e.h1",
-          "fact": "congresstr-f8938e",
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 133 sells and 67 buys.",
+          "text": "$ZS reported Q1 2027 revenue of $949M vs $938M consensus.",
           "claim": false
         },
         {
-          "id": "congresstr-f8938e.t",
-          "fact": "congresstr-f8938e",
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$ZS Q1 2027 revenue was $949M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q1 2027 revenue at $ZS was $949M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-861b7e.a",
+          "fact": "earningsre-861b7e",
+          "variant": "a",
+          "text": "$ZS Q1 2027 Non-GAAP net income per share, diluted: $1.23 vs $1.16 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-861b7e.h1",
+          "fact": "earningsre-861b7e",
+          "variant": "h1",
+          "text": "$ZS reported Q1 2027 Non-GAAP net income per share, diluted of $1.23 vs $1.16 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-443a1d.a",
+          "fact": "earningsre-443a1d",
+          "variant": "a",
+          "text": "$ZS Q1 2027 Non-GAAP net income per share, diluted was $1.23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-443a1d.h1",
+          "fact": "earningsre-443a1d",
+          "variant": "h1",
+          "text": "Q1 2027 Non-GAAP net income per share, diluted at $ZS was $1.23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$ZS had a market value of $33.5B at the Nov 20 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$ZS's market value at the Nov 20 close was $33.5B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 67 buys and 133 sells.",
+          "text": "At the Nov 20 close, $ZS had a market value of $33.5B.",
           "claim": false
         },
         {
-          "id": "congresstr-10cf3f.a",
-          "fact": "congresstr-10cf3f",
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
           "variant": "a",
-          "text": "Members of Congress disclosed 5 trades in $MSFT over 30 days in our feed: 1 buys and 4 sells by 5 members.",
+          "text": "$ZS moved −5.29% on Friday, Nov 20.",
           "claim": false
         },
         {
-          "id": "congresstr-10cf3f.h1",
-          "fact": "congresstr-10cf3f",
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
           "variant": "h1",
-          "text": "5 members of Congress disclosed 5 trades in $MSFT over 30 days in our feed: 1 buys and 4 sells.",
+          "text": "$ZS's move on Friday, Nov 20: −5.29%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Friday, Nov 20, $ZS moved −5.29%.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "2.77%": "-",
-          "2.8%": "-"
+          "5.29%": "-",
+          "5.3%": "-"
         },
         "subjects": {
-          "MSFT": "down"
+          "ZS": "down"
         }
       },
       "subject_numbers": {
-        "MSFT": [
+        "ZS": [
+          [
+            "$",
+            949.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            938.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            11.2,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.23,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.16,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.07,
+            2,
+            1.0,
+            0
+          ],
           [
             "%",
-            2.77,
+            5.29,
             2,
             1.0,
             -1
           ],
           [
             "$",
-            3.7,
-            2,
-            1000000000000.0,
+            33.5,
+            1,
+            1000000000.0,
             0
           ]
         ]
@@ -7551,6 +8440,296 @@
       "rank_why": "earnings_week_preview 2; large cap $198.72B +2.5; magnitude (market) +2.25; today 2026-11-23 (age 0) +2",
       "top8": false,
       "top8_out": "repeat: leads with $DELL like 2026-11-23-earnings-tomorrow-roundup-LIST-2c03ea",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-congress-trade-MSFT-2d72a9",
+      "type": "congress_trade",
+      "ticker": "MSFT",
+      "tickers": [
+        "MSFT"
+      ],
+      "name": "Michael A. Rulli",
+      "office": "U.S. Representative (R-OH)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-11-04"
+      ],
+      "filed": "2026-11-18",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20036855.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/michael-a-rulli?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-congress-trade-MSFT-2d72a9#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-11-18",
+        "Nov 18, 2026",
+        "Nov 18",
+        "2026-11-04",
+        "Nov 4, 2026",
+        "Nov 4"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of MSFT (Microsoft Corporation), $1K–$15K, traded 2026-11-04; filed 2026-11-18.",
+      "dedupe_key": "ptr:20036855:MSFT:buy",
+      "claim_phrases": [],
+      "company": "Microsoft Corporation",
+      "side": "buy",
+      "owner": [
+        "self"
+      ],
+      "figure_slug": "michael-a-rulli",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/michael-a-rulli/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of MSFT (Microsoft Corporation), $1K–$15K, traded 2026-11-04; filed 2026-11-18."
+        }
+      ],
+      "rank": 7.68,
+      "rank_why": "congress_trade 2; mega cap $3700.47B +4; magnitude (top $15K, buy +1) +1.18; filed 2026-11-18 (age 3) +0.5",
+      "pillar": "P3",
+      "market_cap_usd": 3700472732187.7256,
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20",
+        "$3.70T",
+        "$3.7T",
+        "−2.77%",
+        "2.77%",
+        "−2.8%",
+        "2.8%",
+        "67",
+        "133",
+        "28",
+        "30",
+        "5",
+        "1",
+        "4"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "MSFT"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "MSFT": "Technology"
+      },
+      "ticker_names": {
+        "MSFT": "Microsoft Corporation"
+      },
+      "context": {
+        "market_cap": "$3.70T",
+        "market_cap_session": "2026-11-20",
+        "last_session_move": {
+          "pct": "−2.77%",
+          "session": "2026-11-20"
+        },
+        "congress_30d": {
+          "buys": 67,
+          "sells": 133,
+          "members": 28,
+          "days": 30
+        },
+        "ticker_congress_30d": {
+          "trades": 5,
+          "members": 5,
+          "buys": 1,
+          "sells": 4
+        }
+      },
+      "angles": [
+        "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of $MSFT, $1K–$15K (filed Nov 18).",
+        "A purchase of $MSFT, $1K–$15K, was disclosed by U.S. Representative Michael A. Rulli (R-OH) (filed Nov 18).",
+        "Michael A. Rulli disclosed a purchase of $MSFT, $1K–$15K."
+      ],
+      "fact_phrases": [
+        "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of $MSFT, $1K–$15K (filed Nov 18).",
+        "A purchase of $MSFT, $1K–$15K, was disclosed by U.S. Representative Michael A. Rulli (R-OH) (filed Nov 18).",
+        "Michael A. Rulli disclosed a purchase of $MSFT, $1K–$15K.",
+        "A purchase of $MSFT, $1K–$15K, was disclosed by Michael A. Rulli.",
+        "Michael A. Rulli's $MSFT purchase was traded Nov 4 and disclosed on Nov 18.",
+        "Traded Nov 4, Michael A. Rulli's $MSFT purchase was disclosed on Nov 18.",
+        "$MSFT had a market value of $3.70T at the Nov 20 close.",
+        "$MSFT's market value at the Nov 20 close was $3.70T.",
+        "At the Nov 20 close, $MSFT had a market value of $3.70T.",
+        "$MSFT moved −2.77% on Friday, Nov 20.",
+        "$MSFT's move on Friday, Nov 20: −2.77%.",
+        "On Friday, Nov 20, $MSFT moved −2.77%.",
+        "Members of Congress disclosed 67 buys and 133 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 133 sells and 67 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 67 buys and 133 sells.",
+        "Members of Congress disclosed 5 trades in $MSFT over 30 days in our feed: 1 buys and 4 sells by 5 members.",
+        "5 members of Congress disclosed 5 trades in $MSFT over 30 days in our feed: 1 buys and 4 sells."
+      ],
+      "phrasings": [
+        {
+          "id": "congresstr-fca6ef.a",
+          "fact": "congresstr-fca6ef",
+          "variant": "a",
+          "text": "U.S. Representative Michael A. Rulli (R-OH) disclosed a purchase of $MSFT, $1K–$15K (filed Nov 18).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-fca6ef.h1",
+          "fact": "congresstr-fca6ef",
+          "variant": "h1",
+          "text": "A purchase of $MSFT, $1K–$15K, was disclosed by U.S. Representative Michael A. Rulli (R-OH) (filed Nov 18).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-0486e5.a",
+          "fact": "congresstr-0486e5",
+          "variant": "a",
+          "text": "Michael A. Rulli disclosed a purchase of $MSFT, $1K–$15K.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-0486e5.h1",
+          "fact": "congresstr-0486e5",
+          "variant": "h1",
+          "text": "A purchase of $MSFT, $1K–$15K, was disclosed by Michael A. Rulli.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.a",
+          "fact": "congresstr-190851",
+          "variant": "a",
+          "text": "Michael A. Rulli's $MSFT purchase was traded Nov 4 and disclosed on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.h1",
+          "fact": "congresstr-190851",
+          "variant": "h1",
+          "text": "Traded Nov 4, Michael A. Rulli's $MSFT purchase was disclosed on Nov 18.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.a",
+          "fact": "congresstr-426192",
+          "variant": "a",
+          "text": "$MSFT had a market value of $3.70T at the Nov 20 close.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.h1",
+          "fact": "congresstr-426192",
+          "variant": "h1",
+          "text": "$MSFT's market value at the Nov 20 close was $3.70T.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.t",
+          "fact": "congresstr-426192",
+          "variant": "t",
+          "text": "At the Nov 20 close, $MSFT had a market value of $3.70T.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.a",
+          "fact": "congresstr-061727",
+          "variant": "a",
+          "text": "$MSFT moved −2.77% on Friday, Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.h1",
+          "fact": "congresstr-061727",
+          "variant": "h1",
+          "text": "$MSFT's move on Friday, Nov 20: −2.77%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.t",
+          "fact": "congresstr-061727",
+          "variant": "t",
+          "text": "On Friday, Nov 20, $MSFT moved −2.77%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.a",
+          "fact": "congresstr-f8938e",
+          "variant": "a",
+          "text": "Members of Congress disclosed 67 buys and 133 sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.h1",
+          "fact": "congresstr-f8938e",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, members of Congress disclosed 133 sells and 67 buys.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.t",
+          "fact": "congresstr-f8938e",
+          "variant": "t",
+          "text": "Over 30 days in our feed, members of Congress disclosed 67 buys and 133 sells.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-10cf3f.a",
+          "fact": "congresstr-10cf3f",
+          "variant": "a",
+          "text": "Members of Congress disclosed 5 trades in $MSFT over 30 days in our feed: 1 buys and 4 sells by 5 members.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-10cf3f.h1",
+          "fact": "congresstr-10cf3f",
+          "variant": "h1",
+          "text": "5 members of Congress disclosed 5 trades in $MSFT over 30 days in our feed: 1 buys and 4 sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "2.77%": "-",
+          "2.8%": "-"
+        },
+        "subjects": {
+          "MSFT": "down"
+        }
+      },
+      "subject_numbers": {
+        "MSFT": [
+          [
+            "%",
+            2.77,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            3.7,
+            2,
+            1000000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
