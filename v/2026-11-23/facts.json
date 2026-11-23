@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-23",
-  "generated_at": "2026-11-23T21:15:02Z",
-  "as_of": "2026-11-23T21:15:02Z",
+  "generated_at": "2026-11-23T21:45:02Z",
+  "as_of": "2026-11-23T21:45:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 5,
     "form4_buy": 3,
-    "earnings_result": 5,
+    "earnings_result": 9,
     "earnings_upcoming": 22,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 1,
-    "insider_flow": 0,
+    "insider_flow": 1,
     "reddit_buzz": 0,
     "earnings_week_preview": 1,
     "earnings_reaction": 0,
@@ -929,14 +929,14 @@
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 19,
-      "below_minimum": 15,
+      "filings_passing_filters": 18,
+      "below_minimum": 14,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 3995,
-      "recent_ready": 56,
+      "archive_reports": 3999,
+      "recent_ready": 60,
       "outside_24h": 51,
       "unreadable": 0,
       "not_compared": 1,
@@ -957,7 +957,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 34,
+      "tickers_in_items": 38,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -971,7 +971,7 @@
     "market": {
       "market_session": "2026-11-20",
       "priced_cap_share": 0.9822412681933844,
-      "flows_as_of": "2026-11-23T21:15:15.129170+00:00"
+      "flows_as_of": "2026-11-23T21:45:16.124290+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -982,7 +982,7 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 53
+        "angles_dropped": 63
       },
       "top8": {
         "stale": 6,
@@ -990,20 +990,13 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 8,
-        "ranked_below": 32,
+        "ranked_below": 36,
         "pillars": 4
       }
-    },
-    "card_unpinned": {
-      "dropped": 1,
-      "reasons": [
-        "insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-23/cards/market-insiders-2026-11-23-8ac3f97d-b24fbd4f.png (old data))"
-      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError",
-    "not published: insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-23/cards/market-insiders-2026-11-23-8ac3f97d-b24fbd4f.png (old data))"
+    "post history: FileNotFoundError"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1034,7 +1027,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 24,
+  "api_requests": 28,
   "items": [
     {
       "item_id": "2026-11-23-congress-flow-NVDA-575db3",
@@ -1345,6 +1338,558 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-23-insider-flow-RCL-e5ed34",
+      "type": "insider_flow",
+      "ticker": "RCL",
+      "tickers": [
+        "RCL",
+        "SYK",
+        "MSI"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-insider-flow-RCL-e5ed34",
+      "allowed_numbers": [
+        "$729M",
+        "+$729M",
+        "$728.9M",
+        "+$728.9M",
+        "$5.8B",
+        "+$5.8B",
+        "$6B",
+        "+$6B",
+        "30",
+        "524",
+        "715",
+        "500",
+        "2026-10-24",
+        "Oct 24, 2026",
+        "Oct 24",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$333M",
+        "+$333M",
+        "$333.2M",
+        "+$333.2M",
+        "$179M",
+        "+$179M",
+        "$178.9M",
+        "+$178.9M",
+        "$153M",
+        "+$153M",
+        "$153.4M",
+        "+$153.4M",
+        "3",
+        "1",
+        "9",
+        "7.9",
+        "$1"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 524 companies with buys, 715 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders).",
+      "dedupe_key": "insider_flow:2026-11-23:RCL",
+      "claim_phrases": [
+        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+        "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+        "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+        "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
+        "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
+        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+        "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+        "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.9.",
+        "Officers and directors sold $7.9 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $7.9 on the open market for every $1 they bought."
+      ],
+      "pillar": "P3",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "RCL",
+            "SYK",
+            "MSI"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "sell|sold",
+          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $SYK, $MSI"
+        }
+      ],
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$729M",
+            "+$729M",
+            "$728.9M",
+            "+$728.9M",
+            "$5.8B",
+            "+$5.8B",
+            "$6B",
+            "+$6B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals ($729M bought, $5.8B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "RCL",
+          "SYK",
+          "MSI"
+        ],
+        "numbers": [
+          "$5.8B",
+          "$729M"
+        ]
+      },
+      "window": {
+        "from": "2026-10-24",
+        "to": "2026-11-23",
+        "days": 30
+      },
+      "bought_usd": 728925938.56,
+      "sold_usd": 5784924420.25,
+      "buy_companies": 524,
+      "sell_companies": 715,
+      "top_sellers_500": [
+        {
+          "ticker": "RCL",
+          "name": "Royal Caribbean Cruises Ltd.",
+          "sector": "Consumer Cyclical",
+          "total_usd": 333233640.82,
+          "insider_count": 3,
+          "roles": {
+            "officer": 1,
+            "director": 2
+          },
+          "row_count": 72,
+          "first_trade": "2026-10-28",
+          "last_trade": "2026-11-13"
+        },
+        {
+          "ticker": "SYK",
+          "name": "Stryker Corporation",
+          "sector": "Healthcare",
+          "total_usd": 178924730.95,
+          "insider_count": 1,
+          "roles": {
+            "officer": 0,
+            "director": 1
+          },
+          "row_count": 6,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        },
+        {
+          "ticker": "MSI",
+          "name": "Motorola Solutions, Inc.",
+          "sector": "Technology",
+          "total_usd": 153435696.77,
+          "insider_count": 9,
+          "roles": {
+            "officer": 9,
+            "director": 0
+          },
+          "row_count": 72,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-16"
+        }
+      ],
+      "top_buyers_500": [],
+      "angles": [
+        "Officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys."
+      ],
+      "market_cap_usd": 81083813419.83096,
+      "magnitude": 2.6434465339335222,
+      "trigger": "weekly (Monday facts)",
+      "top5": [
+        "RCL",
+        "SYK",
+        "MSI",
+        "AXP",
+        "SNOW"
+      ],
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "card": {
+        "panel": "insiders",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-4cb0ac1c-b24fbd4f.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
+        "date": "2026-11-23",
+        "fingerprint": "4cb0ac1c",
+        "file": "market-insiders-2026-11-23-4cb0ac1c.png",
+        "sha256": "1391da63d76da011c39e826a83db5ea45a31ade5a2b25db6179e2820dc352990"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-23/cards/market-insiders-2026-11-23-4cb0ac1c-b24fbd4f.png",
+          "kind": "image",
+          "alt": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 24 to Nov 23; 524 companies with buys, 715 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $SYK $179M (1 insiders), $MSI $153M (9 insiders)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "ticker_sectors": {
+        "RCL": "Consumer Cyclical",
+        "SYK": "Healthcare",
+        "MSI": "Technology"
+      },
+      "ticker_names": {
+        "RCL": "Royal Caribbean Cruises Ltd.",
+        "SYK": "Stryker Corporation",
+        "MSI": "Motorola Solutions, Inc."
+      },
+      "fact_phrases": [
+        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
+        "Officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 524 companies had open-market buys by officers and directors and 715 had open-market sells.",
+        "715 companies had open-market sells by officers and directors and 524 had open-market buys over 30 days in our feed.",
+        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+        "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
+        "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders)."
+      ],
+      "phrasings": [
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.a",
+          "fact": "insiderflo-c019d4",
+          "variant": "a",
+          "text": "$SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.t",
+          "fact": "insiderflo-c019d4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SYK had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.o",
+          "fact": "insiderflo-c019d4",
+          "variant": "o",
+          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.a",
+          "fact": "insiderflo-1641a4",
+          "variant": "a",
+          "text": "$MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.t",
+          "fact": "insiderflo-1641a4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $MSI had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.o",
+          "fact": "insiderflo-1641a4",
+          "variant": "o",
+          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($153M): $MSI.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.a",
+          "fact": "insiderflo-2a8e57",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.t",
+          "fact": "insiderflo-2a8e57",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.l",
+          "fact": "insiderflo-2a8e57",
+          "variant": "l",
+          "text": "$RCL ($333M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.a",
+          "fact": "insiderflo-76de2d",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.t",
+          "fact": "insiderflo-76de2d",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $SYK ($179M), $MSI ($153M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.l",
+          "fact": "insiderflo-76de2d",
+          "variant": "l",
+          "text": "$RCL ($333M), $SYK ($179M) and $MSI ($153M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.a",
+          "fact": "insiderflo-eeeffc",
+          "variant": "a",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.9.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h1",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h1",
+          "text": "Officers and directors sold $7.9 for every $1 they bought on the open market over 30 days in our feed.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h2",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h2",
+          "text": "Over 30 days in our feed, officers and directors sold $7.9 on the open market for every $1 they bought.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-de8c5a.a",
+          "fact": "insiderflo-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.h1",
+          "fact": "insiderflo-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.t",
+          "fact": "insiderflo-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.a",
+          "fact": "insiderflo-cc7b17",
+          "variant": "a",
+          "text": "Officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.t",
+          "fact": "insiderflo-cc7b17",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors sold $5.8B and bought $729M of their own companies' stock on the open market.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.a",
+          "fact": "insiderflo-ca45c6",
+          "variant": "a",
+          "text": "Over 30 days in our feed, 524 companies had open-market buys by officers and directors and 715 had open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.h1",
+          "fact": "insiderflo-ca45c6",
+          "variant": "h1",
+          "text": "715 companies had open-market sells by officers and directors and 524 had open-market buys over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $MSI sold $153M on the open market over 30 days in our feed (9 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "9 insiders at $MSI sold $153M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $MSI sold $153M on the open market (9 insiders).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$729M": "+",
+          "$728.9M": "+",
+          "$5.8B": "+",
+          "$6B": "+",
+          "$333M": "+",
+          "$333.2M": "+",
+          "$179M": "+",
+          "$178.9M": "+",
+          "$153M": "+",
+          "$153.4M": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "RCL": [
+          [
+            "$",
+            333.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            7.9,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "SYK": [
+          [
+            "$",
+            179.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "MSI": [
+          [
+            "$",
+            153.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 11.14,
+      "rank_why": "insider_flow 4; large cap $81.08B +2.5; magnitude (market) +2.64; today 2026-11-23 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-23-form4-buy-GLXY-78454b",
       "type": "form4_buy",
       "ticker": "GLXY",
@@ -1397,12 +1942,12 @@
       "in_500": false,
       "context_numbers": [
         "$15.5B",
-        "$728M",
-        "+$728M",
-        "$728.5M",
-        "+$728.5M",
-        "$5.7B",
-        "+$5.7B",
+        "$729M",
+        "+$729M",
+        "$728.9M",
+        "+$728.9M",
+        "$5.8B",
+        "+$5.8B",
         "$6B",
         "+$6B",
         "30"
@@ -1422,12 +1967,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$728M",
-            "+$728M",
-            "$728.5M",
-            "+$728.5M",
-            "$5.7B",
-            "+$5.7B",
+            "$729M",
+            "+$729M",
+            "$728.9M",
+            "+$728.9M",
+            "$5.8B",
+            "+$5.8B",
             "$6B",
             "+$6B"
           ],
@@ -1441,8 +1986,8 @@
       "context": {
         "market_cap": "$15.5B",
         "insiders_30d": {
-          "bought": "$728M",
-          "sold": "$5.7B",
+          "bought": "$729M",
+          "sold": "$5.8B",
           "days": 30
         }
       },
@@ -1465,9 +2010,9 @@
         "On a Form 4 filed Nov 20, Michael Novogratz (Chief Executive Officer at Galaxy Digital) reported an open-market purchase of $GLXY totaling $4.82M.",
         "Michael Novogratz's $GLXY purchase was traded Nov 20 and reported on a Form 4 filed Nov 20.",
         "Traded Nov 20, Michael Novogratz's $GLXY purchase was reported on a Form 4 filed Nov 20.",
-        "Officers and directors reported $728M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $728M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $728M of open-market buys and $5.7B of open-market sells."
+        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells."
       ],
       "phrasings": [
         {
@@ -1565,29 +2110,29 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $728M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $728M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $728M of open-market buys and $5.7B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$728M": "+",
-          "$728.5M": "+",
-          "$5.7B": "+",
+          "$729M": "+",
+          "$728.9M": "+",
+          "$5.8B": "+",
           "$6B": "+"
         },
         "subjects": {}
@@ -8851,6 +9396,530 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-23-earnings-result-HPE-4204f4",
+      "type": "earnings_result",
+      "ticker": "HPE",
+      "tickers": [
+        "HPE"
+      ],
+      "name": "Hewlett Packard Enterprise Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1645590/000164559026000097/ex-991x11232026x8k.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/HPE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-earnings-result-HPE-4204f4#earnings-history",
+      "allowed_numbers": [
+        "$14.55B",
+        "$14.43B",
+        "$122M",
+        "$1.43",
+        "$1.29",
+        "$0.14",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Hewlett Packard Enterprise Company (HPE) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $14.55B vs $14.43B consensus (Beat by $122M). Non-GAAP $1.43 vs $1.29 consensus (Beat by $0.14).",
+      "dedupe_key": "report:hpe-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $14.43B consensus.",
+        "$HPE beat the FY2026 (Q4) revenue consensus: $14.55B vs $14.43B.",
+        "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus (beat by $122M).",
+        "$HPE FY2026 (Q4) revenue $14.55B, beat by $122M.",
+        "revenue $14.55B vs $14.43B consensus (beat by $122M).",
+        "revenue $14.55B vs $14.43B (beat by $122M).",
+        "$HPE beat FY2026 (Q4) revenue estimates by $122M.",
+        "EPS came in above the $1.29 consensus.",
+        "$HPE beat the FY2026 (Q4) EPS consensus: $1.43 vs $1.29.",
+        "$HPE FY2026 (Q4) EPS: $1.43 vs $1.29 consensus (beat by $0.14).",
+        "$HPE FY2026 (Q4) EPS $1.43, beat by $0.14.",
+        "EPS $1.43 vs $1.29 consensus (beat by $0.14).",
+        "EPS $1.43 vs $1.29 (beat by $0.14).",
+        "$HPE beat FY2026 (Q4) EPS estimates by $0.14.",
+        "Non-GAAP came in above the $1.29 consensus.",
+        "$HPE beat the FY2026 (Q4) Non-GAAP consensus: $1.43 vs $1.29.",
+        "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus (beat by $0.14).",
+        "$HPE FY2026 (Q4) Non-GAAP $1.43, beat by $0.14.",
+        "Non-GAAP $1.43 vs $1.29 consensus (beat by $0.14).",
+        "Non-GAAP $1.43 vs $1.29 (beat by $0.14).",
+        "$HPE beat FY2026 (Q4) Non-GAAP estimates by $0.14.",
+        "$HPE beat FY2026 (Q4) estimates."
+      ],
+      "report_id": "hpe-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-23T21:44:39.445847+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$14.55B",
+          "consensus": "$14.43B",
+          "label": "Beat by $122M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP",
+          "reported": "$1.43",
+          "consensus": "$1.29",
+          "label": "Beat by $0.14",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/HPE/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for HPE: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $60.39B +2.5; magnitude (verdict) +1.5; release_date 2026-11-23 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 60386373103.39876,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20",
+        "$60.4B",
+        "−10.07%",
+        "10.07%",
+        "−10.1%",
+        "10.1%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "HPE"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "HPE": "Technology"
+      },
+      "ticker_names": {
+        "HPE": "Hewlett Packard Enterprise Company"
+      },
+      "context": {
+        "market_cap": "$60.4B",
+        "market_cap_session": "2026-11-20",
+        "last_session_move": {
+          "pct": "−10.07%",
+          "session": "2026-11-20"
+        }
+      },
+      "angles": [
+        "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
+        "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
+        "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results.",
+        "$HPE published FY2026 (Q4) results on Nov 23.",
+        "FY2026 (Q4) results from $HPE came out on Nov 23.",
+        "On Nov 23, $HPE published FY2026 (Q4) results.",
+        "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus.",
+        "$HPE reported FY2026 (Q4) revenue of $14.55B vs $14.43B consensus.",
+        "$HPE FY2026 (Q4) revenue was $14.55B.",
+        "FY2026 (Q4) revenue at $HPE was $14.55B.",
+        "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus.",
+        "$HPE reported FY2026 (Q4) Non-GAAP of $1.43 vs $1.29 consensus.",
+        "$HPE FY2026 (Q4) Non-GAAP was $1.43.",
+        "FY2026 (Q4) Non-GAAP at $HPE was $1.43.",
+        "$HPE had a market value of $60.4B at the Nov 20 close.",
+        "$HPE's market value at the Nov 20 close was $60.4B.",
+        "At the Nov 20 close, $HPE had a market value of $60.4B.",
+        "$HPE moved −10.07% on Friday, Nov 20.",
+        "$HPE's move on Friday, Nov 20: −10.07%.",
+        "On Friday, Nov 20, $HPE moved −10.07%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $14.43B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$HPE beat the FY2026 (Q4) revenue consensus: $14.55B vs $14.43B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus (beat by $122M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) revenue $14.55B, beat by $122M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $14.55B vs $14.43B consensus (beat by $122M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $14.55B vs $14.43B (beat by $122M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$HPE beat FY2026 (Q4) revenue estimates by $122M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.29 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$HPE beat the FY2026 (Q4) EPS consensus: $1.43 vs $1.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) EPS: $1.43 vs $1.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) EPS $1.43, beat by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.43 vs $1.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.43 vs $1.29 (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$HPE beat FY2026 (Q4) EPS estimates by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "Non-GAAP came in above the $1.29 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$HPE beat the FY2026 (Q4) Non-GAAP consensus: $1.43 vs $1.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) Non-GAAP $1.43, beat by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "Non-GAAP $1.43 vs $1.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "Non-GAAP $1.43 vs $1.29 (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$HPE beat FY2026 (Q4) Non-GAAP estimates by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-232122.a",
+          "fact": "earningsre-232122",
+          "variant": "a",
+          "text": "$HPE beat FY2026 (Q4) estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$HPE published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $HPE came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 23, $HPE published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$HPE reported FY2026 (Q4) revenue of $14.55B vs $14.43B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) revenue was $14.55B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $HPE was $14.55B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.a",
+          "fact": "earningsre-b47db5",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.h1",
+          "fact": "earningsre-b47db5",
+          "variant": "h1",
+          "text": "$HPE reported FY2026 (Q4) Non-GAAP of $1.43 vs $1.29 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.a",
+          "fact": "earningsre-1df3d9",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) Non-GAAP was $1.43.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.h1",
+          "fact": "earningsre-1df3d9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Non-GAAP at $HPE was $1.43.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$HPE had a market value of $60.4B at the Nov 20 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$HPE's market value at the Nov 20 close was $60.4B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 20 close, $HPE had a market value of $60.4B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$HPE moved −10.07% on Friday, Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$HPE's move on Friday, Nov 20: −10.07%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Friday, Nov 20, $HPE moved −10.07%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "10.07%": "-",
+          "10.1%": "-"
+        },
+        "subjects": {
+          "HPE": "down"
+        }
+      },
+      "subject_numbers": {
+        "HPE": [
+          [
+            "$",
+            14.55,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            14.43,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            122.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.43,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.29,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.14,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            10.07,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            60.4,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-23-earnings-result-ZS-eaf0d7",
       "type": "earnings_result",
       "ticker": "ZS",
@@ -10353,12 +11422,12 @@
       "in_500": false,
       "context_numbers": [
         "$3.3B",
-        "$728M",
-        "+$728M",
-        "$728.5M",
-        "+$728.5M",
-        "$5.7B",
-        "+$5.7B",
+        "$729M",
+        "+$729M",
+        "$728.9M",
+        "+$728.9M",
+        "$5.8B",
+        "+$5.8B",
         "$6B",
         "+$6B",
         "30"
@@ -10378,12 +11447,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$728M",
-            "+$728M",
-            "$728.5M",
-            "+$728.5M",
-            "$5.7B",
-            "+$5.7B",
+            "$729M",
+            "+$729M",
+            "$728.9M",
+            "+$728.9M",
+            "$5.8B",
+            "+$5.8B",
             "$6B",
             "+$6B"
           ],
@@ -10397,8 +11466,8 @@
       "context": {
         "market_cap": "$3.3B",
         "insiders_30d": {
-          "bought": "$728M",
-          "sold": "$5.7B",
+          "bought": "$729M",
+          "sold": "$5.8B",
           "days": 30
         }
       },
@@ -10421,9 +11490,9 @@
         "On a Form 4 filed Nov 23, Marcos Marcelo Mindlin (Director at Pampa Energía S.A.) reported an open-market purchase of $PAM totaling $3.74M.",
         "Marcos Marcelo Mindlin's $PAM purchase was traded Nov 19 and reported on a Form 4 filed Nov 23.",
         "Traded Nov 19, Marcos Marcelo Mindlin's $PAM purchase was reported on a Form 4 filed Nov 23.",
-        "Officers and directors reported $728M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $728M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $728M of open-market buys and $5.7B of open-market sells."
+        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells."
       ],
       "phrasings": [
         {
@@ -10521,29 +11590,29 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $728M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $728M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $728M of open-market buys and $5.7B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$728M": "+",
-          "$728.5M": "+",
-          "$5.7B": "+",
+          "$729M": "+",
+          "$728.9M": "+",
+          "$5.8B": "+",
           "$6B": "+"
         },
         "subjects": {}
@@ -10806,12 +11875,12 @@
       "in_500": false,
       "context_numbers": [
         "$987M",
-        "$728M",
-        "+$728M",
-        "$728.5M",
-        "+$728.5M",
-        "$5.7B",
-        "+$5.7B",
+        "$729M",
+        "+$729M",
+        "$728.9M",
+        "+$728.9M",
+        "$5.8B",
+        "+$5.8B",
         "$6B",
         "+$6B",
         "30"
@@ -10831,12 +11900,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$728M",
-            "+$728M",
-            "$728.5M",
-            "+$728.5M",
-            "$5.7B",
-            "+$5.7B",
+            "$729M",
+            "+$729M",
+            "$728.9M",
+            "+$728.9M",
+            "$5.8B",
+            "+$5.8B",
             "$6B",
             "+$6B"
           ],
@@ -10850,8 +11919,8 @@
       "context": {
         "market_cap": "$987M",
         "insiders_30d": {
-          "bought": "$728M",
-          "sold": "$5.7B",
+          "bought": "$729M",
+          "sold": "$5.8B",
           "days": 30
         }
       },
@@ -10874,9 +11943,9 @@
         "On a Form 4 filed Nov 23, Tor Olav Troim (Director at Borr Drilling Limited) reported an open-market purchase of $BORR totaling $30.45M.",
         "Tor Olav Troim's $BORR purchase was traded Nov 20 and reported on a Form 4 filed Nov 23.",
         "Traded Nov 20, Tor Olav Troim's $BORR purchase was reported on a Form 4 filed Nov 23.",
-        "Officers and directors reported $728M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $728M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $728M of open-market buys and $5.7B of open-market sells."
+        "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells."
       ],
       "phrasings": [
         {
@@ -10974,29 +12043,29 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $728M of open-market buys and $5.7B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $729M of open-market buys and $5.8B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $5.7B of open-market sells and $728M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $5.8B of open-market sells and $729M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $728M of open-market buys and $5.7B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $729M of open-market buys and $5.8B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$728M": "+",
-          "$728.5M": "+",
-          "$5.7B": "+",
+          "$729M": "+",
+          "$728.9M": "+",
+          "$5.8B": "+",
           "$6B": "+"
         },
         "subjects": {}
@@ -11015,6 +12084,752 @@
             987.0,
             0,
             1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-earnings-result-CENT-c03054",
+      "type": "earnings_result",
+      "ticker": "CENT",
+      "tickers": [
+        "CENT"
+      ],
+      "name": "Central Garden & Pet Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/887733/000088773326000024/q42026pressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CENT?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-earnings-result-CENT-c03054#earnings-history",
+      "allowed_numbers": [
+        "$537M",
+        "$607M",
+        "$69.8M",
+        "−$0.04",
+        "−$0.06",
+        "$0.02",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Central Garden & Pet Company (CENT) published FY2026 (Q4) results on 2026-11-23: Mixed vs estimates. Revenue $537M vs $607M consensus (Missed by $69.8M). Non-GAAP diluted net income (loss) per share −$0.04 vs −$0.06 consensus (Beat by $0.02).",
+      "dedupe_key": "report:cent-2026-q4",
+      "claim_phrases": [
+        "revenue came in below the $607M consensus.",
+        "$CENT missed the FY2026 (Q4) revenue consensus: $537M vs $607M.",
+        "$CENT FY2026 (Q4) revenue: $537M vs $607M consensus (missed by $69.8M).",
+        "$CENT FY2026 (Q4) revenue $537M, missed by $69.8M.",
+        "revenue $537M vs $607M consensus (missed by $69.8M).",
+        "revenue $537M vs $607M (missed by $69.8M).",
+        "$CENT missed FY2026 (Q4) revenue estimates by $69.8M.",
+        "EPS came in above the −$0.06 consensus.",
+        "$CENT beat the FY2026 (Q4) EPS consensus: −$0.04 vs −$0.06.",
+        "$CENT FY2026 (Q4) EPS: −$0.04 vs −$0.06 consensus (beat by $0.02).",
+        "$CENT FY2026 (Q4) EPS −$0.04, beat by $0.02.",
+        "EPS −$0.04 vs −$0.06 consensus (beat by $0.02).",
+        "EPS −$0.04 vs −$0.06 (beat by $0.02).",
+        "$CENT beat FY2026 (Q4) EPS estimates by $0.02."
+      ],
+      "report_id": "cent-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-23T21:28:44.915557+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$537M",
+          "consensus": "$607M",
+          "label": "Missed by $69.8M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Non-GAAP diluted net income (loss) per share",
+          "reported": "−$0.04",
+          "consensus": "−$0.06",
+          "label": "Beat by $0.02",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CENT/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CENT: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CENT"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Central Garden & Pet Company ($CENT) published FY2026 (Q4) results on Nov 23.",
+        "$CENT (Central Garden & Pet Company) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Central Garden & Pet Company ($CENT) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Central Garden & Pet Company ($CENT) published FY2026 (Q4) results on Nov 23.",
+        "$CENT (Central Garden & Pet Company) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Central Garden & Pet Company ($CENT) published FY2026 (Q4) results.",
+        "$CENT published FY2026 (Q4) results on Nov 23.",
+        "FY2026 (Q4) results from $CENT came out on Nov 23.",
+        "On Nov 23, $CENT published FY2026 (Q4) results.",
+        "$CENT FY2026 (Q4) revenue: $537M vs $607M consensus.",
+        "$CENT reported FY2026 (Q4) revenue of $537M vs $607M consensus.",
+        "$CENT FY2026 (Q4) revenue was $537M.",
+        "FY2026 (Q4) revenue at $CENT was $537M.",
+        "$CENT FY2026 (Q4) Non-GAAP diluted net income (loss) per share: −$0.04 vs −$0.06 consensus.",
+        "$CENT reported FY2026 (Q4) Non-GAAP diluted net income (loss) per share of −$0.04 vs −$0.06 consensus.",
+        "$CENT FY2026 (Q4) Non-GAAP diluted net income (loss) per share was −$0.04.",
+        "FY2026 (Q4) Non-GAAP diluted net income (loss) per share at $CENT was −$0.04."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $607M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9087c6.a",
+          "fact": "earningsre-9087c6",
+          "variant": "a",
+          "text": "$CENT missed the FY2026 (Q4) revenue consensus: $537M vs $607M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-37dbea.a",
+          "fact": "earningsre-37dbea",
+          "variant": "a",
+          "text": "$CENT FY2026 (Q4) revenue: $537M vs $607M consensus (missed by $69.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bff5fa.a",
+          "fact": "earningsre-bff5fa",
+          "variant": "a",
+          "text": "$CENT FY2026 (Q4) revenue $537M, missed by $69.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $537M vs $607M consensus (missed by $69.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $537M vs $607M (missed by $69.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b91b42.a",
+          "fact": "earningsre-b91b42",
+          "variant": "a",
+          "text": "$CENT missed FY2026 (Q4) revenue estimates by $69.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the −$0.06 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$CENT beat the FY2026 (Q4) EPS consensus: −$0.04 vs −$0.06.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$CENT FY2026 (Q4) EPS: −$0.04 vs −$0.06 consensus (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$CENT FY2026 (Q4) EPS −$0.04, beat by $0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS −$0.04 vs −$0.06 consensus (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS −$0.04 vs −$0.06 (beat by $0.02).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$CENT beat FY2026 (Q4) EPS estimates by $0.02.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-2c2cca.a",
+          "fact": "earningsre-2c2cca",
+          "variant": "a",
+          "text": "Central Garden & Pet Company ($CENT) published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-2c2cca.h1",
+          "fact": "earningsre-2c2cca",
+          "variant": "h1",
+          "text": "$CENT (Central Garden & Pet Company) reported FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-2c2cca.t",
+          "fact": "earningsre-2c2cca",
+          "variant": "t",
+          "text": "On Nov 23, Central Garden & Pet Company ($CENT) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$CENT published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $CENT came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 23, $CENT published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$CENT FY2026 (Q4) revenue: $537M vs $607M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$CENT reported FY2026 (Q4) revenue of $537M vs $607M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$CENT FY2026 (Q4) revenue was $537M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $CENT was $537M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-a414db.a",
+          "fact": "earningsre-a414db",
+          "variant": "a",
+          "text": "$CENT FY2026 (Q4) Non-GAAP diluted net income (loss) per share: −$0.04 vs −$0.06 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-a414db.h1",
+          "fact": "earningsre-a414db",
+          "variant": "h1",
+          "text": "$CENT reported FY2026 (Q4) Non-GAAP diluted net income (loss) per share of −$0.04 vs −$0.06 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-073d14.a",
+          "fact": "earningsre-073d14",
+          "variant": "a",
+          "text": "$CENT FY2026 (Q4) Non-GAAP diluted net income (loss) per share was −$0.04.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-073d14.h1",
+          "fact": "earningsre-073d14",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Non-GAAP diluted net income (loss) per share at $CENT was −$0.04.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.04": "-",
+          "$0.06": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CENT": [
+          [
+            "$",
+            537.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            607.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            69.8,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.04,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.06,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.02,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-earnings-result-CMP-d91a85",
+      "type": "earnings_result",
+      "ticker": "CMP",
+      "tickers": [
+        "CMP"
+      ],
+      "name": "Compass Minerals International, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1227654/000122765426000095/cmp-q42026earningsreleasex.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/CMP?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-earnings-result-CMP-d91a85#earnings-history",
+      "allowed_numbers": [
+        "$251M",
+        "$219M",
+        "$31.8M",
+        "−$0.18",
+        "−$0.03",
+        "$0.15",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Compass Minerals International, Inc. (CMP) published FY2026 (Q4) results on 2026-11-23: Mixed vs estimates. Revenue $251M vs $219M consensus (Beat by $31.8M). Adjusted net (loss) income* per diluted share −$0.18 vs −$0.03 consensus (Missed by $0.15).",
+      "dedupe_key": "report:cmp-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $219M consensus.",
+        "$CMP beat the FY2026 (Q4) revenue consensus: $251M vs $219M.",
+        "$CMP FY2026 (Q4) revenue: $251M vs $219M consensus (beat by $31.8M).",
+        "$CMP FY2026 (Q4) revenue $251M, beat by $31.8M.",
+        "revenue $251M vs $219M consensus (beat by $31.8M).",
+        "revenue $251M vs $219M (beat by $31.8M).",
+        "$CMP beat FY2026 (Q4) revenue estimates by $31.8M.",
+        "EPS came in below the −$0.03 consensus.",
+        "$CMP missed the FY2026 (Q4) EPS consensus: −$0.18 vs −$0.03.",
+        "$CMP FY2026 (Q4) EPS: −$0.18 vs −$0.03 consensus (missed by $0.15).",
+        "$CMP FY2026 (Q4) EPS −$0.18, missed by $0.15.",
+        "EPS −$0.18 vs −$0.03 consensus (missed by $0.15).",
+        "EPS −$0.18 vs −$0.03 (missed by $0.15).",
+        "$CMP missed FY2026 (Q4) EPS estimates by $0.15."
+      ],
+      "report_id": "cmp-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-23T21:21:17.291858+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$251M",
+          "consensus": "$219M",
+          "label": "Beat by $31.8M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted net (loss) income* per diluted share",
+          "reported": "−$0.18",
+          "consensus": "−$0.03",
+          "label": "Missed by $0.15",
+          "verdict": "miss"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/CMP/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for CMP: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CMP"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Compass Minerals International, Inc. ($CMP) published FY2026 (Q4) results on Nov 23.",
+        "$CMP (Compass Minerals International, Inc.) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Compass Minerals International, Inc. ($CMP) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Compass Minerals International, Inc. ($CMP) published FY2026 (Q4) results on Nov 23.",
+        "$CMP (Compass Minerals International, Inc.) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Compass Minerals International, Inc. ($CMP) published FY2026 (Q4) results.",
+        "$CMP published FY2026 (Q4) results on Nov 23.",
+        "FY2026 (Q4) results from $CMP came out on Nov 23.",
+        "On Nov 23, $CMP published FY2026 (Q4) results.",
+        "$CMP FY2026 (Q4) revenue: $251M vs $219M consensus.",
+        "$CMP reported FY2026 (Q4) revenue of $251M vs $219M consensus.",
+        "$CMP FY2026 (Q4) revenue was $251M.",
+        "FY2026 (Q4) revenue at $CMP was $251M.",
+        "$CMP FY2026 (Q4) Adjusted net (loss) income* per diluted share: −$0.18 vs −$0.03 consensus.",
+        "$CMP reported FY2026 (Q4) Adjusted net (loss) income* per diluted share of −$0.18 vs −$0.03 consensus.",
+        "$CMP FY2026 (Q4) Adjusted net (loss) income* per diluted share was −$0.18.",
+        "FY2026 (Q4) Adjusted net (loss) income* per diluted share at $CMP was −$0.18."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $219M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$CMP beat the FY2026 (Q4) revenue consensus: $251M vs $219M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$CMP FY2026 (Q4) revenue: $251M vs $219M consensus (beat by $31.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$CMP FY2026 (Q4) revenue $251M, beat by $31.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $251M vs $219M consensus (beat by $31.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $251M vs $219M (beat by $31.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$CMP beat FY2026 (Q4) revenue estimates by $31.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-418b63.a",
+          "fact": "earningsre-418b63",
+          "variant": "a",
+          "text": "EPS came in below the −$0.03 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-91527d.a",
+          "fact": "earningsre-91527d",
+          "variant": "a",
+          "text": "$CMP missed the FY2026 (Q4) EPS consensus: −$0.18 vs −$0.03.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f04ffc.a",
+          "fact": "earningsre-f04ffc",
+          "variant": "a",
+          "text": "$CMP FY2026 (Q4) EPS: −$0.18 vs −$0.03 consensus (missed by $0.15).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe93e9.a",
+          "fact": "earningsre-fe93e9",
+          "variant": "a",
+          "text": "$CMP FY2026 (Q4) EPS −$0.18, missed by $0.15.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f18190.a",
+          "fact": "earningsre-f18190",
+          "variant": "a",
+          "text": "EPS −$0.18 vs −$0.03 consensus (missed by $0.15).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-17abfe.a",
+          "fact": "earningsre-17abfe",
+          "variant": "a",
+          "text": "EPS −$0.18 vs −$0.03 (missed by $0.15).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b36953.a",
+          "fact": "earningsre-b36953",
+          "variant": "a",
+          "text": "$CMP missed FY2026 (Q4) EPS estimates by $0.15.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Compass Minerals International, Inc. ($CMP) published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$CMP (Compass Minerals International, Inc.) reported FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 23, Compass Minerals International, Inc. ($CMP) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$CMP published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $CMP came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 23, $CMP published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$CMP FY2026 (Q4) revenue: $251M vs $219M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$CMP reported FY2026 (Q4) revenue of $251M vs $219M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$CMP FY2026 (Q4) revenue was $251M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $CMP was $251M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-60075e.a",
+          "fact": "earningsre-60075e",
+          "variant": "a",
+          "text": "$CMP FY2026 (Q4) Adjusted net (loss) income* per diluted share: −$0.18 vs −$0.03 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-60075e.h1",
+          "fact": "earningsre-60075e",
+          "variant": "h1",
+          "text": "$CMP reported FY2026 (Q4) Adjusted net (loss) income* per diluted share of −$0.18 vs −$0.03 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-165e1d.a",
+          "fact": "earningsre-165e1d",
+          "variant": "a",
+          "text": "$CMP FY2026 (Q4) Adjusted net (loss) income* per diluted share was −$0.18.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-165e1d.h1",
+          "fact": "earningsre-165e1d",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Adjusted net (loss) income* per diluted share at $CMP was −$0.18.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.18": "-",
+          "$0.03": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CMP": [
+          [
+            "$",
+            251.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            219.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            31.8,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.18,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.03,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            0.15,
+            2,
+            1.0,
             0
           ]
         ]
@@ -11872,6 +13687,209 @@
           ]
         ]
       },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-23-earnings-result-EXYN-7024fc",
+      "type": "earnings_result",
+      "ticker": "EXYN",
+      "tickers": [
+        "EXYN"
+      ],
+      "name": "Exyn Technologies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1960355/000110465926131109/tm2630488d1_ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/EXYN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-23-earnings-result-EXYN-7024fc#earnings-history",
+      "allowed_numbers": [
+        "$1.22M",
+        "−$0.60",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Exyn Technologies, Inc. (EXYN) published Q3 2026 results on 2026-11-23: Published. Revenue $1.22M. GAAP EPS −$0.60.",
+      "dedupe_key": "report:exyn-2026-q3",
+      "claim_phrases": [],
+      "report_id": "exyn-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-23T21:42:40.550942+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$1.22M"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "−$0.60"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/EXYN/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for EXYN: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-23 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "EXYN"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Exyn Technologies, Inc. ($EXYN) published Q3 2026 results on Nov 23.",
+        "$EXYN (Exyn Technologies, Inc.) reported Q3 2026 results on Nov 23.",
+        "On Nov 23, Exyn Technologies, Inc. ($EXYN) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Exyn Technologies, Inc. ($EXYN) published Q3 2026 results on Nov 23.",
+        "$EXYN (Exyn Technologies, Inc.) reported Q3 2026 results on Nov 23.",
+        "On Nov 23, Exyn Technologies, Inc. ($EXYN) published Q3 2026 results.",
+        "$EXYN published Q3 2026 results on Nov 23.",
+        "Q3 2026 results from $EXYN came out on Nov 23.",
+        "On Nov 23, $EXYN published Q3 2026 results.",
+        "$EXYN Q3 2026 revenue: $1.22M.",
+        "$EXYN reported Q3 2026 revenue of $1.22M.",
+        "$EXYN Q3 2026 revenue was $1.22M.",
+        "Q3 2026 revenue at $EXYN was $1.22M.",
+        "$EXYN Q3 2026 GAAP EPS: −$0.60.",
+        "$EXYN reported Q3 2026 GAAP EPS of −$0.60.",
+        "$EXYN Q3 2026 GAAP EPS was −$0.60.",
+        "Q3 2026 GAAP EPS at $EXYN was −$0.60."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Exyn Technologies, Inc. ($EXYN) published Q3 2026 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$EXYN (Exyn Technologies, Inc.) reported Q3 2026 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 23, Exyn Technologies, Inc. ($EXYN) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$EXYN published Q3 2026 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $EXYN came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 23, $EXYN published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.a",
+          "fact": "earningsre-e46008",
+          "variant": "a",
+          "text": "$EXYN Q3 2026 revenue: $1.22M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e46008.h1",
+          "fact": "earningsre-e46008",
+          "variant": "h1",
+          "text": "$EXYN reported Q3 2026 revenue of $1.22M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$EXYN Q3 2026 revenue was $1.22M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $EXYN was $1.22M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$EXYN Q3 2026 GAAP EPS: −$0.60.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$EXYN reported Q3 2026 GAAP EPS of −$0.60.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$EXYN Q3 2026 GAAP EPS was −$0.60.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $EXYN was −$0.60.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$0.60": "-"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {},
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
