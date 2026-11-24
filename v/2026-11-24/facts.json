@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-24",
-  "generated_at": "2026-11-24T13:00:02Z",
-  "as_of": "2026-11-24T13:00:02Z",
+  "generated_at": "2026-11-24T13:30:02Z",
+  "as_of": "2026-11-24T13:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 0,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 0,
@@ -978,7 +978,7 @@
     "market": {
       "market_session": "2026-11-23",
       "priced_cap_share": 0.9798911747113683,
-      "flows_as_of": "2026-11-24T13:00:18.573981+00:00"
+      "flows_as_of": "2026-11-24T13:30:18.203105+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1001,10 +1001,17 @@
         "ranked_below": 23,
         "pillars": 4
       }
+    },
+    "card_unpinned": {
+      "dropped": 1,
+      "reasons": [
+        "insider_flow RCL: share card not pinned (the card's data changed since the facts read (before the GET))"
+      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError"
+    "post history: FileNotFoundError",
+    "not published: insider_flow RCL: share card not pinned (the card's data changed since the facts read (before the GET))"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1037,557 +1044,6 @@
   },
   "api_requests": 33,
   "items": [
-    {
-      "item_id": "2026-11-24-insider-flow-RCL-e72d9a",
-      "type": "insider_flow",
-      "ticker": "RCL",
-      "tickers": [
-        "RCL",
-        "ANT",
-        "SYK"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-insider-flow-RCL-e72d9a",
-      "allowed_numbers": [
-        "$763M",
-        "+$763M",
-        "$762.7M",
-        "+$762.7M",
-        "$6.2B",
-        "+$6.2B",
-        "$6B",
-        "+$6B",
-        "30",
-        "537",
-        "731",
-        "500",
-        "2026-10-25",
-        "Oct 25, 2026",
-        "Oct 25",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24",
-        "$333M",
-        "+$333M",
-        "$333.2M",
-        "+$333.2M",
-        "$280M",
-        "+$280M",
-        "$280.4M",
-        "+$280.4M",
-        "$179M",
-        "+$179M",
-        "$178.9M",
-        "+$178.9M",
-        "3",
-        "1",
-        "8.1",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $763M of open-market buys and $6.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 25 to Nov 24; 537 companies with buys, 731 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $SYK $179M (1 insiders).",
-      "dedupe_key": "insider_flow:2026-11-24:RCL",
-      "claim_phrases": [
-        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-        "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
-        "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
-        "$SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
-        "Over 30 days in our feed, $SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
-        "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
-        "$RCL ($333M), $ANT ($280M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.1.",
-        "Officers and directors sold $8.1 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $8.1 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "RCL",
-            "ANT",
-            "SYK"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $ANT, $SYK"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$763M",
-            "+$763M",
-            "$762.7M",
-            "+$762.7M",
-            "$6.2B",
-            "+$6.2B",
-            "$6B",
-            "+$6B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($763M bought, $6.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "RCL",
-          "ANT",
-          "SYK"
-        ],
-        "numbers": [
-          "$6.2B",
-          "$763M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-25",
-        "to": "2026-11-24",
-        "days": 30
-      },
-      "bought_usd": 762705835.21,
-      "sold_usd": 6199030999.3,
-      "buy_companies": 537,
-      "sell_companies": 731,
-      "top_sellers_500": [
-        {
-          "ticker": "RCL",
-          "name": "Royal Caribbean Cruises Ltd.",
-          "sector": "Consumer Cyclical",
-          "total_usd": 333233640.82,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 72,
-          "first_trade": "2026-10-28",
-          "last_trade": "2026-11-13"
-        },
-        {
-          "ticker": "ANT",
-          "name": "Anthropic, PBC Class A Common Stock",
-          "sector": "Technology",
-          "total_usd": 280405374.0,
-          "insider_count": 1,
-          "roles": {
-            "officer": 1,
-            "director": 0
-          },
-          "row_count": 1,
-          "first_trade": "2026-11-20",
-          "last_trade": "2026-11-20"
-        },
-        {
-          "ticker": "SYK",
-          "name": "Stryker Corporation",
-          "sector": "Healthcare",
-          "total_usd": 178924730.95,
-          "insider_count": 1,
-          "roles": {
-            "officer": 0,
-            "director": 1
-          },
-          "row_count": 6,
-          "first_trade": "2026-11-06",
-          "last_trade": "2026-11-06"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $6.2B and bought $763M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $763M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $763M of open-market buys."
-      ],
-      "market_cap_usd": 79299782294.9414,
-      "magnitude": 2.6884857121797086,
-      "trigger": "$ANT entered the top 5",
-      "top5": [
-        "RCL",
-        "ANT",
-        "SYK",
-        "MSI",
-        "AXP"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-24/cards/market-insiders-2026-11-24-7a08a8fb-b3ee2748.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-24",
-        "fingerprint": "7a08a8fb",
-        "file": "market-insiders-2026-11-24-7a08a8fb.png",
-        "sha256": "3ce6aa6134e57d188a3f31d7147427aa0405df8c6f5c2fcefaafe092b55846f5"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-24/cards/market-insiders-2026-11-24-7a08a8fb-b3ee2748.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $763M of open-market buys and $6.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 25 to Nov 24; 537 companies with buys, 731 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $SYK $179M (1 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "ticker_sectors": {
-        "RCL": "Consumer Cyclical",
-        "ANT": "Technology",
-        "SYK": "Healthcare"
-      },
-      "ticker_names": {
-        "RCL": "Royal Caribbean Cruises Ltd.",
-        "ANT": "Anthropic, PBC Class A Common Stock",
-        "SYK": "Stryker Corporation"
-      },
-      "fact_phrases": [
-        "Officers and directors reported $763M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $763M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $763M of open-market buys and $6.2B of open-market sells.",
-        "Officers and directors sold $6.2B and bought $763M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $6.2B and bought $763M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 537 companies had open-market buys by officers and directors and 731 had open-market sells.",
-        "731 companies had open-market sells by officers and directors and 537 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-        "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
-        "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
-        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
-        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$RCL ($333M), $ANT ($280M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.1.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $8.1 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $8.1 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $763M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $763M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $763M of open-market buys and $6.2B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $6.2B and bought $763M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $6.2B and bought $763M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 537 companies had open-market buys by officers and directors and 731 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "731 companies had open-market sells by officers and directors and 537 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.a",
-          "fact": "insiderflo-942c9b",
-          "variant": "a",
-          "text": "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.h1",
-          "fact": "insiderflo-942c9b",
-          "variant": "h1",
-          "text": "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.t",
-          "fact": "insiderflo-942c9b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.a",
-          "fact": "insiderflo-942c9b",
-          "variant": "a",
-          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.h1",
-          "fact": "insiderflo-942c9b",
-          "variant": "h1",
-          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.t",
-          "fact": "insiderflo-942c9b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$763M": "+",
-          "$762.7M": "+",
-          "$6.2B": "+",
-          "$6B": "+",
-          "$333M": "+",
-          "$333.2M": "+",
-          "$280M": "+",
-          "$280.4M": "+",
-          "$179M": "+",
-          "$178.9M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "RCL": [
-          [
-            "$",
-            333.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            8.1,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "ANT": [
-          [
-            "$",
-            280.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "SYK": [
-          [
-            "$",
-            179.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 11.19,
-      "rank_why": "insider_flow 4; large cap $79.3B +2.5; magnitude (market) +2.69; today 2026-11-24 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
     {
       "item_id": "2026-11-24-earnings-result-MDT-eed249",
       "type": "earnings_result",
@@ -10776,8 +10232,8 @@
         "$3.3B",
         "$763M",
         "+$763M",
-        "$762.7M",
-        "+$762.7M",
+        "$763.1M",
+        "+$763.1M",
         "$6.2B",
         "+$6.2B",
         "$6B",
@@ -10801,8 +10257,8 @@
           "numbers": [
             "$763M",
             "+$763M",
-            "$762.7M",
-            "+$762.7M",
+            "$763.1M",
+            "+$763.1M",
             "$6.2B",
             "+$6.2B",
             "$6B",
@@ -10963,7 +10419,7 @@
       "moves": {
         "numbers": {
           "$763M": "+",
-          "$762.7M": "+",
+          "$763.1M": "+",
           "$6.2B": "+",
           "$6B": "+"
         },
