@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-24",
-  "generated_at": "2026-11-24T19:45:02Z",
-  "as_of": "2026-11-24T19:45:02Z",
+  "generated_at": "2026-11-24T20:15:02Z",
+  "as_of": "2026-11-24T20:15:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 2,
     "form4_buy": 0,
-    "earnings_result": 16,
+    "earnings_result": 22,
     "earnings_upcoming": 3,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 1,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 0,
@@ -939,17 +939,13 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 4012,
-      "recent_ready": 48,
+      "archive_reports": 4031,
+      "recent_ready": 54,
       "outside_24h": 31,
       "unreadable": 0,
       "consensus_mismatch_hold": 1,
       "held": [
         "EMBC: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)"
-      ],
-      "not_compared": 1,
-      "not_compared_metrics": [
-        "J: revenue (basis_mismatch)"
       ]
     },
     "earnings_upcoming": {
@@ -965,7 +961,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 21,
+      "tickers_in_items": 27,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -979,7 +975,7 @@
     "market": {
       "market_session": "2026-11-23",
       "priced_cap_share": 0.9798911747113683,
-      "flows_as_of": "2026-11-24T19:45:17.315606+00:00"
+      "flows_as_of": "2026-11-24T20:15:20.578881+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -991,21 +987,28 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 69
+        "angles_dropped": 85
       },
       "top8": {
         "stale": 6,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 2,
-        "ranked_below": 21,
+        "repeat": 1,
+        "ranked_below": 28,
         "pillars": 4
       }
+    },
+    "card_unpinned": {
+      "dropped": 1,
+      "reasons": [
+        "insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-24/cards/market-insiders-2026-11-24-f1e35c9e-b5f72103.png (old data))"
+      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError"
+    "post history: FileNotFoundError",
+    "not published: insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-24/cards/market-insiders-2026-11-24-f1e35c9e-b5f72103.png (old data))"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1036,559 +1039,8 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 31,
+  "api_requests": 36,
   "items": [
-    {
-      "item_id": "2026-11-24-insider-flow-RCL-e72d9a",
-      "type": "insider_flow",
-      "ticker": "RCL",
-      "tickers": [
-        "RCL",
-        "ANT",
-        "SYK"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-insider-flow-RCL-e72d9a",
-      "allowed_numbers": [
-        "$764M",
-        "+$764M",
-        "$763.7M",
-        "+$763.7M",
-        "$6.2B",
-        "+$6.2B",
-        "$6B",
-        "+$6B",
-        "30",
-        "546",
-        "733",
-        "500",
-        "2026-10-25",
-        "Oct 25, 2026",
-        "Oct 25",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24",
-        "$333M",
-        "+$333M",
-        "$333.2M",
-        "+$333.2M",
-        "$280M",
-        "+$280M",
-        "$280.4M",
-        "+$280.4M",
-        "$179M",
-        "+$179M",
-        "$178.9M",
-        "+$178.9M",
-        "3",
-        "1",
-        "8.1",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 25 to Nov 24; 546 companies with buys, 733 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $SYK $179M (1 insiders).",
-      "dedupe_key": "insider_flow:2026-11-24:RCL",
-      "claim_phrases": [
-        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-        "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
-        "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
-        "$SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
-        "Over 30 days in our feed, $SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
-        "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
-        "$RCL ($333M), $ANT ($280M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.1.",
-        "Officers and directors sold $8.1 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $8.1 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "RCL",
-            "ANT",
-            "SYK"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $ANT, $SYK"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$764M",
-            "+$764M",
-            "$763.7M",
-            "+$763.7M",
-            "$6.2B",
-            "+$6.2B",
-            "$6B",
-            "+$6B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($764M bought, $6.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "RCL",
-          "ANT",
-          "SYK"
-        ],
-        "numbers": [
-          "$6.2B",
-          "$764M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-25",
-        "to": "2026-11-24",
-        "days": 30
-      },
-      "bought_usd": 763730871.14,
-      "sold_usd": 6213039605.98,
-      "buy_companies": 546,
-      "sell_companies": 733,
-      "top_sellers_500": [
-        {
-          "ticker": "RCL",
-          "name": "Royal Caribbean Cruises Ltd.",
-          "sector": "Consumer Cyclical",
-          "total_usd": 333233640.82,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 72,
-          "first_trade": "2026-10-28",
-          "last_trade": "2026-11-13"
-        },
-        {
-          "ticker": "ANT",
-          "name": "Anthropic, PBC Class A Common Stock",
-          "sector": "Technology",
-          "total_usd": 280405374.0,
-          "insider_count": 1,
-          "roles": {
-            "officer": 1,
-            "director": 0
-          },
-          "row_count": 1,
-          "first_trade": "2026-11-20",
-          "last_trade": "2026-11-20"
-        },
-        {
-          "ticker": "SYK",
-          "name": "Stryker Corporation",
-          "sector": "Healthcare",
-          "total_usd": 178924730.95,
-          "insider_count": 1,
-          "roles": {
-            "officer": 0,
-            "director": 1
-          },
-          "row_count": 6,
-          "first_trade": "2026-11-06",
-          "last_trade": "2026-11-06"
-        }
-      ],
-      "top_buyers_500": [],
-      "angles": [
-        "Officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $764M of open-market buys."
-      ],
-      "market_cap_usd": 79299782294.9414,
-      "magnitude": 2.689956183148726,
-      "trigger": "$ANT entered the top 5",
-      "top5": [
-        "RCL",
-        "ANT",
-        "SYK",
-        "MSI",
-        "AXP"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-24/cards/market-insiders-2026-11-24-f1e35c9e-b5f72103.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-24",
-        "fingerprint": "f1e35c9e",
-        "file": "market-insiders-2026-11-24-f1e35c9e.png",
-        "sha256": "ca2aaa9086dfb129c973fc3f464b081fd3ccd2daf7aa3fa8b843f16fd453d920"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-24/cards/market-insiders-2026-11-24-f1e35c9e-b5f72103.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 25 to Nov 24; 546 companies with buys, 733 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $SYK $179M (1 insiders)."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "ticker_sectors": {
-        "RCL": "Consumer Cyclical",
-        "ANT": "Technology",
-        "SYK": "Healthcare"
-      },
-      "ticker_names": {
-        "RCL": "Royal Caribbean Cruises Ltd.",
-        "ANT": "Anthropic, PBC Class A Common Stock",
-        "SYK": "Stryker Corporation"
-      },
-      "fact_phrases": [
-        "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $764M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $764M of open-market buys and $6.2B of open-market sells.",
-        "Officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 546 companies had open-market buys by officers and directors and 733 had open-market sells.",
-        "733 companies had open-market sells by officers and directors and 546 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-        "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
-        "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
-        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
-        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider)."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$RCL ($333M), $ANT ($280M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.1.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $8.1 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $8.1 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $764M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $764M of open-market buys and $6.2B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 546 companies had open-market buys by officers and directors and 733 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "733 companies had open-market sells by officers and directors and 546 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.a",
-          "fact": "insiderflo-942c9b",
-          "variant": "a",
-          "text": "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.h1",
-          "fact": "insiderflo-942c9b",
-          "variant": "h1",
-          "text": "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.t",
-          "fact": "insiderflo-942c9b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.a",
-          "fact": "insiderflo-942c9b",
-          "variant": "a",
-          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.h1",
-          "fact": "insiderflo-942c9b",
-          "variant": "h1",
-          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.t",
-          "fact": "insiderflo-942c9b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$764M": "+",
-          "$763.7M": "+",
-          "$6.2B": "+",
-          "$6B": "+",
-          "$333M": "+",
-          "$333.2M": "+",
-          "$280M": "+",
-          "$280.4M": "+",
-          "$179M": "+",
-          "$178.9M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "RCL": [
-          [
-            "$",
-            333.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            8.1,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "ANT": [
-          [
-            "$",
-            280.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "SYK": [
-          [
-            "$",
-            179.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 11.19,
-      "rank_why": "insider_flow 4; large cap $79.3B +2.5; magnitude (market) +2.69; today 2026-11-24 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
     {
       "item_id": "2026-11-24-congress-flow-ACN-16275a",
       "type": "congress_flow",
@@ -1865,6 +1317,529 @@
       "cooldown": null,
       "rank": 10.5,
       "rank_why": "congress_flow 4; large cap $130.65B +2.5; magnitude (market) +2; today 2026-11-24 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-24-earnings-result-ADI-259a57",
+      "type": "earnings_result",
+      "ticker": "ADI",
+      "tickers": [
+        "ADI"
+      ],
+      "name": "Analog Devices, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/6281/000000628126000087/adiq426exhibit991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ADI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-ADI-259a57#earnings-history",
+      "allowed_numbers": [
+        "$4.37B",
+        "$4.32B",
+        "$53.9M",
+        "$4.06",
+        "$3.88",
+        "$0.18",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Analog Devices, Inc. (ADI) published FY2026 (Q4) results on 2026-11-24: Beat estimates. Revenue $4.37B vs $4.32B consensus (Beat by $53.9M). Adjusted diluted EPS $4.06 vs $3.88 consensus (Beat by $0.18).",
+      "dedupe_key": "report:adi-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $4.32B consensus.",
+        "$ADI beat the FY2026 (Q4) revenue consensus: $4.37B vs $4.32B.",
+        "$ADI FY2026 (Q4) revenue: $4.37B vs $4.32B consensus (beat by $53.9M).",
+        "$ADI FY2026 (Q4) revenue $4.37B, beat by $53.9M.",
+        "revenue $4.37B vs $4.32B consensus (beat by $53.9M).",
+        "revenue $4.37B vs $4.32B (beat by $53.9M).",
+        "$ADI beat FY2026 (Q4) revenue estimates by $53.9M.",
+        "EPS came in above the $3.88 consensus.",
+        "$ADI beat the FY2026 (Q4) EPS consensus: $4.06 vs $3.88.",
+        "$ADI FY2026 (Q4) EPS: $4.06 vs $3.88 consensus (beat by $0.18).",
+        "$ADI FY2026 (Q4) EPS $4.06, beat by $0.18.",
+        "EPS $4.06 vs $3.88 consensus (beat by $0.18).",
+        "EPS $4.06 vs $3.88 (beat by $0.18).",
+        "$ADI beat FY2026 (Q4) EPS estimates by $0.18.",
+        "Adjusted diluted EPS came in above the $3.88 consensus.",
+        "$ADI beat the FY2026 (Q4) Adjusted diluted EPS consensus: $4.06 vs $3.88.",
+        "$ADI FY2026 (Q4) Adjusted diluted EPS: $4.06 vs $3.88 consensus (beat by $0.18).",
+        "$ADI FY2026 (Q4) Adjusted diluted EPS $4.06, beat by $0.18.",
+        "Adjusted diluted EPS $4.06 vs $3.88 consensus (beat by $0.18).",
+        "Adjusted diluted EPS $4.06 vs $3.88 (beat by $0.18).",
+        "$ADI beat FY2026 (Q4) Adjusted diluted EPS estimates by $0.18.",
+        "$ADI beat FY2026 (Q4) estimates."
+      ],
+      "report_id": "adi-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-24",
+      "published_at": "2026-11-24T20:01:38.942751+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$4.37B",
+          "consensus": "$4.32B",
+          "label": "Beat by $53.9M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted diluted EPS",
+          "reported": "$4.06",
+          "consensus": "$3.88",
+          "label": "Beat by $0.18",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ADI/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for ADI: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $167.62B +2.5; magnitude (verdict) +1.5; release_date 2026-11-24 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 167620892246.28638,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$167.6B",
+        "+9.49%",
+        "9.49%",
+        "+9.5%",
+        "9.5%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ADI"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "ADI": "Technology"
+      },
+      "ticker_names": {
+        "ADI": "Analog Devices, Inc."
+      },
+      "context": {
+        "market_cap": "$167.6B",
+        "market_cap_session": "2026-11-23",
+        "last_session_move": {
+          "pct": "+9.49%",
+          "session": "2026-11-23"
+        }
+      },
+      "angles": [
+        "Analog Devices, Inc. ($ADI) published FY2026 (Q4) results on Nov 24.",
+        "$ADI (Analog Devices, Inc.) reported FY2026 (Q4) results on Nov 24.",
+        "On Nov 24, Analog Devices, Inc. ($ADI) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Analog Devices, Inc. ($ADI) published FY2026 (Q4) results on Nov 24.",
+        "$ADI (Analog Devices, Inc.) reported FY2026 (Q4) results on Nov 24.",
+        "On Nov 24, Analog Devices, Inc. ($ADI) published FY2026 (Q4) results.",
+        "$ADI published FY2026 (Q4) results on Nov 24.",
+        "FY2026 (Q4) results from $ADI came out on Nov 24.",
+        "On Nov 24, $ADI published FY2026 (Q4) results.",
+        "$ADI FY2026 (Q4) revenue: $4.37B vs $4.32B consensus.",
+        "$ADI reported FY2026 (Q4) revenue of $4.37B vs $4.32B consensus.",
+        "$ADI FY2026 (Q4) revenue was $4.37B.",
+        "FY2026 (Q4) revenue at $ADI was $4.37B.",
+        "$ADI FY2026 (Q4) Adjusted diluted EPS: $4.06 vs $3.88 consensus.",
+        "$ADI reported FY2026 (Q4) Adjusted diluted EPS of $4.06 vs $3.88 consensus.",
+        "$ADI FY2026 (Q4) Adjusted diluted EPS was $4.06.",
+        "FY2026 (Q4) Adjusted diluted EPS at $ADI was $4.06.",
+        "$ADI had a market value of $167.6B at the Nov 23 close.",
+        "$ADI's market value at the Nov 23 close was $167.6B.",
+        "At the Nov 23 close, $ADI had a market value of $167.6B.",
+        "$ADI moved +9.49% on Monday, Nov 23.",
+        "$ADI's move on Monday, Nov 23: +9.49%.",
+        "On Monday, Nov 23, $ADI moved +9.49%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $4.32B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$ADI beat the FY2026 (Q4) revenue consensus: $4.37B vs $4.32B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) revenue: $4.37B vs $4.32B consensus (beat by $53.9M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) revenue $4.37B, beat by $53.9M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $4.37B vs $4.32B consensus (beat by $53.9M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $4.37B vs $4.32B (beat by $53.9M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$ADI beat FY2026 (Q4) revenue estimates by $53.9M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $3.88 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$ADI beat the FY2026 (Q4) EPS consensus: $4.06 vs $3.88.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) EPS: $4.06 vs $3.88 consensus (beat by $0.18).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) EPS $4.06, beat by $0.18.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $4.06 vs $3.88 consensus (beat by $0.18).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $4.06 vs $3.88 (beat by $0.18).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$ADI beat FY2026 (Q4) EPS estimates by $0.18.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-ff47ea.a",
+          "fact": "earningsre-ff47ea",
+          "variant": "a",
+          "text": "Adjusted diluted EPS came in above the $3.88 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6a67e0.a",
+          "fact": "earningsre-6a67e0",
+          "variant": "a",
+          "text": "$ADI beat the FY2026 (Q4) Adjusted diluted EPS consensus: $4.06 vs $3.88.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b45ee8.a",
+          "fact": "earningsre-b45ee8",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) Adjusted diluted EPS: $4.06 vs $3.88 consensus (beat by $0.18).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1c39ef.a",
+          "fact": "earningsre-1c39ef",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) Adjusted diluted EPS $4.06, beat by $0.18.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70ceb5.a",
+          "fact": "earningsre-70ceb5",
+          "variant": "a",
+          "text": "Adjusted diluted EPS $4.06 vs $3.88 consensus (beat by $0.18).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8eaab8.a",
+          "fact": "earningsre-8eaab8",
+          "variant": "a",
+          "text": "Adjusted diluted EPS $4.06 vs $3.88 (beat by $0.18).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-f115fc.a",
+          "fact": "earningsre-f115fc",
+          "variant": "a",
+          "text": "$ADI beat FY2026 (Q4) Adjusted diluted EPS estimates by $0.18.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-232122.a",
+          "fact": "earningsre-232122",
+          "variant": "a",
+          "text": "$ADI beat FY2026 (Q4) estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Analog Devices, Inc. ($ADI) published FY2026 (Q4) results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$ADI (Analog Devices, Inc.) reported FY2026 (Q4) results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 24, Analog Devices, Inc. ($ADI) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$ADI published FY2026 (Q4) results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $ADI came out on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 24, $ADI published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) revenue: $4.37B vs $4.32B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$ADI reported FY2026 (Q4) revenue of $4.37B vs $4.32B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) revenue was $4.37B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $ADI was $4.37B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-9d8bb3.a",
+          "fact": "earningsre-9d8bb3",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) Adjusted diluted EPS: $4.06 vs $3.88 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-9d8bb3.h1",
+          "fact": "earningsre-9d8bb3",
+          "variant": "h1",
+          "text": "$ADI reported FY2026 (Q4) Adjusted diluted EPS of $4.06 vs $3.88 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-de952a.a",
+          "fact": "earningsre-de952a",
+          "variant": "a",
+          "text": "$ADI FY2026 (Q4) Adjusted diluted EPS was $4.06.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-de952a.h1",
+          "fact": "earningsre-de952a",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Adjusted diluted EPS at $ADI was $4.06.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$ADI had a market value of $167.6B at the Nov 23 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$ADI's market value at the Nov 23 close was $167.6B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 23 close, $ADI had a market value of $167.6B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$ADI moved +9.49% on Monday, Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$ADI's move on Monday, Nov 23: +9.49%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Monday, Nov 23, $ADI moved +9.49%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "9.49%": "+",
+          "9.5%": "+"
+        },
+        "subjects": {
+          "ADI": "up"
+        }
+      },
+      "subject_numbers": {
+        "ADI": [
+          [
+            "$",
+            4.37,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            4.32,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            53.9,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            4.06,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            3.88,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.18,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            9.49,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            167.6,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
       "top8": true,
       "rotation": null
     },
@@ -3534,534 +3509,6 @@
           [
             "$",
             48.0,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-24-earnings-result-HPE-4204f4",
-      "type": "earnings_result",
-      "ticker": "HPE",
-      "tickers": [
-        "HPE"
-      ],
-      "name": "Hewlett Packard Enterprise Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-23",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1645590/000164559026000097/ex-991x11232026x8k.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/HPE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-HPE-4204f4#earnings-history",
-      "allowed_numbers": [
-        "$14.55B",
-        "$14.43B",
-        "$122M",
-        "$1.43",
-        "$1.29",
-        "$0.14",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Hewlett Packard Enterprise Company (HPE) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $14.55B vs $14.43B consensus (Beat by $122M). Non-GAAP $1.43 vs $1.29 consensus (Beat by $0.14).",
-      "dedupe_key": "report:hpe-2026-q4",
-      "claim_phrases": [
-        "revenue came in above the $14.43B consensus.",
-        "$HPE beat the FY2026 (Q4) revenue consensus: $14.55B vs $14.43B.",
-        "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus (beat by $122M).",
-        "$HPE FY2026 (Q4) revenue $14.55B, beat by $122M.",
-        "revenue $14.55B vs $14.43B consensus (beat by $122M).",
-        "revenue $14.55B vs $14.43B (beat by $122M).",
-        "$HPE beat FY2026 (Q4) revenue estimates by $122M.",
-        "EPS came in above the $1.29 consensus.",
-        "$HPE beat the FY2026 (Q4) EPS consensus: $1.43 vs $1.29.",
-        "$HPE FY2026 (Q4) EPS: $1.43 vs $1.29 consensus (beat by $0.14).",
-        "$HPE FY2026 (Q4) EPS $1.43, beat by $0.14.",
-        "EPS $1.43 vs $1.29 consensus (beat by $0.14).",
-        "EPS $1.43 vs $1.29 (beat by $0.14).",
-        "$HPE beat FY2026 (Q4) EPS estimates by $0.14.",
-        "Non-GAAP came in above the $1.29 consensus.",
-        "$HPE beat the FY2026 (Q4) Non-GAAP consensus: $1.43 vs $1.29.",
-        "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus (beat by $0.14).",
-        "$HPE FY2026 (Q4) Non-GAAP $1.43, beat by $0.14.",
-        "Non-GAAP $1.43 vs $1.29 consensus (beat by $0.14).",
-        "Non-GAAP $1.43 vs $1.29 (beat by $0.14).",
-        "$HPE beat FY2026 (Q4) Non-GAAP estimates by $0.14.",
-        "$HPE beat FY2026 (Q4) estimates."
-      ],
-      "report_id": "hpe-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-23",
-      "published_at": "2026-11-23T21:44:39.445847+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$14.55B",
-          "consensus": "$14.43B",
-          "label": "Beat by $122M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Non-GAAP",
-          "reported": "$1.43",
-          "consensus": "$1.29",
-          "label": "Beat by $0.14",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/HPE/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for HPE: recent price, trend, analyst and filing summary."
-        },
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-24/cards/2026-11-24-earnings-result-HPE-4204f4/reel_9x16.mp4",
-          "kind": "reel",
-          "alt": "Hewlett Packard Enterprise Company (HPE) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $14.55B vs $14.43B consensus (Beat by $122M). Non-GAAP $1.43 vs $1.29 consensus (Beat by $0.14)."
-        }
-      ],
-      "rank": 8.5,
-      "rank_why": "earnings_result 3; large cap $54.31B +2.5; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 54306584384.70088,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23",
-        "$54.3B",
-        "+17.38%",
-        "17.38%",
-        "+17.4%",
-        "17.4%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "HPE"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "HPE": "Technology"
-      },
-      "ticker_names": {
-        "HPE": "Hewlett Packard Enterprise Company"
-      },
-      "context": {
-        "market_cap": "$54.3B",
-        "market_cap_session": "2026-11-23",
-        "last_session_move": {
-          "pct": "+17.38%",
-          "session": "2026-11-23"
-        }
-      },
-      "angles": [
-        "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
-        "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
-        "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
-        "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
-        "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results.",
-        "$HPE published FY2026 (Q4) results on Nov 23.",
-        "FY2026 (Q4) results from $HPE came out on Nov 23.",
-        "On Nov 23, $HPE published FY2026 (Q4) results.",
-        "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus.",
-        "$HPE reported FY2026 (Q4) revenue of $14.55B vs $14.43B consensus.",
-        "$HPE FY2026 (Q4) revenue was $14.55B.",
-        "FY2026 (Q4) revenue at $HPE was $14.55B.",
-        "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus.",
-        "$HPE reported FY2026 (Q4) Non-GAAP of $1.43 vs $1.29 consensus.",
-        "$HPE FY2026 (Q4) Non-GAAP was $1.43.",
-        "FY2026 (Q4) Non-GAAP at $HPE was $1.43.",
-        "$HPE had a market value of $54.3B at the Nov 23 close.",
-        "$HPE's market value at the Nov 23 close was $54.3B.",
-        "At the Nov 23 close, $HPE had a market value of $54.3B.",
-        "$HPE moved +17.38% on Monday, Nov 23.",
-        "$HPE's move on Monday, Nov 23: +17.38%.",
-        "On Monday, Nov 23, $HPE moved +17.38%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $14.43B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fe5e72.a",
-          "fact": "earningsre-fe5e72",
-          "variant": "a",
-          "text": "$HPE beat the FY2026 (Q4) revenue consensus: $14.55B vs $14.43B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c73b4a.a",
-          "fact": "earningsre-c73b4a",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus (beat by $122M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c84ebe.a",
-          "fact": "earningsre-c84ebe",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) revenue $14.55B, beat by $122M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $14.55B vs $14.43B consensus (beat by $122M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $14.55B vs $14.43B (beat by $122M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-292430.a",
-          "fact": "earningsre-292430",
-          "variant": "a",
-          "text": "$HPE beat FY2026 (Q4) revenue estimates by $122M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.29 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$HPE beat the FY2026 (Q4) EPS consensus: $1.43 vs $1.29.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) EPS: $1.43 vs $1.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) EPS $1.43, beat by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.43 vs $1.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.43 vs $1.29 (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$HPE beat FY2026 (Q4) EPS estimates by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "Non-GAAP came in above the $1.29 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$HPE beat the FY2026 (Q4) Non-GAAP consensus: $1.43 vs $1.29.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) Non-GAAP $1.43, beat by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "Non-GAAP $1.43 vs $1.29 consensus (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "Non-GAAP $1.43 vs $1.29 (beat by $0.14).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$HPE beat FY2026 (Q4) Non-GAAP estimates by $0.14.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-232122.a",
-          "fact": "earningsre-232122",
-          "variant": "a",
-          "text": "$HPE beat FY2026 (Q4) estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$HPE published FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $HPE came out on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 23, $HPE published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.a",
-          "fact": "earningsre-8c456a",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.h1",
-          "fact": "earningsre-8c456a",
-          "variant": "h1",
-          "text": "$HPE reported FY2026 (Q4) revenue of $14.55B vs $14.43B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.a",
-          "fact": "earningsre-3741ca",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) revenue was $14.55B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.h1",
-          "fact": "earningsre-3741ca",
-          "variant": "h1",
-          "text": "FY2026 (Q4) revenue at $HPE was $14.55B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b47db5.a",
-          "fact": "earningsre-b47db5",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b47db5.h1",
-          "fact": "earningsre-b47db5",
-          "variant": "h1",
-          "text": "$HPE reported FY2026 (Q4) Non-GAAP of $1.43 vs $1.29 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1df3d9.a",
-          "fact": "earningsre-1df3d9",
-          "variant": "a",
-          "text": "$HPE FY2026 (Q4) Non-GAAP was $1.43.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1df3d9.h1",
-          "fact": "earningsre-1df3d9",
-          "variant": "h1",
-          "text": "FY2026 (Q4) Non-GAAP at $HPE was $1.43.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$HPE had a market value of $54.3B at the Nov 23 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$HPE's market value at the Nov 23 close was $54.3B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 23 close, $HPE had a market value of $54.3B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$HPE moved +17.38% on Monday, Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$HPE's move on Monday, Nov 23: +17.38%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Monday, Nov 23, $HPE moved +17.38%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "17.38%": "+",
-          "17.4%": "+"
-        },
-        "subjects": {
-          "HPE": "up"
-        }
-      },
-      "subject_numbers": {
-        "HPE": [
-          [
-            "$",
-            14.55,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            14.43,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            122.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            1.43,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.29,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.14,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            17.38,
-            2,
-            1.0,
-            1
-          ],
-          [
-            "$",
-            54.3,
             1,
             1000000000.0,
             0
@@ -10033,6 +9480,535 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-24-earnings-result-HPE-4204f4",
+      "type": "earnings_result",
+      "ticker": "HPE",
+      "tickers": [
+        "HPE"
+      ],
+      "name": "Hewlett Packard Enterprise Company",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1645590/000164559026000097/ex-991x11232026x8k.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/HPE?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-HPE-4204f4#earnings-history",
+      "allowed_numbers": [
+        "$14.55B",
+        "$14.43B",
+        "$122M",
+        "$1.43",
+        "$1.29",
+        "$0.14",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Hewlett Packard Enterprise Company (HPE) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $14.55B vs $14.43B consensus (Beat by $122M). Non-GAAP $1.43 vs $1.29 consensus (Beat by $0.14).",
+      "dedupe_key": "report:hpe-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $14.43B consensus.",
+        "$HPE beat the FY2026 (Q4) revenue consensus: $14.55B vs $14.43B.",
+        "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus (beat by $122M).",
+        "$HPE FY2026 (Q4) revenue $14.55B, beat by $122M.",
+        "revenue $14.55B vs $14.43B consensus (beat by $122M).",
+        "revenue $14.55B vs $14.43B (beat by $122M).",
+        "$HPE beat FY2026 (Q4) revenue estimates by $122M.",
+        "EPS came in above the $1.29 consensus.",
+        "$HPE beat the FY2026 (Q4) EPS consensus: $1.43 vs $1.29.",
+        "$HPE FY2026 (Q4) EPS: $1.43 vs $1.29 consensus (beat by $0.14).",
+        "$HPE FY2026 (Q4) EPS $1.43, beat by $0.14.",
+        "EPS $1.43 vs $1.29 consensus (beat by $0.14).",
+        "EPS $1.43 vs $1.29 (beat by $0.14).",
+        "$HPE beat FY2026 (Q4) EPS estimates by $0.14.",
+        "Non-GAAP came in above the $1.29 consensus.",
+        "$HPE beat the FY2026 (Q4) Non-GAAP consensus: $1.43 vs $1.29.",
+        "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus (beat by $0.14).",
+        "$HPE FY2026 (Q4) Non-GAAP $1.43, beat by $0.14.",
+        "Non-GAAP $1.43 vs $1.29 consensus (beat by $0.14).",
+        "Non-GAAP $1.43 vs $1.29 (beat by $0.14).",
+        "$HPE beat FY2026 (Q4) Non-GAAP estimates by $0.14.",
+        "$HPE beat FY2026 (Q4) estimates."
+      ],
+      "report_id": "hpe-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-23T21:44:39.445847+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$14.55B",
+          "consensus": "$14.43B",
+          "label": "Beat by $122M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP",
+          "reported": "$1.43",
+          "consensus": "$1.29",
+          "label": "Beat by $0.14",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/HPE/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for HPE: recent price, trend, analyst and filing summary."
+        },
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-24/cards/2026-11-24-earnings-result-HPE-4204f4/reel_9x16.mp4",
+          "kind": "reel",
+          "alt": "Hewlett Packard Enterprise Company (HPE) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $14.55B vs $14.43B consensus (Beat by $122M). Non-GAAP $1.43 vs $1.29 consensus (Beat by $0.14)."
+        }
+      ],
+      "rank": 8.5,
+      "rank_why": "earnings_result 3; large cap $54.31B +2.5; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
+      "pillar": "P5",
+      "market_cap_usd": 54306584384.70088,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$54.3B",
+        "+17.38%",
+        "17.38%",
+        "+17.4%",
+        "17.4%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "HPE"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "HPE": "Technology"
+      },
+      "ticker_names": {
+        "HPE": "Hewlett Packard Enterprise Company"
+      },
+      "context": {
+        "market_cap": "$54.3B",
+        "market_cap_session": "2026-11-23",
+        "last_session_move": {
+          "pct": "+17.38%",
+          "session": "2026-11-23"
+        }
+      },
+      "angles": [
+        "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
+        "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
+        "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results.",
+        "$HPE published FY2026 (Q4) results on Nov 23.",
+        "FY2026 (Q4) results from $HPE came out on Nov 23.",
+        "On Nov 23, $HPE published FY2026 (Q4) results.",
+        "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus.",
+        "$HPE reported FY2026 (Q4) revenue of $14.55B vs $14.43B consensus.",
+        "$HPE FY2026 (Q4) revenue was $14.55B.",
+        "FY2026 (Q4) revenue at $HPE was $14.55B.",
+        "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus.",
+        "$HPE reported FY2026 (Q4) Non-GAAP of $1.43 vs $1.29 consensus.",
+        "$HPE FY2026 (Q4) Non-GAAP was $1.43.",
+        "FY2026 (Q4) Non-GAAP at $HPE was $1.43.",
+        "$HPE had a market value of $54.3B at the Nov 23 close.",
+        "$HPE's market value at the Nov 23 close was $54.3B.",
+        "At the Nov 23 close, $HPE had a market value of $54.3B.",
+        "$HPE moved +17.38% on Monday, Nov 23.",
+        "$HPE's move on Monday, Nov 23: +17.38%.",
+        "On Monday, Nov 23, $HPE moved +17.38%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $14.43B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$HPE beat the FY2026 (Q4) revenue consensus: $14.55B vs $14.43B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus (beat by $122M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) revenue $14.55B, beat by $122M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $14.55B vs $14.43B consensus (beat by $122M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $14.55B vs $14.43B (beat by $122M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$HPE beat FY2026 (Q4) revenue estimates by $122M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.29 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$HPE beat the FY2026 (Q4) EPS consensus: $1.43 vs $1.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) EPS: $1.43 vs $1.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) EPS $1.43, beat by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.43 vs $1.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.43 vs $1.29 (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$HPE beat FY2026 (Q4) EPS estimates by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "Non-GAAP came in above the $1.29 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$HPE beat the FY2026 (Q4) Non-GAAP consensus: $1.43 vs $1.29.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) Non-GAAP $1.43, beat by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "Non-GAAP $1.43 vs $1.29 consensus (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "Non-GAAP $1.43 vs $1.29 (beat by $0.14).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$HPE beat FY2026 (Q4) Non-GAAP estimates by $0.14.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-232122.a",
+          "fact": "earningsre-232122",
+          "variant": "a",
+          "text": "$HPE beat FY2026 (Q4) estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$HPE (Hewlett Packard Enterprise Company) reported FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 23, Hewlett Packard Enterprise Company ($HPE) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$HPE published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $HPE came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 23, $HPE published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) revenue: $14.55B vs $14.43B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$HPE reported FY2026 (Q4) revenue of $14.55B vs $14.43B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) revenue was $14.55B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $HPE was $14.55B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.a",
+          "fact": "earningsre-b47db5",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) Non-GAAP: $1.43 vs $1.29 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.h1",
+          "fact": "earningsre-b47db5",
+          "variant": "h1",
+          "text": "$HPE reported FY2026 (Q4) Non-GAAP of $1.43 vs $1.29 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.a",
+          "fact": "earningsre-1df3d9",
+          "variant": "a",
+          "text": "$HPE FY2026 (Q4) Non-GAAP was $1.43.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.h1",
+          "fact": "earningsre-1df3d9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Non-GAAP at $HPE was $1.43.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$HPE had a market value of $54.3B at the Nov 23 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$HPE's market value at the Nov 23 close was $54.3B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 23 close, $HPE had a market value of $54.3B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$HPE moved +17.38% on Monday, Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$HPE's move on Monday, Nov 23: +17.38%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Monday, Nov 23, $HPE moved +17.38%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "17.38%": "+",
+          "17.4%": "+"
+        },
+        "subjects": {
+          "HPE": "up"
+        }
+      },
+      "subject_numbers": {
+        "HPE": [
+          [
+            "$",
+            14.55,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            14.43,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            122.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.43,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.29,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.14,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            17.38,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            54.3,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-24-congress-trade-PLD-1d03f7",
       "type": "congress_trade",
       "ticker": "PLD",
@@ -10491,6 +10467,543 @@
         "subjects": {}
       },
       "subject_numbers": {},
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-24-earnings-result-ANF-46504c",
+      "type": "earnings_result",
+      "ticker": "ANF",
+      "tickers": [
+        "ANF"
+      ],
+      "name": "Abercrombie & Fitch Co.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1018840/000101884026000052/q32026pressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ANF?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-ANF-46504c#earnings-history",
+      "allowed_numbers": [
+        "$1.44B",
+        "$1.37B",
+        "$66.3M",
+        "$3.82",
+        "$3.15",
+        "$0.67",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Abercrombie & Fitch Co. (ANF) published Q3 2026 results on 2026-11-24: Beat estimates. Revenue $1.44B vs $1.37B consensus (Beat by $66.3M). Diluted EPS (GAAP, street basis) $3.82 vs $3.15 consensus (Beat by $0.67).",
+      "dedupe_key": "report:anf-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $1.37B consensus.",
+        "$ANF beat the Q3 2026 revenue consensus: $1.44B vs $1.37B.",
+        "$ANF Q3 2026 revenue: $1.44B vs $1.37B consensus (beat by $66.3M).",
+        "$ANF Q3 2026 revenue $1.44B, beat by $66.3M.",
+        "revenue $1.44B vs $1.37B consensus (beat by $66.3M).",
+        "revenue $1.44B vs $1.37B (beat by $66.3M).",
+        "$ANF beat Q3 2026 revenue estimates by $66.3M.",
+        "$ANF beat the Q3 revenue consensus: $1.44B vs $1.37B.",
+        "$ANF Q3 revenue: $1.44B vs $1.37B consensus (beat by $66.3M).",
+        "$ANF Q3 revenue $1.44B, beat by $66.3M.",
+        "$ANF beat Q3 revenue estimates by $66.3M.",
+        "EPS came in above the $3.15 consensus.",
+        "$ANF beat the Q3 2026 EPS consensus: $3.82 vs $3.15.",
+        "$ANF Q3 2026 EPS: $3.82 vs $3.15 consensus (beat by $0.67).",
+        "$ANF Q3 2026 EPS $3.82, beat by $0.67.",
+        "EPS $3.82 vs $3.15 consensus (beat by $0.67).",
+        "EPS $3.82 vs $3.15 (beat by $0.67).",
+        "$ANF beat Q3 2026 EPS estimates by $0.67.",
+        "Diluted EPS (GAAP, street basis) came in above the $3.15 consensus.",
+        "$ANF beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $3.82 vs $3.15.",
+        "$ANF Q3 2026 Diluted EPS (GAAP, street basis): $3.82 vs $3.15 consensus (beat by $0.67).",
+        "$ANF Q3 2026 Diluted EPS (GAAP, street basis) $3.82, beat by $0.67.",
+        "Diluted EPS (GAAP, street basis) $3.82 vs $3.15 consensus (beat by $0.67).",
+        "Diluted EPS (GAAP, street basis) $3.82 vs $3.15 (beat by $0.67).",
+        "$ANF beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.67.",
+        "$ANF beat the Q3 EPS consensus: $3.82 vs $3.15.",
+        "$ANF Q3 EPS: $3.82 vs $3.15 consensus (beat by $0.67).",
+        "$ANF Q3 EPS $3.82, beat by $0.67.",
+        "$ANF beat Q3 EPS estimates by $0.67.",
+        "$ANF beat the Q3 Diluted EPS (GAAP, street basis) consensus: $3.82 vs $3.15.",
+        "$ANF Q3 Diluted EPS (GAAP, street basis): $3.82 vs $3.15 consensus (beat by $0.67).",
+        "$ANF Q3 Diluted EPS (GAAP, street basis) $3.82, beat by $0.67.",
+        "$ANF beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.67.",
+        "$ANF beat Q3 2026 estimates.",
+        "$ANF beat Q3 estimates."
+      ],
+      "report_id": "anf-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-24",
+      "published_at": "2026-11-24T20:02:43.300672+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$1.44B",
+          "consensus": "$1.37B",
+          "label": "Beat by $66.3M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Diluted EPS (GAAP, street basis)",
+          "reported": "$3.82",
+          "consensus": "$3.15",
+          "label": "Beat by $0.67",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ANF/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for ANF: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-24 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ANF"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Abercrombie & Fitch Co. ($ANF) published Q3 2026 results on Nov 24.",
+        "$ANF (Abercrombie & Fitch Co.) reported Q3 2026 results on Nov 24.",
+        "On Nov 24, Abercrombie & Fitch Co. ($ANF) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Abercrombie & Fitch Co. ($ANF) published Q3 2026 results on Nov 24.",
+        "$ANF (Abercrombie & Fitch Co.) reported Q3 2026 results on Nov 24.",
+        "On Nov 24, Abercrombie & Fitch Co. ($ANF) published Q3 2026 results.",
+        "$ANF published Q3 2026 results on Nov 24.",
+        "Q3 2026 results from $ANF came out on Nov 24.",
+        "On Nov 24, $ANF published Q3 2026 results.",
+        "$ANF Q3 2026 revenue: $1.44B vs $1.37B consensus.",
+        "$ANF reported Q3 2026 revenue of $1.44B vs $1.37B consensus.",
+        "$ANF Q3 2026 revenue was $1.44B.",
+        "Q3 2026 revenue at $ANF was $1.44B.",
+        "$ANF Q3 2026 Diluted EPS (GAAP, street basis): $3.82 vs $3.15 consensus.",
+        "$ANF reported Q3 2026 Diluted EPS (GAAP, street basis) of $3.82 vs $3.15 consensus.",
+        "$ANF Q3 2026 Diluted EPS (GAAP, street basis) was $3.82.",
+        "Q3 2026 Diluted EPS (GAAP, street basis) at $ANF was $3.82."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $1.37B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$ANF beat the Q3 2026 revenue consensus: $1.44B vs $1.37B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$ANF Q3 2026 revenue: $1.44B vs $1.37B consensus (beat by $66.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$ANF Q3 2026 revenue $1.44B, beat by $66.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $1.44B vs $1.37B consensus (beat by $66.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $1.44B vs $1.37B (beat by $66.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$ANF beat Q3 2026 revenue estimates by $66.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$ANF beat the Q3 revenue consensus: $1.44B vs $1.37B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$ANF Q3 revenue: $1.44B vs $1.37B consensus (beat by $66.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$ANF Q3 revenue $1.44B, beat by $66.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$ANF beat Q3 revenue estimates by $66.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $3.15 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$ANF beat the Q3 2026 EPS consensus: $3.82 vs $3.15.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$ANF Q3 2026 EPS: $3.82 vs $3.15 consensus (beat by $0.67).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$ANF Q3 2026 EPS $3.82, beat by $0.67.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $3.82 vs $3.15 consensus (beat by $0.67).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $3.82 vs $3.15 (beat by $0.67).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$ANF beat Q3 2026 EPS estimates by $0.67.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-12a211.a",
+          "fact": "earningsre-12a211",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) came in above the $3.15 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b45d0c.a",
+          "fact": "earningsre-b45d0c",
+          "variant": "a",
+          "text": "$ANF beat the Q3 2026 Diluted EPS (GAAP, street basis) consensus: $3.82 vs $3.15.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-365e1a.a",
+          "fact": "earningsre-365e1a",
+          "variant": "a",
+          "text": "$ANF Q3 2026 Diluted EPS (GAAP, street basis): $3.82 vs $3.15 consensus (beat by $0.67).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4de0a3.a",
+          "fact": "earningsre-4de0a3",
+          "variant": "a",
+          "text": "$ANF Q3 2026 Diluted EPS (GAAP, street basis) $3.82, beat by $0.67.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e854ec.a",
+          "fact": "earningsre-e854ec",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) $3.82 vs $3.15 consensus (beat by $0.67).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-0f9fa0.a",
+          "fact": "earningsre-0f9fa0",
+          "variant": "a",
+          "text": "Diluted EPS (GAAP, street basis) $3.82 vs $3.15 (beat by $0.67).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-54bca2.a",
+          "fact": "earningsre-54bca2",
+          "variant": "a",
+          "text": "$ANF beat Q3 2026 Diluted EPS (GAAP, street basis) estimates by $0.67.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$ANF beat the Q3 EPS consensus: $3.82 vs $3.15.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$ANF Q3 EPS: $3.82 vs $3.15 consensus (beat by $0.67).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$ANF Q3 EPS $3.82, beat by $0.67.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$ANF beat Q3 EPS estimates by $0.67.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-dc1c68.a",
+          "fact": "earningsre-dc1c68",
+          "variant": "a",
+          "text": "$ANF beat the Q3 Diluted EPS (GAAP, street basis) consensus: $3.82 vs $3.15.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1e82b3.a",
+          "fact": "earningsre-1e82b3",
+          "variant": "a",
+          "text": "$ANF Q3 Diluted EPS (GAAP, street basis): $3.82 vs $3.15 consensus (beat by $0.67).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b47e3e.a",
+          "fact": "earningsre-b47e3e",
+          "variant": "a",
+          "text": "$ANF Q3 Diluted EPS (GAAP, street basis) $3.82, beat by $0.67.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-161196.a",
+          "fact": "earningsre-161196",
+          "variant": "a",
+          "text": "$ANF beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.67.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$ANF beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$ANF beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-aa39fc.a",
+          "fact": "earningsre-aa39fc",
+          "variant": "a",
+          "text": "Abercrombie & Fitch Co. ($ANF) published Q3 2026 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-aa39fc.h1",
+          "fact": "earningsre-aa39fc",
+          "variant": "h1",
+          "text": "$ANF (Abercrombie & Fitch Co.) reported Q3 2026 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-aa39fc.t",
+          "fact": "earningsre-aa39fc",
+          "variant": "t",
+          "text": "On Nov 24, Abercrombie & Fitch Co. ($ANF) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$ANF published Q3 2026 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $ANF came out on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 24, $ANF published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$ANF Q3 2026 revenue: $1.44B vs $1.37B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$ANF reported Q3 2026 revenue of $1.44B vs $1.37B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$ANF Q3 2026 revenue was $1.44B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $ANF was $1.44B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.a",
+          "fact": "earningsre-5e9f86",
+          "variant": "a",
+          "text": "$ANF Q3 2026 Diluted EPS (GAAP, street basis): $3.82 vs $3.15 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5e9f86.h1",
+          "fact": "earningsre-5e9f86",
+          "variant": "h1",
+          "text": "$ANF reported Q3 2026 Diluted EPS (GAAP, street basis) of $3.82 vs $3.15 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.a",
+          "fact": "earningsre-1011ad",
+          "variant": "a",
+          "text": "$ANF Q3 2026 Diluted EPS (GAAP, street basis) was $3.82.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1011ad.h1",
+          "fact": "earningsre-1011ad",
+          "variant": "h1",
+          "text": "Q3 2026 Diluted EPS (GAAP, street basis) at $ANF was $3.82.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "ANF": [
+          [
+            "$",
+            1.44,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            1.37,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            66.3,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            3.82,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            3.15,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.67,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
@@ -13334,6 +13847,1196 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-24-earnings-result-AMTM-ebd3e4",
+      "type": "earnings_result",
+      "ticker": "AMTM",
+      "tickers": [
+        "AMTM"
+      ],
+      "name": "Amentum Holdings, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2011286/000162828026075523/exhibit991-november232026.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/AMTM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-AMTM-ebd3e4#earnings-history",
+      "allowed_numbers": [
+        "$3.62B",
+        "$3.7B",
+        "$78.8M",
+        "$0.71",
+        "$0.66",
+        "$0.05",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Amentum Holdings, Inc. (AMTM) published FY2026 (Q4) results on 2026-11-23: Mixed vs estimates. Revenue $3.62B vs $3.7B consensus (Missed by $78.8M). Adjusted Diluted Earnings Per Share (EPS) $0.71 vs $0.66 consensus (Beat by $0.05).",
+      "dedupe_key": "report:amtm-2026-q4",
+      "claim_phrases": [
+        "revenue came in below the $3.7B consensus.",
+        "$AMTM missed the FY2026 (Q4) revenue consensus: $3.62B vs $3.7B.",
+        "$AMTM FY2026 (Q4) revenue: $3.62B vs $3.7B consensus (missed by $78.8M).",
+        "$AMTM FY2026 (Q4) revenue $3.62B, missed by $78.8M.",
+        "revenue $3.62B vs $3.7B consensus (missed by $78.8M).",
+        "revenue $3.62B vs $3.7B (missed by $78.8M).",
+        "$AMTM missed FY2026 (Q4) revenue estimates by $78.8M.",
+        "EPS came in above the $0.66 consensus.",
+        "$AMTM beat the FY2026 (Q4) EPS consensus: $0.71 vs $0.66.",
+        "$AMTM FY2026 (Q4) EPS: $0.71 vs $0.66 consensus (beat by $0.05).",
+        "$AMTM FY2026 (Q4) EPS $0.71, beat by $0.05.",
+        "EPS $0.71 vs $0.66 consensus (beat by $0.05).",
+        "EPS $0.71 vs $0.66 (beat by $0.05).",
+        "$AMTM beat FY2026 (Q4) EPS estimates by $0.05."
+      ],
+      "report_id": "amtm-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-24T20:04:44.243108+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$3.62B",
+          "consensus": "$3.7B",
+          "label": "Missed by $78.8M",
+          "verdict": "miss"
+        },
+        "eps": {
+          "basis": "Adjusted Diluted Earnings Per Share (EPS)",
+          "reported": "$0.71",
+          "consensus": "$0.66",
+          "label": "Beat by $0.05",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/AMTM/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for AMTM: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "AMTM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Amentum Holdings, Inc. ($AMTM) published FY2026 (Q4) results on Nov 23.",
+        "$AMTM (Amentum Holdings, Inc.) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Amentum Holdings, Inc. ($AMTM) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Amentum Holdings, Inc. ($AMTM) published FY2026 (Q4) results on Nov 23.",
+        "$AMTM (Amentum Holdings, Inc.) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Amentum Holdings, Inc. ($AMTM) published FY2026 (Q4) results.",
+        "$AMTM published FY2026 (Q4) results on Nov 23.",
+        "FY2026 (Q4) results from $AMTM came out on Nov 23.",
+        "On Nov 23, $AMTM published FY2026 (Q4) results.",
+        "$AMTM FY2026 (Q4) revenue: $3.62B vs $3.7B consensus.",
+        "$AMTM reported FY2026 (Q4) revenue of $3.62B vs $3.7B consensus.",
+        "$AMTM FY2026 (Q4) revenue was $3.62B.",
+        "FY2026 (Q4) revenue at $AMTM was $3.62B.",
+        "$AMTM FY2026 (Q4) Adjusted Diluted Earnings Per Share (EPS): $0.71 vs $0.66 consensus.",
+        "$AMTM reported FY2026 (Q4) Adjusted Diluted Earnings Per Share (EPS) of $0.71 vs $0.66 consensus.",
+        "$AMTM FY2026 (Q4) Adjusted Diluted Earnings Per Share (EPS) was $0.71.",
+        "FY2026 (Q4) Adjusted Diluted Earnings Per Share (EPS) at $AMTM was $0.71."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-d07e43.a",
+          "fact": "earningsre-d07e43",
+          "variant": "a",
+          "text": "revenue came in below the $3.7B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-9087c6.a",
+          "fact": "earningsre-9087c6",
+          "variant": "a",
+          "text": "$AMTM missed the FY2026 (Q4) revenue consensus: $3.62B vs $3.7B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-37dbea.a",
+          "fact": "earningsre-37dbea",
+          "variant": "a",
+          "text": "$AMTM FY2026 (Q4) revenue: $3.62B vs $3.7B consensus (missed by $78.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bff5fa.a",
+          "fact": "earningsre-bff5fa",
+          "variant": "a",
+          "text": "$AMTM FY2026 (Q4) revenue $3.62B, missed by $78.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-96a577.a",
+          "fact": "earningsre-96a577",
+          "variant": "a",
+          "text": "revenue $3.62B vs $3.7B consensus (missed by $78.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7c4659.a",
+          "fact": "earningsre-7c4659",
+          "variant": "a",
+          "text": "revenue $3.62B vs $3.7B (missed by $78.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b91b42.a",
+          "fact": "earningsre-b91b42",
+          "variant": "a",
+          "text": "$AMTM missed FY2026 (Q4) revenue estimates by $78.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.66 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$AMTM beat the FY2026 (Q4) EPS consensus: $0.71 vs $0.66.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$AMTM FY2026 (Q4) EPS: $0.71 vs $0.66 consensus (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$AMTM FY2026 (Q4) EPS $0.71, beat by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.71 vs $0.66 consensus (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.71 vs $0.66 (beat by $0.05).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$AMTM beat FY2026 (Q4) EPS estimates by $0.05.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Amentum Holdings, Inc. ($AMTM) published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$AMTM (Amentum Holdings, Inc.) reported FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 23, Amentum Holdings, Inc. ($AMTM) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$AMTM published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $AMTM came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 23, $AMTM published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$AMTM FY2026 (Q4) revenue: $3.62B vs $3.7B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$AMTM reported FY2026 (Q4) revenue of $3.62B vs $3.7B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$AMTM FY2026 (Q4) revenue was $3.62B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $AMTM was $3.62B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.a",
+          "fact": "earningsre-b47db5",
+          "variant": "a",
+          "text": "$AMTM FY2026 (Q4) Adjusted Diluted Earnings Per Share (EPS): $0.71 vs $0.66 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.h1",
+          "fact": "earningsre-b47db5",
+          "variant": "h1",
+          "text": "$AMTM reported FY2026 (Q4) Adjusted Diluted Earnings Per Share (EPS) of $0.71 vs $0.66 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.a",
+          "fact": "earningsre-1df3d9",
+          "variant": "a",
+          "text": "$AMTM FY2026 (Q4) Adjusted Diluted Earnings Per Share (EPS) was $0.71.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.h1",
+          "fact": "earningsre-1df3d9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Adjusted Diluted Earnings Per Share (EPS) at $AMTM was $0.71.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "AMTM": [
+          [
+            "$",
+            3.62,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            3.7,
+            1,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            78.8,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.71,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.66,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.05,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-24-earnings-result-SMTC-afc16d",
+      "type": "earnings_result",
+      "ticker": "SMTC",
+      "tickers": [
+        "SMTC"
+      ],
+      "name": "Semtech Corporation",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/88941/000008894126000045/smtc-10252026x8k991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SMTC?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-SMTC-afc16d#earnings-history",
+      "allowed_numbers": [
+        "$423M",
+        "$416M",
+        "$6.57M",
+        "$1.17",
+        "$1.13",
+        "$0.04",
+        "Q3 2027",
+        "Q3",
+        "FY2027",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Semtech Corporation (SMTC) published Q3 2027 results on 2026-11-23: Beat estimates. Revenue $423M vs $416M consensus (Beat by $6.57M). Non-GAAP adjusted diluted earnings per share $1.17 vs $1.13 consensus (Beat by $0.04).",
+      "dedupe_key": "report:smtc-2027-q3",
+      "claim_phrases": [
+        "revenue came in above the $416M consensus.",
+        "$SMTC beat the Q3 2027 revenue consensus: $423M vs $416M.",
+        "$SMTC Q3 2027 revenue: $423M vs $416M consensus (beat by $6.57M).",
+        "$SMTC Q3 2027 revenue $423M, beat by $6.57M.",
+        "revenue $423M vs $416M consensus (beat by $6.57M).",
+        "revenue $423M vs $416M (beat by $6.57M).",
+        "$SMTC beat Q3 2027 revenue estimates by $6.57M.",
+        "$SMTC beat the Q3 revenue consensus: $423M vs $416M.",
+        "$SMTC Q3 revenue: $423M vs $416M consensus (beat by $6.57M).",
+        "$SMTC Q3 revenue $423M, beat by $6.57M.",
+        "$SMTC beat Q3 revenue estimates by $6.57M.",
+        "EPS came in above the $1.13 consensus.",
+        "$SMTC beat the Q3 2027 EPS consensus: $1.17 vs $1.13.",
+        "$SMTC Q3 2027 EPS: $1.17 vs $1.13 consensus (beat by $0.04).",
+        "$SMTC Q3 2027 EPS $1.17, beat by $0.04.",
+        "EPS $1.17 vs $1.13 consensus (beat by $0.04).",
+        "EPS $1.17 vs $1.13 (beat by $0.04).",
+        "$SMTC beat Q3 2027 EPS estimates by $0.04.",
+        "$SMTC beat the Q3 EPS consensus: $1.17 vs $1.13.",
+        "$SMTC Q3 EPS: $1.17 vs $1.13 consensus (beat by $0.04).",
+        "$SMTC Q3 EPS $1.17, beat by $0.04.",
+        "$SMTC beat Q3 EPS estimates by $0.04.",
+        "$SMTC beat Q3 2027 estimates.",
+        "$SMTC beat Q3 estimates."
+      ],
+      "report_id": "smtc-2027-q3",
+      "fiscal_label": "Q3 2027",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-24T20:02:26.229966+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$423M",
+          "consensus": "$416M",
+          "label": "Beat by $6.57M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP adjusted diluted earnings per share",
+          "reported": "$1.17",
+          "consensus": "$1.13",
+          "label": "Beat by $0.04",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SMTC/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SMTC: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SMTC"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Semtech Corporation ($SMTC) published Q3 2027 results on Nov 23.",
+        "$SMTC (Semtech Corporation) reported Q3 2027 results on Nov 23.",
+        "On Nov 23, Semtech Corporation ($SMTC) published Q3 2027 results."
+      ],
+      "fact_phrases": [
+        "Semtech Corporation ($SMTC) published Q3 2027 results on Nov 23.",
+        "$SMTC (Semtech Corporation) reported Q3 2027 results on Nov 23.",
+        "On Nov 23, Semtech Corporation ($SMTC) published Q3 2027 results.",
+        "$SMTC published Q3 2027 results on Nov 23.",
+        "Q3 2027 results from $SMTC came out on Nov 23.",
+        "On Nov 23, $SMTC published Q3 2027 results.",
+        "$SMTC Q3 2027 revenue: $423M vs $416M consensus.",
+        "$SMTC reported Q3 2027 revenue of $423M vs $416M consensus.",
+        "$SMTC Q3 2027 revenue was $423M.",
+        "Q3 2027 revenue at $SMTC was $423M.",
+        "$SMTC Q3 2027 Non-GAAP adjusted diluted earnings per share: $1.17 vs $1.13 consensus.",
+        "$SMTC reported Q3 2027 Non-GAAP adjusted diluted earnings per share of $1.17 vs $1.13 consensus.",
+        "$SMTC Q3 2027 Non-GAAP adjusted diluted earnings per share was $1.17.",
+        "Q3 2027 Non-GAAP adjusted diluted earnings per share at $SMTC was $1.17."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $416M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$SMTC beat the Q3 2027 revenue consensus: $423M vs $416M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$SMTC Q3 2027 revenue: $423M vs $416M consensus (beat by $6.57M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$SMTC Q3 2027 revenue $423M, beat by $6.57M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $423M vs $416M consensus (beat by $6.57M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $423M vs $416M (beat by $6.57M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$SMTC beat Q3 2027 revenue estimates by $6.57M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$SMTC beat the Q3 revenue consensus: $423M vs $416M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$SMTC Q3 revenue: $423M vs $416M consensus (beat by $6.57M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$SMTC Q3 revenue $423M, beat by $6.57M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$SMTC beat Q3 revenue estimates by $6.57M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.13 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$SMTC beat the Q3 2027 EPS consensus: $1.17 vs $1.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$SMTC Q3 2027 EPS: $1.17 vs $1.13 consensus (beat by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$SMTC Q3 2027 EPS $1.17, beat by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.17 vs $1.13 consensus (beat by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.17 vs $1.13 (beat by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$SMTC beat Q3 2027 EPS estimates by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$SMTC beat the Q3 EPS consensus: $1.17 vs $1.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$SMTC Q3 EPS: $1.17 vs $1.13 consensus (beat by $0.04).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$SMTC Q3 EPS $1.17, beat by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$SMTC beat Q3 EPS estimates by $0.04.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$SMTC beat Q3 2027 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$SMTC beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Semtech Corporation ($SMTC) published Q3 2027 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$SMTC (Semtech Corporation) reported Q3 2027 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 23, Semtech Corporation ($SMTC) published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$SMTC published Q3 2027 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2027 results from $SMTC came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 23, $SMTC published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$SMTC Q3 2027 revenue: $423M vs $416M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$SMTC reported Q3 2027 revenue of $423M vs $416M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$SMTC Q3 2027 revenue was $423M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2027 revenue at $SMTC was $423M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5f200b.a",
+          "fact": "earningsre-5f200b",
+          "variant": "a",
+          "text": "$SMTC Q3 2027 Non-GAAP adjusted diluted earnings per share: $1.17 vs $1.13 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-5f200b.h1",
+          "fact": "earningsre-5f200b",
+          "variant": "h1",
+          "text": "$SMTC reported Q3 2027 Non-GAAP adjusted diluted earnings per share of $1.17 vs $1.13 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e80728.a",
+          "fact": "earningsre-e80728",
+          "variant": "a",
+          "text": "$SMTC Q3 2027 Non-GAAP adjusted diluted earnings per share was $1.17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-e80728.h1",
+          "fact": "earningsre-e80728",
+          "variant": "h1",
+          "text": "Q3 2027 Non-GAAP adjusted diluted earnings per share at $SMTC was $1.17.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "SMTC": [
+          [
+            "$",
+            423.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            416.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            6.57,
+            2,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.17,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.13,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.04,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-24-earnings-result-SYM-eb536b",
+      "type": "earnings_result",
+      "ticker": "SYM",
+      "tickers": [
+        "SYM"
+      ],
+      "name": "Symbotic Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1837240/000183724026000047/q4268-k_ex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SYM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-SYM-eb536b#earnings-history",
+      "allowed_numbers": [
+        "$778M",
+        "$774M",
+        "$3.23M",
+        "$0.17",
+        "$0.16",
+        "$0.01",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Symbotic Inc. (SYM) published FY2026 (Q4) results on 2026-11-23: Mixed vs estimates. Revenue $778M vs $774M consensus (In line (+$3.23M)). Adjusted diluted earnings per share $0.17 vs $0.16 consensus (Beat by $0.01).",
+      "dedupe_key": "report:sym-2026-q4",
+      "claim_phrases": [
+        "$SYM FY2026 (Q4) revenue was in line with the consensus: $778M vs $774M.",
+        "EPS came in above the $0.16 consensus.",
+        "$SYM beat the FY2026 (Q4) EPS consensus: $0.17 vs $0.16.",
+        "$SYM FY2026 (Q4) EPS: $0.17 vs $0.16 consensus (beat by $0.01).",
+        "$SYM FY2026 (Q4) EPS $0.17, beat by $0.01.",
+        "EPS $0.17 vs $0.16 consensus (beat by $0.01).",
+        "EPS $0.17 vs $0.16 (beat by $0.01).",
+        "$SYM beat FY2026 (Q4) EPS estimates by $0.01.",
+        "Adjusted diluted earnings per share came in above the $0.16 consensus.",
+        "$SYM beat the FY2026 (Q4) Adjusted diluted earnings per share consensus: $0.17 vs $0.16.",
+        "$SYM FY2026 (Q4) Adjusted diluted earnings per share: $0.17 vs $0.16 consensus (beat by $0.01).",
+        "$SYM FY2026 (Q4) Adjusted diluted earnings per share $0.17, beat by $0.01.",
+        "Adjusted diluted earnings per share $0.17 vs $0.16 consensus (beat by $0.01).",
+        "Adjusted diluted earnings per share $0.17 vs $0.16 (beat by $0.01).",
+        "$SYM beat FY2026 (Q4) Adjusted diluted earnings per share estimates by $0.01."
+      ],
+      "report_id": "sym-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-24T20:02:04.863876+00:00",
+      "tile_label": "Mixed vs estimates",
+      "tile_state": "neutral",
+      "results": {
+        "revenue": {
+          "reported": "$778M",
+          "consensus": "$774M",
+          "label": "In line (+$3.23M)",
+          "verdict": "in_line"
+        },
+        "eps": {
+          "basis": "Adjusted diluted earnings per share",
+          "reported": "$0.17",
+          "consensus": "$0.16",
+          "label": "Beat by $0.01",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SYM/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SYM: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SYM"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Symbotic Inc. ($SYM) published FY2026 (Q4) results on Nov 23.",
+        "$SYM (Symbotic Inc.) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Symbotic Inc. ($SYM) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Symbotic Inc. ($SYM) published FY2026 (Q4) results on Nov 23.",
+        "$SYM (Symbotic Inc.) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Symbotic Inc. ($SYM) published FY2026 (Q4) results.",
+        "$SYM published FY2026 (Q4) results on Nov 23.",
+        "FY2026 (Q4) results from $SYM came out on Nov 23.",
+        "On Nov 23, $SYM published FY2026 (Q4) results.",
+        "$SYM FY2026 (Q4) revenue: $778M vs $774M consensus.",
+        "$SYM reported FY2026 (Q4) revenue of $778M vs $774M consensus.",
+        "$SYM FY2026 (Q4) revenue was $778M.",
+        "FY2026 (Q4) revenue at $SYM was $778M.",
+        "$SYM FY2026 (Q4) Adjusted diluted earnings per share: $0.17 vs $0.16 consensus.",
+        "$SYM reported FY2026 (Q4) Adjusted diluted earnings per share of $0.17 vs $0.16 consensus.",
+        "$SYM FY2026 (Q4) Adjusted diluted earnings per share was $0.17.",
+        "FY2026 (Q4) Adjusted diluted earnings per share at $SYM was $0.17."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-dfb414.a",
+          "fact": "earningsre-dfb414",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) revenue was in line with the consensus: $778M vs $774M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.16 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$SYM beat the FY2026 (Q4) EPS consensus: $0.17 vs $0.16.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) EPS: $0.17 vs $0.16 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) EPS $0.17, beat by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $0.17 vs $0.16 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $0.17 vs $0.16 (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$SYM beat FY2026 (Q4) EPS estimates by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-ffaa25.a",
+          "fact": "earningsre-ffaa25",
+          "variant": "a",
+          "text": "Adjusted diluted earnings per share came in above the $0.16 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-36b348.a",
+          "fact": "earningsre-36b348",
+          "variant": "a",
+          "text": "$SYM beat the FY2026 (Q4) Adjusted diluted earnings per share consensus: $0.17 vs $0.16.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-30cb1d.a",
+          "fact": "earningsre-30cb1d",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) Adjusted diluted earnings per share: $0.17 vs $0.16 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7ff4a2.a",
+          "fact": "earningsre-7ff4a2",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) Adjusted diluted earnings per share $0.17, beat by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3f523d.a",
+          "fact": "earningsre-3f523d",
+          "variant": "a",
+          "text": "Adjusted diluted earnings per share $0.17 vs $0.16 consensus (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-cc1fe3.a",
+          "fact": "earningsre-cc1fe3",
+          "variant": "a",
+          "text": "Adjusted diluted earnings per share $0.17 vs $0.16 (beat by $0.01).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-2be020.a",
+          "fact": "earningsre-2be020",
+          "variant": "a",
+          "text": "$SYM beat FY2026 (Q4) Adjusted diluted earnings per share estimates by $0.01.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Symbotic Inc. ($SYM) published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$SYM (Symbotic Inc.) reported FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 23, Symbotic Inc. ($SYM) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$SYM published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $SYM came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 23, $SYM published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) revenue: $778M vs $774M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$SYM reported FY2026 (Q4) revenue of $778M vs $774M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) revenue was $778M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $SYM was $778M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f3f484.a",
+          "fact": "earningsre-f3f484",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) Adjusted diluted earnings per share: $0.17 vs $0.16 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f3f484.h1",
+          "fact": "earningsre-f3f484",
+          "variant": "h1",
+          "text": "$SYM reported FY2026 (Q4) Adjusted diluted earnings per share of $0.17 vs $0.16 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6face9.a",
+          "fact": "earningsre-6face9",
+          "variant": "a",
+          "text": "$SYM FY2026 (Q4) Adjusted diluted earnings per share was $0.17.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-6face9.h1",
+          "fact": "earningsre-6face9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Adjusted diluted earnings per share at $SYM was $0.17.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "SYM": [
+          [
+            "$",
+            778.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            774.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            0.17,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.16,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.01,
+            2,
+            1.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-24-earnings-result-EXYN-7024fc",
       "type": "earnings_result",
       "ticker": "EXYN",
@@ -14520,6 +16223,9 @@
       "source_url": "https://www.sec.gov/Archives/edgar/data/52988/000162828026075492/jfy2026q4earningsrelease.htm",
       "page_url": "https://www.rapidtradeview.trade/dashboard/J?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-J-b0caca#earnings-history",
       "allowed_numbers": [
+        "$4.71B",
+        "$3.89B",
+        "$819M",
         "$2.20",
         "$2.12",
         "$0.08",
@@ -14534,9 +16240,16 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Jacobs Solutions Inc. (J) published FY2026 (Q4) results on 2026-11-23. Adjusted EPS from Continuing Operations $2.20 vs $2.12 consensus (Beat by $0.08).",
+      "facts_text": "Jacobs Solutions Inc. (J) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $4.71B vs $3.89B consensus (Beat by $819M). Adjusted EPS from Continuing Operations $2.20 vs $2.12 consensus (Beat by $0.08).",
       "dedupe_key": "report:j-2026-q4",
       "claim_phrases": [
+        "revenue came in above the $3.89B consensus.",
+        "$J beat the FY2026 (Q4) revenue consensus: $4.71B vs $3.89B.",
+        "$J FY2026 (Q4) revenue: $4.71B vs $3.89B consensus (beat by $819M).",
+        "$J FY2026 (Q4) revenue $4.71B, beat by $819M.",
+        "revenue $4.71B vs $3.89B consensus (beat by $819M).",
+        "revenue $4.71B vs $3.89B (beat by $819M).",
+        "$J beat FY2026 (Q4) revenue estimates by $819M.",
         "EPS came in above the $2.12 consensus.",
         "$J beat the FY2026 (Q4) EPS consensus: $2.20 vs $2.12.",
         "$J FY2026 (Q4) EPS: $2.20 vs $2.12 consensus (beat by $0.08).",
@@ -14557,9 +16270,15 @@
       "fiscal_label": "FY2026 (Q4)",
       "release_date": "2026-11-23",
       "published_at": "2026-11-23T21:12:38.544077+00:00",
-      "tile_label": null,
-      "tile_state": null,
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
       "results": {
+        "revenue": {
+          "reported": "$4.71B",
+          "consensus": "$3.89B",
+          "label": "Beat by $819M",
+          "verdict": "beat"
+        },
         "eps": {
           "basis": "Adjusted EPS from Continuing Operations",
           "reported": "$2.20",
@@ -14605,12 +16324,65 @@
         "$J published FY2026 (Q4) results on Nov 23.",
         "FY2026 (Q4) results from $J came out on Nov 23.",
         "On Nov 23, $J published FY2026 (Q4) results.",
+        "$J FY2026 (Q4) revenue: $4.71B vs $3.89B consensus.",
+        "$J reported FY2026 (Q4) revenue of $4.71B vs $3.89B consensus.",
+        "$J FY2026 (Q4) revenue was $4.71B.",
+        "FY2026 (Q4) revenue at $J was $4.71B.",
         "$J FY2026 (Q4) Adjusted EPS from Continuing Operations: $2.20 vs $2.12 consensus.",
         "$J reported FY2026 (Q4) Adjusted EPS from Continuing Operations of $2.20 vs $2.12 consensus.",
         "$J FY2026 (Q4) Adjusted EPS from Continuing Operations was $2.20.",
         "FY2026 (Q4) Adjusted EPS from Continuing Operations at $J was $2.20."
       ],
       "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $3.89B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$J beat the FY2026 (Q4) revenue consensus: $4.71B vs $3.89B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$J FY2026 (Q4) revenue: $4.71B vs $3.89B consensus (beat by $819M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$J FY2026 (Q4) revenue $4.71B, beat by $819M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $4.71B vs $3.89B consensus (beat by $819M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $4.71B vs $3.89B (beat by $819M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$J beat FY2026 (Q4) revenue estimates by $819M.",
+          "claim": true
+        },
         {
           "id": "earningsre-3ee1d9.a",
           "fact": "earningsre-3ee1d9",
@@ -14759,6 +16531,34 @@
           "claim": false
         },
         {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$J FY2026 (Q4) revenue: $4.71B vs $3.89B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$J reported FY2026 (Q4) revenue of $4.71B vs $3.89B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$J FY2026 (Q4) revenue was $4.71B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $J was $4.71B.",
+          "claim": false
+        },
+        {
           "id": "earningsre-de9dcd.a",
           "fact": "earningsre-de9dcd",
           "variant": "a",
@@ -14793,6 +16593,27 @@
       },
       "subject_numbers": {
         "J": [
+          [
+            "$",
+            4.71,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            3.89,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            819.0,
+            0,
+            1000000.0,
+            0
+          ],
           [
             "$",
             2.2,
@@ -15946,6 +17767,232 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-24-earnings-result-WRD-1a917c",
+      "type": "earnings_result",
+      "ticker": "WRD",
+      "tickers": [
+        "WRD"
+      ],
+      "name": "WeRide Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-20",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1867729/000110465926130438/tm2630019d1_ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WRD?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-WRD-1a917c#earnings-history",
+      "allowed_numbers": [
+        "$321M",
+        "$270M",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "WeRide Inc. (WRD) published Q3 2026 results on 2026-11-20: Revenue beat. Revenue $321M vs $270M consensus (Beat by RMB 51.6M).",
+      "dedupe_key": "report:wrd-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $270M consensus.",
+        "$WRD beat the Q3 2026 revenue consensus: $321M vs $270M.",
+        "$WRD beat the Q3 revenue consensus: $321M vs $270M.",
+        "$WRD beat Q3 2026 estimates.",
+        "$WRD beat Q3 estimates."
+      ],
+      "report_id": "wrd-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-20",
+      "published_at": "2026-11-24T20:08:24.817298+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$321M",
+          "consensus": "$270M",
+          "label": "Beat by RMB 51.6M",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WRD/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for WRD: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 5.5,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-20 (age 2) +1",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "WRD"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "WeRide Inc. ($WRD) published Q3 2026 results on Nov 20.",
+        "$WRD (WeRide Inc.) reported Q3 2026 results on Nov 20.",
+        "On Nov 20, WeRide Inc. ($WRD) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "WeRide Inc. ($WRD) published Q3 2026 results on Nov 20.",
+        "$WRD (WeRide Inc.) reported Q3 2026 results on Nov 20.",
+        "On Nov 20, WeRide Inc. ($WRD) published Q3 2026 results.",
+        "$WRD published Q3 2026 results on Nov 20.",
+        "Q3 2026 results from $WRD came out on Nov 20.",
+        "On Nov 20, $WRD published Q3 2026 results.",
+        "$WRD Q3 2026 revenue: $321M vs $270M consensus.",
+        "$WRD reported Q3 2026 revenue of $321M vs $270M consensus.",
+        "$WRD Q3 2026 revenue was $321M.",
+        "Q3 2026 revenue at $WRD was $321M."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $270M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$WRD beat the Q3 2026 revenue consensus: $321M vs $270M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$WRD beat the Q3 revenue consensus: $321M vs $270M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$WRD beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$WRD beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "WeRide Inc. ($WRD) published Q3 2026 results on Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$WRD (WeRide Inc.) reported Q3 2026 results on Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 20, WeRide Inc. ($WRD) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$WRD published Q3 2026 results on Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $WRD came out on Nov 20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 20, $WRD published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$WRD Q3 2026 revenue: $321M vs $270M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$WRD reported Q3 2026 revenue of $321M vs $270M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$WRD Q3 2026 revenue was $321M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $WRD was $321M.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "WRD": [
+          [
+            "$",
+            321.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            270.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-24-earnings-upcoming-DE-712eae",
       "type": "earnings_upcoming",
       "ticker": "DE",
@@ -17092,7 +19139,7 @@
       "rank": 4.5,
       "rank_why": "moves_like 0.5; large cap $54.31B +2.5; session 2026-11-23 (age 1) +1.5",
       "top8": false,
-      "top8_out": "repeat: leads with $HPE like 2026-11-24-earnings-result-HPE-4204f4",
+      "top8_out": "ranked below the top 8",
       "rotation": null
     },
     {
