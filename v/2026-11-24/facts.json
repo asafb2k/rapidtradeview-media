@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-24",
-  "generated_at": "2026-11-24T20:15:02Z",
-  "as_of": "2026-11-24T20:15:02Z",
+  "generated_at": "2026-11-24T21:15:02Z",
+  "as_of": "2026-11-24T21:15:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 1,
-    "insider_flow": 0,
+    "insider_flow": 1,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 0,
@@ -939,12 +939,18 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 4031,
-      "recent_ready": 54,
-      "outside_24h": 31,
+      "archive_reports": 4036,
+      "recent_ready": 59,
+      "outside_24h": 34,
       "unreadable": 0,
-      "consensus_mismatch_hold": 1,
+      "not_compared": 1,
+      "not_compared_metrics": [
+        "CLSK: revenue (period_unconfirmed)"
+      ],
+      "consensus_mismatch_hold": 3,
       "held": [
+        "CLSK: revenue (period_unconfirmed) and nothing else compared (report data to check)",
+        "DELL: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)",
         "EMBC: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)"
       ]
     },
@@ -975,7 +981,7 @@
     "market": {
       "market_session": "2026-11-23",
       "priced_cap_share": 0.9798911747113683,
-      "flows_as_of": "2026-11-24T20:15:20.578881+00:00"
+      "flows_as_of": "2026-11-24T21:15:21.476562+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -990,25 +996,18 @@
         "angles_dropped": 85
       },
       "top8": {
-        "stale": 6,
+        "stale": 5,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 1,
-        "ranked_below": 28,
+        "ranked_below": 29,
         "pillars": 4
       }
-    },
-    "card_unpinned": {
-      "dropped": 1,
-      "reasons": [
-        "insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-24/cards/market-insiders-2026-11-24-f1e35c9e-b5f72103.png (old data))"
-      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError",
-    "not published: insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-24/cards/market-insiders-2026-11-24-f1e35c9e-b5f72103.png (old data))"
+    "post history: FileNotFoundError"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1039,8 +1038,559 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 36,
+  "api_requests": 39,
   "items": [
+    {
+      "item_id": "2026-11-24-insider-flow-RCL-e72d9a",
+      "type": "insider_flow",
+      "ticker": "RCL",
+      "tickers": [
+        "RCL",
+        "ANT",
+        "SYK"
+      ],
+      "name": null,
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": null,
+      "source_url": null,
+      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-insider-flow-RCL-e72d9a",
+      "allowed_numbers": [
+        "$764M",
+        "+$764M",
+        "$763.8M",
+        "+$763.8M",
+        "$6.2B",
+        "+$6.2B",
+        "$6B",
+        "+$6B",
+        "30",
+        "547",
+        "733",
+        "500",
+        "2026-10-25",
+        "Oct 25, 2026",
+        "Oct 25",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24",
+        "$333M",
+        "+$333M",
+        "$333.2M",
+        "+$333.2M",
+        "$280M",
+        "+$280M",
+        "$280.4M",
+        "+$280.4M",
+        "$179M",
+        "+$179M",
+        "$178.9M",
+        "+$178.9M",
+        "3",
+        "1",
+        "8.1",
+        "$1"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 25 to Nov 24; 547 companies with buys, 733 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $SYK $179M (1 insiders).",
+      "dedupe_key": "insider_flow:2026-11-24:RCL",
+      "claim_phrases": [
+        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+        "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
+        "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
+        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
+        "$SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+        "Over 30 days in our feed, $SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
+        "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
+        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
+        "$RCL ($333M), $ANT ($280M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.1.",
+        "Officers and directors sold $8.1 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $8.1 on the open market for every $1 they bought."
+      ],
+      "pillar": "P3",
+      "claims": [
+        {
+          "words": [
+            "biggest",
+            "top",
+            "most",
+            "led"
+          ],
+          "subjects": [
+            "RCL",
+            "ANT",
+            "SYK"
+          ],
+          "kind": "stock",
+          "polarity": null,
+          "rank": "group",
+          "within": [],
+          "scope": null,
+          "metric": "usd_flow",
+          "universe": null,
+          "date": null,
+          "bare": false,
+          "direction": null,
+          "needs": "sell|sold",
+          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $ANT, $SYK"
+        }
+      ],
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$764M",
+            "+$764M",
+            "$763.8M",
+            "+$763.8M",
+            "$6.2B",
+            "+$6.2B",
+            "$6B",
+            "+$6B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals ($764M bought, $6.2B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "headline": {
+        "tickers": [
+          "RCL",
+          "ANT",
+          "SYK"
+        ],
+        "numbers": [
+          "$6.2B",
+          "$764M"
+        ]
+      },
+      "window": {
+        "from": "2026-10-25",
+        "to": "2026-11-24",
+        "days": 30
+      },
+      "bought_usd": 763774617.38,
+      "sold_usd": 6213039605.98,
+      "buy_companies": 547,
+      "sell_companies": 733,
+      "top_sellers_500": [
+        {
+          "ticker": "RCL",
+          "name": "Royal Caribbean Cruises Ltd.",
+          "sector": "Consumer Cyclical",
+          "total_usd": 333233640.82,
+          "insider_count": 3,
+          "roles": {
+            "officer": 1,
+            "director": 2
+          },
+          "row_count": 72,
+          "first_trade": "2026-10-28",
+          "last_trade": "2026-11-13"
+        },
+        {
+          "ticker": "ANT",
+          "name": "Anthropic, PBC Class A Common Stock",
+          "sector": "Technology",
+          "total_usd": 280405374.0,
+          "insider_count": 1,
+          "roles": {
+            "officer": 1,
+            "director": 0
+          },
+          "row_count": 1,
+          "first_trade": "2026-11-20",
+          "last_trade": "2026-11-20"
+        },
+        {
+          "ticker": "SYK",
+          "name": "Stryker Corporation",
+          "sector": "Healthcare",
+          "total_usd": 178924730.95,
+          "insider_count": 1,
+          "roles": {
+            "officer": 0,
+            "director": 1
+          },
+          "row_count": 6,
+          "first_trade": "2026-11-06",
+          "last_trade": "2026-11-06"
+        }
+      ],
+      "top_buyers_500": [],
+      "angles": [
+        "Officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $764M of open-market buys."
+      ],
+      "market_cap_usd": 79299782294.9414,
+      "magnitude": 2.689956183148726,
+      "trigger": "$ANT entered the top 5",
+      "top5": [
+        "RCL",
+        "ANT",
+        "SYK",
+        "MSI",
+        "AXP"
+      ],
+      "context_tickers": [],
+      "context_numbers": [],
+      "banned_words": [],
+      "card": {
+        "panel": "insiders",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-24/cards/market-insiders-2026-11-24-14a2797d-b5f72103.png",
+        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
+        "date": "2026-11-24",
+        "fingerprint": "14a2797d",
+        "file": "market-insiders-2026-11-24-14a2797d.png",
+        "sha256": "f75023b2f36adee0193492e25125fcb356c516744b7f2edc5165364efffa0787"
+      },
+      "media": [
+        {
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-24/cards/market-insiders-2026-11-24-14a2797d-b5f72103.png",
+          "kind": "image",
+          "alt": "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 25 to Nov 24; 547 companies with buys, 733 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $SYK $179M (1 insiders)."
+        }
+      ],
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "ticker_sectors": {
+        "RCL": "Consumer Cyclical",
+        "ANT": "Technology",
+        "SYK": "Healthcare"
+      },
+      "ticker_names": {
+        "RCL": "Royal Caribbean Cruises Ltd.",
+        "ANT": "Anthropic, PBC Class A Common Stock",
+        "SYK": "Stryker Corporation"
+      },
+      "fact_phrases": [
+        "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $764M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $764M of open-market buys and $6.2B of open-market sells.",
+        "Officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 547 companies had open-market buys by officers and directors and 733 had open-market sells.",
+        "733 companies had open-market sells by officers and directors and 547 had open-market buys over 30 days in our feed.",
+        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+        "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
+        "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+        "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+        "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider)."
+      ],
+      "phrasings": [
+        {
+          "id": "insiderflo-5a9659.a",
+          "fact": "insiderflo-5a9659",
+          "variant": "a",
+          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.t",
+          "fact": "insiderflo-5a9659",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-5a9659.o",
+          "fact": "insiderflo-5a9659",
+          "variant": "o",
+          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.a",
+          "fact": "insiderflo-c019d4",
+          "variant": "a",
+          "text": "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.t",
+          "fact": "insiderflo-c019d4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-c019d4.o",
+          "fact": "insiderflo-c019d4",
+          "variant": "o",
+          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.a",
+          "fact": "insiderflo-1641a4",
+          "variant": "a",
+          "text": "$SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.t",
+          "fact": "insiderflo-1641a4",
+          "variant": "t",
+          "text": "Over 30 days in our feed, $SYK had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-1641a4.o",
+          "fact": "insiderflo-1641a4",
+          "variant": "o",
+          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($179M): $SYK.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.a",
+          "fact": "insiderflo-2a8e57",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.t",
+          "fact": "insiderflo-2a8e57",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-2a8e57.l",
+          "fact": "insiderflo-2a8e57",
+          "variant": "l",
+          "text": "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.a",
+          "fact": "insiderflo-76de2d",
+          "variant": "a",
+          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.t",
+          "fact": "insiderflo-76de2d",
+          "variant": "t",
+          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $SYK ($179M).",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-76de2d.l",
+          "fact": "insiderflo-76de2d",
+          "variant": "l",
+          "text": "$RCL ($333M), $ANT ($280M) and $SYK ($179M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.a",
+          "fact": "insiderflo-eeeffc",
+          "variant": "a",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $8.1.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h1",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h1",
+          "text": "Officers and directors sold $8.1 for every $1 they bought on the open market over 30 days in our feed.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-eeeffc.h2",
+          "fact": "insiderflo-eeeffc",
+          "variant": "h2",
+          "text": "Over 30 days in our feed, officers and directors sold $8.1 on the open market for every $1 they bought.",
+          "claim": true
+        },
+        {
+          "id": "insiderflo-de8c5a.a",
+          "fact": "insiderflo-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $764M of open-market buys and $6.2B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.h1",
+          "fact": "insiderflo-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $6.2B of open-market sells and $764M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-de8c5a.t",
+          "fact": "insiderflo-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $764M of open-market buys and $6.2B of open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.a",
+          "fact": "insiderflo-cc7b17",
+          "variant": "a",
+          "text": "Officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-cc7b17.t",
+          "fact": "insiderflo-cc7b17",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors sold $6.2B and bought $764M of their own companies' stock on the open market.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.a",
+          "fact": "insiderflo-ca45c6",
+          "variant": "a",
+          "text": "Over 30 days in our feed, 547 companies had open-market buys by officers and directors and 733 had open-market sells.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-ca45c6.h1",
+          "fact": "insiderflo-ca45c6",
+          "variant": "h1",
+          "text": "733 companies had open-market sells by officers and directors and 547 had open-market buys over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.a",
+          "fact": "insiderflo-a98c46",
+          "variant": "a",
+          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.h1",
+          "fact": "insiderflo-a98c46",
+          "variant": "h1",
+          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-a98c46.t",
+          "fact": "insiderflo-a98c46",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.a",
+          "fact": "insiderflo-942c9b",
+          "variant": "a",
+          "text": "Officers and directors of $SYK sold $179M on the open market over 30 days in our feed (1 insider).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.h1",
+          "fact": "insiderflo-942c9b",
+          "variant": "h1",
+          "text": "1 insider at $SYK sold $179M on the open market over 30 days in our feed (officers and directors).",
+          "claim": false
+        },
+        {
+          "id": "insiderflo-942c9b.t",
+          "fact": "insiderflo-942c9b",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors of $SYK sold $179M on the open market (1 insider).",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$764M": "+",
+          "$763.8M": "+",
+          "$6.2B": "+",
+          "$6B": "+",
+          "$333M": "+",
+          "$333.2M": "+",
+          "$280M": "+",
+          "$280.4M": "+",
+          "$179M": "+",
+          "$178.9M": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "RCL": [
+          [
+            "$",
+            333.0,
+            0,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            8.1,
+            1,
+            1.0,
+            0
+          ]
+        ],
+        "ANT": [
+          [
+            "$",
+            280.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ],
+        "SYK": [
+          [
+            "$",
+            179.0,
+            0,
+            1000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "rank": 11.19,
+      "rank_why": "insider_flow 4; large cap $79.3B +2.5; magnitude (market) +2.69; today 2026-11-24 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
     {
       "item_id": "2026-11-24-congress-flow-ACN-16275a",
       "type": "congress_flow",
@@ -1317,6 +1867,1258 @@
       "cooldown": null,
       "rank": 10.5,
       "rank_why": "congress_flow 4; large cap $130.65B +2.5; magnitude (market) +2; today 2026-11-24 (age 0) +2",
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-24-earnings-result-ADSK-e4061e",
+      "type": "earnings_result",
+      "ticker": "ADSK",
+      "tickers": [
+        "ADSK"
+      ],
+      "name": "Autodesk, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/769397/000076939726000069/q327pressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/ADSK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-ADSK-e4061e#earnings-history",
+      "allowed_numbers": [
+        "$2.16B",
+        "$2.13B",
+        "$26.3M",
+        "$3.20",
+        "$3.07",
+        "$0.13",
+        "Q3 2027",
+        "Q3",
+        "FY2027",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Autodesk, Inc. (ADSK) published Q3 2027 results on 2026-11-24: Beat estimates. Revenue $2.16B vs $2.13B consensus (Beat by $26.3M). Non-GAAP diluted net income per share $3.20 vs $3.07 consensus (Beat by $0.13).",
+      "dedupe_key": "report:adsk-2027-q3",
+      "claim_phrases": [
+        "revenue came in above the $2.13B consensus.",
+        "$ADSK beat the Q3 2027 revenue consensus: $2.16B vs $2.13B.",
+        "$ADSK Q3 2027 revenue: $2.16B vs $2.13B consensus (beat by $26.3M).",
+        "$ADSK Q3 2027 revenue $2.16B, beat by $26.3M.",
+        "revenue $2.16B vs $2.13B consensus (beat by $26.3M).",
+        "revenue $2.16B vs $2.13B (beat by $26.3M).",
+        "$ADSK beat Q3 2027 revenue estimates by $26.3M.",
+        "$ADSK beat the Q3 revenue consensus: $2.16B vs $2.13B.",
+        "$ADSK Q3 revenue: $2.16B vs $2.13B consensus (beat by $26.3M).",
+        "$ADSK Q3 revenue $2.16B, beat by $26.3M.",
+        "$ADSK beat Q3 revenue estimates by $26.3M.",
+        "EPS came in above the $3.07 consensus.",
+        "$ADSK beat the Q3 2027 EPS consensus: $3.20 vs $3.07.",
+        "$ADSK Q3 2027 EPS: $3.20 vs $3.07 consensus (beat by $0.13).",
+        "$ADSK Q3 2027 EPS $3.20, beat by $0.13.",
+        "EPS $3.20 vs $3.07 consensus (beat by $0.13).",
+        "EPS $3.20 vs $3.07 (beat by $0.13).",
+        "$ADSK beat Q3 2027 EPS estimates by $0.13.",
+        "Non-GAAP diluted net income per share came in above the $3.07 consensus.",
+        "$ADSK beat the Q3 2027 Non-GAAP diluted net income per share consensus: $3.20 vs $3.07.",
+        "$ADSK Q3 2027 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus (beat by $0.13).",
+        "$ADSK Q3 2027 Non-GAAP diluted net income per share $3.20, beat by $0.13.",
+        "Non-GAAP diluted net income per share $3.20 vs $3.07 consensus (beat by $0.13).",
+        "Non-GAAP diluted net income per share $3.20 vs $3.07 (beat by $0.13).",
+        "$ADSK beat Q3 2027 Non-GAAP diluted net income per share estimates by $0.13.",
+        "$ADSK beat the Q3 EPS consensus: $3.20 vs $3.07.",
+        "$ADSK Q3 EPS: $3.20 vs $3.07 consensus (beat by $0.13).",
+        "$ADSK Q3 EPS $3.20, beat by $0.13.",
+        "$ADSK beat Q3 EPS estimates by $0.13.",
+        "$ADSK beat the Q3 Non-GAAP diluted net income per share consensus: $3.20 vs $3.07.",
+        "$ADSK Q3 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus (beat by $0.13).",
+        "$ADSK Q3 Non-GAAP diluted net income per share $3.20, beat by $0.13.",
+        "$ADSK beat Q3 Non-GAAP diluted net income per share estimates by $0.13.",
+        "$ADSK beat Q3 2027 estimates.",
+        "$ADSK beat Q3 estimates."
+      ],
+      "report_id": "adsk-2027-q3",
+      "fiscal_label": "Q3 2027",
+      "release_date": "2026-11-24",
+      "published_at": "2026-11-24T21:10:37.413777+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$2.16B",
+          "consensus": "$2.13B",
+          "label": "Beat by $26.3M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP diluted net income per share",
+          "reported": "$3.20",
+          "consensus": "$3.07",
+          "label": "Beat by $0.13",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/ADSK/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for ADSK: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $51.1B +2.5; magnitude (verdict) +1.5; release_date 2026-11-24 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 51096320103.121155,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$51.1B",
+        "+4.44%",
+        "4.44%",
+        "+4.4%",
+        "4.4%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "ADSK"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "ADSK": "Technology"
+      },
+      "ticker_names": {
+        "ADSK": "Autodesk, Inc."
+      },
+      "context": {
+        "market_cap": "$51.1B",
+        "market_cap_session": "2026-11-23",
+        "last_session_move": {
+          "pct": "+4.44%",
+          "session": "2026-11-23"
+        }
+      },
+      "angles": [
+        "Autodesk, Inc. ($ADSK) published Q3 2027 results on Nov 24.",
+        "$ADSK (Autodesk, Inc.) reported Q3 2027 results on Nov 24.",
+        "On Nov 24, Autodesk, Inc. ($ADSK) published Q3 2027 results."
+      ],
+      "fact_phrases": [
+        "Autodesk, Inc. ($ADSK) published Q3 2027 results on Nov 24.",
+        "$ADSK (Autodesk, Inc.) reported Q3 2027 results on Nov 24.",
+        "On Nov 24, Autodesk, Inc. ($ADSK) published Q3 2027 results.",
+        "$ADSK published Q3 2027 results on Nov 24.",
+        "Q3 2027 results from $ADSK came out on Nov 24.",
+        "On Nov 24, $ADSK published Q3 2027 results.",
+        "$ADSK Q3 2027 revenue: $2.16B vs $2.13B consensus.",
+        "$ADSK reported Q3 2027 revenue of $2.16B vs $2.13B consensus.",
+        "$ADSK Q3 2027 revenue was $2.16B.",
+        "Q3 2027 revenue at $ADSK was $2.16B.",
+        "$ADSK Q3 2027 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus.",
+        "$ADSK reported Q3 2027 Non-GAAP diluted net income per share of $3.20 vs $3.07 consensus.",
+        "$ADSK Q3 2027 Non-GAAP diluted net income per share was $3.20.",
+        "Q3 2027 Non-GAAP diluted net income per share at $ADSK was $3.20.",
+        "$ADSK had a market value of $51.1B at the Nov 23 close.",
+        "$ADSK's market value at the Nov 23 close was $51.1B.",
+        "At the Nov 23 close, $ADSK had a market value of $51.1B.",
+        "$ADSK moved +4.44% on Monday, Nov 23.",
+        "$ADSK's move on Monday, Nov 23: +4.44%.",
+        "On Monday, Nov 23, $ADSK moved +4.44%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $2.13B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$ADSK beat the Q3 2027 revenue consensus: $2.16B vs $2.13B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 revenue: $2.16B vs $2.13B consensus (beat by $26.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 revenue $2.16B, beat by $26.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $2.16B vs $2.13B consensus (beat by $26.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $2.16B vs $2.13B (beat by $26.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$ADSK beat Q3 2027 revenue estimates by $26.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$ADSK beat the Q3 revenue consensus: $2.16B vs $2.13B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$ADSK Q3 revenue: $2.16B vs $2.13B consensus (beat by $26.3M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$ADSK Q3 revenue $2.16B, beat by $26.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$ADSK beat Q3 revenue estimates by $26.3M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $3.07 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$ADSK beat the Q3 2027 EPS consensus: $3.20 vs $3.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 EPS: $3.20 vs $3.07 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 EPS $3.20, beat by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $3.20 vs $3.07 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $3.20 vs $3.07 (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$ADSK beat Q3 2027 EPS estimates by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b01110.a",
+          "fact": "earningsre-b01110",
+          "variant": "a",
+          "text": "Non-GAAP diluted net income per share came in above the $3.07 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fc8cc3.a",
+          "fact": "earningsre-fc8cc3",
+          "variant": "a",
+          "text": "$ADSK beat the Q3 2027 Non-GAAP diluted net income per share consensus: $3.20 vs $3.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c3ddd1.a",
+          "fact": "earningsre-c3ddd1",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d2529a.a",
+          "fact": "earningsre-d2529a",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 Non-GAAP diluted net income per share $3.20, beat by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7d7ca2.a",
+          "fact": "earningsre-7d7ca2",
+          "variant": "a",
+          "text": "Non-GAAP diluted net income per share $3.20 vs $3.07 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-dcdf02.a",
+          "fact": "earningsre-dcdf02",
+          "variant": "a",
+          "text": "Non-GAAP diluted net income per share $3.20 vs $3.07 (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-526257.a",
+          "fact": "earningsre-526257",
+          "variant": "a",
+          "text": "$ADSK beat Q3 2027 Non-GAAP diluted net income per share estimates by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$ADSK beat the Q3 EPS consensus: $3.20 vs $3.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$ADSK Q3 EPS: $3.20 vs $3.07 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$ADSK Q3 EPS $3.20, beat by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$ADSK beat Q3 EPS estimates by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e7d7ea.a",
+          "fact": "earningsre-e7d7ea",
+          "variant": "a",
+          "text": "$ADSK beat the Q3 Non-GAAP diluted net income per share consensus: $3.20 vs $3.07.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-726831.a",
+          "fact": "earningsre-726831",
+          "variant": "a",
+          "text": "$ADSK Q3 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-60eb63.a",
+          "fact": "earningsre-60eb63",
+          "variant": "a",
+          "text": "$ADSK Q3 Non-GAAP diluted net income per share $3.20, beat by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4109a7.a",
+          "fact": "earningsre-4109a7",
+          "variant": "a",
+          "text": "$ADSK beat Q3 Non-GAAP diluted net income per share estimates by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$ADSK beat Q3 2027 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$ADSK beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Autodesk, Inc. ($ADSK) published Q3 2027 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$ADSK (Autodesk, Inc.) reported Q3 2027 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 24, Autodesk, Inc. ($ADSK) published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$ADSK published Q3 2027 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2027 results from $ADSK came out on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 24, $ADSK published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 revenue: $2.16B vs $2.13B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$ADSK reported Q3 2027 revenue of $2.16B vs $2.13B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 revenue was $2.16B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2027 revenue at $ADSK was $2.16B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-ed030b.a",
+          "fact": "earningsre-ed030b",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-ed030b.h1",
+          "fact": "earningsre-ed030b",
+          "variant": "h1",
+          "text": "$ADSK reported Q3 2027 Non-GAAP diluted net income per share of $3.20 vs $3.07 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b4ebad.a",
+          "fact": "earningsre-b4ebad",
+          "variant": "a",
+          "text": "$ADSK Q3 2027 Non-GAAP diluted net income per share was $3.20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b4ebad.h1",
+          "fact": "earningsre-b4ebad",
+          "variant": "h1",
+          "text": "Q3 2027 Non-GAAP diluted net income per share at $ADSK was $3.20.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$ADSK had a market value of $51.1B at the Nov 23 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$ADSK's market value at the Nov 23 close was $51.1B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 23 close, $ADSK had a market value of $51.1B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$ADSK moved +4.44% on Monday, Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$ADSK's move on Monday, Nov 23: +4.44%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Monday, Nov 23, $ADSK moved +4.44%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "4.44%": "+",
+          "4.4%": "+"
+        },
+        "subjects": {
+          "ADSK": "up"
+        }
+      },
+      "subject_numbers": {
+        "ADSK": [
+          [
+            "$",
+            2.16,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            2.13,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            26.3,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            3.2,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            3.07,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.13,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            4.44,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            51.1,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-24-earnings-result-WDAY-322bac",
+      "type": "earnings_result",
+      "ticker": "WDAY",
+      "tickers": [
+        "WDAY"
+      ],
+      "name": "Workday, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1327811/000132781126000057/wday-10312026x991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/WDAY?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-WDAY-322bac#earnings-history",
+      "allowed_numbers": [
+        "$2.71B",
+        "$2.69B",
+        "$13.5M",
+        "$2.82",
+        "$2.74",
+        "$0.08",
+        "Q3 2027",
+        "Q3",
+        "FY2027",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Workday, Inc. (WDAY) published Q3 2027 results on 2026-11-24: Beat estimates. Revenue $2.71B vs $2.69B consensus (Beat by $13.5M). Non-GAAP diluted net income per share $2.82 vs $2.74 consensus (Beat by $0.08).",
+      "dedupe_key": "report:wday-2027-q3",
+      "claim_phrases": [
+        "revenue came in above the $2.69B consensus.",
+        "$WDAY beat the Q3 2027 revenue consensus: $2.71B vs $2.69B.",
+        "$WDAY Q3 2027 revenue: $2.71B vs $2.69B consensus (beat by $13.5M).",
+        "$WDAY Q3 2027 revenue $2.71B, beat by $13.5M.",
+        "revenue $2.71B vs $2.69B consensus (beat by $13.5M).",
+        "revenue $2.71B vs $2.69B (beat by $13.5M).",
+        "$WDAY beat Q3 2027 revenue estimates by $13.5M.",
+        "$WDAY beat the Q3 revenue consensus: $2.71B vs $2.69B.",
+        "$WDAY Q3 revenue: $2.71B vs $2.69B consensus (beat by $13.5M).",
+        "$WDAY Q3 revenue $2.71B, beat by $13.5M.",
+        "$WDAY beat Q3 revenue estimates by $13.5M.",
+        "EPS came in above the $2.74 consensus.",
+        "$WDAY beat the Q3 2027 EPS consensus: $2.82 vs $2.74.",
+        "$WDAY Q3 2027 EPS: $2.82 vs $2.74 consensus (beat by $0.08).",
+        "$WDAY Q3 2027 EPS $2.82, beat by $0.08.",
+        "EPS $2.82 vs $2.74 consensus (beat by $0.08).",
+        "EPS $2.82 vs $2.74 (beat by $0.08).",
+        "$WDAY beat Q3 2027 EPS estimates by $0.08.",
+        "Non-GAAP diluted net income per share came in above the $2.74 consensus.",
+        "$WDAY beat the Q3 2027 Non-GAAP diluted net income per share consensus: $2.82 vs $2.74.",
+        "$WDAY Q3 2027 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus (beat by $0.08).",
+        "$WDAY Q3 2027 Non-GAAP diluted net income per share $2.82, beat by $0.08.",
+        "Non-GAAP diluted net income per share $2.82 vs $2.74 consensus (beat by $0.08).",
+        "Non-GAAP diluted net income per share $2.82 vs $2.74 (beat by $0.08).",
+        "$WDAY beat Q3 2027 Non-GAAP diluted net income per share estimates by $0.08.",
+        "$WDAY beat the Q3 EPS consensus: $2.82 vs $2.74.",
+        "$WDAY Q3 EPS: $2.82 vs $2.74 consensus (beat by $0.08).",
+        "$WDAY Q3 EPS $2.82, beat by $0.08.",
+        "$WDAY beat Q3 EPS estimates by $0.08.",
+        "$WDAY beat the Q3 Non-GAAP diluted net income per share consensus: $2.82 vs $2.74.",
+        "$WDAY Q3 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus (beat by $0.08).",
+        "$WDAY Q3 Non-GAAP diluted net income per share $2.82, beat by $0.08.",
+        "$WDAY beat Q3 Non-GAAP diluted net income per share estimates by $0.08.",
+        "$WDAY beat Q3 2027 estimates.",
+        "$WDAY beat Q3 estimates."
+      ],
+      "report_id": "wday-2027-q3",
+      "fiscal_label": "Q3 2027",
+      "release_date": "2026-11-24",
+      "published_at": "2026-11-24T21:04:37.554898+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$2.71B",
+          "consensus": "$2.69B",
+          "label": "Beat by $13.5M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP diluted net income per share",
+          "reported": "$2.82",
+          "consensus": "$2.74",
+          "label": "Beat by $0.08",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/WDAY/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for WDAY: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $42.06B +2.5; magnitude (verdict) +1.5; release_date 2026-11-24 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 42059321159.70835,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$42.1B",
+        "+0.89%",
+        "0.89%",
+        "+0.9%",
+        "0.9%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "WDAY"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "WDAY": "Technology"
+      },
+      "ticker_names": {
+        "WDAY": "Workday, Inc."
+      },
+      "context": {
+        "market_cap": "$42.1B",
+        "market_cap_session": "2026-11-23",
+        "last_session_move": {
+          "pct": "+0.89%",
+          "session": "2026-11-23"
+        }
+      },
+      "angles": [
+        "Workday, Inc. ($WDAY) published Q3 2027 results on Nov 24.",
+        "$WDAY (Workday, Inc.) reported Q3 2027 results on Nov 24.",
+        "On Nov 24, Workday, Inc. ($WDAY) published Q3 2027 results."
+      ],
+      "fact_phrases": [
+        "Workday, Inc. ($WDAY) published Q3 2027 results on Nov 24.",
+        "$WDAY (Workday, Inc.) reported Q3 2027 results on Nov 24.",
+        "On Nov 24, Workday, Inc. ($WDAY) published Q3 2027 results.",
+        "$WDAY published Q3 2027 results on Nov 24.",
+        "Q3 2027 results from $WDAY came out on Nov 24.",
+        "On Nov 24, $WDAY published Q3 2027 results.",
+        "$WDAY Q3 2027 revenue: $2.71B vs $2.69B consensus.",
+        "$WDAY reported Q3 2027 revenue of $2.71B vs $2.69B consensus.",
+        "$WDAY Q3 2027 revenue was $2.71B.",
+        "Q3 2027 revenue at $WDAY was $2.71B.",
+        "$WDAY Q3 2027 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus.",
+        "$WDAY reported Q3 2027 Non-GAAP diluted net income per share of $2.82 vs $2.74 consensus.",
+        "$WDAY Q3 2027 Non-GAAP diluted net income per share was $2.82.",
+        "Q3 2027 Non-GAAP diluted net income per share at $WDAY was $2.82.",
+        "$WDAY had a market value of $42.1B at the Nov 23 close.",
+        "$WDAY's market value at the Nov 23 close was $42.1B.",
+        "At the Nov 23 close, $WDAY had a market value of $42.1B.",
+        "$WDAY moved +0.89% on Monday, Nov 23.",
+        "$WDAY's move on Monday, Nov 23: +0.89%.",
+        "On Monday, Nov 23, $WDAY moved +0.89%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $2.69B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$WDAY beat the Q3 2027 revenue consensus: $2.71B vs $2.69B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 revenue: $2.71B vs $2.69B consensus (beat by $13.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 revenue $2.71B, beat by $13.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $2.71B vs $2.69B consensus (beat by $13.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $2.71B vs $2.69B (beat by $13.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$WDAY beat Q3 2027 revenue estimates by $13.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$WDAY beat the Q3 revenue consensus: $2.71B vs $2.69B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$WDAY Q3 revenue: $2.71B vs $2.69B consensus (beat by $13.5M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$WDAY Q3 revenue $2.71B, beat by $13.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$WDAY beat Q3 revenue estimates by $13.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $2.74 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$WDAY beat the Q3 2027 EPS consensus: $2.82 vs $2.74.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 EPS: $2.82 vs $2.74 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 EPS $2.82, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $2.82 vs $2.74 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $2.82 vs $2.74 (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$WDAY beat Q3 2027 EPS estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-b01110.a",
+          "fact": "earningsre-b01110",
+          "variant": "a",
+          "text": "Non-GAAP diluted net income per share came in above the $2.74 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fc8cc3.a",
+          "fact": "earningsre-fc8cc3",
+          "variant": "a",
+          "text": "$WDAY beat the Q3 2027 Non-GAAP diluted net income per share consensus: $2.82 vs $2.74.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c3ddd1.a",
+          "fact": "earningsre-c3ddd1",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-d2529a.a",
+          "fact": "earningsre-d2529a",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 Non-GAAP diluted net income per share $2.82, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7d7ca2.a",
+          "fact": "earningsre-7d7ca2",
+          "variant": "a",
+          "text": "Non-GAAP diluted net income per share $2.82 vs $2.74 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-dcdf02.a",
+          "fact": "earningsre-dcdf02",
+          "variant": "a",
+          "text": "Non-GAAP diluted net income per share $2.82 vs $2.74 (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-526257.a",
+          "fact": "earningsre-526257",
+          "variant": "a",
+          "text": "$WDAY beat Q3 2027 Non-GAAP diluted net income per share estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$WDAY beat the Q3 EPS consensus: $2.82 vs $2.74.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$WDAY Q3 EPS: $2.82 vs $2.74 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$WDAY Q3 EPS $2.82, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$WDAY beat Q3 EPS estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e7d7ea.a",
+          "fact": "earningsre-e7d7ea",
+          "variant": "a",
+          "text": "$WDAY beat the Q3 Non-GAAP diluted net income per share consensus: $2.82 vs $2.74.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-726831.a",
+          "fact": "earningsre-726831",
+          "variant": "a",
+          "text": "$WDAY Q3 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus (beat by $0.08).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-60eb63.a",
+          "fact": "earningsre-60eb63",
+          "variant": "a",
+          "text": "$WDAY Q3 Non-GAAP diluted net income per share $2.82, beat by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4109a7.a",
+          "fact": "earningsre-4109a7",
+          "variant": "a",
+          "text": "$WDAY beat Q3 Non-GAAP diluted net income per share estimates by $0.08.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$WDAY beat Q3 2027 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$WDAY beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Workday, Inc. ($WDAY) published Q3 2027 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$WDAY (Workday, Inc.) reported Q3 2027 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 24, Workday, Inc. ($WDAY) published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$WDAY published Q3 2027 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2027 results from $WDAY came out on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 24, $WDAY published Q3 2027 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 revenue: $2.71B vs $2.69B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$WDAY reported Q3 2027 revenue of $2.71B vs $2.69B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 revenue was $2.71B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2027 revenue at $WDAY was $2.71B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-ed030b.a",
+          "fact": "earningsre-ed030b",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-ed030b.h1",
+          "fact": "earningsre-ed030b",
+          "variant": "h1",
+          "text": "$WDAY reported Q3 2027 Non-GAAP diluted net income per share of $2.82 vs $2.74 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b4ebad.a",
+          "fact": "earningsre-b4ebad",
+          "variant": "a",
+          "text": "$WDAY Q3 2027 Non-GAAP diluted net income per share was $2.82.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b4ebad.h1",
+          "fact": "earningsre-b4ebad",
+          "variant": "h1",
+          "text": "Q3 2027 Non-GAAP diluted net income per share at $WDAY was $2.82.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$WDAY had a market value of $42.1B at the Nov 23 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$WDAY's market value at the Nov 23 close was $42.1B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 23 close, $WDAY had a market value of $42.1B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$WDAY moved +0.89% on Monday, Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$WDAY's move on Monday, Nov 23: +0.89%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Monday, Nov 23, $WDAY moved +0.89%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.89%": "+",
+          "0.9%": "+"
+        },
+        "subjects": {
+          "WDAY": "up"
+        }
+      },
+      "subject_numbers": {
+        "WDAY": [
+          [
+            "$",
+            2.71,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            2.69,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            13.5,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            2.82,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            2.74,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.08,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            0.89,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            42.1,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
       "top8": true,
       "rotation": null
     },
@@ -2448,1067 +4250,6 @@
           [
             "$",
             127.8,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-24-earnings-result-DLTR-79e319",
-      "type": "earnings_result",
-      "ticker": "DLTR",
-      "tickers": [
-        "DLTR"
-      ],
-      "name": "Dollar Tree, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/935703/000093570326000136/ex991q3-26earningspressrel.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/DLTR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-DLTR-79e319#earnings-history",
-      "allowed_numbers": [
-        "$5.08B",
-        "$5.04B",
-        "$37.8M",
-        "$1.16",
-        "$0.92",
-        "$0.24",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Dollar Tree, Inc. (DLTR) published Q3 2026 results on 2026-11-24: Beat estimates. Revenue $5.08B vs $5.04B consensus (Beat by $37.8M). Adjusted diluted earnings per share - continuing operations $1.16 vs $0.92 consensus (Beat by $0.24).",
-      "dedupe_key": "report:dltr-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $5.04B consensus.",
-        "$DLTR beat the Q3 2026 revenue consensus: $5.08B vs $5.04B.",
-        "$DLTR Q3 2026 revenue: $5.08B vs $5.04B consensus (beat by $37.8M).",
-        "$DLTR Q3 2026 revenue $5.08B, beat by $37.8M.",
-        "revenue $5.08B vs $5.04B consensus (beat by $37.8M).",
-        "revenue $5.08B vs $5.04B (beat by $37.8M).",
-        "$DLTR beat Q3 2026 revenue estimates by $37.8M.",
-        "$DLTR beat the Q3 revenue consensus: $5.08B vs $5.04B.",
-        "$DLTR Q3 revenue: $5.08B vs $5.04B consensus (beat by $37.8M).",
-        "$DLTR Q3 revenue $5.08B, beat by $37.8M.",
-        "$DLTR beat Q3 revenue estimates by $37.8M.",
-        "EPS came in above the $0.92 consensus.",
-        "$DLTR beat the Q3 2026 EPS consensus: $1.16 vs $0.92.",
-        "$DLTR Q3 2026 EPS: $1.16 vs $0.92 consensus (beat by $0.24).",
-        "$DLTR Q3 2026 EPS $1.16, beat by $0.24.",
-        "EPS $1.16 vs $0.92 consensus (beat by $0.24).",
-        "EPS $1.16 vs $0.92 (beat by $0.24).",
-        "$DLTR beat Q3 2026 EPS estimates by $0.24.",
-        "$DLTR beat the Q3 EPS consensus: $1.16 vs $0.92.",
-        "$DLTR Q3 EPS: $1.16 vs $0.92 consensus (beat by $0.24).",
-        "$DLTR Q3 EPS $1.16, beat by $0.24.",
-        "$DLTR beat Q3 EPS estimates by $0.24.",
-        "$DLTR beat Q3 2026 estimates.",
-        "$DLTR beat Q3 estimates."
-      ],
-      "report_id": "dltr-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-24T11:32:36.473005+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$5.08B",
-          "consensus": "$5.04B",
-          "label": "Beat by $37.8M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Adjusted diluted earnings per share - continuing operations",
-          "reported": "$1.16",
-          "consensus": "$0.92",
-          "label": "Beat by $0.24",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/DLTR/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for DLTR: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 9.0,
-      "rank_why": "earnings_result 3; large cap $25.89B +2.5; magnitude (verdict) +1.5; release_date 2026-11-24 (age 0) +2",
-      "pillar": "P5",
-      "market_cap_usd": 25885477722.997765,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23",
-        "$25.9B",
-        "+0.83%",
-        "0.83%",
-        "+0.8%",
-        "0.8%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "DLTR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "DLTR": "Consumer Defensive"
-      },
-      "ticker_names": {
-        "DLTR": "Dollar Tree, Inc."
-      },
-      "context": {
-        "market_cap": "$25.9B",
-        "market_cap_session": "2026-11-23",
-        "last_session_move": {
-          "pct": "+0.83%",
-          "session": "2026-11-23"
-        }
-      },
-      "angles": [
-        "Dollar Tree, Inc. ($DLTR) published Q3 2026 results on Nov 24.",
-        "$DLTR (Dollar Tree, Inc.) reported Q3 2026 results on Nov 24.",
-        "On Nov 24, Dollar Tree, Inc. ($DLTR) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Dollar Tree, Inc. ($DLTR) published Q3 2026 results on Nov 24.",
-        "$DLTR (Dollar Tree, Inc.) reported Q3 2026 results on Nov 24.",
-        "On Nov 24, Dollar Tree, Inc. ($DLTR) published Q3 2026 results.",
-        "$DLTR published Q3 2026 results on Nov 24.",
-        "Q3 2026 results from $DLTR came out on Nov 24.",
-        "On Nov 24, $DLTR published Q3 2026 results.",
-        "$DLTR Q3 2026 revenue: $5.08B vs $5.04B consensus.",
-        "$DLTR reported Q3 2026 revenue of $5.08B vs $5.04B consensus.",
-        "$DLTR Q3 2026 revenue was $5.08B.",
-        "Q3 2026 revenue at $DLTR was $5.08B.",
-        "$DLTR Q3 2026 Adjusted diluted earnings per share - continuing operations: $1.16 vs $0.92 consensus.",
-        "$DLTR reported Q3 2026 Adjusted diluted earnings per share - continuing operations of $1.16 vs $0.92 consensus.",
-        "$DLTR Q3 2026 Adjusted diluted earnings per share - continuing operations was $1.16.",
-        "Q3 2026 Adjusted diluted earnings per share - continuing operations at $DLTR was $1.16.",
-        "$DLTR had a market value of $25.9B at the Nov 23 close.",
-        "$DLTR's market value at the Nov 23 close was $25.9B.",
-        "At the Nov 23 close, $DLTR had a market value of $25.9B.",
-        "$DLTR moved +0.83% on Monday, Nov 23.",
-        "$DLTR's move on Monday, Nov 23: +0.83%.",
-        "On Monday, Nov 23, $DLTR moved +0.83%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $5.04B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$DLTR beat the Q3 2026 revenue consensus: $5.08B vs $5.04B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$DLTR Q3 2026 revenue: $5.08B vs $5.04B consensus (beat by $37.8M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$DLTR Q3 2026 revenue $5.08B, beat by $37.8M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $5.08B vs $5.04B consensus (beat by $37.8M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $5.08B vs $5.04B (beat by $37.8M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$DLTR beat Q3 2026 revenue estimates by $37.8M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$DLTR beat the Q3 revenue consensus: $5.08B vs $5.04B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$DLTR Q3 revenue: $5.08B vs $5.04B consensus (beat by $37.8M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$DLTR Q3 revenue $5.08B, beat by $37.8M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$DLTR beat Q3 revenue estimates by $37.8M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $0.92 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$DLTR beat the Q3 2026 EPS consensus: $1.16 vs $0.92.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$DLTR Q3 2026 EPS: $1.16 vs $0.92 consensus (beat by $0.24).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$DLTR Q3 2026 EPS $1.16, beat by $0.24.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.16 vs $0.92 consensus (beat by $0.24).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.16 vs $0.92 (beat by $0.24).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$DLTR beat Q3 2026 EPS estimates by $0.24.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$DLTR beat the Q3 EPS consensus: $1.16 vs $0.92.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$DLTR Q3 EPS: $1.16 vs $0.92 consensus (beat by $0.24).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$DLTR Q3 EPS $1.16, beat by $0.24.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$DLTR beat Q3 EPS estimates by $0.24.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$DLTR beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$DLTR beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Dollar Tree, Inc. ($DLTR) published Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$DLTR (Dollar Tree, Inc.) reported Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 24, Dollar Tree, Inc. ($DLTR) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$DLTR published Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $DLTR came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 24, $DLTR published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$DLTR Q3 2026 revenue: $5.08B vs $5.04B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$DLTR reported Q3 2026 revenue of $5.08B vs $5.04B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$DLTR Q3 2026 revenue was $5.08B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $DLTR was $5.08B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c58ec2.a",
-          "fact": "earningsre-c58ec2",
-          "variant": "a",
-          "text": "$DLTR Q3 2026 Adjusted diluted earnings per share - continuing operations: $1.16 vs $0.92 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c58ec2.h1",
-          "fact": "earningsre-c58ec2",
-          "variant": "h1",
-          "text": "$DLTR reported Q3 2026 Adjusted diluted earnings per share - continuing operations of $1.16 vs $0.92 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-01fef4.a",
-          "fact": "earningsre-01fef4",
-          "variant": "a",
-          "text": "$DLTR Q3 2026 Adjusted diluted earnings per share - continuing operations was $1.16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-01fef4.h1",
-          "fact": "earningsre-01fef4",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted diluted earnings per share - continuing operations at $DLTR was $1.16.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$DLTR had a market value of $25.9B at the Nov 23 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$DLTR's market value at the Nov 23 close was $25.9B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 23 close, $DLTR had a market value of $25.9B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$DLTR moved +0.83% on Monday, Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$DLTR's move on Monday, Nov 23: +0.83%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Monday, Nov 23, $DLTR moved +0.83%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "0.83%": "+",
-          "0.8%": "+"
-        },
-        "subjects": {
-          "DLTR": "up"
-        }
-      },
-      "subject_numbers": {
-        "DLTR": [
-          [
-            "$",
-            5.08,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            5.04,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            37.8,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            1.16,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.92,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.24,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            0.83,
-            2,
-            1.0,
-            1
-          ],
-          [
-            "$",
-            25.9,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-24-earnings-result-A-8cc9f9",
-      "type": "earnings_result",
-      "ticker": "A",
-      "tickers": [
-        "A"
-      ],
-      "name": "Agilent Technologies, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-23",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1090872/000109087226000082/exhibit991-q426pressrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/A?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-A-8cc9f9#earnings-history",
-      "allowed_numbers": [
-        "$2.04B",
-        "$1.99B",
-        "$51.1M",
-        "$1.86",
-        "$1.73",
-        "$0.13",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Agilent Technologies, Inc. (A) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $2.04B vs $1.99B consensus (Beat by $51.1M). Non-GAAP EPS $1.86 vs $1.73 consensus (Beat by $0.13).",
-      "dedupe_key": "report:a-2026-q4",
-      "claim_phrases": [
-        "revenue came in above the $1.99B consensus.",
-        "$A beat the FY2026 (Q4) revenue consensus: $2.04B vs $1.99B.",
-        "$A FY2026 (Q4) revenue: $2.04B vs $1.99B consensus (beat by $51.1M).",
-        "$A FY2026 (Q4) revenue $2.04B, beat by $51.1M.",
-        "revenue $2.04B vs $1.99B consensus (beat by $51.1M).",
-        "revenue $2.04B vs $1.99B (beat by $51.1M).",
-        "$A beat FY2026 (Q4) revenue estimates by $51.1M.",
-        "EPS came in above the $1.73 consensus.",
-        "$A beat the FY2026 (Q4) EPS consensus: $1.86 vs $1.73.",
-        "$A FY2026 (Q4) EPS: $1.86 vs $1.73 consensus (beat by $0.13).",
-        "$A FY2026 (Q4) EPS $1.86, beat by $0.13.",
-        "EPS $1.86 vs $1.73 consensus (beat by $0.13).",
-        "EPS $1.86 vs $1.73 (beat by $0.13).",
-        "$A beat FY2026 (Q4) EPS estimates by $0.13.",
-        "Non-GAAP EPS came in above the $1.73 consensus.",
-        "$A beat the FY2026 (Q4) Non-GAAP EPS consensus: $1.86 vs $1.73.",
-        "$A FY2026 (Q4) Non-GAAP EPS: $1.86 vs $1.73 consensus (beat by $0.13).",
-        "$A FY2026 (Q4) Non-GAAP EPS $1.86, beat by $0.13.",
-        "Non-GAAP EPS $1.86 vs $1.73 consensus (beat by $0.13).",
-        "Non-GAAP EPS $1.86 vs $1.73 (beat by $0.13).",
-        "$A beat FY2026 (Q4) Non-GAAP EPS estimates by $0.13.",
-        "$A beat FY2026 (Q4) estimates."
-      ],
-      "report_id": "a-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-23",
-      "published_at": "2026-11-24T12:02:03.236753+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$2.04B",
-          "consensus": "$1.99B",
-          "label": "Beat by $51.1M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Non-GAAP EPS",
-          "reported": "$1.86",
-          "consensus": "$1.73",
-          "label": "Beat by $0.13",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/A/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for A: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 8.5,
-      "rank_why": "earnings_result 3; large cap $48.04B +2.5; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 48035041280.00001,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23",
-        "$48.0B",
-        "+3.32%",
-        "3.32%",
-        "+3.3%",
-        "3.3%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "A"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "A": "Healthcare"
-      },
-      "ticker_names": {
-        "A": "Agilent Technologies, Inc."
-      },
-      "context": {
-        "market_cap": "$48.0B",
-        "market_cap_session": "2026-11-23",
-        "last_session_move": {
-          "pct": "+3.32%",
-          "session": "2026-11-23"
-        }
-      },
-      "angles": [
-        "Agilent Technologies, Inc. ($A) published FY2026 (Q4) results on Nov 23.",
-        "$A (Agilent Technologies, Inc.) reported FY2026 (Q4) results on Nov 23.",
-        "On Nov 23, Agilent Technologies, Inc. ($A) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "Agilent Technologies, Inc. ($A) published FY2026 (Q4) results on Nov 23.",
-        "$A (Agilent Technologies, Inc.) reported FY2026 (Q4) results on Nov 23.",
-        "On Nov 23, Agilent Technologies, Inc. ($A) published FY2026 (Q4) results.",
-        "$A published FY2026 (Q4) results on Nov 23.",
-        "FY2026 (Q4) results from $A came out on Nov 23.",
-        "On Nov 23, $A published FY2026 (Q4) results.",
-        "$A FY2026 (Q4) revenue: $2.04B vs $1.99B consensus.",
-        "$A reported FY2026 (Q4) revenue of $2.04B vs $1.99B consensus.",
-        "$A FY2026 (Q4) revenue was $2.04B.",
-        "FY2026 (Q4) revenue at $A was $2.04B.",
-        "$A FY2026 (Q4) Non-GAAP EPS: $1.86 vs $1.73 consensus.",
-        "$A reported FY2026 (Q4) Non-GAAP EPS of $1.86 vs $1.73 consensus.",
-        "$A FY2026 (Q4) Non-GAAP EPS was $1.86.",
-        "FY2026 (Q4) Non-GAAP EPS at $A was $1.86.",
-        "$A had a market value of $48.0B at the Nov 23 close.",
-        "$A's market value at the Nov 23 close was $48.0B.",
-        "At the Nov 23 close, $A had a market value of $48.0B.",
-        "$A moved +3.32% on Monday, Nov 23.",
-        "$A's move on Monday, Nov 23: +3.32%.",
-        "On Monday, Nov 23, $A moved +3.32%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $1.99B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fe5e72.a",
-          "fact": "earningsre-fe5e72",
-          "variant": "a",
-          "text": "$A beat the FY2026 (Q4) revenue consensus: $2.04B vs $1.99B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c73b4a.a",
-          "fact": "earningsre-c73b4a",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) revenue: $2.04B vs $1.99B consensus (beat by $51.1M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c84ebe.a",
-          "fact": "earningsre-c84ebe",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) revenue $2.04B, beat by $51.1M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $2.04B vs $1.99B consensus (beat by $51.1M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $2.04B vs $1.99B (beat by $51.1M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-292430.a",
-          "fact": "earningsre-292430",
-          "variant": "a",
-          "text": "$A beat FY2026 (Q4) revenue estimates by $51.1M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.73 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$A beat the FY2026 (Q4) EPS consensus: $1.86 vs $1.73.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) EPS: $1.86 vs $1.73 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) EPS $1.86, beat by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.86 vs $1.73 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.86 vs $1.73 (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$A beat FY2026 (Q4) EPS estimates by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "Non-GAAP EPS came in above the $1.73 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$A beat the FY2026 (Q4) Non-GAAP EPS consensus: $1.86 vs $1.73.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) Non-GAAP EPS: $1.86 vs $1.73 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) Non-GAAP EPS $1.86, beat by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "Non-GAAP EPS $1.86 vs $1.73 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "Non-GAAP EPS $1.86 vs $1.73 (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$A beat FY2026 (Q4) Non-GAAP EPS estimates by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-232122.a",
-          "fact": "earningsre-232122",
-          "variant": "a",
-          "text": "$A beat FY2026 (Q4) estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "Agilent Technologies, Inc. ($A) published FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$A (Agilent Technologies, Inc.) reported FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 23, Agilent Technologies, Inc. ($A) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$A published FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $A came out on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 23, $A published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.a",
-          "fact": "earningsre-8c456a",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) revenue: $2.04B vs $1.99B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.h1",
-          "fact": "earningsre-8c456a",
-          "variant": "h1",
-          "text": "$A reported FY2026 (Q4) revenue of $2.04B vs $1.99B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.a",
-          "fact": "earningsre-3741ca",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) revenue was $2.04B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.h1",
-          "fact": "earningsre-3741ca",
-          "variant": "h1",
-          "text": "FY2026 (Q4) revenue at $A was $2.04B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b47db5.a",
-          "fact": "earningsre-b47db5",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) Non-GAAP EPS: $1.86 vs $1.73 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b47db5.h1",
-          "fact": "earningsre-b47db5",
-          "variant": "h1",
-          "text": "$A reported FY2026 (Q4) Non-GAAP EPS of $1.86 vs $1.73 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1df3d9.a",
-          "fact": "earningsre-1df3d9",
-          "variant": "a",
-          "text": "$A FY2026 (Q4) Non-GAAP EPS was $1.86.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1df3d9.h1",
-          "fact": "earningsre-1df3d9",
-          "variant": "h1",
-          "text": "FY2026 (Q4) Non-GAAP EPS at $A was $1.86.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$A had a market value of $48.0B at the Nov 23 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$A's market value at the Nov 23 close was $48.0B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 23 close, $A had a market value of $48.0B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$A moved +3.32% on Monday, Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$A's move on Monday, Nov 23: +3.32%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Monday, Nov 23, $A moved +3.32%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "3.32%": "+",
-          "3.3%": "+"
-        },
-        "subjects": {
-          "A": "up"
-        }
-      },
-      "subject_numbers": {
-        "A": [
-          [
-            "$",
-            2.04,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            1.99,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            51.1,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            1.86,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.73,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.13,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            3.32,
-            2,
-            1.0,
-            1
-          ],
-          [
-            "$",
-            48.0,
             1,
             1000000000.0,
             0
@@ -9480,6 +10221,1069 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-24-earnings-result-DLTR-79e319",
+      "type": "earnings_result",
+      "ticker": "DLTR",
+      "tickers": [
+        "DLTR"
+      ],
+      "name": "Dollar Tree, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/935703/000093570326000136/ex991q3-26earningspressrel.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/DLTR?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-DLTR-79e319#earnings-history",
+      "allowed_numbers": [
+        "$5.08B",
+        "$5.04B",
+        "$37.8M",
+        "$1.16",
+        "$0.92",
+        "$0.24",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Dollar Tree, Inc. (DLTR) published Q3 2026 results on 2026-11-24: Beat estimates. Revenue $5.08B vs $5.04B consensus (Beat by $37.8M). Adjusted diluted earnings per share - continuing operations $1.16 vs $0.92 consensus (Beat by $0.24).",
+      "dedupe_key": "report:dltr-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $5.04B consensus.",
+        "$DLTR beat the Q3 2026 revenue consensus: $5.08B vs $5.04B.",
+        "$DLTR Q3 2026 revenue: $5.08B vs $5.04B consensus (beat by $37.8M).",
+        "$DLTR Q3 2026 revenue $5.08B, beat by $37.8M.",
+        "revenue $5.08B vs $5.04B consensus (beat by $37.8M).",
+        "revenue $5.08B vs $5.04B (beat by $37.8M).",
+        "$DLTR beat Q3 2026 revenue estimates by $37.8M.",
+        "$DLTR beat the Q3 revenue consensus: $5.08B vs $5.04B.",
+        "$DLTR Q3 revenue: $5.08B vs $5.04B consensus (beat by $37.8M).",
+        "$DLTR Q3 revenue $5.08B, beat by $37.8M.",
+        "$DLTR beat Q3 revenue estimates by $37.8M.",
+        "EPS came in above the $0.92 consensus.",
+        "$DLTR beat the Q3 2026 EPS consensus: $1.16 vs $0.92.",
+        "$DLTR Q3 2026 EPS: $1.16 vs $0.92 consensus (beat by $0.24).",
+        "$DLTR Q3 2026 EPS $1.16, beat by $0.24.",
+        "EPS $1.16 vs $0.92 consensus (beat by $0.24).",
+        "EPS $1.16 vs $0.92 (beat by $0.24).",
+        "$DLTR beat Q3 2026 EPS estimates by $0.24.",
+        "$DLTR beat the Q3 EPS consensus: $1.16 vs $0.92.",
+        "$DLTR Q3 EPS: $1.16 vs $0.92 consensus (beat by $0.24).",
+        "$DLTR Q3 EPS $1.16, beat by $0.24.",
+        "$DLTR beat Q3 EPS estimates by $0.24.",
+        "$DLTR beat Q3 2026 estimates.",
+        "$DLTR beat Q3 estimates."
+      ],
+      "report_id": "dltr-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-24",
+      "published_at": "2026-11-24T11:32:36.473005+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$5.08B",
+          "consensus": "$5.04B",
+          "label": "Beat by $37.8M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Adjusted diluted earnings per share - continuing operations",
+          "reported": "$1.16",
+          "consensus": "$0.92",
+          "label": "Beat by $0.24",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/DLTR/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for DLTR: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 9.0,
+      "rank_why": "earnings_result 3; large cap $25.89B +2.5; magnitude (verdict) +1.5; release_date 2026-11-24 (age 0) +2",
+      "pillar": "P5",
+      "market_cap_usd": 25885477722.997765,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$25.9B",
+        "+0.83%",
+        "0.83%",
+        "+0.8%",
+        "0.8%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "DLTR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "DLTR": "Consumer Defensive"
+      },
+      "ticker_names": {
+        "DLTR": "Dollar Tree, Inc."
+      },
+      "context": {
+        "market_cap": "$25.9B",
+        "market_cap_session": "2026-11-23",
+        "last_session_move": {
+          "pct": "+0.83%",
+          "session": "2026-11-23"
+        }
+      },
+      "angles": [
+        "Dollar Tree, Inc. ($DLTR) published Q3 2026 results on Nov 24.",
+        "$DLTR (Dollar Tree, Inc.) reported Q3 2026 results on Nov 24.",
+        "On Nov 24, Dollar Tree, Inc. ($DLTR) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Dollar Tree, Inc. ($DLTR) published Q3 2026 results on Nov 24.",
+        "$DLTR (Dollar Tree, Inc.) reported Q3 2026 results on Nov 24.",
+        "On Nov 24, Dollar Tree, Inc. ($DLTR) published Q3 2026 results.",
+        "$DLTR published Q3 2026 results on Nov 24.",
+        "Q3 2026 results from $DLTR came out on Nov 24.",
+        "On Nov 24, $DLTR published Q3 2026 results.",
+        "$DLTR Q3 2026 revenue: $5.08B vs $5.04B consensus.",
+        "$DLTR reported Q3 2026 revenue of $5.08B vs $5.04B consensus.",
+        "$DLTR Q3 2026 revenue was $5.08B.",
+        "Q3 2026 revenue at $DLTR was $5.08B.",
+        "$DLTR Q3 2026 Adjusted diluted earnings per share - continuing operations: $1.16 vs $0.92 consensus.",
+        "$DLTR reported Q3 2026 Adjusted diluted earnings per share - continuing operations of $1.16 vs $0.92 consensus.",
+        "$DLTR Q3 2026 Adjusted diluted earnings per share - continuing operations was $1.16.",
+        "Q3 2026 Adjusted diluted earnings per share - continuing operations at $DLTR was $1.16.",
+        "$DLTR had a market value of $25.9B at the Nov 23 close.",
+        "$DLTR's market value at the Nov 23 close was $25.9B.",
+        "At the Nov 23 close, $DLTR had a market value of $25.9B.",
+        "$DLTR moved +0.83% on Monday, Nov 23.",
+        "$DLTR's move on Monday, Nov 23: +0.83%.",
+        "On Monday, Nov 23, $DLTR moved +0.83%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $5.04B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$DLTR beat the Q3 2026 revenue consensus: $5.08B vs $5.04B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$DLTR Q3 2026 revenue: $5.08B vs $5.04B consensus (beat by $37.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$DLTR Q3 2026 revenue $5.08B, beat by $37.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $5.08B vs $5.04B consensus (beat by $37.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $5.08B vs $5.04B (beat by $37.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$DLTR beat Q3 2026 revenue estimates by $37.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$DLTR beat the Q3 revenue consensus: $5.08B vs $5.04B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$DLTR Q3 revenue: $5.08B vs $5.04B consensus (beat by $37.8M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$DLTR Q3 revenue $5.08B, beat by $37.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$DLTR beat Q3 revenue estimates by $37.8M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $0.92 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-336f24.a",
+          "fact": "earningsre-336f24",
+          "variant": "a",
+          "text": "$DLTR beat the Q3 2026 EPS consensus: $1.16 vs $0.92.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-986392.a",
+          "fact": "earningsre-986392",
+          "variant": "a",
+          "text": "$DLTR Q3 2026 EPS: $1.16 vs $0.92 consensus (beat by $0.24).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-129e50.a",
+          "fact": "earningsre-129e50",
+          "variant": "a",
+          "text": "$DLTR Q3 2026 EPS $1.16, beat by $0.24.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.16 vs $0.92 consensus (beat by $0.24).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.16 vs $0.92 (beat by $0.24).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-4132c9.a",
+          "fact": "earningsre-4132c9",
+          "variant": "a",
+          "text": "$DLTR beat Q3 2026 EPS estimates by $0.24.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6220e0.a",
+          "fact": "earningsre-6220e0",
+          "variant": "a",
+          "text": "$DLTR beat the Q3 EPS consensus: $1.16 vs $0.92.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-8dd4a8.a",
+          "fact": "earningsre-8dd4a8",
+          "variant": "a",
+          "text": "$DLTR Q3 EPS: $1.16 vs $0.92 consensus (beat by $0.24).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-645f64.a",
+          "fact": "earningsre-645f64",
+          "variant": "a",
+          "text": "$DLTR Q3 EPS $1.16, beat by $0.24.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-488e2f.a",
+          "fact": "earningsre-488e2f",
+          "variant": "a",
+          "text": "$DLTR beat Q3 EPS estimates by $0.24.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$DLTR beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$DLTR beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Dollar Tree, Inc. ($DLTR) published Q3 2026 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$DLTR (Dollar Tree, Inc.) reported Q3 2026 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 24, Dollar Tree, Inc. ($DLTR) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$DLTR published Q3 2026 results on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $DLTR came out on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 24, $DLTR published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$DLTR Q3 2026 revenue: $5.08B vs $5.04B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$DLTR reported Q3 2026 revenue of $5.08B vs $5.04B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$DLTR Q3 2026 revenue was $5.08B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $DLTR was $5.08B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c58ec2.a",
+          "fact": "earningsre-c58ec2",
+          "variant": "a",
+          "text": "$DLTR Q3 2026 Adjusted diluted earnings per share - continuing operations: $1.16 vs $0.92 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c58ec2.h1",
+          "fact": "earningsre-c58ec2",
+          "variant": "h1",
+          "text": "$DLTR reported Q3 2026 Adjusted diluted earnings per share - continuing operations of $1.16 vs $0.92 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-01fef4.a",
+          "fact": "earningsre-01fef4",
+          "variant": "a",
+          "text": "$DLTR Q3 2026 Adjusted diluted earnings per share - continuing operations was $1.16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-01fef4.h1",
+          "fact": "earningsre-01fef4",
+          "variant": "h1",
+          "text": "Q3 2026 Adjusted diluted earnings per share - continuing operations at $DLTR was $1.16.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$DLTR had a market value of $25.9B at the Nov 23 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$DLTR's market value at the Nov 23 close was $25.9B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 23 close, $DLTR had a market value of $25.9B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$DLTR moved +0.83% on Monday, Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$DLTR's move on Monday, Nov 23: +0.83%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Monday, Nov 23, $DLTR moved +0.83%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "0.83%": "+",
+          "0.8%": "+"
+        },
+        "subjects": {
+          "DLTR": "up"
+        }
+      },
+      "subject_numbers": {
+        "DLTR": [
+          [
+            "$",
+            5.08,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            5.04,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            37.8,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.16,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.92,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.24,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            0.83,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            25.9,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-24-earnings-result-A-8cc9f9",
+      "type": "earnings_result",
+      "ticker": "A",
+      "tickers": [
+        "A"
+      ],
+      "name": "Agilent Technologies, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1090872/000109087226000082/exhibit991-q426pressrelease.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/A?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-A-8cc9f9#earnings-history",
+      "allowed_numbers": [
+        "$2.04B",
+        "$1.99B",
+        "$51.1M",
+        "$1.86",
+        "$1.73",
+        "$0.13",
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Agilent Technologies, Inc. (A) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $2.04B vs $1.99B consensus (Beat by $51.1M). Non-GAAP EPS $1.86 vs $1.73 consensus (Beat by $0.13).",
+      "dedupe_key": "report:a-2026-q4",
+      "claim_phrases": [
+        "revenue came in above the $1.99B consensus.",
+        "$A beat the FY2026 (Q4) revenue consensus: $2.04B vs $1.99B.",
+        "$A FY2026 (Q4) revenue: $2.04B vs $1.99B consensus (beat by $51.1M).",
+        "$A FY2026 (Q4) revenue $2.04B, beat by $51.1M.",
+        "revenue $2.04B vs $1.99B consensus (beat by $51.1M).",
+        "revenue $2.04B vs $1.99B (beat by $51.1M).",
+        "$A beat FY2026 (Q4) revenue estimates by $51.1M.",
+        "EPS came in above the $1.73 consensus.",
+        "$A beat the FY2026 (Q4) EPS consensus: $1.86 vs $1.73.",
+        "$A FY2026 (Q4) EPS: $1.86 vs $1.73 consensus (beat by $0.13).",
+        "$A FY2026 (Q4) EPS $1.86, beat by $0.13.",
+        "EPS $1.86 vs $1.73 consensus (beat by $0.13).",
+        "EPS $1.86 vs $1.73 (beat by $0.13).",
+        "$A beat FY2026 (Q4) EPS estimates by $0.13.",
+        "Non-GAAP EPS came in above the $1.73 consensus.",
+        "$A beat the FY2026 (Q4) Non-GAAP EPS consensus: $1.86 vs $1.73.",
+        "$A FY2026 (Q4) Non-GAAP EPS: $1.86 vs $1.73 consensus (beat by $0.13).",
+        "$A FY2026 (Q4) Non-GAAP EPS $1.86, beat by $0.13.",
+        "Non-GAAP EPS $1.86 vs $1.73 consensus (beat by $0.13).",
+        "Non-GAAP EPS $1.86 vs $1.73 (beat by $0.13).",
+        "$A beat FY2026 (Q4) Non-GAAP EPS estimates by $0.13.",
+        "$A beat FY2026 (Q4) estimates."
+      ],
+      "report_id": "a-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-24T12:02:03.236753+00:00",
+      "tile_label": "Beat estimates",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$2.04B",
+          "consensus": "$1.99B",
+          "label": "Beat by $51.1M",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "Non-GAAP EPS",
+          "reported": "$1.86",
+          "consensus": "$1.73",
+          "label": "Beat by $0.13",
+          "verdict": "beat"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/A/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for A: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 8.5,
+      "rank_why": "earnings_result 3; large cap $48.04B +2.5; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
+      "pillar": "P5",
+      "market_cap_usd": 48035041280.00001,
+      "market_cap_source": "market_map",
+      "cap_tier": "large",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "$48.0B",
+        "+3.32%",
+        "3.32%",
+        "+3.3%",
+        "3.3%"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "A"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "A": "Healthcare"
+      },
+      "ticker_names": {
+        "A": "Agilent Technologies, Inc."
+      },
+      "context": {
+        "market_cap": "$48.0B",
+        "market_cap_session": "2026-11-23",
+        "last_session_move": {
+          "pct": "+3.32%",
+          "session": "2026-11-23"
+        }
+      },
+      "angles": [
+        "Agilent Technologies, Inc. ($A) published FY2026 (Q4) results on Nov 23.",
+        "$A (Agilent Technologies, Inc.) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Agilent Technologies, Inc. ($A) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Agilent Technologies, Inc. ($A) published FY2026 (Q4) results on Nov 23.",
+        "$A (Agilent Technologies, Inc.) reported FY2026 (Q4) results on Nov 23.",
+        "On Nov 23, Agilent Technologies, Inc. ($A) published FY2026 (Q4) results.",
+        "$A published FY2026 (Q4) results on Nov 23.",
+        "FY2026 (Q4) results from $A came out on Nov 23.",
+        "On Nov 23, $A published FY2026 (Q4) results.",
+        "$A FY2026 (Q4) revenue: $2.04B vs $1.99B consensus.",
+        "$A reported FY2026 (Q4) revenue of $2.04B vs $1.99B consensus.",
+        "$A FY2026 (Q4) revenue was $2.04B.",
+        "FY2026 (Q4) revenue at $A was $2.04B.",
+        "$A FY2026 (Q4) Non-GAAP EPS: $1.86 vs $1.73 consensus.",
+        "$A reported FY2026 (Q4) Non-GAAP EPS of $1.86 vs $1.73 consensus.",
+        "$A FY2026 (Q4) Non-GAAP EPS was $1.86.",
+        "FY2026 (Q4) Non-GAAP EPS at $A was $1.86.",
+        "$A had a market value of $48.0B at the Nov 23 close.",
+        "$A's market value at the Nov 23 close was $48.0B.",
+        "At the Nov 23 close, $A had a market value of $48.0B.",
+        "$A moved +3.32% on Monday, Nov 23.",
+        "$A's move on Monday, Nov 23: +3.32%.",
+        "On Monday, Nov 23, $A moved +3.32%."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $1.99B consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fe5e72.a",
+          "fact": "earningsre-fe5e72",
+          "variant": "a",
+          "text": "$A beat the FY2026 (Q4) revenue consensus: $2.04B vs $1.99B.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c73b4a.a",
+          "fact": "earningsre-c73b4a",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) revenue: $2.04B vs $1.99B consensus (beat by $51.1M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c84ebe.a",
+          "fact": "earningsre-c84ebe",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) revenue $2.04B, beat by $51.1M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $2.04B vs $1.99B consensus (beat by $51.1M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $2.04B vs $1.99B (beat by $51.1M).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-292430.a",
+          "fact": "earningsre-292430",
+          "variant": "a",
+          "text": "$A beat FY2026 (Q4) revenue estimates by $51.1M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "EPS came in above the $1.73 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$A beat the FY2026 (Q4) EPS consensus: $1.86 vs $1.73.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) EPS: $1.86 vs $1.73 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) EPS $1.86, beat by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "EPS $1.86 vs $1.73 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "EPS $1.86 vs $1.73 (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$A beat FY2026 (Q4) EPS estimates by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-3ee1d9.a",
+          "fact": "earningsre-3ee1d9",
+          "variant": "a",
+          "text": "Non-GAAP EPS came in above the $1.73 consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-81b25b.a",
+          "fact": "earningsre-81b25b",
+          "variant": "a",
+          "text": "$A beat the FY2026 (Q4) Non-GAAP EPS consensus: $1.86 vs $1.73.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-de676d.a",
+          "fact": "earningsre-de676d",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) Non-GAAP EPS: $1.86 vs $1.73 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-262e38.a",
+          "fact": "earningsre-262e38",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) Non-GAAP EPS $1.86, beat by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6008a9.a",
+          "fact": "earningsre-6008a9",
+          "variant": "a",
+          "text": "Non-GAAP EPS $1.86 vs $1.73 consensus (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-75ca82.a",
+          "fact": "earningsre-75ca82",
+          "variant": "a",
+          "text": "Non-GAAP EPS $1.86 vs $1.73 (beat by $0.13).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14b02f.a",
+          "fact": "earningsre-14b02f",
+          "variant": "a",
+          "text": "$A beat FY2026 (Q4) Non-GAAP EPS estimates by $0.13.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-232122.a",
+          "fact": "earningsre-232122",
+          "variant": "a",
+          "text": "$A beat FY2026 (Q4) estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Agilent Technologies, Inc. ($A) published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$A (Agilent Technologies, Inc.) reported FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 23, Agilent Technologies, Inc. ($A) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$A published FY2026 (Q4) results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $A came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 23, $A published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.a",
+          "fact": "earningsre-8c456a",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) revenue: $2.04B vs $1.99B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-8c456a.h1",
+          "fact": "earningsre-8c456a",
+          "variant": "h1",
+          "text": "$A reported FY2026 (Q4) revenue of $2.04B vs $1.99B consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.a",
+          "fact": "earningsre-3741ca",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) revenue was $2.04B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-3741ca.h1",
+          "fact": "earningsre-3741ca",
+          "variant": "h1",
+          "text": "FY2026 (Q4) revenue at $A was $2.04B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.a",
+          "fact": "earningsre-b47db5",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) Non-GAAP EPS: $1.86 vs $1.73 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-b47db5.h1",
+          "fact": "earningsre-b47db5",
+          "variant": "h1",
+          "text": "$A reported FY2026 (Q4) Non-GAAP EPS of $1.86 vs $1.73 consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.a",
+          "fact": "earningsre-1df3d9",
+          "variant": "a",
+          "text": "$A FY2026 (Q4) Non-GAAP EPS was $1.86.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1df3d9.h1",
+          "fact": "earningsre-1df3d9",
+          "variant": "h1",
+          "text": "FY2026 (Q4) Non-GAAP EPS at $A was $1.86.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.a",
+          "fact": "earningsre-426192",
+          "variant": "a",
+          "text": "$A had a market value of $48.0B at the Nov 23 close.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.h1",
+          "fact": "earningsre-426192",
+          "variant": "h1",
+          "text": "$A's market value at the Nov 23 close was $48.0B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-426192.t",
+          "fact": "earningsre-426192",
+          "variant": "t",
+          "text": "At the Nov 23 close, $A had a market value of $48.0B.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.a",
+          "fact": "earningsre-061727",
+          "variant": "a",
+          "text": "$A moved +3.32% on Monday, Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.h1",
+          "fact": "earningsre-061727",
+          "variant": "h1",
+          "text": "$A's move on Monday, Nov 23: +3.32%.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-061727.t",
+          "fact": "earningsre-061727",
+          "variant": "t",
+          "text": "On Monday, Nov 23, $A moved +3.32%.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "3.32%": "+",
+          "3.3%": "+"
+        },
+        "subjects": {
+          "A": "up"
+        }
+      },
+      "subject_numbers": {
+        "A": [
+          [
+            "$",
+            2.04,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            1.99,
+            2,
+            1000000000.0,
+            0
+          ],
+          [
+            "$",
+            51.1,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            1.86,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            1.73,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "$",
+            0.13,
+            2,
+            1.0,
+            0
+          ],
+          [
+            "%",
+            3.32,
+            2,
+            1.0,
+            1
+          ],
+          [
+            "$",
+            48.0,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-24-earnings-result-HPE-4204f4",
       "type": "earnings_result",
       "ticker": "HPE",
@@ -13847,6 +15651,344 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-24-earnings-result-SURG-7e3894",
+      "type": "earnings_result",
+      "ticker": "SURG",
+      "tickers": [
+        "SURG"
+      ],
+      "name": "SurgePays, Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1392694/000149315226053931/ex99-1.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/SURG?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-SURG-7e3894#earnings-history",
+      "allowed_numbers": [
+        "$17.3M",
+        "$16.5M",
+        "$766K",
+        "$0.34",
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-23",
+        "Nov 23, 2026",
+        "Nov 23",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "SurgePays, Inc. (SURG) published Q3 2026 results on 2026-11-23: Revenue beat. Revenue $17.3M vs $16.5M consensus (Beat by $766K). GAAP EPS $0.34.",
+      "dedupe_key": "report:surg-2026-q3",
+      "claim_phrases": [
+        "revenue came in above the $16.5M consensus.",
+        "$SURG beat the Q3 2026 revenue consensus: $17.3M vs $16.5M.",
+        "$SURG Q3 2026 revenue: $17.3M vs $16.5M consensus (beat by $766K).",
+        "$SURG Q3 2026 revenue $17.3M, beat by $766K.",
+        "revenue $17.3M vs $16.5M consensus (beat by $766K).",
+        "revenue $17.3M vs $16.5M (beat by $766K).",
+        "$SURG beat Q3 2026 revenue estimates by $766K.",
+        "$SURG beat the Q3 revenue consensus: $17.3M vs $16.5M.",
+        "$SURG Q3 revenue: $17.3M vs $16.5M consensus (beat by $766K).",
+        "$SURG Q3 revenue $17.3M, beat by $766K.",
+        "$SURG beat Q3 revenue estimates by $766K.",
+        "$SURG beat Q3 2026 estimates.",
+        "$SURG beat Q3 estimates."
+      ],
+      "report_id": "surg-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-23",
+      "published_at": "2026-11-24T21:00:27.799845+00:00",
+      "tile_label": "Revenue beat",
+      "tile_state": "beat",
+      "results": {
+        "revenue": {
+          "reported": "$17.3M",
+          "consensus": "$16.5M",
+          "label": "Beat by $766K",
+          "verdict": "beat"
+        },
+        "eps": {
+          "basis": "GAAP EPS",
+          "reported": "$0.34"
+        }
+      },
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/SURG/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for SURG: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "SURG"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "SurgePays, Inc. ($SURG) published Q3 2026 results on Nov 23.",
+        "$SURG (SurgePays, Inc.) reported Q3 2026 results on Nov 23.",
+        "On Nov 23, SurgePays, Inc. ($SURG) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "SurgePays, Inc. ($SURG) published Q3 2026 results on Nov 23.",
+        "$SURG (SurgePays, Inc.) reported Q3 2026 results on Nov 23.",
+        "On Nov 23, SurgePays, Inc. ($SURG) published Q3 2026 results.",
+        "$SURG published Q3 2026 results on Nov 23.",
+        "Q3 2026 results from $SURG came out on Nov 23.",
+        "On Nov 23, $SURG published Q3 2026 results.",
+        "$SURG Q3 2026 revenue: $17.3M vs $16.5M consensus.",
+        "$SURG reported Q3 2026 revenue of $17.3M vs $16.5M consensus.",
+        "$SURG Q3 2026 revenue was $17.3M.",
+        "Q3 2026 revenue at $SURG was $17.3M.",
+        "$SURG Q3 2026 GAAP EPS: $0.34.",
+        "$SURG reported Q3 2026 GAAP EPS of $0.34.",
+        "$SURG Q3 2026 GAAP EPS was $0.34.",
+        "Q3 2026 GAAP EPS at $SURG was $0.34."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-784fb7.a",
+          "fact": "earningsre-784fb7",
+          "variant": "a",
+          "text": "revenue came in above the $16.5M consensus.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-fa792b.a",
+          "fact": "earningsre-fa792b",
+          "variant": "a",
+          "text": "$SURG beat the Q3 2026 revenue consensus: $17.3M vs $16.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-838a1e.a",
+          "fact": "earningsre-838a1e",
+          "variant": "a",
+          "text": "$SURG Q3 2026 revenue: $17.3M vs $16.5M consensus (beat by $766K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-14d721.a",
+          "fact": "earningsre-14d721",
+          "variant": "a",
+          "text": "$SURG Q3 2026 revenue $17.3M, beat by $766K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-1f3fc1.a",
+          "fact": "earningsre-1f3fc1",
+          "variant": "a",
+          "text": "revenue $17.3M vs $16.5M consensus (beat by $766K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-e3f7f1.a",
+          "fact": "earningsre-e3f7f1",
+          "variant": "a",
+          "text": "revenue $17.3M vs $16.5M (beat by $766K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-07b50f.a",
+          "fact": "earningsre-07b50f",
+          "variant": "a",
+          "text": "$SURG beat Q3 2026 revenue estimates by $766K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-69adf4.a",
+          "fact": "earningsre-69adf4",
+          "variant": "a",
+          "text": "$SURG beat the Q3 revenue consensus: $17.3M vs $16.5M.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-7f9dff.a",
+          "fact": "earningsre-7f9dff",
+          "variant": "a",
+          "text": "$SURG Q3 revenue: $17.3M vs $16.5M consensus (beat by $766K).",
+          "claim": true
+        },
+        {
+          "id": "earningsre-bf7116.a",
+          "fact": "earningsre-bf7116",
+          "variant": "a",
+          "text": "$SURG Q3 revenue $17.3M, beat by $766K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-6ea266.a",
+          "fact": "earningsre-6ea266",
+          "variant": "a",
+          "text": "$SURG beat Q3 revenue estimates by $766K.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-70113f.a",
+          "fact": "earningsre-70113f",
+          "variant": "a",
+          "text": "$SURG beat Q3 2026 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-40f2c5.a",
+          "fact": "earningsre-40f2c5",
+          "variant": "a",
+          "text": "$SURG beat Q3 estimates.",
+          "claim": true
+        },
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "SurgePays, Inc. ($SURG) published Q3 2026 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$SURG (SurgePays, Inc.) reported Q3 2026 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 23, SurgePays, Inc. ($SURG) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$SURG published Q3 2026 results on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $SURG came out on Nov 23.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 23, $SURG published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.a",
+          "fact": "earningsre-db1f3d",
+          "variant": "a",
+          "text": "$SURG Q3 2026 revenue: $17.3M vs $16.5M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-db1f3d.h1",
+          "fact": "earningsre-db1f3d",
+          "variant": "h1",
+          "text": "$SURG reported Q3 2026 revenue of $17.3M vs $16.5M consensus.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.a",
+          "fact": "earningsre-1e5f24",
+          "variant": "a",
+          "text": "$SURG Q3 2026 revenue was $17.3M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-1e5f24.h1",
+          "fact": "earningsre-1e5f24",
+          "variant": "h1",
+          "text": "Q3 2026 revenue at $SURG was $17.3M.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.a",
+          "fact": "earningsre-be8d2d",
+          "variant": "a",
+          "text": "$SURG Q3 2026 GAAP EPS: $0.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-be8d2d.h1",
+          "fact": "earningsre-be8d2d",
+          "variant": "h1",
+          "text": "$SURG reported Q3 2026 GAAP EPS of $0.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.a",
+          "fact": "earningsre-d3e15f",
+          "variant": "a",
+          "text": "$SURG Q3 2026 GAAP EPS was $0.34.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d3e15f.h1",
+          "fact": "earningsre-d3e15f",
+          "variant": "h1",
+          "text": "Q3 2026 GAAP EPS at $SURG was $0.34.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "SURG": [
+          [
+            "$",
+            17.3,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            16.5,
+            1,
+            1000000.0,
+            0
+          ],
+          [
+            "$",
+            766.0,
+            0,
+            1000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-24-earnings-result-AMTM-ebd3e4",
       "type": "earnings_result",
       "ticker": "AMTM",
@@ -16209,977 +18351,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-24-earnings-result-J-b0caca",
-      "type": "earnings_result",
-      "ticker": "J",
-      "tickers": [
-        "J"
-      ],
-      "name": "Jacobs Solutions Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-23",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/52988/000162828026075492/jfy2026q4earningsrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/J?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-J-b0caca#earnings-history",
-      "allowed_numbers": [
-        "$4.71B",
-        "$3.89B",
-        "$819M",
-        "$2.20",
-        "$2.12",
-        "$0.08",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Jacobs Solutions Inc. (J) published FY2026 (Q4) results on 2026-11-23: Beat estimates. Revenue $4.71B vs $3.89B consensus (Beat by $819M). Adjusted EPS from Continuing Operations $2.20 vs $2.12 consensus (Beat by $0.08).",
-      "dedupe_key": "report:j-2026-q4",
-      "claim_phrases": [
-        "revenue came in above the $3.89B consensus.",
-        "$J beat the FY2026 (Q4) revenue consensus: $4.71B vs $3.89B.",
-        "$J FY2026 (Q4) revenue: $4.71B vs $3.89B consensus (beat by $819M).",
-        "$J FY2026 (Q4) revenue $4.71B, beat by $819M.",
-        "revenue $4.71B vs $3.89B consensus (beat by $819M).",
-        "revenue $4.71B vs $3.89B (beat by $819M).",
-        "$J beat FY2026 (Q4) revenue estimates by $819M.",
-        "EPS came in above the $2.12 consensus.",
-        "$J beat the FY2026 (Q4) EPS consensus: $2.20 vs $2.12.",
-        "$J FY2026 (Q4) EPS: $2.20 vs $2.12 consensus (beat by $0.08).",
-        "$J FY2026 (Q4) EPS $2.20, beat by $0.08.",
-        "EPS $2.20 vs $2.12 consensus (beat by $0.08).",
-        "EPS $2.20 vs $2.12 (beat by $0.08).",
-        "$J beat FY2026 (Q4) EPS estimates by $0.08.",
-        "Adjusted EPS from Continuing Operations came in above the $2.12 consensus.",
-        "$J beat the FY2026 (Q4) Adjusted EPS from Continuing Operations consensus: $2.20 vs $2.12.",
-        "$J FY2026 (Q4) Adjusted EPS from Continuing Operations: $2.20 vs $2.12 consensus (beat by $0.08).",
-        "$J FY2026 (Q4) Adjusted EPS from Continuing Operations $2.20, beat by $0.08.",
-        "Adjusted EPS from Continuing Operations $2.20 vs $2.12 consensus (beat by $0.08).",
-        "Adjusted EPS from Continuing Operations $2.20 vs $2.12 (beat by $0.08).",
-        "$J beat FY2026 (Q4) Adjusted EPS from Continuing Operations estimates by $0.08.",
-        "$J beat FY2026 (Q4) estimates."
-      ],
-      "report_id": "j-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-23",
-      "published_at": "2026-11-23T21:12:38.544077+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$4.71B",
-          "consensus": "$3.89B",
-          "label": "Beat by $819M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Adjusted EPS from Continuing Operations",
-          "reported": "$2.20",
-          "consensus": "$2.12",
-          "label": "Beat by $0.08",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/J/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for J: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "J"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Jacobs Solutions Inc. ($J) published FY2026 (Q4) results on Nov 23.",
-        "$J (Jacobs Solutions Inc.) reported FY2026 (Q4) results on Nov 23.",
-        "On Nov 23, Jacobs Solutions Inc. ($J) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "Jacobs Solutions Inc. ($J) published FY2026 (Q4) results on Nov 23.",
-        "$J (Jacobs Solutions Inc.) reported FY2026 (Q4) results on Nov 23.",
-        "On Nov 23, Jacobs Solutions Inc. ($J) published FY2026 (Q4) results.",
-        "$J published FY2026 (Q4) results on Nov 23.",
-        "FY2026 (Q4) results from $J came out on Nov 23.",
-        "On Nov 23, $J published FY2026 (Q4) results.",
-        "$J FY2026 (Q4) revenue: $4.71B vs $3.89B consensus.",
-        "$J reported FY2026 (Q4) revenue of $4.71B vs $3.89B consensus.",
-        "$J FY2026 (Q4) revenue was $4.71B.",
-        "FY2026 (Q4) revenue at $J was $4.71B.",
-        "$J FY2026 (Q4) Adjusted EPS from Continuing Operations: $2.20 vs $2.12 consensus.",
-        "$J reported FY2026 (Q4) Adjusted EPS from Continuing Operations of $2.20 vs $2.12 consensus.",
-        "$J FY2026 (Q4) Adjusted EPS from Continuing Operations was $2.20.",
-        "FY2026 (Q4) Adjusted EPS from Continuing Operations at $J was $2.20."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $3.89B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fe5e72.a",
-          "fact": "earningsre-fe5e72",
-          "variant": "a",
-          "text": "$J beat the FY2026 (Q4) revenue consensus: $4.71B vs $3.89B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c73b4a.a",
-          "fact": "earningsre-c73b4a",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) revenue: $4.71B vs $3.89B consensus (beat by $819M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c84ebe.a",
-          "fact": "earningsre-c84ebe",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) revenue $4.71B, beat by $819M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $4.71B vs $3.89B consensus (beat by $819M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $4.71B vs $3.89B (beat by $819M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-292430.a",
-          "fact": "earningsre-292430",
-          "variant": "a",
-          "text": "$J beat FY2026 (Q4) revenue estimates by $819M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $2.12 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$J beat the FY2026 (Q4) EPS consensus: $2.20 vs $2.12.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) EPS: $2.20 vs $2.12 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) EPS $2.20, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $2.20 vs $2.12 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $2.20 vs $2.12 (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$J beat FY2026 (Q4) EPS estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-88edfc.a",
-          "fact": "earningsre-88edfc",
-          "variant": "a",
-          "text": "Adjusted EPS from Continuing Operations came in above the $2.12 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f326fa.a",
-          "fact": "earningsre-f326fa",
-          "variant": "a",
-          "text": "$J beat the FY2026 (Q4) Adjusted EPS from Continuing Operations consensus: $2.20 vs $2.12.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-a7d8a6.a",
-          "fact": "earningsre-a7d8a6",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) Adjusted EPS from Continuing Operations: $2.20 vs $2.12 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-62c21d.a",
-          "fact": "earningsre-62c21d",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) Adjusted EPS from Continuing Operations $2.20, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-984876.a",
-          "fact": "earningsre-984876",
-          "variant": "a",
-          "text": "Adjusted EPS from Continuing Operations $2.20 vs $2.12 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c76cc1.a",
-          "fact": "earningsre-c76cc1",
-          "variant": "a",
-          "text": "Adjusted EPS from Continuing Operations $2.20 vs $2.12 (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fef5d5.a",
-          "fact": "earningsre-fef5d5",
-          "variant": "a",
-          "text": "$J beat FY2026 (Q4) Adjusted EPS from Continuing Operations estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-232122.a",
-          "fact": "earningsre-232122",
-          "variant": "a",
-          "text": "$J beat FY2026 (Q4) estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "Jacobs Solutions Inc. ($J) published FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$J (Jacobs Solutions Inc.) reported FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 23, Jacobs Solutions Inc. ($J) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$J published FY2026 (Q4) results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $J came out on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 23, $J published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.a",
-          "fact": "earningsre-8c456a",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) revenue: $4.71B vs $3.89B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.h1",
-          "fact": "earningsre-8c456a",
-          "variant": "h1",
-          "text": "$J reported FY2026 (Q4) revenue of $4.71B vs $3.89B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.a",
-          "fact": "earningsre-3741ca",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) revenue was $4.71B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.h1",
-          "fact": "earningsre-3741ca",
-          "variant": "h1",
-          "text": "FY2026 (Q4) revenue at $J was $4.71B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-de9dcd.a",
-          "fact": "earningsre-de9dcd",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) Adjusted EPS from Continuing Operations: $2.20 vs $2.12 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-de9dcd.h1",
-          "fact": "earningsre-de9dcd",
-          "variant": "h1",
-          "text": "$J reported FY2026 (Q4) Adjusted EPS from Continuing Operations of $2.20 vs $2.12 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f54faa.a",
-          "fact": "earningsre-f54faa",
-          "variant": "a",
-          "text": "$J FY2026 (Q4) Adjusted EPS from Continuing Operations was $2.20.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f54faa.h1",
-          "fact": "earningsre-f54faa",
-          "variant": "h1",
-          "text": "FY2026 (Q4) Adjusted EPS from Continuing Operations at $J was $2.20.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "J": [
-          [
-            "$",
-            4.71,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            3.89,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            819.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            2.2,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            2.12,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.08,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-24-earnings-result-ZM-19f676",
-      "type": "earnings_result",
-      "ticker": "ZM",
-      "tickers": [
-        "ZM"
-      ],
-      "name": "Zoom Communications, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-23",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1585521/000158552126000170/zm-20261031ex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ZM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-ZM-19f676#earnings-history",
-      "allowed_numbers": [
-        "$1.29B",
-        "$1.28B",
-        "$11.7M",
-        "$1.59",
-        "$1.49",
-        "$0.10",
-        "Q3 2027",
-        "Q3",
-        "FY2027",
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Zoom Communications, Inc. (ZM) published Q3 2027 results on 2026-11-23: Beat estimates. Revenue $1.29B vs $1.28B consensus (Beat by $11.7M). Non-GAAP net income per share - diluted $1.59 vs $1.49 consensus (Beat by $0.10).",
-      "dedupe_key": "report:zm-2027-q3",
-      "claim_phrases": [
-        "revenue came in above the $1.28B consensus.",
-        "$ZM beat the Q3 2027 revenue consensus: $1.29B vs $1.28B.",
-        "$ZM Q3 2027 revenue: $1.29B vs $1.28B consensus (beat by $11.7M).",
-        "$ZM Q3 2027 revenue $1.29B, beat by $11.7M.",
-        "revenue $1.29B vs $1.28B consensus (beat by $11.7M).",
-        "revenue $1.29B vs $1.28B (beat by $11.7M).",
-        "$ZM beat Q3 2027 revenue estimates by $11.7M.",
-        "$ZM beat the Q3 revenue consensus: $1.29B vs $1.28B.",
-        "$ZM Q3 revenue: $1.29B vs $1.28B consensus (beat by $11.7M).",
-        "$ZM Q3 revenue $1.29B, beat by $11.7M.",
-        "$ZM beat Q3 revenue estimates by $11.7M.",
-        "EPS came in above the $1.49 consensus.",
-        "$ZM beat the Q3 2027 EPS consensus: $1.59 vs $1.49.",
-        "$ZM Q3 2027 EPS: $1.59 vs $1.49 consensus (beat by $0.10).",
-        "$ZM Q3 2027 EPS $1.59, beat by $0.10.",
-        "EPS $1.59 vs $1.49 consensus (beat by $0.10).",
-        "EPS $1.59 vs $1.49 (beat by $0.10).",
-        "$ZM beat Q3 2027 EPS estimates by $0.10.",
-        "Non-GAAP net income per share - diluted came in above the $1.49 consensus.",
-        "$ZM beat the Q3 2027 Non-GAAP net income per share - diluted consensus: $1.59 vs $1.49.",
-        "$ZM Q3 2027 Non-GAAP net income per share - diluted: $1.59 vs $1.49 consensus (beat by $0.10).",
-        "$ZM Q3 2027 Non-GAAP net income per share - diluted $1.59, beat by $0.10.",
-        "Non-GAAP net income per share - diluted $1.59 vs $1.49 consensus (beat by $0.10).",
-        "Non-GAAP net income per share - diluted $1.59 vs $1.49 (beat by $0.10).",
-        "$ZM beat Q3 2027 Non-GAAP net income per share - diluted estimates by $0.10.",
-        "$ZM beat the Q3 EPS consensus: $1.59 vs $1.49.",
-        "$ZM Q3 EPS: $1.59 vs $1.49 consensus (beat by $0.10).",
-        "$ZM Q3 EPS $1.59, beat by $0.10.",
-        "$ZM beat Q3 EPS estimates by $0.10.",
-        "$ZM beat the Q3 Non-GAAP net income per share - diluted consensus: $1.59 vs $1.49.",
-        "$ZM Q3 Non-GAAP net income per share - diluted: $1.59 vs $1.49 consensus (beat by $0.10).",
-        "$ZM Q3 Non-GAAP net income per share - diluted $1.59, beat by $0.10.",
-        "$ZM beat Q3 Non-GAAP net income per share - diluted estimates by $0.10.",
-        "$ZM beat Q3 2027 estimates.",
-        "$ZM beat Q3 estimates."
-      ],
-      "report_id": "zm-2027-q3",
-      "fiscal_label": "Q3 2027",
-      "release_date": "2026-11-23",
-      "published_at": "2026-11-23T21:08:45.269771+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$1.29B",
-          "consensus": "$1.28B",
-          "label": "Beat by $11.7M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Non-GAAP net income per share - diluted",
-          "reported": "$1.59",
-          "consensus": "$1.49",
-          "label": "Beat by $0.10",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/ZM/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for ZM: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ZM"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Zoom Communications, Inc. ($ZM) published Q3 2027 results on Nov 23.",
-        "$ZM (Zoom Communications, Inc.) reported Q3 2027 results on Nov 23.",
-        "On Nov 23, Zoom Communications, Inc. ($ZM) published Q3 2027 results."
-      ],
-      "fact_phrases": [
-        "Zoom Communications, Inc. ($ZM) published Q3 2027 results on Nov 23.",
-        "$ZM (Zoom Communications, Inc.) reported Q3 2027 results on Nov 23.",
-        "On Nov 23, Zoom Communications, Inc. ($ZM) published Q3 2027 results.",
-        "$ZM published Q3 2027 results on Nov 23.",
-        "Q3 2027 results from $ZM came out on Nov 23.",
-        "On Nov 23, $ZM published Q3 2027 results.",
-        "$ZM Q3 2027 revenue: $1.29B vs $1.28B consensus.",
-        "$ZM reported Q3 2027 revenue of $1.29B vs $1.28B consensus.",
-        "$ZM Q3 2027 revenue was $1.29B.",
-        "Q3 2027 revenue at $ZM was $1.29B.",
-        "$ZM Q3 2027 Non-GAAP net income per share - diluted: $1.59 vs $1.49 consensus.",
-        "$ZM reported Q3 2027 Non-GAAP net income per share - diluted of $1.59 vs $1.49 consensus.",
-        "$ZM Q3 2027 Non-GAAP net income per share - diluted was $1.59.",
-        "Q3 2027 Non-GAAP net income per share - diluted at $ZM was $1.59."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $1.28B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$ZM beat the Q3 2027 revenue consensus: $1.29B vs $1.28B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$ZM Q3 2027 revenue: $1.29B vs $1.28B consensus (beat by $11.7M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$ZM Q3 2027 revenue $1.29B, beat by $11.7M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $1.29B vs $1.28B consensus (beat by $11.7M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $1.29B vs $1.28B (beat by $11.7M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$ZM beat Q3 2027 revenue estimates by $11.7M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$ZM beat the Q3 revenue consensus: $1.29B vs $1.28B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$ZM Q3 revenue: $1.29B vs $1.28B consensus (beat by $11.7M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$ZM Q3 revenue $1.29B, beat by $11.7M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$ZM beat Q3 revenue estimates by $11.7M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $1.49 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$ZM beat the Q3 2027 EPS consensus: $1.59 vs $1.49.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$ZM Q3 2027 EPS: $1.59 vs $1.49 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$ZM Q3 2027 EPS $1.59, beat by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $1.59 vs $1.49 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $1.59 vs $1.49 (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$ZM beat Q3 2027 EPS estimates by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9a614d.a",
-          "fact": "earningsre-9a614d",
-          "variant": "a",
-          "text": "Non-GAAP net income per share - diluted came in above the $1.49 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-209449.a",
-          "fact": "earningsre-209449",
-          "variant": "a",
-          "text": "$ZM beat the Q3 2027 Non-GAAP net income per share - diluted consensus: $1.59 vs $1.49.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b6376a.a",
-          "fact": "earningsre-b6376a",
-          "variant": "a",
-          "text": "$ZM Q3 2027 Non-GAAP net income per share - diluted: $1.59 vs $1.49 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-211762.a",
-          "fact": "earningsre-211762",
-          "variant": "a",
-          "text": "$ZM Q3 2027 Non-GAAP net income per share - diluted $1.59, beat by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c1cbc3.a",
-          "fact": "earningsre-c1cbc3",
-          "variant": "a",
-          "text": "Non-GAAP net income per share - diluted $1.59 vs $1.49 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-da4929.a",
-          "fact": "earningsre-da4929",
-          "variant": "a",
-          "text": "Non-GAAP net income per share - diluted $1.59 vs $1.49 (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-900ca1.a",
-          "fact": "earningsre-900ca1",
-          "variant": "a",
-          "text": "$ZM beat Q3 2027 Non-GAAP net income per share - diluted estimates by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$ZM beat the Q3 EPS consensus: $1.59 vs $1.49.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$ZM Q3 EPS: $1.59 vs $1.49 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$ZM Q3 EPS $1.59, beat by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$ZM beat Q3 EPS estimates by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-491182.a",
-          "fact": "earningsre-491182",
-          "variant": "a",
-          "text": "$ZM beat the Q3 Non-GAAP net income per share - diluted consensus: $1.59 vs $1.49.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-2dc2eb.a",
-          "fact": "earningsre-2dc2eb",
-          "variant": "a",
-          "text": "$ZM Q3 Non-GAAP net income per share - diluted: $1.59 vs $1.49 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-591888.a",
-          "fact": "earningsre-591888",
-          "variant": "a",
-          "text": "$ZM Q3 Non-GAAP net income per share - diluted $1.59, beat by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8d599b.a",
-          "fact": "earningsre-8d599b",
-          "variant": "a",
-          "text": "$ZM beat Q3 Non-GAAP net income per share - diluted estimates by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$ZM beat Q3 2027 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$ZM beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Zoom Communications, Inc. ($ZM) published Q3 2027 results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$ZM (Zoom Communications, Inc.) reported Q3 2027 results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 23, Zoom Communications, Inc. ($ZM) published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$ZM published Q3 2027 results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2027 results from $ZM came out on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 23, $ZM published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$ZM Q3 2027 revenue: $1.29B vs $1.28B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$ZM reported Q3 2027 revenue of $1.29B vs $1.28B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$ZM Q3 2027 revenue was $1.29B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2027 revenue at $ZM was $1.29B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-898d32.a",
-          "fact": "earningsre-898d32",
-          "variant": "a",
-          "text": "$ZM Q3 2027 Non-GAAP net income per share - diluted: $1.59 vs $1.49 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-898d32.h1",
-          "fact": "earningsre-898d32",
-          "variant": "h1",
-          "text": "$ZM reported Q3 2027 Non-GAAP net income per share - diluted of $1.59 vs $1.49 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ac2c69.a",
-          "fact": "earningsre-ac2c69",
-          "variant": "a",
-          "text": "$ZM Q3 2027 Non-GAAP net income per share - diluted was $1.59.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ac2c69.h1",
-          "fact": "earningsre-ac2c69",
-          "variant": "h1",
-          "text": "Q3 2027 Non-GAAP net income per share - diluted at $ZM was $1.59.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "ZM": [
-          [
-            "$",
-            1.29,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            1.28,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            11.7,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            1.59,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            1.49,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.1,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-24-moves-like-GS-30101f",
       "type": "moves_like",
       "ticker": "GS",
@@ -18344,212 +19515,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-24-earnings-result-CATO-1aefee",
-      "type": "earnings_result",
-      "ticker": "CATO",
-      "tickers": [
-        "CATO"
-      ],
-      "name": "The Cato Corporation",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-23",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/18255/000156276226000134/exhibit99.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/CATO?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-24-earnings-result-CATO-1aefee#earnings-history",
-      "allowed_numbers": [
-        "$148M",
-        "−$0.54",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-19",
-        "Nov 19, 2026",
-        "Nov 19",
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The Cato Corporation (CATO) published Q3 2026 results on 2026-11-19: Published. Revenue $148M. GAAP EPS −$0.54.",
-      "dedupe_key": "report:cato-2026-q3",
-      "claim_phrases": [],
-      "report_id": "cato-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-19",
-      "published_at": "2026-11-23T21:02:36.493526+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$148M"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "−$0.54"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/CATO/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for CATO: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 4.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-19 (age 3) +0.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CATO"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "The Cato Corporation ($CATO) published Q3 2026 results on Nov 19.",
-        "$CATO (The Cato Corporation) reported Q3 2026 results on Nov 19.",
-        "On Nov 19, the Cato Corporation ($CATO) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "The Cato Corporation ($CATO) published Q3 2026 results on Nov 19.",
-        "$CATO (The Cato Corporation) reported Q3 2026 results on Nov 19.",
-        "On Nov 19, the Cato Corporation ($CATO) published Q3 2026 results.",
-        "$CATO published Q3 2026 results on Nov 19.",
-        "Q3 2026 results from $CATO came out on Nov 19.",
-        "On Nov 19, $CATO published Q3 2026 results.",
-        "$CATO Q3 2026 revenue: $148M.",
-        "$CATO reported Q3 2026 revenue of $148M.",
-        "$CATO Q3 2026 revenue was $148M.",
-        "Q3 2026 revenue at $CATO was $148M.",
-        "$CATO Q3 2026 GAAP EPS: −$0.54.",
-        "$CATO reported Q3 2026 GAAP EPS of −$0.54.",
-        "$CATO Q3 2026 GAAP EPS was −$0.54.",
-        "Q3 2026 GAAP EPS at $CATO was −$0.54."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-b384b8.a",
-          "fact": "earningsre-b384b8",
-          "variant": "a",
-          "text": "The Cato Corporation ($CATO) published Q3 2026 results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.h1",
-          "fact": "earningsre-b384b8",
-          "variant": "h1",
-          "text": "$CATO (The Cato Corporation) reported Q3 2026 results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.t",
-          "fact": "earningsre-b384b8",
-          "variant": "t",
-          "text": "On Nov 19, the Cato Corporation ($CATO) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$CATO published Q3 2026 results on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $CATO came out on Nov 19.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 19, $CATO published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$CATO Q3 2026 revenue: $148M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$CATO reported Q3 2026 revenue of $148M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$CATO Q3 2026 revenue was $148M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $CATO was $148M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$CATO Q3 2026 GAAP EPS: −$0.54.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$CATO reported Q3 2026 GAAP EPS of −$0.54.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$CATO Q3 2026 GAAP EPS was −$0.54.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $CATO was −$0.54.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.54": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-19 release (after the close: fresh through 2026-11-23) posted on 2026-11-24: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
