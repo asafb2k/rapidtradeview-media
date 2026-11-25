@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-25",
-  "generated_at": "2026-11-25T21:15:02Z",
-  "as_of": "2026-11-25T21:15:02Z",
+  "generated_at": "2026-11-25T21:45:03Z",
+  "as_of": "2026-11-25T21:45:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 2,
     "form4_buy": 2,
-    "earnings_result": 9,
+    "earnings_result": 6,
     "earnings_upcoming": 1,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -935,14 +935,14 @@
     "form4_buy": {
       "rows_read": 20,
       "filings_passing_filters": 20,
-      "below_minimum": 16,
+      "below_minimum": 17,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
       "archive_reports": 4056,
       "recent_ready": 45,
-      "outside_24h": 35,
+      "outside_24h": 38,
       "unreadable": 0,
       "not_compared": 1,
       "not_compared_metrics": [
@@ -966,7 +966,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 12,
+      "tickers_in_items": 8,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -980,19 +980,18 @@
     "market": {
       "market_session": "2026-11-24",
       "priced_cap_share": 0.9808963425369296,
-      "flows_as_of": "2026-11-25T21:15:17.663146+00:00"
+      "flows_as_of": "2026-11-25T21:45:15.176747+00:00"
     },
     "gates": {
       "weekend_replay": 0,
-      "small_cap": 2,
+      "small_cap": 1,
       "cooldown": 0,
       "reasons": [
-        "form4_buy BORR: small cap under $2B and a buy under $10M",
-        "form4_buy MNR: small cap under $2B and a buy under $10M"
+        "form4_buy BORR: small cap under $2B and a buy under $10M"
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 61
+        "angles_dropped": 49
       },
       "top8": {
         "stale": 10,
@@ -1000,7 +999,7 @@
         "small_cap": 0,
         "session_map": 0,
         "repeat": 3,
-        "ranked_below": 11,
+        "ranked_below": 8,
         "pillars": 4
       }
     }
@@ -1037,7 +1036,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 29,
+  "api_requests": 24,
   "items": [
     {
       "item_id": "2026-11-25-reddit-buzz-DELL-51fe90",
@@ -1451,17 +1450,17 @@
       "source_url": null,
       "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-insider-flow-RCL-f37fa1",
       "allowed_numbers": [
-        "$927M",
-        "+$927M",
-        "$926.8M",
-        "+$926.8M",
-        "$6.5B",
-        "+$6.5B",
+        "$930M",
+        "+$930M",
+        "$929.7M",
+        "+$929.7M",
+        "$6.6B",
+        "+$6.6B",
         "$7B",
         "+$7B",
         "30",
-        "581",
-        "754",
+        "587",
+        "766",
         "500",
         "2026-10-26",
         "Oct 26, 2026",
@@ -1488,13 +1487,13 @@
         "3",
         "1",
         "7",
-        "7.0",
+        "7.2",
         "$1"
       ],
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 581 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M.",
+      "facts_text": "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 587 companies with buys, 766 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M.",
       "dedupe_key": "insider_flow:2026-11-25:RCL",
       "claim_phrases": [
         "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
@@ -1515,9 +1514,9 @@
         "$PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M).",
         "Over 30 days in our feed, $PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($122M).",
         "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M): $PLTR.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.0.",
-        "Officers and directors sold $7.0 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $7.0 on the open market for every $1 they bought."
+        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.2.",
+        "Officers and directors sold $7.2 for every $1 they bought on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $7.2 on the open market for every $1 they bought."
       ],
       "pillar": "P3",
       "claims": [
@@ -1573,12 +1572,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$927M",
-            "+$927M",
-            "$926.8M",
-            "+$926.8M",
-            "$6.5B",
-            "+$6.5B",
+            "$930M",
+            "+$930M",
+            "$929.7M",
+            "+$929.7M",
+            "$6.6B",
+            "+$6.6B",
             "$7B",
             "+$7B"
           ],
@@ -1586,7 +1585,7 @@
             "officers?\\s+and\\s+directors?",
             "open[-\\s]market"
           ],
-          "say": "the 30-day totals ($927M bought, $6.5B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+          "say": "the 30-day totals ($930M bought, $6.6B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
         }
       ],
       "headline": {
@@ -1596,8 +1595,8 @@
           "PLTR"
         ],
         "numbers": [
-          "$6.5B",
-          "$927M"
+          "$6.6B",
+          "$930M"
         ]
       },
       "window": {
@@ -1605,10 +1604,10 @@
         "to": "2026-11-25",
         "days": 30
       },
-      "bought_usd": 926811251.41,
-      "sold_usd": 6531427694.75,
-      "buy_companies": 581,
-      "sell_companies": 754,
+      "bought_usd": 929737364.61,
+      "sold_usd": 6649958930.39,
+      "buy_companies": 587,
+      "sell_companies": 766,
       "top_sellers_500": [
         {
           "ticker": "RCL",
@@ -1670,12 +1669,12 @@
         }
       ],
       "angles": [
-        "Officers and directors sold $6.5B and bought $927M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys."
+        "Officers and directors sold $6.6B and bought $930M of their own companies' stock on the open market over 30 days in our feed.",
+        "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $6.6B of open-market sells and $930M of open-market buys."
       ],
       "market_cap_usd": 82151022443.5655,
-      "magnitude": 2.722512185123952,
+      "magnitude": 2.7342284447155425,
       "trigger": "$PLTR entered the top 5",
       "top5": [
         "RCL",
@@ -1689,18 +1688,18 @@
       "banned_words": [],
       "card": {
         "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-c7563add-b5f72103.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-6a556cbd-b5f72103.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
         "date": "2026-11-25",
-        "fingerprint": "c7563add",
-        "file": "market-insiders-2026-11-25-c7563add.png",
-        "sha256": "cc4a724c67ffb54296cc7339b5ac41fb65310f31ddd2a90512c587fe8fc2dc6b"
+        "fingerprint": "6a556cbd",
+        "file": "market-insiders-2026-11-25-6a556cbd.png",
+        "sha256": "8c69056d5c7032f5b51d95d6bbab8d253b5e2151ba7b11b9fc900d0455e2ff95"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-c7563add-b5f72103.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-6a556cbd-b5f72103.png",
           "kind": "image",
-          "alt": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 581 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M."
+          "alt": "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 587 companies with buys, 766 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M."
         }
       ],
       "market_cap_source": "market_map",
@@ -1717,13 +1716,13 @@
         "PLTR": "Palantir Technologies Inc."
       },
       "fact_phrases": [
-        "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells.",
-        "Officers and directors sold $6.5B and bought $927M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $6.5B and bought $927M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 581 companies had open-market buys by officers and directors and 754 had open-market sells.",
-        "754 companies had open-market sells by officers and directors and 581 had open-market buys over 30 days in our feed.",
+        "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $6.6B of open-market sells and $930M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $930M of open-market buys and $6.6B of open-market sells.",
+        "Officers and directors sold $6.6B and bought $930M of their own companies' stock on the open market over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors sold $6.6B and bought $930M of their own companies' stock on the open market.",
+        "Over 30 days in our feed, 587 companies had open-market buys by officers and directors and 766 had open-market sells.",
+        "766 companies had open-market sells by officers and directors and 587 had open-market buys over 30 days in our feed.",
         "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
         "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
         "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
@@ -1867,70 +1866,70 @@
           "id": "insiderflo-eeeffc.a",
           "fact": "insiderflo-eeeffc",
           "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.0.",
+          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.2.",
           "claim": true
         },
         {
           "id": "insiderflo-eeeffc.h1",
           "fact": "insiderflo-eeeffc",
           "variant": "h1",
-          "text": "Officers and directors sold $7.0 for every $1 they bought on the open market over 30 days in our feed.",
+          "text": "Officers and directors sold $7.2 for every $1 they bought on the open market over 30 days in our feed.",
           "claim": true
         },
         {
           "id": "insiderflo-eeeffc.h2",
           "fact": "insiderflo-eeeffc",
           "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $7.0 on the open market for every $1 they bought.",
+          "text": "Over 30 days in our feed, officers and directors sold $7.2 on the open market for every $1 they bought.",
           "claim": true
         },
         {
           "id": "insiderflo-de8c5a.a",
           "fact": "insiderflo-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.h1",
           "fact": "insiderflo-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $6.6B of open-market sells and $930M of open-market buys.",
           "claim": false
         },
         {
           "id": "insiderflo-de8c5a.t",
           "fact": "insiderflo-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $930M of open-market buys and $6.6B of open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.a",
           "fact": "insiderflo-cc7b17",
           "variant": "a",
-          "text": "Officers and directors sold $6.5B and bought $927M of their own companies' stock on the open market over 30 days in our feed.",
+          "text": "Officers and directors sold $6.6B and bought $930M of their own companies' stock on the open market over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "insiderflo-cc7b17.t",
           "fact": "insiderflo-cc7b17",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $6.5B and bought $927M of their own companies' stock on the open market.",
+          "text": "Over 30 days in our feed, officers and directors sold $6.6B and bought $930M of their own companies' stock on the open market.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.a",
           "fact": "insiderflo-ca45c6",
           "variant": "a",
-          "text": "Over 30 days in our feed, 581 companies had open-market buys by officers and directors and 754 had open-market sells.",
+          "text": "Over 30 days in our feed, 587 companies had open-market buys by officers and directors and 766 had open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.h1",
           "fact": "insiderflo-ca45c6",
           "variant": "h1",
-          "text": "754 companies had open-market sells by officers and directors and 581 had open-market buys over 30 days in our feed.",
+          "text": "766 companies had open-market sells by officers and directors and 587 had open-market buys over 30 days in our feed.",
           "claim": false
         },
         {
@@ -2013,9 +2012,9 @@
       ],
       "moves": {
         "numbers": {
-          "$927M": "+",
-          "$926.8M": "+",
-          "$6.5B": "+",
+          "$930M": "+",
+          "$929.7M": "+",
+          "$6.6B": "+",
           "$7B": "+",
           "$333M": "+",
           "$333.2M": "+",
@@ -2039,7 +2038,7 @@
           ],
           [
             "$",
-            7.0,
+            7.2,
             1,
             1.0,
             0
@@ -2072,8 +2071,8 @@
         ]
       },
       "cooldown": null,
-      "rank": 11.22,
-      "rank_why": "insider_flow 4; large cap $82.15B +2.5; magnitude (market) +2.72; today 2026-11-25 (age 0) +2",
+      "rank": 11.23,
+      "rank_why": "insider_flow 4; large cap $82.15B +2.5; magnitude (market) +2.73; today 2026-11-25 (age 0) +2",
       "top8": true,
       "rotation": null
     },
@@ -2086,7 +2085,7 @@
       ],
       "name": "Stephen G. Pagliuca",
       "office": "Director at Coherent Corp.",
-      "amount_text": "$5.34M",
+      "amount_text": "$2.32M",
       "traded": [
         "2026-11-20"
       ],
@@ -2094,7 +2093,7 @@
       "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001411/0000899140-26-001411-index.htm",
       "page_url": "https://www.rapidtradeview.trade/smart-money/figures/pagliuca-stephen-g-1240386?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-form4-buy-COHR-4063a0#trades",
       "allowed_numbers": [
-        "$5.34M",
+        "$2.32M",
         "2026-11-24",
         "Nov 24, 2026",
         "Nov 24",
@@ -2105,7 +2104,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of COHR totaling $5.34M on a Form 4 filed 2026-11-24, traded 2026-11-20.",
+      "facts_text": "Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of COHR totaling $2.32M on a Form 4 filed 2026-11-24, traded 2026-11-20.",
       "dedupe_key": "form4:0000899140-26-001411:COHR",
       "claim_phrases": [],
       "company": "Coherent Corp.",
@@ -2113,21 +2112,21 @@
       "accession": "0000899140-26-001411",
       "rows": 1,
       "figure_slug": "pagliuca-stephen-g-1240386",
-      "amount_top_usd": 5339404.81,
+      "amount_top_usd": 2319076.8,
       "market_cap_usd": 42505652129.03057,
       "famous_person": null,
       "row_amounts": [
-        "$5.34M"
+        "$2.32M"
       ],
       "media": [
         {
           "url": "https://www.rapidtradeview.trade/smart-money/figures/pagliuca-stephen-g-1240386/opengraph-image",
           "kind": "image",
-          "alt": "Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of COHR totaling $5.34M on a Form 4 filed 2026-11-24, traded 2026-11-20."
+          "alt": "Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of COHR totaling $2.32M on a Form 4 filed 2026-11-24, traded 2026-11-20."
         }
       ],
-      "rank": 8.73,
-      "rank_why": "form4_buy 2; large cap $42.51B +2.5; magnitude (top $5.34M) +2.73; filed 2026-11-24 (age 1) +1.5",
+      "rank": 8.37,
+      "rank_why": "form4_buy 2; large cap $42.51B +2.5; magnitude (top $2.32M) +2.37; filed 2026-11-24 (age 1) +1.5",
       "pillar": "P3",
       "market_cap_feed_usd": 38651170816.0,
       "market_cap_source": "market_map",
@@ -2142,12 +2141,12 @@
         "9.07%",
         "−9.1%",
         "9.1%",
-        "$927M",
-        "+$927M",
-        "$926.8M",
-        "+$926.8M",
-        "$6.5B",
-        "+$6.5B",
+        "$930M",
+        "+$930M",
+        "$929.7M",
+        "+$929.7M",
+        "$6.6B",
+        "+$6.6B",
         "$7B",
         "+$7B",
         "30"
@@ -2171,12 +2170,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$927M",
-            "+$927M",
-            "$926.8M",
-            "+$926.8M",
-            "$6.5B",
-            "+$6.5B",
+            "$930M",
+            "+$930M",
+            "$929.7M",
+            "+$929.7M",
+            "$6.6B",
+            "+$6.6B",
             "$7B",
             "+$7B"
           ],
@@ -2195,28 +2194,28 @@
           "session": "2026-11-24"
         },
         "insiders_30d": {
-          "bought": "$927M",
-          "sold": "$6.5B",
+          "bought": "$930M",
+          "sold": "$6.6B",
           "days": 30
         }
       },
       "angles": [
-        "Coherent Corp. director Stephen G. Pagliuca bought $5.34M of $COHR on the open market (Form 4, filed Nov 24).",
-        "Stephen G. Pagliuca, director at Coherent Corp., bought $5.34M of $COHR on the open market (Form 4, filed Nov 24).",
-        "An open-market purchase of $COHR totaling $5.34M by Coherent Corp. director Stephen G. Pagliuca was reported on a Form 4 filed Nov 24."
+        "Coherent Corp. director Stephen G. Pagliuca bought $2.32M of $COHR on the open market (Form 4, filed Nov 24).",
+        "Stephen G. Pagliuca, director at Coherent Corp., bought $2.32M of $COHR on the open market (Form 4, filed Nov 24).",
+        "An open-market purchase of $COHR totaling $2.32M by Coherent Corp. director Stephen G. Pagliuca was reported on a Form 4 filed Nov 24."
       ],
       "fact_phrases": [
-        "Coherent Corp. director Stephen G. Pagliuca bought $5.34M of $COHR on the open market (Form 4, filed Nov 24).",
-        "Stephen G. Pagliuca, director at Coherent Corp., bought $5.34M of $COHR on the open market (Form 4, filed Nov 24).",
-        "An open-market purchase of $COHR totaling $5.34M by Coherent Corp. director Stephen G. Pagliuca was reported on a Form 4 filed Nov 24.",
-        "Coherent Corp. director Stephen G. Pagliuca bought $5.34M of $COHR on the open market.",
-        "Stephen G. Pagliuca, director at Coherent Corp., bought $5.34M of $COHR on the open market.",
-        "On the open market, Coherent Corp. director Stephen G. Pagliuca bought $5.34M of $COHR.",
-        "Stephen G. Pagliuca bought $5.34M of $COHR on the open market.",
-        "On the open market, Stephen G. Pagliuca bought $5.34M of $COHR.",
-        "Stephen G. Pagliuca made an open-market purchase of $COHR: $5.34M.",
-        "Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of $COHR totaling $5.34M on a Form 4 filed Nov 24.",
-        "On a Form 4 filed Nov 24, Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of $COHR totaling $5.34M.",
+        "Coherent Corp. director Stephen G. Pagliuca bought $2.32M of $COHR on the open market (Form 4, filed Nov 24).",
+        "Stephen G. Pagliuca, director at Coherent Corp., bought $2.32M of $COHR on the open market (Form 4, filed Nov 24).",
+        "An open-market purchase of $COHR totaling $2.32M by Coherent Corp. director Stephen G. Pagliuca was reported on a Form 4 filed Nov 24.",
+        "Coherent Corp. director Stephen G. Pagliuca bought $2.32M of $COHR on the open market.",
+        "Stephen G. Pagliuca, director at Coherent Corp., bought $2.32M of $COHR on the open market.",
+        "On the open market, Coherent Corp. director Stephen G. Pagliuca bought $2.32M of $COHR.",
+        "Stephen G. Pagliuca bought $2.32M of $COHR on the open market.",
+        "On the open market, Stephen G. Pagliuca bought $2.32M of $COHR.",
+        "Stephen G. Pagliuca made an open-market purchase of $COHR: $2.32M.",
+        "Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of $COHR totaling $2.32M on a Form 4 filed Nov 24.",
+        "On a Form 4 filed Nov 24, Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of $COHR totaling $2.32M.",
         "Stephen G. Pagliuca's $COHR purchase was traded Nov 20 and reported on a Form 4 filed Nov 24.",
         "Traded Nov 20, Stephen G. Pagliuca's $COHR purchase was reported on a Form 4 filed Nov 24.",
         "$COHR had a market value of $42.5B at the Nov 24 close.",
@@ -2225,86 +2224,86 @@
         "$COHR moved −9.07% on Tuesday, Nov 24.",
         "$COHR's move on Tuesday, Nov 24: −9.07%.",
         "On Tuesday, Nov 24, $COHR moved −9.07%.",
-        "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells."
+        "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $6.6B of open-market sells and $930M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $930M of open-market buys and $6.6B of open-market sells."
       ],
       "phrasings": [
         {
           "id": "form4buy-3a6ae8.a",
           "fact": "form4buy-3a6ae8",
           "variant": "a",
-          "text": "Coherent Corp. director Stephen G. Pagliuca bought $5.34M of $COHR on the open market (Form 4, filed Nov 24).",
+          "text": "Coherent Corp. director Stephen G. Pagliuca bought $2.32M of $COHR on the open market (Form 4, filed Nov 24).",
           "claim": false
         },
         {
           "id": "form4buy-3a6ae8.h1",
           "fact": "form4buy-3a6ae8",
           "variant": "h1",
-          "text": "Stephen G. Pagliuca, director at Coherent Corp., bought $5.34M of $COHR on the open market (Form 4, filed Nov 24).",
+          "text": "Stephen G. Pagliuca, director at Coherent Corp., bought $2.32M of $COHR on the open market (Form 4, filed Nov 24).",
           "claim": false
         },
         {
           "id": "form4buy-3a6ae8.h2",
           "fact": "form4buy-3a6ae8",
           "variant": "h2",
-          "text": "An open-market purchase of $COHR totaling $5.34M by Coherent Corp. director Stephen G. Pagliuca was reported on a Form 4 filed Nov 24.",
+          "text": "An open-market purchase of $COHR totaling $2.32M by Coherent Corp. director Stephen G. Pagliuca was reported on a Form 4 filed Nov 24.",
           "claim": false
         },
         {
           "id": "form4buy-736a9f.a",
           "fact": "form4buy-736a9f",
           "variant": "a",
-          "text": "Coherent Corp. director Stephen G. Pagliuca bought $5.34M of $COHR on the open market.",
+          "text": "Coherent Corp. director Stephen G. Pagliuca bought $2.32M of $COHR on the open market.",
           "claim": false
         },
         {
           "id": "form4buy-736a9f.h1",
           "fact": "form4buy-736a9f",
           "variant": "h1",
-          "text": "Stephen G. Pagliuca, director at Coherent Corp., bought $5.34M of $COHR on the open market.",
+          "text": "Stephen G. Pagliuca, director at Coherent Corp., bought $2.32M of $COHR on the open market.",
           "claim": false
         },
         {
           "id": "form4buy-736a9f.h2",
           "fact": "form4buy-736a9f",
           "variant": "h2",
-          "text": "On the open market, Coherent Corp. director Stephen G. Pagliuca bought $5.34M of $COHR.",
+          "text": "On the open market, Coherent Corp. director Stephen G. Pagliuca bought $2.32M of $COHR.",
           "claim": false
         },
         {
           "id": "form4buy-1bee24.a",
           "fact": "form4buy-1bee24",
           "variant": "a",
-          "text": "Stephen G. Pagliuca bought $5.34M of $COHR on the open market.",
+          "text": "Stephen G. Pagliuca bought $2.32M of $COHR on the open market.",
           "claim": false
         },
         {
           "id": "form4buy-1bee24.h1",
           "fact": "form4buy-1bee24",
           "variant": "h1",
-          "text": "On the open market, Stephen G. Pagliuca bought $5.34M of $COHR.",
+          "text": "On the open market, Stephen G. Pagliuca bought $2.32M of $COHR.",
           "claim": false
         },
         {
           "id": "form4buy-1bee24.h2",
           "fact": "form4buy-1bee24",
           "variant": "h2",
-          "text": "Stephen G. Pagliuca made an open-market purchase of $COHR: $5.34M.",
+          "text": "Stephen G. Pagliuca made an open-market purchase of $COHR: $2.32M.",
           "claim": false
         },
         {
           "id": "form4buy-39fdef.a",
           "fact": "form4buy-39fdef",
           "variant": "a",
-          "text": "Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of $COHR totaling $5.34M on a Form 4 filed Nov 24.",
+          "text": "Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of $COHR totaling $2.32M on a Form 4 filed Nov 24.",
           "claim": false
         },
         {
           "id": "form4buy-39fdef.h1",
           "fact": "form4buy-39fdef",
           "variant": "h1",
-          "text": "On a Form 4 filed Nov 24, Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of $COHR totaling $5.34M.",
+          "text": "On a Form 4 filed Nov 24, Stephen G. Pagliuca (Director at Coherent Corp.) reported an open-market purchase of $COHR totaling $2.32M.",
           "claim": false
         },
         {
@@ -2367,21 +2366,21 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $6.6B of open-market sells and $930M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $930M of open-market buys and $6.6B of open-market sells.",
           "claim": false
         }
       ],
@@ -2389,9 +2388,9 @@
         "numbers": {
           "9.07%": "-",
           "9.1%": "-",
-          "$927M": "+",
-          "$926.8M": "+",
-          "$6.5B": "+",
+          "$930M": "+",
+          "$929.7M": "+",
+          "$6.6B": "+",
           "$7B": "+"
         },
         "subjects": {
@@ -2410,529 +2409,6 @@
           [
             "$",
             42.5,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-HPQ-a24dae",
-      "type": "earnings_result",
-      "ticker": "HPQ",
-      "tickers": [
-        "HPQ"
-      ],
-      "name": "HP Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/47217/000004721726000054/hp103126exhibit991q426.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/HPQ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-HPQ-a24dae#earnings-history",
-      "allowed_numbers": [
-        "$16.0B",
-        "$15.3B",
-        "$707M",
-        "$0.83",
-        "$0.74",
-        "$0.09",
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "HP Inc. (HPQ) published FY2026 (Q4) results on 2026-11-24: Beat estimates. Revenue $16.0B vs $15.3B consensus (Beat by $707M). non-GAAP diluted net EPS $0.83 vs $0.74 consensus (Beat by $0.09).",
-      "dedupe_key": "report:hpq-2026-q4",
-      "claim_phrases": [
-        "revenue came in above the $15.3B consensus.",
-        "$HPQ beat the FY2026 (Q4) revenue consensus: $16.0B vs $15.3B.",
-        "$HPQ FY2026 (Q4) revenue: $16.0B vs $15.3B consensus (beat by $707M).",
-        "$HPQ FY2026 (Q4) revenue $16.0B, beat by $707M.",
-        "revenue $16.0B vs $15.3B consensus (beat by $707M).",
-        "revenue $16.0B vs $15.3B (beat by $707M).",
-        "$HPQ beat FY2026 (Q4) revenue estimates by $707M.",
-        "EPS came in above the $0.74 consensus.",
-        "$HPQ beat the FY2026 (Q4) EPS consensus: $0.83 vs $0.74.",
-        "$HPQ FY2026 (Q4) EPS: $0.83 vs $0.74 consensus (beat by $0.09).",
-        "$HPQ FY2026 (Q4) EPS $0.83, beat by $0.09.",
-        "EPS $0.83 vs $0.74 consensus (beat by $0.09).",
-        "EPS $0.83 vs $0.74 (beat by $0.09).",
-        "$HPQ beat FY2026 (Q4) EPS estimates by $0.09.",
-        "non-GAAP diluted net EPS came in above the $0.74 consensus.",
-        "$HPQ beat the FY2026 (Q4) non-GAAP diluted net EPS consensus: $0.83 vs $0.74.",
-        "$HPQ FY2026 (Q4) non-GAAP diluted net EPS: $0.83 vs $0.74 consensus (beat by $0.09).",
-        "$HPQ FY2026 (Q4) non-GAAP diluted net EPS $0.83, beat by $0.09.",
-        "non-GAAP diluted net EPS $0.83 vs $0.74 consensus (beat by $0.09).",
-        "non-GAAP diluted net EPS $0.83 vs $0.74 (beat by $0.09).",
-        "$HPQ beat FY2026 (Q4) non-GAAP diluted net EPS estimates by $0.09.",
-        "$HPQ beat FY2026 (Q4) estimates."
-      ],
-      "report_id": "hpq-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-24T21:20:25.820997+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$16.0B",
-          "consensus": "$15.3B",
-          "label": "Beat by $707M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "non-GAAP diluted net EPS",
-          "reported": "$0.83",
-          "consensus": "$0.74",
-          "label": "Beat by $0.09",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/HPQ/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for HPQ: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 8.5,
-      "rank_why": "earnings_result 3; large cap $26.06B +2.5; magnitude (verdict) +1.5; release_date 2026-11-24 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 26061759540.042946,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24",
-        "$26.1B",
-        "−3.32%",
-        "3.32%",
-        "−3.3%",
-        "3.3%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "HPQ"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "HPQ": "Technology"
-      },
-      "ticker_names": {
-        "HPQ": "HP Inc."
-      },
-      "context": {
-        "market_cap": "$26.1B",
-        "market_cap_session": "2026-11-24",
-        "last_session_move": {
-          "pct": "−3.32%",
-          "session": "2026-11-24"
-        }
-      },
-      "angles": [
-        "HP Inc. ($HPQ) published FY2026 (Q4) results on Nov 24.",
-        "$HPQ (HP Inc.) reported FY2026 (Q4) results on Nov 24.",
-        "On Nov 24, HP Inc. ($HPQ) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "HP Inc. ($HPQ) published FY2026 (Q4) results on Nov 24.",
-        "$HPQ (HP Inc.) reported FY2026 (Q4) results on Nov 24.",
-        "On Nov 24, HP Inc. ($HPQ) published FY2026 (Q4) results.",
-        "$HPQ published FY2026 (Q4) results on Nov 24.",
-        "FY2026 (Q4) results from $HPQ came out on Nov 24.",
-        "On Nov 24, $HPQ published FY2026 (Q4) results.",
-        "$HPQ FY2026 (Q4) revenue: $16.0B vs $15.3B consensus.",
-        "$HPQ reported FY2026 (Q4) revenue of $16.0B vs $15.3B consensus.",
-        "$HPQ FY2026 (Q4) revenue was $16.0B.",
-        "FY2026 (Q4) revenue at $HPQ was $16.0B.",
-        "$HPQ FY2026 (Q4) non-GAAP diluted net EPS: $0.83 vs $0.74 consensus.",
-        "$HPQ reported FY2026 (Q4) non-GAAP diluted net EPS of $0.83 vs $0.74 consensus.",
-        "$HPQ FY2026 (Q4) non-GAAP diluted net EPS was $0.83.",
-        "FY2026 (Q4) non-GAAP diluted net EPS at $HPQ was $0.83.",
-        "$HPQ had a market value of $26.1B at the Nov 24 close.",
-        "$HPQ's market value at the Nov 24 close was $26.1B.",
-        "At the Nov 24 close, $HPQ had a market value of $26.1B.",
-        "$HPQ moved −3.32% on Tuesday, Nov 24.",
-        "$HPQ's move on Tuesday, Nov 24: −3.32%.",
-        "On Tuesday, Nov 24, $HPQ moved −3.32%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $15.3B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fe5e72.a",
-          "fact": "earningsre-fe5e72",
-          "variant": "a",
-          "text": "$HPQ beat the FY2026 (Q4) revenue consensus: $16.0B vs $15.3B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c73b4a.a",
-          "fact": "earningsre-c73b4a",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) revenue: $16.0B vs $15.3B consensus (beat by $707M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c84ebe.a",
-          "fact": "earningsre-c84ebe",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) revenue $16.0B, beat by $707M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $16.0B vs $15.3B consensus (beat by $707M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $16.0B vs $15.3B (beat by $707M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-292430.a",
-          "fact": "earningsre-292430",
-          "variant": "a",
-          "text": "$HPQ beat FY2026 (Q4) revenue estimates by $707M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $0.74 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-81b25b.a",
-          "fact": "earningsre-81b25b",
-          "variant": "a",
-          "text": "$HPQ beat the FY2026 (Q4) EPS consensus: $0.83 vs $0.74.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-de676d.a",
-          "fact": "earningsre-de676d",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) EPS: $0.83 vs $0.74 consensus (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-262e38.a",
-          "fact": "earningsre-262e38",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) EPS $0.83, beat by $0.09.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $0.83 vs $0.74 consensus (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $0.83 vs $0.74 (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14b02f.a",
-          "fact": "earningsre-14b02f",
-          "variant": "a",
-          "text": "$HPQ beat FY2026 (Q4) EPS estimates by $0.09.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-5ac703.a",
-          "fact": "earningsre-5ac703",
-          "variant": "a",
-          "text": "non-GAAP diluted net EPS came in above the $0.74 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-270e78.a",
-          "fact": "earningsre-270e78",
-          "variant": "a",
-          "text": "$HPQ beat the FY2026 (Q4) non-GAAP diluted net EPS consensus: $0.83 vs $0.74.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-143d6a.a",
-          "fact": "earningsre-143d6a",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) non-GAAP diluted net EPS: $0.83 vs $0.74 consensus (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-72219a.a",
-          "fact": "earningsre-72219a",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) non-GAAP diluted net EPS $0.83, beat by $0.09.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-a4abd4.a",
-          "fact": "earningsre-a4abd4",
-          "variant": "a",
-          "text": "non-GAAP diluted net EPS $0.83 vs $0.74 consensus (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-24e2b2.a",
-          "fact": "earningsre-24e2b2",
-          "variant": "a",
-          "text": "non-GAAP diluted net EPS $0.83 vs $0.74 (beat by $0.09).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d3f1bb.a",
-          "fact": "earningsre-d3f1bb",
-          "variant": "a",
-          "text": "$HPQ beat FY2026 (Q4) non-GAAP diluted net EPS estimates by $0.09.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-232122.a",
-          "fact": "earningsre-232122",
-          "variant": "a",
-          "text": "$HPQ beat FY2026 (Q4) estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "HP Inc. ($HPQ) published FY2026 (Q4) results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$HPQ (HP Inc.) reported FY2026 (Q4) results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 24, HP Inc. ($HPQ) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$HPQ published FY2026 (Q4) results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $HPQ came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 24, $HPQ published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.a",
-          "fact": "earningsre-8c456a",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) revenue: $16.0B vs $15.3B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-8c456a.h1",
-          "fact": "earningsre-8c456a",
-          "variant": "h1",
-          "text": "$HPQ reported FY2026 (Q4) revenue of $16.0B vs $15.3B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.a",
-          "fact": "earningsre-3741ca",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) revenue was $16.0B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-3741ca.h1",
-          "fact": "earningsre-3741ca",
-          "variant": "h1",
-          "text": "FY2026 (Q4) revenue at $HPQ was $16.0B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-a646b4.a",
-          "fact": "earningsre-a646b4",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) non-GAAP diluted net EPS: $0.83 vs $0.74 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-a646b4.h1",
-          "fact": "earningsre-a646b4",
-          "variant": "h1",
-          "text": "$HPQ reported FY2026 (Q4) non-GAAP diluted net EPS of $0.83 vs $0.74 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f1ce48.a",
-          "fact": "earningsre-f1ce48",
-          "variant": "a",
-          "text": "$HPQ FY2026 (Q4) non-GAAP diluted net EPS was $0.83.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f1ce48.h1",
-          "fact": "earningsre-f1ce48",
-          "variant": "h1",
-          "text": "FY2026 (Q4) non-GAAP diluted net EPS at $HPQ was $0.83.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$HPQ had a market value of $26.1B at the Nov 24 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$HPQ's market value at the Nov 24 close was $26.1B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 24 close, $HPQ had a market value of $26.1B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$HPQ moved −3.32% on Tuesday, Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$HPQ's move on Tuesday, Nov 24: −3.32%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Tuesday, Nov 24, $HPQ moved −3.32%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "3.32%": "-",
-          "3.3%": "-"
-        },
-        "subjects": {
-          "HPQ": "down"
-        }
-      },
-      "subject_numbers": {
-        "HPQ": [
-          [
-            "$",
-            16.0,
-            1,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            15.3,
-            1,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            707.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            0.83,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.74,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.09,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            3.32,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            26.1,
             1,
             1000000000.0,
             0
@@ -3574,12 +3050,12 @@
       "in_500": false,
       "context_numbers": [
         "$2.4B",
-        "$927M",
-        "+$927M",
-        "$926.8M",
-        "+$926.8M",
-        "$6.5B",
-        "+$6.5B",
+        "$930M",
+        "+$930M",
+        "$929.7M",
+        "+$929.7M",
+        "$6.6B",
+        "+$6.6B",
         "$7B",
         "+$7B",
         "30"
@@ -3601,12 +3077,12 @@
       "scoped_numbers": [
         {
           "numbers": [
-            "$927M",
-            "+$927M",
-            "$926.8M",
-            "+$926.8M",
-            "$6.5B",
-            "+$6.5B",
+            "$930M",
+            "+$930M",
+            "$929.7M",
+            "+$929.7M",
+            "$6.6B",
+            "+$6.6B",
             "$7B",
             "+$7B"
           ],
@@ -3620,8 +3096,8 @@
       "context": {
         "market_cap": "$2.4B",
         "insiders_30d": {
-          "bought": "$927M",
-          "sold": "$6.5B",
+          "bought": "$930M",
+          "sold": "$6.6B",
           "days": 30
         }
       },
@@ -3644,9 +3120,9 @@
         "On a Form 4 filed Nov 24, BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M.",
         "BROOKFIELD Corp's $CSQR purchase was traded Nov 20 and reported on a Form 4 filed Nov 24.",
         "Traded Nov 20, BROOKFIELD Corp's $CSQR purchase was reported on a Form 4 filed Nov 24.",
-        "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells."
+        "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $6.6B of open-market sells and $930M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $930M of open-market buys and $6.6B of open-market sells."
       ],
       "phrasings": [
         {
@@ -3744,29 +3220,29 @@
           "id": "form4buy-de8c5a.a",
           "fact": "form4buy-de8c5a",
           "variant": "a",
-          "text": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
+          "text": "Officers and directors reported $930M of open-market buys and $6.6B of open-market sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.h1",
           "fact": "form4buy-de8c5a",
           "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
+          "text": "Over 30 days in our feed, officers and directors reported $6.6B of open-market sells and $930M of open-market buys.",
           "claim": false
         },
         {
           "id": "form4buy-de8c5a.t",
           "fact": "form4buy-de8c5a",
           "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells.",
+          "text": "Over 30 days in our feed, officers and directors reported $930M of open-market buys and $6.6B of open-market sells.",
           "claim": false
         }
       ],
       "moves": {
         "numbers": {
-          "$927M": "+",
-          "$926.8M": "+",
-          "$6.5B": "+",
+          "$930M": "+",
+          "$929.7M": "+",
+          "$6.6B": "+",
           "$7B": "+"
         },
         "subjects": {}
@@ -3901,6 +3377,132 @@
           "fact": "earningsre-f7ec44",
           "variant": "t",
           "text": "On Nov 25, $IMKTA published FY2026 (Q4) results.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-25-earnings-result-BILI-60aaf1",
+      "type": "earnings_result",
+      "ticker": "BILI",
+      "tickers": [
+        "BILI"
+      ],
+      "name": "Bilibili Inc.",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1723690/000119312526476698/d115891dex991.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/BILI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-BILI-60aaf1#earnings-history",
+      "allowed_numbers": [
+        "Q3 2026",
+        "Q3",
+        "FY2026",
+        "2026-11-25",
+        "Nov 25, 2026",
+        "Nov 25"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Bilibili Inc. (BILI) published Q3 2026 results on 2026-11-25: Published.",
+      "dedupe_key": "report:bili-2026-q3",
+      "claim_phrases": [],
+      "report_id": "bili-2026-q3",
+      "fiscal_label": "Q3 2026",
+      "release_date": "2026-11-25",
+      "published_at": "2026-11-25T12:03:08.824743+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/BILI/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for BILI: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-25 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "BILI"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
+        "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
+        "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results."
+      ],
+      "fact_phrases": [
+        "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
+        "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
+        "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results.",
+        "$BILI published Q3 2026 results on Nov 25.",
+        "Q3 2026 results from $BILI came out on Nov 25.",
+        "On Nov 25, $BILI published Q3 2026 results."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-413af8.a",
+          "fact": "earningsre-413af8",
+          "variant": "a",
+          "text": "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.h1",
+          "fact": "earningsre-413af8",
+          "variant": "h1",
+          "text": "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-413af8.t",
+          "fact": "earningsre-413af8",
+          "variant": "t",
+          "text": "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.a",
+          "fact": "earningsre-d0ab88",
+          "variant": "a",
+          "text": "$BILI published Q3 2026 results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.h1",
+          "fact": "earningsre-d0ab88",
+          "variant": "h1",
+          "text": "Q3 2026 results from $BILI came out on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-d0ab88.t",
+          "fact": "earningsre-d0ab88",
+          "variant": "t",
+          "text": "On Nov 25, $BILI published Q3 2026 results.",
           "claim": false
         }
       ],
@@ -10043,133 +9645,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-25-earnings-result-BILI-60aaf1",
-      "type": "earnings_result",
-      "ticker": "BILI",
-      "tickers": [
-        "BILI"
-      ],
-      "name": "Bilibili Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-25",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1723690/000119312526476698/d115891dex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/BILI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-BILI-60aaf1#earnings-history",
-      "allowed_numbers": [
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-25",
-        "Nov 25, 2026",
-        "Nov 25"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Bilibili Inc. (BILI) published Q3 2026 results on 2026-11-25: Published.",
-      "dedupe_key": "report:bili-2026-q3",
-      "claim_phrases": [],
-      "report_id": "bili-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-25",
-      "published_at": "2026-11-25T12:03:08.824743+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {},
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/BILI/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for BILI: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-25 (age 0) +2",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "BILI"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
-        "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
-        "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
-        "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
-        "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results.",
-        "$BILI published Q3 2026 results on Nov 25.",
-        "Q3 2026 results from $BILI came out on Nov 25.",
-        "On Nov 25, $BILI published Q3 2026 results."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$BILI published Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $BILI came out on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 25, $BILI published Q3 2026 results.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-25-earnings-result-BZ-50478e",
       "type": "earnings_result",
       "ticker": "BZ",
@@ -11064,1080 +10539,6 @@
           [
             "$",
             0.12,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-GDRX-4375aa",
-      "type": "earnings_result",
-      "ticker": "GDRX",
-      "tickers": [
-        "GDRX"
-      ],
-      "name": "GoodRx Holdings, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1809519/000180951926000231/gdrxq326-exx991pressrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/GDRX?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-GDRX-4375aa#earnings-history",
-      "allowed_numbers": [
-        "$218M",
-        "$202M",
-        "$16.3M",
-        "$0.10",
-        "$0.08",
-        "$0.02",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "GoodRx Holdings, Inc. (GDRX) published Q3 2026 results on 2026-11-24: Beat estimates. Revenue $218M vs $202M consensus (Beat by $16.3M). Adjusted Earnings Per Share $0.10 vs $0.08 consensus (Beat by $0.02).",
-      "dedupe_key": "report:gdrx-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $202M consensus.",
-        "$GDRX beat the Q3 2026 revenue consensus: $218M vs $202M.",
-        "$GDRX Q3 2026 revenue: $218M vs $202M consensus (beat by $16.3M).",
-        "$GDRX Q3 2026 revenue $218M, beat by $16.3M.",
-        "revenue $218M vs $202M consensus (beat by $16.3M).",
-        "revenue $218M vs $202M (beat by $16.3M).",
-        "$GDRX beat Q3 2026 revenue estimates by $16.3M.",
-        "$GDRX beat the Q3 revenue consensus: $218M vs $202M.",
-        "$GDRX Q3 revenue: $218M vs $202M consensus (beat by $16.3M).",
-        "$GDRX Q3 revenue $218M, beat by $16.3M.",
-        "$GDRX beat Q3 revenue estimates by $16.3M.",
-        "EPS came in above the $0.08 consensus.",
-        "$GDRX beat the Q3 2026 EPS consensus: $0.10 vs $0.08.",
-        "$GDRX Q3 2026 EPS: $0.10 vs $0.08 consensus (beat by $0.02).",
-        "$GDRX Q3 2026 EPS $0.10, beat by $0.02.",
-        "EPS $0.10 vs $0.08 consensus (beat by $0.02).",
-        "EPS $0.10 vs $0.08 (beat by $0.02).",
-        "$GDRX beat Q3 2026 EPS estimates by $0.02.",
-        "Adjusted Earnings Per Share came in above the $0.08 consensus.",
-        "$GDRX beat the Q3 2026 Adjusted Earnings Per Share consensus: $0.10 vs $0.08.",
-        "$GDRX Q3 2026 Adjusted Earnings Per Share: $0.10 vs $0.08 consensus (beat by $0.02).",
-        "$GDRX Q3 2026 Adjusted Earnings Per Share $0.10, beat by $0.02.",
-        "Adjusted Earnings Per Share $0.10 vs $0.08 consensus (beat by $0.02).",
-        "Adjusted Earnings Per Share $0.10 vs $0.08 (beat by $0.02).",
-        "$GDRX beat Q3 2026 Adjusted Earnings Per Share estimates by $0.02.",
-        "$GDRX beat the Q3 EPS consensus: $0.10 vs $0.08.",
-        "$GDRX Q3 EPS: $0.10 vs $0.08 consensus (beat by $0.02).",
-        "$GDRX Q3 EPS $0.10, beat by $0.02.",
-        "$GDRX beat Q3 EPS estimates by $0.02.",
-        "$GDRX beat the Q3 Adjusted Earnings Per Share consensus: $0.10 vs $0.08.",
-        "$GDRX Q3 Adjusted Earnings Per Share: $0.10 vs $0.08 consensus (beat by $0.02).",
-        "$GDRX Q3 Adjusted Earnings Per Share $0.10, beat by $0.02.",
-        "$GDRX beat Q3 Adjusted Earnings Per Share estimates by $0.02.",
-        "$GDRX beat Q3 2026 estimates.",
-        "$GDRX beat Q3 estimates."
-      ],
-      "report_id": "gdrx-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-24T21:36:26.129002+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$218M",
-          "consensus": "$202M",
-          "label": "Beat by $16.3M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Adjusted Earnings Per Share",
-          "reported": "$0.10",
-          "consensus": "$0.08",
-          "label": "Beat by $0.02",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/GDRX/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for GDRX: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-24 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "GDRX"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "GoodRx Holdings, Inc. ($GDRX) published Q3 2026 results on Nov 24.",
-        "$GDRX (GoodRx Holdings, Inc.) reported Q3 2026 results on Nov 24.",
-        "On Nov 24, GoodRx Holdings, Inc. ($GDRX) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "GoodRx Holdings, Inc. ($GDRX) published Q3 2026 results on Nov 24.",
-        "$GDRX (GoodRx Holdings, Inc.) reported Q3 2026 results on Nov 24.",
-        "On Nov 24, GoodRx Holdings, Inc. ($GDRX) published Q3 2026 results.",
-        "$GDRX published Q3 2026 results on Nov 24.",
-        "Q3 2026 results from $GDRX came out on Nov 24.",
-        "On Nov 24, $GDRX published Q3 2026 results.",
-        "$GDRX Q3 2026 revenue: $218M vs $202M consensus.",
-        "$GDRX reported Q3 2026 revenue of $218M vs $202M consensus.",
-        "$GDRX Q3 2026 revenue was $218M.",
-        "Q3 2026 revenue at $GDRX was $218M.",
-        "$GDRX Q3 2026 Adjusted Earnings Per Share: $0.10 vs $0.08 consensus.",
-        "$GDRX reported Q3 2026 Adjusted Earnings Per Share of $0.10 vs $0.08 consensus.",
-        "$GDRX Q3 2026 Adjusted Earnings Per Share was $0.10.",
-        "Q3 2026 Adjusted Earnings Per Share at $GDRX was $0.10."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $202M consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$GDRX beat the Q3 2026 revenue consensus: $218M vs $202M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 revenue: $218M vs $202M consensus (beat by $16.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 revenue $218M, beat by $16.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $218M vs $202M consensus (beat by $16.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $218M vs $202M (beat by $16.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$GDRX beat Q3 2026 revenue estimates by $16.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$GDRX beat the Q3 revenue consensus: $218M vs $202M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$GDRX Q3 revenue: $218M vs $202M consensus (beat by $16.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$GDRX Q3 revenue $218M, beat by $16.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$GDRX beat Q3 revenue estimates by $16.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $0.08 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$GDRX beat the Q3 2026 EPS consensus: $0.10 vs $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 EPS: $0.10 vs $0.08 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 EPS $0.10, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $0.10 vs $0.08 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $0.10 vs $0.08 (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$GDRX beat Q3 2026 EPS estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "Adjusted Earnings Per Share came in above the $0.08 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$GDRX beat the Q3 2026 Adjusted Earnings Per Share consensus: $0.10 vs $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 Adjusted Earnings Per Share: $0.10 vs $0.08 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 Adjusted Earnings Per Share $0.10, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "Adjusted Earnings Per Share $0.10 vs $0.08 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "Adjusted Earnings Per Share $0.10 vs $0.08 (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$GDRX beat Q3 2026 Adjusted Earnings Per Share estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$GDRX beat the Q3 EPS consensus: $0.10 vs $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$GDRX Q3 EPS: $0.10 vs $0.08 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$GDRX Q3 EPS $0.10, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$GDRX beat Q3 EPS estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$GDRX beat the Q3 Adjusted Earnings Per Share consensus: $0.10 vs $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$GDRX Q3 Adjusted Earnings Per Share: $0.10 vs $0.08 consensus (beat by $0.02).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$GDRX Q3 Adjusted Earnings Per Share $0.10, beat by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$GDRX beat Q3 Adjusted Earnings Per Share estimates by $0.02.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$GDRX beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$GDRX beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "GoodRx Holdings, Inc. ($GDRX) published Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$GDRX (GoodRx Holdings, Inc.) reported Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 24, GoodRx Holdings, Inc. ($GDRX) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$GDRX published Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $GDRX came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 24, $GDRX published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 revenue: $218M vs $202M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$GDRX reported Q3 2026 revenue of $218M vs $202M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 revenue was $218M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $GDRX was $218M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-938394.a",
-          "fact": "earningsre-938394",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 Adjusted Earnings Per Share: $0.10 vs $0.08 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-938394.h1",
-          "fact": "earningsre-938394",
-          "variant": "h1",
-          "text": "$GDRX reported Q3 2026 Adjusted Earnings Per Share of $0.10 vs $0.08 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$GDRX Q3 2026 Adjusted Earnings Per Share was $0.10.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 Adjusted Earnings Per Share at $GDRX was $0.10.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "GDRX": [
-          [
-            "$",
-            218.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            202.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            16.3,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            0.1,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.08,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.02,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-AMBA-4cbcae",
-      "type": "earnings_result",
-      "ticker": "AMBA",
-      "tickers": [
-        "AMBA"
-      ],
-      "name": "Ambarella, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1280263/000119312526475716/d912526dex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/AMBA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-AMBA-4cbcae#earnings-history",
-      "allowed_numbers": [
-        "$115M",
-        "$120M",
-        "$4.58M",
-        "$0.28",
-        "$0.31",
-        "$0.03",
-        "Q3 2027",
-        "Q3",
-        "FY2027",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Ambarella, Inc. (AMBA) published Q3 2027 results on 2026-11-24: Missed estimates. Revenue $115M vs $120M consensus (Missed by $4.58M). Non-GAAP - diluted net income per share $0.28 vs $0.31 consensus (Missed by $0.03).",
-      "dedupe_key": "report:amba-2027-q3",
-      "claim_phrases": [
-        "revenue came in below the $120M consensus.",
-        "$AMBA missed the Q3 2027 revenue consensus: $115M vs $120M.",
-        "$AMBA Q3 2027 revenue: $115M vs $120M consensus (missed by $4.58M).",
-        "$AMBA Q3 2027 revenue $115M, missed by $4.58M.",
-        "revenue $115M vs $120M consensus (missed by $4.58M).",
-        "revenue $115M vs $120M (missed by $4.58M).",
-        "$AMBA missed Q3 2027 revenue estimates by $4.58M.",
-        "$AMBA missed the Q3 revenue consensus: $115M vs $120M.",
-        "$AMBA Q3 revenue: $115M vs $120M consensus (missed by $4.58M).",
-        "$AMBA Q3 revenue $115M, missed by $4.58M.",
-        "$AMBA missed Q3 revenue estimates by $4.58M.",
-        "EPS came in below the $0.31 consensus.",
-        "$AMBA missed the Q3 2027 EPS consensus: $0.28 vs $0.31.",
-        "$AMBA Q3 2027 EPS: $0.28 vs $0.31 consensus (missed by $0.03).",
-        "$AMBA Q3 2027 EPS $0.28, missed by $0.03.",
-        "EPS $0.28 vs $0.31 consensus (missed by $0.03).",
-        "EPS $0.28 vs $0.31 (missed by $0.03).",
-        "$AMBA missed Q3 2027 EPS estimates by $0.03.",
-        "Non-GAAP - diluted net income per share came in below the $0.31 consensus.",
-        "$AMBA missed the Q3 2027 Non-GAAP - diluted net income per share consensus: $0.28 vs $0.31.",
-        "$AMBA Q3 2027 Non-GAAP - diluted net income per share: $0.28 vs $0.31 consensus (missed by $0.03).",
-        "$AMBA Q3 2027 Non-GAAP - diluted net income per share $0.28, missed by $0.03.",
-        "Non-GAAP - diluted net income per share $0.28 vs $0.31 consensus (missed by $0.03).",
-        "Non-GAAP - diluted net income per share $0.28 vs $0.31 (missed by $0.03).",
-        "$AMBA missed Q3 2027 Non-GAAP - diluted net income per share estimates by $0.03.",
-        "$AMBA missed the Q3 EPS consensus: $0.28 vs $0.31.",
-        "$AMBA Q3 EPS: $0.28 vs $0.31 consensus (missed by $0.03).",
-        "$AMBA Q3 EPS $0.28, missed by $0.03.",
-        "$AMBA missed Q3 EPS estimates by $0.03.",
-        "$AMBA missed the Q3 Non-GAAP - diluted net income per share consensus: $0.28 vs $0.31.",
-        "$AMBA Q3 Non-GAAP - diluted net income per share: $0.28 vs $0.31 consensus (missed by $0.03).",
-        "$AMBA Q3 Non-GAAP - diluted net income per share $0.28, missed by $0.03.",
-        "$AMBA missed Q3 Non-GAAP - diluted net income per share estimates by $0.03.",
-        "$AMBA missed Q3 2027 estimates.",
-        "$AMBA missed Q3 estimates."
-      ],
-      "report_id": "amba-2027-q3",
-      "fiscal_label": "Q3 2027",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-24T21:17:05.671469+00:00",
-      "tile_label": "Missed estimates",
-      "tile_state": "miss",
-      "results": {
-        "revenue": {
-          "reported": "$115M",
-          "consensus": "$120M",
-          "label": "Missed by $4.58M",
-          "verdict": "miss"
-        },
-        "eps": {
-          "basis": "Non-GAAP - diluted net income per share",
-          "reported": "$0.28",
-          "consensus": "$0.31",
-          "label": "Missed by $0.03",
-          "verdict": "miss"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/AMBA/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for AMBA: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-24 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "AMBA"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Ambarella, Inc. ($AMBA) published Q3 2027 results on Nov 24.",
-        "$AMBA (Ambarella, Inc.) reported Q3 2027 results on Nov 24.",
-        "On Nov 24, Ambarella, Inc. ($AMBA) published Q3 2027 results."
-      ],
-      "fact_phrases": [
-        "Ambarella, Inc. ($AMBA) published Q3 2027 results on Nov 24.",
-        "$AMBA (Ambarella, Inc.) reported Q3 2027 results on Nov 24.",
-        "On Nov 24, Ambarella, Inc. ($AMBA) published Q3 2027 results.",
-        "$AMBA published Q3 2027 results on Nov 24.",
-        "Q3 2027 results from $AMBA came out on Nov 24.",
-        "On Nov 24, $AMBA published Q3 2027 results.",
-        "$AMBA Q3 2027 revenue: $115M vs $120M consensus.",
-        "$AMBA reported Q3 2027 revenue of $115M vs $120M consensus.",
-        "$AMBA Q3 2027 revenue was $115M.",
-        "Q3 2027 revenue at $AMBA was $115M.",
-        "$AMBA Q3 2027 Non-GAAP - diluted net income per share: $0.28 vs $0.31 consensus.",
-        "$AMBA reported Q3 2027 Non-GAAP - diluted net income per share of $0.28 vs $0.31 consensus.",
-        "$AMBA Q3 2027 Non-GAAP - diluted net income per share was $0.28.",
-        "Q3 2027 Non-GAAP - diluted net income per share at $AMBA was $0.28."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-d07e43.a",
-          "fact": "earningsre-d07e43",
-          "variant": "a",
-          "text": "revenue came in below the $120M consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-39974b.a",
-          "fact": "earningsre-39974b",
-          "variant": "a",
-          "text": "$AMBA missed the Q3 2027 revenue consensus: $115M vs $120M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-832d86.a",
-          "fact": "earningsre-832d86",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 revenue: $115M vs $120M consensus (missed by $4.58M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1c6ba4.a",
-          "fact": "earningsre-1c6ba4",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 revenue $115M, missed by $4.58M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-96a577.a",
-          "fact": "earningsre-96a577",
-          "variant": "a",
-          "text": "revenue $115M vs $120M consensus (missed by $4.58M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7c4659.a",
-          "fact": "earningsre-7c4659",
-          "variant": "a",
-          "text": "revenue $115M vs $120M (missed by $4.58M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3da506.a",
-          "fact": "earningsre-3da506",
-          "variant": "a",
-          "text": "$AMBA missed Q3 2027 revenue estimates by $4.58M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b5f6a9.a",
-          "fact": "earningsre-b5f6a9",
-          "variant": "a",
-          "text": "$AMBA missed the Q3 revenue consensus: $115M vs $120M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f542e8.a",
-          "fact": "earningsre-f542e8",
-          "variant": "a",
-          "text": "$AMBA Q3 revenue: $115M vs $120M consensus (missed by $4.58M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-90244e.a",
-          "fact": "earningsre-90244e",
-          "variant": "a",
-          "text": "$AMBA Q3 revenue $115M, missed by $4.58M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-01ded6.a",
-          "fact": "earningsre-01ded6",
-          "variant": "a",
-          "text": "$AMBA missed Q3 revenue estimates by $4.58M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-418b63.a",
-          "fact": "earningsre-418b63",
-          "variant": "a",
-          "text": "EPS came in below the $0.31 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3982e5.a",
-          "fact": "earningsre-3982e5",
-          "variant": "a",
-          "text": "$AMBA missed the Q3 2027 EPS consensus: $0.28 vs $0.31.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-cf8f92.a",
-          "fact": "earningsre-cf8f92",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 EPS: $0.28 vs $0.31 consensus (missed by $0.03).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1ed72e.a",
-          "fact": "earningsre-1ed72e",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 EPS $0.28, missed by $0.03.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f18190.a",
-          "fact": "earningsre-f18190",
-          "variant": "a",
-          "text": "EPS $0.28 vs $0.31 consensus (missed by $0.03).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-17abfe.a",
-          "fact": "earningsre-17abfe",
-          "variant": "a",
-          "text": "EPS $0.28 vs $0.31 (missed by $0.03).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-54e1d8.a",
-          "fact": "earningsre-54e1d8",
-          "variant": "a",
-          "text": "$AMBA missed Q3 2027 EPS estimates by $0.03.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6c1e0b.a",
-          "fact": "earningsre-6c1e0b",
-          "variant": "a",
-          "text": "Non-GAAP - diluted net income per share came in below the $0.31 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f1b8e7.a",
-          "fact": "earningsre-f1b8e7",
-          "variant": "a",
-          "text": "$AMBA missed the Q3 2027 Non-GAAP - diluted net income per share consensus: $0.28 vs $0.31.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b54b33.a",
-          "fact": "earningsre-b54b33",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 Non-GAAP - diluted net income per share: $0.28 vs $0.31 consensus (missed by $0.03).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-a59982.a",
-          "fact": "earningsre-a59982",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 Non-GAAP - diluted net income per share $0.28, missed by $0.03.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-9a44b8.a",
-          "fact": "earningsre-9a44b8",
-          "variant": "a",
-          "text": "Non-GAAP - diluted net income per share $0.28 vs $0.31 consensus (missed by $0.03).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-ebc7f2.a",
-          "fact": "earningsre-ebc7f2",
-          "variant": "a",
-          "text": "Non-GAAP - diluted net income per share $0.28 vs $0.31 (missed by $0.03).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-423876.a",
-          "fact": "earningsre-423876",
-          "variant": "a",
-          "text": "$AMBA missed Q3 2027 Non-GAAP - diluted net income per share estimates by $0.03.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-355c5f.a",
-          "fact": "earningsre-355c5f",
-          "variant": "a",
-          "text": "$AMBA missed the Q3 EPS consensus: $0.28 vs $0.31.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-83f6a0.a",
-          "fact": "earningsre-83f6a0",
-          "variant": "a",
-          "text": "$AMBA Q3 EPS: $0.28 vs $0.31 consensus (missed by $0.03).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d4f8ff.a",
-          "fact": "earningsre-d4f8ff",
-          "variant": "a",
-          "text": "$AMBA Q3 EPS $0.28, missed by $0.03.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4ffa7a.a",
-          "fact": "earningsre-4ffa7a",
-          "variant": "a",
-          "text": "$AMBA missed Q3 EPS estimates by $0.03.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c86376.a",
-          "fact": "earningsre-c86376",
-          "variant": "a",
-          "text": "$AMBA missed the Q3 Non-GAAP - diluted net income per share consensus: $0.28 vs $0.31.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-82445b.a",
-          "fact": "earningsre-82445b",
-          "variant": "a",
-          "text": "$AMBA Q3 Non-GAAP - diluted net income per share: $0.28 vs $0.31 consensus (missed by $0.03).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-25cdd5.a",
-          "fact": "earningsre-25cdd5",
-          "variant": "a",
-          "text": "$AMBA Q3 Non-GAAP - diluted net income per share $0.28, missed by $0.03.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-467f37.a",
-          "fact": "earningsre-467f37",
-          "variant": "a",
-          "text": "$AMBA missed Q3 Non-GAAP - diluted net income per share estimates by $0.03.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-0bb625.a",
-          "fact": "earningsre-0bb625",
-          "variant": "a",
-          "text": "$AMBA missed Q3 2027 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-49ee3c.a",
-          "fact": "earningsre-49ee3c",
-          "variant": "a",
-          "text": "$AMBA missed Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Ambarella, Inc. ($AMBA) published Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$AMBA (Ambarella, Inc.) reported Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 24, Ambarella, Inc. ($AMBA) published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$AMBA published Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2027 results from $AMBA came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 24, $AMBA published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 revenue: $115M vs $120M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$AMBA reported Q3 2027 revenue of $115M vs $120M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 revenue was $115M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2027 revenue at $AMBA was $115M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-28ab1a.a",
-          "fact": "earningsre-28ab1a",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 Non-GAAP - diluted net income per share: $0.28 vs $0.31 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-28ab1a.h1",
-          "fact": "earningsre-28ab1a",
-          "variant": "h1",
-          "text": "$AMBA reported Q3 2027 Non-GAAP - diluted net income per share of $0.28 vs $0.31 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-a6f91c.a",
-          "fact": "earningsre-a6f91c",
-          "variant": "a",
-          "text": "$AMBA Q3 2027 Non-GAAP - diluted net income per share was $0.28.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-a6f91c.h1",
-          "fact": "earningsre-a6f91c",
-          "variant": "h1",
-          "text": "Q3 2027 Non-GAAP - diluted net income per share at $AMBA was $0.28.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "AMBA": [
-          [
-            "$",
-            115.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            120.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            4.58,
-            2,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            0.28,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.31,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.03,
             2,
             1.0,
             0
