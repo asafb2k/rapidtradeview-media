@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-25",
-  "generated_at": "2026-11-25T12:30:03Z",
-  "as_of": "2026-11-25T12:30:03Z",
+  "generated_at": "2026-11-25T13:00:03Z",
+  "as_of": "2026-11-25T13:00:03Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 2,
     "form4_buy": 2,
-    "earnings_result": 19,
+    "earnings_result": 18,
     "earnings_upcoming": 1,
     "picks_ready": 0,
     "chart_pattern": 1,
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 0,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 5,
@@ -941,9 +941,9 @@
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 4053,
-      "recent_ready": 44,
-      "outside_24h": 22,
+      "archive_reports": 4054,
+      "recent_ready": 45,
+      "outside_24h": 24,
       "unreadable": 0,
       "not_compared": 2,
       "not_compared_metrics": [
@@ -970,7 +970,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 21,
+      "tickers_in_items": 20,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -984,7 +984,7 @@
     "market": {
       "market_session": "2026-11-24",
       "priced_cap_share": 0.9808963425369296,
-      "flows_as_of": "2026-11-25T12:30:20.743231+00:00"
+      "flows_as_of": "2026-11-25T13:00:21.083059+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -995,21 +995,28 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 86
+        "angles_dropped": 81
       },
       "top8": {
-        "stale": 19,
+        "stale": 17,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 3,
-        "ranked_below": 11,
+        "ranked_below": 12,
         "pillars": 4
       }
+    },
+    "card_unpinned": {
+      "dropped": 1,
+      "reasons": [
+        "insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-25/cards/market-insiders-2026-11-25-78140ec5-b5f72103.png (old data))"
+      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError"
+    "post history: FileNotFoundError",
+    "not published: insider_flow RCL: share card not pinned (the PNG is the same image as v/2026-11-25/cards/market-insiders-2026-11-25-78140ec5-b5f72103.png (old data))"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1438,649 +1445,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-25-insider-flow-RCL-f37fa1",
-      "type": "insider_flow",
-      "ticker": "RCL",
-      "tickers": [
-        "RCL",
-        "ANT",
-        "PLTR"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-insider-flow-RCL-f37fa1",
-      "allowed_numbers": [
-        "$916M",
-        "+$916M",
-        "$915.9M",
-        "+$915.9M",
-        "$6.5B",
-        "+$6.5B",
-        "$7B",
-        "+$7B",
-        "30",
-        "572",
-        "754",
-        "500",
-        "2026-10-26",
-        "Oct 26, 2026",
-        "Oct 26",
-        "2026-11-25",
-        "Nov 25, 2026",
-        "Nov 25",
-        "$333M",
-        "+$333M",
-        "$333.2M",
-        "+$333.2M",
-        "$280M",
-        "+$280M",
-        "$280.4M",
-        "+$280.4M",
-        "$215M",
-        "+$215M",
-        "$214.6M",
-        "+$214.6M",
-        "$122M",
-        "+$122M",
-        "$122.3M",
-        "+$122.3M",
-        "3",
-        "1",
-        "7",
-        "7.1",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $916M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 572 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M.",
-      "dedupe_key": "insider_flow:2026-11-25:RCL",
-      "claim_phrases": [
-        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-        "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
-        "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
-        "$PLTR had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($215M).",
-        "Over 30 days in our feed, $PLTR had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($215M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($215M): $PLTR.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
-        "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $PLTR ($215M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $PLTR ($215M).",
-        "$RCL ($333M), $ANT ($280M) and $PLTR ($215M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "$PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M).",
-        "Over 30 days in our feed, $PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($122M).",
-        "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M): $PLTR.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.1.",
-        "Officers and directors sold $7.1 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $7.1 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "RCL",
-            "ANT",
-            "PLTR"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $ANT, $PLTR"
-        },
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "PLTR"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": 1,
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "buy|bought",
-          "says": "largest open-market buyers among the 500 largest, in order: $PLTR"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$916M",
-            "+$916M",
-            "$915.9M",
-            "+$915.9M",
-            "$6.5B",
-            "+$6.5B",
-            "$7B",
-            "+$7B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($916M bought, $6.5B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "RCL",
-          "ANT",
-          "PLTR"
-        ],
-        "numbers": [
-          "$6.5B",
-          "$916M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-26",
-        "to": "2026-11-25",
-        "days": 30
-      },
-      "bought_usd": 915897162.79,
-      "sold_usd": 6509480495.45,
-      "buy_companies": 572,
-      "sell_companies": 754,
-      "top_sellers_500": [
-        {
-          "ticker": "RCL",
-          "name": "Royal Caribbean Cruises Ltd.",
-          "sector": "Consumer Cyclical",
-          "total_usd": 333233640.82,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 72,
-          "first_trade": "2026-10-28",
-          "last_trade": "2026-11-13"
-        },
-        {
-          "ticker": "ANT",
-          "name": "Anthropic, PBC Class A Common Stock",
-          "sector": "Technology",
-          "total_usd": 280405374.0,
-          "insider_count": 1,
-          "roles": {
-            "officer": 1,
-            "director": 0
-          },
-          "row_count": 1,
-          "first_trade": "2026-11-20",
-          "last_trade": "2026-11-20"
-        },
-        {
-          "ticker": "PLTR",
-          "name": "Palantir Technologies Inc.",
-          "sector": "Technology",
-          "total_usd": 214579381.36,
-          "insider_count": 7,
-          "roles": {
-            "officer": 5,
-            "director": 2
-          },
-          "row_count": 125,
-          "first_trade": "2026-11-02",
-          "last_trade": "2026-11-24"
-        }
-      ],
-      "top_buyers_500": [
-        {
-          "ticker": "PLTR",
-          "name": "Palantir Technologies Inc.",
-          "sector": "Technology",
-          "total_usd": 122253519.33,
-          "insider_count": 1,
-          "roles": {
-            "officer": 0,
-            "director": 1
-          },
-          "row_count": 3,
-          "first_trade": "2026-11-20",
-          "last_trade": "2026-11-20"
-        }
-      ],
-      "angles": [
-        "Officers and directors sold $6.5B and bought $916M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $916M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $916M of open-market buys."
-      ],
-      "market_cap_usd": 82151022443.5655,
-      "magnitude": 2.720319495072993,
-      "trigger": "$PLTR entered the top 5",
-      "top5": [
-        "RCL",
-        "ANT",
-        "PLTR",
-        "SYK",
-        "MSI"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-78140ec5-b5f72103.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-25",
-        "fingerprint": "78140ec5",
-        "file": "market-insiders-2026-11-25-78140ec5.png",
-        "sha256": "6b139a56b1a8d8776d544ae652efcd7a21ac146508af5505d970a9f433df737a"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-78140ec5-b5f72103.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $916M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 572 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "ticker_sectors": {
-        "RCL": "Consumer Cyclical",
-        "ANT": "Technology",
-        "PLTR": "Technology"
-      },
-      "ticker_names": {
-        "RCL": "Royal Caribbean Cruises Ltd.",
-        "ANT": "Anthropic, PBC Class A Common Stock",
-        "PLTR": "Palantir Technologies Inc."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $916M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $916M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $916M of open-market buys and $6.5B of open-market sells.",
-        "Officers and directors sold $6.5B and bought $916M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $6.5B and bought $916M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 572 companies had open-market buys by officers and directors and 754 had open-market sells.",
-        "754 companies had open-market sells by officers and directors and 572 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-        "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
-        "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
-        "Officers and directors of $PLTR sold $215M on the open market over 30 days in our feed (7 insiders).",
-        "7 insiders at $PLTR sold $215M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $PLTR sold $215M on the open market (7 insiders).",
-        "Officers and directors of $PLTR bought $122M on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors of $PLTR bought $122M on the open market."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$PLTR had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($215M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $PLTR had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($215M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($215M): $PLTR.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $PLTR ($215M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $PLTR ($215M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$RCL ($333M), $ANT ($280M) and $PLTR ($215M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($122M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M): $PLTR.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.1.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $7.1 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $7.1 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $916M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $916M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $916M of open-market buys and $6.5B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $6.5B and bought $916M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $6.5B and bought $916M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 572 companies had open-market buys by officers and directors and 754 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "754 companies had open-market sells by officers and directors and 572 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.a",
-          "fact": "insiderflo-942c9b",
-          "variant": "a",
-          "text": "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.h1",
-          "fact": "insiderflo-942c9b",
-          "variant": "h1",
-          "text": "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.t",
-          "fact": "insiderflo-942c9b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $PLTR sold $215M on the open market over 30 days in our feed (7 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "7 insiders at $PLTR sold $215M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $PLTR sold $215M on the open market (7 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-04cc5b.a",
-          "fact": "insiderflo-04cc5b",
-          "variant": "a",
-          "text": "Officers and directors of $PLTR bought $122M on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-04cc5b.t",
-          "fact": "insiderflo-04cc5b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $PLTR bought $122M on the open market.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$916M": "+",
-          "$915.9M": "+",
-          "$6.5B": "+",
-          "$7B": "+",
-          "$333M": "+",
-          "$333.2M": "+",
-          "$280M": "+",
-          "$280.4M": "+",
-          "$215M": "+",
-          "$214.6M": "+",
-          "$122M": "+",
-          "$122.3M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "RCL": [
-          [
-            "$",
-            333.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            7.1,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "ANT": [
-          [
-            "$",
-            280.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "PLTR": [
-          [
-            "$",
-            215.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            122.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 11.22,
-      "rank_why": "insider_flow 4; large cap $82.15B +2.5; magnitude (market) +2.72; today 2026-11-25 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-25-form4-buy-COHR-4063a0",
       "type": "form4_buy",
       "ticker": "COHR",
@@ -2147,8 +1511,8 @@
         "9.1%",
         "$916M",
         "+$916M",
-        "$915.9M",
-        "+$915.9M",
+        "$916.1M",
+        "+$916.1M",
         "$6.5B",
         "+$6.5B",
         "$7B",
@@ -2176,8 +1540,8 @@
           "numbers": [
             "$916M",
             "+$916M",
-            "$915.9M",
-            "+$915.9M",
+            "$916.1M",
+            "+$916.1M",
             "$6.5B",
             "+$6.5B",
             "$7B",
@@ -2393,7 +1757,7 @@
           "9.07%": "-",
           "9.1%": "-",
           "$916M": "+",
-          "$915.9M": "+",
+          "$916.1M": "+",
           "$6.5B": "+",
           "$7B": "+"
         },
@@ -11484,8 +10848,8 @@
         "$2.4B",
         "$916M",
         "+$916M",
-        "$915.9M",
-        "+$915.9M",
+        "$916.1M",
+        "+$916.1M",
         "$6.5B",
         "+$6.5B",
         "$7B",
@@ -11511,8 +10875,8 @@
           "numbers": [
             "$916M",
             "+$916M",
-            "$915.9M",
-            "+$915.9M",
+            "$916.1M",
+            "+$916.1M",
             "$6.5B",
             "+$6.5B",
             "$7B",
@@ -11673,7 +11037,7 @@
       "moves": {
         "numbers": {
           "$916M": "+",
-          "$915.9M": "+",
+          "$916.1M": "+",
           "$6.5B": "+",
           "$7B": "+"
         },
@@ -11690,6 +11054,134 @@
           ]
         ]
       },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "ranked below the top 8",
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-25-earnings-result-IMKTA-964354",
+      "type": "earnings_result",
+      "ticker": "IMKTA",
+      "tickers": [
+        "IMKTA"
+      ],
+      "name": "Ingles Markets, Incorporated",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/50493/000143774926038232/ex_1050620.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IMKTA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-IMKTA-964354#earnings-history",
+      "allowed_numbers": [
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-25",
+        "Nov 25, 2026",
+        "Nov 25"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Ingles Markets, Incorporated (IMKTA) published FY2026 (Q4) results on 2026-11-25: Published.",
+      "dedupe_key": "report:imkta-2026-q4",
+      "claim_phrases": [],
+      "report_id": "imkta-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-25",
+      "published_at": "2026-11-25T12:45:10.033484+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IMKTA/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for IMKTA: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-25 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "IMKTA"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
+        "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
+        "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
+        "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
+        "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results.",
+        "$IMKTA published FY2026 (Q4) results on Nov 25.",
+        "FY2026 (Q4) results from $IMKTA came out on Nov 25.",
+        "On Nov 25, $IMKTA published FY2026 (Q4) results."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$IMKTA published FY2026 (Q4) results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $IMKTA came out on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 25, $IMKTA published FY2026 (Q4) results.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
@@ -14328,987 +13820,6 @@
           [
             "$",
             0.67,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-24 release posted on 2026-11-25: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-TITN-0f90f9",
-      "type": "earnings_result",
-      "ticker": "TITN",
-      "tickers": [
-        "TITN"
-      ],
-      "name": "Titan Machinery Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1409171/000162828026075606/afy27q3ex991earningsrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/TITN?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-TITN-0f90f9#earnings-history",
-      "allowed_numbers": [
-        "$546M",
-        "$539M",
-        "$7.14M",
-        "$0.05",
-        "−$0.05",
-        "$0.10",
-        "Q3 2027",
-        "Q3",
-        "FY2027",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Titan Machinery Inc. (TITN) published Q3 2027 results on 2026-11-24: Beat estimates. Revenue $546M vs $539M consensus (Beat by $7.14M). Diluted EPS (GAAP, street basis) $0.05 vs −$0.05 consensus (Beat by $0.10).",
-      "dedupe_key": "report:titn-2027-q3",
-      "claim_phrases": [
-        "revenue came in above the $539M consensus.",
-        "$TITN beat the Q3 2027 revenue consensus: $546M vs $539M.",
-        "$TITN Q3 2027 revenue: $546M vs $539M consensus (beat by $7.14M).",
-        "$TITN Q3 2027 revenue $546M, beat by $7.14M.",
-        "revenue $546M vs $539M consensus (beat by $7.14M).",
-        "revenue $546M vs $539M (beat by $7.14M).",
-        "$TITN beat Q3 2027 revenue estimates by $7.14M.",
-        "$TITN beat the Q3 revenue consensus: $546M vs $539M.",
-        "$TITN Q3 revenue: $546M vs $539M consensus (beat by $7.14M).",
-        "$TITN Q3 revenue $546M, beat by $7.14M.",
-        "$TITN beat Q3 revenue estimates by $7.14M.",
-        "EPS came in above the −$0.05 consensus.",
-        "$TITN beat the Q3 2027 EPS consensus: $0.05 vs −$0.05.",
-        "$TITN Q3 2027 EPS: $0.05 vs −$0.05 consensus (beat by $0.10).",
-        "$TITN Q3 2027 EPS $0.05, beat by $0.10.",
-        "EPS $0.05 vs −$0.05 consensus (beat by $0.10).",
-        "EPS $0.05 vs −$0.05 (beat by $0.10).",
-        "$TITN beat Q3 2027 EPS estimates by $0.10.",
-        "Diluted EPS (GAAP, street basis) came in above the −$0.05 consensus.",
-        "$TITN beat the Q3 2027 Diluted EPS (GAAP, street basis) consensus: $0.05 vs −$0.05.",
-        "$TITN Q3 2027 Diluted EPS (GAAP, street basis): $0.05 vs −$0.05 consensus (beat by $0.10).",
-        "$TITN Q3 2027 Diluted EPS (GAAP, street basis) $0.05, beat by $0.10.",
-        "Diluted EPS (GAAP, street basis) $0.05 vs −$0.05 consensus (beat by $0.10).",
-        "Diluted EPS (GAAP, street basis) $0.05 vs −$0.05 (beat by $0.10).",
-        "$TITN beat Q3 2027 Diluted EPS (GAAP, street basis) estimates by $0.10.",
-        "$TITN beat the Q3 EPS consensus: $0.05 vs −$0.05.",
-        "$TITN Q3 EPS: $0.05 vs −$0.05 consensus (beat by $0.10).",
-        "$TITN Q3 EPS $0.05, beat by $0.10.",
-        "$TITN beat Q3 EPS estimates by $0.10.",
-        "$TITN beat the Q3 Diluted EPS (GAAP, street basis) consensus: $0.05 vs −$0.05.",
-        "$TITN Q3 Diluted EPS (GAAP, street basis): $0.05 vs −$0.05 consensus (beat by $0.10).",
-        "$TITN Q3 Diluted EPS (GAAP, street basis) $0.05, beat by $0.10.",
-        "$TITN beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.10.",
-        "$TITN beat Q3 2027 estimates.",
-        "$TITN beat Q3 estimates."
-      ],
-      "report_id": "titn-2027-q3",
-      "fiscal_label": "Q3 2027",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-24T12:50:35.639290+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$546M",
-          "consensus": "$539M",
-          "label": "Beat by $7.14M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Diluted EPS (GAAP, street basis)",
-          "reported": "$0.05",
-          "consensus": "−$0.05",
-          "label": "Beat by $0.10",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/TITN/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for TITN: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-24 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "TITN"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Titan Machinery Inc. ($TITN) published Q3 2027 results on Nov 24.",
-        "$TITN (Titan Machinery Inc.) reported Q3 2027 results on Nov 24.",
-        "On Nov 24, Titan Machinery Inc. ($TITN) published Q3 2027 results."
-      ],
-      "fact_phrases": [
-        "Titan Machinery Inc. ($TITN) published Q3 2027 results on Nov 24.",
-        "$TITN (Titan Machinery Inc.) reported Q3 2027 results on Nov 24.",
-        "On Nov 24, Titan Machinery Inc. ($TITN) published Q3 2027 results.",
-        "$TITN published Q3 2027 results on Nov 24.",
-        "Q3 2027 results from $TITN came out on Nov 24.",
-        "On Nov 24, $TITN published Q3 2027 results.",
-        "$TITN Q3 2027 revenue: $546M vs $539M consensus.",
-        "$TITN reported Q3 2027 revenue of $546M vs $539M consensus.",
-        "$TITN Q3 2027 revenue was $546M.",
-        "Q3 2027 revenue at $TITN was $546M.",
-        "$TITN Q3 2027 Diluted EPS (GAAP, street basis): $0.05 vs −$0.05 consensus.",
-        "$TITN reported Q3 2027 Diluted EPS (GAAP, street basis) of $0.05 vs −$0.05 consensus.",
-        "$TITN Q3 2027 Diluted EPS (GAAP, street basis) was $0.05.",
-        "Q3 2027 Diluted EPS (GAAP, street basis) at $TITN was $0.05."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $539M consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$TITN beat the Q3 2027 revenue consensus: $546M vs $539M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$TITN Q3 2027 revenue: $546M vs $539M consensus (beat by $7.14M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$TITN Q3 2027 revenue $546M, beat by $7.14M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $546M vs $539M consensus (beat by $7.14M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $546M vs $539M (beat by $7.14M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$TITN beat Q3 2027 revenue estimates by $7.14M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$TITN beat the Q3 revenue consensus: $546M vs $539M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$TITN Q3 revenue: $546M vs $539M consensus (beat by $7.14M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$TITN Q3 revenue $546M, beat by $7.14M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$TITN beat Q3 revenue estimates by $7.14M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the −$0.05 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$TITN beat the Q3 2027 EPS consensus: $0.05 vs −$0.05.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$TITN Q3 2027 EPS: $0.05 vs −$0.05 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$TITN Q3 2027 EPS $0.05, beat by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $0.05 vs −$0.05 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $0.05 vs −$0.05 (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$TITN beat Q3 2027 EPS estimates by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-12a211.a",
-          "fact": "earningsre-12a211",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) came in above the −$0.05 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b45d0c.a",
-          "fact": "earningsre-b45d0c",
-          "variant": "a",
-          "text": "$TITN beat the Q3 2027 Diluted EPS (GAAP, street basis) consensus: $0.05 vs −$0.05.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-365e1a.a",
-          "fact": "earningsre-365e1a",
-          "variant": "a",
-          "text": "$TITN Q3 2027 Diluted EPS (GAAP, street basis): $0.05 vs −$0.05 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4de0a3.a",
-          "fact": "earningsre-4de0a3",
-          "variant": "a",
-          "text": "$TITN Q3 2027 Diluted EPS (GAAP, street basis) $0.05, beat by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e854ec.a",
-          "fact": "earningsre-e854ec",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) $0.05 vs −$0.05 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-0f9fa0.a",
-          "fact": "earningsre-0f9fa0",
-          "variant": "a",
-          "text": "Diluted EPS (GAAP, street basis) $0.05 vs −$0.05 (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-54bca2.a",
-          "fact": "earningsre-54bca2",
-          "variant": "a",
-          "text": "$TITN beat Q3 2027 Diluted EPS (GAAP, street basis) estimates by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$TITN beat the Q3 EPS consensus: $0.05 vs −$0.05.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$TITN Q3 EPS: $0.05 vs −$0.05 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$TITN Q3 EPS $0.05, beat by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$TITN beat Q3 EPS estimates by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-dc1c68.a",
-          "fact": "earningsre-dc1c68",
-          "variant": "a",
-          "text": "$TITN beat the Q3 Diluted EPS (GAAP, street basis) consensus: $0.05 vs −$0.05.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1e82b3.a",
-          "fact": "earningsre-1e82b3",
-          "variant": "a",
-          "text": "$TITN Q3 Diluted EPS (GAAP, street basis): $0.05 vs −$0.05 consensus (beat by $0.10).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b47e3e.a",
-          "fact": "earningsre-b47e3e",
-          "variant": "a",
-          "text": "$TITN Q3 Diluted EPS (GAAP, street basis) $0.05, beat by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-161196.a",
-          "fact": "earningsre-161196",
-          "variant": "a",
-          "text": "$TITN beat Q3 Diluted EPS (GAAP, street basis) estimates by $0.10.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$TITN beat Q3 2027 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$TITN beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Titan Machinery Inc. ($TITN) published Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$TITN (Titan Machinery Inc.) reported Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 24, Titan Machinery Inc. ($TITN) published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$TITN published Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2027 results from $TITN came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 24, $TITN published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$TITN Q3 2027 revenue: $546M vs $539M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$TITN reported Q3 2027 revenue of $546M vs $539M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$TITN Q3 2027 revenue was $546M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2027 revenue at $TITN was $546M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-5e9f86.a",
-          "fact": "earningsre-5e9f86",
-          "variant": "a",
-          "text": "$TITN Q3 2027 Diluted EPS (GAAP, street basis): $0.05 vs −$0.05 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-5e9f86.h1",
-          "fact": "earningsre-5e9f86",
-          "variant": "h1",
-          "text": "$TITN reported Q3 2027 Diluted EPS (GAAP, street basis) of $0.05 vs −$0.05 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1011ad.a",
-          "fact": "earningsre-1011ad",
-          "variant": "a",
-          "text": "$TITN Q3 2027 Diluted EPS (GAAP, street basis) was $0.05.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1011ad.h1",
-          "fact": "earningsre-1011ad",
-          "variant": "h1",
-          "text": "Q3 2027 Diluted EPS (GAAP, street basis) at $TITN was $0.05.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$0.05": "-"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "TITN": [
-          [
-            "$",
-            546.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            539.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            7.14,
-            2,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            0.05,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.05,
-            2,
-            1.0,
-            -1
-          ],
-          [
-            "$",
-            0.1,
-            2,
-            1.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-24 release posted on 2026-11-25: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-SJM-9bd17a",
-      "type": "earnings_result",
-      "ticker": "SJM",
-      "tickers": [
-        "SJM"
-      ],
-      "name": "The J. M. Smucker Company",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/91419/000009141926000110/sjm20261124exhibit991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/SJM?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-SJM-9bd17a#earnings-history",
-      "allowed_numbers": [
-        "$2.28B",
-        "$2.27B",
-        "$11.2M",
-        "$3.20",
-        "$2.56",
-        "$0.64",
-        "Q2 2027",
-        "Q2",
-        "FY2027",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "The J. M. Smucker Company (SJM) published Q2 2027 results on 2026-11-24: Mixed vs estimates. Revenue $2.28B vs $2.27B consensus (In line (+$11.2M)). Adjusted earnings per share $3.20 vs $2.56 consensus (Beat by $0.64).",
-      "dedupe_key": "report:sjm-2027-q2",
-      "claim_phrases": [
-        "$SJM Q2 2027 revenue was in line with the consensus: $2.28B vs $2.27B.",
-        "$SJM Q2 revenue was in line with the consensus: $2.28B vs $2.27B.",
-        "EPS came in above the $2.56 consensus.",
-        "$SJM beat the Q2 2027 EPS consensus: $3.20 vs $2.56.",
-        "$SJM Q2 2027 EPS: $3.20 vs $2.56 consensus (beat by $0.64).",
-        "$SJM Q2 2027 EPS $3.20, beat by $0.64.",
-        "EPS $3.20 vs $2.56 consensus (beat by $0.64).",
-        "EPS $3.20 vs $2.56 (beat by $0.64).",
-        "$SJM beat Q2 2027 EPS estimates by $0.64.",
-        "Adjusted earnings per share came in above the $2.56 consensus.",
-        "$SJM beat the Q2 2027 Adjusted earnings per share consensus: $3.20 vs $2.56.",
-        "$SJM Q2 2027 Adjusted earnings per share: $3.20 vs $2.56 consensus (beat by $0.64).",
-        "$SJM Q2 2027 Adjusted earnings per share $3.20, beat by $0.64.",
-        "Adjusted earnings per share $3.20 vs $2.56 consensus (beat by $0.64).",
-        "Adjusted earnings per share $3.20 vs $2.56 (beat by $0.64).",
-        "$SJM beat Q2 2027 Adjusted earnings per share estimates by $0.64.",
-        "$SJM beat the Q2 EPS consensus: $3.20 vs $2.56.",
-        "$SJM Q2 EPS: $3.20 vs $2.56 consensus (beat by $0.64).",
-        "$SJM Q2 EPS $3.20, beat by $0.64.",
-        "$SJM beat Q2 EPS estimates by $0.64.",
-        "$SJM beat the Q2 Adjusted earnings per share consensus: $3.20 vs $2.56.",
-        "$SJM Q2 Adjusted earnings per share: $3.20 vs $2.56 consensus (beat by $0.64).",
-        "$SJM Q2 Adjusted earnings per share $3.20, beat by $0.64.",
-        "$SJM beat Q2 Adjusted earnings per share estimates by $0.64."
-      ],
-      "report_id": "sjm-2027-q2",
-      "fiscal_label": "Q2 2027",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-24T12:36:46.446300+00:00",
-      "tile_label": "Mixed vs estimates",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$2.28B",
-          "consensus": "$2.27B",
-          "label": "In line (+$11.2M)",
-          "verdict": "in_line"
-        },
-        "eps": {
-          "basis": "Adjusted earnings per share",
-          "reported": "$3.20",
-          "consensus": "$2.56",
-          "label": "Beat by $0.64",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/SJM/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for SJM: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-24 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "SJM"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "The J. M. Smucker Company ($SJM) published Q2 2027 results on Nov 24.",
-        "$SJM (The J. M. Smucker Company) reported Q2 2027 results on Nov 24.",
-        "On Nov 24, the J. M. Smucker Company ($SJM) published Q2 2027 results."
-      ],
-      "fact_phrases": [
-        "The J. M. Smucker Company ($SJM) published Q2 2027 results on Nov 24.",
-        "$SJM (The J. M. Smucker Company) reported Q2 2027 results on Nov 24.",
-        "On Nov 24, the J. M. Smucker Company ($SJM) published Q2 2027 results.",
-        "$SJM published Q2 2027 results on Nov 24.",
-        "Q2 2027 results from $SJM came out on Nov 24.",
-        "On Nov 24, $SJM published Q2 2027 results.",
-        "$SJM Q2 2027 revenue: $2.28B vs $2.27B consensus.",
-        "$SJM reported Q2 2027 revenue of $2.28B vs $2.27B consensus.",
-        "$SJM Q2 2027 revenue was $2.28B.",
-        "Q2 2027 revenue at $SJM was $2.28B.",
-        "$SJM Q2 2027 Adjusted earnings per share: $3.20 vs $2.56 consensus.",
-        "$SJM reported Q2 2027 Adjusted earnings per share of $3.20 vs $2.56 consensus.",
-        "$SJM Q2 2027 Adjusted earnings per share was $3.20.",
-        "Q2 2027 Adjusted earnings per share at $SJM was $3.20."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-0a67cc.a",
-          "fact": "earningsre-0a67cc",
-          "variant": "a",
-          "text": "$SJM Q2 2027 revenue was in line with the consensus: $2.28B vs $2.27B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-5b24bf.a",
-          "fact": "earningsre-5b24bf",
-          "variant": "a",
-          "text": "$SJM Q2 revenue was in line with the consensus: $2.28B vs $2.27B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $2.56 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$SJM beat the Q2 2027 EPS consensus: $3.20 vs $2.56.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$SJM Q2 2027 EPS: $3.20 vs $2.56 consensus (beat by $0.64).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$SJM Q2 2027 EPS $3.20, beat by $0.64.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $3.20 vs $2.56 consensus (beat by $0.64).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $3.20 vs $2.56 (beat by $0.64).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$SJM beat Q2 2027 EPS estimates by $0.64.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-2115fc.a",
-          "fact": "earningsre-2115fc",
-          "variant": "a",
-          "text": "Adjusted earnings per share came in above the $2.56 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-524900.a",
-          "fact": "earningsre-524900",
-          "variant": "a",
-          "text": "$SJM beat the Q2 2027 Adjusted earnings per share consensus: $3.20 vs $2.56.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-24b080.a",
-          "fact": "earningsre-24b080",
-          "variant": "a",
-          "text": "$SJM Q2 2027 Adjusted earnings per share: $3.20 vs $2.56 consensus (beat by $0.64).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-f0fad4.a",
-          "fact": "earningsre-f0fad4",
-          "variant": "a",
-          "text": "$SJM Q2 2027 Adjusted earnings per share $3.20, beat by $0.64.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b9b8a2.a",
-          "fact": "earningsre-b9b8a2",
-          "variant": "a",
-          "text": "Adjusted earnings per share $3.20 vs $2.56 consensus (beat by $0.64).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1621e5.a",
-          "fact": "earningsre-1621e5",
-          "variant": "a",
-          "text": "Adjusted earnings per share $3.20 vs $2.56 (beat by $0.64).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d99a24.a",
-          "fact": "earningsre-d99a24",
-          "variant": "a",
-          "text": "$SJM beat Q2 2027 Adjusted earnings per share estimates by $0.64.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$SJM beat the Q2 EPS consensus: $3.20 vs $2.56.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$SJM Q2 EPS: $3.20 vs $2.56 consensus (beat by $0.64).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$SJM Q2 EPS $3.20, beat by $0.64.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$SJM beat Q2 EPS estimates by $0.64.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ddc11.a",
-          "fact": "earningsre-3ddc11",
-          "variant": "a",
-          "text": "$SJM beat the Q2 Adjusted earnings per share consensus: $3.20 vs $2.56.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-dbea81.a",
-          "fact": "earningsre-dbea81",
-          "variant": "a",
-          "text": "$SJM Q2 Adjusted earnings per share: $3.20 vs $2.56 consensus (beat by $0.64).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-26a760.a",
-          "fact": "earningsre-26a760",
-          "variant": "a",
-          "text": "$SJM Q2 Adjusted earnings per share $3.20, beat by $0.64.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8502b0.a",
-          "fact": "earningsre-8502b0",
-          "variant": "a",
-          "text": "$SJM beat Q2 Adjusted earnings per share estimates by $0.64.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b384b8.a",
-          "fact": "earningsre-b384b8",
-          "variant": "a",
-          "text": "The J. M. Smucker Company ($SJM) published Q2 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.h1",
-          "fact": "earningsre-b384b8",
-          "variant": "h1",
-          "text": "$SJM (The J. M. Smucker Company) reported Q2 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b384b8.t",
-          "fact": "earningsre-b384b8",
-          "variant": "t",
-          "text": "On Nov 24, the J. M. Smucker Company ($SJM) published Q2 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$SJM published Q2 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q2 2027 results from $SJM came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 24, $SJM published Q2 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$SJM Q2 2027 revenue: $2.28B vs $2.27B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$SJM reported Q2 2027 revenue of $2.28B vs $2.27B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$SJM Q2 2027 revenue was $2.28B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q2 2027 revenue at $SJM was $2.28B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-999875.a",
-          "fact": "earningsre-999875",
-          "variant": "a",
-          "text": "$SJM Q2 2027 Adjusted earnings per share: $3.20 vs $2.56 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-999875.h1",
-          "fact": "earningsre-999875",
-          "variant": "h1",
-          "text": "$SJM reported Q2 2027 Adjusted earnings per share of $3.20 vs $2.56 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-05f933.a",
-          "fact": "earningsre-05f933",
-          "variant": "a",
-          "text": "$SJM Q2 2027 Adjusted earnings per share was $3.20.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-05f933.h1",
-          "fact": "earningsre-05f933",
-          "variant": "h1",
-          "text": "Q2 2027 Adjusted earnings per share at $SJM was $3.20.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "SJM": [
-          [
-            "$",
-            2.28,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            2.27,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            3.2,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            2.56,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.64,
             2,
             1.0,
             0
