@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-25",
-  "generated_at": "2026-11-25T20:45:02Z",
-  "as_of": "2026-11-25T20:45:02Z",
+  "generated_at": "2026-11-25T21:15:02Z",
+  "as_of": "2026-11-25T21:15:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -876,7 +876,7 @@
   "counts": {
     "congress_trade": 2,
     "form4_buy": 2,
-    "earnings_result": 12,
+    "earnings_result": 9,
     "earnings_upcoming": 1,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -942,18 +942,15 @@
     "earnings_result": {
       "archive_reports": 4056,
       "recent_ready": 45,
-      "outside_24h": 30,
+      "outside_24h": 35,
       "unreadable": 0,
-      "not_compared": 2,
+      "not_compared": 1,
       "not_compared_metrics": [
-        "DE: revenue (basis_mismatch)",
-        "CLSK: revenue (period_unconfirmed)"
+        "DE: revenue (basis_mismatch)"
       ],
-      "consensus_mismatch_hold": 3,
+      "consensus_mismatch_hold": 1,
       "held": [
-        "DE: revenue (basis_mismatch) and nothing else compared (report data to check)",
-        "CLSK: revenue (period_unconfirmed) and nothing else compared (report data to check)",
-        "DELL: eps_adjusted reported vs consensus differs by more than 20% (revenue) / 40% (EPS) (report data to check)"
+        "DE: revenue (basis_mismatch) and nothing else compared (report data to check)"
       ]
     },
     "earnings_upcoming": {
@@ -969,7 +966,7 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 15,
+      "tickers_in_items": 12,
       "carried_over": 5,
       "requested": 0,
       "not_covered": 0,
@@ -983,7 +980,7 @@
     "market": {
       "market_session": "2026-11-24",
       "priced_cap_share": 0.9808963425369296,
-      "flows_as_of": "2026-11-25T20:45:18.732596+00:00"
+      "flows_as_of": "2026-11-25T21:15:17.663146+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -995,15 +992,15 @@
       ],
       "self_check": {
         "items_not_built": 0,
-        "angles_dropped": 68
+        "angles_dropped": 61
       },
       "top8": {
-        "stale": 11,
+        "stale": 10,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
         "repeat": 3,
-        "ranked_below": 13,
+        "ranked_below": 11,
         "pillars": 4
       }
     }
@@ -1040,7 +1037,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 34,
+  "api_requests": 29,
   "items": [
     {
       "item_id": "2026-11-25-reddit-buzz-DELL-51fe90",
@@ -1456,14 +1453,14 @@
       "allowed_numbers": [
         "$927M",
         "+$927M",
-        "$926.6M",
-        "+$926.6M",
+        "$926.8M",
+        "+$926.8M",
         "$6.5B",
         "+$6.5B",
         "$7B",
         "+$7B",
         "30",
-        "580",
+        "581",
         "754",
         "500",
         "2026-10-26",
@@ -1497,7 +1494,7 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 580 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M.",
+      "facts_text": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 581 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M.",
       "dedupe_key": "insider_flow:2026-11-25:RCL",
       "claim_phrases": [
         "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
@@ -1578,8 +1575,8 @@
           "numbers": [
             "$927M",
             "+$927M",
-            "$926.6M",
-            "+$926.6M",
+            "$926.8M",
+            "+$926.8M",
             "$6.5B",
             "+$6.5B",
             "$7B",
@@ -1608,9 +1605,9 @@
         "to": "2026-11-25",
         "days": 30
       },
-      "bought_usd": 926603182.08,
-      "sold_usd": 6525336492.42,
-      "buy_companies": 580,
+      "bought_usd": 926811251.41,
+      "sold_usd": 6531427694.75,
+      "buy_companies": 581,
       "sell_companies": 754,
       "top_sellers_500": [
         {
@@ -1678,7 +1675,7 @@
         "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys."
       ],
       "market_cap_usd": 82151022443.5655,
-      "magnitude": 2.7219043678162183,
+      "magnitude": 2.722512185123952,
       "trigger": "$PLTR entered the top 5",
       "top5": [
         "RCL",
@@ -1692,18 +1689,18 @@
       "banned_words": [],
       "card": {
         "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-1a2bd001-b5f72103.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-c7563add-b5f72103.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
         "date": "2026-11-25",
-        "fingerprint": "1a2bd001",
-        "file": "market-insiders-2026-11-25-1a2bd001.png",
-        "sha256": "46a78314b94693a8551c71988d63150a34790a1b6823650055900823146d6582"
+        "fingerprint": "c7563add",
+        "file": "market-insiders-2026-11-25-c7563add.png",
+        "sha256": "cc4a724c67ffb54296cc7339b5ac41fb65310f31ddd2a90512c587fe8fc2dc6b"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-1a2bd001-b5f72103.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-c7563add-b5f72103.png",
           "kind": "image",
-          "alt": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 580 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M."
+          "alt": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 581 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M."
         }
       ],
       "market_cap_source": "market_map",
@@ -1725,8 +1722,8 @@
         "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells.",
         "Officers and directors sold $6.5B and bought $927M of their own companies' stock on the open market over 30 days in our feed.",
         "Over 30 days in our feed, officers and directors sold $6.5B and bought $927M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 580 companies had open-market buys by officers and directors and 754 had open-market sells.",
-        "754 companies had open-market sells by officers and directors and 580 had open-market buys over 30 days in our feed.",
+        "Over 30 days in our feed, 581 companies had open-market buys by officers and directors and 754 had open-market sells.",
+        "754 companies had open-market sells by officers and directors and 581 had open-market buys over 30 days in our feed.",
         "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
         "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
         "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
@@ -1926,14 +1923,14 @@
           "id": "insiderflo-ca45c6.a",
           "fact": "insiderflo-ca45c6",
           "variant": "a",
-          "text": "Over 30 days in our feed, 580 companies had open-market buys by officers and directors and 754 had open-market sells.",
+          "text": "Over 30 days in our feed, 581 companies had open-market buys by officers and directors and 754 had open-market sells.",
           "claim": false
         },
         {
           "id": "insiderflo-ca45c6.h1",
           "fact": "insiderflo-ca45c6",
           "variant": "h1",
-          "text": "754 companies had open-market sells by officers and directors and 580 had open-market buys over 30 days in our feed.",
+          "text": "754 companies had open-market sells by officers and directors and 581 had open-market buys over 30 days in our feed.",
           "claim": false
         },
         {
@@ -2017,7 +2014,7 @@
       "moves": {
         "numbers": {
           "$927M": "+",
-          "$926.6M": "+",
+          "$926.8M": "+",
           "$6.5B": "+",
           "$7B": "+",
           "$333M": "+",
@@ -2147,8 +2144,8 @@
         "9.1%",
         "$927M",
         "+$927M",
-        "$926.6M",
-        "+$926.6M",
+        "$926.8M",
+        "+$926.8M",
         "$6.5B",
         "+$6.5B",
         "$7B",
@@ -2176,8 +2173,8 @@
           "numbers": [
             "$927M",
             "+$927M",
-            "$926.6M",
-            "+$926.6M",
+            "$926.8M",
+            "+$926.8M",
             "$6.5B",
             "+$6.5B",
             "$7B",
@@ -2393,7 +2390,7 @@
           "9.07%": "-",
           "9.1%": "-",
           "$927M": "+",
-          "$926.6M": "+",
+          "$926.8M": "+",
           "$6.5B": "+",
           "$7B": "+"
         },
@@ -2936,1268 +2933,6 @@
           [
             "$",
             26.1,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-ADSK-e4061e",
-      "type": "earnings_result",
-      "ticker": "ADSK",
-      "tickers": [
-        "ADSK"
-      ],
-      "name": "Autodesk, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/769397/000076939726000069/q327pressrelease.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/ADSK?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-ADSK-e4061e#earnings-history",
-      "allowed_numbers": [
-        "$2.16B",
-        "$2.13B",
-        "$26.3M",
-        "$3.20",
-        "$3.07",
-        "$0.13",
-        "Q3 2027",
-        "Q3",
-        "FY2027",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Autodesk, Inc. (ADSK) published Q3 2027 results on 2026-11-24: Beat estimates. Revenue $2.16B vs $2.13B consensus (Beat by $26.3M). Non-GAAP diluted net income per share $3.20 vs $3.07 consensus (Beat by $0.13).",
-      "dedupe_key": "report:adsk-2027-q3",
-      "claim_phrases": [
-        "revenue came in above the $2.13B consensus.",
-        "$ADSK beat the Q3 2027 revenue consensus: $2.16B vs $2.13B.",
-        "$ADSK Q3 2027 revenue: $2.16B vs $2.13B consensus (beat by $26.3M).",
-        "$ADSK Q3 2027 revenue $2.16B, beat by $26.3M.",
-        "revenue $2.16B vs $2.13B consensus (beat by $26.3M).",
-        "revenue $2.16B vs $2.13B (beat by $26.3M).",
-        "$ADSK beat Q3 2027 revenue estimates by $26.3M.",
-        "$ADSK beat the Q3 revenue consensus: $2.16B vs $2.13B.",
-        "$ADSK Q3 revenue: $2.16B vs $2.13B consensus (beat by $26.3M).",
-        "$ADSK Q3 revenue $2.16B, beat by $26.3M.",
-        "$ADSK beat Q3 revenue estimates by $26.3M.",
-        "EPS came in above the $3.07 consensus.",
-        "$ADSK beat the Q3 2027 EPS consensus: $3.20 vs $3.07.",
-        "$ADSK Q3 2027 EPS: $3.20 vs $3.07 consensus (beat by $0.13).",
-        "$ADSK Q3 2027 EPS $3.20, beat by $0.13.",
-        "EPS $3.20 vs $3.07 consensus (beat by $0.13).",
-        "EPS $3.20 vs $3.07 (beat by $0.13).",
-        "$ADSK beat Q3 2027 EPS estimates by $0.13.",
-        "Non-GAAP diluted net income per share came in above the $3.07 consensus.",
-        "$ADSK beat the Q3 2027 Non-GAAP diluted net income per share consensus: $3.20 vs $3.07.",
-        "$ADSK Q3 2027 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus (beat by $0.13).",
-        "$ADSK Q3 2027 Non-GAAP diluted net income per share $3.20, beat by $0.13.",
-        "Non-GAAP diluted net income per share $3.20 vs $3.07 consensus (beat by $0.13).",
-        "Non-GAAP diluted net income per share $3.20 vs $3.07 (beat by $0.13).",
-        "$ADSK beat Q3 2027 Non-GAAP diluted net income per share estimates by $0.13.",
-        "$ADSK beat the Q3 EPS consensus: $3.20 vs $3.07.",
-        "$ADSK Q3 EPS: $3.20 vs $3.07 consensus (beat by $0.13).",
-        "$ADSK Q3 EPS $3.20, beat by $0.13.",
-        "$ADSK beat Q3 EPS estimates by $0.13.",
-        "$ADSK beat the Q3 Non-GAAP diluted net income per share consensus: $3.20 vs $3.07.",
-        "$ADSK Q3 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus (beat by $0.13).",
-        "$ADSK Q3 Non-GAAP diluted net income per share $3.20, beat by $0.13.",
-        "$ADSK beat Q3 Non-GAAP diluted net income per share estimates by $0.13.",
-        "$ADSK beat Q3 2027 estimates.",
-        "$ADSK beat Q3 estimates."
-      ],
-      "report_id": "adsk-2027-q3",
-      "fiscal_label": "Q3 2027",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-24T21:10:37.413777+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$2.16B",
-          "consensus": "$2.13B",
-          "label": "Beat by $26.3M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Non-GAAP diluted net income per share",
-          "reported": "$3.20",
-          "consensus": "$3.07",
-          "label": "Beat by $0.13",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/ADSK/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for ADSK: recent price, trend, analyst and filing summary."
-        },
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/2026-11-25-earnings-result-ADSK-e4061e/reel_9x16.mp4",
-          "kind": "reel",
-          "alt": "Autodesk, Inc. (ADSK) published Q3 2027 results on 2026-11-24: Beat estimates. Revenue $2.16B vs $2.13B consensus (Beat by $26.3M). Non-GAAP diluted net income per share $3.20 vs $3.07 consensus (Beat by $0.13)."
-        }
-      ],
-      "rank": 8.5,
-      "rank_why": "earnings_result 3; large cap $53.36B +2.5; magnitude (verdict) +1.5; release_date 2026-11-24 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 53363968434.26891,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24",
-        "$53.4B",
-        "+0.14%",
-        "0.14%",
-        "+0.1%",
-        "0.1%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "ADSK"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "ADSK": "Technology"
-      },
-      "ticker_names": {
-        "ADSK": "Autodesk, Inc."
-      },
-      "context": {
-        "market_cap": "$53.4B",
-        "market_cap_session": "2026-11-24",
-        "last_session_move": {
-          "pct": "+0.14%",
-          "session": "2026-11-24"
-        }
-      },
-      "angles": [
-        "Autodesk, Inc. ($ADSK) published Q3 2027 results on Nov 24.",
-        "$ADSK (Autodesk, Inc.) reported Q3 2027 results on Nov 24.",
-        "On Nov 24, Autodesk, Inc. ($ADSK) published Q3 2027 results."
-      ],
-      "fact_phrases": [
-        "Autodesk, Inc. ($ADSK) published Q3 2027 results on Nov 24.",
-        "$ADSK (Autodesk, Inc.) reported Q3 2027 results on Nov 24.",
-        "On Nov 24, Autodesk, Inc. ($ADSK) published Q3 2027 results.",
-        "$ADSK published Q3 2027 results on Nov 24.",
-        "Q3 2027 results from $ADSK came out on Nov 24.",
-        "On Nov 24, $ADSK published Q3 2027 results.",
-        "$ADSK Q3 2027 revenue: $2.16B vs $2.13B consensus.",
-        "$ADSK reported Q3 2027 revenue of $2.16B vs $2.13B consensus.",
-        "$ADSK Q3 2027 revenue was $2.16B.",
-        "Q3 2027 revenue at $ADSK was $2.16B.",
-        "$ADSK Q3 2027 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus.",
-        "$ADSK reported Q3 2027 Non-GAAP diluted net income per share of $3.20 vs $3.07 consensus.",
-        "$ADSK Q3 2027 Non-GAAP diluted net income per share was $3.20.",
-        "Q3 2027 Non-GAAP diluted net income per share at $ADSK was $3.20.",
-        "$ADSK had a market value of $53.4B at the Nov 24 close.",
-        "$ADSK's market value at the Nov 24 close was $53.4B.",
-        "At the Nov 24 close, $ADSK had a market value of $53.4B.",
-        "$ADSK moved +0.14% on Tuesday, Nov 24.",
-        "$ADSK's move on Tuesday, Nov 24: +0.14%.",
-        "On Tuesday, Nov 24, $ADSK moved +0.14%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $2.13B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$ADSK beat the Q3 2027 revenue consensus: $2.16B vs $2.13B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 revenue: $2.16B vs $2.13B consensus (beat by $26.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 revenue $2.16B, beat by $26.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $2.16B vs $2.13B consensus (beat by $26.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $2.16B vs $2.13B (beat by $26.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$ADSK beat Q3 2027 revenue estimates by $26.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$ADSK beat the Q3 revenue consensus: $2.16B vs $2.13B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$ADSK Q3 revenue: $2.16B vs $2.13B consensus (beat by $26.3M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$ADSK Q3 revenue $2.16B, beat by $26.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$ADSK beat Q3 revenue estimates by $26.3M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $3.07 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$ADSK beat the Q3 2027 EPS consensus: $3.20 vs $3.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 EPS: $3.20 vs $3.07 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 EPS $3.20, beat by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $3.20 vs $3.07 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $3.20 vs $3.07 (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$ADSK beat Q3 2027 EPS estimates by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b01110.a",
-          "fact": "earningsre-b01110",
-          "variant": "a",
-          "text": "Non-GAAP diluted net income per share came in above the $3.07 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fc8cc3.a",
-          "fact": "earningsre-fc8cc3",
-          "variant": "a",
-          "text": "$ADSK beat the Q3 2027 Non-GAAP diluted net income per share consensus: $3.20 vs $3.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c3ddd1.a",
-          "fact": "earningsre-c3ddd1",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d2529a.a",
-          "fact": "earningsre-d2529a",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 Non-GAAP diluted net income per share $3.20, beat by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7d7ca2.a",
-          "fact": "earningsre-7d7ca2",
-          "variant": "a",
-          "text": "Non-GAAP diluted net income per share $3.20 vs $3.07 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-dcdf02.a",
-          "fact": "earningsre-dcdf02",
-          "variant": "a",
-          "text": "Non-GAAP diluted net income per share $3.20 vs $3.07 (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-526257.a",
-          "fact": "earningsre-526257",
-          "variant": "a",
-          "text": "$ADSK beat Q3 2027 Non-GAAP diluted net income per share estimates by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$ADSK beat the Q3 EPS consensus: $3.20 vs $3.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$ADSK Q3 EPS: $3.20 vs $3.07 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$ADSK Q3 EPS $3.20, beat by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$ADSK beat Q3 EPS estimates by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e7d7ea.a",
-          "fact": "earningsre-e7d7ea",
-          "variant": "a",
-          "text": "$ADSK beat the Q3 Non-GAAP diluted net income per share consensus: $3.20 vs $3.07.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-726831.a",
-          "fact": "earningsre-726831",
-          "variant": "a",
-          "text": "$ADSK Q3 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus (beat by $0.13).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-60eb63.a",
-          "fact": "earningsre-60eb63",
-          "variant": "a",
-          "text": "$ADSK Q3 Non-GAAP diluted net income per share $3.20, beat by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4109a7.a",
-          "fact": "earningsre-4109a7",
-          "variant": "a",
-          "text": "$ADSK beat Q3 Non-GAAP diluted net income per share estimates by $0.13.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$ADSK beat Q3 2027 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$ADSK beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Autodesk, Inc. ($ADSK) published Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$ADSK (Autodesk, Inc.) reported Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 24, Autodesk, Inc. ($ADSK) published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$ADSK published Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2027 results from $ADSK came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 24, $ADSK published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 revenue: $2.16B vs $2.13B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$ADSK reported Q3 2027 revenue of $2.16B vs $2.13B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 revenue was $2.16B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2027 revenue at $ADSK was $2.16B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ed030b.a",
-          "fact": "earningsre-ed030b",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 Non-GAAP diluted net income per share: $3.20 vs $3.07 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ed030b.h1",
-          "fact": "earningsre-ed030b",
-          "variant": "h1",
-          "text": "$ADSK reported Q3 2027 Non-GAAP diluted net income per share of $3.20 vs $3.07 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b4ebad.a",
-          "fact": "earningsre-b4ebad",
-          "variant": "a",
-          "text": "$ADSK Q3 2027 Non-GAAP diluted net income per share was $3.20.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b4ebad.h1",
-          "fact": "earningsre-b4ebad",
-          "variant": "h1",
-          "text": "Q3 2027 Non-GAAP diluted net income per share at $ADSK was $3.20.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$ADSK had a market value of $53.4B at the Nov 24 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$ADSK's market value at the Nov 24 close was $53.4B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 24 close, $ADSK had a market value of $53.4B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$ADSK moved +0.14% on Tuesday, Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$ADSK's move on Tuesday, Nov 24: +0.14%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Tuesday, Nov 24, $ADSK moved +0.14%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "0.14%": "+",
-          "0.1%": "+"
-        },
-        "subjects": {
-          "ADSK": "up"
-        }
-      },
-      "subject_numbers": {
-        "ADSK": [
-          [
-            "$",
-            2.16,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            2.13,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            26.3,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            3.2,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            3.07,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.13,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            0.14,
-            2,
-            1.0,
-            1
-          ],
-          [
-            "$",
-            53.4,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-WDAY-322bac",
-      "type": "earnings_result",
-      "ticker": "WDAY",
-      "tickers": [
-        "WDAY"
-      ],
-      "name": "Workday, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1327811/000132781126000057/wday-10312026x991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/WDAY?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-WDAY-322bac#earnings-history",
-      "allowed_numbers": [
-        "$2.71B",
-        "$2.69B",
-        "$13.5M",
-        "$2.82",
-        "$2.74",
-        "$0.08",
-        "Q3 2027",
-        "Q3",
-        "FY2027",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Workday, Inc. (WDAY) published Q3 2027 results on 2026-11-24: Beat estimates. Revenue $2.71B vs $2.69B consensus (Beat by $13.5M). Non-GAAP diluted net income per share $2.82 vs $2.74 consensus (Beat by $0.08).",
-      "dedupe_key": "report:wday-2027-q3",
-      "claim_phrases": [
-        "revenue came in above the $2.69B consensus.",
-        "$WDAY beat the Q3 2027 revenue consensus: $2.71B vs $2.69B.",
-        "$WDAY Q3 2027 revenue: $2.71B vs $2.69B consensus (beat by $13.5M).",
-        "$WDAY Q3 2027 revenue $2.71B, beat by $13.5M.",
-        "revenue $2.71B vs $2.69B consensus (beat by $13.5M).",
-        "revenue $2.71B vs $2.69B (beat by $13.5M).",
-        "$WDAY beat Q3 2027 revenue estimates by $13.5M.",
-        "$WDAY beat the Q3 revenue consensus: $2.71B vs $2.69B.",
-        "$WDAY Q3 revenue: $2.71B vs $2.69B consensus (beat by $13.5M).",
-        "$WDAY Q3 revenue $2.71B, beat by $13.5M.",
-        "$WDAY beat Q3 revenue estimates by $13.5M.",
-        "EPS came in above the $2.74 consensus.",
-        "$WDAY beat the Q3 2027 EPS consensus: $2.82 vs $2.74.",
-        "$WDAY Q3 2027 EPS: $2.82 vs $2.74 consensus (beat by $0.08).",
-        "$WDAY Q3 2027 EPS $2.82, beat by $0.08.",
-        "EPS $2.82 vs $2.74 consensus (beat by $0.08).",
-        "EPS $2.82 vs $2.74 (beat by $0.08).",
-        "$WDAY beat Q3 2027 EPS estimates by $0.08.",
-        "Non-GAAP diluted net income per share came in above the $2.74 consensus.",
-        "$WDAY beat the Q3 2027 Non-GAAP diluted net income per share consensus: $2.82 vs $2.74.",
-        "$WDAY Q3 2027 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus (beat by $0.08).",
-        "$WDAY Q3 2027 Non-GAAP diluted net income per share $2.82, beat by $0.08.",
-        "Non-GAAP diluted net income per share $2.82 vs $2.74 consensus (beat by $0.08).",
-        "Non-GAAP diluted net income per share $2.82 vs $2.74 (beat by $0.08).",
-        "$WDAY beat Q3 2027 Non-GAAP diluted net income per share estimates by $0.08.",
-        "$WDAY beat the Q3 EPS consensus: $2.82 vs $2.74.",
-        "$WDAY Q3 EPS: $2.82 vs $2.74 consensus (beat by $0.08).",
-        "$WDAY Q3 EPS $2.82, beat by $0.08.",
-        "$WDAY beat Q3 EPS estimates by $0.08.",
-        "$WDAY beat the Q3 Non-GAAP diluted net income per share consensus: $2.82 vs $2.74.",
-        "$WDAY Q3 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus (beat by $0.08).",
-        "$WDAY Q3 Non-GAAP diluted net income per share $2.82, beat by $0.08.",
-        "$WDAY beat Q3 Non-GAAP diluted net income per share estimates by $0.08.",
-        "$WDAY beat Q3 2027 estimates.",
-        "$WDAY beat Q3 estimates."
-      ],
-      "report_id": "wday-2027-q3",
-      "fiscal_label": "Q3 2027",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-24T21:04:37.554898+00:00",
-      "tile_label": "Beat estimates",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$2.71B",
-          "consensus": "$2.69B",
-          "label": "Beat by $13.5M",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "Non-GAAP diluted net income per share",
-          "reported": "$2.82",
-          "consensus": "$2.74",
-          "label": "Beat by $0.08",
-          "verdict": "beat"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/WDAY/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for WDAY: recent price, trend, analyst and filing summary."
-        },
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/2026-11-25-earnings-result-WDAY-322bac/reel_9x16.mp4",
-          "kind": "reel",
-          "alt": "Workday, Inc. (WDAY) published Q3 2027 results on 2026-11-24: Beat estimates. Revenue $2.71B vs $2.69B consensus (Beat by $13.5M). Non-GAAP diluted net income per share $2.82 vs $2.74 consensus (Beat by $0.08)."
-        }
-      ],
-      "rank": 8.5,
-      "rank_why": "earnings_result 3; large cap $42.44B +2.5; magnitude (verdict) +1.5; release_date 2026-11-24 (age 1) +1.5",
-      "pillar": "P5",
-      "market_cap_usd": 42435281170.07476,
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "context_numbers": [
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24",
-        "$42.4B",
-        "+1.79%",
-        "1.79%",
-        "+1.8%",
-        "1.8%"
-      ],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "WDAY"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {
-        "WDAY": "Technology"
-      },
-      "ticker_names": {
-        "WDAY": "Workday, Inc."
-      },
-      "context": {
-        "market_cap": "$42.4B",
-        "market_cap_session": "2026-11-24",
-        "last_session_move": {
-          "pct": "+1.79%",
-          "session": "2026-11-24"
-        }
-      },
-      "angles": [
-        "Workday, Inc. ($WDAY) published Q3 2027 results on Nov 24.",
-        "$WDAY (Workday, Inc.) reported Q3 2027 results on Nov 24.",
-        "On Nov 24, Workday, Inc. ($WDAY) published Q3 2027 results."
-      ],
-      "fact_phrases": [
-        "Workday, Inc. ($WDAY) published Q3 2027 results on Nov 24.",
-        "$WDAY (Workday, Inc.) reported Q3 2027 results on Nov 24.",
-        "On Nov 24, Workday, Inc. ($WDAY) published Q3 2027 results.",
-        "$WDAY published Q3 2027 results on Nov 24.",
-        "Q3 2027 results from $WDAY came out on Nov 24.",
-        "On Nov 24, $WDAY published Q3 2027 results.",
-        "$WDAY Q3 2027 revenue: $2.71B vs $2.69B consensus.",
-        "$WDAY reported Q3 2027 revenue of $2.71B vs $2.69B consensus.",
-        "$WDAY Q3 2027 revenue was $2.71B.",
-        "Q3 2027 revenue at $WDAY was $2.71B.",
-        "$WDAY Q3 2027 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus.",
-        "$WDAY reported Q3 2027 Non-GAAP diluted net income per share of $2.82 vs $2.74 consensus.",
-        "$WDAY Q3 2027 Non-GAAP diluted net income per share was $2.82.",
-        "Q3 2027 Non-GAAP diluted net income per share at $WDAY was $2.82.",
-        "$WDAY had a market value of $42.4B at the Nov 24 close.",
-        "$WDAY's market value at the Nov 24 close was $42.4B.",
-        "At the Nov 24 close, $WDAY had a market value of $42.4B.",
-        "$WDAY moved +1.79% on Tuesday, Nov 24.",
-        "$WDAY's move on Tuesday, Nov 24: +1.79%.",
-        "On Tuesday, Nov 24, $WDAY moved +1.79%."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $2.69B consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$WDAY beat the Q3 2027 revenue consensus: $2.71B vs $2.69B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 revenue: $2.71B vs $2.69B consensus (beat by $13.5M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 revenue $2.71B, beat by $13.5M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $2.71B vs $2.69B consensus (beat by $13.5M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $2.71B vs $2.69B (beat by $13.5M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$WDAY beat Q3 2027 revenue estimates by $13.5M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$WDAY beat the Q3 revenue consensus: $2.71B vs $2.69B.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$WDAY Q3 revenue: $2.71B vs $2.69B consensus (beat by $13.5M).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$WDAY Q3 revenue $2.71B, beat by $13.5M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$WDAY beat Q3 revenue estimates by $13.5M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-3ee1d9.a",
-          "fact": "earningsre-3ee1d9",
-          "variant": "a",
-          "text": "EPS came in above the $2.74 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-336f24.a",
-          "fact": "earningsre-336f24",
-          "variant": "a",
-          "text": "$WDAY beat the Q3 2027 EPS consensus: $2.82 vs $2.74.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-986392.a",
-          "fact": "earningsre-986392",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 EPS: $2.82 vs $2.74 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-129e50.a",
-          "fact": "earningsre-129e50",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 EPS $2.82, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6008a9.a",
-          "fact": "earningsre-6008a9",
-          "variant": "a",
-          "text": "EPS $2.82 vs $2.74 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-75ca82.a",
-          "fact": "earningsre-75ca82",
-          "variant": "a",
-          "text": "EPS $2.82 vs $2.74 (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4132c9.a",
-          "fact": "earningsre-4132c9",
-          "variant": "a",
-          "text": "$WDAY beat Q3 2027 EPS estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-b01110.a",
-          "fact": "earningsre-b01110",
-          "variant": "a",
-          "text": "Non-GAAP diluted net income per share came in above the $2.74 consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fc8cc3.a",
-          "fact": "earningsre-fc8cc3",
-          "variant": "a",
-          "text": "$WDAY beat the Q3 2027 Non-GAAP diluted net income per share consensus: $2.82 vs $2.74.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-c3ddd1.a",
-          "fact": "earningsre-c3ddd1",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-d2529a.a",
-          "fact": "earningsre-d2529a",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 Non-GAAP diluted net income per share $2.82, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7d7ca2.a",
-          "fact": "earningsre-7d7ca2",
-          "variant": "a",
-          "text": "Non-GAAP diluted net income per share $2.82 vs $2.74 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-dcdf02.a",
-          "fact": "earningsre-dcdf02",
-          "variant": "a",
-          "text": "Non-GAAP diluted net income per share $2.82 vs $2.74 (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-526257.a",
-          "fact": "earningsre-526257",
-          "variant": "a",
-          "text": "$WDAY beat Q3 2027 Non-GAAP diluted net income per share estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6220e0.a",
-          "fact": "earningsre-6220e0",
-          "variant": "a",
-          "text": "$WDAY beat the Q3 EPS consensus: $2.82 vs $2.74.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-8dd4a8.a",
-          "fact": "earningsre-8dd4a8",
-          "variant": "a",
-          "text": "$WDAY Q3 EPS: $2.82 vs $2.74 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-645f64.a",
-          "fact": "earningsre-645f64",
-          "variant": "a",
-          "text": "$WDAY Q3 EPS $2.82, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-488e2f.a",
-          "fact": "earningsre-488e2f",
-          "variant": "a",
-          "text": "$WDAY beat Q3 EPS estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e7d7ea.a",
-          "fact": "earningsre-e7d7ea",
-          "variant": "a",
-          "text": "$WDAY beat the Q3 Non-GAAP diluted net income per share consensus: $2.82 vs $2.74.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-726831.a",
-          "fact": "earningsre-726831",
-          "variant": "a",
-          "text": "$WDAY Q3 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus (beat by $0.08).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-60eb63.a",
-          "fact": "earningsre-60eb63",
-          "variant": "a",
-          "text": "$WDAY Q3 Non-GAAP diluted net income per share $2.82, beat by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-4109a7.a",
-          "fact": "earningsre-4109a7",
-          "variant": "a",
-          "text": "$WDAY beat Q3 Non-GAAP diluted net income per share estimates by $0.08.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$WDAY beat Q3 2027 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$WDAY beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Workday, Inc. ($WDAY) published Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$WDAY (Workday, Inc.) reported Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 24, Workday, Inc. ($WDAY) published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$WDAY published Q3 2027 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2027 results from $WDAY came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 24, $WDAY published Q3 2027 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 revenue: $2.71B vs $2.69B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$WDAY reported Q3 2027 revenue of $2.71B vs $2.69B consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 revenue was $2.71B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2027 revenue at $WDAY was $2.71B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ed030b.a",
-          "fact": "earningsre-ed030b",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 Non-GAAP diluted net income per share: $2.82 vs $2.74 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-ed030b.h1",
-          "fact": "earningsre-ed030b",
-          "variant": "h1",
-          "text": "$WDAY reported Q3 2027 Non-GAAP diluted net income per share of $2.82 vs $2.74 consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b4ebad.a",
-          "fact": "earningsre-b4ebad",
-          "variant": "a",
-          "text": "$WDAY Q3 2027 Non-GAAP diluted net income per share was $2.82.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-b4ebad.h1",
-          "fact": "earningsre-b4ebad",
-          "variant": "h1",
-          "text": "Q3 2027 Non-GAAP diluted net income per share at $WDAY was $2.82.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.a",
-          "fact": "earningsre-426192",
-          "variant": "a",
-          "text": "$WDAY had a market value of $42.4B at the Nov 24 close.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.h1",
-          "fact": "earningsre-426192",
-          "variant": "h1",
-          "text": "$WDAY's market value at the Nov 24 close was $42.4B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-426192.t",
-          "fact": "earningsre-426192",
-          "variant": "t",
-          "text": "At the Nov 24 close, $WDAY had a market value of $42.4B.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.a",
-          "fact": "earningsre-061727",
-          "variant": "a",
-          "text": "$WDAY moved +1.79% on Tuesday, Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.h1",
-          "fact": "earningsre-061727",
-          "variant": "h1",
-          "text": "$WDAY's move on Tuesday, Nov 24: +1.79%.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-061727.t",
-          "fact": "earningsre-061727",
-          "variant": "t",
-          "text": "On Tuesday, Nov 24, $WDAY moved +1.79%.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "1.79%": "+",
-          "1.8%": "+"
-        },
-        "subjects": {
-          "WDAY": "up"
-        }
-      },
-      "subject_numbers": {
-        "WDAY": [
-          [
-            "$",
-            2.71,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            2.69,
-            2,
-            1000000000.0,
-            0
-          ],
-          [
-            "$",
-            13.5,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            2.82,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            2.74,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "$",
-            0.08,
-            2,
-            1.0,
-            0
-          ],
-          [
-            "%",
-            1.79,
-            2,
-            1.0,
-            1
-          ],
-          [
-            "$",
-            42.4,
             1,
             1000000000.0,
             0
@@ -4778,6 +3513,402 @@
           ]
         ]
       },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-25-form4-buy-CSQR-696545",
+      "type": "form4_buy",
+      "ticker": "CSQR",
+      "tickers": [
+        "CSQR"
+      ],
+      "name": "BROOKFIELD Corp",
+      "office": "10% owner at Csquare, Inc.",
+      "amount_text": "$4.3M",
+      "traded": [
+        "2026-11-20"
+      ],
+      "filed": "2026-11-24",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2105398/000095014226003149/0000950142-26-003149-index.htm",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/brookfield-corp-on-1001085?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-form4-buy-CSQR-696545#trades",
+      "allowed_numbers": [
+        "$4.3M",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24",
+        "2026-11-20",
+        "Nov 20, 2026",
+        "Nov 20",
+        "10%"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of CSQR totaling $4.3M on a Form 4 filed 2026-11-24, traded 2026-11-20.",
+      "dedupe_key": "form4:0000950142-26-003149:CSQR",
+      "claim_phrases": [],
+      "company": "Csquare, Inc.",
+      "side": "buy",
+      "accession": "0000950142-26-003149",
+      "rows": 1,
+      "figure_slug": "brookfield-corp-on-1001085",
+      "amount_top_usd": 4299980.22,
+      "market_cap_usd": 2419525632.0,
+      "famous_person": null,
+      "row_amounts": [
+        "$4.3M"
+      ],
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/brookfield-corp-on-1001085/opengraph-image",
+          "kind": "image",
+          "alt": "BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of CSQR totaling $4.3M on a Form 4 filed 2026-11-24, traded 2026-11-20."
+        }
+      ],
+      "rank": 7.13,
+      "rank_why": "form4_buy 2; mid cap $2.42B +1; magnitude (top $4.3M) +2.63; filed 2026-11-24 (age 1) +1.5",
+      "pillar": "P3",
+      "cap_tier": "mid",
+      "in_500": false,
+      "context_numbers": [
+        "$2.4B",
+        "$927M",
+        "+$927M",
+        "$926.8M",
+        "+$926.8M",
+        "$6.5B",
+        "+$6.5B",
+        "$7B",
+        "+$7B",
+        "30"
+      ],
+      "context_tickers": [
+        "COHR"
+      ],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "CSQR"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "scoped_numbers": [
+        {
+          "numbers": [
+            "$927M",
+            "+$927M",
+            "$926.8M",
+            "+$926.8M",
+            "$6.5B",
+            "+$6.5B",
+            "$7B",
+            "+$7B"
+          ],
+          "require": [
+            "officers?\\s+and\\s+directors?",
+            "open[-\\s]market"
+          ],
+          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
+        }
+      ],
+      "context": {
+        "market_cap": "$2.4B",
+        "insiders_30d": {
+          "bought": "$927M",
+          "sold": "$6.5B",
+          "days": 30
+        }
+      },
+      "angles": [
+        "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
+        "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
+        "An open-market purchase of $CSQR totaling $4.3M by Csquare, Inc. 10% owner BROOKFIELD Corp was reported on a Form 4 filed Nov 24."
+      ],
+      "fact_phrases": [
+        "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
+        "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
+        "An open-market purchase of $CSQR totaling $4.3M by Csquare, Inc. 10% owner BROOKFIELD Corp was reported on a Form 4 filed Nov 24.",
+        "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market.",
+        "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market.",
+        "On the open market, Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR.",
+        "BROOKFIELD Corp bought $4.3M of $CSQR on the open market.",
+        "On the open market, BROOKFIELD Corp bought $4.3M of $CSQR.",
+        "BROOKFIELD Corp made an open-market purchase of $CSQR: $4.3M.",
+        "BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M on a Form 4 filed Nov 24.",
+        "On a Form 4 filed Nov 24, BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M.",
+        "BROOKFIELD Corp's $CSQR purchase was traded Nov 20 and reported on a Form 4 filed Nov 24.",
+        "Traded Nov 20, BROOKFIELD Corp's $CSQR purchase was reported on a Form 4 filed Nov 24.",
+        "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
+        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
+        "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells."
+      ],
+      "phrasings": [
+        {
+          "id": "form4buy-9c4193.a",
+          "fact": "form4buy-9c4193",
+          "variant": "a",
+          "text": "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-9c4193.h1",
+          "fact": "form4buy-9c4193",
+          "variant": "h1",
+          "text": "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
+          "claim": false
+        },
+        {
+          "id": "form4buy-9c4193.h2",
+          "fact": "form4buy-9c4193",
+          "variant": "h2",
+          "text": "An open-market purchase of $CSQR totaling $4.3M by Csquare, Inc. 10% owner BROOKFIELD Corp was reported on a Form 4 filed Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-50ec4c.a",
+          "fact": "form4buy-50ec4c",
+          "variant": "a",
+          "text": "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-50ec4c.h1",
+          "fact": "form4buy-50ec4c",
+          "variant": "h1",
+          "text": "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-50ec4c.h2",
+          "fact": "form4buy-50ec4c",
+          "variant": "h2",
+          "text": "On the open market, Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.a",
+          "fact": "form4buy-1bee24",
+          "variant": "a",
+          "text": "BROOKFIELD Corp bought $4.3M of $CSQR on the open market.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h1",
+          "fact": "form4buy-1bee24",
+          "variant": "h1",
+          "text": "On the open market, BROOKFIELD Corp bought $4.3M of $CSQR.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-1bee24.h2",
+          "fact": "form4buy-1bee24",
+          "variant": "h2",
+          "text": "BROOKFIELD Corp made an open-market purchase of $CSQR: $4.3M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-226ef7.a",
+          "fact": "form4buy-226ef7",
+          "variant": "a",
+          "text": "BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M on a Form 4 filed Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-226ef7.h1",
+          "fact": "form4buy-226ef7",
+          "variant": "h1",
+          "text": "On a Form 4 filed Nov 24, BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.a",
+          "fact": "form4buy-bfe464",
+          "variant": "a",
+          "text": "BROOKFIELD Corp's $CSQR purchase was traded Nov 20 and reported on a Form 4 filed Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-bfe464.h1",
+          "fact": "form4buy-bfe464",
+          "variant": "h1",
+          "text": "Traded Nov 20, BROOKFIELD Corp's $CSQR purchase was reported on a Form 4 filed Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.a",
+          "fact": "form4buy-de8c5a",
+          "variant": "a",
+          "text": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.h1",
+          "fact": "form4buy-de8c5a",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
+          "claim": false
+        },
+        {
+          "id": "form4buy-de8c5a.t",
+          "fact": "form4buy-de8c5a",
+          "variant": "t",
+          "text": "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "$927M": "+",
+          "$926.8M": "+",
+          "$6.5B": "+",
+          "$7B": "+"
+        },
+        "subjects": {}
+      },
+      "subject_numbers": {
+        "CSQR": [
+          [
+            "$",
+            2.4,
+            1,
+            1000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": true,
+      "rotation": null
+    },
+    {
+      "item_id": "2026-11-25-earnings-result-IMKTA-964354",
+      "type": "earnings_result",
+      "ticker": "IMKTA",
+      "tickers": [
+        "IMKTA"
+      ],
+      "name": "Ingles Markets, Incorporated",
+      "office": null,
+      "amount_text": null,
+      "traded": [],
+      "filed": "2026-11-25",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/50493/000143774926038232/ex_1050620.htm",
+      "page_url": "https://www.rapidtradeview.trade/dashboard/IMKTA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-IMKTA-964354#earnings-history",
+      "allowed_numbers": [
+        "FY2026 (Q4)",
+        "FY2026",
+        "Q4",
+        "Q4 2026",
+        "2026-11-25",
+        "Nov 25, 2026",
+        "Nov 25"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "Ingles Markets, Incorporated (IMKTA) published FY2026 (Q4) results on 2026-11-25: Published.",
+      "dedupe_key": "report:imkta-2026-q4",
+      "claim_phrases": [],
+      "report_id": "imkta-2026-q4",
+      "fiscal_label": "FY2026 (Q4)",
+      "release_date": "2026-11-25",
+      "published_at": "2026-11-25T12:45:10.033484+00:00",
+      "tile_label": "Published",
+      "tile_state": "neutral",
+      "results": {},
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/dashboard/IMKTA/opengraph-image",
+          "kind": "image",
+          "alt": "RapidTradeView research card for IMKTA: recent price, trend, analyst and filing summary."
+        }
+      ],
+      "rank": 6.0,
+      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-25 (age 0) +2",
+      "pillar": "P5",
+      "cap_tier": "unknown",
+      "in_500": false,
+      "context_numbers": [],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "IMKTA"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {},
+      "ticker_names": {},
+      "angles": [
+        "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
+        "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
+        "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results."
+      ],
+      "fact_phrases": [
+        "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
+        "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
+        "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results.",
+        "$IMKTA published FY2026 (Q4) results on Nov 25.",
+        "FY2026 (Q4) results from $IMKTA came out on Nov 25.",
+        "On Nov 25, $IMKTA published FY2026 (Q4) results."
+      ],
+      "phrasings": [
+        {
+          "id": "earningsre-c8f923.a",
+          "fact": "earningsre-c8f923",
+          "variant": "a",
+          "text": "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.h1",
+          "fact": "earningsre-c8f923",
+          "variant": "h1",
+          "text": "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-c8f923.t",
+          "fact": "earningsre-c8f923",
+          "variant": "t",
+          "text": "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.a",
+          "fact": "earningsre-f7ec44",
+          "variant": "a",
+          "text": "$IMKTA published FY2026 (Q4) results on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.h1",
+          "fact": "earningsre-f7ec44",
+          "variant": "h1",
+          "text": "FY2026 (Q4) results from $IMKTA came out on Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "earningsre-f7ec44.t",
+          "fact": "earningsre-f7ec44",
+          "variant": "t",
+          "text": "On Nov 25, $IMKTA published FY2026 (Q4) results.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {},
+        "subjects": {}
+      },
+      "subject_numbers": {},
       "cooldown": null,
       "top8": true,
       "rotation": null
@@ -10912,404 +10043,6 @@
       "rotation": null
     },
     {
-      "item_id": "2026-11-25-form4-buy-CSQR-696545",
-      "type": "form4_buy",
-      "ticker": "CSQR",
-      "tickers": [
-        "CSQR"
-      ],
-      "name": "BROOKFIELD Corp",
-      "office": "10% owner at Csquare, Inc.",
-      "amount_text": "$4.3M",
-      "traded": [
-        "2026-11-20"
-      ],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2105398/000095014226003149/0000950142-26-003149-index.htm",
-      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/brookfield-corp-on-1001085?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-form4-buy-CSQR-696545#trades",
-      "allowed_numbers": [
-        "$4.3M",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24",
-        "2026-11-20",
-        "Nov 20, 2026",
-        "Nov 20",
-        "10%"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of CSQR totaling $4.3M on a Form 4 filed 2026-11-24, traded 2026-11-20.",
-      "dedupe_key": "form4:0000950142-26-003149:CSQR",
-      "claim_phrases": [],
-      "company": "Csquare, Inc.",
-      "side": "buy",
-      "accession": "0000950142-26-003149",
-      "rows": 1,
-      "figure_slug": "brookfield-corp-on-1001085",
-      "amount_top_usd": 4299980.22,
-      "market_cap_usd": 2419525632.0,
-      "famous_person": null,
-      "row_amounts": [
-        "$4.3M"
-      ],
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/smart-money/figures/brookfield-corp-on-1001085/opengraph-image",
-          "kind": "image",
-          "alt": "BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of CSQR totaling $4.3M on a Form 4 filed 2026-11-24, traded 2026-11-20."
-        }
-      ],
-      "rank": 7.13,
-      "rank_why": "form4_buy 2; mid cap $2.42B +1; magnitude (top $4.3M) +2.63; filed 2026-11-24 (age 1) +1.5",
-      "pillar": "P3",
-      "cap_tier": "mid",
-      "in_500": false,
-      "context_numbers": [
-        "$2.4B",
-        "$927M",
-        "+$927M",
-        "$926.6M",
-        "+$926.6M",
-        "$6.5B",
-        "+$6.5B",
-        "$7B",
-        "+$7B",
-        "30"
-      ],
-      "context_tickers": [
-        "COHR"
-      ],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "CSQR"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$927M",
-            "+$927M",
-            "$926.6M",
-            "+$926.6M",
-            "$6.5B",
-            "+$6.5B",
-            "$7B",
-            "+$7B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "context": {
-        "market_cap": "$2.4B",
-        "insiders_30d": {
-          "bought": "$927M",
-          "sold": "$6.5B",
-          "days": 30
-        }
-      },
-      "angles": [
-        "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
-        "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
-        "An open-market purchase of $CSQR totaling $4.3M by Csquare, Inc. 10% owner BROOKFIELD Corp was reported on a Form 4 filed Nov 24."
-      ],
-      "fact_phrases": [
-        "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
-        "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
-        "An open-market purchase of $CSQR totaling $4.3M by Csquare, Inc. 10% owner BROOKFIELD Corp was reported on a Form 4 filed Nov 24.",
-        "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market.",
-        "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market.",
-        "On the open market, Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR.",
-        "BROOKFIELD Corp bought $4.3M of $CSQR on the open market.",
-        "On the open market, BROOKFIELD Corp bought $4.3M of $CSQR.",
-        "BROOKFIELD Corp made an open-market purchase of $CSQR: $4.3M.",
-        "BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M on a Form 4 filed Nov 24.",
-        "On a Form 4 filed Nov 24, BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M.",
-        "BROOKFIELD Corp's $CSQR purchase was traded Nov 20 and reported on a Form 4 filed Nov 24.",
-        "Traded Nov 20, BROOKFIELD Corp's $CSQR purchase was reported on a Form 4 filed Nov 24.",
-        "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells."
-      ],
-      "phrasings": [
-        {
-          "id": "form4buy-9c4193.a",
-          "fact": "form4buy-9c4193",
-          "variant": "a",
-          "text": "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-9c4193.h1",
-          "fact": "form4buy-9c4193",
-          "variant": "h1",
-          "text": "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market (Form 4, filed Nov 24).",
-          "claim": false
-        },
-        {
-          "id": "form4buy-9c4193.h2",
-          "fact": "form4buy-9c4193",
-          "variant": "h2",
-          "text": "An open-market purchase of $CSQR totaling $4.3M by Csquare, Inc. 10% owner BROOKFIELD Corp was reported on a Form 4 filed Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-50ec4c.a",
-          "fact": "form4buy-50ec4c",
-          "variant": "a",
-          "text": "Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-50ec4c.h1",
-          "fact": "form4buy-50ec4c",
-          "variant": "h1",
-          "text": "BROOKFIELD Corp, 10% owner at Csquare, Inc., bought $4.3M of $CSQR on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-50ec4c.h2",
-          "fact": "form4buy-50ec4c",
-          "variant": "h2",
-          "text": "On the open market, Csquare, Inc. 10% owner BROOKFIELD Corp bought $4.3M of $CSQR.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.a",
-          "fact": "form4buy-1bee24",
-          "variant": "a",
-          "text": "BROOKFIELD Corp bought $4.3M of $CSQR on the open market.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h1",
-          "fact": "form4buy-1bee24",
-          "variant": "h1",
-          "text": "On the open market, BROOKFIELD Corp bought $4.3M of $CSQR.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-1bee24.h2",
-          "fact": "form4buy-1bee24",
-          "variant": "h2",
-          "text": "BROOKFIELD Corp made an open-market purchase of $CSQR: $4.3M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-226ef7.a",
-          "fact": "form4buy-226ef7",
-          "variant": "a",
-          "text": "BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M on a Form 4 filed Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-226ef7.h1",
-          "fact": "form4buy-226ef7",
-          "variant": "h1",
-          "text": "On a Form 4 filed Nov 24, BROOKFIELD Corp (10% owner at Csquare, Inc.) reported an open-market purchase of $CSQR totaling $4.3M.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.a",
-          "fact": "form4buy-bfe464",
-          "variant": "a",
-          "text": "BROOKFIELD Corp's $CSQR purchase was traded Nov 20 and reported on a Form 4 filed Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-bfe464.h1",
-          "fact": "form4buy-bfe464",
-          "variant": "h1",
-          "text": "Traded Nov 20, BROOKFIELD Corp's $CSQR purchase was reported on a Form 4 filed Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.a",
-          "fact": "form4buy-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $927M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.h1",
-          "fact": "form4buy-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $927M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "form4buy-de8c5a.t",
-          "fact": "form4buy-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $927M of open-market buys and $6.5B of open-market sells.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$927M": "+",
-          "$926.6M": "+",
-          "$6.5B": "+",
-          "$7B": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "CSQR": [
-          [
-            "$",
-            2.4,
-            1,
-            1000000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-IMKTA-964354",
-      "type": "earnings_result",
-      "ticker": "IMKTA",
-      "tickers": [
-        "IMKTA"
-      ],
-      "name": "Ingles Markets, Incorporated",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-25",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/50493/000143774926038232/ex_1050620.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/IMKTA?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-IMKTA-964354#earnings-history",
-      "allowed_numbers": [
-        "FY2026 (Q4)",
-        "FY2026",
-        "Q4",
-        "Q4 2026",
-        "2026-11-25",
-        "Nov 25, 2026",
-        "Nov 25"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Ingles Markets, Incorporated (IMKTA) published FY2026 (Q4) results on 2026-11-25: Published.",
-      "dedupe_key": "report:imkta-2026-q4",
-      "claim_phrases": [],
-      "report_id": "imkta-2026-q4",
-      "fiscal_label": "FY2026 (Q4)",
-      "release_date": "2026-11-25",
-      "published_at": "2026-11-25T12:45:10.033484+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {},
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/IMKTA/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for IMKTA: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 6.0,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-25 (age 0) +2",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "IMKTA"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
-        "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
-        "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results."
-      ],
-      "fact_phrases": [
-        "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
-        "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
-        "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results.",
-        "$IMKTA published FY2026 (Q4) results on Nov 25.",
-        "FY2026 (Q4) results from $IMKTA came out on Nov 25.",
-        "On Nov 25, $IMKTA published FY2026 (Q4) results."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-c8f923.a",
-          "fact": "earningsre-c8f923",
-          "variant": "a",
-          "text": "Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.h1",
-          "fact": "earningsre-c8f923",
-          "variant": "h1",
-          "text": "$IMKTA (Ingles Markets, Incorporated) reported FY2026 (Q4) results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-c8f923.t",
-          "fact": "earningsre-c8f923",
-          "variant": "t",
-          "text": "On Nov 25, Ingles Markets, Incorporated ($IMKTA) published FY2026 (Q4) results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.a",
-          "fact": "earningsre-f7ec44",
-          "variant": "a",
-          "text": "$IMKTA published FY2026 (Q4) results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.h1",
-          "fact": "earningsre-f7ec44",
-          "variant": "h1",
-          "text": "FY2026 (Q4) results from $IMKTA came out on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-f7ec44.t",
-          "fact": "earningsre-f7ec44",
-          "variant": "t",
-          "text": "On Nov 25, $IMKTA published FY2026 (Q4) results.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
       "item_id": "2026-11-25-earnings-result-BILI-60aaf1",
       "type": "earnings_result",
       "ticker": "BILI",
@@ -14077,344 +12810,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "ranked below the top 8",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-earnings-result-SURG-7e3894",
-      "type": "earnings_result",
-      "ticker": "SURG",
-      "tickers": [
-        "SURG"
-      ],
-      "name": "SurgePays, Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1392694/000149315226053931/ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/SURG?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-earnings-result-SURG-7e3894#earnings-history",
-      "allowed_numbers": [
-        "$17.3M",
-        "$16.5M",
-        "$766K",
-        "$0.34",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-23",
-        "Nov 23, 2026",
-        "Nov 23",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "SurgePays, Inc. (SURG) published Q3 2026 results on 2026-11-23: Revenue beat. Revenue $17.3M vs $16.5M consensus (Beat by $766K). GAAP EPS $0.34.",
-      "dedupe_key": "report:surg-2026-q3",
-      "claim_phrases": [
-        "revenue came in above the $16.5M consensus.",
-        "$SURG beat the Q3 2026 revenue consensus: $17.3M vs $16.5M.",
-        "$SURG Q3 2026 revenue: $17.3M vs $16.5M consensus (beat by $766K).",
-        "$SURG Q3 2026 revenue $17.3M, beat by $766K.",
-        "revenue $17.3M vs $16.5M consensus (beat by $766K).",
-        "revenue $17.3M vs $16.5M (beat by $766K).",
-        "$SURG beat Q3 2026 revenue estimates by $766K.",
-        "$SURG beat the Q3 revenue consensus: $17.3M vs $16.5M.",
-        "$SURG Q3 revenue: $17.3M vs $16.5M consensus (beat by $766K).",
-        "$SURG Q3 revenue $17.3M, beat by $766K.",
-        "$SURG beat Q3 revenue estimates by $766K.",
-        "$SURG beat Q3 2026 estimates.",
-        "$SURG beat Q3 estimates."
-      ],
-      "report_id": "surg-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-23",
-      "published_at": "2026-11-24T21:00:27.799845+00:00",
-      "tile_label": "Revenue beat",
-      "tile_state": "beat",
-      "results": {
-        "revenue": {
-          "reported": "$17.3M",
-          "consensus": "$16.5M",
-          "label": "Beat by $766K",
-          "verdict": "beat"
-        },
-        "eps": {
-          "basis": "GAAP EPS",
-          "reported": "$0.34"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/SURG/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for SURG: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (verdict) +1.5; release_date 2026-11-23 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "SURG"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "SurgePays, Inc. ($SURG) published Q3 2026 results on Nov 23.",
-        "$SURG (SurgePays, Inc.) reported Q3 2026 results on Nov 23.",
-        "On Nov 23, SurgePays, Inc. ($SURG) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "SurgePays, Inc. ($SURG) published Q3 2026 results on Nov 23.",
-        "$SURG (SurgePays, Inc.) reported Q3 2026 results on Nov 23.",
-        "On Nov 23, SurgePays, Inc. ($SURG) published Q3 2026 results.",
-        "$SURG published Q3 2026 results on Nov 23.",
-        "Q3 2026 results from $SURG came out on Nov 23.",
-        "On Nov 23, $SURG published Q3 2026 results.",
-        "$SURG Q3 2026 revenue: $17.3M vs $16.5M consensus.",
-        "$SURG reported Q3 2026 revenue of $17.3M vs $16.5M consensus.",
-        "$SURG Q3 2026 revenue was $17.3M.",
-        "Q3 2026 revenue at $SURG was $17.3M.",
-        "$SURG Q3 2026 GAAP EPS: $0.34.",
-        "$SURG reported Q3 2026 GAAP EPS of $0.34.",
-        "$SURG Q3 2026 GAAP EPS was $0.34.",
-        "Q3 2026 GAAP EPS at $SURG was $0.34."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-784fb7.a",
-          "fact": "earningsre-784fb7",
-          "variant": "a",
-          "text": "revenue came in above the $16.5M consensus.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-fa792b.a",
-          "fact": "earningsre-fa792b",
-          "variant": "a",
-          "text": "$SURG beat the Q3 2026 revenue consensus: $17.3M vs $16.5M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-838a1e.a",
-          "fact": "earningsre-838a1e",
-          "variant": "a",
-          "text": "$SURG Q3 2026 revenue: $17.3M vs $16.5M consensus (beat by $766K).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-14d721.a",
-          "fact": "earningsre-14d721",
-          "variant": "a",
-          "text": "$SURG Q3 2026 revenue $17.3M, beat by $766K.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-1f3fc1.a",
-          "fact": "earningsre-1f3fc1",
-          "variant": "a",
-          "text": "revenue $17.3M vs $16.5M consensus (beat by $766K).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-e3f7f1.a",
-          "fact": "earningsre-e3f7f1",
-          "variant": "a",
-          "text": "revenue $17.3M vs $16.5M (beat by $766K).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-07b50f.a",
-          "fact": "earningsre-07b50f",
-          "variant": "a",
-          "text": "$SURG beat Q3 2026 revenue estimates by $766K.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-69adf4.a",
-          "fact": "earningsre-69adf4",
-          "variant": "a",
-          "text": "$SURG beat the Q3 revenue consensus: $17.3M vs $16.5M.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-7f9dff.a",
-          "fact": "earningsre-7f9dff",
-          "variant": "a",
-          "text": "$SURG Q3 revenue: $17.3M vs $16.5M consensus (beat by $766K).",
-          "claim": true
-        },
-        {
-          "id": "earningsre-bf7116.a",
-          "fact": "earningsre-bf7116",
-          "variant": "a",
-          "text": "$SURG Q3 revenue $17.3M, beat by $766K.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-6ea266.a",
-          "fact": "earningsre-6ea266",
-          "variant": "a",
-          "text": "$SURG beat Q3 revenue estimates by $766K.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-70113f.a",
-          "fact": "earningsre-70113f",
-          "variant": "a",
-          "text": "$SURG beat Q3 2026 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-40f2c5.a",
-          "fact": "earningsre-40f2c5",
-          "variant": "a",
-          "text": "$SURG beat Q3 estimates.",
-          "claim": true
-        },
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "SurgePays, Inc. ($SURG) published Q3 2026 results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$SURG (SurgePays, Inc.) reported Q3 2026 results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 23, SurgePays, Inc. ($SURG) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$SURG published Q3 2026 results on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $SURG came out on Nov 23.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 23, $SURG published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.a",
-          "fact": "earningsre-db1f3d",
-          "variant": "a",
-          "text": "$SURG Q3 2026 revenue: $17.3M vs $16.5M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-db1f3d.h1",
-          "fact": "earningsre-db1f3d",
-          "variant": "h1",
-          "text": "$SURG reported Q3 2026 revenue of $17.3M vs $16.5M consensus.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$SURG Q3 2026 revenue was $17.3M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $SURG was $17.3M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.a",
-          "fact": "earningsre-be8d2d",
-          "variant": "a",
-          "text": "$SURG Q3 2026 GAAP EPS: $0.34.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-be8d2d.h1",
-          "fact": "earningsre-be8d2d",
-          "variant": "h1",
-          "text": "$SURG reported Q3 2026 GAAP EPS of $0.34.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.a",
-          "fact": "earningsre-d3e15f",
-          "variant": "a",
-          "text": "$SURG Q3 2026 GAAP EPS was $0.34.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d3e15f.h1",
-          "fact": "earningsre-d3e15f",
-          "variant": "h1",
-          "text": "Q3 2026 GAAP EPS at $SURG was $0.34.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "SURG": [
-          [
-            "$",
-            17.3,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            16.5,
-            1,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            766.0,
-            0,
-            1000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-23 release (after the close: fresh through 2026-11-24) posted on 2026-11-25: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
