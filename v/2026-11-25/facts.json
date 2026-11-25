@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-25",
-  "generated_at": "2026-11-25T15:30:02Z",
-  "as_of": "2026-11-25T15:30:02Z",
+  "generated_at": "2026-11-25T16:30:02Z",
+  "as_of": "2026-11-25T16:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -886,7 +886,7 @@
     "market_move": 1,
     "mega_mover": 2,
     "congress_flow": 0,
-    "insider_flow": 1,
+    "insider_flow": 0,
     "reddit_buzz": 1,
     "earnings_week_preview": 0,
     "earnings_reaction": 5,
@@ -984,7 +984,7 @@
     "market": {
       "market_session": "2026-11-24",
       "priced_cap_share": 0.9808963425369296,
-      "flows_as_of": "2026-11-25T15:30:21.472935+00:00"
+      "flows_as_of": "2026-11-25T16:30:21.569629+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -1007,10 +1007,17 @@
         "ranked_below": 12,
         "pillars": 4
       }
+    },
+    "card_unpinned": {
+      "dropped": 1,
+      "reasons": [
+        "insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))"
+      ]
     }
   },
   "errors": [
-    "post history: FileNotFoundError"
+    "post history: FileNotFoundError",
+    "not published: insider_flow RCL: share card not pinned (the card's data changed since the facts read (after the GET))"
   ],
   "partial_sources": [],
   "moves_like_checked": {
@@ -1435,649 +1442,6 @@
       "cooldown": null,
       "rank": 13.0,
       "rank_why": "reddit_buzz 4; mega cap $212.94B +4; magnitude (market) +3; capture_date 2026-11-25 (age 0) +2",
-      "top8": true,
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-25-insider-flow-RCL-f37fa1",
-      "type": "insider_flow",
-      "ticker": "RCL",
-      "tickers": [
-        "RCL",
-        "ANT",
-        "PLTR"
-      ],
-      "name": null,
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": null,
-      "source_url": null,
-      "page_url": "https://www.rapidtradeview.trade/dashboard/RCL?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-25-insider-flow-RCL-f37fa1",
-      "allowed_numbers": [
-        "$925M",
-        "+$925M",
-        "$925.0M",
-        "+$925.0M",
-        "$6.5B",
-        "+$6.5B",
-        "$7B",
-        "+$7B",
-        "30",
-        "576",
-        "754",
-        "500",
-        "2026-10-26",
-        "Oct 26, 2026",
-        "Oct 26",
-        "2026-11-25",
-        "Nov 25, 2026",
-        "Nov 25",
-        "$333M",
-        "+$333M",
-        "$333.2M",
-        "+$333.2M",
-        "$280M",
-        "+$280M",
-        "$280.4M",
-        "+$280.4M",
-        "$215M",
-        "+$215M",
-        "$214.6M",
-        "+$214.6M",
-        "$122M",
-        "+$122M",
-        "$122.3M",
-        "+$122.3M",
-        "3",
-        "1",
-        "7",
-        "7.0",
-        "$1"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Officers and directors reported $925M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 576 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M.",
-      "dedupe_key": "insider_flow:2026-11-25:RCL",
-      "claim_phrases": [
-        "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-        "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-        "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-        "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
-        "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
-        "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
-        "$PLTR had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($215M).",
-        "Over 30 days in our feed, $PLTR had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($215M).",
-        "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($215M): $PLTR.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
-        "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $PLTR ($215M).",
-        "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $PLTR ($215M).",
-        "$RCL ($333M), $ANT ($280M) and $PLTR ($215M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-        "$PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M).",
-        "Over 30 days in our feed, $PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($122M).",
-        "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M): $PLTR.",
-        "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.0.",
-        "Officers and directors sold $7.0 for every $1 they bought on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $7.0 on the open market for every $1 they bought."
-      ],
-      "pillar": "P3",
-      "claims": [
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "RCL",
-            "ANT",
-            "PLTR"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": "group",
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "sell|sold",
-          "says": "largest open-market sellers among the 500 largest, in order: $RCL, $ANT, $PLTR"
-        },
-        {
-          "words": [
-            "biggest",
-            "top",
-            "most",
-            "led"
-          ],
-          "subjects": [
-            "PLTR"
-          ],
-          "kind": "stock",
-          "polarity": null,
-          "rank": 1,
-          "within": [],
-          "scope": null,
-          "metric": "usd_flow",
-          "universe": null,
-          "date": null,
-          "bare": false,
-          "direction": null,
-          "needs": "buy|bought",
-          "says": "largest open-market buyers among the 500 largest, in order: $PLTR"
-        }
-      ],
-      "scoped_numbers": [
-        {
-          "numbers": [
-            "$925M",
-            "+$925M",
-            "$925.0M",
-            "+$925.0M",
-            "$6.5B",
-            "+$6.5B",
-            "$7B",
-            "+$7B"
-          ],
-          "require": [
-            "officers?\\s+and\\s+directors?",
-            "open[-\\s]market"
-          ],
-          "say": "the 30-day totals ($925M bought, $6.5B sold) are open-market buys / sells by officers and directors over 30 days in our feed: say \"open-market\" and \"officers and directors\""
-        }
-      ],
-      "headline": {
-        "tickers": [
-          "RCL",
-          "ANT",
-          "PLTR"
-        ],
-        "numbers": [
-          "$6.5B",
-          "$925M"
-        ]
-      },
-      "window": {
-        "from": "2026-10-26",
-        "to": "2026-11-25",
-        "days": 30
-      },
-      "bought_usd": 925025220.13,
-      "sold_usd": 6516692586.28,
-      "buy_companies": 576,
-      "sell_companies": 754,
-      "top_sellers_500": [
-        {
-          "ticker": "RCL",
-          "name": "Royal Caribbean Cruises Ltd.",
-          "sector": "Consumer Cyclical",
-          "total_usd": 333233640.82,
-          "insider_count": 3,
-          "roles": {
-            "officer": 1,
-            "director": 2
-          },
-          "row_count": 72,
-          "first_trade": "2026-10-28",
-          "last_trade": "2026-11-13"
-        },
-        {
-          "ticker": "ANT",
-          "name": "Anthropic, PBC Class A Common Stock",
-          "sector": "Technology",
-          "total_usd": 280405374.0,
-          "insider_count": 1,
-          "roles": {
-            "officer": 1,
-            "director": 0
-          },
-          "row_count": 1,
-          "first_trade": "2026-11-20",
-          "last_trade": "2026-11-20"
-        },
-        {
-          "ticker": "PLTR",
-          "name": "Palantir Technologies Inc.",
-          "sector": "Technology",
-          "total_usd": 214579381.36,
-          "insider_count": 7,
-          "roles": {
-            "officer": 5,
-            "director": 2
-          },
-          "row_count": 125,
-          "first_trade": "2026-11-02",
-          "last_trade": "2026-11-24"
-        }
-      ],
-      "top_buyers_500": [
-        {
-          "ticker": "PLTR",
-          "name": "Palantir Technologies Inc.",
-          "sector": "Technology",
-          "total_usd": 122253519.33,
-          "insider_count": 1,
-          "roles": {
-            "officer": 0,
-            "director": 1
-          },
-          "row_count": 3,
-          "first_trade": "2026-11-20",
-          "last_trade": "2026-11-20"
-        }
-      ],
-      "angles": [
-        "Officers and directors sold $6.5B and bought $925M of their own companies' stock on the open market over 30 days in our feed.",
-        "Officers and directors reported $925M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $925M of open-market buys."
-      ],
-      "market_cap_usd": 82151022443.5655,
-      "magnitude": 2.721040851579816,
-      "trigger": "$PLTR entered the top 5",
-      "top5": [
-        "RCL",
-        "ANT",
-        "PLTR",
-        "SYK",
-        "MSI"
-      ],
-      "context_tickers": [],
-      "context_numbers": [],
-      "banned_words": [],
-      "card": {
-        "panel": "insiders",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-8bf36a49-b5f72103.png",
-        "live_url": "https://www.rapidtradeview.trade/market/card/insiders",
-        "date": "2026-11-25",
-        "fingerprint": "8bf36a49",
-        "file": "market-insiders-2026-11-25-8bf36a49.png",
-        "sha256": "a136e5769c510c26f267e1d7950e585c887a03cf2ba91c17bc423623344c5a32"
-      },
-      "media": [
-        {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-25/cards/market-insiders-2026-11-25-8bf36a49-b5f72103.png",
-          "kind": "image",
-          "alt": "Officers and directors reported $925M of open-market buys and $6.5B of open-market sells over 30 days in our feed (Form 4 filings, filed Oct 26 to Nov 25; 576 companies with buys, 754 with sells). Largest sellers among the 500 largest US-listed companies: $RCL $333M (3 insiders), $ANT $280M (1 insiders), $PLTR $215M (7 insiders). Largest buyers among them: $PLTR $122M."
-        }
-      ],
-      "market_cap_source": "market_map",
-      "cap_tier": "large",
-      "in_500": true,
-      "ticker_sectors": {
-        "RCL": "Consumer Cyclical",
-        "ANT": "Technology",
-        "PLTR": "Technology"
-      },
-      "ticker_names": {
-        "RCL": "Royal Caribbean Cruises Ltd.",
-        "ANT": "Anthropic, PBC Class A Common Stock",
-        "PLTR": "Palantir Technologies Inc."
-      },
-      "fact_phrases": [
-        "Officers and directors reported $925M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $925M of open-market buys.",
-        "Over 30 days in our feed, officers and directors reported $925M of open-market buys and $6.5B of open-market sells.",
-        "Officers and directors sold $6.5B and bought $925M of their own companies' stock on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors sold $6.5B and bought $925M of their own companies' stock on the open market.",
-        "Over 30 days in our feed, 576 companies had open-market buys by officers and directors and 754 had open-market sells.",
-        "754 companies had open-market sells by officers and directors and 576 had open-market buys over 30 days in our feed.",
-        "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-        "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-        "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
-        "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
-        "Officers and directors of $PLTR sold $215M on the open market over 30 days in our feed (7 insiders).",
-        "7 insiders at $PLTR sold $215M on the open market over 30 days in our feed (officers and directors).",
-        "Over 30 days in our feed, officers and directors of $PLTR sold $215M on the open market (7 insiders).",
-        "Officers and directors of $PLTR bought $122M on the open market over 30 days in our feed.",
-        "Over 30 days in our feed, officers and directors of $PLTR bought $122M on the open market."
-      ],
-      "phrasings": [
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $RCL had the largest open-market sells by officers and directors among the 500 largest US-listed companies ($333M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($333M): $RCL.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.a",
-          "fact": "insiderflo-c019d4",
-          "variant": "a",
-          "text": "$ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.t",
-          "fact": "insiderflo-c019d4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $ANT had the second-largest open-market sells by officers and directors among the 500 largest US-listed companies ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-c019d4.o",
-          "fact": "insiderflo-c019d4",
-          "variant": "o",
-          "text": "The second-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($280M): $ANT.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.a",
-          "fact": "insiderflo-1641a4",
-          "variant": "a",
-          "text": "$PLTR had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($215M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.t",
-          "fact": "insiderflo-1641a4",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $PLTR had the third-largest open-market sells by officers and directors among the 500 largest US-listed companies ($215M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-1641a4.o",
-          "fact": "insiderflo-1641a4",
-          "variant": "o",
-          "text": "The third-largest open-market sells by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($215M): $PLTR.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.a",
-          "fact": "insiderflo-2a8e57",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.t",
-          "fact": "insiderflo-2a8e57",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-2a8e57.l",
-          "fact": "insiderflo-2a8e57",
-          "variant": "l",
-          "text": "$RCL ($333M) and $ANT ($280M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.a",
-          "fact": "insiderflo-76de2d",
-          "variant": "a",
-          "text": "The largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in order: $RCL ($333M), $ANT ($280M), $PLTR ($215M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.t",
-          "fact": "insiderflo-76de2d",
-          "variant": "t",
-          "text": "Over 30 days in our feed, the largest open-market sellers among the 500 largest US-listed companies, in order: $RCL ($333M), $ANT ($280M), $PLTR ($215M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-76de2d.l",
-          "fact": "insiderflo-76de2d",
-          "variant": "l",
-          "text": "$RCL ($333M), $ANT ($280M) and $PLTR ($215M) were the largest open-market sellers among the 500 largest US-listed companies over 30 days in our feed, in that order.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.a",
-          "fact": "insiderflo-5a9659",
-          "variant": "a",
-          "text": "$PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.t",
-          "fact": "insiderflo-5a9659",
-          "variant": "t",
-          "text": "Over 30 days in our feed, $PLTR had the largest open-market buys by officers and directors among the 500 largest US-listed companies ($122M).",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-5a9659.o",
-          "fact": "insiderflo-5a9659",
-          "variant": "o",
-          "text": "The largest open-market buys by officers and directors among the 500 largest US-listed companies over 30 days in our feed ($122M): $PLTR.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.a",
-          "fact": "insiderflo-eeeffc",
-          "variant": "a",
-          "text": "For every $1 officers and directors bought on the open market over 30 days in our feed, they sold $7.0.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h1",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h1",
-          "text": "Officers and directors sold $7.0 for every $1 they bought on the open market over 30 days in our feed.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-eeeffc.h2",
-          "fact": "insiderflo-eeeffc",
-          "variant": "h2",
-          "text": "Over 30 days in our feed, officers and directors sold $7.0 on the open market for every $1 they bought.",
-          "claim": true
-        },
-        {
-          "id": "insiderflo-de8c5a.a",
-          "fact": "insiderflo-de8c5a",
-          "variant": "a",
-          "text": "Officers and directors reported $925M of open-market buys and $6.5B of open-market sells over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.h1",
-          "fact": "insiderflo-de8c5a",
-          "variant": "h1",
-          "text": "Over 30 days in our feed, officers and directors reported $6.5B of open-market sells and $925M of open-market buys.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-de8c5a.t",
-          "fact": "insiderflo-de8c5a",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors reported $925M of open-market buys and $6.5B of open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.a",
-          "fact": "insiderflo-cc7b17",
-          "variant": "a",
-          "text": "Officers and directors sold $6.5B and bought $925M of their own companies' stock on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-cc7b17.t",
-          "fact": "insiderflo-cc7b17",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors sold $6.5B and bought $925M of their own companies' stock on the open market.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.a",
-          "fact": "insiderflo-ca45c6",
-          "variant": "a",
-          "text": "Over 30 days in our feed, 576 companies had open-market buys by officers and directors and 754 had open-market sells.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-ca45c6.h1",
-          "fact": "insiderflo-ca45c6",
-          "variant": "h1",
-          "text": "754 companies had open-market sells by officers and directors and 576 had open-market buys over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $RCL sold $333M on the open market over 30 days in our feed (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "3 insiders at $RCL sold $333M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $RCL sold $333M on the open market (3 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.a",
-          "fact": "insiderflo-942c9b",
-          "variant": "a",
-          "text": "Officers and directors of $ANT sold $280M on the open market over 30 days in our feed (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.h1",
-          "fact": "insiderflo-942c9b",
-          "variant": "h1",
-          "text": "1 insider at $ANT sold $280M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-942c9b.t",
-          "fact": "insiderflo-942c9b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $ANT sold $280M on the open market (1 insider).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.a",
-          "fact": "insiderflo-a98c46",
-          "variant": "a",
-          "text": "Officers and directors of $PLTR sold $215M on the open market over 30 days in our feed (7 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.h1",
-          "fact": "insiderflo-a98c46",
-          "variant": "h1",
-          "text": "7 insiders at $PLTR sold $215M on the open market over 30 days in our feed (officers and directors).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-a98c46.t",
-          "fact": "insiderflo-a98c46",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $PLTR sold $215M on the open market (7 insiders).",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-04cc5b.a",
-          "fact": "insiderflo-04cc5b",
-          "variant": "a",
-          "text": "Officers and directors of $PLTR bought $122M on the open market over 30 days in our feed.",
-          "claim": false
-        },
-        {
-          "id": "insiderflo-04cc5b.t",
-          "fact": "insiderflo-04cc5b",
-          "variant": "t",
-          "text": "Over 30 days in our feed, officers and directors of $PLTR bought $122M on the open market.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {
-          "$925M": "+",
-          "$925.0M": "+",
-          "$6.5B": "+",
-          "$7B": "+",
-          "$333M": "+",
-          "$333.2M": "+",
-          "$280M": "+",
-          "$280.4M": "+",
-          "$215M": "+",
-          "$214.6M": "+",
-          "$122M": "+",
-          "$122.3M": "+"
-        },
-        "subjects": {}
-      },
-      "subject_numbers": {
-        "RCL": [
-          [
-            "$",
-            333.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            7.0,
-            1,
-            1.0,
-            0
-          ]
-        ],
-        "ANT": [
-          [
-            "$",
-            280.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ],
-        "PLTR": [
-          [
-            "$",
-            215.0,
-            0,
-            1000000.0,
-            0
-          ],
-          [
-            "$",
-            122.0,
-            0,
-            1000000.0,
-            0
-          ]
-        ]
-      },
-      "cooldown": null,
-      "rank": 11.22,
-      "rank_why": "insider_flow 4; large cap $82.15B +2.5; magnitude (market) +2.72; today 2026-11-25 (age 0) +2",
       "top8": true,
       "rotation": null
     },
@@ -4529,25 +3893,25 @@
         "$334.75",
         "$312.12",
         "$301.28",
-        "$353.43",
+        "$352.99",
         "Nov 18",
         "Oct 28",
         "Nov 11",
         "Oct 20",
         "Nov 5",
         "Nov 17",
-        "Nov 23",
-        "2026-11-24",
-        "Nov 24, 2026",
         "Nov 24",
+        "2026-11-25",
+        "Nov 25, 2026",
+        "Nov 25",
         "2026-10-20",
         "Oct 20, 2026",
         "2026-11-17",
         "Nov 17, 2026",
         "2026-11-18",
         "Nov 18, 2026",
-        "2026-11-23",
-        "Nov 23, 2026",
+        "2026-11-24",
+        "Nov 24, 2026",
         "2026-10-28",
         "Oct 28, 2026",
         "2026-11-05",
@@ -4558,10 +3922,10 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "Automatic technical analysis flagged a falling wedge on $PANW (Palo Alto Networks, Inc.) (scan 2026-11-24): pattern 2026-10-20 to 2026-11-17. Confirmed Nov 18: closed $339.92, clearly above the upper line at $309.26.",
+      "facts_text": "Automatic technical analysis flagged a falling wedge on $PANW (Palo Alto Networks, Inc.) (scan 2026-11-25): pattern 2026-10-20 to 2026-11-17. Confirmed Nov 18: closed $339.92, clearly above the upper line at $309.26.",
       "dedupe_key": "pattern:PANW:falling_wedge:confirmed:2026-11-18",
       "claim_phrases": [],
-      "scan_date": "2026-11-24",
+      "scan_date": "2026-11-25",
       "pattern": {
         "type": "falling_wedge",
         "name": "Falling wedge",
@@ -4572,7 +3936,7 @@
         "start_text": "Oct 20, 2026",
         "end_text": "Nov 17, 2026",
         "confirmed_on": "2026-11-18",
-        "as_of": "2026-11-23"
+        "as_of": "2026-11-24"
       },
       "levels": {
         "key_level_name": "upper line",
@@ -4591,7 +3955,7 @@
         "points": [
           "Highs $406.88 (Oct 28) → $341.80 (Nov 11)",
           "Lows $334.75 (Oct 20) → $312.12 (Nov 5) → $301.28 (Nov 17)",
-          "Nov 18 closed $339.92: confirmed · last close $353.43 (Nov 23)"
+          "Nov 18 closed $339.92: confirmed · last close $352.99 (Nov 24)"
         ]
       },
       "top_pick_check": "the #1 ticker is hidden from the public picks list; this item never mentions picks",
@@ -4606,8 +3970,8 @@
           "alt": "RapidTradeView research card for PANW: recent price, trend, analyst and filing summary."
         }
       ],
-      "rank": 7.0,
-      "rank_why": "chart_pattern 1; mega cap $289.38B +4; magnitude (pattern) +0.5; scan_date 2026-11-24 (age 1) +1.5",
+      "rank": 7.5,
+      "rank_why": "chart_pattern 1; mega cap $289.38B +4; magnitude (pattern) +0.5; scan_date 2026-11-25 (age 0) +2",
       "pillar": "PX",
       "market_cap_usd": 289378481423.6046,
       "market_cap_source": "market_map",
@@ -4648,13 +4012,13 @@
         }
       },
       "angles": [
-        "Automatic technical analysis flagged a falling wedge on $PANW (scan Nov 24).",
-        "A falling wedge on $PANW was flagged by automatic technical analysis (scan Nov 24).",
+        "Automatic technical analysis flagged a falling wedge on $PANW (scan Nov 25).",
+        "A falling wedge on $PANW was flagged by automatic technical analysis (scan Nov 25).",
         "The $PANW falling wedge pattern ran from Oct 20 to Nov 17."
       ],
       "fact_phrases": [
-        "Automatic technical analysis flagged a falling wedge on $PANW (scan Nov 24).",
-        "A falling wedge on $PANW was flagged by automatic technical analysis (scan Nov 24).",
+        "Automatic technical analysis flagged a falling wedge on $PANW (scan Nov 25).",
+        "A falling wedge on $PANW was flagged by automatic technical analysis (scan Nov 25).",
         "The $PANW falling wedge pattern ran from Oct 20 to Nov 17.",
         "From Oct 20 to Nov 17, $PANW formed the falling wedge pattern.",
         "$PANW closed at $339.92 on Nov 18, above the $309.26 upper line.",
@@ -4671,14 +4035,14 @@
           "id": "chartpatte-867d18.a",
           "fact": "chartpatte-867d18",
           "variant": "a",
-          "text": "Automatic technical analysis flagged a falling wedge on $PANW (scan Nov 24).",
+          "text": "Automatic technical analysis flagged a falling wedge on $PANW (scan Nov 25).",
           "claim": false
         },
         {
           "id": "chartpatte-867d18.h1",
           "fact": "chartpatte-867d18",
           "variant": "h1",
-          "text": "A falling wedge on $PANW was flagged by automatic technical analysis (scan Nov 24).",
+          "text": "A falling wedge on $PANW was flagged by automatic technical analysis (scan Nov 25).",
           "claim": false
         },
         {
