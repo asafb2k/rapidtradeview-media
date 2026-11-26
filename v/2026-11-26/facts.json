@@ -1,8 +1,8 @@
 {
   "schema": "rtv-facts/1",
   "date": "2026-11-26",
-  "generated_at": "2026-11-26T10:00:01Z",
-  "as_of": "2026-11-26T10:00:01Z",
+  "generated_at": "2026-11-26T12:30:02Z",
+  "as_of": "2026-11-26T12:30:02Z",
   "rules": {
     "banned_words": [
       "insider trading",
@@ -874,9 +874,9 @@
     "cards": "a market item's media is its pinned share card (card.url, a file on our Pages site, the same numbers the item states); never the live /market/card/ URL, never another day's card; no link in the main post: the UTM link goes in a self-reply"
   },
   "counts": {
-    "congress_trade": 5,
+    "congress_trade": 6,
     "form4_buy": 1,
-    "earnings_result": 5,
+    "earnings_result": 2,
     "earnings_upcoming": 0,
     "picks_ready": 1,
     "chart_pattern": 1,
@@ -911,7 +911,7 @@
       "out_of_window": 0,
       "not_congress": 0,
       "other_side": 0,
-      "late_filing_over_90d": 19,
+      "late_filing_over_90d": 18,
       "refiles_older_report": 0,
       "bad_date": 0,
       "not_listed": 2,
@@ -919,8 +919,8 @@
       "no_official_source": 0
     },
     "ptr_summary": {
-      "members_filing_dates": 5,
-      "single_item": 2
+      "members_filing_dates": 6,
+      "single_item": 3
     },
     "ptr_summary_incomplete": {
       "window_start": "2026-11-20",
@@ -929,35 +929,27 @@
       "reasons": [
         "robert-f-onder-jr filed 2026-11-24: the feed read (newest rows only) reaches back to 2026-11-23, not before the window start 2026-11-20: rows of the filing may be cut off; rows of the filing were left out (not_listed 1)",
         "kevin-hern filed 2026-11-24: the feed read (newest rows only) reaches back to 2026-11-23, not before the window start 2026-11-20: rows of the filing may be cut off; rows of the filing were left out (not_listed 1)",
-        "harriet-m-hageman filed 2026-11-23: the feed read (newest rows only) reaches back to 2026-11-23, not before the window start 2026-11-20: rows of the filing may be cut off; rows of the filing were left out (late_filing_over_90d 19)"
+        "harriet-m-hageman filed 2026-11-23: the feed read (newest rows only) reaches back to 2026-11-23, not before the window start 2026-11-20: rows of the filing may be cut off; rows of the filing were left out (late_filing_over_90d 18)"
       ]
     },
     "per_filer_cap": {
       "dropped": 17,
-      "filers": 5,
+      "filers": 6,
       "dropped_congress_trade": 17,
       "dropped_ptr_summary": 0
     },
     "form4_buy": {
       "rows_read": 20,
-      "filings_passing_filters": 19,
-      "below_minimum": 18,
+      "filings_passing_filters": 20,
+      "below_minimum": 19,
       "not_open_market": 0,
       "no_sec_index": 0
     },
     "earnings_result": {
-      "archive_reports": 4060,
+      "archive_reports": 4070,
       "recent_ready": 39,
-      "outside_24h": 33,
-      "unreadable": 0,
-      "not_compared": 1,
-      "not_compared_metrics": [
-        "DE: revenue (basis_mismatch)"
-      ],
-      "consensus_mismatch_hold": 1,
-      "held": [
-        "DE: revenue (basis_mismatch) and nothing else compared (report data to check)"
-      ]
+      "outside_24h": 37,
+      "unreadable": 0
     },
     "earnings_upcoming": {
       "listed": 8,
@@ -972,9 +964,9 @@
       "tiles": 1
     },
     "moves_like": {
-      "tickers_in_items": 12,
-      "carried_over": 0,
-      "requested": 5,
+      "tickers_in_items": 4,
+      "carried_over": 5,
+      "requested": 0,
       "not_covered": 0,
       "disabled": 0,
       "no_peer": 0,
@@ -986,7 +978,7 @@
     "market": {
       "market_session": "2026-11-25",
       "priced_cap_share": 0.9803718421361401,
-      "flows_as_of": "2026-11-26T10:00:16.592666+00:00"
+      "flows_as_of": "2026-11-26T12:30:11.890874+00:00"
     },
     "gates": {
       "weekend_replay": 0,
@@ -998,11 +990,11 @@
         "angles_dropped": 35
       },
       "top8": {
-        "stale": 11,
+        "stale": 8,
         "no_card": 0,
         "small_cap": 0,
         "session_map": 0,
-        "repeat": 5,
+        "repeat": 6,
         "ranked_below": 0,
         "pillars": 2
       }
@@ -1040,7 +1032,7 @@
     "read": false,
     "own_posts": null
   },
-  "api_requests": 26,
+  "api_requests": 16,
   "items": [
     {
       "item_id": "2026-11-26-congress-flow-NVDA-257009",
@@ -1059,17 +1051,17 @@
       "source_url": null,
       "page_url": "https://www.rapidtradeview.trade/congress-trades?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-26-congress-flow-NVDA-257009",
       "allowed_numbers": [
-        "11",
+        "12",
         "7",
         "6",
-        "5",
         "146",
-        "238",
+        "239",
         "193",
         "33",
         "30",
         "9",
         "8",
+        "5",
         "1",
         "500",
         "2026-10-27",
@@ -1086,12 +1078,12 @@
       "must_include": [
         "Not investment advice."
       ],
-      "facts_text": "$NVDA (NVIDIA Corporation) was the most-traded 500-largest stock in Congress over 30 days (Oct 27 to Nov 25, by disclosure): 11 trades by 7 members, 6 buys and 5 sells. All members: 146 buys, 238 sells in 193 tickers by 33 members. Also busy: $PG 9 trades, $ACN 8 trades.",
+      "facts_text": "$NVDA (NVIDIA Corporation) was the most-traded 500-largest stock in Congress over 30 days (Oct 27 to Nov 25, by disclosure): 12 trades by 7 members, 6 buys and 6 sells. All members: 146 buys, 239 sells in 193 tickers by 33 members. Also busy: $PG 9 trades, $ACN 8 trades.",
       "dedupe_key": "congress_flow:2026-11-25:NVDA",
       "claim_phrases": [
-        "$NVDA was the most-traded of the 500 largest US-listed stocks in Congress over 30 days (11 trades).",
-        "In Congress over 30 days, $NVDA was the most-traded of the 500 largest US-listed stocks (11 trades).",
-        "Over 30 days, $NVDA was the most-traded of the 500 largest US-listed stocks in Congress (11 trades)."
+        "$NVDA was the most-traded of the 500 largest US-listed stocks in Congress over 30 days (12 trades).",
+        "In Congress over 30 days, $NVDA was the most-traded of the 500 largest US-listed stocks (12 trades).",
+        "Over 30 days, $NVDA was the most-traded of the 500 largest US-listed stocks in Congress (12 trades)."
       ],
       "pillar": "P3",
       "window": {
@@ -1101,7 +1093,7 @@
       },
       "totals": {
         "buys": 146,
-        "sells": 238,
+        "sells": 239,
         "members": 33,
         "tickers": 193
       },
@@ -1109,10 +1101,10 @@
         "ticker": "NVDA",
         "name": "NVIDIA Corporation",
         "sector": "Technology",
-        "trades": 11,
+        "trades": 12,
         "members": 7,
         "buys": 6,
-        "sells": 5
+        "sells": 6
       },
       "others": [
         {
@@ -1135,9 +1127,9 @@
         }
       ],
       "angles": [
-        "$NVDA was the most-traded of the 500 largest US-listed stocks in Congress over 30 days (11 trades).",
-        "Congress disclosed 238 sells and 146 buys over 30 days.",
-        "Members of Congress disclosed 11 trades in $NVDA over 30 days: 6 buys and 5 sells by 7 members."
+        "$NVDA was the most-traded of the 500 largest US-listed stocks in Congress over 30 days (12 trades).",
+        "Congress disclosed 239 sells and 146 buys over 30 days.",
+        "Members of Congress disclosed 12 trades in $NVDA over 30 days: 6 buys and 6 sells by 7 members."
       ],
       "claims": [
         {
@@ -1171,7 +1163,7 @@
         "numbers": []
       },
       "market_cap_usd": 3751960918780.0557,
-      "magnitude": 2.75,
+      "magnitude": 3.0,
       "trigger": "$PLD entered the top 5",
       "top5": [
         "NVDA",
@@ -1185,18 +1177,18 @@
       "banned_words": [],
       "card": {
         "panel": "congress",
-        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-26/cards/market-congress-2026-11-25-c4cab6eb-b5f72103.png",
+        "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-26/cards/market-congress-2026-11-25-8ec07b50-b5f72103.png",
         "live_url": "https://www.rapidtradeview.trade/market/card/congress",
         "date": "2026-11-25",
-        "fingerprint": "c4cab6eb",
-        "file": "market-congress-2026-11-25-c4cab6eb.png",
-        "sha256": "b92d4d8f05e89df63a2a4db4e6f1207f6c17f6e427a16f7440df1a32767feb19"
+        "fingerprint": "8ec07b50",
+        "file": "market-congress-2026-11-25-8ec07b50.png",
+        "sha256": "2a218aa64dffac20d5cb2ac2dc4aed8f4481ba9461c6b59820b1d1fa48766e8e"
       },
       "media": [
         {
-          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-26/cards/market-congress-2026-11-25-c4cab6eb-b5f72103.png",
+          "url": "https://asafb2k.github.io/rapidtradeview-media/v/2026-11-26/cards/market-congress-2026-11-25-8ec07b50-b5f72103.png",
           "kind": "image",
-          "alt": "$NVDA (NVIDIA Corporation) was the most-traded 500-largest stock in Congress over 30 days (Oct 27 to Nov 25, by disclosure): 11 trades by 7 members, 6 buys and 5 sells. All members: 146 buys, 238 sells in 193 tickers by 33 members. Also busy: $PG 9 trades, $ACN 8 trades."
+          "alt": "$NVDA (NVIDIA Corporation) was the most-traded 500-largest stock in Congress over 30 days (Oct 27 to Nov 25, by disclosure): 12 trades by 7 members, 6 buys and 6 sells. All members: 146 buys, 239 sells in 193 tickers by 33 members. Also busy: $PG 9 trades, $ACN 8 trades."
         }
       ],
       "market_cap_source": "market_map",
@@ -1213,15 +1205,15 @@
         "ACN": "Accenture plc"
       },
       "fact_phrases": [
-        "Members of Congress disclosed 11 trades in $NVDA over 30 days: 6 buys and 5 sells by 7 members.",
-        "7 members of Congress disclosed 11 trades in $NVDA over 30 days: 6 buys and 5 sells.",
-        "Over 30 days, $NVDA drew 11 trades from 7 members of Congress: 6 buys and 5 sells.",
+        "Members of Congress disclosed 12 trades in $NVDA over 30 days: 6 buys and 6 sells by 7 members.",
+        "7 members of Congress disclosed 12 trades in $NVDA over 30 days: 6 buys and 6 sells.",
+        "Over 30 days, $NVDA drew 12 trades from 7 members of Congress: 6 buys and 6 sells.",
         "7 members of Congress disclosed trades in $NVDA over 30 days.",
         "Over 30 days, 7 members of Congress disclosed trades in $NVDA.",
-        "Members of Congress disclosed 146 buys and 238 sells over 30 days, in 193 tickers.",
-        "Over 30 days, members of Congress disclosed 146 buys and 238 sells in 193 tickers.",
-        "Congress disclosed 238 sells and 146 buys over 30 days.",
-        "Over 30 days, Congress disclosed 238 sells and 146 buys.",
+        "Members of Congress disclosed 146 buys and 239 sells over 30 days, in 193 tickers.",
+        "Over 30 days, members of Congress disclosed 146 buys and 239 sells in 193 tickers.",
+        "Congress disclosed 239 sells and 146 buys over 30 days.",
+        "Over 30 days, Congress disclosed 239 sells and 146 buys.",
         "Members of Congress disclosed 9 trades in $PG over 30 days.",
         "Over 30 days, members of Congress disclosed 9 trades in $PG.",
         "Members of Congress disclosed 8 trades in $ACN over 30 days.",
@@ -1232,42 +1224,42 @@
           "id": "congressfl-cdd42b.a",
           "fact": "congressfl-cdd42b",
           "variant": "a",
-          "text": "$NVDA was the most-traded of the 500 largest US-listed stocks in Congress over 30 days (11 trades).",
+          "text": "$NVDA was the most-traded of the 500 largest US-listed stocks in Congress over 30 days (12 trades).",
           "claim": true
         },
         {
           "id": "congressfl-cdd42b.h1",
           "fact": "congressfl-cdd42b",
           "variant": "h1",
-          "text": "In Congress over 30 days, $NVDA was the most-traded of the 500 largest US-listed stocks (11 trades).",
+          "text": "In Congress over 30 days, $NVDA was the most-traded of the 500 largest US-listed stocks (12 trades).",
           "claim": true
         },
         {
           "id": "congressfl-cdd42b.t",
           "fact": "congressfl-cdd42b",
           "variant": "t",
-          "text": "Over 30 days, $NVDA was the most-traded of the 500 largest US-listed stocks in Congress (11 trades).",
+          "text": "Over 30 days, $NVDA was the most-traded of the 500 largest US-listed stocks in Congress (12 trades).",
           "claim": true
         },
         {
           "id": "congressfl-10cf3f.a",
           "fact": "congressfl-10cf3f",
           "variant": "a",
-          "text": "Members of Congress disclosed 11 trades in $NVDA over 30 days: 6 buys and 5 sells by 7 members.",
+          "text": "Members of Congress disclosed 12 trades in $NVDA over 30 days: 6 buys and 6 sells by 7 members.",
           "claim": false
         },
         {
           "id": "congressfl-10cf3f.h1",
           "fact": "congressfl-10cf3f",
           "variant": "h1",
-          "text": "7 members of Congress disclosed 11 trades in $NVDA over 30 days: 6 buys and 5 sells.",
+          "text": "7 members of Congress disclosed 12 trades in $NVDA over 30 days: 6 buys and 6 sells.",
           "claim": false
         },
         {
           "id": "congressfl-10cf3f.h2",
           "fact": "congressfl-10cf3f",
           "variant": "h2",
-          "text": "Over 30 days, $NVDA drew 11 trades from 7 members of Congress: 6 buys and 5 sells.",
+          "text": "Over 30 days, $NVDA drew 12 trades from 7 members of Congress: 6 buys and 6 sells.",
           "claim": false
         },
         {
@@ -1288,28 +1280,28 @@
           "id": "congressfl-c951da.a",
           "fact": "congressfl-c951da",
           "variant": "a",
-          "text": "Members of Congress disclosed 146 buys and 238 sells over 30 days, in 193 tickers.",
+          "text": "Members of Congress disclosed 146 buys and 239 sells over 30 days, in 193 tickers.",
           "claim": false
         },
         {
           "id": "congressfl-c951da.h1",
           "fact": "congressfl-c951da",
           "variant": "h1",
-          "text": "Over 30 days, members of Congress disclosed 146 buys and 238 sells in 193 tickers.",
+          "text": "Over 30 days, members of Congress disclosed 146 buys and 239 sells in 193 tickers.",
           "claim": false
         },
         {
           "id": "congressfl-93e602.a",
           "fact": "congressfl-93e602",
           "variant": "a",
-          "text": "Congress disclosed 238 sells and 146 buys over 30 days.",
+          "text": "Congress disclosed 239 sells and 146 buys over 30 days.",
           "claim": false
         },
         {
           "id": "congressfl-93e602.t",
           "fact": "congressfl-93e602",
           "variant": "t",
-          "text": "Over 30 days, Congress disclosed 238 sells and 146 buys.",
+          "text": "Over 30 days, Congress disclosed 239 sells and 146 buys.",
           "claim": false
         },
         {
@@ -1347,8 +1339,8 @@
       },
       "subject_numbers": {},
       "cooldown": null,
-      "rank": 12.75,
-      "rank_why": "congress_flow 4; mega cap $3751.96B +4; magnitude (market) +2.75; today 2026-11-26 (age 0) +2",
+      "rank": 13.0,
+      "rank_why": "congress_flow 4; mega cap $3751.96B +4; magnitude (market) +3; today 2026-11-26 (age 0) +2",
       "top8": true,
       "rotation": null
     },
@@ -1761,7 +1753,7 @@
         "+0.4%",
         "0.4%",
         "146",
-        "238",
+        "239",
         "33",
         "30",
         "9",
@@ -1794,7 +1786,7 @@
         },
         "congress_30d": {
           "buys": 146,
-          "sells": 238,
+          "sells": 239,
           "members": 33,
           "days": 30
         },
@@ -1823,9 +1815,9 @@
         "$PG moved +0.44% on Wednesday, Nov 25.",
         "$PG's move on Wednesday, Nov 25: +0.44%.",
         "On Wednesday, Nov 25, $PG moved +0.44%.",
-        "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells.",
+        "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
         "Members of Congress disclosed 9 trades in $PG over 30 days in our feed: 6 buys and 3 sells by 5 members.",
         "5 members of Congress disclosed 9 trades in $PG over 30 days in our feed: 6 buys and 3 sells."
       ],
@@ -1918,21 +1910,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
           "claim": false
         },
         {
@@ -2060,7 +2052,7 @@
         "+0.8%",
         "0.8%",
         "146",
-        "238",
+        "239",
         "33",
         "30"
       ],
@@ -2089,7 +2081,7 @@
         },
         "congress_30d": {
           "buys": 146,
-          "sells": 238,
+          "sells": 239,
           "members": 33,
           "days": 30
         }
@@ -2112,9 +2104,9 @@
         "$ROK moved +0.81% on Wednesday, Nov 25.",
         "$ROK's move on Wednesday, Nov 25: +0.81%.",
         "On Wednesday, Nov 25, $ROK moved +0.81%.",
-        "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells."
+        "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells."
       ],
       "phrasings": [
         {
@@ -2205,21 +2197,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
           "claim": false
         }
       ],
@@ -2609,7 +2601,7 @@
         "+0.3%",
         "0.3%",
         "146",
-        "238",
+        "239",
         "33",
         "30",
         "7",
@@ -2642,7 +2634,7 @@
         },
         "congress_30d": {
           "buys": 146,
-          "sells": 238,
+          "sells": 239,
           "members": 33,
           "days": 30
         },
@@ -2671,9 +2663,9 @@
         "$VZ moved +0.25% on Wednesday, Nov 25.",
         "$VZ's move on Wednesday, Nov 25: +0.25%.",
         "On Wednesday, Nov 25, $VZ moved +0.25%.",
-        "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells.",
+        "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
         "Members of Congress disclosed 7 trades in $VZ over 30 days in our feed: 1 buys and 6 sells by 4 members.",
         "4 members of Congress disclosed 7 trades in $VZ over 30 days in our feed: 1 buys and 6 sells."
       ],
@@ -2766,21 +2758,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
           "claim": false
         },
         {
@@ -2888,7 +2880,7 @@
       "in_500": false,
       "context_numbers": [
         "146",
-        "238",
+        "239",
         "33",
         "30"
       ],
@@ -2907,7 +2899,7 @@
       "context": {
         "congress_30d": {
           "buys": 146,
-          "sells": 238,
+          "sells": 239,
           "members": 33,
           "days": 30
         }
@@ -2924,9 +2916,9 @@
         "A sale of $STLN (owner: spouse), $1K–$15K, was disclosed by Richard Blumenthal.",
         "Richard Blumenthal's $STLN sale was traded Nov 4 and disclosed on Nov 24.",
         "Traded Nov 4, Richard Blumenthal's $STLN sale was disclosed on Nov 24.",
-        "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells."
+        "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells."
       ],
       "phrasings": [
         {
@@ -2975,21 +2967,21 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
           "claim": false
         }
       ],
@@ -4338,13 +4330,12 @@
         "−3.9%",
         "3.9%",
         "146",
-        "238",
+        "239",
         "33",
         "30",
-        "11",
+        "12",
         "7",
-        "6",
-        "5"
+        "6"
       ],
       "context_tickers": [],
       "trigger": null,
@@ -4371,15 +4362,15 @@
         },
         "congress_30d": {
           "buys": 146,
-          "sells": 238,
+          "sells": 239,
           "members": 33,
           "days": 30
         },
         "ticker_congress_30d": {
-          "trades": 11,
+          "trades": 12,
           "members": 7,
           "buys": 6,
-          "sells": 5
+          "sells": 6
         }
       },
       "angles": [
@@ -4400,11 +4391,11 @@
         "$NVDA moved −3.91% on Wednesday, Nov 25.",
         "$NVDA's move on Wednesday, Nov 25: −3.91%.",
         "On Wednesday, Nov 25, $NVDA moved −3.91%.",
-        "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
-        "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
-        "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells.",
-        "Members of Congress disclosed 11 trades in $NVDA over 30 days in our feed: 6 buys and 5 sells by 7 members.",
-        "7 members of Congress disclosed 11 trades in $NVDA over 30 days in our feed: 6 buys and 5 sells."
+        "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
+        "Members of Congress disclosed 12 trades in $NVDA over 30 days in our feed: 6 buys and 6 sells by 7 members.",
+        "7 members of Congress disclosed 12 trades in $NVDA over 30 days in our feed: 6 buys and 6 sells."
       ],
       "phrasings": [
         {
@@ -4495,35 +4486,35 @@
           "id": "congresstr-f8938e.a",
           "fact": "congresstr-f8938e",
           "variant": "a",
-          "text": "Members of Congress disclosed 146 buys and 238 sells over 30 days in our feed.",
+          "text": "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.h1",
           "fact": "congresstr-f8938e",
           "variant": "h1",
-          "text": "Over 30 days in our feed, members of Congress disclosed 238 sells and 146 buys.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
           "claim": false
         },
         {
           "id": "congresstr-f8938e.t",
           "fact": "congresstr-f8938e",
           "variant": "t",
-          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 238 sells.",
+          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
           "claim": false
         },
         {
           "id": "congresstr-10cf3f.a",
           "fact": "congresstr-10cf3f",
           "variant": "a",
-          "text": "Members of Congress disclosed 11 trades in $NVDA over 30 days in our feed: 6 buys and 5 sells by 7 members.",
+          "text": "Members of Congress disclosed 12 trades in $NVDA over 30 days in our feed: 6 buys and 6 sells by 7 members.",
           "claim": false
         },
         {
           "id": "congresstr-10cf3f.h1",
           "fact": "congresstr-10cf3f",
           "variant": "h1",
-          "text": "7 members of Congress disclosed 11 trades in $NVDA over 30 days in our feed: 6 buys and 5 sells.",
+          "text": "7 members of Congress disclosed 12 trades in $NVDA over 30 days in our feed: 6 buys and 6 sells.",
           "claim": false
         }
       ],
@@ -6333,6 +6324,296 @@
       "rotation": null
     },
     {
+      "item_id": "2026-11-26-congress-trade-NVDA-85a0e3",
+      "type": "congress_trade",
+      "ticker": "NVDA",
+      "tickers": [
+        "NVDA"
+      ],
+      "name": "Daniel Meuser",
+      "office": "U.S. Representative (R-PA)",
+      "amount_text": "$1K–$15K",
+      "traded": [
+        "2026-10-27"
+      ],
+      "filed": "2026-11-24",
+      "source_url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20036848.pdf",
+      "page_url": "https://www.rapidtradeview.trade/smart-money/figures/daniel-meuser?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-26-congress-trade-NVDA-85a0e3#trades",
+      "allowed_numbers": [
+        "$1K–$15K",
+        "$1K",
+        "$15K",
+        "$1,001–$15,000",
+        "$1,001",
+        "$15,000",
+        "2026-11-24",
+        "Nov 24, 2026",
+        "Nov 24",
+        "2026-10-27",
+        "Oct 27, 2026",
+        "Oct 27"
+      ],
+      "must_include": [
+        "Not investment advice."
+      ],
+      "facts_text": "U.S. Representative Daniel Meuser (R-PA) disclosed a sale of NVDA (NVIDIA Corporation), $1K–$15K, traded 2026-10-27; filed 2026-11-24 (owner: spouse).",
+      "dedupe_key": "ptr:20036848:NVDA:sell",
+      "claim_phrases": [],
+      "company": "NVIDIA Corporation",
+      "side": "sell",
+      "owner": [
+        "spouse"
+      ],
+      "figure_slug": "daniel-meuser",
+      "amount_exact_text": "$1,001–$15,000",
+      "rows": 1,
+      "amount_top_usd": 15000.0,
+      "media": [
+        {
+          "url": "https://www.rapidtradeview.trade/smart-money/figures/daniel-meuser/opengraph-image",
+          "kind": "image",
+          "alt": "U.S. Representative Daniel Meuser (R-PA) disclosed a sale of NVDA (NVIDIA Corporation), $1K–$15K, traded 2026-10-27; filed 2026-11-24 (owner: spouse)."
+        }
+      ],
+      "rank": 7.18,
+      "rank_why": "congress_trade 2; mega cap $3751.96B +4; magnitude (top $15K) +0.18; filed 2026-11-24 (age 2) +1",
+      "pillar": "P3",
+      "market_cap_usd": 3751960918780.0557,
+      "market_cap_source": "market_map",
+      "cap_tier": "mega",
+      "in_500": true,
+      "context_numbers": [
+        "2026-11-25",
+        "Nov 25, 2026",
+        "Nov 25",
+        "$3.75T",
+        "$3.8T",
+        "−3.91%",
+        "3.91%",
+        "−3.9%",
+        "3.9%",
+        "146",
+        "239",
+        "33",
+        "30",
+        "12",
+        "7",
+        "6"
+      ],
+      "context_tickers": [],
+      "trigger": null,
+      "card": null,
+      "claims": [],
+      "headline": {
+        "tickers": [
+          "NVDA"
+        ],
+        "numbers": []
+      },
+      "ticker_sectors": {
+        "NVDA": "Technology"
+      },
+      "ticker_names": {
+        "NVDA": "NVIDIA Corporation"
+      },
+      "context": {
+        "market_cap": "$3.75T",
+        "market_cap_session": "2026-11-25",
+        "last_session_move": {
+          "pct": "−3.91%",
+          "session": "2026-11-25"
+        },
+        "congress_30d": {
+          "buys": 146,
+          "sells": 239,
+          "members": 33,
+          "days": 30
+        },
+        "ticker_congress_30d": {
+          "trades": 12,
+          "members": 7,
+          "buys": 6,
+          "sells": 6
+        }
+      },
+      "angles": [
+        "U.S. Representative Daniel Meuser (R-PA) disclosed a sale of $NVDA (owner: spouse), $1K–$15K (filed Nov 24).",
+        "A sale of $NVDA (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Daniel Meuser (R-PA) (filed Nov 24).",
+        "Daniel Meuser disclosed a sale of $NVDA (owner: spouse), $1K–$15K."
+      ],
+      "fact_phrases": [
+        "U.S. Representative Daniel Meuser (R-PA) disclosed a sale of $NVDA (owner: spouse), $1K–$15K (filed Nov 24).",
+        "A sale of $NVDA (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Daniel Meuser (R-PA) (filed Nov 24).",
+        "Daniel Meuser disclosed a sale of $NVDA (owner: spouse), $1K–$15K.",
+        "A sale of $NVDA (owner: spouse), $1K–$15K, was disclosed by Daniel Meuser.",
+        "Daniel Meuser's $NVDA sale was traded Oct 27 and disclosed on Nov 24.",
+        "Traded Oct 27, Daniel Meuser's $NVDA sale was disclosed on Nov 24.",
+        "$NVDA had a market value of $3.75T at the Nov 25 close.",
+        "$NVDA's market value at the Nov 25 close was $3.75T.",
+        "At the Nov 25 close, $NVDA had a market value of $3.75T.",
+        "$NVDA moved −3.91% on Wednesday, Nov 25.",
+        "$NVDA's move on Wednesday, Nov 25: −3.91%.",
+        "On Wednesday, Nov 25, $NVDA moved −3.91%.",
+        "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
+        "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
+        "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
+        "Members of Congress disclosed 12 trades in $NVDA over 30 days in our feed: 6 buys and 6 sells by 7 members.",
+        "7 members of Congress disclosed 12 trades in $NVDA over 30 days in our feed: 6 buys and 6 sells."
+      ],
+      "phrasings": [
+        {
+          "id": "congresstr-163ed7.a",
+          "fact": "congresstr-163ed7",
+          "variant": "a",
+          "text": "U.S. Representative Daniel Meuser (R-PA) disclosed a sale of $NVDA (owner: spouse), $1K–$15K (filed Nov 24).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-163ed7.h1",
+          "fact": "congresstr-163ed7",
+          "variant": "h1",
+          "text": "A sale of $NVDA (owner: spouse), $1K–$15K, was disclosed by U.S. Representative Daniel Meuser (R-PA) (filed Nov 24).",
+          "claim": false
+        },
+        {
+          "id": "congresstr-2208d1.a",
+          "fact": "congresstr-2208d1",
+          "variant": "a",
+          "text": "Daniel Meuser disclosed a sale of $NVDA (owner: spouse), $1K–$15K.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-2208d1.h1",
+          "fact": "congresstr-2208d1",
+          "variant": "h1",
+          "text": "A sale of $NVDA (owner: spouse), $1K–$15K, was disclosed by Daniel Meuser.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.a",
+          "fact": "congresstr-190851",
+          "variant": "a",
+          "text": "Daniel Meuser's $NVDA sale was traded Oct 27 and disclosed on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-190851.h1",
+          "fact": "congresstr-190851",
+          "variant": "h1",
+          "text": "Traded Oct 27, Daniel Meuser's $NVDA sale was disclosed on Nov 24.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.a",
+          "fact": "congresstr-426192",
+          "variant": "a",
+          "text": "$NVDA had a market value of $3.75T at the Nov 25 close.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.h1",
+          "fact": "congresstr-426192",
+          "variant": "h1",
+          "text": "$NVDA's market value at the Nov 25 close was $3.75T.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-426192.t",
+          "fact": "congresstr-426192",
+          "variant": "t",
+          "text": "At the Nov 25 close, $NVDA had a market value of $3.75T.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.a",
+          "fact": "congresstr-061727",
+          "variant": "a",
+          "text": "$NVDA moved −3.91% on Wednesday, Nov 25.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.h1",
+          "fact": "congresstr-061727",
+          "variant": "h1",
+          "text": "$NVDA's move on Wednesday, Nov 25: −3.91%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-061727.t",
+          "fact": "congresstr-061727",
+          "variant": "t",
+          "text": "On Wednesday, Nov 25, $NVDA moved −3.91%.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.a",
+          "fact": "congresstr-f8938e",
+          "variant": "a",
+          "text": "Members of Congress disclosed 146 buys and 239 sells over 30 days in our feed.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.h1",
+          "fact": "congresstr-f8938e",
+          "variant": "h1",
+          "text": "Over 30 days in our feed, members of Congress disclosed 239 sells and 146 buys.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-f8938e.t",
+          "fact": "congresstr-f8938e",
+          "variant": "t",
+          "text": "Over 30 days in our feed, members of Congress disclosed 146 buys and 239 sells.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-10cf3f.a",
+          "fact": "congresstr-10cf3f",
+          "variant": "a",
+          "text": "Members of Congress disclosed 12 trades in $NVDA over 30 days in our feed: 6 buys and 6 sells by 7 members.",
+          "claim": false
+        },
+        {
+          "id": "congresstr-10cf3f.h1",
+          "fact": "congresstr-10cf3f",
+          "variant": "h1",
+          "text": "7 members of Congress disclosed 12 trades in $NVDA over 30 days in our feed: 6 buys and 6 sells.",
+          "claim": false
+        }
+      ],
+      "moves": {
+        "numbers": {
+          "3.91%": "-",
+          "3.9%": "-"
+        },
+        "subjects": {
+          "NVDA": "down"
+        }
+      },
+      "subject_numbers": {
+        "NVDA": [
+          [
+            "%",
+            3.91,
+            2,
+            1.0,
+            -1
+          ],
+          [
+            "$",
+            3.75,
+            2,
+            1000000000000.0,
+            0
+          ]
+        ]
+      },
+      "cooldown": null,
+      "top8": false,
+      "top8_out": "repeat: leads with $NVDA like 2026-11-26-congress-flow-NVDA-257009",
+      "rotation": null
+    },
+    {
       "item_id": "2026-11-26-moves-like-NVDA-b29872",
       "type": "moves_like",
       "ticker": "NVDA",
@@ -7453,424 +7734,6 @@
       "cooldown": null,
       "top8": false,
       "top8_out": "stale: the 2026-11-25 release posted on 2026-11-26: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-26-earnings-result-BILI-60aaf1",
-      "type": "earnings_result",
-      "ticker": "BILI",
-      "tickers": [
-        "BILI"
-      ],
-      "name": "Bilibili Inc.",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-25",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1723690/000119312526476698/d115891dex991.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/BILI?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-26-earnings-result-BILI-60aaf1#earnings-history",
-      "allowed_numbers": [
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-25",
-        "Nov 25, 2026",
-        "Nov 25"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Bilibili Inc. (BILI) published Q3 2026 results on 2026-11-25: Published.",
-      "dedupe_key": "report:bili-2026-q3",
-      "claim_phrases": [],
-      "report_id": "bili-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-25",
-      "published_at": "2026-11-25T12:03:08.824743+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {},
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/BILI/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for BILI: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-25 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "BILI"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
-        "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
-        "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
-        "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
-        "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results.",
-        "$BILI published Q3 2026 results on Nov 25.",
-        "Q3 2026 results from $BILI came out on Nov 25.",
-        "On Nov 25, $BILI published Q3 2026 results."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Bilibili Inc. ($BILI) published Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$BILI (Bilibili Inc.) reported Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 25, Bilibili Inc. ($BILI) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$BILI published Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $BILI came out on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 25, $BILI published Q3 2026 results.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-25 release posted on 2026-11-26: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-26-earnings-result-BZ-50478e",
-      "type": "earnings_result",
-      "ticker": "BZ",
-      "tickers": [
-        "BZ"
-      ],
-      "name": "Kanzhun Limited",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-25",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1842827/000110465926131805/tm2630442d1_ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/BZ?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-26-earnings-result-BZ-50478e#earnings-history",
-      "allowed_numbers": [
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-25",
-        "Nov 25, 2026",
-        "Nov 25"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "Kanzhun Limited (BZ) published Q3 2026 results on 2026-11-25: Published.",
-      "dedupe_key": "report:bz-2026-q3",
-      "claim_phrases": [],
-      "report_id": "bz-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-25",
-      "published_at": "2026-11-25T12:02:47.609460+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {},
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/BZ/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for BZ: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.5,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-25 (age 1) +1.5",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "BZ"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "Kanzhun Limited ($BZ) published Q3 2026 results on Nov 25.",
-        "$BZ (Kanzhun Limited) reported Q3 2026 results on Nov 25.",
-        "On Nov 25, Kanzhun Limited ($BZ) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "Kanzhun Limited ($BZ) published Q3 2026 results on Nov 25.",
-        "$BZ (Kanzhun Limited) reported Q3 2026 results on Nov 25.",
-        "On Nov 25, Kanzhun Limited ($BZ) published Q3 2026 results.",
-        "$BZ published Q3 2026 results on Nov 25.",
-        "Q3 2026 results from $BZ came out on Nov 25.",
-        "On Nov 25, $BZ published Q3 2026 results."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "Kanzhun Limited ($BZ) published Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$BZ (Kanzhun Limited) reported Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 25, Kanzhun Limited ($BZ) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$BZ published Q3 2026 results on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $BZ came out on Nov 25.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 25, $BZ published Q3 2026 results.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-25 release posted on 2026-11-26: its release day only (the next session day after an after-close release) (#652)",
-      "rotation": null
-    },
-    {
-      "item_id": "2026-11-26-earnings-result-THCH-a8a65d",
-      "type": "earnings_result",
-      "ticker": "THCH",
-      "tickers": [
-        "THCH"
-      ],
-      "name": "TH International Limited",
-      "office": null,
-      "amount_text": null,
-      "traded": [],
-      "filed": "2026-11-24",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1877333/000121390026123396/ea031336801ex99-1.htm",
-      "page_url": "https://www.rapidtradeview.trade/dashboard/THCH?utm_source={platform}&utm_medium=social&utm_campaign=grok&utm_content=2026-11-26-earnings-result-THCH-a8a65d#earnings-history",
-      "allowed_numbers": [
-        "$43.8M",
-        "Q3 2026",
-        "Q3",
-        "FY2026",
-        "2026-11-24",
-        "Nov 24, 2026",
-        "Nov 24"
-      ],
-      "must_include": [
-        "Not investment advice."
-      ],
-      "facts_text": "TH International Limited (THCH) published Q3 2026 results on 2026-11-24: Published. Revenue $43.8M.",
-      "dedupe_key": "report:thch-2026-q3",
-      "claim_phrases": [],
-      "report_id": "thch-2026-q3",
-      "fiscal_label": "Q3 2026",
-      "release_date": "2026-11-24",
-      "published_at": "2026-11-25T12:16:09.000537+00:00",
-      "tile_label": "Published",
-      "tile_state": "neutral",
-      "results": {
-        "revenue": {
-          "reported": "$43.8M"
-        }
-      },
-      "media": [
-        {
-          "url": "https://www.rapidtradeview.trade/dashboard/THCH/opengraph-image",
-          "kind": "image",
-          "alt": "RapidTradeView research card for THCH: recent price, trend, analyst and filing summary."
-        }
-      ],
-      "rank": 5.0,
-      "rank_why": "earnings_result 3; magnitude (results) +1; release_date 2026-11-24 (age 2) +1",
-      "pillar": "P5",
-      "cap_tier": "unknown",
-      "in_500": false,
-      "context_numbers": [],
-      "context_tickers": [],
-      "trigger": null,
-      "card": null,
-      "claims": [],
-      "headline": {
-        "tickers": [
-          "THCH"
-        ],
-        "numbers": []
-      },
-      "ticker_sectors": {},
-      "ticker_names": {},
-      "angles": [
-        "TH International Limited ($THCH) published Q3 2026 results on Nov 24.",
-        "$THCH (TH International Limited) reported Q3 2026 results on Nov 24.",
-        "On Nov 24, TH International Limited ($THCH) published Q3 2026 results."
-      ],
-      "fact_phrases": [
-        "TH International Limited ($THCH) published Q3 2026 results on Nov 24.",
-        "$THCH (TH International Limited) reported Q3 2026 results on Nov 24.",
-        "On Nov 24, TH International Limited ($THCH) published Q3 2026 results.",
-        "$THCH published Q3 2026 results on Nov 24.",
-        "Q3 2026 results from $THCH came out on Nov 24.",
-        "On Nov 24, $THCH published Q3 2026 results.",
-        "$THCH Q3 2026 revenue: $43.8M.",
-        "$THCH reported Q3 2026 revenue of $43.8M.",
-        "$THCH Q3 2026 revenue was $43.8M.",
-        "Q3 2026 revenue at $THCH was $43.8M."
-      ],
-      "phrasings": [
-        {
-          "id": "earningsre-413af8.a",
-          "fact": "earningsre-413af8",
-          "variant": "a",
-          "text": "TH International Limited ($THCH) published Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.h1",
-          "fact": "earningsre-413af8",
-          "variant": "h1",
-          "text": "$THCH (TH International Limited) reported Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-413af8.t",
-          "fact": "earningsre-413af8",
-          "variant": "t",
-          "text": "On Nov 24, TH International Limited ($THCH) published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.a",
-          "fact": "earningsre-d0ab88",
-          "variant": "a",
-          "text": "$THCH published Q3 2026 results on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.h1",
-          "fact": "earningsre-d0ab88",
-          "variant": "h1",
-          "text": "Q3 2026 results from $THCH came out on Nov 24.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-d0ab88.t",
-          "fact": "earningsre-d0ab88",
-          "variant": "t",
-          "text": "On Nov 24, $THCH published Q3 2026 results.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.a",
-          "fact": "earningsre-e46008",
-          "variant": "a",
-          "text": "$THCH Q3 2026 revenue: $43.8M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-e46008.h1",
-          "fact": "earningsre-e46008",
-          "variant": "h1",
-          "text": "$THCH reported Q3 2026 revenue of $43.8M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.a",
-          "fact": "earningsre-1e5f24",
-          "variant": "a",
-          "text": "$THCH Q3 2026 revenue was $43.8M.",
-          "claim": false
-        },
-        {
-          "id": "earningsre-1e5f24.h1",
-          "fact": "earningsre-1e5f24",
-          "variant": "h1",
-          "text": "Q3 2026 revenue at $THCH was $43.8M.",
-          "claim": false
-        }
-      ],
-      "moves": {
-        "numbers": {},
-        "subjects": {}
-      },
-      "subject_numbers": {},
-      "cooldown": null,
-      "top8": false,
-      "top8_out": "stale: the 2026-11-24 release (after the close: fresh through 2026-11-25) posted on 2026-11-26: its release day only (the next session day after an after-close release) (#652)",
       "rotation": null
     },
     {
